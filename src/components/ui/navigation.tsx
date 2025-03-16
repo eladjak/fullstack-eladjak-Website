@@ -3,17 +3,34 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
+import NotificationsMenu from './notifications';
 import Link from 'next/link';
+import { AuthDialog } from '@/components/auth/auth-dialog';
 
 const languages = [
   { code: 'en', name: 'English', dir: 'ltr' },
   { code: 'he', name: 'עברית', dir: 'rtl' }
 ];
 
+import { useTranslation } from 'react-i18next';
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('en');
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -35,12 +52,20 @@ export default function Navigation() {
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/projects', label: 'Projects' },
+    { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' }
+    { href: '/ai-tools', label: 'AI Tools' },
+    { href: '/whiteboard', label: 'Whiteboard' }
   ];
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md z-50 border-b">
+    <nav 
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-background/90 backdrop-blur-md shadow-lg' 
+          : 'bg-background/50 backdrop-blur-sm'
+      }`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="text-xl font-bold">
@@ -58,6 +83,8 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
+            <NotificationsMenu />
+            <AuthDialog />
             <div className="relative group">
               <button
                 className="flex items-center space-x-1 text-foreground/80 hover:text-foreground"

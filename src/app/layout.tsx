@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import { Assistant, Heebo } from "next/font/google";
 import { type Metadata } from "next";
 import Navigation from "@/components/ui/navigation";
+import { AuthProvider } from "@/lib/auth";
 import "@/styles/globals.css";
 
 const heebo = Heebo({
@@ -28,10 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${heebo.variable} ${assistant.variable}`}>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <Navigation />
-        <div className="pt-16">
-          {children}
-        </div>
+        <AuthProvider>
+          <Navigation />
+          <div className="pt-16">
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
