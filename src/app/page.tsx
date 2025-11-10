@@ -56,9 +56,9 @@ export default function HomePage() {
   }, []);
 
   useMetaTags({
-    title: 'John Doe | Creative Full-Stack Developer',
-    description: 'Crafting innovative digital experiences through modern web development. Explore my featured projects and insights.',
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97',
+    title: 'Elad Ya\'akobovitch | Full-Stack Developer',
+    description: 'Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web applications with creative vision and technical expertise.',
+    image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
     type: 'website'
   });
 
@@ -91,10 +91,15 @@ export default function HomePage() {
             >
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Full-Stack Developer
+                  Elad Ya'akobovitch
                 </h1>
+                <h2 className="text-2xl font-semibold text-primary">
+                  Full-Stack Developer
+                </h2>
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Building digital experiences with modern web technologies. Focused on creating accessible, human-centered products.
+                  Building modern web applications with Next.js, React, and TypeScript.
+                  Combining technical expertise with creative vision and business insight.
+                  Results-driven, not hours-driven.
                 </p>
               </div>
               <div className="space-x-4">

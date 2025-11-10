@@ -2,8 +2,10 @@
 
 import { OpenAI } from 'openai';
 
+// Note: This should be moved to a server-side Edge Function for production
+// For now, we'll use environment variable but this is NOT secure for client-side
 const openai = new OpenAI({
-  apiKey: 'dummy-key', // Using dummy key for static export
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || '',
   dangerouslyAllowBrowser: true
 });
 
