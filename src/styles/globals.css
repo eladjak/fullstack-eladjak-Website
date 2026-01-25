@@ -1,4 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@300;400;500;600;700&display=swap');
+/**
+ * Material Design 3 Design System
+ *
+ * FIXED ISSUES:
+ * - Font system now properly uses GeistSans from layout.tsx
+ * - Dark mode primary is now purple (was white #FAFAFA - CRITICAL BUG)
+ * - Secondary and accent now have distinct colors (were identical #27272A)
+ * - Improved contrast ratios for WCAG AA compliance
+ * - Aligned with Material Design 3 color roles
+ */
 
 @tailwind base;
 @tailwind components;
@@ -6,49 +15,87 @@
 
 @layer base {
   :root {
-    --font-sans: 'Poppins', system-ui, -apple-system;
-    --background: #030712;
-    --foreground: #F8FAFC;
-    --card: #111827;
-    --card-foreground: #F8FAFC;
-    --popover: #111827;
-    --popover-foreground: #F8FAFC;
-    --primary: #6D28D9;
-    --primary-foreground: #F8FAFC;
-    --secondary: #4C1D95;
-    --secondary-foreground: #F8FAFC;
-    --muted: #1F2937;
-    --muted-foreground: #9CA3AF;
-    --accent: #8B5CF6;
-    --accent-foreground: #F8FAFC;
-    --destructive: #DC2626;
-    --destructive-foreground: #F8FAFC;
-    --border: #374151;
-    --input: #374151;
-    --ring: #6D28D9;
-    --radius: 1rem;
+    /* Typography - Use GeistSans from layout.tsx, NOT Poppins */
+    --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+
+    /* Light Mode - Material Design 3 Color Tokens */
+    --background: #FFFFFF;
+    --foreground: #1F2937;           /* Gray-800 for good contrast */
+
+    --card: #FFFFFF;
+    --card-foreground: #1F2937;
+
+    --popover: #FFFFFF;
+    --popover-foreground: #1F2937;
+
+    --primary: #8B5CF6;              /* Purple-600 - main brand color */
+    --primary-foreground: #FFFFFF;
+
+    --secondary: #6D28D9;            /* Purple-700 - distinct from accent */
+    --secondary-foreground: #FFFFFF;
+
+    --muted: #F3F4F6;                /* Gray-100 */
+    --muted-foreground: #6B7280;     /* Gray-500 - improved contrast */
+
+    --accent: #A78BFA;               /* Purple-400 - DISTINCT from secondary */
+    --accent-foreground: #1F2937;
+
+    --destructive: #DC2626;          /* Red-600 */
+    --destructive-foreground: #FFFFFF;
+
+    --border: #E5E7EB;               /* Gray-200 */
+    --input: #E5E7EB;
+    --ring: #8B5CF6;
+
+    --radius: 0.75rem;               /* Material Design 3 - 12px for cards */
+
+    /* Chart colors for data visualization */
+    --chart-1: #8B5CF6;
+    --chart-2: #6D28D9;
+    --chart-3: #A78BFA;
+    --chart-4: #DDD6FE;
+    --chart-5: #EDE9FE;
   }
 
   .dark {
-    --background: #09090B;
-    --foreground: #FAFAFA;
-    --card: #09090B;
-    --card-foreground: #FAFAFA;
-    --popover: #09090B;
-    --popover-foreground: #FAFAFA;
-    --primary: #FAFAFA;
-    --primary-foreground: #18181B;
-    --secondary: #27272A;
-    --secondary-foreground: #FAFAFA;
-    --muted: #27272A;
-    --muted-foreground: #A1A1AA;
-    --accent: #27272A;
-    --accent-foreground: #FAFAFA;
-    --destructive: #7F1D1D;
-    --destructive-foreground: #FAFAFA;
-    --border: #27272A;
-    --input: #27272A;
-    --ring: #D4D4D8;
+    /* Dark Mode - Material Design 3 Color Tokens */
+    --background: #09090B;           /* Zinc-950 */
+    --foreground: #FAFAFA;           /* Gray-50 */
+
+    --card: #111827;                 /* Gray-900 */
+    --card-foreground: #F9FAFB;
+
+    --popover: #111827;
+    --popover-foreground: #F9FAFB;
+
+    /* CRITICAL FIX: Primary was white (#FAFAFA), now proper purple */
+    --primary: #A78BFA;              /* Purple-400 - lighter for dark mode contrast */
+    --primary-foreground: #1F2937;   /* Dark text on light primary */
+
+    /* CRITICAL FIX: Secondary was same as accent (#27272A), now distinct */
+    --secondary: #8B5CF6;            /* Purple-600 - DISTINCT */
+    --secondary-foreground: #F9FAFB;
+
+    --muted: #1F2937;                /* Gray-800 */
+    --muted-foreground: #D1D5DB;     /* Gray-300 - improved contrast from #A1A1AA */
+
+    /* CRITICAL FIX: Accent was same as secondary (#27272A), now distinct */
+    --accent: #C4B5FD;               /* Purple-300 - DISTINCT */
+    --accent-foreground: #1F2937;
+
+    --destructive: #F87171;          /* Red-400 */
+    --destructive-foreground: #7F1D1D;
+
+    --border: #374151;               /* Gray-700 */
+    --input: #374151;
+    --ring: #A78BFA;
+
+    /* Chart colors for dark mode */
+    --chart-1: #A78BFA;
+    --chart-2: #8B5CF6;
+    --chart-3: #C4B5FD;
+    --chart-4: #DDD6FE;
+    --chart-5: #4C1D95;
   }
 }
 

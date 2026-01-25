@@ -6,6 +6,8 @@ import { useAuth } from '@/lib/auth';
 import { analyzeContent } from '@/lib/services/content-moderation';
 import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { toast } from 'react-hot-toast';
 import type { Tables } from '@/lib/supabase.types';
 
@@ -105,24 +107,35 @@ export default function CommentForm({ postId, parentId, onSuccess, onCancel, pos
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Write a comment..."
-        required
-        rows={3}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-      />
+      {/* ACCESSIBILITY FIX: Added Label component for screen reader support */}
+      <div className="space-y-2">
+        <Label htmlFor="comment-content" required>
+          Write a comment
+        </Label>
+        <Textarea
+          id="comment-content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Share your thoughts..."
+          required
+          rows={3}
+          helperText="Your comment will be reviewed before posting"
+        />
+      </div>
       <div className="flex justify-end space-x-2">
         {onCancel && (
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>
         )}
-        <Button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={loading || !content.trim()}
+          aria-busy={loading}
+        >
           {loading ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
               Posting...
             </>
           ) : (
