@@ -13,4 +13,5 @@ export interface MetaTag {
 export interface BlogPost extends Tables<'blog_posts'> {
   profiles: Tables<'profiles'> | null;
   meta_tags?: MetaTag;
+  featured_image?: string | null;
 }

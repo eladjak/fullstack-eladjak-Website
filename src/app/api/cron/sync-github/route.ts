@@ -21,10 +21,18 @@ export async function GET(request: NextRequest) {
 
   try {
     const username = process.env.GITHUB_USERNAME || 'eladjak';
+    const userId = process.env.GITHUB_USER_ID;
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'GITHUB_USER_ID environment variable not set' },
+        { status: 500 }
+      );
+    }
 
     console.log(`Starting GitHub sync for user: ${username}`);
 
-    const result = await syncGitHubRepos(username);
+    const result = await syncGitHubRepos(username, userId);
 
     if (result.success) {
       return NextResponse.json({

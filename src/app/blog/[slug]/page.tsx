@@ -140,7 +140,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="space-y-8">
         <h2 className="text-2xl font-bold">Comments</h2>
 
-        <CommentForm postId={post.id} />
+        <CommentForm
+          postId={post.id}
+          onSuccess={() => {
+            // Comment submitted successfully - CommentList will update via realtime
+          }}
+          post={{
+            author_id: post.author_id,
+            title: post.title,
+            slug: post.slug,
+          }}
+        />
 
         <CommentList postId={post.id} />
       </section>

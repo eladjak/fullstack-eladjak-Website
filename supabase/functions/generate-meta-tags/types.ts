@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
-import { extract } from "@extractus/article-extractor";
+// Note: @extractus/article-extractor has been removed to reduce bundle size
+// If meta tag extraction is needed, consider using cheerio or a lightweight alternative
 
-export { createClient, extract };
+export { createClient };
 
 export interface MetaTagsResponse {
   title: string;

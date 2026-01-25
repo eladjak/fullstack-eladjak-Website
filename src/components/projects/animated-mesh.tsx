@@ -16,9 +16,7 @@ const MeshMaterial = memo(({ materialProps }: { materialProps: MeshPhysicalMater
 ));
 MeshMaterial.displayName = 'MeshMaterial';
 
-const AnimatedMesh = animated('mesh') as React.ForwardRefExoticComponent<
-  Mesh & React.RefAttributes<unknown>
->;
+const AnimatedMesh = animated('mesh') as any;
 
 export function AnimatedMeshComponent({ color, hovered, spring, onHover }: AnimatedMeshProps) {
   const { meshRef, materialProps, springProps } = useAnimatedMesh({ color, hovered, spring });

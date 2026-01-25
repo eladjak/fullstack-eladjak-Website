@@ -45,12 +45,14 @@ export async function fetchGitHubRepos(username: string): Promise<GitHubRepo[]> 
   try {
     const { data: repos } = await octokit.repos.listForUser({
       username,
-      type: 'public',
       sort: 'updated',
       per_page: 100,
     });
 
-    return repos as GitHubRepo[];
+    // Filter for public repos only
+    const publicRepos = repos.filter(repo => !repo.private);
+
+    return publicRepos as GitHubRepo[];
   } catch (error) {
     console.error('Error fetching GitHub repos:', error);
     throw error;
@@ -90,8 +92,9 @@ export async function fetchPinnedRepos(username: string): Promise<number[]> {
 
 /**
  * Sync GitHub repositories to Supabase
+ * Note: Requires a user_id parameter to associate projects with a user
  */
-export async function syncGitHubRepos(username: string): Promise<{ success: boolean; count: number }> {
+export async function syncGitHubRepos(username: string, userId: string): Promise<{ success: boolean; count: number }> {
   try {
     // 1. Fetch all repos
     const repos = await fetchGitHubRepos(username);
@@ -99,47 +102,24 @@ export async function syncGitHubRepos(username: string): Promise<{ success: bool
     // 2. Get pinned repos
     const pinnedIds = await fetchPinnedRepos(username);
 
-    // 3. Transform repos to project format
-    const projects: Project[] = repos.map((repo) => ({
-      github_id: repo.id,
-      name: repo.name,
-      description: repo.description,
-      url: repo.html_url,
-      homepage: repo.homepage,
-      stars: repo.stargazers_count,
-      forks: repo.forks_count,
-      watchers: repo.watchers_count,
-      language: repo.language,
-      topics: repo.topics || [],
-      is_pinned: pinnedIds.includes(repo.id),
-      created_at: repo.created_at,
-      updated_at: repo.updated_at,
-      pushed_at: repo.pushed_at,
+    // 3. Transform repos to match projects table schema
+    const projects = repos.map((repo) => ({
+      title: repo.name,
+      description: repo.description || 'No description provided',
+      github_url: repo.html_url,
+      live_url: repo.homepage,
+      technologies: repo.topics || [],
+      featured: pinnedIds.includes(repo.id),
+      user_id: userId,
     }));
 
-    // 4. Upsert to Supabase (insert or update on conflict)
+    // 4. Upsert to Supabase (insert or update)
     const { data, error } = await supabase
       .from('projects')
-      .upsert(
-        projects.map(p => ({
-          github_id: p.github_id,
-          name: p.name,
-          description: p.description,
-          url: p.url,
-          demo_url: p.homepage,
-          stars: p.stars,
-          forks: p.forks,
-          watchers: p.watchers,
-          language: p.language,
-          topics: p.topics,
-          is_featured: p.is_pinned, // Use pinned repos as featured
-          last_synced: new Date().toISOString(),
-        })),
-        {
-          onConflict: 'github_id',
-          ignoreDuplicates: false
-        }
-      );
+      .upsert(projects, {
+        onConflict: 'github_url',
+        ignoreDuplicates: false
+      });
 
     if (error) {
       console.error('Error upserting to Supabase:', error);
