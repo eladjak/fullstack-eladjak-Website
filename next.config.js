@@ -25,6 +25,8 @@ const config = {
   typescript: {
     ignoreBuildErrors: false, // Enable type checking during builds
   },
+  // Empty turbopack config to silence Next.js 16 warning
+  turbopack: {},
   webpack: (config, { isServer }) => {
     config.stats = "verbose";
     return config;
