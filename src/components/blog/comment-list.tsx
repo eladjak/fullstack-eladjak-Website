@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth';
 import { ArrowUp, MessageCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { LoadingPage } from '@/components/ui/loading-spinner';
 import { toast } from 'react-hot-toast';
 import CommentForm from './comment-form';
 import type { Tables } from '@/lib/supabase.types';
@@ -175,34 +177,46 @@ export default function CommentList({ postId, parentId = null, level = 0 }: Comm
         <div key={comment.id} className="rounded-lg border p-4">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-2">
-              <img
-                src={comment.profiles?.avatar_url || 'https://via.placeholder.com/32'}
+              {/* PERFORMANCE FIX: Next.js Image instead of <img> */}
+              <Image
+                src={comment.profiles?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.profiles?.username || 'User')}&size=32&background=8B5CF6&color=fff`}
                 alt={comment.profiles?.username || 'User'}
+                width={32}
+                height={32}
                 className="h-8 w-8 rounded-full"
+                loading="lazy"
               />
               <span className="font-medium">{comment.profiles?.username}</span>
             </div>
             <div className="flex items-center space-x-2">
+              {/* ACCESSIBILITY FIX: Added aria-label and aria-pressed */}
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => handleVote(comment.id)}
                 className={userVotes.has(comment.id) ? 'bg-primary text-primary-foreground' : ''}
+                aria-label={`${userVotes.has(comment.id) ? 'Remove upvote' : 'Upvote comment'} (${comment._count?.votes || 0} upvotes)`}
+                aria-pressed={userVotes.has(comment.id)}
               >
-                <ArrowUp className="h-4 w-4" />
+                <ArrowUp className="h-4 w-4" aria-hidden="true" />
               </Button>
-              <span className="text-sm">{comment._count?.votes || 0}</span>
+              <span className="text-sm" aria-label={`${comment._count?.votes || 0} upvotes`}>
+                {comment._count?.votes || 0}
+              </span>
             </div>
           </div>
-          <p className="mt-2 text-gray-700">{comment.content}</p>
+          <p className="mt-2 text-foreground">{comment.content}</p>
           <div className="mt-2 flex items-center space-x-2">
+            {/* ACCESSIBILITY FIX: Added aria-label and aria-expanded */}
             <Button
               variant="outline"
               size="sm"
               onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+              aria-label={`Reply to ${comment.profiles?.username || 'user'}'s comment`}
+              aria-expanded={replyingTo === comment.id}
             >
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Reply
+              <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
+              {replyingTo === comment.id ? 'Cancel' : 'Reply'}
             </Button>
           </div>
           {replyingTo === comment.id && (

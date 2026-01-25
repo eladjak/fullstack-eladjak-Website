@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Loader2, Sparkles } from 'lucide-react';
 import { generateBlogPost, publishGeneratedPost } from '@/lib/blog-generator';
 import { useAuth } from '@/lib/auth';
@@ -34,26 +36,39 @@ export default function BlogGenerator() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center space-x-4">
-        <input
-          type="text"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          placeholder="Enter a topic for AI generation..."
-          className="flex-1 rounded-md border border-gray-300 px-3 py-2"
-        />
-        <Button
-          onClick={handleGenerate}
-          disabled={loading || !topic}
-          className="flex items-center space-x-2"
-        >
-          {loading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Sparkles className="h-4 w-4" />
-          )}
-          <span>Generate Post</span>
-        </Button>
+      {/* ACCESSIBILITY FIX: Added Label for input field */}
+      <div className="space-y-2">
+        <Label htmlFor="blog-topic-input" required>
+          Enter Topic for AI Generation
+        </Label>
+        <div className="flex items-center space-x-4">
+          <Input
+            id="blog-topic-input"
+            type="text"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            placeholder="e.g., Web Performance Optimization"
+            helperText="AI will generate a comprehensive blog post on this topic"
+          />
+          <Button
+            onClick={handleGenerate}
+            disabled={loading || !topic.trim()}
+            className="flex items-center space-x-2 shrink-0"
+            aria-busy={loading}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                <span>Generating...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                <span>Generate Post</span>
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );

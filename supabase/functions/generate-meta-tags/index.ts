@@ -1,4 +1,4 @@
-import { createClient, extract, type DenoRequest } from './types';
+import { createClient, type DenoRequest } from './types';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -60,17 +60,12 @@ const handler = async (req: DenoRequest): Promise<Response> => {
       throw new Error('Failed to fetch blog post');
     }
 
-    // Extract article data and metadata
-    const article = await extract(post.content);
-    
-    // Generate meta description with fallbacks
-    const description = article?.description || 
-                       post.description || 
+    // Generate meta description from post content
+    const description = post.description ||
                        `${post.content.replace(/<[^>]*>/g, '').slice(0, 150)}...`;
 
-    // Find first image in content or use fallbacks
-    const image = article?.image || 
-                 post.profiles?.avatar_url || 
+    // Use featured image or author avatar as fallback
+    const image = post.profiles?.avatar_url ||
                  'https://images.unsplash.com/photo-1499750310107-5fef28a66643';
 
     // Generate reading time estimate

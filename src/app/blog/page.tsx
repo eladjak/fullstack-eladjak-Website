@@ -6,7 +6,7 @@ import type { BlogPost } from '@/types/blog';
 import { useRealtimeSubscription } from '@/hooks/useRealtimeSubscription';
 import type { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 import BlogFilters from '@/components/blog/blog-filters';
-import { Loader2 } from 'lucide-react';
+import { LoadingPage } from '@/components/ui/loading-spinner';
 import BlogCard from '@/components/blog/blog-card';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useMetaTags } from '@/hooks/useMetaTags';
@@ -87,9 +87,7 @@ export default function BlogPage() {
       </div>
 
       {loading ? (
-        <div className="flex h-64 items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin" />
-        </div>
+        <LoadingPage label="Loading blog posts..." />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (

@@ -1,13 +1,13 @@
 'use client';
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, Code, BookOpen, Coffee, ExternalLink } from "lucide-react";
-import { Player } from '@lottiefiles/react-lottie-player';
+import { ArrowRight, Github, Linkedin, Mail, Code, BookOpen, Coffee, ExternalLink, Globe } from "lucide-react";
 import { useInView } from 'react-intersection-observer';
 import Link from "next/link";
 import { useMetaTags } from '@/hooks/useMetaTags';
 import ProjectCard from "@/components/projects/project-card";
 import BlogCard from "@/components/blog/blog-card";
+import { SocialLink } from "@/components/ui/social-link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Tables } from "@/lib/supabase.types";
@@ -56,9 +56,9 @@ export default function HomePage() {
   }, []);
 
   useMetaTags({
-    title: 'John Doe | Creative Full-Stack Developer',
-    description: 'Crafting innovative digital experiences through modern web development. Explore my featured projects and insights.',
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97',
+    title: 'Elad Ya\'akobovitch | Full-Stack Developer',
+    description: 'Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web applications with creative vision and technical expertise.',
+    image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
     type: 'website'
   });
 
@@ -91,10 +91,15 @@ export default function HomePage() {
             >
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Full-Stack Developer
+                  Elad Ya'akobovitch
                 </h1>
+                <h2 className="text-2xl font-semibold text-primary">
+                  Full-Stack Developer
+                </h2>
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Building digital experiences with modern web technologies. Focused on creating accessible, human-centered products.
+                  Building modern web applications with Next.js, React, and TypeScript.
+                  Combining technical expertise with creative vision and business insight.
+                  Results-driven, not hours-driven.
                 </p>
               </div>
               <div className="space-x-4">
@@ -173,32 +178,12 @@ export default function HomePage() {
                   Feel free to reach out for collaborations or just a friendly hello
                 </p>
               </div>
+              {/* DRY FIX: Using SocialLink component */}
               <div className="flex space-x-4">
-                <a
-                  href="https://github.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Github className="h-5 w-5" />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a
-                  href="https://linkedin.com/in/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Linkedin className="h-5 w-5" />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-                <a
-                  href="mailto:your.email@example.com"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Mail className="h-5 w-5" />
-                  <span className="sr-only">Email</span>
-                </a>
+                <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
+                <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
+                <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
               </div>
             </motion.div>
           </div>
