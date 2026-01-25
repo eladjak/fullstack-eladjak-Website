@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import type { BlogPost } from '@/types/blog';
 import { format } from 'date-fns';
-import { Calendar, Clock, Tag, User } from 'lucide-react';
+import { Calendar, Clock, User } from 'lucide-react';
 import CommentList from '@/components/blog/comment-list';
 import CommentForm from '@/components/blog/comment-form';
+import { TagBadge } from '@/components/ui/tag-badge';
 import { Metadata } from 'next';
 
 interface BlogPostPageProps {
@@ -102,29 +104,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
         </div>
 
-        {/* Tags */}
+        {/* Tags - CONSISTENCY FIX: Using TagBadge component */}
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary"
-              >
-                <Tag className="h-3 w-3" />
-                {tag}
-              </span>
+              <TagBadge key={tag} tag={tag} variant="default" showIcon={true} />
             ))}
           </div>
         )}
       </header>
 
-      {/* Featured Image */}
+      {/* Featured Image - PERFORMANCE FIX: Using Next.js Image */}
       {post.featured_image && (
-        <div className="mb-8 overflow-hidden rounded-lg">
-          <img
+        <div className="mb-8 overflow-hidden rounded-lg relative w-full aspect-video">
+          <Image
             src={post.featured_image}
             alt={post.title}
-            className="w-full h-auto object-cover"
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
           />
         </div>
       )}
