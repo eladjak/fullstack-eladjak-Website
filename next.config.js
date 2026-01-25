@@ -22,9 +22,6 @@ const config = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: false, // Enable linting during builds
-  },
   typescript: {
     ignoreBuildErrors: false, // Enable type checking during builds
   },
