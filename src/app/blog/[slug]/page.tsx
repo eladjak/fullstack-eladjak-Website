@@ -7,6 +7,7 @@ import { Calendar, Clock, User } from 'lucide-react';
 import CommentList from '@/components/blog/comment-list';
 import CommentForm from '@/components/blog/comment-form';
 import { TagBadge } from '@/components/ui/tag-badge';
+import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
 import { Metadata } from 'next';
 
 interface BlogPostPageProps {
@@ -69,9 +70,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <article className="container mx-auto px-4 py-12 max-w-4xl">
-      {/* Header */}
-      <header className="mb-8 space-y-4">
+    <>
+      <StructuredData
+        data={structuredDataGenerators.article(
+          post.title,
+          post.description || '',
+          post.created_at,
+          post.profiles?.full_name || post.profiles?.username || 'Elad Ya\'akobovitch',
+          post.featured_image || undefined,
+          post.updated_at || undefined
+        )}
+      />
+      <article className="container mx-auto px-4 py-12 max-w-4xl">
+        {/* Header */}
+        <header className="mb-8 space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight">{post.title}</h1>
 
         {post.description && (
@@ -155,5 +167,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <CommentList postId={post.id} />
       </section>
     </article>
+    </>
   );
 }

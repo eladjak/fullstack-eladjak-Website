@@ -3,6 +3,8 @@ import { Assistant, Heebo } from "next/font/google";
 import { type Metadata } from "next";
 import Navigation from "@/components/ui/navigation";
 import { AuthProvider } from "@/lib/auth";
+import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
+import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
 import "@/styles/globals.css";
 
 const heebo = Heebo({
@@ -18,6 +20,10 @@ const assistant = Assistant({
 export const metadata: Metadata = {
   title: "Elad Ya'akobovitch | Full-Stack Developer",
   description: "Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web applications with creative vision and business insight.",
+  keywords: ["Full-Stack Developer", "Next.js", "React", "TypeScript", "Web Development", "Israel", "JavaScript", "Software Engineer"],
+  authors: [{ name: "Elad Ya'akobovitch", url: "https://fullstack-eladjak.co.il" }],
+  creator: "Elad Ya'akobovitch",
+  publisher: "Elad Ya'akobovitch",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
     title: "Elad Ya'akobovitch | Full-Stack Developer",
@@ -25,6 +31,35 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://fullstack-eladjak.co.il",
     siteName: "Elad Ya'akobovitch Portfolio",
+    locale: "he_IL",
+    images: [
+      {
+        url: "https://fullstack-eladjak.co.il/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Elad Ya'akobovitch - Full-Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Elad Ya'akobovitch | Full-Stack Developer",
+    description: "Full-Stack Developer specializing in Next.js, React, and TypeScript",
+    images: ["https://fullstack-eladjak.co.il/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code', // TODO: Add actual verification code
   },
 };
 
@@ -34,8 +69,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${heebo.variable} ${assistant.variable}`}>
+    <html lang="he" dir="rtl" className={`${GeistSans.variable} ${heebo.variable} ${assistant.variable}`}>
+      <head>
+        <StructuredData data={structuredDataGenerators.website()} />
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Elad Portfolio" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body className="min-h-screen bg-background font-sans antialiased">
+        <WebVitalsReporter />
         <AuthProvider>
           <Navigation />
           <div className="pt-16">
