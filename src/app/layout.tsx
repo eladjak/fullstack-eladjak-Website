@@ -16,9 +16,16 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe | Full-Stack Developer",
-  description: "Professional portfolio showcasing full-stack development projects and expertise",
+  title: "Elad Ya'akobovitch | Full-Stack Developer",
+  description: "Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web applications with creative vision and business insight.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  openGraph: {
+    title: "Elad Ya'akobovitch | Full-Stack Developer",
+    description: "Full-Stack Developer specializing in Next.js, React, and TypeScript",
+    type: "website",
+    url: "https://fullstack-eladjak.co.il",
+    siteName: "Elad Ya'akobovitch Portfolio",
+  },
 };
 
 export default function RootLayout({

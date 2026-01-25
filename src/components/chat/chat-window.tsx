@@ -1,11 +1,14 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth';
 import { Send, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface Message {
   id: string;
@@ -111,10 +114,14 @@ export default function ChatWindow() {
                 message.user_id === user?.id ? 'flex-row-reverse space-x-reverse' : ''
               }`}
             >
-              <img
-                src={message.profiles?.avatar_url || 'https://via.placeholder.com/40'}
+              {/* PERFORMANCE FIX: Next.js Image instead of <img> */}
+              <Image
+                src={message.profiles?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(message.profiles?.username || 'User')}&size=40&background=8B5CF6&color=fff`}
                 alt={message.profiles?.username || 'User'}
+                width={40}
+                height={40}
                 className="h-10 w-10 rounded-full"
+                loading="lazy"
               />
               <div
                 className={`rounded-lg px-4 py-2 max-w-[70%] ${
@@ -133,20 +140,32 @@ export default function ChatWindow() {
         </AnimatePresence>
         <div ref={messagesEndRef} />
       </div>
+      {/* ACCESSIBILITY FIX: Added Label for screen readers */}
       <form onSubmit={sendMessage} className="border-t p-4">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type a message..."
-            className="flex-1 rounded-md border bg-background px-3 py-2"
-          />
-          <Button type="submit" disabled={loading || !newMessage.trim()}>
+        <div className="flex space-x-2 items-end">
+          <div className="flex-1">
+            <Label htmlFor="message-input" className="sr-only">
+              Message
+            </Label>
+            <Input
+              id="message-input"
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder="Type a message..."
+            />
+          </div>
+          <Button
+            type="submit"
+            size="icon"
+            disabled={loading || !newMessage.trim()}
+            aria-label="Send message"
+            aria-busy={loading}
+          >
             {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
             ) : (
-              <Send className="h-4 w-4" />
+              <Send className="h-4 w-4" aria-hidden="true" />
             )}
           </Button>
         </div>

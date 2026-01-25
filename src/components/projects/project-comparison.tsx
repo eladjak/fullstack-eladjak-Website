@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { TagBadge } from '@/components/ui/tag-badge';
+import { Label } from '@/components/ui/label';
 import { ArrowLeftRight, GitCompare } from 'lucide-react';
 import type { Tables } from '@/lib/supabase.types';
 import { supabase } from '@/lib/supabase';
@@ -51,35 +54,53 @@ export default function ProjectComparison({ projects: initialProjects }: Project
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-center space-x-4">
-        <select
-          className="rounded-md border bg-background px-3 py-2"
-          onChange={(e) => selectProject(projects.find(p => p.id === e.target.value) || null, 0)}
-          value={selectedProjects[0]?.id || ''}
-        >
-          <option value="">Select Project 1</option>
-          {projects.map((project) => (
-            <option key={project.id} value={project.id}>
-              {project.title}
-            </option>
-          ))}
-        </select>
+      {/* ACCESSIBILITY FIX: Added Labels for select elements */}
+      <fieldset className="space-y-4">
+        <legend className="text-lg font-semibold text-center mb-4">Compare Projects</legend>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <div className="w-full md:w-auto space-y-2">
+            <Label htmlFor="project-select-1" className="sr-only">
+              First Project to Compare
+            </Label>
+            <select
+              id="project-select-1"
+              className="w-full md:w-auto rounded-md border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring"
+              onChange={(e) => selectProject(projects.find(p => p.id === e.target.value) || null, 0)}
+              value={selectedProjects[0]?.id || ''}
+              aria-label="Select first project for comparison"
+            >
+              <option value="">Select Project 1</option>
+              {projects.map((project) => (
+                <option key={project.id} value={project.id}>
+                  {project.title}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <GitCompare className="h-6 w-6 text-primary" />
+          <GitCompare className="h-6 w-6 text-primary" aria-hidden="true" />
 
-        <select
-          className="rounded-md border bg-background px-3 py-2"
-          onChange={(e) => selectProject(projects.find(p => p.id === e.target.value) || null, 1)}
-          value={selectedProjects[1]?.id || ''}
-        >
-          <option value="">Select Project 2</option>
-          {projects.map((project) => (
-            <option key={project.id} value={project.id}>
-              {project.title}
-            </option>
-          ))}
-        </select>
-      </div>
+          <div className="w-full md:w-auto space-y-2">
+            <Label htmlFor="project-select-2" className="sr-only">
+              Second Project to Compare
+            </Label>
+            <select
+              id="project-select-2"
+              className="w-full md:w-auto rounded-md border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring"
+              onChange={(e) => selectProject(projects.find(p => p.id === e.target.value) || null, 1)}
+              value={selectedProjects[1]?.id || ''}
+              aria-label="Select second project for comparison"
+            >
+              <option value="">Select Project 2</option>
+              {projects.map((project) => (
+                <option key={project.id} value={project.id}>
+                  {project.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </fieldset>
 
       {selectedProjects[0] && selectedProjects[1] && (
         <motion.div
@@ -93,24 +114,25 @@ export default function ProjectComparison({ projects: initialProjects }: Project
                 <h3 className="text-xl font-bold">{project?.title}</h3>
               </CardHeader>
               <CardContent className="space-y-4">
-                <img
-                  src={project?.image_url || 'https://via.placeholder.com/400x300'}
-                  alt={project?.title}
-                  className="w-full rounded-lg object-cover"
-                />
-                
+                {/* PERFORMANCE FIX: Next.js Image instead of <img> */}
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+                  <Image
+                    src={project?.image_url || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop'}
+                    alt={project?.title || 'Project'}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+
                 <p className="text-muted-foreground">{project?.description}</p>
-                
+
                 <div className="space-y-2">
                   <h4 className="font-semibold">Technologies</h4>
+                  {/* CONSISTENCY FIX: Using TagBadge component */}
                   <div className="flex flex-wrap gap-2">
                     {project?.technologies?.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
-                      >
-                        {tech}
-                      </span>
+                      <TagBadge key={tech} tag={tech} variant="default" showIcon={false} />
                     ))}
                   </div>
                 </div>

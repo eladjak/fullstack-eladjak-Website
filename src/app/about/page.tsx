@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Globe, BookOpen, Code, Coffee } from "lucide-react";
+import { SocialLink } from "@/components/ui/social-link";
 import { useMetaTags } from '@/hooks/useMetaTags';
 
 export default function AboutPage() {
@@ -133,46 +134,17 @@ export default function AboutPage() {
                 </p>
               </motion.div>
 
-              <motion.div 
+              {/* DRY FIX: Using SocialLink component - eliminates 4 duplicate instances */}
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
                 className="flex space-x-4 mt-8"
               >
-                <a
-                  href="https://github.com/eladjak"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Github className="h-5 w-5" />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a
-                  href="https://linkedin.com/in/eladjak"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Linkedin className="h-5 w-5" />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-                <a
-                  href="mailto:elad@hiteclearning.co.il"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Mail className="h-5 w-5" />
-                  <span className="sr-only">Email</span>
-                </a>
-                <a
-                  href="https://fullstack-eladjak.co.il"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Globe className="h-5 w-5" />
-                  <span className="sr-only">Website</span>
-                </a>
+                <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
+                <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
+                <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
               </motion.div>
             </motion.div>
           </div>

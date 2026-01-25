@@ -1,13 +1,13 @@
 'use client';
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, Code, BookOpen, Coffee, ExternalLink } from "lucide-react";
-import { Player } from '@lottiefiles/react-lottie-player';
+import { ArrowRight, Github, Linkedin, Mail, Code, BookOpen, Coffee, ExternalLink, Globe } from "lucide-react";
 import { useInView } from 'react-intersection-observer';
 import Link from "next/link";
 import { useMetaTags } from '@/hooks/useMetaTags';
 import ProjectCard from "@/components/projects/project-card";
 import BlogCard from "@/components/blog/blog-card";
+import { SocialLink } from "@/components/ui/social-link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Tables } from "@/lib/supabase.types";
@@ -178,32 +178,12 @@ export default function HomePage() {
                   Feel free to reach out for collaborations or just a friendly hello
                 </p>
               </div>
+              {/* DRY FIX: Using SocialLink component */}
               <div className="flex space-x-4">
-                <a
-                  href="https://github.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Github className="h-5 w-5" />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a
-                  href="https://linkedin.com/in/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Linkedin className="h-5 w-5" />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-                <a
-                  href="mailto:your.email@example.com"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50 dark:hover:bg-gray-800"
-                >
-                  <Mail className="h-5 w-5" />
-                  <span className="sr-only">Email</span>
-                </a>
+                <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
+                <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
+                <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
               </div>
             </motion.div>
           </div>

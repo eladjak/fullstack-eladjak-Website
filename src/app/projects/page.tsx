@@ -9,6 +9,7 @@ import ProjectComparison from '@/components/projects/project-comparison';
 import type { Tables } from '@/lib/supabase.types';
 import ProjectCard from '@/components/projects/project-card';
 import ProjectFilters from '@/components/projects/project-filters';
+import { LoadingPage } from '@/components/ui/loading-spinner';
 import { useMetaTags } from '@/hooks/useMetaTags';
 
 type Project = Tables<'projects'>;
@@ -119,9 +120,7 @@ export default function ProjectsPage() {
       </motion.div>
 
       {loading ? (
-        <div className="flex h-64 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-        </div>
+        <LoadingPage label="Loading projects..." />
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
@@ -131,7 +130,8 @@ export default function ProjectsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <ProjectCard project={project} />
+              {/* PERFORMANCE FIX: Pass index for priority loading first 3 images */}
+              <ProjectCard project={project} index={index} />
             </motion.div>
           ))}
         </div>
