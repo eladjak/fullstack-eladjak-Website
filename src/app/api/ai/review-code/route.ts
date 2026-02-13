@@ -1,11 +1,23 @@
-// Server-side only - DO NOT import this file in client components
-// Use @/lib/services/client/ai-service instead for client-side code
-
+import { NextRequest, NextResponse } from 'next/server';
 import { OpenAI } from 'openai';
+import { createClient } from '@supabase/supabase-js';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy initialization - only create clients when API key is available
+const getOpenAI = () => {
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OpenAI API key not configured');
+  }
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+};
+
+const getSupabase = () => {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+};
 
 export interface CodeReviewResult {
   suggestions: string[];
@@ -17,8 +29,25 @@ export interface CodeReviewResult {
   score: number;
 }
 
-export async function reviewCode(code: string): Promise<CodeReviewResult> {
+export async function POST(request: NextRequest) {
   try {
+    const { code } = await request.json();
+
+    if (!code || typeof code !== 'string') {
+      return NextResponse.json(
+        { error: 'Invalid code input' },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: 'OpenAI API key not configured' },
+        { status: 500 }
+      );
+    }
+
+    const openai = getOpenAI();
     const completion = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -45,7 +74,12 @@ export async function reviewCode(code: string): Promise<CodeReviewResult> {
     });
 
     const review = completion.choices[0].message?.content;
-    if (!review) throw new Error('No review generated');
+    if (!review) {
+      return NextResponse.json(
+        { error: 'No review generated' },
+        { status: 500 }
+      );
+    }
 
     // Parse the review into structured feedback
     const result: CodeReviewResult = {
@@ -80,9 +114,30 @@ export async function reviewCode(code: string): Promise<CodeReviewResult> {
     const totalIssues = Object.values(result.improvements).flat().length;
     result.score = Math.max(0, 100 - (totalIssues * 5));
 
-    return result;
+    // Store analytics event
+    const supabase = getSupabase();
+    await supabase.from('analytics_events').insert([
+      {
+        event_type: 'code_review',
+        page_url: '/code-review',
+        metadata: {
+          code_length: code.length,
+          score: result.score,
+          improvement_counts: {
+            performance: result.improvements.performance.length,
+            security: result.improvements.security.length,
+            style: result.improvements.style.length
+          }
+        }
+      }
+    ]);
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Code review error:', error);
-    throw error;
+    return NextResponse.json(
+      { error: 'Failed to review code' },
+      { status: 500 }
+    );
   }
 }

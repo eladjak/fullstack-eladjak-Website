@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Copy, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { reviewCode, type CodeReviewResult } from '@/lib/services/code-review';
+import { reviewCode, type CodeReviewResult } from '@/lib/services/client/ai-service';
 
 interface SnippetEditorProps {
   initialCode?: string;

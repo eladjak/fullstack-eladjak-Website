@@ -1,22 +1,22 @@
 'use client';
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, Code, BookOpen, Coffee, ExternalLink, Globe } from "lucide-react";
-import { useInView } from 'react-intersection-observer';
+import { motion } from "framer-motion";
+import { ArrowRight, Github, Linkedin, Mail, Globe } from "lucide-react";
 import Link from "next/link";
 import { useMetaTags } from '@/hooks/useMetaTags';
 import ProjectCard from "@/components/projects/project-card";
 import BlogCard from "@/components/blog/blog-card";
 import { SocialLink } from "@/components/ui/social-link";
+import SkillsSection from "@/components/sections/skills-section";
+import HeroSection from "@/components/hero/hero-section";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Tables } from "@/lib/supabase.types";
+import type { BlogPost } from "@/types/blog";
 
 export default function HomePage() {
   const [featuredProjects, setFeaturedProjects] = useState<Tables<'projects'>[]>([]);
-  const [featuredPosts, setFeaturedPosts] = useState<Tables<'blog_posts'>[]>([]);
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
   const [activeUsers, setActiveUsers] = useState<number>(0);
 
   useEffect(() => {
@@ -36,20 +36,15 @@ export default function HomePage() {
     };
   }, []);
   
-  const [heroRef, heroInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
-
   useEffect(() => {
     const loadFeaturedContent = async () => {
       const [projectsData, postsData] = await Promise.all([
         supabase.from('projects').select('*').eq('featured', true).limit(3),
-        supabase.from('blog_posts').select('*').eq('featured', true).limit(3)
+        supabase.from('blog_posts').select('*, profiles(*)').eq('featured', true).limit(3)
       ]);
 
       if (projectsData.data) setFeaturedProjects(projectsData.data);
-      if (postsData.data) setFeaturedPosts(postsData.data);
+      if (postsData.data) setFeaturedPosts(postsData.data as unknown as BlogPost[]);
     };
 
     loadFeaturedContent();
@@ -65,55 +60,113 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
-        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden">
-          <motion.div
-            className="absolute inset-0 z-0"
-            style={{
-              background: "linear-gradient(to right, var(--primary), var(--accent))",
-              opacity: 0.1,
-            }}
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 90, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          <div className="container px-4 md:px-6">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center space-y-4 text-center"
-            >
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Elad Ya'akobovitch
-                </h1>
-                <h2 className="text-2xl font-semibold text-primary">
-                  Full-Stack Developer
+        <HeroSection />
+
+        <SkillsSection />
+
+        {/* Featured Projects Section */}
+        {featuredProjects.length > 0 && (
+          <section className="w-full py-12 md:py-24 lg:py-32">
+            <div className="container px-4 md:px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                  Featured Projects
                 </h2>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Building modern web applications with Next.js, React, and TypeScript.
-                  Combining technical expertise with creative vision and business insight.
-                  Results-driven, not hours-driven.
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+                  A selection of my best work
                 </p>
+              </motion.div>
+
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {featuredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard project={project} index={index} />
+                  </motion.div>
+                ))}
               </div>
-              <div className="space-x-4">
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                viewport={{ once: true }}
+                className="text-center mt-8"
+              >
                 <Link
                   href="/projects"
-                  className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  className="inline-flex items-center text-primary hover:underline"
                 >
-                  View Projects
+                  View All Projects
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
+              </motion.div>
+            </div>
+          </section>
+        )}
+
+        {/* Featured Blog Posts Section */}
+        {featuredPosts.length > 0 && (
+          <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
+            <div className="container px-4 md:px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                  Latest Posts
+                </h2>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+                  Thoughts on development, technology, and more
+                </p>
+              </motion.div>
+
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {featuredPosts.map((post, index) => (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <BlogCard post={post} />
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
-          </div>
-        </section>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                viewport={{ once: true }}
+                className="text-center mt-8"
+              >
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center text-primary hover:underline"
+                >
+                  Read More Posts
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </motion.div>
+            </div>
+          </section>
+        )}
 
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background via-background/80 to-background">
           <div className="container px-4 md:px-6">

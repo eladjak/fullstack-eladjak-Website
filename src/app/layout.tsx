@@ -5,6 +5,8 @@ import Navigation from "@/components/ui/navigation";
 import { AuthProvider } from "@/lib/auth";
 import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "react-hot-toast";
 import "@/styles/globals.css";
 
 const heebo = Heebo({
@@ -83,12 +85,15 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <WebVitalsReporter />
-        <AuthProvider>
-          <Navigation />
-          <div className="pt-16">
-            {children}
-          </div>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            <Navigation />
+            <div className="pt-16">
+              {children}
+            </div>
+            <Toaster />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

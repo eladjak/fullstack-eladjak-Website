@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase } from './supabase';
-import { generateBlogContent, type BlogPostContent } from './services/openai';
+import { generateBlogContent, type BlogPostContent } from './services/client/ai-service';
 import type { Tables } from './supabase.types';
 
 type BlogPost = Tables<'blog_posts'>;

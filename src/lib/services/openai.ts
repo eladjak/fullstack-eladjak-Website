@@ -1,12 +1,10 @@
-'use client';
+// Server-side only - DO NOT import this file in client components
+// Use @/lib/services/client/ai-service instead for client-side code
 
 import { OpenAI } from 'openai';
 
-// Note: This should be moved to a server-side Edge Function for production
-// For now, we'll use environment variable but this is NOT secure for client-side
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || '',
-  dangerouslyAllowBrowser: true
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export interface BlogPostContent {

@@ -1,6 +1,4 @@
-// Server-side only - DO NOT import this file in client components
-// Use @/lib/services/client/ai-service instead for client-side code
-
+import { NextRequest, NextResponse } from 'next/server';
 import { Perspective } from 'perspective-api-client';
 
 export interface ContentAnalysis {
@@ -12,20 +10,29 @@ export interface ContentAnalysis {
   insult: boolean;
 }
 
-export async function analyzeContent(text: string): Promise<ContentAnalysis> {
-  if (!process.env.PERSPECTIVE_API_KEY) {
-    // Return safe defaults if API key is not configured
-    return {
-      toxic: false,
-      severe_toxic: false,
-      threat: false,
-      profanity: false,
-      identity_attack: false,
-      insult: false
-    };
-  }
-
+export async function POST(request: NextRequest) {
   try {
+    const { text } = await request.json();
+
+    if (!text || typeof text !== 'string') {
+      return NextResponse.json(
+        { error: 'Invalid text input' },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.PERSPECTIVE_API_KEY) {
+      // Return safe defaults if API key is not configured
+      return NextResponse.json({
+        toxic: false,
+        severe_toxic: false,
+        threat: false,
+        profanity: false,
+        identity_attack: false,
+        insult: false
+      });
+    }
+
     const perspective = new Perspective({
       apiKey: process.env.PERSPECTIVE_API_KEY
     });
@@ -41,7 +48,7 @@ export async function analyzeContent(text: string): Promise<ContentAnalysis> {
       ]
     });
 
-    return {
+    const analysis: ContentAnalysis = {
       toxic: result.attributeScores.TOXICITY.summaryScore.value > 0.7,
       severe_toxic: result.attributeScores.SEVERE_TOXICITY.summaryScore.value > 0.7,
       threat: result.attributeScores.THREAT.summaryScore.value > 0.7,
@@ -49,15 +56,18 @@ export async function analyzeContent(text: string): Promise<ContentAnalysis> {
       identity_attack: result.attributeScores.IDENTITY_ATTACK.summaryScore.value > 0.7,
       insult: result.attributeScores.INSULT.summaryScore.value > 0.7
     };
+
+    return NextResponse.json(analysis);
   } catch (error) {
     console.error('Content analysis error:', error);
-    return {
+    // Return safe defaults on error
+    return NextResponse.json({
       toxic: false,
       severe_toxic: false,
       threat: false,
       profanity: false,
       identity_attack: false,
       insult: false
-    };
+    });
   }
 }

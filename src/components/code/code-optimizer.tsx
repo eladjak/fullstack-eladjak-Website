@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight, Code2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { reviewCode } from '@/lib/services/code-review';
+// reviewCode is available via '@/lib/services/client/ai-service' when OpenAI API is configured
 
 interface CodeOptimizerProps {
   initialCode?: string;

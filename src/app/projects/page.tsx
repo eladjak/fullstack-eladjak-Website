@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Filter, SortAsc, SortDesc, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Filter, SortAsc, SortDesc } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import ProjectTimeline from '@/components/projects/project-timeline';
 import ProjectComparison from '@/components/projects/project-comparison';

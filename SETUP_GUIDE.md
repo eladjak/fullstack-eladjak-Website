@@ -27,8 +27,10 @@
 
 3. **הוסף ל-.env.local:**
    ```bash
-   NEXT_PUBLIC_OPENAI_API_KEY=sk-proj-...
+   OPENAI_API_KEY=sk-proj-...
    ```
+
+   ⚠️ **חשוב:** השתמש ב-`OPENAI_API_KEY` (ללא NEXT_PUBLIC_) כדי לשמור על המפתח בצד השרת בלבד!
 
 4. **מחירים:**
    - GPT-4: ~$0.03 per 1K tokens

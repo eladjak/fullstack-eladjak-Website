@@ -102,7 +102,8 @@ export default function NotificationsMenu() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-600 hover:text-gray-900"
+        className="relative p-2 text-muted-foreground hover:text-foreground transition-colors"
+        aria-label="Notifications"
       >
         <Bell className="h-6 w-6" />
         {unreadCount > 0 && (
@@ -118,19 +119,19 @@ export default function NotificationsMenu() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute right-0 mt-2 w-96 rounded-lg border bg-white shadow-lg"
+            className="absolute right-0 mt-2 w-96 rounded-lg border bg-card shadow-lg"
           >
             <div className="p-4">
               <h3 className="text-lg font-semibold">Notifications</h3>
               <div className="mt-4 space-y-4">
                 {notifications.length === 0 ? (
-                  <p className="text-center text-gray-500">No notifications</p>
+                  <p className="text-center text-muted-foreground">No notifications</p>
                 ) : (
                   notifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className={`rounded-lg border p-3 transition-colors ${
-                        notification.read ? 'bg-gray-50' : 'bg-blue-50'
+                      className={`rounded-lg border p-3 transition-colors cursor-pointer ${
+                        notification.read ? 'bg-muted/50' : 'bg-primary/10'
                       }`}
                       onClick={() => {
                         if (!notification.read) {
@@ -142,10 +143,10 @@ export default function NotificationsMenu() {
                       }}
                     >
                       <h4 className="font-medium">{notification.title}</h4>
-                      <p className="mt-1 text-sm text-gray-600">
+                      <p className="mt-1 text-sm text-muted-foreground">
                         {notification.message}
                       </p>
-                      <p className="mt-2 text-xs text-gray-400">
+                      <p className="mt-2 text-xs text-muted-foreground/70">
                         {format(new Date(notification.created_at), 'PPp')}
                       </p>
                     </div>

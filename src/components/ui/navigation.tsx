@@ -6,6 +6,7 @@ import { Menu, X, Globe } from 'lucide-react';
 import NotificationsMenu from './notifications';
 import Link from 'next/link';
 import { AuthDialog } from '@/components/auth/auth-dialog';
+import ThemeToggle from './theme-toggle';
 
 const languages = [
   { code: 'en', name: 'English', dir: 'ltr' },
@@ -19,7 +20,7 @@ export default function Navigation() {
   const [currentLang, setCurrentLang] = useState('en');
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,6 +55,7 @@ export default function Navigation() {
     { href: '/projects', label: 'Projects' },
     { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
     { href: '/ai-tools', label: 'AI Tools' },
     { href: '/whiteboard', label: 'Whiteboard' }
   ];
@@ -85,6 +87,7 @@ export default function Navigation() {
             ))}
             <NotificationsMenu />
             <AuthDialog />
+            <ThemeToggle />
             <div className="relative group">
               <button
                 className="flex items-center space-x-1 text-foreground/80 hover:text-foreground"
@@ -143,6 +146,11 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
+              <div className="border-t my-4" />
+              <div className="flex items-center justify-between py-2">
+                <span className="text-foreground/80">Theme</span>
+                <ThemeToggle />
+              </div>
               <div className="border-t my-4" />
               <div className="space-y-2">
                 {languages.map((lang) => (
