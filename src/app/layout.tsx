@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import { Assistant, Heebo } from "next/font/google";
 import { type Metadata } from "next";
 import Navigation from "@/components/ui/navigation";
+import Footer from "@/components/ui/footer";
 import { AuthProvider } from "@/lib/auth";
 import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
@@ -91,6 +92,7 @@ export default function RootLayout({
             <div className="pt-16">
               {children}
             </div>
+            <Footer />
             <Toaster />
           </AuthProvider>
         </ThemeProvider>
