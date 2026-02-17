@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useMetaTags } from '@/hooks/useMetaTags';
@@ -10,12 +9,15 @@ import HeroSection from '@/components/hero/hero-section';
 import FeaturedProjectsSection from '@/components/sections/featured-projects-section';
 import TestimonialsSection from '@/components/sections/testimonials-section';
 import CTASection from '@/components/sections/cta-section';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import type { BlogPost } from '@/types/blog';
 
 export default function HomePage() {
   const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
+  const t = useTranslations('blog');
 
   useEffect(() => {
     const loadFeaturedContent = async () => {
@@ -56,50 +58,36 @@ export default function HomePage() {
         {featuredPosts.length > 0 && (
           <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
             <div className="container px-4 md:px-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="text-center mb-12"
-              >
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-                  Latest Posts
-                </h2>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-                  Thoughts on development, technology, and more
-                </p>
-              </motion.div>
+              <ScrollAnimate>
+                <div className="text-center mb-12">
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                    {t('latestPosts')}
+                  </h2>
+                  <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+                    {t('subtitle')}
+                  </p>
+                </div>
+              </ScrollAnimate>
 
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {featuredPosts.map((post, index) => (
-                  <motion.div
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
+                  <ScrollAnimate key={post.id} delay={index * 0.05}>
                     <BlogCard post={post} />
-                  </motion.div>
+                  </ScrollAnimate>
                 ))}
               </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                viewport={{ once: true }}
-                className="text-center mt-8"
-              >
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center text-primary hover:underline"
-                >
-                  Read More Posts
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </motion.div>
+              <ScrollAnimate delay={0.15}>
+                <div className="text-center mt-8">
+                  <Link
+                    href="/blog"
+                    className="inline-flex items-center text-primary hover:underline"
+                  >
+                    {t('readMore')}
+                    <ArrowRight className="ms-2 h-4 w-4" />
+                  </Link>
+                </div>
+              </ScrollAnimate>
             </div>
           </section>
         )}

@@ -8,26 +8,35 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { useMetaTags } from '@/hooks/useMetaTags';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 
-// Form validation schema
-const contactFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  subject: z.string().min(3, 'Subject must be at least 3 characters'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
 export default function ContactPage() {
+  const t = useTranslations('contact');
+
+  // Build schema with translated messages
+  const contactFormSchema = z.object({
+    name: z.string().min(2, t('validation.nameMin')),
+    email: z.string().email(t('validation.emailInvalid')),
+    subject: z.string().min(3, t('validation.subjectMin')),
+    message: z.string().min(10, t('validation.messageMin')),
+  });
+
   useMetaTags({
     title: 'Contact Elad Ya\'akobovitch | Get In Touch',
     description: 'Get in touch with Elad Ya\'akobovitch for collaboration opportunities, project inquiries, or just to say hello.',
     image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
-    type: 'website'
+    type: 'website',
   });
 
   const [formData, setFormData] = useState<ContactFormData>({
@@ -54,42 +63,51 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setErrors({});
 
+    // Validate form data
+    const validation = contactFormSchema.safeParse(formData);
+
+    if (!validation.success) {
+      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+      validation.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          fieldErrors[err.path[0] as keyof ContactFormData] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+      toast.error(t('validationError'));
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      // Validate form data
-      const validatedData = contactFormSchema.parse(formData);
-
-      // TODO: Send form data to backend
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Show success message
-      toast.success('Message sent successfully! I\'ll get back to you soon.', {
-        duration: 5000,
-        position: 'bottom-center',
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(validation.data),
       });
 
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        // Set validation errors
-        const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            fieldErrors[err.path[0] as keyof ContactFormData] = err.message;
-          }
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success(t('success'), {
+          duration: 5000,
+          position: 'bottom-center',
         });
-        setErrors(fieldErrors);
-        toast.error('Please fix the errors in the form');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else if (result.fallback === 'mailto') {
+        // Resend not configured - use mailto fallback
+        const mailtoUrl = `mailto:${result.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
+        window.open(mailtoUrl, '_blank');
+        toast.success(t('success'), {
+          duration: 5000,
+          position: 'bottom-center',
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        toast.error('Something went wrong. Please try again.');
+        toast.error(t('error'));
       }
+    } catch {
+      toast.error(t('error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -98,20 +116,20 @@ export default function ContactPage() {
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email',
+      title: t('info.email'),
       value: 'elad@hiteclearning.co.il',
       href: 'mailto:elad@hiteclearning.co.il',
     },
     {
       icon: MapPin,
-      title: 'Location',
-      value: 'Israel',
+      title: t('info.location'),
+      value: t('info.locationValue'),
       href: null,
     },
     {
       icon: Clock,
-      title: 'Availability',
-      value: 'Open to opportunities',
+      title: t('info.availability'),
+      value: t('info.availabilityValue'),
       href: null,
     },
   ];
@@ -130,157 +148,139 @@ export default function ContactPage() {
             >
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-                  Contact Me
+                  {t('title')}
                 </h1>
-                <h2 className="text-2xl font-semibold text-primary">
-                  צור קשר
-                </h2>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                  Have a project in mind? Let's work together to create something amazing.
-                  I'm always open to discussing new opportunities and ideas.
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                  {t('subtitle')}
                 </p>
               </div>
 
               {/* Contact Info Cards */}
               <div className="grid gap-6 md:grid-cols-3 max-w-4xl w-full mt-8">
                 {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={info.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                    className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50"
-                  >
-                    <info.icon className="h-8 w-8 text-primary" />
-                    <h3 className="text-lg font-semibold">{info.title}</h3>
-                    {info.href ? (
-                      <a
-                        href={info.href}
-                        className="text-gray-500 hover:text-primary transition-colors"
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <p className="text-gray-500">{info.value}</p>
-                    )}
-                  </motion.div>
+                  <ScrollAnimate key={info.title} delay={index * 0.05}>
+                    <div className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50">
+                      <info.icon className="h-8 w-8 text-primary" />
+                      <h3 className="text-lg font-semibold">{info.title}</h3>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <p className="text-muted-foreground">{info.value}</p>
+                      )}
+                    </div>
+                  </ScrollAnimate>
                 ))}
               </div>
 
               {/* Contact Form */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="w-full max-w-2xl mt-12"
-              >
-                <div className="rounded-lg border bg-card p-8 shadow-sm">
-                  <h2 className="text-2xl font-bold mb-6 text-center">Send a Message</h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <Label htmlFor="name" required>
-                        Name
-                      </Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        placeholder="Your name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        error={!!errors.name}
-                        helperText={errors.name}
-                        disabled={isSubmitting}
-                      />
-                    </div>
+              <ScrollAnimate delay={0.1}>
+                <div className="w-full max-w-2xl mt-12">
+                  <div className="rounded-lg border bg-card p-8 shadow-sm">
+                    <h2 className="text-2xl font-bold mb-6 text-center">{t('form.title')}</h2>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div>
+                        <Label htmlFor="name" required>
+                          {t('form.name')}
+                        </Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          placeholder={t('form.namePlaceholder')}
+                          value={formData.name}
+                          onChange={handleChange}
+                          error={!!errors.name}
+                          helperText={errors.name}
+                          disabled={isSubmitting}
+                        />
+                      </div>
 
-                    <div>
-                      <Label htmlFor="email" required>
-                        Email
-                      </Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                        error={!!errors.email}
-                        helperText={errors.email}
-                        disabled={isSubmitting}
-                      />
-                    </div>
+                      <div>
+                        <Label htmlFor="email" required>
+                          {t('form.email')}
+                        </Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          placeholder={t('form.emailPlaceholder')}
+                          value={formData.email}
+                          onChange={handleChange}
+                          error={!!errors.email}
+                          helperText={errors.email}
+                          disabled={isSubmitting}
+                        />
+                      </div>
 
-                    <div>
-                      <Label htmlFor="subject" required>
-                        Subject
-                      </Label>
-                      <Input
-                        id="subject"
-                        name="subject"
-                        type="text"
-                        placeholder="What's this about?"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        error={!!errors.subject}
-                        helperText={errors.subject}
-                        disabled={isSubmitting}
-                      />
-                    </div>
+                      <div>
+                        <Label htmlFor="subject" required>
+                          {t('form.subject')}
+                        </Label>
+                        <Input
+                          id="subject"
+                          name="subject"
+                          type="text"
+                          placeholder={t('form.subjectPlaceholder')}
+                          value={formData.subject}
+                          onChange={handleChange}
+                          error={!!errors.subject}
+                          helperText={errors.subject}
+                          disabled={isSubmitting}
+                        />
+                      </div>
 
-                    <div>
-                      <Label htmlFor="message" required>
-                        Message
-                      </Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        placeholder="Tell me about your project or idea..."
-                        rows={6}
-                        value={formData.message}
-                        onChange={handleChange}
-                        error={!!errors.message}
-                        helperText={errors.message}
-                        disabled={isSubmitting}
-                      />
-                    </div>
+                      <div>
+                        <Label htmlFor="message" required>
+                          {t('form.message')}
+                        </Label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          placeholder={t('form.messagePlaceholder')}
+                          rows={6}
+                          value={formData.message}
+                          onChange={handleChange}
+                          error={!!errors.message}
+                          helperText={errors.message}
+                          disabled={isSubmitting}
+                        />
+                      </div>
 
-                    <Button
-                      type="submit"
-                      className="w-full"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span className="animate-spin mr-2">⏳</span>
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="h-4 w-4 mr-2" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
+                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                          <>
+                            <span className="animate-spin me-2">⏳</span>
+                            {t('form.sending')}
+                          </>
+                        ) : (
+                          <>
+                            <Send className="h-4 w-4 me-2" />
+                            {t('form.send')}
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </div>
                 </div>
-              </motion.div>
+              </ScrollAnimate>
 
               {/* Social Links */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="flex flex-col items-center space-y-4 mt-12"
-              >
-                <h3 className="text-xl font-semibold">Connect With Me</h3>
-                <div className="flex space-x-4">
-                  <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
-                  <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
-                  <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
-                  <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
+              <ScrollAnimate delay={0.15}>
+                <div className="flex flex-col items-center space-y-4 mt-12">
+                  <h3 className="text-xl font-semibold">{t('connect')}</h3>
+                  <div className="flex gap-4">
+                    <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
+                    <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
+                    <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                    <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
+                  </div>
                 </div>
-              </motion.div>
+              </ScrollAnimate>
             </motion.div>
           </div>
         </section>

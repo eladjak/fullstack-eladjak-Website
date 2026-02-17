@@ -8,6 +8,7 @@ import { StructuredData, structuredDataGenerators } from "@/components/seo/struc
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
+import { LocaleProvider } from "@/components/providers/locale-provider";
 import "@/styles/globals.css";
 
 const heebo = Heebo({
@@ -86,16 +87,18 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <WebVitalsReporter />
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <AuthProvider>
-            <Navigation />
-            <div className="pt-16">
-              {children}
-            </div>
-            <Footer />
-            <Toaster />
-          </AuthProvider>
-        </ThemeProvider>
+        <LocaleProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <AuthProvider>
+              <Navigation />
+              <div className="pt-16">
+                {children}
+              </div>
+              <Footer />
+              <Toaster />
+            </AuthProvider>
+          </ThemeProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

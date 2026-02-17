@@ -1,0 +1,275 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "aiTools": "AI Tools",
+    "whiteboard": "Whiteboard",
+    "theme": "Theme"
+  },
+  "hero": {
+    "badge": "Open to Opportunities",
+    "greeting": "Hi, I'm",
+    "name": "Elad Ya'akobovitch",
+    "title": "Full-Stack Developer & AI Enthusiast",
+    "description": "Building modern web applications with Next.js, React, and TypeScript. Combining technical expertise with creative vision and business insight.",
+    "resultsPhrase": "Results-driven, not hours-driven.",
+    "viewProjects": "View Projects",
+    "scroll": "Scroll"
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "subtitle": "My technical toolkit for building modern, scalable applications",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "aiTools": "AI & Tools",
+      "more": "More Skills"
+    },
+    "stats": {
+      "experience": "Years Experience",
+      "projects": "Projects Completed",
+      "technologies": "Technologies",
+      "satisfaction": "Client Satisfaction"
+    }
+  },
+  "featuredProjects": {
+    "title": "Featured Projects",
+    "subtitle": "A selection of my recent work, from educational platforms to creative tools",
+    "viewAll": "View All Projects",
+    "code": "Code",
+    "liveDemo": "Live Demo",
+    "projects": {
+      "haderech": {
+        "title": "HaDerech",
+        "description": "A complete interactive learning platform with course systems, community forums, and practice simulators. Built with modern technologies and AI integrations."
+      },
+      "portfolio": {
+        "title": "Portfolio Website",
+        "description": "This very portfolio site! Built with Next.js 16, Three.js for 3D visuals, Framer Motion animations, real-time collaboration features, and AI-powered tools."
+      },
+      "eyAiKids": {
+        "title": "EY.AI Kids",
+        "description": "An educational platform for children combining AI technologies with interactive learning experiences. Features gamification, progress tracking, and adaptive content."
+      },
+      "omanut": {
+        "title": "Omanut Website",
+        "description": "A creative arts and culture website with beautiful design, Hebrew RTL support, and responsive layouts. Showcasing art collections and cultural events."
+      },
+      "edutech": {
+        "title": "EduTech Platform",
+        "description": "A comprehensive educational technology platform with course management, student analytics, and interactive content delivery systems."
+      },
+      "hebrewCalendar": {
+        "title": "Hebrew-Gregorian Calendar",
+        "description": "An interactive calendar tool converting between Hebrew and Gregorian dates. Features holiday information, date calculations, and a clean user interface."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What People Say",
+    "subtitle": "Feedback from clients and collaborators",
+    "at": "at",
+    "items": [
+      {
+        "name": "Sarah Cohen",
+        "role": "Product Manager",
+        "company": "TechStart IL",
+        "content": "Elad delivered an exceptional web application that exceeded our expectations. His attention to detail and technical expertise in React and Next.js made the development process smooth and efficient."
+      },
+      {
+        "name": "David Levi",
+        "role": "CEO",
+        "company": "EduTech Solutions",
+        "content": "Working with Elad on our educational platform was a great experience. He brought creative solutions to complex problems and delivered a high-quality product on time."
+      },
+      {
+        "name": "Maya Shapira",
+        "role": "CTO",
+        "company": "Digital Innovations",
+        "content": "Elad combines strong technical skills with excellent communication. He understood our business needs and translated them into a beautiful, functional application."
+      },
+      {
+        "name": "Yoni Berger",
+        "role": "Founder",
+        "company": "StartupHub",
+        "content": "The portfolio website Elad built for us is both visually stunning and incredibly fast. His use of modern technologies like Three.js and Framer Motion added a premium feel to the project."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Let's Build Something Amazing",
+    "subtitle": "Looking for a developer who combines technical excellence with creative thinking?",
+    "getInTouch": "Get In Touch",
+    "features": {
+      "cleanCode": {
+        "title": "Clean Code",
+        "description": "Well-structured, maintainable code with modern best practices"
+      },
+      "aiIntegration": {
+        "title": "AI Integration",
+        "description": "Leveraging AI tools for smarter, more efficient development"
+      },
+      "fastDelivery": {
+        "title": "Fast Delivery",
+        "description": "Results-driven approach focused on quality and efficiency"
+      }
+    }
+  },
+  "blog": {
+    "latestPosts": "Latest Posts",
+    "subtitle": "Thoughts on development, technology, and more",
+    "readMore": "Read More Posts"
+  },
+  "footer": {
+    "description": "Full-Stack Developer specializing in modern web applications. Building creative solutions with Next.js, React, and TypeScript.",
+    "navigation": "Navigation",
+    "toolsAndFeatures": "Tools & Features",
+    "builtWith": "Built With",
+    "copyright": "Elad Ya'akobovitch. Built with",
+    "andCoffee": "and lots of coffee.",
+    "backToTop": "Back to Top"
+  },
+  "about": {
+    "title": "About Me",
+    "name": "Elad Ya'akobovitch",
+    "subtitle": "Full-Stack Developer with John Bryce College certification. Combining technical skills with creative vision and business insight.",
+    "highlights": {
+      "technicalSkills": {
+        "title": "Technical Skills",
+        "description": "Expertise in modern web technologies and full-stack development."
+      },
+      "continuousLearning": {
+        "title": "Continuous Learning",
+        "description": "Always exploring new technologies and best practices."
+      },
+      "problemSolving": {
+        "title": "Problem Solving",
+        "description": "Turning complex challenges into elegant solutions."
+      }
+    },
+    "journey": {
+      "title": "My Journey",
+      "subtitle": "A non-conventional path to software development",
+      "items": {
+        "arts": {
+          "year": "Early Career",
+          "title": "Arts & Creative Fields",
+          "description": "Started in arts and creative fields, developing a strong eye for design and user experience."
+        },
+        "business": {
+          "year": "Mid Career",
+          "title": "Business & Marketing",
+          "description": "Gained valuable business acumen and client management skills in marketing and entrepreneurship."
+        },
+        "education": {
+          "year": "Education",
+          "title": "John Bryce College",
+          "description": "Completed Full-Stack Development certification, mastering modern web technologies."
+        },
+        "present": {
+          "year": "Present",
+          "title": "Full-Stack Developer",
+          "description": "Building modern web applications with Next.js, React, TypeScript, and AI integrations."
+        }
+      }
+    },
+    "experience": {
+      "title": "Experience & Expertise",
+      "intro": "Over the years, I've developed a variety of projects:",
+      "haderech": "<strong>HaDerech</strong> - A complete interactive learning platform with course systems, community forums, and practice simulators. Built with Next.js, TypeScript, Supabase, and AI integrations.",
+      "cms": "<strong>Customer Management Systems</strong> - Business applications for managing clients and tasks with Angular and JavaScript",
+      "edutech": "<strong>EduTech Solutions</strong> - Educational technology platforms",
+      "tools": "<strong>Useful Tools</strong> - Like an interactive Hebrew-Gregorian calendar",
+      "expertise": "My main expertise is in <strong>Next.js, React, TypeScript, Node.js, and Supabase</strong>, but I'm also proficient in Angular, PostgreSQL, and working with modern APIs.",
+      "beyond": "Beyond technology, my experience as a creator, content developer, and businessman taught me to listen to clients, understand real needs, and build solutions that work not just technically, but also from a business perspective."
+    },
+    "unique": {
+      "title": "What Makes Me Unique",
+      "traits": {
+        "maturity": {
+          "title": "Maturity & Life Experience",
+          "description": "Professional and responsible approach to projects"
+        },
+        "selfLearning": {
+          "title": "Self-Learning",
+          "description": "Always up-to-date with the latest technologies"
+        },
+        "creative": {
+          "title": "Creative Thinking",
+          "description": "Out-of-the-box solutions thanks to multidisciplinary background"
+        },
+        "results": {
+          "title": "Results-Oriented",
+          "description": "Focus on what matters, not on hours worked"
+        }
+      }
+    },
+    "lookingFor": {
+      "title": "What I'm Looking For",
+      "p1": "I'm seeking opportunities to work on interesting and challenging projects - whether it's SaaS development, interactive applications, or complex business systems.",
+      "p2": "I'm particularly interested in projects in education, social tech, and developing tools that help people grow.",
+      "p3": "If you're looking for an experienced and responsible developer who brings not just technical knowledge, but also business vision and creative thinking - I'd love to hear from you."
+    },
+    "connect": "Connect With Me"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Have a project in mind? Let's work together to create something amazing. I'm always open to discussing new opportunities and ideas.",
+    "info": {
+      "email": "Email",
+      "location": "Location",
+      "locationValue": "Israel",
+      "availability": "Availability",
+      "availabilityValue": "Open to opportunities"
+    },
+    "form": {
+      "title": "Send a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your.email@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project or idea...",
+      "send": "Send Message",
+      "sending": "Sending..."
+    },
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "subjectMin": "Subject must be at least 3 characters",
+      "messageMin": "Message must be at least 10 characters"
+    },
+    "success": "Message sent successfully! I'll get back to you soon.",
+    "error": "Something went wrong. Please try again.",
+    "validationError": "Please fix the errors in the form",
+    "connect": "Connect With Me"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you're looking for doesn't exist or has been removed. Maybe you want to check the URL or go back to the home page?",
+    "home": "Home",
+    "homeDesc": "Go to main page",
+    "blog": "Blog",
+    "blogDesc": "Read articles",
+    "projects": "Projects",
+    "projectsDesc": "Discover projects",
+    "needHelp": "Need help?",
+    "contactUs": "Contact Us"
+  },
+  "error": {
+    "title": "Oops! Something went wrong",
+    "defaultMessage": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again",
+    "goHome": "Go to Home",
+    "technicalDetails": "Technical error details"
+  },
+  "language": {
+    "he": "עברית",
+    "en": "English"
+  }
+}

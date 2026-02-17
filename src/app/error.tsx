@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default function Error({
   error,
@@ -11,6 +12,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations('error');
+
   useEffect(() => {
     // Log error to error reporting service
     console.error('Application error:', error);
@@ -29,10 +32,10 @@ export default function Error({
         {/* Error Message */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-foreground">
-            אופס! משהו השתבש
+            {t('title')}
           </h1>
           <p className="text-muted-foreground">
-            {error.message || 'אירעה שגיאה בלתי צפויה. אנא נסה שוב.'}
+            {error.message || t('defaultMessage')}
           </p>
           {error.digest && (
             <p className="text-xs text-muted-foreground font-mono">
@@ -48,14 +51,14 @@ export default function Error({
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
           >
             <RefreshCw className="h-4 w-4" />
-            נסה שוב
+            {t('retry')}
           </button>
           <Link
             href="/"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors font-medium"
           >
             <Home className="h-4 w-4" />
-            חזור לדף הבית
+            {t('goHome')}
           </Link>
         </div>
 
@@ -63,7 +66,7 @@ export default function Error({
         {process.env.NODE_ENV === 'development' && (
           <details className="mt-8 text-left">
             <summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground">
-              פרטי שגיאה טכניים
+              {t('technicalDetails')}
             </summary>
             <pre className="mt-2 p-4 bg-muted rounded-md text-xs overflow-auto max-h-96 text-right">
               {error.stack}

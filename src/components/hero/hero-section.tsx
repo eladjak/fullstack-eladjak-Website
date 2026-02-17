@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Github } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 // Dynamic import for 3D scene (client-side only, no SSR)
 const Hero3DScene = lazy(() => import('./hero-3d-scene'));
@@ -37,6 +38,8 @@ function SceneFallback() {
  * Combines 3D background scene with text content and improved visual hierarchy
  */
 export default function HeroSection() {
+  const t = useTranslations('hero');
+
   return (
     <section className="relative w-full min-h-[90vh] flex items-center overflow-hidden">
       {/* 3D Background Scene with Suspense */}
@@ -70,7 +73,7 @@ export default function HeroSection() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
               </span>
-              Open to Opportunities
+              {t('badge')}
             </span>
           </motion.div>
 
@@ -81,9 +84,9 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Hi, I&apos;m{' '}
+              {t('greeting')}{' '}
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                Elad Ya&apos;akobovitch
+                {t('name')}
               </span>
             </motion.h1>
 
@@ -93,7 +96,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              Full-Stack Developer & AI Enthusiast
+              {t('title')}
             </motion.h2>
 
             <motion.p
@@ -102,10 +105,9 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              Building modern web applications with Next.js, React, and TypeScript.
-              Combining technical expertise with creative vision and business insight.
+              {t('description')}
               <br className="hidden md:block" />
-              <span className="text-primary font-medium">Results-driven, not hours-driven.</span>
+              <span className="text-primary font-medium">{t('resultsPhrase')}</span>
             </motion.p>
           </div>
 
@@ -120,7 +122,7 @@ export default function HeroSection() {
               href="/projects"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-200 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-              View Projects
+              {t('viewProjects')}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
@@ -146,7 +148,7 @@ export default function HeroSection() {
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               className="flex flex-col items-center gap-2 text-muted-foreground/50"
             >
-              <span className="text-xs uppercase tracking-widest">Scroll</span>
+              <span className="text-xs uppercase tracking-widest">{t('scroll')}</span>
               <div className="h-8 w-5 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-1">
                 <motion.div
                   animate={{ y: [0, 8, 0], opacity: [1, 0, 1] }}

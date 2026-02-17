@@ -1,30 +1,33 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Globe, Heart, Code2, ArrowUp } from 'lucide-react';
 import Link from 'next/link';
 import { SocialLink } from './social-link';
-
-const footerLinks = {
-  navigation: [
-    { href: '/', label: 'Home' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
-  ],
-  tools: [
-    { href: '/ai-tools', label: 'AI Tools' },
-    { href: '/whiteboard', label: 'Whiteboard' },
-  ],
-};
+import { useTranslations } from 'next-intl';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 export default function Footer() {
+  const tFooter = useTranslations('footer');
+  const tNav = useTranslations('nav');
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const currentYear = new Date().getFullYear();
+
+  const footerNavLinks = [
+    { href: '/', label: tNav('home') },
+    { href: '/projects', label: tNav('projects') },
+    { href: '/blog', label: tNav('blog') },
+    { href: '/about', label: tNav('about') },
+    { href: '/contact', label: tNav('contact') },
+  ];
+
+  const footerToolLinks = [
+    { href: '/ai-tools', label: tNav('aiTools') },
+    { href: '/whiteboard', label: tNav('whiteboard') },
+  ];
 
   return (
     <footer className="relative w-full border-t bg-card/50 backdrop-blur-sm">
@@ -34,111 +37,94 @@ export default function Footer() {
       <div className="container px-4 md:px-6 py-12 md:py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <div className="flex items-center gap-2">
-              <Code2 className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">Elad Ya&apos;akobovitch</span>
+          <ScrollAnimate>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Code2 className="h-6 w-6 text-primary" />
+                <span className="text-xl font-bold">Elad Ya&apos;akobovitch</span>
+              </div>
+              <p className="text-sm text-muted-foreground max-w-xs">
+                {tFooter('description')}
+              </p>
+              <div className="flex gap-3">
+                <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
+                <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
+                <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground max-w-xs">
-              Full-Stack Developer specializing in modern web applications.
-              Building creative solutions with Next.js, React, and TypeScript.
-            </p>
-            <div className="flex gap-3">
-              <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
-              <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
-              <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
-              <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
-            </div>
-          </motion.div>
+          </ScrollAnimate>
 
           {/* Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-              Navigation
-            </h3>
-            <ul className="space-y-2">
-              {footerLinks.navigation.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          <ScrollAnimate delay={0.05}>
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                {tFooter('navigation')}
+              </h3>
+              <ul className="space-y-2">
+                {footerNavLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </ScrollAnimate>
 
           {/* Tools */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-              Tools & Features
-            </h3>
-            <ul className="space-y-2">
-              {footerLinks.tools.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          <ScrollAnimate delay={0.1}>
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                {tFooter('toolsAndFeatures')}
+              </h3>
+              <ul className="space-y-2">
+                {footerToolLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </ScrollAnimate>
 
           {/* Tech Stack */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-              Built With
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Supabase'].map(
-                (tech) => (
-                  <span
-                    key={tech}
-                    className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
-                  >
-                    {tech}
-                  </span>
-                )
-              )}
+          <ScrollAnimate delay={0.15}>
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                {tFooter('builtWith')}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Supabase'].map(
+                  (tech) => (
+                    <span
+                      key={tech}
+                      className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                    >
+                      {tech}
+                    </span>
+                  )
+                )}
+              </div>
             </div>
-          </motion.div>
+          </ScrollAnimate>
         </div>
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            &copy; {currentYear} Elad Ya&apos;akobovitch. Built with
+            &copy; {currentYear} {tFooter('copyright')}
             <Heart className="h-3 w-3 text-destructive inline" aria-hidden="true" />
-            and lots of coffee.
+            {tFooter('andCoffee')}
           </p>
 
           {/* Back to top */}
@@ -148,7 +134,7 @@ export default function Footer() {
             aria-label="Scroll to top"
           >
             <ArrowUp className="h-4 w-4" />
-            Back to Top
+            {tFooter('backToTop')}
           </button>
         </div>
       </div>

@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { FileQuestion, Home, Search, ArrowRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
+  const t = useTranslations('notFound');
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center space-y-8">
@@ -20,11 +25,10 @@ export default function NotFound() {
         {/* Message */}
         <div className="space-y-3">
           <h1 className="text-4xl font-bold text-foreground">
-            הדף לא נמצא
+            {t('title')}
           </h1>
           <p className="text-lg text-muted-foreground max-w-md mx-auto">
-            מצטערים, אך הדף שחיפשת אינו קיים או הוסר.
-            אולי תרצה לבדוק את הכתובת או לחזור לדף הבית?
+            {t('description')}
           </p>
         </div>
 
@@ -38,8 +42,8 @@ export default function NotFound() {
               <Home className="h-6 w-6 text-primary" />
             </div>
             <div className="space-y-1">
-              <div className="font-medium">דף הבית</div>
-              <div className="text-xs text-muted-foreground">חזור לדף הראשי</div>
+              <div className="font-medium">{t('home')}</div>
+              <div className="text-xs text-muted-foreground">{t('homeDesc')}</div>
             </div>
           </Link>
 
@@ -51,8 +55,8 @@ export default function NotFound() {
               <FileQuestion className="h-6 w-6 text-primary" />
             </div>
             <div className="space-y-1">
-              <div className="font-medium">בלוג</div>
-              <div className="text-xs text-muted-foreground">קרא מאמרים</div>
+              <div className="font-medium">{t('blog')}</div>
+              <div className="text-xs text-muted-foreground">{t('blogDesc')}</div>
             </div>
           </Link>
 
@@ -64,8 +68,8 @@ export default function NotFound() {
               <Search className="h-6 w-6 text-primary" />
             </div>
             <div className="space-y-1">
-              <div className="font-medium">פרויקטים</div>
-              <div className="text-xs text-muted-foreground">גלה פרויקטים</div>
+              <div className="font-medium">{t('projects')}</div>
+              <div className="text-xs text-muted-foreground">{t('projectsDesc')}</div>
             </div>
           </Link>
         </div>
@@ -73,9 +77,9 @@ export default function NotFound() {
         {/* Additional Help */}
         <div className="pt-8 border-t border-border">
           <p className="text-sm text-muted-foreground">
-            צריך עזרה?{' '}
+            {t('needHelp')}{' '}
             <Link href="/contact" className="text-primary hover:underline inline-flex items-center gap-1">
-              צור קשר
+              {t('contactUs')}
               <ArrowRight className="h-3 w-3" />
             </Link>
           </p>

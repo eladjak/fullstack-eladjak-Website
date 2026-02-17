@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useTranslations } from 'next-intl';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 interface Skill {
   name: string;
@@ -10,14 +12,14 @@ interface Skill {
 }
 
 interface SkillCategory {
-  title: string;
+  titleKey: string;
   icon: string;
   skills: Skill[];
 }
 
 const skillCategories: SkillCategory[] = [
   {
-    title: 'Frontend',
+    titleKey: 'frontend',
     icon: '🎨',
     skills: [
       { name: 'React', icon: '⚛️', color: '#61DAFB' },
@@ -29,7 +31,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: 'Backend',
+    titleKey: 'backend',
     icon: '⚙️',
     skills: [
       { name: 'Node.js', icon: '🟢', color: '#339933' },
@@ -41,7 +43,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: 'AI & Tools',
+    titleKey: 'aiTools',
     icon: '🤖',
     skills: [
       { name: 'OpenAI / GPT', icon: '🧠', color: '#412991' },
@@ -53,7 +55,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: 'More Skills',
+    titleKey: 'more',
     icon: '🚀',
     skills: [
       { name: 'Angular', icon: '🅰️', color: '#DD0031' },
@@ -103,22 +105,28 @@ export default function SkillsSection() {
     threshold: 0.1,
   });
 
+  const t = useTranslations('skills');
+
+  const stats = [
+    { value: '3+', label: t('stats.experience') },
+    { value: '20+', label: t('stats.projects') },
+    { value: '15+', label: t('stats.technologies') },
+    { value: '100%', label: t('stats.satisfaction') },
+  ];
+
   return (
     <section className="w-full py-16 md:py-24 lg:py-32 bg-muted/30">
       <div className="container px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            Skills & Technologies
-          </h2>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-            My technical toolkit for building modern, scalable applications
-          </p>
-        </motion.div>
+        <ScrollAnimate>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+              {t('title')}
+            </h2>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+              {t('subtitle')}
+            </p>
+          </div>
+        </ScrollAnimate>
 
         <motion.div
           ref={ref}
@@ -127,9 +135,9 @@ export default function SkillsSection() {
           animate={inView ? 'visible' : 'hidden'}
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
         >
-          {skillCategories.map((category, categoryIndex) => (
+          {skillCategories.map((category) => (
             <motion.div
-              key={category.title}
+              key={category.titleKey}
               variants={categoryVariants}
               className="relative group"
             >
@@ -137,13 +145,12 @@ export default function SkillsSection() {
               <div className="relative p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="text-2xl">{category.icon}</span>
-                  <h3 className="text-xl font-semibold">{category.title}</h3>
+                  <h3 className="text-xl font-semibold">
+                    {t(`categories.${category.titleKey}`)}
+                  </h3>
                 </div>
 
-                <motion.div
-                  variants={containerVariants}
-                  className="flex flex-wrap gap-2"
-                >
+                <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
                   {category.skills.map((skill) => (
                     <motion.div
                       key={skill.name}
@@ -184,12 +191,7 @@ export default function SkillsSection() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
-          {[
-            { value: '3+', label: 'Years Experience' },
-            { value: '20+', label: 'Projects Completed' },
-            { value: '15+', label: 'Technologies' },
-            { value: '100%', label: 'Client Satisfaction' },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, scale: 0.5 }}
@@ -200,9 +202,7 @@ export default function SkillsSection() {
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 {stat.value}
               </div>
-              <div className="text-sm text-muted-foreground mt-2">
-                {stat.label}
-              </div>
+              <div className="text-sm text-muted-foreground mt-2">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
