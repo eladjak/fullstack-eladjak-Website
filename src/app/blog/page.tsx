@@ -2,115 +2,186 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import type { BlogPost } from '@/types/blog';
-import { useRealtimeSubscription } from '@/hooks/useRealtimeSubscription';
-import type { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
-import BlogFilters from '@/components/blog/blog-filters';
-import { LoadingPage } from '@/components/ui/loading-spinner';
-import BlogCard from '@/components/blog/blog-card';
-import { useBlogPosts } from '@/hooks/useBlogPosts';
-import { useMetaTags } from '@/hooks/useMetaTags';
-import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Calendar, Clock, Tag } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useLocale } from '@/components/providers/locale-provider';
+import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { TagBadge } from '@/components/ui/tag-badge';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+
+interface MDXPostSerialized {
+  slug: string;
+  frontmatter: {
+    title: string;
+    titleHe?: string;
+    date: string;
+    description: string;
+    descriptionHe?: string;
+    tags: string[];
+    featured_image?: string;
+    author?: string;
+  };
+  readingTime: number;
+}
 
 export default function BlogPage() {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [page, setPage] = useState(1);
-  const postsPerPage = 9;
-
-  const { posts, loading, setPosts } = useBlogPosts({ page, selectedTags, postsPerPage });
+  const t = useTranslations('blogPage');
+  const { locale } = useLocale();
+  const [posts, setPosts] = useState<MDXPostSerialized[]>([]);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const generateMetaTags = async () => {
-      try {
-        const postIds = posts.map(post => post.id);
-        for (const postId of postIds) {
-          await supabase.functions.invoke('generate-meta-tags', {
-            body: { postId }
-          });
-        }
-      } catch (error) {
-        console.error('Error generating meta tags:', error);
-      }
-    };
-
-    if (posts.length > 0) {
-      generateMetaTags();
-    }
-  }, [posts]);
-
-  useRealtimeSubscription<BlogPost>(
-    {
-      channel: 'blog_posts',
-      table: 'blog_posts',
-      filter: 'published=eq.true'
-    },
-    (payload: RealtimePostgresChangesPayload<BlogPost>) => {
-      if (payload.eventType === 'INSERT') {
-        setPosts(prev => [...prev, payload.new]);
-      } else if (payload.eventType === 'DELETE') {
-        setPosts(prev => prev.filter(p => p.id !== payload.old.id));
-      } else if (payload.eventType === 'UPDATE') {
-        setPosts(prev => prev.map(p => p.id === payload.new.id ? { ...p, ...payload.new } : p));
-      }
-    }
-  );
+    fetch('/api/blog/posts')
+      .then(res => res.json())
+      .then((data: MDXPostSerialized[]) => {
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const allTags = Array.from(
-    new Set(
-      posts.flatMap(post => post.tags || [])
-    )
+    new Set(posts.flatMap(post => post.frontmatter.tags))
   ).sort();
 
-  useMetaTags({
-    title: 'Blog | Portfolio',
-    description: 'Explore my thoughts, stories and ideas about software development, technology, and more.',
-    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643',
-    type: 'blog'
-  });
+  const filteredPosts = selectedTag
+    ? posts.filter(post => post.frontmatter.tags.includes(selectedTag))
+    : posts;
+
+  const getTitle = (post: MDXPostSerialized) =>
+    locale === 'he' && post.frontmatter.titleHe
+      ? post.frontmatter.titleHe
+      : post.frontmatter.title;
+
+  const getDescription = (post: MDXPostSerialized) =>
+    locale === 'he' && post.frontmatter.descriptionHe
+      ? post.frontmatter.descriptionHe
+      : post.frontmatter.description;
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="mb-8 space-y-4">
-        <h1 className="text-4xl font-bold">Blog</h1>
-        <p className="text-lg text-muted-foreground">
-          Thoughts, stories and ideas.
-        </p>
-        
-        <BlogFilters
-          tags={allTags}
-          selected={selectedTags}
-          onChange={tags => {
-            setSelectedTags(tags);
-            setPage(1);
-          }}
-        />
-      </div>
-
-      {loading ? (
-        <LoadingPage label="Loading blog posts..." />
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, index) => (
-            <motion.div
-              key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-            >
-              <BlogCard post={post} />
-            </motion.div>
-          ))}
+      <ScrollAnimate>
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t('subtitle')}
+          </p>
         </div>
+      </ScrollAnimate>
+
+      {/* Tag Filters */}
+      {allTags.length > 0 && (
+        <ScrollAnimate delay={0.05}>
+          <div className="flex flex-wrap gap-2 justify-center mb-10">
+            <button
+              onClick={() => setSelectedTag(null)}
+              className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
+                selectedTag === null
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-primary/10 text-primary border-transparent hover:bg-primary/20'
+              }`}
+            >
+              <Tag className="h-3 w-3" />
+              {t('allPosts')}
+            </button>
+            {allTags.map(tag => (
+              <button
+                key={tag}
+                onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
+                className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
+                  selectedTag === tag
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'bg-primary/10 text-primary border-transparent hover:bg-primary/20'
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </ScrollAnimate>
       )}
 
-      {posts.length === postsPerPage && (
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={() => setPage(p => p + 1)}
-            className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
-          >
-            Load More
-          </button>
+      {/* Posts Grid */}
+      {loading ? (
+        <div className="flex justify-center py-20">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        </div>
+      ) : filteredPosts.length === 0 ? (
+        <div className="text-center py-20">
+          <p className="text-muted-foreground text-lg">{t('noPosts')}</p>
+        </div>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredPosts.map((post, index) => (
+            <motion.div
+              key={post.slug}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}
+            >
+              <Card className="group overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] h-full flex flex-col">
+                {/* Featured Image */}
+                {post.frontmatter.featured_image && (
+                  <div className="relative w-full aspect-video overflow-hidden">
+                    <Image
+                      src={post.frontmatter.featured_image}
+                      alt={getTitle(post)}
+                      fill
+                      className="object-cover transition-transform duration-200 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <CardHeader>
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+                      <Link href={`/blog/${post.slug}`}>
+                        {getTitle(post)}
+                      </Link>
+                    </h3>
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-3.5 w-3.5" />
+                        <time dateTime={post.frontmatter.date}>
+                          {new Date(post.frontmatter.date).toLocaleDateString(
+                            locale === 'he' ? 'he-IL' : 'en-US',
+                            { year: 'numeric', month: 'short', day: 'numeric' }
+                          )}
+                        </time>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-3.5 w-3.5" />
+                        <span>
+                          {post.readingTime} {t('minRead')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <p className="text-muted-foreground line-clamp-3">
+                    {getDescription(post)}
+                  </p>
+                </CardContent>
+                <CardFooter className="flex flex-wrap gap-2">
+                  {post.frontmatter.tags.slice(0, 3).map(tag => (
+                    <TagBadge key={tag} tag={tag} variant="default" showIcon={false} />
+                  ))}
+                  {post.frontmatter.tags.length > 3 && (
+                    <span className="text-xs text-muted-foreground">
+                      +{post.frontmatter.tags.length - 3}
+                    </span>
+                  )}
+                </CardFooter>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       )}
     </div>

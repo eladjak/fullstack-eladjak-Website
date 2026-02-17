@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { supabase } from '@/lib/supabase';
+import { getAllMDXPosts } from '@/lib/mdx';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 
@@ -80,10 +81,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
       })) || [];
 
-    return [...staticRoutes, ...blogRoutes, ...projectRoutes];
+    // MDX blog posts (local files)
+    const mdxPosts = getAllMDXPosts();
+    const mdxRoutes: MetadataRoute.Sitemap = mdxPosts.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.frontmatter.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+
+    return [...staticRoutes, ...blogRoutes, ...mdxRoutes, ...projectRoutes];
   } catch (error) {
     console.error('Error generating sitemap:', error);
-    // Return static routes if database query fails
-    return staticRoutes;
+    // Return static routes + MDX routes even if database query fails
+    const mdxPosts = getAllMDXPosts();
+    const mdxRoutes: MetadataRoute.Sitemap = mdxPosts.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.frontmatter.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+    return [...staticRoutes, ...mdxRoutes];
   }
 }

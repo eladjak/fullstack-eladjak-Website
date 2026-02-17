@@ -123,6 +123,16 @@
     "subtitle": "Thoughts on development, technology, and more",
     "readMore": "Read More Posts"
   },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Thoughts, stories and ideas about software development, technology, and my journey as a developer.",
+    "allPosts": "All Posts",
+    "noPosts": "No blog posts found.",
+    "minRead": "min read",
+    "backToBlog": "Back to Blog",
+    "allPostsLink": "All Posts",
+    "getInTouch": "Get in touch"
+  },
   "footer": {
     "description": "Full-Stack Developer specializing in modern web applications. Building creative solutions with Next.js, React, and TypeScript.",
     "navigation": "Navigation",

@@ -63,9 +63,13 @@ export function StructuredData({ data }: StructuredDataProps) {
     ...data,
   };
 
+  // Generate unique ID from the @type field or use a fallback
+  const dataObj = data as unknown as Record<string, unknown>;
+  const typeId = (dataObj['@type'] ? String(dataObj['@type']) : 'generic').toLowerCase();
+
   return (
     <Script
-      id="structured-data"
+      id={`structured-data-${typeId}`}
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />

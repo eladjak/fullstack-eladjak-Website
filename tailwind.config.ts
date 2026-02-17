@@ -1,6 +1,7 @@
 import { type Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import animate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 
 export default {
@@ -107,7 +108,7 @@ export default {
 			}
 		}
 	},
-	plugins: [animate, addVariablesForColors],
+	plugins: [animate, typography, addVariablesForColors],
 } satisfies Config;
 
 

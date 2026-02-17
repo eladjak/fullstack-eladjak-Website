@@ -21,24 +21,33 @@ const assistant = Assistant({
   variable: '--font-assistant',
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
+
 export const metadata: Metadata = {
-  title: "Elad Ya'akobovitch | Full-Stack Developer",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Elad Ya'akobovitch | Full-Stack Developer",
+    template: "%s | Elad Ya'akobovitch",
+  },
   description: "Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web applications with creative vision and business insight.",
   keywords: ["Full-Stack Developer", "Next.js", "React", "TypeScript", "Web Development", "Israel", "JavaScript", "Software Engineer"],
-  authors: [{ name: "Elad Ya'akobovitch", url: "https://fullstack-eladjak.co.il" }],
+  authors: [{ name: "Elad Ya'akobovitch", url: SITE_URL }],
   creator: "Elad Ya'akobovitch",
   publisher: "Elad Ya'akobovitch",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     title: "Elad Ya'akobovitch | Full-Stack Developer",
     description: "Full-Stack Developer specializing in Next.js, React, and TypeScript",
     type: "website",
-    url: "https://fullstack-eladjak.co.il",
+    url: SITE_URL,
     siteName: "Elad Ya'akobovitch Portfolio",
     locale: "he_IL",
     images: [
       {
-        url: "https://fullstack-eladjak.co.il/og-image.png",
+        url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Elad Ya'akobovitch - Full-Stack Developer",
@@ -49,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Elad Ya'akobovitch | Full-Stack Developer",
     description: "Full-Stack Developer specializing in Next.js, React, and TypeScript",
-    images: ["https://fullstack-eladjak.co.il/og-image.png"],
+    images: [`${SITE_URL}/og-image.png`],
   },
   robots: {
     index: true,
@@ -76,6 +85,7 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className={`${GeistSans.variable} ${heebo.variable} ${assistant.variable}`}>
       <head>
         <StructuredData data={structuredDataGenerators.website()} />
+        <StructuredData data={structuredDataGenerators.person("Elad Ya'akobovitch", SITE_URL, "Full-Stack Developer & Software Engineer")} />
         {/* PWA Meta Tags */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#3b82f6" />

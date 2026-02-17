@@ -123,6 +123,16 @@
     "subtitle": "מחשבות על פיתוח, טכנולוגיה ועוד",
     "readMore": "קרא עוד פוסטים"
   },
+  "blogPage": {
+    "title": "בלוג",
+    "subtitle": "מחשבות, סיפורים ורעיונות על פיתוח תוכנה, טכנולוגיה והמסע שלי כמפתח.",
+    "allPosts": "כל הפוסטים",
+    "noPosts": "לא נמצאו פוסטים.",
+    "minRead": "דקות קריאה",
+    "backToBlog": "חזרה לבלוג",
+    "allPostsLink": "כל הפוסטים",
+    "getInTouch": "צרו קשר"
+  },
   "footer": {
     "description": "מפתח Full-Stack המתמחה ביישומי ווב מודרניים. בונה פתרונות יצירתיים עם Next.js, React ו-TypeScript.",
     "navigation": "ניווט",
