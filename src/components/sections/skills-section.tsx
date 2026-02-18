@@ -69,7 +69,7 @@ const skillCategories: SkillCategory[] = [
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.85 },
   visible: {
     opacity: 1,
     transition: {
@@ -79,23 +79,23 @@ const containerVariants = {
 };
 
 const categoryVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0.85, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       staggerChildren: 0.05,
     },
   },
 };
 
 const skillVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0.85, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.3 },
+    transition: { duration: 0.2 },
   },
 };
 
@@ -186,17 +186,17 @@ export default function SkillsSection() {
 
         {/* Stats Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0.85, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.6, duration: 0.5 }}
+          transition={{ delay: 0.3, duration: 0.2 }}
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.5 }}
+              initial={{ opacity: 0.85, scale: 0.95 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.8 + index * 0.1 }}
+              transition={{ delay: 0.4 + index * 0.05 }}
               className="text-center"
             >
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">

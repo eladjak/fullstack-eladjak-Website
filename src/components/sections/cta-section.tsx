@@ -37,9 +37,9 @@ export default function CTASection() {
               return (
                 <motion.div
                   key={key}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0.85, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, ease: 'easeOut', delay: 0.1 + index * 0.05 }}
+                  transition={{ duration: 0.2, ease: 'easeOut', delay: 0.05 + index * 0.03 }}
                   viewport={{ once: true }}
                   className="group relative"
                 >

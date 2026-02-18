@@ -70,7 +70,7 @@ const staticProjects: StaticProject[] = [
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0.85 },
   visible: {
     opacity: 1,
     transition: { staggerChildren: 0.1 },
@@ -78,11 +78,11 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0.85, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { duration: 0.2 },
   },
 };
 
