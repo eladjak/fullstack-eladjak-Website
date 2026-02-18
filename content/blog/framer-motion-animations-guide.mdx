@@ -1,0 +1,364 @@
+---
+title: "A Guide to Smooth Animations with Framer Motion"
+titleHe: "מדריך ליצירת אנימציות חלקות עם Framer Motion"
+date: "2026-02-01"
+description: "Learn how to create beautiful, performant animations in React with Framer Motion - from basic motion components and variants to scroll-triggered animations and complex orchestration."
+descriptionHe: "למדו איך ליצור אנימציות יפות וביצועיות ב-React עם Framer Motion - מרכיבי motion בסיסיים ו-variants ועד אנימציות מופעלות גלילה ותזמור מורכב."
+tags: ["Framer Motion", "Animation", "React"]
+featured_image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&h=630&fit=crop"
+author: "Elad Ya'akobovitch"
+published: true
+---
+
+# A Guide to Smooth Animations with Framer Motion
+
+Animations are the difference between a website that works and a website that feels alive. They guide attention, communicate state changes, and create a sense of polish that users notice, even if they cannot articulate why. But animations done poorly -- janky, slow, or distracting -- are worse than no animations at all.
+
+Framer Motion is a production-ready animation library for React that makes it remarkably easy to create smooth, performant animations. After using it extensively in my portfolio and client projects, I have developed a set of patterns and principles that I want to share.
+
+## The Basics: Motion Components
+
+Framer Motion works by wrapping standard HTML and SVG elements with `motion` components. A `motion.div` is a regular `div` with animation superpowers. The core API revolves around three props: `initial`, `animate`, and `transition`.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+export function HeroSection() {
+  return (
+    <section className="flex min-h-dvh flex-col items-center justify-center px-4">
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mb-4 text-5xl font-bold tracking-tight md:text-7xl"
+      >
+        Full-Stack Developer
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+        className="max-w-xl text-center text-lg text-neutral-600 dark:text-neutral-400"
+      >
+        Building modern web applications with React, TypeScript, and a passion
+        for clean, performant code.
+      </motion.p>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
+        className="mt-8 flex gap-4"
+      >
+        <a
+          href="/projects"
+          className="rounded-full bg-blue-600 px-8 py-3 font-medium text-white transition-colors hover:bg-blue-700"
+        >
+          View Projects
+        </a>
+        <a
+          href="/contact"
+          className="rounded-full border border-neutral-300 px-8 py-3 font-medium transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
+        >
+          Contact Me
+        </a>
+      </motion.div>
+    </section>
+  );
+}
+```
+
+The `initial` state is where the element starts, `animate` is where it ends, and `transition` controls how it gets there. In this example, the heading fades in and slides up first, followed by the paragraph 200ms later, and the buttons 400ms after that. The staggered timing creates a natural, cascading reveal.
+
+A critical performance note: I only animate `opacity` and `transform` properties (which `y`, `x`, `scale`, and `rotate` map to). These properties are composited by the GPU and do not trigger layout recalculations. Never animate `width`, `height`, `top`, or `left` directly.
+
+## Variants: Orchestrated Animations
+
+When you have multiple elements that need coordinated animations, manually managing delays becomes tedious. Variants solve this elegantly. You define named animation states, and Framer Motion automatically propagates them through the component tree with configurable staggering.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+interface Skill {
+  name: string;
+  level: number;
+  icon: string;
+}
+
+const skills: Skill[] = [
+  { name: "React", level: 95, icon: "react" },
+  { name: "TypeScript", level: 90, icon: "typescript" },
+  { name: "Next.js", level: 92, icon: "nextjs" },
+  { name: "Tailwind CSS", level: 88, icon: "tailwind" },
+  { name: "Node.js", level: 85, icon: "nodejs" },
+  { name: "Supabase", level: 82, icon: "supabase" },
+];
+
+export function SkillsGrid() {
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      {skills.map((skill) => (
+        <motion.div
+          key={skill.name}
+          variants={itemVariants}
+          className="rounded-xl border border-neutral-200 p-6 dark:border-neutral-800"
+        >
+          <h3 className="mb-3 text-lg font-semibold">{skill.name}</h3>
+          <div className="h-2 overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${skill.level}%` }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+              className="h-full rounded-full bg-blue-600"
+            />
+          </div>
+          <span className="mt-2 inline-block text-sm text-neutral-500">
+            {skill.level}%
+          </span>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+```
+
+The `containerVariants` define `staggerChildren: 0.1`, which means each child's animation starts 100ms after the previous one. The children do not need to know about the stagger -- they just define their own `hidden` and `visible` states, and the parent orchestrates the timing. This creates a satisfying wave effect as the skill cards appear one by one.
+
+## Scroll-Triggered Animations
+
+Not all animations should fire on page load. Many elements are below the fold and should animate when they scroll into view. Framer Motion's `whileInView` prop handles this with built-in intersection observer integration.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  tags: string[];
+  url: string;
+}
+
+export function ProjectCard({ project }: { project: Project }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900"
+    >
+      <div className="relative aspect-video overflow-hidden">
+        <motion.img
+          src={project.imageUrl}
+          alt={project.title}
+          className="h-full w-full object-cover"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
+        />
+      </div>
+      <div className="p-6">
+        <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
+        <p className="mb-4 text-neutral-600 dark:text-neutral-400">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-neutral-100 px-3 py-1 text-sm dark:bg-neutral-800"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+export function ProjectsSection({ projects }: { projects: Project[] }) {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-24">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mb-12 text-center text-3xl font-bold md:text-4xl"
+      >
+        Featured Projects
+      </motion.h2>
+      <div className="grid gap-8 md:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+The `viewport` prop with `once: true` means the animation only plays the first time the element enters the viewport. The `margin: "-100px"` triggers the animation slightly before the element is fully visible, which feels more responsive. The `whileHover` prop adds a subtle lift effect on mouse hover, giving immediate tactile feedback.
+
+## Page Transitions with AnimatePresence
+
+Smooth page transitions make a single-page application feel cohesive rather than disjointed. `AnimatePresence` detects when components are removed from the React tree and lets them animate out before they disappear.
+
+```tsx
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+
+const pageTransition = {
+  initial: { opacity: 0, y: 8 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: 0.2, ease: "easeIn" },
+  },
+};
+
+export function PageTransitionWrapper({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.main
+        key={pathname}
+        variants={pageTransition}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="min-h-dvh"
+      >
+        {children}
+      </motion.main>
+    </AnimatePresence>
+  );
+}
+```
+
+The `mode="wait"` prop ensures the exiting page finishes its animation before the entering page begins. The `key={pathname}` tells React and Framer Motion that this is a new component instance when the route changes, triggering the exit and enter animations. I keep page transitions fast (under 300ms total) and subtle -- users should feel the flow, not watch an animation.
+
+## Gesture Animations
+
+Framer Motion excels at gesture-driven animations. The `whileHover`, `whileTap`, and `drag` props create interactive elements that respond to user input with zero boilerplate.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+export function InteractiveButton({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      className="rounded-full bg-blue-600 px-8 py-3 font-medium text-white"
+    >
+      {children}
+    </motion.button>
+  );
+}
+
+export function DraggableCard() {
+  return (
+    <motion.div
+      drag
+      dragConstraints={{ left: -100, right: 100, top: -50, bottom: 50 }}
+      dragElastic={0.1}
+      whileDrag={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
+      className="w-64 cursor-grab rounded-xl bg-white p-6 shadow-md active:cursor-grabbing dark:bg-neutral-800"
+    >
+      <h3 className="font-semibold">Drag me around</h3>
+      <p className="mt-2 text-sm text-neutral-500">
+        This card can be dragged within its constraints.
+      </p>
+    </motion.div>
+  );
+}
+```
+
+The spring physics on the button create a natural, bouncy feel that is far more satisfying than a linear transition. The drag constraints keep the card within bounds, and `dragElastic` controls how far it can be pulled past those bounds before snapping back.
+
+## Animation Principles I Follow
+
+After building dozens of animated interfaces, these are the rules I follow without exception:
+
+1. **Only animate `transform` and `opacity`** - These are the only properties that do not trigger layout recalculation. This means `x`, `y`, `scale`, `rotate`, and `opacity` are your tools. Never animate `width`, `height`, `top`, `left`, or `margin`.
+
+2. **Keep durations under 200ms for feedback** - Button presses, hover states, and toggles should feel instant. Anything over 200ms starts to feel sluggish for direct interaction feedback.
+
+3. **Use 300-600ms for reveals and transitions** - Page transitions, scroll animations, and entrance effects can be slower because they are not responding to a direct user action.
+
+4. **Respect reduced motion preferences** - Some users have vestibular disorders or simply prefer less motion. Always provide a reduced motion alternative.
+
+5. **Animate with purpose** - Every animation should communicate something: a state change, a spatial relationship, or a hint about interactivity. If an animation does not serve a purpose, remove it.
+
+6. **Stagger, do not synchronize** - When multiple elements animate in, stagger their timing. Simultaneous animations feel mechanical; staggered ones feel organic.
+
+## Performance Considerations
+
+Framer Motion is highly optimized, but you can still create performance problems if you are not careful. Here are the key considerations:
+
+- **Avoid animating during scroll** - Use `whileInView` with `once: true` instead of continuous scroll-linked animations for most cases
+- **Use `layout` animations sparingly** - The `layout` prop triggers layout measurements on every frame; only use it when you genuinely need elements to animate between layout positions
+- **Unmount animated components** - Use `AnimatePresence` to properly clean up components rather than hiding them with opacity
+- **Batch related animations** - Use variants with `staggerChildren` instead of individual `delay` props, which gives Framer Motion more optimization opportunities
+
+## Wrapping Up
+
+Framer Motion transforms animation in React from a painful, imperative process into a declarative, composable one. The motion component API feels natural to React developers, variants handle complex orchestration elegantly, and the performance defaults are sensible.
+
+The key is restraint. The best animations are the ones users feel but do not consciously notice. They make your application feel responsive, polished, and alive without drawing attention away from the content. Start with subtle opacity and transform animations, and only add complexity when it genuinely improves the user experience.
+
+---
+
+*Want to see these animations in action? Browse this site -- every transition and hover effect uses the patterns described above. Have questions? [Get in touch](/contact).*

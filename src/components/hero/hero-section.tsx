@@ -1,13 +1,16 @@
 'use client';
 
-import { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Github } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 
 // Dynamic import for 3D scene (client-side only, no SSR)
-const Hero3DScene = lazy(() => import('./hero-3d-scene'));
+const Hero3DScene = dynamic(() => import('./hero-3d-scene'), {
+  ssr: false,
+  loading: () => <SceneFallback />,
+});
 
 /**
  * Loading fallback for 3D scene
@@ -42,10 +45,8 @@ export default function HeroSection() {
 
   return (
     <section className="relative w-full min-h-[90vh] flex items-center overflow-hidden">
-      {/* 3D Background Scene with Suspense */}
-      <Suspense fallback={<SceneFallback />}>
-        <Hero3DScene />
-      </Suspense>
+      {/* 3D Background Scene with dynamic import (no SSR) */}
+      <Hero3DScene />
 
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-background/60 dark:bg-background/80 -z-10" />

@@ -9,11 +9,15 @@ import "@/styles/globals.css";
 const heebo = Heebo({
   subsets: ['hebrew'],
   variable: '--font-heebo',
+  display: 'swap',
+  preload: true,
 });
 
 const assistant = Assistant({
   subsets: ['hebrew'],
   variable: '--font-assistant',
+  display: 'swap',
+  preload: true,
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';

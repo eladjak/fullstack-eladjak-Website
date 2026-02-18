@@ -1,8 +1,10 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
+  reactStrictMode: true,
   trailingSlash: true,
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -25,6 +27,11 @@ const config = {
         hostname: 'ui-avatars.com',
       },
     ],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production'
+      ? { exclude: ['error', 'warn'] }
+      : false,
   },
   typescript: {
     ignoreBuildErrors: false, // Enable type checking during builds

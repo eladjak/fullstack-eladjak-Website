@@ -342,22 +342,72 @@
   },
   "aiToolsPage": {
     "title": "AI Tools & Services",
-    "subtitle": "Explore our suite of AI-powered tools to enhance your workflow",
-    "contentGeneration": {
-      "title": "Content Generation",
-      "description": "Generate high-quality content for your blog posts, social media, and marketing materials using advanced AI models."
+    "subtitle": "Exploring the AI ecosystem I use to build smarter, faster, and more creative applications.",
+    "toolsSection": "AI Tools I Work With",
+    "tools": {
+      "claude": {
+        "title": "Claude AI",
+        "description": "Anthropic's advanced reasoning model for complex code analysis, architecture decisions, and deep problem-solving."
+      },
+      "openai": {
+        "title": "OpenAI GPT",
+        "description": "Versatile language model powering content generation, conversational AI, and multi-modal applications."
+      },
+      "langchain": {
+        "title": "LangChain",
+        "description": "Framework for building context-aware AI pipelines with chains, agents, and retrieval-augmented generation."
+      },
+      "supabaseAi": {
+        "title": "Supabase AI",
+        "description": "Vector storage and semantic search powered by pgvector, enabling similarity-based retrieval at scale."
+      },
+      "vercelAiSdk": {
+        "title": "Vercel AI SDK",
+        "description": "Streaming-first toolkit for building AI-powered React interfaces with edge-ready server components."
+      },
+      "huggingFace": {
+        "title": "Hugging Face",
+        "description": "Open-source model hub providing transformers, NLP pipelines, and fine-tuning capabilities for custom tasks."
+      }
     },
-    "smartChat": {
-      "title": "Smart Chat Assistant",
-      "description": "Get instant answers to your questions and receive intelligent suggestions based on your context."
+    "howIUseAi": "How I Use AI",
+    "highlights": {
+      "codeGeneration": {
+        "title": "Code Generation",
+        "description": "Accelerating development with AI-assisted code generation, refactoring suggestions, and automated testing."
+      },
+      "aiFeatures": {
+        "title": "AI-Powered Features",
+        "description": "Building intelligent features like semantic search, content recommendations, and natural language interfaces."
+      },
+      "automation": {
+        "title": "Workflow Automation",
+        "description": "Automating repetitive tasks, CI/CD pipelines, and content workflows with AI agents and scripts."
+      }
     },
-    "codeEnhancement": {
-      "title": "Code Enhancement",
-      "description": "Automatically improve your code quality, fix bugs, and get intelligent refactoring suggestions."
-    },
-    "aiAnalytics": {
-      "title": "AI Analytics",
-      "description": "Get deep insights into your data with AI-powered analytics and visualization tools."
+    "demoSection": "Interactive Demos",
+    "demo": {
+      "codeReview": {
+        "tab": "Code Review",
+        "title": "AI-Powered Code Review",
+        "description": "See how AI identifies issues and suggests improvements in real-time.",
+        "before": "Before",
+        "after": "After"
+      },
+      "smartSearch": {
+        "tab": "Smart Search",
+        "title": "Keyword vs Semantic Search",
+        "description": "Compare traditional keyword matching with AI-driven semantic understanding.",
+        "keyword": "Keyword Search",
+        "semantic": "Semantic Search"
+      },
+      "contentGeneration": {
+        "tab": "Content Generation",
+        "title": "AI Content Generation",
+        "description": "From a simple prompt to polished copy in seconds.",
+        "prompt": "Prompt",
+        "output": "AI Output"
+      }
     }
   },
   "language": {
