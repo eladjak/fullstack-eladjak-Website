@@ -18,6 +18,11 @@
     /* Typography - Use GeistSans from layout.tsx, NOT Poppins */
     --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
 
+    /* Animation Timing Tokens */
+    --animation-fast: 150ms;
+    --animation-base: 250ms;
+    --animation-slow: 400ms;
+
     /* Light Mode - Material Design 3 Color Tokens */
     --background: #FFFFFF;
     --foreground: #1F2937;           /* Gray-800 for good contrast */
@@ -141,7 +146,7 @@ nextjs-portal {
 }
 
 .animate-gradient {
-  animation: gradient 4s ease infinite;
+  animation: gradient 6s ease infinite;
 }
 
 /* Smooth scrolling with offset for fixed nav */

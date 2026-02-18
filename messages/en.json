@@ -137,6 +137,13 @@
     "getInTouch": "Get in touch",
     "relatedPosts": "Related Posts"
   },
+  "stats": {
+    "repos": "GitHub Repos",
+    "commits": "Contributions",
+    "projects": "Projects Built",
+    "blogPosts": "Blog Posts",
+    "yearsExp": "Years Experience"
+  },
   "footer": {
     "description": "Full-Stack Developer specializing in modern web applications. Building creative solutions with Next.js, React, and TypeScript.",
     "navigation": "Navigation",

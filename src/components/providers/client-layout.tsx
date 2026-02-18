@@ -8,6 +8,7 @@ import { AuthProvider } from '@/lib/auth';
 import Navigation from '@/components/ui/navigation';
 import Footer from '@/components/ui/footer';
 import { PageTransition } from '@/components/ui/page-transition';
+import { SpotlightCursor } from '@/components/ui/spotlight';
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -33,6 +34,7 @@ export function ClientLayout({ children }: ClientLayoutProps) {
             </PageTransition>
           </div>
           <Footer />
+          <SpotlightCursor />
           <Toaster />
         </AuthProvider>
       </ThemeProvider>

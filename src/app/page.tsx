@@ -9,6 +9,7 @@ import HeroSection from '@/components/hero/hero-section';
 import FeaturedProjectsSection from '@/components/sections/featured-projects-section';
 import TestimonialsSection from '@/components/sections/testimonials-section';
 import CTASection from '@/components/sections/cta-section';
+import StatsBar from '@/components/sections/stats-bar';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -45,6 +46,8 @@ export default function HomePage() {
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
         <HeroSection />
+
+        <StatsBar />
 
         <SkillsSection />
 

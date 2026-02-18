@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AuthDialog } from '@/components/auth/auth-dialog';
 import ThemeToggle from './theme-toggle';
+import { CommandPalette } from './command-palette';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
 import { useActiveSection } from '@/hooks/useActiveSection';
@@ -97,8 +98,8 @@ export default function Navigation() {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/90 backdrop-blur-md shadow-lg'
-          : 'bg-background/50 backdrop-blur-sm'
+          ? 'bg-background/80 backdrop-blur-xl shadow-lg border-b border-border/30'
+          : 'bg-background/40 backdrop-blur-md'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -116,7 +117,7 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-foreground/80 hover:text-foreground transition-colors"
+                className="text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
               >
                 {item.label}
               </Link>
@@ -143,6 +144,7 @@ export default function Navigation() {
                 })}
               </div>
             )}
+            <CommandPalette />
             <NotificationsMenu />
             <AuthDialog />
             <ThemeToggle />

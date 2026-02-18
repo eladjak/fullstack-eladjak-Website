@@ -80,13 +80,13 @@ export default function HeroSection() {
 
           <div className="space-y-4 max-w-4xl">
             <motion.h1
-              className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none"
+              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               {t('greeting')}{' '}
-              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:150%_auto] animate-gradient drop-shadow-sm">
                 {t('name')}
               </span>
             </motion.h1>
@@ -147,14 +147,14 @@ export default function HeroSection() {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="flex flex-col items-center gap-2 text-muted-foreground/50"
+              className="flex flex-col items-center gap-2 text-muted-foreground/70"
             >
-              <span className="text-xs uppercase tracking-widest">{t('scroll')}</span>
+              <span className="text-xs uppercase tracking-widest font-semibold">{t('scroll')}</span>
               <div className="h-8 w-5 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-1">
                 <motion.div
                   animate={{ y: [0, 8, 0], opacity: [1, 0, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50"
+                  className="h-1.5 w-1.5 rounded-full bg-primary/70"
                 />
               </div>
             </motion.div>

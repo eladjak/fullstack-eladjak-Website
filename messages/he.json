@@ -137,6 +137,13 @@
     "getInTouch": "צרו קשר",
     "relatedPosts": "פוסטים קשורים"
   },
+  "stats": {
+    "repos": "ריפוזיטוריז",
+    "commits": "תרומות קוד",
+    "projects": "פרויקטים",
+    "blogPosts": "פוסטים בבלוג",
+    "yearsExp": "שנות ניסיון"
+  },
   "footer": {
     "description": "מפתח Full-Stack המתמחה ביישומי ווב מודרניים. בונה פתרונות יצירתיים עם Next.js, React ו-TypeScript.",
     "navigation": "ניווט",

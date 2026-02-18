@@ -13,6 +13,7 @@ const AVATARS = ['SC', 'DL', 'MS', 'YB'];
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const t = useTranslations('testimonials');
 
   const next = useCallback(() => {
@@ -25,11 +26,12 @@ export default function TestimonialsSection() {
     setCurrent((prev) => (prev - 1 + TESTIMONIAL_COUNT) % TESTIMONIAL_COUNT);
   }, []);
 
-  // Auto-advance every 6 seconds
+  // Auto-advance every 9 seconds, pause on hover
   useEffect(() => {
-    const timer = setInterval(next, 6000);
+    if (isPaused) return;
+    const timer = setInterval(next, 9000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, isPaused]);
 
   const rating = RATINGS[current] ?? 5;
   const avatar = AVATARS[current] ?? '';
@@ -50,7 +52,12 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials" className="w-full py-16 md:py-24 lg:py-32 bg-muted/30 overflow-hidden">
+    <section
+      id="testimonials"
+      className="w-full py-16 md:py-24 lg:py-32 bg-muted/30 overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="container px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-12">
@@ -63,7 +70,7 @@ export default function TestimonialsSection() {
           </div>
         </ScrollAnimate>
 
-        <div className="relative max-w-3xl mx-auto">
+        <div className="relative max-w-3xl mx-auto" role="region" aria-label="Client testimonials carousel">
           {/* Navigation Buttons */}
           <button
             onClick={prev}
@@ -90,8 +97,10 @@ export default function TestimonialsSection() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
                 className="w-full"
+                aria-live="polite"
+                aria-atomic="true"
               >
                 <div className="relative p-8 md:p-10 rounded-2xl bg-card border border-border/50 shadow-lg">
                   {/* Quote icon */}
