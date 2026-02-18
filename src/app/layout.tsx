@@ -1,14 +1,9 @@
 import { GeistSans } from "geist/font/sans";
 import { Assistant, Heebo } from "next/font/google";
 import { type Metadata } from "next";
-import Navigation from "@/components/ui/navigation";
-import Footer from "@/components/ui/footer";
-import { AuthProvider } from "@/lib/auth";
 import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
-import { ThemeProvider } from "next-themes";
-import { Toaster } from "react-hot-toast";
-import { LocaleProvider } from "@/components/providers/locale-provider";
+import { ClientLayout } from "@/components/providers/client-layout";
 import "@/styles/globals.css";
 
 const heebo = Heebo({
@@ -94,18 +89,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <WebVitalsReporter />
-        <LocaleProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <AuthProvider>
-              <Navigation />
-              <div className="pt-16">
-                {children}
-              </div>
-              <Footer />
-              <Toaster />
-            </AuthProvider>
-          </ThemeProvider>
-        </LocaleProvider>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

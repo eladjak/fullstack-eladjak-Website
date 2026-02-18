@@ -4,9 +4,28 @@
 ## Last Updated: 2026-02-18
 
 ## Current State
-Portfolio website fully functional with 12 static projects (no Supabase dependency), MDX blog with 2 posts, full i18n (HE+EN), scroll animations, SEO (JSON-LD, canonical URLs), and category-filtered projects page. Dead code cleaned up. TypeScript clean, build passes.
+Portfolio website fully functional with 12 static projects (no Supabase dependency), MDX blog with 2 posts, full i18n (HE+EN) on ALL pages, scroll animations, SEO (JSON-LD, canonical URLs), category-filtered projects page, flag icon language toggle, and smooth page transitions between routes. TypeScript clean, build passes.
 
 ## What Was Done
+
+### Session 2026-02-18 (Night) - i18n Completion, Flag Icons, Page Transitions
+
+#### AI Tools Page i18n
+- [x] Added `aiToolsPage` translations to `messages/en.json` (title, subtitle, 4 card titles + descriptions)
+- [x] Added `aiToolsPage` translations to `messages/he.json` (full Hebrew translations for all AI tools cards)
+- [x] Updated `src/app/ai-tools/page.tsx` - Now uses `useTranslations('aiToolsPage')` for all text, ScrollAnimate on section header and cards
+
+#### Language Toggle with Flag Icons
+- [x] Replaced Globe icon with inline SVG flag icons in navigation (Israel flag for Hebrew, UK flag for English)
+- [x] Both desktop dropdown and mobile menu show flag icons next to language names
+- [x] Flags render as inline SVGs (no external dependencies, zero network requests)
+- [x] Removed unused `Globe` import from lucide-react
+
+#### Smooth Page Transitions
+- [x] Created `src/components/ui/page-transition.tsx` - AnimatePresence + motion.div wrapper using `usePathname` as key
+- [x] Created `src/components/providers/client-layout.tsx` - Client-side layout wrapper consolidating all providers (LocaleProvider, ThemeProvider, AuthProvider, Navigation, Footer, PageTransition)
+- [x] Updated `src/app/layout.tsx` - Replaced inline provider tree with clean `ClientLayout` component
+- [x] Page transitions use 200ms fade + 8px vertical slide (easeInOut)
 
 ### Session 2026-02-18 (Evening) - Projects Page Rewrite & Dead Code Cleanup
 
@@ -134,7 +153,7 @@ Portfolio website fully functional with 12 static projects (no Supabase dependen
 - **Email**: Resend API (with mailto fallback)
 - **AI Features**: OpenAI (code review, blog generation), Perspective API (content moderation)
 - **3D**: Three.js via React Three Fiber (hero section)
-- **Animations**: Framer Motion (scroll-triggered fade-in-up on all sections)
+- **Animations**: Framer Motion (scroll-triggered fade-in-up on all sections, smooth page transitions between routes)
 - **State**: React hooks + Zustand
 - **Fonts**: GeistSans + Heebo + Assistant (Hebrew support) via next/font
 - **Theme**: Dark/Light mode via next-themes
@@ -205,14 +224,24 @@ Portfolio website fully functional with 12 static projects (no Supabase dependen
 - `messages/he.json` - Added blogPage translations
 - `package.json` - Added MDX, gray-matter, reading-time, typography dependencies
 
+## New Files (Session 2026-02-18 Night)
+- `src/components/ui/page-transition.tsx` - Smooth page transition wrapper (framer-motion AnimatePresence)
+- `src/components/providers/client-layout.tsx` - Client-side layout wrapper consolidating all providers + page transitions
+
+## Files Modified (Session 2026-02-18 Night)
+- `src/app/layout.tsx` - Simplified to use ClientLayout (server component stays clean)
+- `src/app/ai-tools/page.tsx` - Full i18n with useTranslations + ScrollAnimate on cards
+- `src/components/ui/navigation.tsx` - Flag icons (Israel/UK) replacing Globe icon for language toggle
+- `messages/en.json` - Added aiToolsPage translations
+- `messages/he.json` - Added aiToolsPage translations
+
 ## Notes for Next Session
 - All TypeScript errors are resolved, build passes cleanly
+- ALL pages now have full i18n support (home, about, contact, projects, blog, AI tools, error, 404)
+- Language toggle shows flag icons (Israel flag for Hebrew, UK flag for English) in both desktop and mobile nav
+- Page transitions (200ms fade + slide) play on every route change via AnimatePresence
+- Layout providers consolidated into `ClientLayout` for cleaner server component layout
 - MDX blog posts are statically generated at build time
-- Blog supports both Hebrew and English with bilingual frontmatter
-- To add new blog posts: create `.mdx` file in `content/blog/` with proper frontmatter
-- i18n is fully working with Hebrew as default, English as alternative
-- Language switcher in header (desktop + mobile) persists selection in localStorage
 - Contact form sends via Resend API when key is set, falls back to mailto: otherwise
 - Scroll animations use 200ms duration with easeOut timing
-- Old `src/lib/translation.ts` (react-i18next) is now dead code and can be removed
-- The `ENVIRONMENT_FALLBACK` warning during build is from Supabase env vars (pre-existing, not related to these changes)
+- The `ENVIRONMENT_FALLBACK` warning during build is from next-intl SSG (pre-existing, not related to changes)
