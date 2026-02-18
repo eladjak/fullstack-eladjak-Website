@@ -112,7 +112,7 @@ export default function FeaturedProjectsSection() {
         >
           {staticProjects.map((project) => (
             <motion.div key={project.id} variants={cardVariants} className="group">
-              <div className="relative h-full rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1">
+              <div className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1.5">
                 {/* Gradient header */}
                 <div
                   className={`relative h-32 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}

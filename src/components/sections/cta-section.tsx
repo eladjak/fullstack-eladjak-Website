@@ -16,7 +16,7 @@ export default function CTASection() {
     <section id="cta" className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/5 blur-2xl pointer-events-none" />
 
       <div className="container relative px-4 md:px-6">
         <ScrollAnimate>

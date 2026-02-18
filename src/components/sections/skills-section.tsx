@@ -133,7 +133,7 @@ export default function SkillsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-4 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-4"
         >
           {skillCategories.map((category) => (
             <motion.div
@@ -142,7 +142,7 @@ export default function SkillsSection() {
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-colors duration-300">
+              <div className="relative p-6 rounded-xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="text-2xl">{category.icon}</span>
                   <h3 className="text-xl font-semibold">
@@ -155,7 +155,7 @@ export default function SkillsSection() {
                     <motion.div
                       key={skill.name}
                       variants={skillVariants}
-                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileHover={{ scale: 1.08, y: -3 }}
                       className="group/skill relative"
                     >
                       <div
