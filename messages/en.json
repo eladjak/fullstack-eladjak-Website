@@ -278,6 +278,88 @@
     "goHome": "Go to Home",
     "technicalDetails": "Technical error details"
   },
+  "projectsPage": {
+    "title": "Projects",
+    "subtitle": "A collection of projects showcasing full-stack development, AI integration, and creative problem solving.",
+    "allCategories": "All",
+    "categories": {
+      "web": "Web Apps",
+      "ai": "AI & ML",
+      "tools": "Tools & Utils"
+    },
+    "code": "Source Code",
+    "liveDemo": "Live Demo",
+    "projects": {
+      "haderech": {
+        "title": "HaDerech - Learning Platform",
+        "description": "A complete interactive learning platform with course systems, quizzes, certificates, community forums, and practice simulators. Features admin panel, analytics dashboard, and real-time progress tracking."
+      },
+      "portfolio": {
+        "title": "Full-Stack Portfolio",
+        "description": "This very website! A modern developer portfolio with 3D hero scene, MDX blog, i18n (Hebrew/English), contact form, SEO optimization, and dark mode support."
+      },
+      "eyAiKids": {
+        "title": "EY.AI Kids Playground",
+        "description": "An AI-powered children's book creation platform. Features a 4-step wizard, parental controls, child safety content filtering, and age-appropriate story generation."
+      },
+      "omanut": {
+        "title": "Omanut HaKesher",
+        "description": "A professional website for a relationship coaching business. Features blog with articles, contact form, testimonials, WhatsApp integration, and full RTL Hebrew support."
+      },
+      "edutech": {
+        "title": "EduTech Platform",
+        "description": "A comprehensive educational technology platform with course management, student analytics, interactive content delivery, and instructor dashboards."
+      },
+      "hebrewCalendar": {
+        "title": "Hebrew-Gregorian Calendar",
+        "description": "An interactive calendar tool converting between Hebrew and Gregorian dates. Features holiday information, date calculations, and a clean user interface."
+      },
+      "ninjaKeyboard": {
+        "title": "Ninja Keyboard",
+        "description": "A Hebrew-first PWA teaching kids ages 6-16 to type. Features touch typing lessons, keyboard shortcuts training, gamification with levels, and 5 age-based visual themes."
+      },
+      "bayitBeseder": {
+        "title": "Bayit BeSeder",
+        "description": "A home maintenance management app with task scheduling, notifications, gamification, and progress tracking. Built with Next.js, Supabase, and PWA support."
+      },
+      "kidushishi": {
+        "title": "Kidushishi Management",
+        "description": "A management application for event coordination with map integration, real-time data sync, and comprehensive dashboard analytics."
+      },
+      "voiceChat": {
+        "title": "Voice Chat with Claude",
+        "description": "A real-time voice conversation interface with Claude AI. Features push-to-talk, continuous mode, wake word detection, VAD, and WebSocket streaming."
+      },
+      "zehutai": {
+        "title": "ZehutAI - Hebrew NLP",
+        "description": "A Natural Language Processing system optimized for Hebrew text. Features RAG (Retrieval Augmented Generation), entity recognition, and sentiment analysis."
+      },
+      "whatsappAutomation": {
+        "title": "WhatsApp Automation",
+        "description": "A TypeScript library for WhatsApp automation. Features message scheduling, auto-replies, contact management, and comprehensive API integration."
+      }
+    }
+  },
+  "aiToolsPage": {
+    "title": "AI Tools & Services",
+    "subtitle": "Explore our suite of AI-powered tools to enhance your workflow",
+    "contentGeneration": {
+      "title": "Content Generation",
+      "description": "Generate high-quality content for your blog posts, social media, and marketing materials using advanced AI models."
+    },
+    "smartChat": {
+      "title": "Smart Chat Assistant",
+      "description": "Get instant answers to your questions and receive intelligent suggestions based on your context."
+    },
+    "codeEnhancement": {
+      "title": "Code Enhancement",
+      "description": "Automatically improve your code quality, fix bugs, and get intelligent refactoring suggestions."
+    },
+    "aiAnalytics": {
+      "title": "AI Analytics",
+      "description": "Get deep insights into your data with AI-powered analytics and visualization tools."
+    }
+  },
   "language": {
     "he": "עברית",
     "en": "English"

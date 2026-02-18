@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import NotificationsMenu from './notifications';
 import Link from 'next/link';
 import { AuthDialog } from '@/components/auth/auth-dialog';
@@ -11,9 +11,34 @@ import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
 import type { Locale } from '@/i18n';
 
-const languages: { code: Locale; name: string }[] = [
-  { code: 'he', name: 'עברית' },
-  { code: 'en', name: 'English' },
+/** Inline Israel flag SVG (for Hebrew) */
+function FlagIL({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="640" height="480" fill="#fff" />
+      <rect y="54" width="640" height="50" fill="#0038b8" />
+      <rect y="376" width="640" height="50" fill="#0038b8" />
+      <polygon points="320,152 346,218 418,218 358,258 380,324 320,284 260,324 282,258 222,218 294,218" fill="none" stroke="#0038b8" strokeWidth="12" />
+    </svg>
+  );
+}
+
+/** Inline UK flag SVG (for English) */
+function FlagGB({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="640" height="480" fill="#012169" />
+      <path d="M75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 302 81 480H0v-60l239-178L0 64V0z" fill="#fff" />
+      <path d="M424 281l216 159v40L369 281zm-184 20l6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z" fill="#C8102E" />
+      <path d="M241 0v480h160V0zM0 160v160h640V160z" fill="#fff" />
+      <path d="M0 193v96h640v-96zM273 0v480h96V0z" fill="#C8102E" />
+    </svg>
+  );
+}
+
+const languages: { code: Locale; name: string; Flag: typeof FlagIL }[] = [
+  { code: 'he', name: 'עברית', Flag: FlagIL },
+  { code: 'en', name: 'English', Flag: FlagGB },
 ];
 
 export default function Navigation() {
@@ -81,21 +106,30 @@ export default function Navigation() {
                 className="flex items-center gap-1.5 text-foreground/80 hover:text-foreground transition-colors"
                 aria-label="Switch language"
               >
-                <Globe className="h-4 w-4" />
+                {(() => {
+                  const current = languages.find((l) => l.code === locale);
+                  if (!current) return null;
+                  const { Flag } = current;
+                  return <Flag className="h-5 w-5 rounded-sm overflow-hidden" />;
+                })()}
                 <span className="text-sm">{languages.find((l) => l.code === locale)?.name}</span>
               </button>
-              <div className="absolute end-0 mt-2 w-36 bg-background border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => setLocale(lang.code)}
-                    className={`block w-full text-start px-4 py-2 hover:bg-muted text-sm transition-colors ${
-                      locale === lang.code ? 'text-primary font-medium' : ''
-                    }`}
-                  >
-                    {lang.name}
-                  </button>
-                ))}
+              <div className="absolute end-0 mt-2 w-40 bg-background border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                {languages.map((lang) => {
+                  const { Flag } = lang;
+                  return (
+                    <button
+                      key={lang.code}
+                      onClick={() => setLocale(lang.code)}
+                      className={`flex items-center gap-2 w-full text-start px-4 py-2 hover:bg-muted text-sm transition-colors ${
+                        locale === lang.code ? 'text-primary font-medium' : ''
+                      }`}
+                    >
+                      <Flag className="h-4 w-4 rounded-sm" />
+                      {lang.name}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -135,22 +169,26 @@ export default function Navigation() {
               </div>
               <div className="border-t my-4" />
               <div className="space-y-2">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => {
-                      setLocale(lang.code);
-                      setIsOpen(false);
-                    }}
-                    className={`w-full text-start py-2 transition-colors ${
-                      locale === lang.code
-                        ? 'text-primary font-medium'
-                        : 'text-foreground/80 hover:text-foreground'
-                    }`}
-                  >
-                    {lang.name}
-                  </button>
-                ))}
+                {languages.map((lang) => {
+                  const { Flag } = lang;
+                  return (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLocale(lang.code);
+                        setIsOpen(false);
+                      }}
+                      className={`flex items-center gap-2 w-full text-start py-2 transition-colors ${
+                        locale === lang.code
+                          ? 'text-primary font-medium'
+                          : 'text-foreground/80 hover:text-foreground'
+                      }`}
+                    >
+                      <Flag className="h-5 w-5 rounded-sm" />
+                      {lang.name}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </motion.div>

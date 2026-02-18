@@ -1,12 +1,64 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: in_progress
-## Last Updated: 2026-02-17
+## Last Updated: 2026-02-18
 
 ## Current State
-Portfolio website now supports full i18n (Hebrew + English) via next-intl, has scroll animations on all sections using framer-motion, a wired-up contact form with Resend API + mailto fallback, and improved RTL/LTR responsiveness. Default language is Hebrew. TypeScript compiles cleanly. Build passes.
+Portfolio website fully functional with 12 static projects (no Supabase dependency), MDX blog with 2 posts, full i18n (HE+EN), scroll animations, SEO (JSON-LD, canonical URLs), and category-filtered projects page. Dead code cleaned up. TypeScript clean, build passes.
 
 ## What Was Done
+
+### Session 2026-02-18 (Evening) - Projects Page Rewrite & Dead Code Cleanup
+
+#### Dead Code Removal
+- [x] Deleted `src/lib/translation.ts` - Old react-i18next setup, completely unused
+- [x] Removed unused `sidebar` color config from `tailwind.config.ts` (CSS vars never defined, classes never used)
+- [x] Removed placeholder `google-site-verification` from layout.tsx metadata
+
+#### Projects Page Rewrite (`src/app/projects/page.tsx`)
+- [x] Rewrote projects page from Supabase-dependent to static data (works without DB!)
+- [x] Added 12 real projects: HaDerech, Portfolio, EY.AI Kids, Ninja Keyboard, Voice Chat, Omanut, Bayit BeSeder, ZehutAI, EduTech, Kidushishi, WhatsApp Automation, Hebrew Calendar
+- [x] Added category filter buttons: All (12), Web Apps (5), AI & ML (3), Tools & Utils (4)
+- [x] Full i18n support (Hebrew + English) with new `projectsPage` translations
+- [x] Animated card grid with staggered entrance (framer-motion)
+- [x] Same card design as featured-projects section (gradient headers, tech badges, GitHub/Live links)
+- [x] RTL-compatible layout (uses `start`/`end` instead of `left`/`right`)
+- [x] Accessible: focus-visible rings, aria-labels on links
+
+#### Translation Additions
+- [x] Added `projectsPage` section to `messages/en.json` with all 12 project titles + descriptions
+- [x] Added `projectsPage` section to `messages/he.json` with all 12 project titles + descriptions in Hebrew
+
+### Session 2026-02-18 - MDX Blog Infrastructure, SEO & Performance
+
+#### Blog Infrastructure (MDX)
+- [x] Installed `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react`, `gray-matter`, `reading-time`, `next-mdx-remote`, `@types/mdx`, `@tailwindcss/typography`
+- [x] Created `src/lib/mdx.ts` - MDX utility: getAllMDXPosts, getMDXPostBySlug, getAllMDXTags, getAllMDXSlugs with gray-matter frontmatter parsing and reading-time calculation
+- [x] Created `content/blog/my-journey-to-fullstack.mdx` - Sample post about career journey (arts to full-stack), with code blocks, lists, blockquotes, links
+- [x] Created `content/blog/ai-in-web-development.mdx` - Sample post about AI in web dev, with TypeScript code examples and practical tips
+- [x] Both posts have bilingual frontmatter (title/titleHe, description/descriptionHe) with tags, date, featured_image, author
+- [x] Created `src/components/blog/mdx-renderer.tsx` - Client-side Markdown-to-HTML renderer supporting headings, paragraphs, code blocks, inline code, bold/italic, links, lists, blockquotes, images, horizontal rules
+- [x] Created `src/app/api/blog/posts/route.ts` - API route serving MDX post metadata (without raw content)
+- [x] Rewrote `src/app/blog/page.tsx` - New blog listing page with card grid, featured images, tag filters, i18n support (Hebrew/English title/description), reading time, date formatting by locale
+- [x] Rewrote `src/app/blog/[slug]/page.tsx` - Individual post page with MDX rendering, structured data (JSON-LD article), canonical URLs, back navigation, generateStaticParams for SSG
+- [x] Added `blogPage` translations to `messages/en.json` and `messages/he.json` (title, subtitle, allPosts, noPosts, minRead, etc.)
+- [x] Added `@tailwindcss/typography` plugin to `tailwind.config.ts` for prose styling
+
+#### Performance & SEO
+- [x] Updated `src/app/layout.tsx` - Added `metadataBase` for canonical URL resolution, added `alternates.canonical`, improved title template with `title.default` and `title.template`
+- [x] Added Person JSON-LD structured data in layout head (alongside existing WebSite structured data)
+- [x] Fixed `src/components/seo/structured-data.tsx` - Support multiple StructuredData instances with unique IDs (was using static "structured-data" id)
+- [x] Blog post pages have full OpenGraph/Twitter meta with canonical URLs, article structured data
+- [x] Updated `src/app/sitemap.ts` - Now includes MDX blog posts alongside Supabase posts, with fallback when DB unavailable
+- [x] All images verified to have alt text
+- [x] Below-fold images use `loading="lazy"` (blog cards, MDX images, comments, chat)
+- [x] `next/font` already configured: GeistSans, Heebo, Assistant (no changes needed)
+
+#### Final Polish
+- [x] 404 page already has nice design with translations (FileQuestion icon, quick links grid, contact help section)
+- [x] Dark mode works with new blog pages (prose-invert for article content, card/badge components use design tokens)
+- [x] Responsive layout: blog grid 1col mobile -> 2col tablet -> 3col desktop
+- [x] Cleaned up unused imports (ArrowRight, Tag, MDXPost type)
 
 ### Session 2026-02-17 - i18n, Scroll Animations, Contact Form, Responsiveness
 
@@ -75,27 +127,36 @@ Portfolio website now supports full i18n (Hebrew + English) via next-intl, has s
 
 ## Architecture Overview
 - **Framework**: Next.js 16 (App Router) + TypeScript
-- **Styling**: Tailwind CSS with CSS custom properties (Material Design 3 color system)
+- **Styling**: Tailwind CSS with CSS custom properties (Material Design 3 color system) + @tailwindcss/typography
 - **i18n**: next-intl with client-side provider, Hebrew (default) + English
+- **Blog**: MDX files in `content/blog/` with gray-matter frontmatter + reading-time, SSG via generateStaticParams
 - **Database**: Supabase (auth, realtime, storage)
 - **Email**: Resend API (with mailto fallback)
 - **AI Features**: OpenAI (code review, blog generation), Perspective API (content moderation)
 - **3D**: Three.js via React Three Fiber (hero section)
 - **Animations**: Framer Motion (scroll-triggered fade-in-up on all sections)
 - **State**: React hooks + Zustand
-- **Fonts**: GeistSans + Heebo + Assistant (Hebrew support)
+- **Fonts**: GeistSans + Heebo + Assistant (Hebrew support) via next/font
 - **Theme**: Dark/Light mode via next-themes
 - **Validation**: Zod (contact form)
+- **SEO**: JSON-LD structured data (Person, WebSite, BlogPosting), canonical URLs, metadataBase, OpenGraph/Twitter meta
 
 ## Pages
 - `/` - Home (Hero 3D scene with gradient animations, Skills, Static Featured Projects, Testimonials carousel, Blog posts (if Supabase connected), CTA section)
 - `/about` - About page with bio, career timeline, skills highlights, unique traits, experience details
 - `/projects` - Projects listing with filters and sort
-- `/blog` - Blog with realtime updates, tag filters
-- `/blog/[slug]` - Blog post with comments (AI-moderated)
+- `/blog` - Blog listing with card grid, featured images, tag filters, i18n (Hebrew/English)
+- `/blog/[slug]` - MDX blog post with rendered markdown, structured data, reading time (SSG)
 - `/contact` - Contact form with Zod validation, Resend API + mailto fallback
 - `/ai-tools` - Code optimizer, collaborative editor, AI cards
 - `/whiteboard` - tldraw whiteboard
+
+## New Files (Session 2026-02-18)
+- `content/blog/my-journey-to-fullstack.mdx` - Blog post: career journey
+- `content/blog/ai-in-web-development.mdx` - Blog post: AI in web dev
+- `src/lib/mdx.ts` - MDX utility functions (read, parse, sort)
+- `src/components/blog/mdx-renderer.tsx` - Markdown-to-HTML client renderer
+- `src/app/api/blog/posts/route.ts` - API route for MDX post metadata
 
 ## New Files (Session 2026-02-17)
 - `messages/he.json` - Hebrew translations
@@ -108,15 +169,15 @@ Portfolio website now supports full i18n (Hebrew + English) via next-intl, has s
 ## Known Issues / TODOs
 - [x] ~~Contact form `handleSubmit` simulates API call~~ - Now connected to Resend API with mailto fallback
 - [x] ~~`i18n` / translation system imported in navigation but labels are hardcoded English~~ - Full i18n with next-intl
-- [ ] Google verification code is placeholder in layout.tsx metadata
-- [ ] Sidebar CSS variables referenced in tailwind.config.ts but not defined in globals.css
+- [x] ~~Google verification code is placeholder in layout.tsx metadata~~ - Removed placeholder
+- [x] ~~Sidebar CSS variables referenced in tailwind.config.ts but not defined in globals.css~~ - Removed unused sidebar config
+- [x] ~~`src/lib/translation.ts` - Old react-i18next setup, now unused~~ - Deleted
+- [x] ~~Projects page depended on Supabase (empty without DB)~~ - Rewritten with 12 static projects
 - [ ] Blog meta tag generation calls `supabase.functions.invoke('generate-meta-tags')` which may not exist
 - [ ] `code-optimizer.tsx` uses dummy data instead of actual AI review (API key dependent)
 - [ ] Several `console.error` calls in catch blocks (acceptable for development)
-- [ ] `src/lib/translation.ts` - Old react-i18next setup, now unused (can be removed)
 - [ ] Consider adding real testimonials when available
-- [ ] Consider integrating Sileo (toast library) for better notifications
-- [ ] Consider integrating Ground (Framer Motion effects) for enhanced animations
+- [ ] Deploy to Vercel / GitHub Pages
 
 ## Files Modified (Session 2026-02-17)
 - `src/app/layout.tsx` - Added LocaleProvider wrapper
@@ -133,8 +194,22 @@ Portfolio website now supports full i18n (Hebrew + English) via next-intl, has s
 - `src/components/sections/testimonials-section.tsx` - i18n translations + ScrollAnimate
 - `src/components/sections/cta-section.tsx` - i18n translations + ScrollAnimate
 
+## Files Modified (Session 2026-02-18)
+- `src/app/blog/page.tsx` - Rewrote: MDX-based blog listing with card grid, tag filters, i18n
+- `src/app/blog/[slug]/page.tsx` - Rewrote: MDX post page with SSG, structured data, canonical URLs
+- `src/app/layout.tsx` - Added metadataBase, canonical URLs, Person JSON-LD, title template
+- `src/app/sitemap.ts` - Added MDX posts to sitemap
+- `src/components/seo/structured-data.tsx` - Fixed unique ID support for multiple instances
+- `tailwind.config.ts` - Added @tailwindcss/typography plugin
+- `messages/en.json` - Added blogPage translations
+- `messages/he.json` - Added blogPage translations
+- `package.json` - Added MDX, gray-matter, reading-time, typography dependencies
+
 ## Notes for Next Session
 - All TypeScript errors are resolved, build passes cleanly
+- MDX blog posts are statically generated at build time
+- Blog supports both Hebrew and English with bilingual frontmatter
+- To add new blog posts: create `.mdx` file in `content/blog/` with proper frontmatter
 - i18n is fully working with Hebrew as default, English as alternative
 - Language switcher in header (desktop + mobile) persists selection in localStorage
 - Contact form sends via Resend API when key is set, falls back to mailto: otherwise
