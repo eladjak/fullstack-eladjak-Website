@@ -55,7 +55,16 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale, direction }}>
-      <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+      <NextIntlClientProvider
+        locale={locale}
+        messages={messages[locale]}
+        timeZone="Asia/Jerusalem"
+        now={new Date()}
+        onError={(error) => {
+          if (error.code === 'ENVIRONMENT_FALLBACK') return;
+          console.error(error);
+        }}
+      >
         {children}
       </NextIntlClientProvider>
     </LocaleContext.Provider>
