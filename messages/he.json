@@ -7,7 +7,10 @@
     "contact": "צור קשר",
     "aiTools": "כלי AI",
     "whiteboard": "לוח",
-    "theme": "ערכת נושא"
+    "theme": "ערכת נושא",
+    "skills": "כישורים",
+    "featuredProjects": "פרויקטים",
+    "testimonials": "המלצות"
   },
   "hero": {
     "badge": "פתוח להזדמנויות",
@@ -131,7 +134,8 @@
     "minRead": "דקות קריאה",
     "backToBlog": "חזרה לבלוג",
     "allPostsLink": "כל הפוסטים",
-    "getInTouch": "צרו קשר"
+    "getInTouch": "צרו קשר",
+    "relatedPosts": "פוסטים קשורים"
   },
   "footer": {
     "description": "מפתח Full-Stack המתמחה ביישומי ווב מודרניים. בונה פתרונות יצירתיים עם Next.js, React ו-TypeScript.",

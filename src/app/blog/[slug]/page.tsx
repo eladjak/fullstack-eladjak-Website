@@ -1,12 +1,14 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 import { format } from 'date-fns';
-import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, User } from 'lucide-react';
 import { TagBadge } from '@/components/ui/tag-badge';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
-import { getAllMDXSlugs, getMDXPostBySlug } from '@/lib/mdx';
+import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug } from '@/lib/mdx';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
+import { BlogPostBackLink, BlogPostFooter, BlogPostReadingTime } from '@/components/blog/blog-post-nav';
+import { RelatedPosts } from '@/components/blog/related-posts';
+import { ReadingProgressBar } from '@/components/blog/reading-progress';
 import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
@@ -64,8 +66,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // Get related posts based on shared tags
+  const allPosts = getAllMDXPosts();
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== slug)
+    .map((p) => ({
+      slug: p.slug,
+      sharedTags: p.frontmatter.tags.filter((tag) =>
+        post.frontmatter.tags.includes(tag)
+      ).length,
+      frontmatter: p.frontmatter,
+      readingTime: p.readingTime,
+    }))
+    .filter((p) => p.sharedTags > 0)
+    .sort((a, b) => b.sharedTags - a.sharedTags)
+    .slice(0, 3)
+    .map(({ slug: s, frontmatter, readingTime: rt }) => ({ slug: s, frontmatter, readingTime: rt }));
+
   return (
     <>
+      <ReadingProgressBar />
       <StructuredData
         data={structuredDataGenerators.article(
           post.frontmatter.title,
@@ -77,14 +97,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
       />
       <article className="container mx-auto px-4 py-12 max-w-4xl">
-        {/* Back Link */}
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Blog
-        </Link>
+        {/* Back Link (i18n) */}
+        <BlogPostBackLink />
 
         {/* Header */}
         <header className="mb-8 space-y-4">
@@ -113,10 +127,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </time>
             </div>
 
-            {/* Reading Time */}
+            {/* Reading Time (i18n) */}
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              <span>{post.readingTime} min read</span>
+              <BlogPostReadingTime minutes={post.readingTime} />
             </div>
           </div>
 
@@ -149,25 +163,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <MDXRenderer content={post.content} />
         </div>
 
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <>
+            <hr className="my-12" />
+            <RelatedPosts posts={relatedPosts} />
+          </>
+        )}
+
         {/* Divider */}
         <hr className="my-12" />
 
-        {/* Post Footer */}
-        <div className="flex justify-between items-center">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-primary hover:underline"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            All Posts
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 text-primary hover:underline"
-          >
-            Get in touch
-          </Link>
-        </div>
+        {/* Post Footer (i18n) */}
+        <BlogPostFooter />
       </article>
     </>
   );

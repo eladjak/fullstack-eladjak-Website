@@ -115,7 +115,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section className="w-full py-16 md:py-24 lg:py-32 bg-muted/30">
+    <section id="skills" className="w-full py-16 md:py-24 lg:py-32 bg-muted/30">
       <div className="container px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-12">

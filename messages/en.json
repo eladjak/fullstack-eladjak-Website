@@ -7,7 +7,10 @@
     "contact": "Contact",
     "aiTools": "AI Tools",
     "whiteboard": "Whiteboard",
-    "theme": "Theme"
+    "theme": "Theme",
+    "skills": "Skills",
+    "featuredProjects": "Projects",
+    "testimonials": "Testimonials"
   },
   "hero": {
     "badge": "Open to Opportunities",
@@ -131,7 +134,8 @@
     "minRead": "min read",
     "backToBlog": "Back to Blog",
     "allPostsLink": "All Posts",
-    "getInTouch": "Get in touch"
+    "getInTouch": "Get in touch",
+    "relatedPosts": "Related Posts"
   },
   "footer": {
     "description": "Full-Stack Developer specializing in modern web applications. Building creative solutions with Next.js, React, and TypeScript.",

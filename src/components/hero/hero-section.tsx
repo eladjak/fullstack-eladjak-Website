@@ -44,7 +44,7 @@ export default function HeroSection() {
   const t = useTranslations('hero');
 
   return (
-    <section className="relative w-full min-h-[90vh] flex items-center overflow-hidden">
+    <section id="hero" className="relative w-full min-h-[90vh] flex items-center overflow-hidden">
       {/* 3D Background Scene with dynamic import (no SSR) */}
       <Hero3DScene />
 

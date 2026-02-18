@@ -144,9 +144,10 @@ nextjs-portal {
   animation: gradient 4s ease infinite;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling with offset for fixed nav */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem; /* 64px = nav height */
 }
 
 /* Selection color */
