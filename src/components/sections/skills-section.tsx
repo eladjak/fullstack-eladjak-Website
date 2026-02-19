@@ -15,12 +15,16 @@ interface SkillCategory {
   titleKey: string;
   icon: string;
   skills: Skill[];
+  span: string; // bento grid span
+  gradient: string;
 }
 
 const skillCategories: SkillCategory[] = [
   {
     titleKey: 'frontend',
     icon: '🎨',
+    span: 'md:col-span-2 lg:col-span-2 lg:row-span-2',
+    gradient: 'from-blue-500/15 to-cyan-500/15',
     skills: [
       { name: 'React', icon: '⚛️', color: '#61DAFB' },
       { name: 'Next.js', icon: '▲', color: '#000000' },
@@ -33,6 +37,8 @@ const skillCategories: SkillCategory[] = [
   {
     titleKey: 'backend',
     icon: '⚙️',
+    span: 'lg:col-span-2',
+    gradient: 'from-emerald-500/15 to-green-500/15',
     skills: [
       { name: 'Node.js', icon: '🟢', color: '#339933' },
       { name: 'Supabase', icon: '⚡', color: '#3ECF8E' },
@@ -45,6 +51,8 @@ const skillCategories: SkillCategory[] = [
   {
     titleKey: 'aiTools',
     icon: '🤖',
+    span: 'lg:col-span-2',
+    gradient: 'from-violet-500/15 to-purple-500/15',
     skills: [
       { name: 'OpenAI / GPT', icon: '🧠', color: '#412991' },
       { name: 'Claude AI', icon: '🤖', color: '#D97757' },
@@ -57,6 +65,8 @@ const skillCategories: SkillCategory[] = [
   {
     titleKey: 'more',
     icon: '🚀',
+    span: 'md:col-span-2 lg:col-span-2',
+    gradient: 'from-amber-500/15 to-orange-500/15',
     skills: [
       { name: 'Angular', icon: '🅰️', color: '#DD0031' },
       { name: 'JavaScript', icon: '🟨', color: '#F7DF1E' },
@@ -128,63 +138,70 @@ export default function SkillsSection() {
           </div>
         </ScrollAnimate>
 
+        {/* Bento Grid */}
         <motion.div
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="grid gap-4 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
         >
           {skillCategories.map((category) => (
             <motion.div
               key={category.titleKey}
               variants={categoryVariants}
-              className="relative group"
+              className={`relative group ${category.span}`}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative p-6 rounded-xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-2xl">{category.icon}</span>
-                  <h3 className="text-xl font-semibold">
-                    {t(`categories.${category.titleKey}`)}
-                  </h3>
-                </div>
+              {/* Background gradient on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-                <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <motion.div
-                      key={skill.name}
-                      variants={skillVariants}
-                      whileHover={{ scale: 1.08, y: -3 }}
-                      className="group/skill relative"
-                    >
-                      <div
-                        className="px-3 py-2 rounded-lg bg-background/80 border border-border/50 hover:border-primary/50 transition-all duration-200 cursor-default"
-                        style={{
-                          boxShadow: `0 0 0 0 ${skill.color}20`,
-                        }}
+              <div className="relative h-full p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 overflow-hidden">
+                {/* Decorative corner accent */}
+                <div className={`absolute -top-12 -right-12 h-24 w-24 rounded-full bg-gradient-to-br ${category.gradient} opacity-50`} />
+
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-primary/10 text-xl">
+                      {category.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold">
+                      {t(`categories.${category.titleKey}`)}
+                    </h3>
+                  </div>
+
+                  <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <motion.div
+                        key={skill.name}
+                        variants={skillVariants}
+                        whileHover={{ scale: 1.06, y: -2 }}
+                        className="group/skill relative"
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm">{skill.icon}</span>
-                          <span className="text-sm font-medium whitespace-nowrap">
-                            {skill.name}
-                          </span>
+                        <div
+                          className="px-3 py-2 rounded-xl bg-background/80 border border-border/50 hover:border-primary/50 transition-all duration-200 cursor-default"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm">{skill.icon}</span>
+                            <span className="text-sm font-medium whitespace-nowrap">
+                              {skill.name}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      {/* Hover glow effect */}
-                      <div
-                        className="absolute inset-0 rounded-lg opacity-0 group-hover/skill:opacity-30 blur-md transition-opacity duration-300 -z-10"
-                        style={{ backgroundColor: skill.color }}
-                      />
-                    </motion.div>
-                  ))}
-                </motion.div>
+                        {/* Hover glow */}
+                        <div
+                          className="absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-20 blur-md transition-opacity duration-300 -z-10"
+                          style={{ backgroundColor: skill.color }}
+                        />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Stats Section */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0.85, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

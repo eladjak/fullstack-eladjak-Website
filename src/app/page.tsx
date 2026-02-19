@@ -9,6 +9,7 @@ import HeroSection from '@/components/hero/hero-section';
 import FeaturedProjectsSection from '@/components/sections/featured-projects-section';
 import TestimonialsSection from '@/components/sections/testimonials-section';
 import CTASection from '@/components/sections/cta-section';
+import ProcessSection from '@/components/sections/process-section';
 import StatsBar from '@/components/sections/stats-bar';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { useTranslations } from 'next-intl';
@@ -94,6 +95,9 @@ export default function HomePage() {
             </div>
           </section>
         )}
+
+        {/* Process / How I Work */}
+        <ProcessSection />
 
         {/* CTA Section */}
         <CTASection />

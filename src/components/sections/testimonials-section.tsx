@@ -9,6 +9,12 @@ import { ScrollAnimate } from '@/components/ui/scroll-animate';
 const TESTIMONIAL_COUNT = 4;
 const RATINGS = [5, 5, 5, 5];
 const AVATARS = ['SC', 'DL', 'MS', 'YB'];
+const GRADIENTS = [
+  'from-violet-500 to-purple-600',
+  'from-blue-500 to-cyan-500',
+  'from-emerald-500 to-teal-500',
+  'from-amber-500 to-orange-500',
+];
 
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
@@ -35,6 +41,7 @@ export default function TestimonialsSection() {
 
   const rating = RATINGS[current] ?? 5;
   const avatar = AVATARS[current] ?? '';
+  const gradient = GRADIENTS[current] ?? GRADIENTS[0];
 
   const slideVariants = {
     enter: (dir: number) => ({
@@ -74,21 +81,21 @@ export default function TestimonialsSection() {
           {/* Navigation Buttons */}
           <button
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 p-2 rounded-full bg-card border border-border shadow-md hover:bg-primary hover:text-primary-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 p-2.5 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 shadow-lg hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 p-2 rounded-full bg-card border border-border shadow-md hover:bg-primary hover:text-primary-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 p-2.5 rounded-full bg-card/80 backdrop-blur-sm border border-border/50 shadow-lg hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
 
           {/* Testimonial Card */}
-          <div className="relative min-h-[280px] flex items-center">
+          <div className="relative min-h-[320px] flex items-center">
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={current}
@@ -102,32 +109,34 @@ export default function TestimonialsSection() {
                 aria-live="polite"
                 aria-atomic="true"
               >
-                <div className="relative p-8 md:p-10 rounded-2xl bg-card border border-border/50 shadow-lg">
-                  {/* Quote icon */}
-                  <Quote
-                    className="absolute top-4 right-4 h-10 w-10 text-primary/10"
-                    aria-hidden="true"
-                  />
+                <div className="relative p-8 md:p-10 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 shadow-lg overflow-hidden">
+                  {/* Top gradient accent */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient}`} />
+
+                  {/* Large quote background */}
+                  <div className="absolute top-6 right-6 opacity-[0.04]">
+                    <Quote className="h-24 w-24" />
+                  </div>
 
                   {/* Stars */}
-                  <div className="flex gap-1 mb-4">
+                  <div className="flex gap-1 mb-5">
                     {Array.from({ length: rating }).map((_, i) => (
                       <Star
                         key={i}
-                        className="h-4 w-4 fill-primary text-primary"
+                        className="h-4 w-4 fill-amber-400 text-amber-400"
                         aria-hidden="true"
                       />
                     ))}
                   </div>
 
                   {/* Content */}
-                  <p className="text-base md:text-lg text-foreground/90 leading-relaxed mb-6 italic">
+                  <p className="text-base md:text-lg text-foreground/90 leading-relaxed mb-8 italic">
                     &ldquo;{t(`items.${current}.content`)}&rdquo;
                   </p>
 
                   {/* Author */}
                   <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-sm">
+                    <div className={`relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br ${gradient} text-white font-semibold text-sm shadow-md`}>
                       {avatar}
                     </div>
                     <div>
@@ -135,7 +144,9 @@ export default function TestimonialsSection() {
                         {t(`items.${current}.name`)}
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        {t(`items.${current}.role`)} {t('at')} {t(`items.${current}.company`)}
+                        {t(`items.${current}.role`)}
+                        <span className="mx-1.5 text-border">|</span>
+                        {t(`items.${current}.company`)}
                       </div>
                     </div>
                   </div>

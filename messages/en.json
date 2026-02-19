@@ -102,6 +102,28 @@
       }
     ]
   },
+  "process": {
+    "title": "How I Work",
+    "subtitle": "A structured approach that ensures quality results and clear communication at every step",
+    "steps": {
+      "discover": {
+        "title": "Discover",
+        "description": "Understanding your goals, users, and technical requirements through focused research and discussion."
+      },
+      "plan": {
+        "title": "Plan & Design",
+        "description": "Creating a clear roadmap with architecture decisions, tech stack selection, and milestone definition."
+      },
+      "build": {
+        "title": "Build & Iterate",
+        "description": "Agile development with regular check-ins, clean code practices, and continuous testing."
+      },
+      "launch": {
+        "title": "Launch & Support",
+        "description": "Deployment, performance optimization, and ongoing support to ensure long-term success."
+      }
+    }
+  },
   "cta": {
     "title": "Let's Build Something Amazing",
     "subtitle": "Looking for a developer who combines technical excellence with creative thinking?",
