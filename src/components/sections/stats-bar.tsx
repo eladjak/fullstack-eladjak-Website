@@ -55,7 +55,7 @@ export default function StatsBar() {
   ];
 
   return (
-    <section ref={ref} className="w-full py-12 md:py-16 border-y border-border/30">
+    <section ref={ref} className="w-full py-12 md:py-16 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 border-y border-border/20">
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-4">
           {stats.map((stat, index) => (
@@ -69,7 +69,7 @@ export default function StatsBar() {
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary">
                 {stat.icon}
               </div>
-              <span className="text-2xl md:text-3xl font-bold text-foreground">
+              <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={inView} />
               </span>
               <span className="text-xs md:text-sm text-muted-foreground font-medium">

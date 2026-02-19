@@ -43,17 +43,40 @@ export default function AboutPage() {
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">
         {/* Hero */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
+        <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+          <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-56 h-56 rounded-full bg-accent/5 blur-3xl" />
+
+          <div className="container relative px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center space-y-8 text-center"
             >
+              {/* Avatar */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="relative">
+                  <div className="h-28 w-28 rounded-full bg-gradient-to-br from-primary to-accent p-[3px]">
+                    <div className="h-full w-full rounded-full bg-background flex items-center justify-center">
+                      <span className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">EY</span>
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-emerald-500 border-4 border-background flex items-center justify-center">
+                    <span className="text-white text-xs">&#10003;</span>
+                  </div>
+                </div>
+              </motion.div>
+
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">{t('title')}</h1>
-                <h2 className="text-2xl font-semibold text-primary">{t('name')}</h2>
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('name')}</h2>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   {t('subtitle')}
                 </p>
@@ -104,17 +127,18 @@ export default function AboutPage() {
             <div className="max-w-3xl mx-auto">
               {timelineKeys.map((key, index) => {
                 const Icon = timelineIcons[index]!;
+                const isLast = index === timelineKeys.length - 1;
                 return (
                   <ScrollAnimate key={key} delay={index * 0.05}>
                     <div className="relative flex gap-6 pb-10 last:pb-0">
-                      {/* Timeline line */}
-                      {index < timelineKeys.length - 1 && (
-                        <div className="absolute left-6 top-14 w-px h-full bg-border" />
+                      {/* Timeline line with gradient */}
+                      {!isLast && (
+                        <div className="absolute left-6 top-14 w-px h-full bg-gradient-to-b from-primary/30 to-border/30" />
                       )}
 
-                      {/* Icon */}
+                      {/* Icon with gradient ring */}
                       <div className="relative flex-shrink-0">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 border-2 border-primary/20 text-primary">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-full ${isLast ? 'bg-gradient-to-br from-primary to-accent text-white' : 'bg-primary/10 border-2 border-primary/20 text-primary'}`}>
                           <Icon className="h-5 w-5" />
                         </div>
                       </div>
@@ -127,7 +151,7 @@ export default function AboutPage() {
                         <h3 className="text-lg font-semibold mt-1">
                           {t(`journey.items.${key}.title`)}
                         </h3>
-                        <p className="text-sm text-muted-foreground mt-1">
+                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                           {t(`journey.items.${key}.description`)}
                         </p>
                       </div>
