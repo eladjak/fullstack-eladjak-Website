@@ -443,6 +443,36 @@
       }
     }
   },
+  "aiPlayground": {
+    "tabs": {
+      "codeReview": "סקירת קוד",
+      "prompt": "מעבדת פרומפט",
+      "search": "חיפוש חכם"
+    },
+    "reset": "איפוס",
+    "runReview": "הפעל סקירה",
+    "analyzing": "מנתח...",
+    "generate": "צור",
+    "generating": "יוצר...",
+    "searchBtn": "חפש",
+    "codeReview": {
+      "instruction": "לחצו \"הפעל סקירה\" כדי לראות ניתוח קוד מונע AI בפעולה.",
+      "findings": "ממצאי AI",
+      "empty": "לחצו הפעל סקירה כדי לנתח את הקוד"
+    },
+    "prompt": {
+      "instruction": "בחרו פרומפט ולחצו צור כדי לראות יצירת קוד AI עם סטרימינג."
+    },
+    "search": {
+      "instruction": "הקלידו שאילתה בשפה טבעית כדי להשוות חיפוש מילות מפתח מול חיפוש סמנטי.",
+      "placeholder": "למשל: איך לעכב קלט משתמש...",
+      "keyword": "חיפוש מילות מפתח",
+      "semantic": "חיפוש סמנטי (AI)",
+      "results": "תוצאות",
+      "keywordNote": "נמצאו רק התאמות טקסט מדויקות",
+      "semanticNote": "מבין משמעות והקשר"
+    }
+  },
   "language": {
     "he": "עברית",
     "en": "English"

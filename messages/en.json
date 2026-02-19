@@ -443,6 +443,36 @@
       }
     }
   },
+  "aiPlayground": {
+    "tabs": {
+      "codeReview": "Code Review",
+      "prompt": "Prompt Lab",
+      "search": "Smart Search"
+    },
+    "reset": "Reset",
+    "runReview": "Run Review",
+    "analyzing": "Analyzing...",
+    "generate": "Generate",
+    "generating": "Generating...",
+    "searchBtn": "Search",
+    "codeReview": {
+      "instruction": "Click \"Run Review\" to see AI-powered code analysis in action.",
+      "findings": "AI Findings",
+      "empty": "Click Run Review to analyze the code"
+    },
+    "prompt": {
+      "instruction": "Select a prompt and click Generate to see AI code generation with streaming."
+    },
+    "search": {
+      "instruction": "Type a natural language query to compare keyword vs semantic search.",
+      "placeholder": "e.g. how to delay user input...",
+      "keyword": "Keyword Search",
+      "semantic": "Semantic Search (AI)",
+      "results": "results",
+      "keywordNote": "Only exact text matches found",
+      "semanticNote": "Understands meaning and context"
+    }
+  },
   "language": {
     "he": "עברית",
     "en": "English"
