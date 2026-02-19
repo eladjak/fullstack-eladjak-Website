@@ -5,6 +5,7 @@ import { ArrowRight, Github } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
+import { SplitText } from '@/components/ui/split-text';
 
 // Dynamic import for 3D scene (client-side only, no SSR)
 const Hero3DScene = dynamic(() => import('./hero-3d-scene'), {
@@ -79,17 +80,20 @@ export default function HeroSection() {
           </motion.div>
 
           <div className="space-y-4 max-w-4xl">
-            <motion.h1
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              {t('greeting')}{' '}
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none">
+              <SplitText
+                text={t('greeting')}
+                delay={0.3}
+                staggerDelay={0.04}
+              />{' '}
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:150%_auto] animate-gradient drop-shadow-sm">
-                {t('name')}
+                <SplitText
+                  text={t('name')}
+                  delay={0.6}
+                  staggerDelay={0.05}
+                />
               </span>
-            </motion.h1>
+            </h1>
 
             <motion.h2
               className="text-xl md:text-2xl font-medium text-muted-foreground"

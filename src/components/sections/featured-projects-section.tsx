@@ -5,6 +5,7 @@ import { ArrowRight, Github, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import TiltedCard from '@/components/ui/tilted-card';
 
 interface StaticProject {
   id: string;
@@ -112,7 +113,8 @@ export default function FeaturedProjectsSection() {
         >
           {staticProjects.map((project) => (
             <motion.div key={project.id} variants={cardVariants} className="group">
-              <div className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1.5">
+              <TiltedCard tiltStrength={8} className="h-full">
+              <div className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
                 {/* Gradient header */}
                 <div
                   className={`relative h-32 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
@@ -172,6 +174,7 @@ export default function FeaturedProjectsSection() {
                   </div>
                 </div>
               </div>
+              </TiltedCard>
             </motion.div>
           ))}
         </motion.div>
