@@ -179,6 +179,25 @@ html {
   background: var(--muted-foreground);
 }
 
+/* Infinite marquee scroll */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Pause marquee on hover */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* View Transitions API - circular reveal for theme toggle */
 ::view-transition-old(root),
 ::view-transition-new(root) {
