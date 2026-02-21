@@ -1,12 +1,33 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: in_progress
-## Last Updated: 2026-02-18
+## Last Updated: 2026-02-21
 
 ## Current State
-Portfolio website with premium visual polish: ReactBits-inspired SplitText character animations and TiltedCard 3D hover effects, bento grid skills layout, enhanced testimonials with gradient accents, "How I Work" process section, tech marquee, gradient stats bar, and polished About page with avatar ring and gradient timeline. Full feature set: animated stats bar, command palette (Cmd+K), spotlight cursor, glassmorphic nav/cards, circular theme transition (View Transitions API), WCAG accessibility. 12 static projects, MDX blog with 5 posts + related posts + reading progress, AI Tools page, contact form with Resend, 26 unit tests, full i18n (HE+EN), scroll animations. TypeScript clean.
+Portfolio website with premium visual polish: ReactBits-inspired SplitText character animations and TiltedCard 3D hover effects, bento grid skills layout, enhanced testimonials with gradient accents, "How I Work" process section, tech marquee, gradient stats bar, and polished About page with avatar ring and gradient timeline. Native CSS scroll-driven animations for modern, performant visual effects. Full feature set: animated stats bar, command palette (Cmd+K), spotlight cursor, glassmorphic nav/cards, circular theme transition (View Transitions API), WCAG accessibility. 12 static projects, MDX blog with 5 posts + related posts + reading progress + featured images, AI Tools page, contact form with Resend, 26 unit tests, full i18n (HE+EN). TypeScript clean, build passes.
 
 ## What Was Done
+
+### Session 2026-02-21 - CSS Scroll-Driven Animations
+
+#### Native CSS Scroll Animations
+- [x] Added CSS `@scroll-timeline` and `animation-timeline` animations in `globals.css`
+- [x] Five animation types: fade-in, scale-in, slide-in-left, slide-in-right, reveal-bar
+- [x] Progressive enhancement with `@supports` (graceful fallback for unsupported browsers)
+- [x] Applied scroll-fade to SkillsSection categories, TechMarquee
+- [x] Applied scroll-scale to FeaturedProjectsSection cards, SkillsSection stats
+- [x] Applied alternating slide-left/slide-right to ProcessSection steps
+- [x] Applied scroll-reveal-bar to About page timeline lines
+- [x] Replaced Framer Motion animations with CSS for better performance
+- [x] TypeScript check passes cleanly
+- [x] Build passes successfully (22 routes generated)
+- [x] Committed: `c71ba2b` - feat: add CSS scroll-driven animations
+
+#### Benefits
+- Native CSS performance (no JavaScript overhead)
+- Smooth viewport-triggered reveals
+- Modern visual polish with staggered effects
+- Progressive enhancement ensures compatibility
 
 ### Session 2026-02-18 (Continuation) - ReactBits Components & Visual Polish
 
@@ -335,12 +356,12 @@ Portfolio website with premium visual polish: ReactBits-inspired SplitText chara
 - `messages/he.json` - Added aiToolsPage translations
 
 ## Next Steps (Improvement Plan)
-- [ ] CSS scroll-driven animations (scroll-timeline for section reveals)
-- [ ] Interactive AI Demo Playground (live code review, prompt testing)
-- [ ] Blog post images/thumbnails (hero images for MDX posts)
+- [x] ~~CSS scroll-driven animations~~ - COMPLETED (Session 2026-02-21)
+- [x] ~~Blog post images/thumbnails~~ - ALREADY DONE (All 5 posts have featured_image, next.config.js configured for Unsplash)
+- [ ] Interactive AI Demo Playground (live code review, prompt testing, AI-powered features)
+- [ ] Lighthouse performance audit and optimization (Core Web Vitals, lazy loading, bundle size)
+- [ ] E2E tests with Playwright for critical flows (contact form, blog navigation, theme toggle)
 - [ ] Real client testimonials and photos when available
-- [ ] Lighthouse performance audit and optimization
-- [ ] E2E tests with Playwright for critical flows
 
 ## Notes for Next Session
 - All TypeScript errors are resolved, build passes cleanly
@@ -348,7 +369,8 @@ Portfolio website with premium visual polish: ReactBits-inspired SplitText chara
 - Language toggle shows flag icons (Israel flag for Hebrew, UK flag for English) in both desktop and mobile nav
 - Page transitions (200ms fade + slide) play on every route change via AnimatePresence
 - Layout providers consolidated into `ClientLayout` for cleaner server component layout
-- MDX blog posts are statically generated at build time
+- MDX blog posts are statically generated at build time with featured images from Unsplash
 - Contact form sends via Resend API when key is set, falls back to mailto: otherwise
-- Scroll animations use 200ms duration with easeOut timing
+- Native CSS scroll-driven animations provide performant viewport-triggered effects
+- Blog thumbnails working (all 5 posts have featured_image URLs, Next.js Image configured for Unsplash)
 - The `ENVIRONMENT_FALLBACK` warning during build is from next-intl SSG (pre-existing, not related to changes)
