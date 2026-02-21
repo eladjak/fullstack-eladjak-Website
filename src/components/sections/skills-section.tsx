@@ -139,18 +139,14 @@ export default function SkillsSection() {
         </ScrollAnimate>
 
         {/* Bento Grid */}
-        <motion.div
+        <div
           ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
         >
           {skillCategories.map((category) => (
-            <motion.div
+            <div
               key={category.titleKey}
-              variants={categoryVariants}
-              className={`relative group ${category.span}`}
+              className={`relative group scroll-fade ${category.span}`}
             >
               {/* Background gradient on hover */}
               <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -169,13 +165,11 @@ export default function SkillsSection() {
                     </h3>
                   </div>
 
-                  <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill) => (
-                      <motion.div
+                      <div
                         key={skill.name}
-                        variants={skillVariants}
-                        whileHover={{ scale: 1.06, y: -2 }}
-                        className="group/skill relative"
+                        className="group/skill relative transition-transform duration-200 hover:scale-105 hover:-translate-y-0.5"
                       >
                         <div
                           className="px-3 py-2 rounded-xl bg-background/80 border border-border/50 hover:border-primary/50 transition-all duration-200 cursor-default"
@@ -192,37 +186,30 @@ export default function SkillsSection() {
                           className="absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-20 blur-md transition-opacity duration-300 -z-10"
                           style={{ backgroundColor: skill.color }}
                         />
-                      </motion.div>
+                      </div>
                     ))}
-                  </motion.div>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0.85, y: 8 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.3, duration: 0.2 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
-        >
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0.85, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.4 + index * 0.05 }}
-              className="text-center"
+              className="text-center scroll-scale"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 {stat.value}
               </div>
               <div className="text-sm text-muted-foreground mt-2">{stat.label}</div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -131,9 +131,9 @@ export default function AboutPage() {
                 return (
                   <ScrollAnimate key={key} delay={index * 0.05}>
                     <div className="relative flex gap-6 pb-10 last:pb-0">
-                      {/* Timeline line with gradient */}
+                      {/* Timeline line with gradient and scroll reveal */}
                       {!isLast && (
-                        <div className="absolute left-6 top-14 w-px h-full bg-gradient-to-b from-primary/30 to-border/30" />
+                        <div className="absolute left-6 top-14 w-px h-full bg-gradient-to-b from-primary/30 to-border/30 scroll-reveal-bar" />
                       )}
 
                       {/* Icon with gradient ring */}

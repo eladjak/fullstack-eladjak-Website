@@ -104,15 +104,9 @@ export default function FeaturedProjectsSection() {
           </div>
         </ScrollAnimate>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {staticProjects.map((project) => (
-            <motion.div key={project.id} variants={cardVariants} className="group">
+            <div key={project.id} className="group scroll-scale">
               <TiltedCard tiltStrength={8} className="h-full">
               <div className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
                 {/* Gradient header */}
@@ -175,9 +169,9 @@ export default function FeaturedProjectsSection() {
                 </div>
               </div>
               </TiltedCard>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         <ScrollAnimate delay={0.2}>
           <div className="text-center mt-10">

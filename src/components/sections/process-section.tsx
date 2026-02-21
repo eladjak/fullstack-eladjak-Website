@@ -39,14 +39,13 @@ export default function ProcessSection() {
             {stepKeys.map((key, index) => {
               const Icon = stepIcons[index]!;
               const gradient = stepGradients[index]!;
+              // Alternate between left and right slide animations
+              const slideClass = index % 2 === 0 ? 'scroll-slide-left' : 'scroll-slide-right';
               return (
-                <motion.div
+                <div
                   key={key}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  className="relative text-center group"
+                  className={`relative text-center group ${slideClass}`}
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Step number */}
                   <div className="text-6xl font-bold text-muted-foreground/10 absolute -top-4 left-1/2 -translate-x-1/2 select-none">
@@ -66,7 +65,7 @@ export default function ProcessSection() {
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {t(`steps.${key}.description`)}
                   </p>
-                </motion.div>
+                </div>
               );
             })}
           </div>

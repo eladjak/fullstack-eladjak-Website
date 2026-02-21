@@ -8,7 +8,7 @@ const technologies = [
 
 export default function TechMarquee() {
   return (
-    <div className="w-full overflow-hidden py-6 bg-muted/20 border-y border-border/20">
+    <div className="w-full overflow-hidden py-6 bg-muted/20 border-y border-border/20 scroll-fade">
       <div className="relative flex">
         <div className="animate-marquee flex shrink-0 gap-8 items-center">
           {technologies.map((tech) => (

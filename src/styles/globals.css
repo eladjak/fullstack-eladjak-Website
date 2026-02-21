@@ -210,3 +210,117 @@ html {
 ::view-transition-new(root) {
   z-index: 9999;
 }
+
+/* ========================================
+   CSS Scroll-Driven Animations
+   Modern, performant scroll-triggered effects
+   ======================================== */
+
+/* Fade in on scroll */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale in on scroll */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide in from left */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Reveal progress bar on scroll */
+@keyframes reveal-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Apply scroll animations with @supports for progressive enhancement */
+@supports (animation-timeline: view()) {
+  /* Sections fade in as they enter viewport */
+  .scroll-fade {
+    animation: fade-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+
+  /* Cards scale in */
+  .scroll-scale {
+    animation: scale-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+
+  /* Alternate slides from left/right */
+  .scroll-slide-left {
+    animation: slide-in-left linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+
+  .scroll-slide-right {
+    animation: slide-in-right linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+
+  /* Progress bars reveal on scroll */
+  .scroll-reveal-bar {
+    animation: reveal-bar linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+    transform-origin: left;
+  }
+}
+
+/* Fallback for browsers without scroll-timeline support */
+@supports not (animation-timeline: view()) {
+  .scroll-fade,
+  .scroll-scale,
+  .scroll-slide-left,
+  .scroll-slide-right,
+  .scroll-reveal-bar {
+    /* Elements are visible by default if scroll-timeline not supported */
+    opacity: 1;
+    transform: none;
+  }
+}
