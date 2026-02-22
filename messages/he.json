@@ -13,13 +13,14 @@
     "testimonials": "המלצות"
   },
   "hero": {
-    "badge": "פתוח להזדמנויות",
+    "badge": "זמין לפרויקטים",
     "greeting": "היי, אני",
     "name": "אלעד יעקובוביץ'",
-    "title": "מפתח Full-Stack וחובב AI",
-    "description": "בונה יישומי ווב מודרניים עם Next.js, React ו-TypeScript. משלב מומחיות טכנית עם חזון יצירתי ותובנה עסקית.",
+    "title": "מפתח Full-Stack | יישומי ווב מונעי AI",
+    "description": "הופך רעיונות לאפליקציות ווב מהירות, חכמות ומעוצבות. Next.js, React, TypeScript ואינטגרציות AI מתקדמות.",
     "resultsPhrase": "מונע תוצאות, לא שעות.",
-    "viewProjects": "צפה בפרויקטים",
+    "viewProjects": "צפה בעבודות",
+    "contactCta": "בואו נדבר",
     "scroll": "גלול"
   },
   "skills": {

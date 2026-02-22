@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Github } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
@@ -49,15 +49,15 @@ export default function HeroSection() {
       {/* 3D Background Scene with dynamic import (no SSR) */}
       <Hero3DScene />
 
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-background/60 dark:bg-background/80 -z-10" />
+      {/* Overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background/90 dark:from-background/80 dark:via-background/70 dark:to-background/95 z-[1]" />
 
       {/* Decorative gradient orbs */}
       <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-primary/10 blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-accent/10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
       {/* Content */}
-      <div className="container px-4 md:px-6 relative z-10">
+      <div className="container px-4 md:px-6 relative z-10 drop-shadow-sm">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -124,21 +124,19 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Link
-              href="/projects"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-200 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              {t('contactCta')}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-border bg-background/50 backdrop-blur-sm px-8 py-3.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-accent/10 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {t('viewProjects')}
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <a
-              href="https://github.com/eladjak"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-border bg-background/50 backdrop-blur-sm px-8 py-3.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-accent/10 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              <Github className="h-4 w-4" />
-              GitHub
-            </a>
           </motion.div>
 
           {/* Scroll indicator */}

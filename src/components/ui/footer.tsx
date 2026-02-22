@@ -26,7 +26,6 @@ export default function Footer() {
 
   const footerToolLinks = [
     { href: '/ai-tools', label: tNav('aiTools') },
-    { href: '/whiteboard', label: tNav('whiteboard') },
   ];
 
   return (
@@ -49,7 +48,7 @@ export default function Footer() {
               <div className="flex gap-3">
                 <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
                 <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
-                <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                <SocialLink href="mailto:eladhiteclearning@gmail.com" icon={Mail} label="Send Email" />
                 <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
               </div>
             </div>

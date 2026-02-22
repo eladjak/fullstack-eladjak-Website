@@ -3,12 +3,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import NotificationsMenu from './notifications';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { AuthDialog } from '@/components/auth/auth-dialog';
 import ThemeToggle from './theme-toggle';
-import { CommandPalette } from './command-palette';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
 import { useActiveSection } from '@/hooks/useActiveSection';
@@ -90,8 +87,6 @@ export default function Navigation() {
     { href: '/blog', label: t('blog') },
     { href: '/about', label: t('about') },
     { href: '/contact', label: t('contact') },
-    { href: '/ai-tools', label: t('aiTools') },
-    { href: '/whiteboard', label: t('whiteboard') },
   ];
 
   return (
@@ -144,9 +139,6 @@ export default function Navigation() {
                 })}
               </div>
             )}
-            <CommandPalette />
-            <NotificationsMenu />
-            <AuthDialog />
             <ThemeToggle />
             <div className="relative group">
               <button

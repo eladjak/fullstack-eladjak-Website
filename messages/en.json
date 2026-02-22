@@ -13,13 +13,14 @@
     "testimonials": "Testimonials"
   },
   "hero": {
-    "badge": "Open to Opportunities",
+    "badge": "Available for Projects",
     "greeting": "Hi, I'm",
     "name": "Elad Ya'akobovitch",
-    "title": "Full-Stack Developer & AI Enthusiast",
-    "description": "Building modern web applications with Next.js, React, and TypeScript. Combining technical expertise with creative vision and business insight.",
+    "title": "Full-Stack Developer | AI-Powered Web Apps",
+    "description": "Turning ideas into fast, smart, and beautifully designed web applications. Next.js, React, TypeScript, and advanced AI integrations.",
     "resultsPhrase": "Results-driven, not hours-driven.",
-    "viewProjects": "View Projects",
+    "viewProjects": "View My Work",
+    "contactCta": "Let's Talk",
     "scroll": "Scroll"
   },
   "skills": {

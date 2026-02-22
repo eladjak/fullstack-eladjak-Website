@@ -13,10 +13,10 @@ const getOpenAI = () => {
 };
 
 const getSupabase = () => {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key);
 };
 
 export interface CodeReviewResult {
@@ -114,23 +114,25 @@ export async function POST(request: NextRequest) {
     const totalIssues = Object.values(result.improvements).flat().length;
     result.score = Math.max(0, 100 - (totalIssues * 5));
 
-    // Store analytics event
+    // Store analytics event (only if Supabase is configured)
     const supabase = getSupabase();
-    await supabase.from('analytics_events').insert([
-      {
-        event_type: 'code_review',
-        page_url: '/code-review',
-        metadata: {
-          code_length: code.length,
-          score: result.score,
-          improvement_counts: {
-            performance: result.improvements.performance.length,
-            security: result.improvements.security.length,
-            style: result.improvements.style.length
+    if (supabase) {
+      await supabase.from('analytics_events').insert([
+        {
+          event_type: 'code_review',
+          page_url: '/code-review',
+          metadata: {
+            code_length: code.length,
+            score: result.score,
+            improvement_counts: {
+              performance: result.improvements.performance.length,
+              security: result.improvements.security.length,
+              style: result.improvements.style.length
+            }
           }
         }
-      }
-    ]);
+      ]);
+    }
 
     return NextResponse.json(result);
   } catch (error) {

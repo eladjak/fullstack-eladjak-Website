@@ -9,6 +9,7 @@ import Navigation from '@/components/ui/navigation';
 import Footer from '@/components/ui/footer';
 import { PageTransition } from '@/components/ui/page-transition';
 import { SpotlightCursor } from '@/components/ui/spotlight';
+import { WhatsAppFAB } from '@/components/ui/whatsapp-fab';
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -34,6 +35,7 @@ export function ClientLayout({ children }: ClientLayoutProps) {
             </PageTransition>
           </div>
           <Footer />
+          <WhatsAppFAB />
           <SpotlightCursor />
           <Toaster />
         </AuthProvider>

@@ -1,12 +1,62 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: in_progress
-## Last Updated: 2026-02-21
+## Last Updated: 2026-02-22
 
 ## Current State
-Portfolio website with premium visual polish: ReactBits-inspired SplitText character animations and TiltedCard 3D hover effects, bento grid skills layout, enhanced testimonials with gradient accents, "How I Work" process section, tech marquee, gradient stats bar, and polished About page with avatar ring and gradient timeline. Native CSS scroll-driven animations for modern, performant visual effects. Full feature set: animated stats bar, command palette (Cmd+K), spotlight cursor, glassmorphic nav/cards, circular theme transition (View Transitions API), WCAG accessibility. 12 static projects, MDX blog with 5 posts + related posts + reading progress + featured images, AI Tools page, contact form with Resend, 26 unit tests, full i18n (HE+EN). TypeScript clean, build passes.
+Portfolio website focused on **conversion** (getting clients to hire Elad). Latest session: navigation decluttered (removed notification bell, auth dialog, command palette, whiteboard/AI tools links), hero redesigned for conversion ("Let's Talk" primary CTA → /contact, "View My Work" secondary → /projects), WhatsApp floating button on all pages, contact email fixed, WhatsApp contact card added, broken Supabase blog query removed from homepage. Extensive agent-driven analysis (UX/Conversion, Design, Technical) produced a comprehensive improvement plan. TypeScript clean, build passes.
 
 ## What Was Done
+
+### Session 2026-02-22 - Conversion Optimization & Cleanup
+
+#### Agent-Driven Analysis (3 parallel agents)
+- [x] UX/Conversion expert audit - identified site showcases skill but doesn't sell
+- [x] Design critique - layout, hierarchy, CTA placement issues
+- [x] Technical action plan - prioritized cleanup and conversion improvements
+
+#### Navigation Cleanup (`src/components/ui/navigation.tsx`)
+- [x] Removed NotificationsMenu, AuthDialog, CommandPalette imports and JSX
+- [x] Removed AI Tools and Whiteboard nav links
+- [x] Simplified to 5 core links: Home, Projects, Blog, About, Contact + ThemeToggle + Language
+
+#### Hero Conversion Redesign (`src/components/hero/hero-section.tsx`)
+- [x] Improved overlay: gradient `from-background/70 via-background/60 to-background/90` (dark variants too) + z-[1]
+- [x] Added `drop-shadow-sm` to content for better readability
+- [x] Primary CTA: "Let's Talk" → /contact (was "View Projects" → /projects)
+- [x] Secondary CTA: "View My Work" → /projects (was GitHub external link)
+- [x] Removed Github import from lucide-react
+
+#### Hero Copy Updates (`messages/en.json` + `messages/he.json`)
+- [x] Badge: "Available for Projects" / "זמין לפרויקטים"
+- [x] Title: "Full-Stack Developer | AI-Powered Web Apps" / "מפתח Full-Stack | יישומי ווב מונעי AI"
+- [x] Description: rewritten for conversion focus
+- [x] Added `contactCta` key: "Let's Talk" / "בואו נדבר"
+
+#### Contact Fixes (`src/app/contact/page.tsx`)
+- [x] Email corrected: `elad@hiteclearning.co.il` → `eladhiteclearning@gmail.com` (all occurrences)
+- [x] Added WhatsApp contact card (052-542-7474, links to wa.me/972525427474)
+- [x] Added MessageCircle import from lucide-react
+
+#### WhatsApp FAB (NEW: `src/components/ui/whatsapp-fab.tsx`)
+- [x] Floating green WhatsApp button (fixed bottom-right, z-50)
+- [x] Links to wa.me/972525427474 with pre-filled Hebrew message
+- [x] Framer Motion entrance animation (scale from 0, 2s delay)
+- [x] Integrated into `src/components/providers/client-layout.tsx` (site-wide)
+
+#### Homepage Cleanup (`src/app/page.tsx`)
+- [x] Removed broken Supabase blog query (always returned empty - MDX posts aren't in Supabase)
+- [x] Removed unused imports (ArrowRight, Link, BlogCard, ScrollAnimate, useTranslations, useState, useEffect, supabase, BlogPost)
+- [x] TestimonialsSection KEPT (user explicitly requested this)
+- [x] Clean flow: Hero → TechMarquee → StatsBar → Skills → FeaturedProjects → Testimonials → Process → CTA
+
+#### Footer Cleanup (`src/components/ui/footer.tsx`)
+- [x] Removed Whiteboard from footerToolLinks
+- [x] Updated email to `eladhiteclearning@gmail.com`
+
+#### Build Verification
+- [x] TypeScript check passes (`npx tsc --noEmit`)
+- [x] Next.js build passes (22 routes generated)
 
 ### Session 2026-02-21 - CSS Scroll-Driven Animations
 
@@ -281,14 +331,14 @@ Portfolio website with premium visual polish: ReactBits-inspired SplitText chara
 - **SEO**: JSON-LD structured data (Person, WebSite, BlogPosting), canonical URLs, metadataBase, OpenGraph/Twitter meta
 
 ## Pages
-- `/` - Home (Hero 3D scene with gradient animations, Skills, Static Featured Projects, Testimonials carousel, Blog posts (if Supabase connected), CTA section)
+- `/` - Home (Hero 3D scene + conversion CTAs, TechMarquee, StatsBar, Skills, Featured Projects, Testimonials, Process, CTA)
 - `/about` - About page with bio, career timeline, skills highlights, unique traits, experience details
-- `/projects` - Projects listing with filters and sort
+- `/projects` - 12 projects with category filters (Web Apps, AI & ML, Tools & Utils)
 - `/blog` - Blog listing with card grid, featured images, tag filters, i18n (Hebrew/English)
 - `/blog/[slug]` - MDX blog post with rendered markdown, structured data, reading time (SSG)
-- `/contact` - Contact form with Zod validation, Resend API + mailto fallback
-- `/ai-tools` - Code optimizer, collaborative editor, AI cards
-- `/whiteboard` - tldraw whiteboard
+- `/contact` - Contact form (Resend + mailto fallback), email, phone, WhatsApp, location cards
+- `/ai-tools` - AI tools showcase (needs redesign - Priority 3)
+- `/whiteboard` - Placeholder page (removed from nav, candidate for deletion)
 
 ## New Files (Session 2026-02-18)
 - `content/blog/my-journey-to-fullstack.mdx` - Blog post: career journey
@@ -355,22 +405,49 @@ Portfolio website with premium visual polish: ReactBits-inspired SplitText chara
 - `messages/en.json` - Added aiToolsPage translations
 - `messages/he.json` - Added aiToolsPage translations
 
-## Next Steps (Improvement Plan)
+## Next Steps (Improvement Plan - from Agent Analysis 2026-02-22)
+
+### Priority 1 - Visual Facelift & Design
+- [ ] Major visual facelift with Gemini Images API + Stitch MCP design
+- [ ] Professional headshot / real photography (replace avatar placeholders)
+- [ ] Skills section redesign - "Capabilities Framework" showing business outcomes, not just tech logos
+- [ ] Project descriptions rewrite - focus on business outcomes, not just tech stack
+
+### Priority 2 - Conversion & Lead Generation
+- [ ] Scheduling integration (Calendly/Cal.com) - add "Book a Call" CTA
+- [ ] CV/resume download button
+- [ ] Micro-copy improvements throughout (trust signals, social proof)
+- [ ] Contact form micro-copy enhancements
+
+### Priority 3 - Content & Pages
+- [ ] AI Tools page redesign - real working tools with value, not just listings
+- [ ] Separate "Thank You" page (דף תודות) for people Elad appreciates (Kfir Guy from John Bryce, etc.)
+- [ ] Blog strategy - content management, social media integration, homepage visibility
+- [ ] Real client testimonials when available (keep current placeholder section)
+
+### Priority 4 - Technical & Infrastructure
+- [ ] Domain setup: fullstack-eladjak.co.il (currently on Vercel)
+- [ ] Deploy to production
+- [ ] Lighthouse performance audit (Core Web Vitals, bundle size)
+- [ ] E2E tests with Playwright for critical flows
+
+### Completed
 - [x] ~~CSS scroll-driven animations~~ - COMPLETED (Session 2026-02-21)
-- [x] ~~Blog post images/thumbnails~~ - ALREADY DONE (All 5 posts have featured_image, next.config.js configured for Unsplash)
-- [ ] Interactive AI Demo Playground (live code review, prompt testing, AI-powered features)
-- [ ] Lighthouse performance audit and optimization (Core Web Vitals, lazy loading, bundle size)
-- [ ] E2E tests with Playwright for critical flows (contact form, blog navigation, theme toggle)
-- [ ] Real client testimonials and photos when available
+- [x] ~~Blog post images/thumbnails~~ - ALREADY DONE
+- [x] ~~Navigation cleanup~~ - COMPLETED (Session 2026-02-22)
+- [x] ~~Hero conversion redesign~~ - COMPLETED (Session 2026-02-22)
+- [x] ~~Contact email fix + WhatsApp~~ - COMPLETED (Session 2026-02-22)
+- [x] ~~WhatsApp FAB site-wide~~ - COMPLETED (Session 2026-02-22)
+- [x] ~~Homepage broken blog query removed~~ - COMPLETED (Session 2026-02-22)
 
 ## Notes for Next Session
-- All TypeScript errors are resolved, build passes cleanly
-- ALL pages now have full i18n support (home, about, contact, projects, blog, AI tools, error, 404)
-- Language toggle shows flag icons (Israel flag for Hebrew, UK flag for English) in both desktop and mobile nav
-- Page transitions (200ms fade + slide) play on every route change via AnimatePresence
-- Layout providers consolidated into `ClientLayout` for cleaner server component layout
-- MDX blog posts are statically generated at build time with featured images from Unsplash
-- Contact form sends via Resend API when key is set, falls back to mailto: otherwise
-- Native CSS scroll-driven animations provide performant viewport-triggered effects
-- Blog thumbnails working (all 5 posts have featured_image URLs, Next.js Image configured for Unsplash)
-- The `ENVIRONMENT_FALLBACK` warning during build is from next-intl SSG (pre-existing, not related to changes)
+- **Domain**: Site should be at `fullstack-eladjak.co.il` (purchased domain, currently on Vercel)
+- **Testimonials vs Thanks**: User wants SEPARATE concepts - "עדויות לקוח" (client testimonials) stays on homepage, "דף תודות" (thank you/acknowledgments page) is a new separate page for people like Kfir Guy from John Bryce
+- **No real client testimonials yet** - keep current placeholder section, update when real ones available
+- **AI Tools**: User wants combination approach - real working tools with actual value, not just demo cards
+- All TypeScript errors resolved, build passes cleanly
+- ALL pages have full i18n (home, about, contact, projects, blog, AI tools, error, 404)
+- Contact form: Resend API when key set, mailto fallback otherwise
+- WhatsApp: 052-542-7474 (international: 972525427474)
+- Email: eladhiteclearning@gmail.com
+- The `ENVIRONMENT_FALLBACK` warning during build is from next-intl SSG (pre-existing)

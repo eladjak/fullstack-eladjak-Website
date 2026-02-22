@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Clock, Github, Linkedin, Globe, Send } from 'lucide-react';
+import { Mail, MapPin, Clock, Github, Linkedin, Globe, Send, MessageCircle } from 'lucide-react';
 import { SocialLink } from '@/components/ui/social-link';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -117,8 +117,14 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: t('info.email'),
-      value: 'elad@hiteclearning.co.il',
-      href: 'mailto:elad@hiteclearning.co.il',
+      value: 'eladhiteclearning@gmail.com',
+      href: 'mailto:eladhiteclearning@gmail.com',
+    },
+    {
+      icon: MessageCircle,
+      title: 'WhatsApp',
+      value: '052-542-7474',
+      href: 'https://wa.me/972525427474',
     },
     {
       icon: MapPin,
@@ -276,7 +282,7 @@ export default function ContactPage() {
                   <div className="flex gap-4">
                     <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
                     <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
-                    <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
+                    <SocialLink href="mailto:eladhiteclearning@gmail.com" icon={Mail} label="Send Email" />
                     <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
                   </div>
                 </div>

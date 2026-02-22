@@ -56,7 +56,7 @@ const config = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openai.com https://api.github.com",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openai.com https://api.github.com https://api.resend.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'"
