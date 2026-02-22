@@ -410,8 +410,8 @@ Portfolio website focused on **conversion** (getting clients to hire Elad). Late
 ### Priority 1 - Visual Facelift & Design
 - [ ] Major visual facelift with Gemini Images API + Stitch MCP design
 - [ ] Professional headshot / real photography (replace avatar placeholders)
-- [ ] Skills section redesign - "Capabilities Framework" showing business outcomes, not just tech logos
-- [ ] Project descriptions rewrite - focus on business outcomes, not just tech stack
+- [x] ~~Skills section redesign~~ - COMPLETED (Session 2026-02-22 night) - Capabilities Framework with business outcomes
+- [x] ~~Project descriptions rewrite~~ - COMPLETED (Session 2026-02-22 night) - All 12 projects focus on business value
 
 ### Priority 2 - Conversion & Lead Generation
 - [ ] Scheduling integration (Calendly/Cal.com) - add "Book a Call" CTA
@@ -439,6 +439,8 @@ Portfolio website focused on **conversion** (getting clients to hire Elad). Late
 - [x] ~~Contact email fix + WhatsApp~~ - COMPLETED (Session 2026-02-22)
 - [x] ~~WhatsApp FAB site-wide~~ - COMPLETED (Session 2026-02-22)
 - [x] ~~Homepage broken blog query removed~~ - COMPLETED (Session 2026-02-22)
+- [x] ~~Skills capabilities framework~~ - COMPLETED (Session 2026-02-22 night)
+- [x] ~~Project descriptions business rewrite~~ - COMPLETED (Session 2026-02-22 night)
 
 ## Notes for Next Session
 - **Domain**: Site should be at `fullstack-eladjak.co.il` (purchased domain, currently on Vercel)
