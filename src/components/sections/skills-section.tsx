@@ -4,108 +4,96 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import {
+  Globe,
+  Sparkles,
+  Server,
+  Smartphone,
+  type LucideIcon
+} from 'lucide-react';
 
-interface Skill {
+interface TechTag {
   name: string;
-  icon: string;
-  color: string;
 }
 
-interface SkillCategory {
+interface Capability {
   titleKey: string;
-  icon: string;
-  skills: Skill[];
-  span: string; // bento grid span
+  descriptionKey: string;
+  icon: LucideIcon;
   gradient: string;
+  techTags: TechTag[];
 }
 
-const skillCategories: SkillCategory[] = [
+const capabilities: Capability[] = [
   {
-    titleKey: 'frontend',
-    icon: '🎨',
-    span: 'md:col-span-2 lg:col-span-2 lg:row-span-2',
+    titleKey: 'webApps',
+    descriptionKey: 'webAppsDesc',
+    icon: Globe,
     gradient: 'from-blue-500/15 to-cyan-500/15',
-    skills: [
-      { name: 'React', icon: '⚛️', color: '#61DAFB' },
-      { name: 'Next.js', icon: '▲', color: '#000000' },
-      { name: 'TypeScript', icon: '📘', color: '#3178C6' },
-      { name: 'Tailwind CSS', icon: '🎨', color: '#06B6D4' },
-      { name: 'Framer Motion', icon: '🎬', color: '#FF0055' },
-      { name: 'Three.js / R3F', icon: '🎮', color: '#049EF4' },
+    techTags: [
+      { name: 'Next.js' },
+      { name: 'React' },
+      { name: 'TypeScript' },
+      { name: 'Tailwind CSS' },
     ],
   },
   {
-    titleKey: 'backend',
-    icon: '⚙️',
-    span: 'lg:col-span-2',
-    gradient: 'from-emerald-500/15 to-green-500/15',
-    skills: [
-      { name: 'Node.js', icon: '🟢', color: '#339933' },
-      { name: 'Supabase', icon: '⚡', color: '#3ECF8E' },
-      { name: 'PostgreSQL', icon: '🐘', color: '#336791' },
-      { name: 'REST APIs', icon: '🔌', color: '#FF6B6B' },
-      { name: 'GraphQL', icon: '◈', color: '#E10098' },
-      { name: 'Prisma', icon: '△', color: '#2D3748' },
-    ],
-  },
-  {
-    titleKey: 'aiTools',
-    icon: '🤖',
-    span: 'lg:col-span-2',
+    titleKey: 'aiIntegration',
+    descriptionKey: 'aiIntegrationDesc',
+    icon: Sparkles,
     gradient: 'from-violet-500/15 to-purple-500/15',
-    skills: [
-      { name: 'OpenAI / GPT', icon: '🧠', color: '#412991' },
-      { name: 'Claude AI', icon: '🤖', color: '#D97757' },
-      { name: 'LangChain', icon: '🦜', color: '#1C3C3C' },
-      { name: 'Git / GitHub', icon: '📦', color: '#181717' },
-      { name: 'Docker', icon: '🐳', color: '#2496ED' },
-      { name: 'Vercel', icon: '▲', color: '#000000' },
+    techTags: [
+      { name: 'OpenAI' },
+      { name: 'Claude AI' },
+      { name: 'LangChain' },
+      { name: 'Vector DBs' },
     ],
   },
   {
-    titleKey: 'more',
-    icon: '🚀',
-    span: 'md:col-span-2 lg:col-span-2',
+    titleKey: 'backendApis',
+    descriptionKey: 'backendApisDesc',
+    icon: Server,
+    gradient: 'from-emerald-500/15 to-green-500/15',
+    techTags: [
+      { name: 'Node.js' },
+      { name: 'Supabase' },
+      { name: 'PostgreSQL' },
+      { name: 'REST & GraphQL' },
+    ],
+  },
+  {
+    titleKey: 'mobileCrossPlatform',
+    descriptionKey: 'mobileCrossPlatformDesc',
+    icon: Smartphone,
     gradient: 'from-amber-500/15 to-orange-500/15',
-    skills: [
-      { name: 'Angular', icon: '🅰️', color: '#DD0031' },
-      { name: 'JavaScript', icon: '🟨', color: '#F7DF1E' },
-      { name: 'HTML5 / CSS3', icon: '🌐', color: '#E34F26' },
-      { name: 'Responsive Design', icon: '📱', color: '#7C3AED' },
-      { name: 'SEO Optimization', icon: '📈', color: '#4285F4' },
-      { name: 'Agile / Scrum', icon: '🔄', color: '#009688' },
+    techTags: [
+      { name: 'React Native' },
+      { name: 'PWA' },
+      { name: 'Responsive Design' },
+      { name: 'Mobile-First' },
     ],
   },
 ];
 
 const containerVariants = {
-  hidden: { opacity: 0.85 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.12,
     },
   },
 };
 
-const categoryVariants = {
-  hidden: { opacity: 0.85, y: 8 },
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.2,
-      staggerChildren: 0.05,
+      duration: 0.4,
+      ease: [0.22, 1, 0.36, 1],
     },
-  },
-};
-
-const skillVariants = {
-  hidden: { opacity: 0.85, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.2 },
   },
 };
 
@@ -138,62 +126,69 @@ export default function SkillsSection() {
           </div>
         </ScrollAnimate>
 
-        {/* Bento Grid */}
-        <div
+        {/* Capabilities Grid */}
+        <motion.div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
         >
-          {skillCategories.map((category) => (
-            <div
-              key={category.titleKey}
-              className={`relative group scroll-fade ${category.span}`}
-            >
-              {/* Background gradient on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+          {capabilities.map((capability) => {
+            const Icon = capability.icon;
+            return (
+              <motion.div
+                key={capability.titleKey}
+                variants={cardVariants}
+                className="relative group scroll-fade"
+              >
+                {/* Hover gradient glow */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${capability.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
 
-              <div className="relative h-full p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 overflow-hidden">
-                {/* Decorative corner accent */}
-                <div className={`absolute -top-12 -right-12 h-24 w-24 rounded-full bg-gradient-to-br ${category.gradient} opacity-50`} />
+                {/* Card */}
+                <div className="relative h-full p-6 md:p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+                  {/* Decorative corner accent */}
+                  <div
+                    className={`absolute -top-10 -end-10 h-20 w-20 rounded-full bg-gradient-to-br ${capability.gradient} opacity-40`}
+                  />
 
-                <div className="relative">
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-primary/10 text-xl">
-                      {category.icon}
-                    </div>
-                    <h3 className="text-lg font-semibold">
-                      {t(`categories.${category.titleKey}`)}
-                    </h3>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill) => (
+                  <div className="relative space-y-4">
+                    {/* Icon + Title */}
+                    <div className="flex items-start gap-4">
                       <div
-                        key={skill.name}
-                        className="group/skill relative transition-transform duration-200 hover:scale-105 hover:-translate-y-0.5"
+                        className={`flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br ${capability.gradient} text-primary-foreground shrink-0`}
                       >
-                        <div
-                          className="px-3 py-2 rounded-xl bg-background/80 border border-border/50 hover:border-primary/50 transition-all duration-200 cursor-default"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">{skill.icon}</span>
-                            <span className="text-sm font-medium whitespace-nowrap">
-                              {skill.name}
-                            </span>
-                          </div>
-                        </div>
-                        {/* Hover glow */}
-                        <div
-                          className="absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-20 blur-md transition-opacity duration-300 -z-10"
-                          style={{ backgroundColor: skill.color }}
-                        />
+                        <Icon className="h-6 w-6" />
                       </div>
-                    ))}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-xl font-semibold mb-2">
+                          {t(`capabilities.${capability.titleKey}.title`)}
+                        </h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                          {t(`capabilities.${capability.titleKey}.description`)}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {capability.techTags.map((tag) => (
+                        <span
+                          key={tag.name}
+                          className="px-3 py-1 text-xs font-medium rounded-lg bg-background/60 border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors duration-200"
+                        >
+                          {tag.name}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
 
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">

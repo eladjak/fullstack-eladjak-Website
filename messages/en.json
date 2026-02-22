@@ -24,13 +24,25 @@
     "scroll": "Scroll"
   },
   "skills": {
-    "title": "Skills & Technologies",
-    "subtitle": "My technical toolkit for building modern, scalable applications",
-    "categories": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "aiTools": "AI & Tools",
-      "more": "More Skills"
+    "title": "What I Can Build For You",
+    "subtitle": "Capabilities focused on delivering real business value",
+    "capabilities": {
+      "webApps": {
+        "title": "Modern Web Applications",
+        "description": "Fast, responsive, and beautifully designed web apps that work seamlessly across all devices. From landing pages to complex dashboards."
+      },
+      "aiIntegration": {
+        "title": "AI-Powered Solutions",
+        "description": "Add intelligence to your applications with AI integrations. From chatbots and content generation to semantic search and automation."
+      },
+      "backendApis": {
+        "title": "Backend & APIs",
+        "description": "Robust server-side systems, databases, and APIs that scale with your business. Reliable, secure, and performant infrastructure."
+      },
+      "mobileCrossPlatform": {
+        "title": "Mobile & Cross-Platform",
+        "description": "Build once, deploy everywhere. Progressive Web Apps and responsive designs that deliver native-like experiences on any device."
+      }
     },
     "stats": {
       "experience": "Years Experience",
@@ -48,27 +60,27 @@
     "projects": {
       "haderech": {
         "title": "HaDerech",
-        "description": "A complete interactive learning platform with course systems, community forums, and practice simulators. Built with modern technologies and AI integrations."
+        "description": "An interactive learning platform that transforms how students master programming through hands-on practice and community support. Reduces learning time while increasing retention with AI-powered feedback."
       },
       "portfolio": {
         "title": "Portfolio Website",
-        "description": "This very portfolio site! Built with Next.js 16, Three.js for 3D visuals, Framer Motion animations, real-time collaboration features, and AI-powered tools."
+        "description": "A high-converting developer portfolio that showcases technical excellence through immersive 3D experiences and bilingual content. Designed to turn visitors into clients."
       },
       "eyAiKids": {
         "title": "EY.AI Kids",
-        "description": "An educational platform for children combining AI technologies with interactive learning experiences. Features gamification, progress tracking, and adaptive content."
+        "description": "Safe AI-powered education that sparks creativity in children while giving parents full control. Features age-appropriate content filtering and engaging interactive experiences."
       },
       "omanut": {
         "title": "Omanut Website",
-        "description": "A creative arts and culture website with beautiful design, Hebrew RTL support, and responsive layouts. Showcasing art collections and cultural events."
+        "description": "A professional coaching business website that builds trust through compelling content and testimonials. Full Hebrew support helps reach the target audience effectively."
       },
       "edutech": {
         "title": "EduTech Platform",
-        "description": "A comprehensive educational technology platform with course management, student analytics, and interactive content delivery systems."
+        "description": "Streamlines educational operations with automated course management and actionable student analytics. Helps instructors focus on teaching, not administration."
       },
       "hebrewCalendar": {
         "title": "Hebrew-Gregorian Calendar",
-        "description": "An interactive calendar tool converting between Hebrew and Gregorian dates. Features holiday information, date calculations, and a clean user interface."
+        "description": "Eliminates date conversion headaches for users managing both Hebrew and Gregorian calendars. Instant holiday lookups and accurate calculations in an intuitive interface."
       }
     }
   },
@@ -326,51 +338,51 @@
     "projects": {
       "haderech": {
         "title": "HaDerech - Learning Platform",
-        "description": "A complete interactive learning platform with course systems, quizzes, certificates, community forums, and practice simulators. Features admin panel, analytics dashboard, and real-time progress tracking."
+        "description": "An interactive learning platform that transforms how students master programming through hands-on practice and community support. Reduces learning time while increasing retention with AI-powered feedback and real-time progress tracking."
       },
       "portfolio": {
         "title": "Full-Stack Portfolio",
-        "description": "This very website! A modern developer portfolio with 3D hero scene, MDX blog, i18n (Hebrew/English), contact form, SEO optimization, and dark mode support."
+        "description": "A high-converting developer portfolio that showcases technical excellence through immersive 3D experiences and bilingual content. Optimized for search engines and designed to turn visitors into clients with compelling storytelling."
       },
       "eyAiKids": {
         "title": "EY.AI Kids Playground",
-        "description": "An AI-powered children's book creation platform. Features a 4-step wizard, parental controls, child safety content filtering, and age-appropriate story generation."
+        "description": "Safe AI-powered education that sparks creativity in children while giving parents full control. Features age-appropriate content filtering, parental oversight, and engaging story creation that makes learning fun."
       },
       "omanut": {
         "title": "Omanut HaKesher",
-        "description": "A professional website for a relationship coaching business. Features blog with articles, contact form, testimonials, WhatsApp integration, and full RTL Hebrew support."
+        "description": "A professional coaching business website that builds trust through compelling content and client testimonials. Full Hebrew RTL support and WhatsApp integration help reach the target audience effectively."
       },
       "edutech": {
         "title": "EduTech Platform",
-        "description": "A comprehensive educational technology platform with course management, student analytics, interactive content delivery, and instructor dashboards."
+        "description": "Streamlines educational operations with automated course management and actionable student analytics. Helps instructors focus on teaching, not administration, while providing students with engaging interactive content."
       },
       "hebrewCalendar": {
         "title": "Hebrew-Gregorian Calendar",
-        "description": "An interactive calendar tool converting between Hebrew and Gregorian dates. Features holiday information, date calculations, and a clean user interface."
+        "description": "Eliminates date conversion headaches for users managing both Hebrew and Gregorian calendars. Instant holiday lookups and accurate calculations in an intuitive interface that anyone can use."
       },
       "ninjaKeyboard": {
         "title": "Ninja Keyboard",
-        "description": "A Hebrew-first PWA teaching kids ages 6-16 to type. Features touch typing lessons, keyboard shortcuts training, gamification with levels, and 5 age-based visual themes."
+        "description": "Helps Israeli kids master touch typing in Hebrew with game-based learning that keeps them engaged. Age-appropriate visual themes and progressive difficulty levels make typing practice fun, not frustrating."
       },
       "bayitBeseder": {
         "title": "Bayit BeSeder",
-        "description": "A home maintenance management app with task scheduling, notifications, gamification, and progress tracking. Built with Next.js, Supabase, and PWA support."
+        "description": "Prevents costly home repairs by keeping families on top of maintenance schedules. Gamified task tracking motivates consistent upkeep, protecting property value and peace of mind."
       },
       "kidushishi": {
         "title": "Kidushishi Management",
-        "description": "A management application for event coordination with map integration, real-time data sync, and comprehensive dashboard analytics."
+        "description": "Simplifies complex event coordination with real-time location tracking and automated scheduling. Dashboard analytics help organizers make data-driven decisions and ensure flawless execution."
       },
       "voiceChat": {
         "title": "Voice Chat with Claude",
-        "description": "A real-time voice conversation interface with Claude AI. Features push-to-talk, continuous mode, wake word detection, VAD, and WebSocket streaming."
+        "description": "Enables natural voice conversations with AI that feel as intuitive as talking to a colleague. Push-to-talk and continuous modes adapt to different use cases, from quick queries to extended brainstorming sessions."
       },
       "zehutai": {
         "title": "ZehutAI - Hebrew NLP",
-        "description": "A Natural Language Processing system optimized for Hebrew text. Features RAG (Retrieval Augmented Generation), entity recognition, and sentiment analysis."
+        "description": "Brings enterprise-grade natural language processing to Hebrew text analysis. RAG-powered insights help businesses understand customer sentiment and extract actionable intelligence from Hebrew content."
       },
       "whatsappAutomation": {
         "title": "WhatsApp Automation",
-        "description": "A TypeScript library for WhatsApp automation. Features message scheduling, auto-replies, contact management, and comprehensive API integration."
+        "description": "Saves businesses hours daily by automating WhatsApp messaging workflows. Schedule messages, manage contacts, and provide instant auto-replies without sacrificing the personal touch customers expect."
       }
     }
   },
