@@ -5,8 +5,6 @@
     "blog": "Blog",
     "about": "About",
     "contact": "Contact",
-    "aiTools": "AI Tools",
-    "whiteboard": "Whiteboard",
     "theme": "Theme",
     "skills": "Skills",
     "featuredProjects": "Projects",
@@ -14,14 +12,11 @@
   },
   "hero": {
     "badge": "Available for Projects",
-    "greeting": "Hi, I'm",
-    "name": "Elad Ya'akobovitch",
-    "title": "Full-Stack Developer | AI-Powered Web Apps",
-    "description": "Turning ideas into fast, smart, and beautifully designed web applications. Next.js, React, TypeScript, and advanced AI integrations.",
-    "resultsPhrase": "Results-driven, not hours-driven.",
+    "heading": "I Build Web Apps That Grow Your Business",
+    "title": "Full-Stack Developer | Next.js + AI Specialist | Israel",
+    "description": "From idea to production — I deliver fast, reliable web applications that help businesses attract customers, automate workflows, and scale. Let's turn your vision into results.",
     "viewProjects": "View My Work",
-    "contactCta": "Let's Talk",
-    "scroll": "Scroll"
+    "contactCta": "Let's Talk"
   },
   "skills": {
     "title": "What I Can Build For You",
@@ -292,7 +287,8 @@
       "message": "Message",
       "messagePlaceholder": "Tell me about your project or idea...",
       "send": "Send Message",
-      "sending": "Sending..."
+      "sending": "Sending...",
+      "responseTime": "I usually respond within a few hours"
     },
     "validation": {
       "nameMin": "Name must be at least 2 characters",
@@ -384,106 +380,6 @@
         "title": "WhatsApp Automation",
         "description": "Saves businesses hours daily by automating WhatsApp messaging workflows. Schedule messages, manage contacts, and provide instant auto-replies without sacrificing the personal touch customers expect."
       }
-    }
-  },
-  "aiToolsPage": {
-    "title": "AI Tools & Services",
-    "subtitle": "Exploring the AI ecosystem I use to build smarter, faster, and more creative applications.",
-    "toolsSection": "AI Tools I Work With",
-    "tools": {
-      "claude": {
-        "title": "Claude AI",
-        "description": "Anthropic's advanced reasoning model for complex code analysis, architecture decisions, and deep problem-solving."
-      },
-      "openai": {
-        "title": "OpenAI GPT",
-        "description": "Versatile language model powering content generation, conversational AI, and multi-modal applications."
-      },
-      "langchain": {
-        "title": "LangChain",
-        "description": "Framework for building context-aware AI pipelines with chains, agents, and retrieval-augmented generation."
-      },
-      "supabaseAi": {
-        "title": "Supabase AI",
-        "description": "Vector storage and semantic search powered by pgvector, enabling similarity-based retrieval at scale."
-      },
-      "vercelAiSdk": {
-        "title": "Vercel AI SDK",
-        "description": "Streaming-first toolkit for building AI-powered React interfaces with edge-ready server components."
-      },
-      "huggingFace": {
-        "title": "Hugging Face",
-        "description": "Open-source model hub providing transformers, NLP pipelines, and fine-tuning capabilities for custom tasks."
-      }
-    },
-    "howIUseAi": "How I Use AI",
-    "highlights": {
-      "codeGeneration": {
-        "title": "Code Generation",
-        "description": "Accelerating development with AI-assisted code generation, refactoring suggestions, and automated testing."
-      },
-      "aiFeatures": {
-        "title": "AI-Powered Features",
-        "description": "Building intelligent features like semantic search, content recommendations, and natural language interfaces."
-      },
-      "automation": {
-        "title": "Workflow Automation",
-        "description": "Automating repetitive tasks, CI/CD pipelines, and content workflows with AI agents and scripts."
-      }
-    },
-    "demoSection": "Interactive Demos",
-    "demo": {
-      "codeReview": {
-        "tab": "Code Review",
-        "title": "AI-Powered Code Review",
-        "description": "See how AI identifies issues and suggests improvements in real-time.",
-        "before": "Before",
-        "after": "After"
-      },
-      "smartSearch": {
-        "tab": "Smart Search",
-        "title": "Keyword vs Semantic Search",
-        "description": "Compare traditional keyword matching with AI-driven semantic understanding.",
-        "keyword": "Keyword Search",
-        "semantic": "Semantic Search"
-      },
-      "contentGeneration": {
-        "tab": "Content Generation",
-        "title": "AI Content Generation",
-        "description": "From a simple prompt to polished copy in seconds.",
-        "prompt": "Prompt",
-        "output": "AI Output"
-      }
-    }
-  },
-  "aiPlayground": {
-    "tabs": {
-      "codeReview": "Code Review",
-      "prompt": "Prompt Lab",
-      "search": "Smart Search"
-    },
-    "reset": "Reset",
-    "runReview": "Run Review",
-    "analyzing": "Analyzing...",
-    "generate": "Generate",
-    "generating": "Generating...",
-    "searchBtn": "Search",
-    "codeReview": {
-      "instruction": "Click \"Run Review\" to see AI-powered code analysis in action.",
-      "findings": "AI Findings",
-      "empty": "Click Run Review to analyze the code"
-    },
-    "prompt": {
-      "instruction": "Select a prompt and click Generate to see AI code generation with streaming."
-    },
-    "search": {
-      "instruction": "Type a natural language query to compare keyword vs semantic search.",
-      "placeholder": "e.g. how to delay user input...",
-      "keyword": "Keyword Search",
-      "semantic": "Semantic Search (AI)",
-      "results": "results",
-      "keywordNote": "Only exact text matches found",
-      "semanticNote": "Understands meaning and context"
     }
   },
   "language": {

@@ -109,7 +109,6 @@ export default function SkillsSection() {
     { value: '3+', label: t('stats.experience') },
     { value: '20+', label: t('stats.projects') },
     { value: '15+', label: t('stats.technologies') },
-    { value: '100%', label: t('stats.satisfaction') },
   ];
 
   return (
@@ -191,7 +190,7 @@ export default function SkillsSection() {
         </motion.div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="mt-16 grid grid-cols-3 gap-8">
           {stats.map((stat, index) => (
             <div
               key={stat.label}

@@ -162,7 +162,7 @@ export default function ContactPage() {
               </div>
 
               {/* Contact Info Cards */}
-              <div className="grid gap-6 md:grid-cols-3 max-w-4xl w-full mt-8">
+              <div className="grid gap-6 grid-cols-2 md:grid-cols-4 max-w-4xl w-full mt-8">
                 {contactInfo.map((info, index) => (
                   <ScrollAnimate key={info.title} delay={index * 0.05}>
                     <div className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50">
@@ -187,7 +187,8 @@ export default function ContactPage() {
               <ScrollAnimate delay={0.1}>
                 <div className="w-full max-w-2xl mt-12">
                   <div className="rounded-lg border bg-card p-8 shadow-sm">
-                    <h2 className="text-2xl font-bold mb-6 text-center">{t('form.title')}</h2>
+                    <h2 className="text-2xl font-bold mb-2 text-center">{t('form.title')}</h2>
+                    <p className="text-sm text-muted-foreground text-center mb-6">{t('form.responseTime')}</p>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
                         <Label htmlFor="name" required>

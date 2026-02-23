@@ -51,6 +51,10 @@ export default {
 					DEFAULT: 'var(--destructive)',
 					foreground: 'var(--destructive-foreground)'
 				},
+				cta: {
+					DEFAULT: 'var(--cta)',
+					foreground: 'var(--cta-foreground)'
+				},
 				border: 'var(--border)',
 				input: 'var(--input)',
 				ring: 'var(--ring)',

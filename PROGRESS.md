@@ -1,12 +1,91 @@
 # Full-Stack Portfolio Website - Progress
 
-## Status: in_progress
-## Last Updated: 2026-02-22
+## Status: active
+## Last Updated: 2026-02-23
 
 ## Current State
-Portfolio website focused on **conversion** (getting clients to hire Elad). Latest session: navigation decluttered (removed notification bell, auth dialog, command palette, whiteboard/AI tools links), hero redesigned for conversion ("Let's Talk" primary CTA → /contact, "View My Work" secondary → /projects), WhatsApp floating button on all pages, contact email fixed, WhatsApp contact card added, broken Supabase blog query removed from homepage. Extensive agent-driven analysis (UX/Conversion, Design, Technical) produced a comprehensive improvement plan. TypeScript clean, build passes.
+Major production cleanup completed. Three.js removed (~1MB bundle savings), fake testimonials removed, dead pages deleted, hero rewritten for conversion with CSS gradient background, warm amber CTA accent color added, WhatsApp FAB uses real icon, scroll animations are now visible. Build passes (20 routes, TypeScript clean). Ready to deploy.
 
 ## What Was Done
+
+### Session 2026-02-23 - Production Critical Fixes + Conversion Improvements
+
+#### Phase 1: Critical Production Fixes
+
+**1.1 Remove Three.js, Replace Hero with CSS Gradient**
+- [x] Deleted `hero-3d-scene.tsx`, `split-text.tsx`
+- [x] Deleted unused Three.js hooks (`use3DInteraction.ts`, `useAnimatedMesh.ts`)
+- [x] Deleted unused Three.js types (`three-fiber.ts`, `three.d.ts`)
+- [x] Removed `three`, `@react-three/drei`, `@react-three/fiber`, `@react-three/postprocessing`, `@types/three`, `@use-gesture/react` from package.json
+- [x] Hero now uses animated CSS gradient background (primary/accent colors)
+- [x] Left-aligned text (`text-start`) for better readability
+- [x] Reduced height from `min-h-[90vh]` to `min-h-[75vh]`
+- [x] Single staggered fade-in animation instead of character-by-character SplitText
+
+**1.2 Remove Fake Testimonials Section**
+- [x] Removed `TestimonialsSection` import and usage from homepage
+- [x] Homepage flow: Hero → TechMarquee → Skills → FeaturedProjects → Process → CTA
+
+**1.3 Remove StatsBar**
+- [x] Removed `StatsBar` import and usage from homepage
+- [x] Removed "100% satisfaction" stat from Skills section (no proof)
+- [x] Skills stats grid: 3 columns (3+ years, 20+ projects, 15+ technologies)
+
+**1.4 Delete Dead Pages + Clean References**
+- [x] Deleted `ai-tools/page.tsx`, `whiteboard/page.tsx` directories
+- [x] Deleted `demo-playground.tsx`, `code-optimizer.tsx`
+- [x] Removed AI Tools from footer, command palette, sitemap
+- [x] Removed `aiToolsPage` and `aiPlayground` sections from both message files
+- [x] Removed `aiTools`, `whiteboard` nav keys from messages
+- [x] Updated blog post link (removed `/ai-tools` reference)
+- [x] Cleaned unused `getAllMDXPosts` import from command palette
+- [x] Cleaned unused `Code2` import from command palette
+- [x] Removed empty `src/components/ai/` directory
+
+**1.5 Create OG Image**
+- [x] Created `opengraph-image.tsx` using Next.js ImageResponse API
+- [x] Dynamic server-side generation (1200x630, branded purple gradient)
+- [x] Shows: EY.dev logo, name, subtitle, tech stack pills, domain
+
+**1.6 Fix Contact Page Grid**
+- [x] Changed from `md:grid-cols-3` to `grid-cols-2 md:grid-cols-4` for 4 contact items
+
+#### Phase 2: Conversion Improvements
+
+**2.1 Rewrite Hero Copy**
+- [x] EN heading: "I Build Web Apps That Grow Your Business"
+- [x] HE heading: "אני בונה אפליקציות ווב שמצמיחות את העסק שלך"
+- [x] Subtitle: "Full-Stack Developer | Next.js + AI Specialist | Israel"
+- [x] Description: outcome-focused (attract customers, automate, scale)
+
+**2.2 Add Warm Accent Color for CTAs**
+- [x] Added `--cta` CSS variable: amber-500 (light) / amber-400 (dark)
+- [x] Added `cta` color to Tailwind config
+- [x] Applied to hero badge and primary CTA button
+
+**2.3 Fix WhatsApp FAB Icon**
+- [x] Replaced `MessageCircle` from lucide-react with actual WhatsApp SVG icon
+- [x] Added green shadow glow (`shadow-green-600/30`)
+
+**2.4 Improve ScrollAnimate Visibility**
+- [x] Changed `opacity: 0.85` → `opacity: 0` (actually invisible initially)
+- [x] Changed `y: 8` → `y: 24` (noticeable slide distance)
+- [x] Changed `duration: 0.2s` → `0.5s` (smooth, visible animation)
+
+**2.5 Contact Page Micro-Copy**
+- [x] Added response time text: "I usually respond within a few hours"
+- [x] Added Hebrew translation
+
+**2.6 Update Site URL**
+- [x] Verified `metadataBase` already uses `https://fullstack-eladjak.co.il`
+
+#### Build Results
+- 20 routes (down from 22)
+- TypeScript: clean
+- Three.js packages removed from dependencies
+- OG image generated dynamically via edge runtime
+
+## Previous Sessions
 
 ### Session 2026-02-22 - Conversion Optimization & Cleanup
 

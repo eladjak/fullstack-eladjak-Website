@@ -52,6 +52,9 @@
     --input: #E5E7EB;
     --ring: #8B5CF6;
 
+    --cta: #F59E0B;                  /* Amber-500 - warm action color */
+    --cta-foreground: #1F2937;       /* Dark text on amber */
+
     --radius: 0.75rem;               /* Material Design 3 - 12px for cards */
 
     /* Chart colors for data visualization */
@@ -90,6 +93,9 @@
 
     --destructive: #F87171;          /* Red-400 */
     --destructive-foreground: #7F1D1D;
+
+    --cta: #FBBF24;                  /* Amber-400 - warm action color for dark */
+    --cta-foreground: #1F2937;       /* Dark text on amber */
 
     --border: #374151;               /* Gray-700 */
     --input: #374151;

@@ -24,17 +24,13 @@ export default function Footer() {
     { href: '/contact', label: tNav('contact') },
   ];
 
-  const footerToolLinks = [
-    { href: '/ai-tools', label: tNav('aiTools') },
-  ];
-
   return (
     <footer className="relative w-full border-t bg-card/50 backdrop-blur-sm">
       {/* Decorative gradient line at top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
       <div className="container px-4 md:px-6 py-12 md:py-16">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
           <ScrollAnimate>
             <div className="space-y-4">
@@ -62,27 +58,6 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2">
                 {footerNavLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </ScrollAnimate>
-
-          {/* Tools */}
-          <ScrollAnimate delay={0.1}>
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-                {tFooter('toolsAndFeatures')}
-              </h3>
-              <ul className="space-y-2">
-                {footerToolLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}

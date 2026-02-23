@@ -2,12 +2,11 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ArrowRight, Moon, Sun, Globe, FileText, Code2, User, Mail, Home, Briefcase, Wrench } from 'lucide-react';
+import { Search, ArrowRight, Moon, Sun, Globe, FileText, User, Mail, Home, Briefcase, Wrench } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
-import { getAllMDXPosts } from '@/lib/mdx';
 
 interface CommandItem {
   id: string;
@@ -39,7 +38,6 @@ export function CommandPalette() {
     { id: 'blog', label: t('blog'), icon: <FileText className="h-4 w-4" />, action: () => navigate('/blog'), keywords: ['blog', 'posts', 'articles', 'בלוג'] },
     { id: 'about', label: t('about'), icon: <User className="h-4 w-4" />, action: () => navigate('/about'), keywords: ['about', 'bio', 'אודות'] },
     { id: 'contact', label: t('contact'), icon: <Mail className="h-4 w-4" />, action: () => navigate('/contact'), keywords: ['contact', 'email', 'צור קשר'] },
-    { id: 'ai-tools', label: t('aiTools'), icon: <Code2 className="h-4 w-4" />, action: () => navigate('/ai-tools'), keywords: ['ai', 'tools', 'claude', 'כלים'] },
     { id: 'theme', label: theme === 'dark' ? 'Light Mode' : 'Dark Mode', icon: theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />, action: () => { setTheme(theme === 'dark' ? 'light' : 'dark'); setOpen(false); }, keywords: ['theme', 'dark', 'light', 'mode', 'ערכת נושא'] },
     { id: 'language', label: locale === 'he' ? 'Switch to English' : 'עבור לעברית', icon: <Globe className="h-4 w-4" />, action: () => { setLocale(locale === 'he' ? 'en' : 'he'); setOpen(false); }, keywords: ['language', 'hebrew', 'english', 'שפה', 'עברית', 'אנגלית'] },
     { id: 'github', label: 'GitHub', icon: <Wrench className="h-4 w-4" />, action: () => { window.open('https://github.com/eladjak', '_blank'); setOpen(false); }, keywords: ['github', 'code', 'source'] },
