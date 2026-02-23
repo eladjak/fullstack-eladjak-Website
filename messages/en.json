@@ -8,7 +8,8 @@
     "theme": "Theme",
     "skills": "Skills",
     "featuredProjects": "Projects",
-    "testimonials": "Testimonials"
+    "testimonials": "Testimonials",
+    "thanks": "Thanks"
   },
   "hero": {
     "badge": "Available for Projects",
@@ -379,6 +380,52 @@
       "whatsappAutomation": {
         "title": "WhatsApp Automation",
         "description": "Saves businesses hours daily by automating WhatsApp messaging workflows. Schedule messages, manage contacts, and provide instant auto-replies without sacrificing the personal touch customers expect."
+      }
+    }
+  },
+  "thanksPage": {
+    "title": "People Who Inspire Me",
+    "subtitle": "Mentors, educators, and thought leaders in tech & AI who have shaped my journey",
+    "people": {
+      "yuval": {
+        "name": "Yuval Avidani",
+        "role": "AI Educator & Workshop Leader",
+        "bio": "An inspiring AI educator who makes complex concepts accessible through hands-on workshops and community building. A true pioneer in Israel's AI education scene."
+      },
+      "avitz": {
+        "name": "Avitz (Avraham Yitzhak Meir)",
+        "role": "AI Content Creator",
+        "bio": "A passionate AI content creator bridging the gap between cutting-edge AI developments and the Hebrew-speaking community through engaging, accessible content."
+      },
+      "noam": {
+        "name": "Noam Naumovski",
+        "role": "Tech & AI Educator",
+        "bio": "A dedicated tech educator who inspires the next generation of developers with practical knowledge and a passion for innovation."
+      },
+      "gal": {
+        "name": "Gal Havkin",
+        "role": "Tech & AI Educator",
+        "bio": "A talented educator who combines deep technical knowledge with an ability to make complex topics approachable and exciting."
+      },
+      "roey": {
+        "name": "Dr. Roey Tzezana",
+        "role": "Futurist & Author",
+        "bio": "A renowned futurist and author who explores how technology shapes our future. His insights on AI and emerging tech have been a constant source of inspiration."
+      },
+      "roi": {
+        "name": "Dr. Roi Yozevitch",
+        "role": "AI Educator & Course Creator",
+        "bio": "A leading AI educator creating comprehensive courses that empower people to harness AI effectively. His teaching makes the world of AI accessible to everyone."
+      },
+      "nadav": {
+        "name": "Nadav Neve",
+        "role": "Tech & AI Educator",
+        "bio": "A passionate educator who shares knowledge generously and motivates others to push their boundaries in tech and AI."
+      },
+      "guy": {
+        "name": "Guy Aga",
+        "role": "Digital Marketing & AI Educator",
+        "bio": "A visionary at the intersection of digital marketing and AI, helping professionals and businesses leverage AI tools for real-world impact."
       }
     }
   },

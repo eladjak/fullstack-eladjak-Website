@@ -45,7 +45,6 @@ const languages: { code: Locale; name: string; Flag: typeof FlagIL }[] = [
 const SECTION_ANCHORS = [
   { id: 'skills', labelKey: 'skills' },
   { id: 'projects', labelKey: 'featuredProjects' },
-  { id: 'testimonials', labelKey: 'testimonials' },
   { id: 'cta', labelKey: 'contact' },
 ] as const;
 

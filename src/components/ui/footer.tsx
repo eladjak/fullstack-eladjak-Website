@@ -22,6 +22,7 @@ export default function Footer() {
     { href: '/blog', label: tNav('blog') },
     { href: '/about', label: tNav('about') },
     { href: '/contact', label: tNav('contact') },
+    { href: '/thanks', label: tNav('thanks') },
   ];
 
   return (
