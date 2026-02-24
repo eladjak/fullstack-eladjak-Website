@@ -9,6 +9,7 @@ import ThemeToggle from './theme-toggle';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import { CommandPalette } from '@/components/ui/command-palette';
 import type { Locale } from '@/i18n';
 
 /** Inline Israel flag SVG (for Hebrew) */
@@ -85,6 +86,7 @@ export default function Navigation() {
     { href: '/projects', label: t('projects') },
     { href: '/blog', label: t('blog') },
     { href: '/about', label: t('about') },
+    { href: '/thanks', label: t('thanks') },
     { href: '/contact', label: t('contact') },
   ];
 
@@ -138,6 +140,7 @@ export default function Navigation() {
                 })}
               </div>
             )}
+            <CommandPalette />
             <ThemeToggle />
             <div className="relative group">
               <button

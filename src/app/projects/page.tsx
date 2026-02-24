@@ -34,7 +34,7 @@ const allProjects: StaticProject[] = [
     id: 'portfolio',
     messageKey: 'portfolio',
     category: 'web',
-    technologies: ['Next.js 16', 'Three.js', 'Framer Motion', 'MDX', 'next-intl'],
+    technologies: ['Next.js 16', 'TypeScript', 'Framer Motion', 'MDX', 'next-intl'],
     github_url: 'https://github.com/eladjak/fullstack-eladjak-Website',
     live_url: 'https://fullstack-eladjak.co.il',
     gradient: 'from-blue-500/20 to-cyan-500/20',
