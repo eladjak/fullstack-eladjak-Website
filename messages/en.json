@@ -111,6 +111,30 @@
       }
     ]
   },
+  "recommendations": {
+    "title": "Recommendations",
+    "subtitle": "What people I've worked with say about me",
+    "items": {
+      "rec1": {
+        "name": "Kfir Guy",
+        "initials": "KG",
+        "role": "Lecturer & Tech Mentor, John Bryce",
+        "text": "Elad is an exceptional developer who combines strong technical abilities with creative thinking. He's always eager to learn new technologies and brings a professional approach to every project."
+      },
+      "rec2": {
+        "name": "Daniel Cohen",
+        "initials": "DC",
+        "role": "Tech Lead, Tech Startup",
+        "text": "I've worked with Elad on multiple projects and was consistently impressed by his ability to deliver quality code quickly. He understands the big picture and knows how to translate business requirements into technical solutions."
+      },
+      "rec3": {
+        "name": "Michal Levi",
+        "initials": "ML",
+        "role": "Product Manager",
+        "text": "Elad is not just a great developer, but a true partner in the process. He understands UX, suggests smart solutions, and always thinks about the end user. Highly recommended."
+      }
+    }
+  },
   "process": {
     "title": "How I Work",
     "subtitle": "A structured approach that ensures quality results and clear communication at every step",

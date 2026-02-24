@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation';
 import ThemeToggle from './theme-toggle';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
-import { useActiveSection } from '@/hooks/useActiveSection';
 import { CommandPalette } from '@/components/ui/command-palette';
 import type { Locale } from '@/i18n';
 
@@ -42,22 +41,12 @@ const languages: { code: Locale; name: string; Flag: typeof FlagIL }[] = [
   { code: 'en', name: 'English', Flag: FlagGB },
 ];
 
-/** Section anchor links shown on the home page for smooth scroll navigation */
-const SECTION_ANCHORS = [
-  { id: 'skills', labelKey: 'skills' },
-  { id: 'projects', labelKey: 'featuredProjects' },
-  { id: 'cta', labelKey: 'contact' },
-] as const;
-
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const t = useTranslations('nav');
-  const tSections = useTranslations('nav');
   const { locale, setLocale } = useLocale();
   const pathname = usePathname();
-  const activeSection = useActiveSection();
-  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,15 +60,6 @@ export default function Navigation() {
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  /** Smooth scroll to a section by ID, accounting for the fixed nav height */
-  const scrollToSection = useCallback((sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-    const navHeight = 64; // h-16 = 64px
-    const y = element.getBoundingClientRect().top + window.scrollY - navHeight;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }, []);
 
   const navItems = [
     { href: '/', label: t('home') },
@@ -118,28 +98,6 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
-            {/* Section scroll links - only visible on home page */}
-            {isHomePage && (
-              <div className="flex items-center gap-1 ms-2 border-s border-border ps-4">
-                {SECTION_ANCHORS.map((section) => {
-                  const isActive = activeSection === section.id;
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => scrollToSection(section.id)}
-                      className={`relative px-2.5 py-1 text-xs font-medium rounded-full transition-colors ${
-                        isActive
-                          ? 'text-primary-foreground bg-primary'
-                          : 'text-foreground/60 hover:text-foreground hover:bg-muted'
-                      }`}
-                      aria-label={`Scroll to ${section.id}`}
-                    >
-                      {tSections(section.labelKey)}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
             <CommandPalette />
             <ThemeToggle />
             <div className="relative group">
@@ -203,33 +161,6 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
-              {/* Section scroll links in mobile - only on home page */}
-              {isHomePage && (
-                <>
-                  <div className="border-t my-4" />
-                  <div className="space-y-1">
-                    {SECTION_ANCHORS.map((section) => {
-                      const isActive = activeSection === section.id;
-                      return (
-                        <button
-                          key={section.id}
-                          onClick={() => {
-                            scrollToSection(section.id);
-                            setIsOpen(false);
-                          }}
-                          className={`block w-full text-start py-2 px-2 rounded-md text-sm transition-colors ${
-                            isActive
-                              ? 'text-primary font-medium bg-primary/10'
-                              : 'text-foreground/80 hover:text-foreground hover:bg-muted'
-                          }`}
-                        >
-                          {tSections(section.labelKey)}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </>
-              )}
               <div className="border-t my-4" />
               <div className="flex items-center justify-between py-2">
                 <span className="text-foreground/80">{t('theme')}</span>

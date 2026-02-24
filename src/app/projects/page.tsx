@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
@@ -17,6 +18,7 @@ interface StaticProject {
   live_url?: string;
   gradient: string;
   icon: string;
+  image?: string;
 }
 
 const allProjects: StaticProject[] = [
@@ -29,6 +31,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://haderech.vercel.app',
     gradient: 'from-violet-500/20 to-purple-600/20',
     icon: 'HaDerech',
+    image: '/projects/haderech.png',
   },
   {
     id: 'portfolio',
@@ -39,6 +42,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://fullstack-eladjak.co.il',
     gradient: 'from-blue-500/20 to-cyan-500/20',
     icon: 'Portfolio',
+    image: '/projects/portfolio.png',
   },
   {
     id: 'ey-ai-kids',
@@ -75,6 +79,7 @@ const allProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/omanut-website',
     gradient: 'from-amber-500/20 to-orange-500/20',
     icon: 'Omanut',
+    image: '/projects/omanut.png',
   },
   {
     id: 'bayit-beseder',
@@ -213,15 +218,27 @@ export default function ProjectsPage() {
         {filteredProjects.map((project) => (
           <motion.div key={project.id} variants={cardVariants} className="group">
             <div className="relative h-full rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl">
-              {/* Gradient header */}
+              {/* Project header - screenshot or gradient */}
               <div
-                className={`relative h-28 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
+                className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
               >
-                <div className="absolute -top-8 -end-8 h-24 w-24 rounded-full bg-primary/10" />
-                <div className="absolute -bottom-4 -start-4 h-16 w-16 rounded-full bg-accent/10" />
-                <span className="relative text-2xl font-bold text-primary/80">
-                  {project.icon}
-                </span>
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.icon}
+                    fill
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                ) : (
+                  <>
+                    <div className="absolute -top-8 -end-8 h-24 w-24 rounded-full bg-primary/10" />
+                    <div className="absolute -bottom-4 -start-4 h-16 w-16 rounded-full bg-accent/10" />
+                    <span className="relative text-2xl font-bold text-primary/80">
+                      {project.icon}
+                    </span>
+                  </>
+                )}
               </div>
 
               <div className="p-5">
