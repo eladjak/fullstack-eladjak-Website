@@ -66,6 +66,15 @@ const staticProjects: StaticProject[] = [
     icon: 'EduTech',
   },
   {
+    id: 'html-to-pptx',
+    messageKey: 'htmlToPptx',
+    technologies: ['Next.js 14', 'TypeScript', 'pptxgenjs', 'JSDOM', 'Tailwind CSS'],
+    github_url: 'https://github.com/eladjak/html-to-pptx',
+    live_url: 'https://html-to-pptx-ten.vercel.app',
+    gradient: 'from-orange-500/20 to-amber-500/20',
+    icon: 'PPTX',
+  },
+  {
     id: 'hebrew-calendar',
     messageKey: 'hebrewCalendar',
     technologies: ['JavaScript', 'React', 'CSS3', 'Date Algorithms'],
