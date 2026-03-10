@@ -81,6 +81,10 @@
       "zehutai": {
         "title": "ZehutAI - Hebrew NLP",
         "description": "Enterprise-grade natural language processing for Hebrew text analysis. RAG-powered insights help businesses understand sentiment and extract intelligence from Hebrew content."
+      },
+      "teamMeetings": {
+        "title": "Team Meetings Manager",
+        "description": "Modern meeting management with interactive calendar, room booking, drag-and-drop scheduling, and full Hebrew RTL support. Makes team coordination effortless."
       }
     }
   },

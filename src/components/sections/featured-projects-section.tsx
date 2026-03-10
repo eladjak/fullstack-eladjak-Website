@@ -83,6 +83,15 @@ const staticProjects: StaticProject[] = [
     gradient: 'from-sky-500/20 to-blue-600/20',
     icon: 'Zehut',
   },
+  {
+    id: 'team-meetings',
+    messageKey: 'teamMeetings',
+    technologies: ['React', 'TypeScript', 'Vite', 'FullCalendar', 'MUI'],
+    github_url: 'https://github.com/eladjak/team-meetings',
+    live_url: 'https://team-meetings.vercel.app',
+    gradient: 'from-purple-500/20 to-violet-500/20',
+    icon: 'Meetings',
+  },
 ];
 
 const containerVariants = {

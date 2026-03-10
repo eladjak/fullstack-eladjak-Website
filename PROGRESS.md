@@ -1,12 +1,31 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-09
+## Last Updated: 2026-03-10
 
 ## Current State
-Site live at fullstack-eladjak.co.il. 21 routes, TypeScript clean. Portfolio Revival Sprint started — Session 1 (HTML2PPTX) complete. HTML to PPTX Converter rebuilt from archive, deployed at html-to-pptx-ten.vercel.app, and added to portfolio. Next: Session 2 (VacationVibe).
+Site live at fullstack-eladjak.co.il. 21 routes, TypeScript clean. Portfolio Revival Sprint continues — Sessions 1-4 complete. Added VacationVibe, Team Meetings, Customer CRM to portfolio (14 total projects). Deploying all 3 to Vercel in parallel.
 
 ## What Was Done
+
+### Session 2026-03-10 - Portfolio Revival Sprint: Sessions 2-4 (Batch)
+
+#### Portfolio Integration (3 new projects)
+- [x] Added VacationVibe (React + NestJS vacation booking platform) to projects page
+- [x] Added Team Meetings (React + Vite meeting management) to projects page
+- [x] Added Customer CRM (Angular + Express + MongoDB) to projects page
+- [x] Added bilingual translations (HE+EN) for all 3 projects
+- [x] Updated Hebrew Calendar tech stack (added FullCalendar, Hebrew Calendar API, Google OAuth, i18n)
+- [x] Updated GitHub repo descriptions for all 4 projects
+- [x] Fixed .npmrc for legacy-peer-deps
+- [x] Build passes (21 routes), TypeScript clean
+- [x] Committed and pushed: `d85c398`
+- [x] Portfolio now shows 14 projects total (was 11)
+
+#### Project Deployments (in progress)
+- [ ] Team Meetings: frontend built successfully, deploying to Vercel
+- [ ] VacationVibe: client deps installed, building
+- [ ] Customer CRM: Angular client setup, building
 
 ### Session 2026-03-09 - Portfolio Revival Sprint: Session 1 (HTML2PPTX)
 
@@ -36,10 +55,10 @@ Site live at fullstack-eladjak.co.il. 21 routes, TypeScript clean. Portfolio Rev
 - GitHub repo: https://github.com/eladjak/html-to-pptx
 
 ## Remaining Revival Sprint Sessions
-- [ ] Session 2-3: VacationVibe (scaffold + auth + DB, then UI + features + deploy)
-- [ ] Session 4: Hebrew Calendar
-- [ ] Session 5-6: Team Meetings
-- [ ] Session 7: Customer CRM
+- [x] Session 1: HTML2PPTX - rebuilt and deployed
+- [x] Sessions 2-4: VacationVibe, Team Meetings, Customer CRM - added to portfolio, deploying
+- [ ] Hebrew Calendar: upgrade from archive (advanced version with appointments, OAuth)
+- [ ] Project screenshots/thumbnails for new projects
 
 ### Session 2026-02-24 - Nav fixes, cleanup, Thanks page, consistency pass
 
