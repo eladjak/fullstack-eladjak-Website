@@ -1,12 +1,45 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-02-24
+## Last Updated: 2026-03-09
 
 ## Current State
-Site live at fullstack-eladjak.co.il. 21 routes, TypeScript clean, all Three.js references removed. Nav has 6 pages (Home, Projects, Blog, About, Thanks, Contact) + section anchors + CommandPalette (Ctrl+K). Thanks page honoring 8 Israeli tech/AI mentors. Marquee runs seamless. CTA buttons use amber color consistently.
+Site live at fullstack-eladjak.co.il. 21 routes, TypeScript clean. Portfolio Revival Sprint started — Session 1 (HTML2PPTX) complete. HTML to PPTX Converter rebuilt from archive, deployed at html-to-pptx-ten.vercel.app, and added to portfolio. Next: Session 2 (VacationVibe).
 
 ## What Was Done
+
+### Session 2026-03-09 - Portfolio Revival Sprint: Session 1 (HTML2PPTX)
+
+#### HTML to PPTX Project Revival (`~/projects/html-to-pptx/`)
+- [x] Explored archive at `~/archive/deprecated/WebTechPro_Html_To_pptx/`
+- [x] Identified fundamental architecture flaw (client-side JSDOM import - Node.js only)
+- [x] Cleaned ~30 dead files (unused components, services, duplicate API routes, conflicting templates)
+- [x] Removed 15+ unused dependencies (puppeteer, sharp, ioredis, babel, officegen, pdf-lib, openai, anthropic SDK, supabase, react-query, etc.)
+- [x] Rewrote core conversion to server-side API route (`POST /api/convert`)
+- [x] Implemented: 5 color themes, smart slide detection, RTL auto-detection, code block rendering
+- [x] Rewrote ConversionArea component (3 input tabs, theme selector, progress bar, blob download)
+- [x] Rewrote layout (sticky nav, Heebo font) and page (hero, feature cards)
+- [x] Fixed pptxgenjs API issues (`pres.slides` doesn't exist - used manual slideCount)
+- [x] Removed `@tailwindcss/typography` (not in deps)
+- [x] Built successfully, deployed to Vercel
+- [x] Created GitHub repo: github.com/eladjak/html-to-pptx
+
+#### Portfolio Integration
+- [x] Added HTML2PPTX to `featured-projects-section.tsx` staticProjects array
+- [x] Added HTML2PPTX to `projects/page.tsx` allProjects array (category: tools)
+- [x] Added bilingual translations (HE+EN) in both `messages/en.json` and `messages/he.json`
+- [x] Verified TypeScript clean, build passes (21 routes)
+- [x] Committed and pushed to trigger Vercel deploy
+
+#### Deployed URLs
+- HTML2PPTX app: https://html-to-pptx-ten.vercel.app
+- GitHub repo: https://github.com/eladjak/html-to-pptx
+
+## Remaining Revival Sprint Sessions
+- [ ] Session 2-3: VacationVibe (scaffold + auth + DB, then UI + features + deploy)
+- [ ] Session 4: Hebrew Calendar
+- [ ] Session 5-6: Team Meetings
+- [ ] Session 7: Customer CRM
 
 ### Session 2026-02-24 - Nav fixes, cleanup, Thanks page, consistency pass
 
