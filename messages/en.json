@@ -70,17 +70,17 @@
         "title": "Omanut Website",
         "description": "A professional coaching business website that builds trust through compelling content and testimonials. Full Hebrew support helps reach the target audience effectively."
       },
-      "edutech": {
-        "title": "EduTech Platform",
-        "description": "Streamlines educational operations with automated course management and actionable student analytics. Helps instructors focus on teaching, not administration."
+      "voiceChat": {
+        "title": "Voice Chat with Claude",
+        "description": "Enables natural voice conversations with AI using Whisper for speech-to-text, Claude for intelligence, and ElevenLabs for lifelike responses. Push-to-talk and continuous modes for any use case."
       },
       "htmlToPptx": {
         "title": "HTML to PPTX Converter",
         "description": "Converts HTML content into professional PowerPoint presentations instantly. Smart slide detection, 5 themes, and full Hebrew RTL support make presentation creation effortless."
       },
-      "hebrewCalendar": {
-        "title": "Hebrew-Gregorian Calendar",
-        "description": "Eliminates date conversion headaches for users managing both Hebrew and Gregorian calendars. Instant holiday lookups and accurate calculations in an intuitive interface."
+      "zehutai": {
+        "title": "ZehutAI - Hebrew NLP",
+        "description": "Enterprise-grade natural language processing for Hebrew text analysis. RAG-powered insights help businesses understand sentiment and extract intelligence from Hebrew content."
       }
     }
   },
@@ -377,10 +377,6 @@
         "title": "Omanut HaKesher",
         "description": "A professional coaching business website that builds trust through compelling content and client testimonials. Full Hebrew RTL support and WhatsApp integration help reach the target audience effectively."
       },
-      "edutech": {
-        "title": "EduTech Platform",
-        "description": "Streamlines educational operations with automated course management and actionable student analytics. Helps instructors focus on teaching, not administration, while providing students with engaging interactive content."
-      },
       "htmlToPptx": {
         "title": "HTML to PPTX Converter",
         "description": "Converts HTML content into professional PowerPoint presentations instantly. Smart slide detection, 5 color themes, and full Hebrew RTL support. Upload files, paste HTML, or import from URL."
@@ -408,10 +404,6 @@
       "zehutai": {
         "title": "ZehutAI - Hebrew NLP",
         "description": "Brings enterprise-grade natural language processing to Hebrew text analysis. RAG-powered insights help businesses understand customer sentiment and extract actionable intelligence from Hebrew content."
-      },
-      "whatsappAutomation": {
-        "title": "WhatsApp Automation",
-        "description": "Saves businesses hours daily by automating WhatsApp messaging workflows. Schedule messages, manage contacts, and provide instant auto-replies without sacrificing the personal touch customers expect."
       }
     }
   },

@@ -59,12 +59,12 @@ const staticProjects: StaticProject[] = [
     image: '/projects/omanut.png',
   },
   {
-    id: 'edutech',
-    messageKey: 'edutech',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'TypeScript', 'REST API'],
-    github_url: 'https://github.com/eladjak/EduTech-Website',
-    gradient: 'from-rose-500/20 to-pink-500/20',
-    icon: 'EduTech',
+    id: 'voice-chat',
+    messageKey: 'voiceChat',
+    technologies: ['TypeScript', 'Whisper', 'Claude API', 'ElevenLabs', 'WebSocket'],
+    github_url: 'https://github.com/eladjak/voice-chat-claude',
+    gradient: 'from-fuchsia-500/20 to-pink-500/20',
+    icon: 'Voice',
   },
   {
     id: 'html-to-pptx',
@@ -76,12 +76,12 @@ const staticProjects: StaticProject[] = [
     icon: 'PPTX',
   },
   {
-    id: 'hebrew-calendar',
-    messageKey: 'hebrewCalendar',
-    technologies: ['JavaScript', 'React', 'CSS3', 'Date Algorithms'],
-    github_url: 'https://github.com/eladjak/hebrew-gregorian-calendar',
-    gradient: 'from-indigo-500/20 to-blue-500/20',
-    icon: 'Calendar',
+    id: 'zehutai',
+    messageKey: 'zehutai',
+    technologies: ['Python', 'NLP', 'RAG', 'CI/CD', 'pytest'],
+    github_url: 'https://github.com/eladjak/ZehutAI',
+    gradient: 'from-sky-500/20 to-blue-600/20',
+    icon: 'Zehut',
   },
 ];
 
