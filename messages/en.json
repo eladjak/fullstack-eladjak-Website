@@ -404,6 +404,18 @@
       "zehutai": {
         "title": "ZehutAI - Hebrew NLP",
         "description": "Brings enterprise-grade natural language processing to Hebrew text analysis. RAG-powered insights help businesses understand customer sentiment and extract actionable intelligence from Hebrew content."
+      },
+      "vacationVibe": {
+        "title": "VacationVibe - Vacation Manager",
+        "description": "A full-stack vacation booking platform with role-based access control, real-time notifications, and analytics dashboard. Streamlines PTO management for organizations with automated approval workflows and visual reporting."
+      },
+      "teamMeetings": {
+        "title": "Team Meetings Manager",
+        "description": "Modern team meeting management system with interactive multi-view calendar, room booking, participant tracking, and Excel export. Drag-and-drop scheduling with full Hebrew RTL support makes coordination effortless."
+      },
+      "customerCrm": {
+        "title": "Customer CRM",
+        "description": "Full-stack customer and task management system built with Angular and Node.js. CRUD operations, per-customer task tracking, JWT authentication, and a clean Hebrew interface for managing client relationships."
       }
     }
   },
