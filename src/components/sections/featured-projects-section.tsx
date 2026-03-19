@@ -47,6 +47,7 @@ const staticProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/ey.ai-kids-playground',
     gradient: 'from-emerald-500/20 to-teal-500/20',
     icon: 'EY.AI',
+    image: '/projects/ey-ai-kids.jpg',
   },
   {
     id: 'omanut',
@@ -65,6 +66,7 @@ const staticProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/voice-chat-claude',
     gradient: 'from-fuchsia-500/20 to-pink-500/20',
     icon: 'Voice',
+    image: '/projects/voice-chat.jpg',
   },
   {
     id: 'html-to-pptx',
@@ -74,6 +76,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://html-to-pptx-ten.vercel.app',
     gradient: 'from-orange-500/20 to-amber-500/20',
     icon: 'PPTX',
+    image: '/projects/html-to-pptx.jpg',
   },
   {
     id: 'zehutai',
@@ -91,6 +94,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://team-meetings.vercel.app',
     gradient: 'from-purple-500/20 to-violet-500/20',
     icon: 'Meetings',
+    image: '/projects/team-meetings.jpg',
   },
 ];
 
@@ -147,8 +151,8 @@ export default function FeaturedProjectsSection() {
                     />
                   ) : (
                     <>
-                      <div className="absolute -top-8 -right-8 h-24 w-24 rounded-full bg-primary/10" />
-                      <div className="absolute -bottom-4 -left-4 h-16 w-16 rounded-full bg-accent/10" />
+                      <div className="absolute -top-8 -end-8 h-24 w-24 rounded-full bg-primary/10" />
+                      <div className="absolute -bottom-4 -start-4 h-16 w-16 rounded-full bg-accent/10" />
                       <span className="relative text-2xl font-bold text-primary/80">
                         {project.icon}
                       </span>

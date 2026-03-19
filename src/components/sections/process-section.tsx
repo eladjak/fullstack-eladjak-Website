@@ -33,7 +33,7 @@ export default function ProcessSection() {
 
         <div className="relative max-w-5xl mx-auto">
           {/* Connecting line */}
-          <div className="absolute top-24 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent hidden lg:block" />
+          <div className="absolute top-24 inset-x-0 h-px bg-gradient-to-r from-transparent via-border to-transparent hidden lg:block" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {stepKeys.map((key, index) => {
@@ -48,7 +48,7 @@ export default function ProcessSection() {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Step number */}
-                  <div className="text-6xl font-bold text-muted-foreground/10 absolute -top-4 left-1/2 -translate-x-1/2 select-none">
+                  <div className="text-6xl font-bold text-muted-foreground/10 absolute -top-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 select-none">
                     {String(index + 1).padStart(2, '0')}
                   </div>
 

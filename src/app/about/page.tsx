@@ -46,8 +46,8 @@ export default function AboutPage() {
         <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-          <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-56 h-56 rounded-full bg-accent/5 blur-3xl" />
+          <div className="absolute top-20 start-10 w-72 h-72 rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute bottom-10 end-10 w-56 h-56 rounded-full bg-accent/5 blur-3xl" />
 
           <div className="container relative px-4 md:px-6">
             <motion.div
@@ -133,7 +133,7 @@ export default function AboutPage() {
                     <div className="relative flex gap-6 pb-10 last:pb-0">
                       {/* Timeline line with gradient and scroll reveal */}
                       {!isLast && (
-                        <div className="absolute left-6 top-14 w-px h-full bg-gradient-to-b from-primary/30 to-border/30 scroll-reveal-bar" />
+                        <div className="absolute start-6 top-14 w-px h-full bg-gradient-to-b from-primary/30 to-border/30 scroll-reveal-bar" />
                       )}
 
                       {/* Icon with gradient ring */}

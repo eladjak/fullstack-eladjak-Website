@@ -29,7 +29,7 @@ export default function Footer() {
   return (
     <footer className="relative w-full border-t bg-card/50 backdrop-blur-sm">
       {/* Decorative gradient line at top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
       <div className="container px-4 md:px-6 py-12 md:py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

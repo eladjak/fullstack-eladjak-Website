@@ -314,6 +314,10 @@ html {
     animation: reveal-bar linear both;
     animation-timeline: view();
     animation-range: entry 0% cover 40%;
+    transform-origin: right; /* RTL: timeline reveals from right in Hebrew */
+  }
+
+  [dir="ltr"] .scroll-reveal-bar {
     transform-origin: left;
   }
 }
