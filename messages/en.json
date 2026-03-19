@@ -517,5 +517,35 @@
   "language": {
     "he": "עברית",
     "en": "English"
+  },
+  "seo": {
+    "home": {
+      "title": "Elad Ya'akobovitch | Full-Stack Developer & AI Specialist",
+      "description": "Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web apps with AI integration. Migdal HaEmek, Israel."
+    },
+    "about": {
+      "title": "About Elad Ya'akobovitch | Full-Stack Developer",
+      "description": "My journey from arts and business to full-stack development. Combining technical expertise with creative vision and business insight."
+    },
+    "projects": {
+      "title": "Projects | Elad Ya'akobovitch - Full-Stack Developer",
+      "description": "A collection of projects showcasing full-stack development, AI integration, and creative problem solving with Next.js, React, TypeScript."
+    },
+    "blog": {
+      "title": "Blog | Elad Ya'akobovitch - Software Development & AI",
+      "description": "Articles about software development, technology, AI, and my journey as a full-stack developer."
+    },
+    "contact": {
+      "title": "Contact | Elad Ya'akobovitch - Full-Stack Developer",
+      "description": "Get in touch for collaborations, new projects, or tech consulting. Quick response within a few hours."
+    },
+    "services": {
+      "title": "Services | Elad Ya'akobovitch - Development & AI Solutions",
+      "description": "Full-Stack development, AI automation, web application development, tech workshops, and WhatsApp automation services."
+    },
+    "thanks": {
+      "title": "People Who Inspire Me | Elad Ya'akobovitch",
+      "description": "Mentors, educators, and thought leaders in tech and AI who have shaped my professional journey."
+    }
   }
 }

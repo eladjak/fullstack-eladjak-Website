@@ -259,7 +259,7 @@ export default function ProjectsPage() {
                 {project.image ? (
                   <Image
                     src={project.image}
-                    alt={project.icon}
+                    alt={t(`projects.${project.messageKey}.title`)}
                     fill
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -302,7 +302,7 @@ export default function ProjectsPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                    aria-label={`View source code for ${project.icon}`}
+                    aria-label={`צפייה בקוד המקור של ${t(`projects.${project.messageKey}.title`)}`}
                   >
                     <Github className="h-4 w-4" aria-hidden="true" />
                     <span>{t('code')}</span>
@@ -313,7 +313,7 @@ export default function ProjectsPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                      aria-label={`Live demo of ${project.icon}`}
+                      aria-label={`דמו חי של ${t(`projects.${project.messageKey}.title`)}`}
                     >
                       <ExternalLink className="h-4 w-4" aria-hidden="true" />
                       <span>{t('liveDemo')}</span>

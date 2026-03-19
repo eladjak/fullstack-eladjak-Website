@@ -32,9 +32,9 @@ export default function AboutPage() {
   const t = useTranslations('about');
 
   useMetaTags({
-    title: "About Elad Ya'akobovitch | Full-Stack Developer",
+    title: "אודות אלעד יעקובוביץ' | מפתח Full-Stack",
     description:
-      "Learn about my journey from arts and business to full-stack development. Combining technical expertise with creative vision.",
+      'המסע שלי מאמנות ועסקים לפיתוח Full-Stack. שילוב מומחיות טכנית עם חזון יצירתי ותובנה עסקית.',
     image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
     type: 'profile',
   });
@@ -233,10 +233,10 @@ export default function AboutPage() {
               <div className="flex flex-col items-center space-y-4">
                 <h3 className="text-xl font-semibold">{t('connect')}</h3>
                 <div className="flex gap-3">
-                  <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
-                  <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
-                  <SocialLink href="mailto:elad@hiteclearning.co.il" icon={Mail} label="Send Email" />
-                  <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
+                  <SocialLink href="https://github.com/eladjak" icon={Github} label="פרופיל GitHub" />
+                  <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="פרופיל LinkedIn" />
+                  <SocialLink href="mailto:eladhiteclearning@gmail.com" icon={Mail} label="שליחת אימייל" />
+                  <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="אתר תיק עבודות" />
                 </div>
               </div>
             </ScrollAnimate>

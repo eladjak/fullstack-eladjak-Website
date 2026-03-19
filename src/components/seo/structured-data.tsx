@@ -51,7 +51,43 @@ interface ProfilePage {
   mainEntity: Person;
 }
 
-type StructuredDataType = Person | Article | WebSite | ProfilePage | object;
+interface LocalBusiness {
+  '@type': 'ProfessionalService';
+  name: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  telephone?: string;
+  email?: string;
+  address?: {
+    '@type': 'PostalAddress';
+    addressLocality: string;
+    addressRegion: string;
+    addressCountry: string;
+  };
+  geo?: {
+    '@type': 'GeoCoordinates';
+    latitude: number;
+    longitude: number;
+  };
+  priceRange?: string;
+  areaServed?: string;
+  knowsLanguage?: string[];
+  hasOfferCatalog?: {
+    '@type': 'OfferCatalog';
+    name: string;
+    itemListElement: Array<{
+      '@type': 'Offer';
+      itemOffered: {
+        '@type': 'Service';
+        name: string;
+        description: string;
+      };
+    }>;
+  };
+}
+
+type StructuredDataType = Person | Article | WebSite | ProfilePage | LocalBusiness | object;
 
 interface StructuredDataProps {
   data: StructuredDataType;
@@ -82,7 +118,8 @@ export const structuredDataGenerators = {
     '@type': 'Person',
     name,
     url: url || 'https://fullstack-eladjak.co.il',
-    jobTitle: jobTitle || 'Full-Stack Developer',
+    image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
+    jobTitle: jobTitle || 'מפתח Full-Stack ומומחה AI',
     worksFor: {
       '@type': 'Organization',
       name: 'HiTec Learning',
@@ -110,7 +147,7 @@ export const structuredDataGenerators = {
     author: structuredDataGenerators.person(author),
     publisher: {
       '@type': 'Organization',
-      name: 'Elad Ya\'akobovitch',
+      name: 'אלעד יעקובוביץ\'',
       logo: {
         '@type': 'ImageObject',
         url: 'https://fullstack-eladjak.co.il/logo.png',
@@ -120,9 +157,9 @@ export const structuredDataGenerators = {
 
   website: (): WebSite => ({
     '@type': 'WebSite',
-    name: 'Elad Ya\'akobovitch - Full-Stack Developer',
+    name: 'אלעד יעקובוביץ\' - מפתח Full-Stack ומומחה AI',
     url: 'https://fullstack-eladjak.co.il',
-    description: 'Full-Stack Developer portfolio showcasing projects in Next.js, React, TypeScript, and more.',
+    description: 'מפתח Full-Stack המתמחה ב-Next.js, React, TypeScript ואינטגרציית AI. בניית אפליקציות ווב מודרניות, אוטומציה עסקית ופתרונות טכנולוגיים.',
     inLanguage: 'he-IL',
     potentialAction: {
       '@type': 'SearchAction',
@@ -133,12 +170,82 @@ export const structuredDataGenerators = {
 
   profilePage: (): ProfilePage => ({
     '@type': 'ProfilePage',
-    name: 'Elad Ya\'akobovitch - Professional Profile',
+    name: 'אלעד יעקובוביץ\' - פרופיל מקצועי',
     url: 'https://fullstack-eladjak.co.il/about',
     mainEntity: structuredDataGenerators.person(
-      'Elad Ya\'akobovitch',
+      'אלעד יעקובוביץ\'',
       'https://fullstack-eladjak.co.il',
-      'Full-Stack Developer & Software Engineer'
+      'מפתח Full-Stack ומומחה AI'
     ),
+  }),
+
+  localBusiness: (): LocalBusiness => ({
+    '@type': 'ProfessionalService',
+    name: 'אלעד יעקובוביץ\' - פיתוח תוכנה ופתרונות AI',
+    description: 'שירותי פיתוח Full-Stack, אינטגרציית AI, בניית אפליקציות ווב ואוטומציה עסקית. מגדל העמק, ישראל.',
+    url: 'https://fullstack-eladjak.co.il',
+    image: 'https://fullstack-eladjak.co.il/og-image.png',
+    telephone: '+972-52-542-7474',
+    email: 'eladhiteclearning@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'מגדל העמק',
+      addressRegion: 'צפון',
+      addressCountry: 'IL',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 32.6711,
+      longitude: 35.2408,
+    },
+    priceRange: '$$',
+    areaServed: 'ישראל',
+    knowsLanguage: ['he', 'en'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'שירותי פיתוח תוכנה',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'פיתוח Full-Stack',
+            description: 'בניית אפליקציות ווב מודרניות עם Next.js, React ו-TypeScript. מדפי נחיתה ועד מערכות SaaS מורכבות.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'פתרונות AI ואוטומציה',
+            description: 'הטמעת בינה מלאכותית בתהליכי עסק. צ\'אטבוטים, אוטומציית תהליכים ואינטגרציית OpenAI / Claude.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'אוטומציית WhatsApp',
+            description: 'סוכני WhatsApp חכמים שעובדים 24/7. מענה אוטומטי, תזמון פגישות ואינטגרציה עם CRM.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'סדנאות AI ופיתוח',
+            description: 'סדנאות מעשיות ללמידת כלי AI לפיתוח תוכנה ואוטומציה עסקית.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'פתרונות EdTech',
+            description: 'פלטפורמות למידה ואפליקציות חינוכיות עם AI, מעקב התקדמות ותוכן מותאם.',
+          },
+        },
+      ],
+    },
   }),
 };

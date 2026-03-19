@@ -1,7 +1,7 @@
 {
-  "name": "Elad Ya'akobovitch - Full-Stack Developer",
-  "short_name": "Elad Portfolio",
-  "description": "Full-Stack Developer portfolio showcasing projects in Next.js, React, TypeScript, and modern web technologies",
+  "name": "אלעד יעקובוביץ' - מפתח Full-Stack ומומחה AI",
+  "short_name": "אלעד יעקובוביץ'",
+  "description": "תיק עבודות מפתח Full-Stack המציג פרויקטים ב-Next.js, React, TypeScript ואינטגרציית AI",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -47,9 +47,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Blog",
-      "short_name": "Blog",
-      "description": "Read latest blog posts",
+      "name": "בלוג",
+      "short_name": "בלוג",
+      "description": "קריאת פוסטים אחרונים",
       "url": "/blog",
       "icons": [
         {
@@ -59,9 +59,9 @@
       ]
     },
     {
-      "name": "Projects",
-      "short_name": "Projects",
-      "description": "View portfolio projects",
+      "name": "פרויקטים",
+      "short_name": "פרויקטים",
+      "description": "צפייה בפרויקטים",
       "url": "/projects",
       "icons": [
         {
@@ -71,9 +71,9 @@
       ]
     },
     {
-      "name": "Contact",
-      "short_name": "Contact",
-      "description": "Get in touch",
+      "name": "צור קשר",
+      "short_name": "צור קשר",
+      "description": "יצירת קשר",
       "url": "/contact",
       "icons": [
         {

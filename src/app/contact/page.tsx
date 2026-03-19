@@ -33,8 +33,8 @@ export default function ContactPage() {
   });
 
   useMetaTags({
-    title: 'Contact Elad Ya\'akobovitch | Get In Touch',
-    description: 'Get in touch with Elad Ya\'akobovitch for collaboration opportunities, project inquiries, or just to say hello.',
+    title: "צור קשר | אלעד יעקובוביץ' - מפתח Full-Stack",
+    description: "צרו קשר עם אלעד יעקובוביץ' לשיתופי פעולה, פרויקטים חדשים או ייעוץ טכנולוגי. תגובה תוך מספר שעות.",
     image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
     type: 'website',
   });
@@ -166,12 +166,13 @@ export default function ContactPage() {
                 {contactInfo.map((info, index) => (
                   <ScrollAnimate key={info.title} delay={index * 0.05}>
                     <div className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50">
-                      <info.icon className="h-8 w-8 text-primary" />
+                      <info.icon className="h-8 w-8 text-primary" aria-hidden="true" />
                       <h3 className="text-lg font-semibold">{info.title}</h3>
                       {info.href ? (
                         <a
                           href={info.href}
-                          className="text-muted-foreground hover:text-primary transition-colors"
+                          className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+                          aria-label={`${info.title}: ${info.value}`}
                         >
                           {info.value}
                         </a>
@@ -189,7 +190,7 @@ export default function ContactPage() {
                   <div className="rounded-lg border bg-card p-8 shadow-sm">
                     <h2 className="text-2xl font-bold mb-2 text-center">{t('form.title')}</h2>
                     <p className="text-sm text-muted-foreground text-center mb-6">{t('form.responseTime')}</p>
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                       <div>
                         <Label htmlFor="name" required>
                           {t('form.name')}
@@ -204,6 +205,9 @@ export default function ContactPage() {
                           error={!!errors.name}
                           helperText={errors.name}
                           disabled={isSubmitting}
+                          required
+                          aria-required="true"
+                          autoComplete="name"
                         />
                       </div>
 
@@ -221,6 +225,9 @@ export default function ContactPage() {
                           error={!!errors.email}
                           helperText={errors.email}
                           disabled={isSubmitting}
+                          required
+                          aria-required="true"
+                          autoComplete="email"
                         />
                       </div>
 
@@ -238,6 +245,8 @@ export default function ContactPage() {
                           error={!!errors.subject}
                           helperText={errors.subject}
                           disabled={isSubmitting}
+                          required
+                          aria-required="true"
                         />
                       </div>
 
@@ -255,6 +264,8 @@ export default function ContactPage() {
                           error={!!errors.message}
                           helperText={errors.message}
                           disabled={isSubmitting}
+                          required
+                          aria-required="true"
                         />
                       </div>
 
@@ -281,10 +292,10 @@ export default function ContactPage() {
                 <div className="flex flex-col items-center space-y-4 mt-12">
                   <h3 className="text-xl font-semibold">{t('connect')}</h3>
                   <div className="flex gap-4">
-                    <SocialLink href="https://github.com/eladjak" icon={Github} label="GitHub Profile" />
-                    <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="LinkedIn Profile" />
-                    <SocialLink href="mailto:eladhiteclearning@gmail.com" icon={Mail} label="Send Email" />
-                    <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
+                    <SocialLink href="https://github.com/eladjak" icon={Github} label="פרופיל GitHub" />
+                    <SocialLink href="https://linkedin.com/in/eladjak" icon={Linkedin} label="פרופיל LinkedIn" />
+                    <SocialLink href="mailto:eladhiteclearning@gmail.com" icon={Mail} label="שליחת אימייל" />
+                    <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="אתר תיק עבודות" />
                   </div>
                 </div>
               </ScrollAnimate>

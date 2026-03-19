@@ -12,9 +12,9 @@ import TechMarquee from '@/components/ui/tech-marquee';
 
 export default function HomePage() {
   useMetaTags({
-    title: "Elad Ya'akobovitch | Full-Stack Developer",
+    title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
     description:
-      'Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web applications with creative vision and technical expertise.',
+      'מפתח Full-Stack מומחה ל-Next.js, React ו-TypeScript. בניית אפליקציות ווב מודרניות עם אינטגרציית AI וחשיבה עסקית. ישראל.',
     image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
     type: 'website',
   });

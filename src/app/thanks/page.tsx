@@ -97,9 +97,9 @@ export default function ThanksPage() {
   const t = useTranslations('thanksPage');
 
   useMetaTags({
-    title: "People Who Inspire Me | Elad Ya'akobovitch",
+    title: "אנשים שמשפיעים עליי | אלעד יעקובוביץ'",
     description:
-      'Mentors, educators, and thought leaders in tech & AI who have shaped my development journey.',
+      'מנטורים, מחנכים ומובילי דעה בעולם הטכנולוגיה וה-AI שעיצבו את המסע המקצועי שלי.',
     type: 'website',
   });
 
@@ -183,10 +183,10 @@ export default function ThanksPage() {
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
-                                aria-label={`${link.type} link`}
+                                className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                aria-label={`ביקור בפרופיל ${link.type} של ${t(`people.${person.key}.name`)}`}
                               >
-                                <Icon className="h-4 w-4" />
+                                <Icon className="h-4 w-4" aria-hidden="true" />
                               </a>
                             );
                           })}
