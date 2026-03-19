@@ -28,7 +28,7 @@ export function WhatsAppFAB() {
       rel="noopener noreferrer"
       className="fixed bottom-6 end-6 z-50 flex items-center justify-center w-14 h-14 bg-green-600 hover:bg-green-500 text-white rounded-full shadow-lg shadow-green-600/30 hover:shadow-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       aria-label="Contact via WhatsApp"
-      initial={prefersReducedMotion ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+      initial={prefersReducedMotion ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={prefersReducedMotion ? { duration: 0 } : { delay: 2, duration: 0.3 }}
       whileHover={prefersReducedMotion ? {} : { scale: 1.1 }}

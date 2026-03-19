@@ -12,6 +12,7 @@ import {
   Mail,
   CheckCircle2,
 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -57,10 +58,14 @@ export default function ServicesPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative w-full min-h-[50vh] flex items-center overflow-hidden pt-20">
-          {/* Background image */}
-          <div
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url(/images/services-hero.jpg)' }}
+          {/* Background image - using Next.js Image for optimization */}
+          <Image
+            src="/images/services-hero.jpg"
+            alt=""
+            fill
+            className="object-cover object-center z-0"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/15 via-accent/10 to-background" />
           <div className="absolute inset-0 bg-background/60 dark:bg-background/75 z-[1]" />
@@ -104,9 +109,9 @@ export default function ServicesPage() {
                 return (
                   <ScrollAnimate key={key} delay={index * 0.05}>
                     <motion.div
-                      initial={{ opacity: 0.85, y: 8 }}
+                      initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
                       viewport={{ once: true }}
                       className="group relative"
                     >
