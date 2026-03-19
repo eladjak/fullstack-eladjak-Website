@@ -62,6 +62,7 @@ const allProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/ninja-keyboard',
     gradient: 'from-red-500/20 to-orange-500/20',
     icon: 'Ninja',
+    image: '/projects/ninja-keyboard.jpg',
   },
   {
     id: 'voice-chat',
@@ -92,6 +93,7 @@ const allProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/bayit-beseder',
     gradient: 'from-lime-500/20 to-green-500/20',
     icon: 'Bayit',
+    image: '/projects/bayit-beseder.jpg',
   },
   {
     id: 'zehutai',
@@ -101,6 +103,7 @@ const allProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/ZehutAI',
     gradient: 'from-sky-500/20 to-blue-600/20',
     icon: 'Zehut',
+    image: '/projects/zehutai.jpg',
   },
   {
     id: 'kidushishi',
@@ -110,6 +113,7 @@ const allProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/kidushishi-menegment-app',
     gradient: 'from-teal-500/20 to-cyan-500/20',
     icon: 'Kidush',
+    image: '/projects/kidushishi.jpg',
   },
   {
     id: 'html-to-pptx',
@@ -130,6 +134,7 @@ const allProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/hebrew-gregorian-calendar',
     gradient: 'from-indigo-500/20 to-blue-500/20',
     icon: 'Calendar',
+    image: '/projects/hebrew-calendar.jpg',
   },
   {
     id: 'vacation-vibe',
@@ -140,6 +145,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://vacation-vibe-pi.vercel.app',
     gradient: 'from-cyan-500/20 to-blue-500/20',
     icon: 'Vacation',
+    image: '/projects/vacation-vibe.jpg',
   },
   {
     id: 'team-meetings',
@@ -161,6 +167,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://customer-crm-tau.vercel.app',
     gradient: 'from-rose-500/20 to-pink-500/20',
     icon: 'CRM',
+    image: '/projects/customer-crm.jpg',
   },
 ];
 

@@ -85,6 +85,7 @@ const staticProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/ZehutAI',
     gradient: 'from-sky-500/20 to-blue-600/20',
     icon: 'Zehut',
+    image: '/projects/zehutai.jpg',
   },
   {
     id: 'team-meetings',
