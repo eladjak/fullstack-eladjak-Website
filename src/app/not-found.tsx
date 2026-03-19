@@ -36,7 +36,7 @@ export default function NotFound() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-4">
           <Link
             href="/"
-            className="group flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all"
+            className="group flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <div className="rounded-full bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
               <Home className="h-6 w-6 text-primary" />
@@ -49,7 +49,7 @@ export default function NotFound() {
 
           <Link
             href="/blog"
-            className="group flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all"
+            className="group flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <div className="rounded-full bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
               <FileQuestion className="h-6 w-6 text-primary" />
@@ -62,7 +62,7 @@ export default function NotFound() {
 
           <Link
             href="/projects"
-            className="group flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all"
+            className="group flex flex-col items-center gap-3 p-6 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <div className="rounded-full bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
               <Search className="h-6 w-6 text-primary" />

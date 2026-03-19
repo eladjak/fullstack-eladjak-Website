@@ -14,7 +14,7 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
       <label
         ref={ref}
         className={cn(
-          "block text-sm font-medium leading-none",
+          "block text-sm font-medium leading-none mb-2",
           "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
           className
         )}
@@ -22,10 +22,11 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
       >
         {children}
         {required && (
-          <span className="ml-1 text-destructive" aria-label="required">
+          <span className="ms-1 text-destructive" aria-hidden="true">
             *
           </span>
         )}
+        {required && <span className="sr-only"> (required)</span>}
       </label>
     );
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { type ReactNode } from 'react';
 
 interface ScrollAnimateProps {
@@ -11,10 +11,17 @@ interface ScrollAnimateProps {
 
 /**
  * Reusable scroll-triggered fade-in-up animation wrapper.
+ * Respects prefers-reduced-motion (IS 5568 / WCAG 2.3.3).
  * Content starts visible (opacity 0.85) and animates to full opacity on scroll.
  * Progressive enhancement: content is readable even without scroll trigger.
  */
 export function ScrollAnimate({ children, className, delay = 0 }: ScrollAnimateProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}

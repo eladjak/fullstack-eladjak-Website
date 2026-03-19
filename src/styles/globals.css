@@ -155,10 +155,33 @@ nextjs-portal {
   animation: gradient 6s ease infinite;
 }
 
-/* Smooth scrolling with offset for fixed nav */
+/* Smooth scrolling with offset for fixed nav - respects reduced motion */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem; /* 64px = nav height */
+}
+
+/* IS 5568 / WCAG: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* IS 5568: Minimum focus indicator - 2px solid outline */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Selection color */

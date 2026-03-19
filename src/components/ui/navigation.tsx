@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
@@ -44,9 +44,12 @@ const languages: { code: Locale; name: string; Flag: typeof FlagIL }[] = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const t = useTranslations('nav');
   const { locale, setLocale } = useLocale();
   const pathname = usePathname();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const langDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +61,49 @@ export default function Navigation() {
       return () => window.removeEventListener('scroll', handleScroll);
     }
   }, []);
+
+  // Close mobile menu on Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
+  // Close language dropdown on click outside
+  useEffect(() => {
+    if (!langDropdownOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target as Node)) {
+        setLangDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setLangDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [langDropdownOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -71,8 +117,15 @@ export default function Navigation() {
     { href: '/contact', label: t('contact') },
   ];
 
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
+
   return (
     <nav
+      role="navigation"
+      aria-label="Main navigation"
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-background/80 backdrop-blur-xl shadow-lg border-b border-border/30'
@@ -83,7 +136,8 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
+            aria-label="EY.dev - Home"
           >
             EY.dev
           </Link>
@@ -94,17 +148,24 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
+                className={`text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
+                  isActive(item.href) ? 'text-primary font-medium' : ''
+                }`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
               >
                 {item.label}
               </Link>
             ))}
             <CommandPalette />
             <ThemeToggle />
-            <div className="relative group">
+            {/* Language Dropdown - keyboard accessible */}
+            <div className="relative" ref={langDropdownRef}>
               <button
-                className="flex items-center gap-1.5 text-foreground/80 hover:text-foreground transition-colors"
+                className="flex items-center gap-1.5 text-foreground/80 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1 py-0.5"
                 aria-label="Switch language"
+                aria-expanded={langDropdownOpen}
+                aria-haspopup="listbox"
+                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
               >
                 {(() => {
                   const current = languages.find((l) => l.code === locale);
@@ -114,28 +175,45 @@ export default function Navigation() {
                 })()}
                 <span className="text-sm">{languages.find((l) => l.code === locale)?.name}</span>
               </button>
-              <div className="absolute end-0 mt-2 w-40 bg-background border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                {languages.map((lang) => {
-                  const { Flag } = lang;
-                  return (
-                    <button
-                      key={lang.code}
-                      onClick={() => setLocale(lang.code)}
-                      className={`flex items-center gap-2 w-full text-start px-4 py-2 hover:bg-muted text-sm transition-colors ${
-                        locale === lang.code ? 'text-primary font-medium' : ''
-                      }`}
-                    >
-                      <Flag className="h-4 w-4 rounded-sm" />
-                      {lang.name}
-                    </button>
-                  );
-                })}
-              </div>
+              {langDropdownOpen && (
+                <div
+                  className="absolute end-0 mt-2 w-40 bg-background border rounded-md shadow-lg"
+                  role="listbox"
+                  aria-label="Select language"
+                >
+                  {languages.map((lang) => {
+                    const { Flag } = lang;
+                    return (
+                      <button
+                        key={lang.code}
+                        role="option"
+                        aria-selected={locale === lang.code}
+                        onClick={() => {
+                          setLocale(lang.code);
+                          setLangDropdownOpen(false);
+                        }}
+                        className={`flex items-center gap-2 w-full text-start px-4 py-2 hover:bg-muted text-sm transition-colors focus-visible:outline-none focus-visible:bg-muted ${
+                          locale === lang.code ? 'text-primary font-medium' : ''
+                        }`}
+                      >
+                        <Flag className="h-4 w-4 rounded-sm" />
+                        {lang.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden p-2" onClick={toggleMenu} aria-label="Toggle menu">
+          <button
+            className="md:hidden p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md"
+            onClick={toggleMenu}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+          >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -144,54 +222,74 @@ export default function Navigation() {
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ x: locale === 'he' ? '-100%' : '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: locale === 'he' ? '-100%' : '100%' }}
-            transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-            className={`fixed inset-y-0 ${locale === 'he' ? 'left-0 border-e' : 'right-0 border-s'} w-64 bg-background shadow-xl md:hidden z-50`}
-          >
-            <div className="flex flex-col p-4 pt-20">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="py-2 text-foreground/80 hover:text-foreground transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="border-t my-4" />
-              <div className="flex items-center justify-between py-2">
-                <span className="text-foreground/80">{t('theme')}</span>
-                <ThemeToggle />
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              className="fixed inset-0 bg-background/50 backdrop-blur-sm md:hidden z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              ref={mobileMenuRef}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
+              initial={{ x: locale === 'he' ? '-100%' : '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: locale === 'he' ? '-100%' : '100%' }}
+              transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+              className={`fixed inset-y-0 ${locale === 'he' ? 'left-0 border-e' : 'right-0 border-s'} w-64 bg-background shadow-xl md:hidden z-50`}
+            >
+              <div className="flex flex-col p-4 pt-20">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`py-3 px-2 text-foreground/80 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md ${
+                      isActive(item.href) ? 'text-primary font-medium' : ''
+                    }`}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="border-t my-4" />
+                <div className="flex items-center justify-between py-2 px-2">
+                  <span className="text-foreground/80">{t('theme')}</span>
+                  <ThemeToggle />
+                </div>
+                <div className="border-t my-4" />
+                <div className="space-y-1">
+                  {languages.map((lang) => {
+                    const { Flag } = lang;
+                    return (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          setLocale(lang.code);
+                          setIsOpen(false);
+                        }}
+                        className={`flex items-center gap-2 w-full text-start py-3 px-2 transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                          locale === lang.code
+                            ? 'text-primary font-medium'
+                            : 'text-foreground/80 hover:text-foreground'
+                        }`}
+                        aria-label={`Switch to ${lang.name}`}
+                      >
+                        <Flag className="h-5 w-5 rounded-sm" />
+                        {lang.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="border-t my-4" />
-              <div className="space-y-2">
-                {languages.map((lang) => {
-                  const { Flag } = lang;
-                  return (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLocale(lang.code);
-                        setIsOpen(false);
-                      }}
-                      className={`flex items-center gap-2 w-full text-start py-2 transition-colors ${
-                        locale === lang.code
-                          ? 'text-primary font-medium'
-                          : 'text-foreground/80 hover:text-foreground'
-                      }`}
-                    >
-                      <Flag className="h-5 w-5 rounded-sm" />
-                      {lang.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>

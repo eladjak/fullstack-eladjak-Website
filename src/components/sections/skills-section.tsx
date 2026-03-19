@@ -159,7 +159,7 @@ export default function SkillsSection() {
                       <div
                         className={`flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br ${capability.gradient} text-primary-foreground shrink-0`}
                       >
-                        <Icon className="h-6 w-6" />
+                        <Icon className="h-6 w-6" aria-hidden="true" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-xl font-semibold mb-2">

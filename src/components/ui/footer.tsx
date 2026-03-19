@@ -27,7 +27,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative w-full border-t bg-card/50 backdrop-blur-sm">
+    <footer className="relative w-full border-t bg-card/50 backdrop-blur-sm" role="contentinfo">
       {/* Decorative gradient line at top */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
@@ -63,7 +63,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
                     >
                       {link.label}
                     </Link>

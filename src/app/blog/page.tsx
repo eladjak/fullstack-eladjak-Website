@@ -108,8 +108,9 @@ export default function BlogPage() {
 
       {/* Posts Grid */}
       {loading ? (
-        <div className="flex justify-center py-20">
+        <div className="flex justify-center py-20" role="status" aria-label="Loading blog posts">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <span className="sr-only">Loading blog posts...</span>
         </div>
       ) : filteredPosts.length === 0 ? (
         <div className="text-center py-20">

@@ -187,7 +187,8 @@ export default function ServicesPage() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-green-500/30 hover:bg-green-500/5 transition-all duration-300 group"
+                  aria-label="Contact via WhatsApp"
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-green-500/30 hover:bg-green-500/5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white group-hover:scale-110 transition-transform">
                     <WhatsAppIcon className="h-6 w-6" />
@@ -199,7 +200,8 @@ export default function ServicesPage() {
                 {/* Email */}
                 <a
                   href="mailto:eladhiteclearning@gmail.com"
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group"
+                  aria-label="Send email to eladhiteclearning@gmail.com"
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground group-hover:scale-110 transition-transform">
                     <Mail className="h-6 w-6" />
@@ -211,7 +213,8 @@ export default function ServicesPage() {
                 {/* Phone */}
                 <a
                   href="tel:+972525427474"
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group"
+                  aria-label="Call 052-542-7474"
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground group-hover:scale-110 transition-transform">
                     <Phone className="h-6 w-6" />
