@@ -7,6 +7,7 @@ import FeaturedProjectsSection from '@/components/sections/featured-projects-sec
 import CTASection from '@/components/sections/cta-section';
 import ProcessSection from '@/components/sections/process-section';
 import RecommendationsSection from '@/components/sections/recommendations-section';
+import ServicesPreviewSection from '@/components/sections/services-preview-section';
 import TechMarquee from '@/components/ui/tech-marquee';
 
 export default function HomePage() {
@@ -26,6 +27,9 @@ export default function HomePage() {
         <TechMarquee />
 
         <SkillsSection />
+
+        {/* Services Preview */}
+        <ServicesPreviewSection />
 
         {/* Static Featured Projects - always visible */}
         <FeaturedProjectsSection />

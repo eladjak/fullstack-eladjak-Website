@@ -34,6 +34,7 @@ export function CommandPalette() {
 
   const commands: CommandItem[] = useMemo(() => [
     { id: 'home', label: t('home'), icon: <Home className="h-4 w-4" />, action: () => navigate('/'), keywords: ['home', 'main', 'בית'] },
+    { id: 'services', label: t('services'), icon: <Wrench className="h-4 w-4" />, action: () => navigate('/services'), keywords: ['services', 'pricing', 'שירותים', 'מחירים'] },
     { id: 'projects', label: t('projects'), icon: <Briefcase className="h-4 w-4" />, action: () => navigate('/projects'), keywords: ['projects', 'work', 'פרויקטים'] },
     { id: 'blog', label: t('blog'), icon: <FileText className="h-4 w-4" />, action: () => navigate('/blog'), keywords: ['blog', 'posts', 'articles', 'בלוג'] },
     { id: 'about', label: t('about'), icon: <User className="h-4 w-4" />, action: () => navigate('/about'), keywords: ['about', 'bio', 'אודות'] },

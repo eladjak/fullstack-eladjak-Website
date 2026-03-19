@@ -9,7 +9,8 @@
     "skills": "Skills",
     "featuredProjects": "Projects",
     "testimonials": "Testimonials",
-    "thanks": "Thanks"
+    "thanks": "Thanks",
+    "services": "Services"
   },
   "hero": {
     "badge": "Available for Projects",
@@ -467,6 +468,50 @@
         "role": "Digital Marketing & AI Educator",
         "bio": "A visionary at the intersection of digital marketing and AI, helping professionals and businesses leverage AI tools for real-world impact."
       }
+    }
+  },
+  "servicesPage": {
+    "badge": "Professional Services",
+    "title": "My Services",
+    "subtitle": "Custom technology solutions that grow your business. From AI and automation to Full-Stack development and beyond.",
+    "services": {
+      "aiAutomation": {
+        "title": "AI Automation Solutions",
+        "description": "Integrate artificial intelligence into your business processes - from smart chatbots to workflow automation that saves hours of work. Custom solutions that integrate with your existing systems.",
+        "price": "Starting at $1,500",
+        "features": ["Smart chatbots", "Business process automation", "OpenAI / Claude integration", "AI-powered data analysis"]
+      },
+      "fullstack": {
+        "title": "Full-Stack Development",
+        "description": "Modern web applications from A to Z. From impressive landing pages to complex SaaS systems - all with cutting-edge technologies, excellent performance, and Hebrew RTL support.",
+        "price": "Starting at $1,000",
+        "features": ["Next.js + React + TypeScript", "Responsive modern design", "SEO & performance optimization", "Full Hebrew RTL support"]
+      },
+      "edtech": {
+        "title": "EdTech Solutions",
+        "description": "Learning platforms and educational apps that combine technology with pedagogy. Proven experience building interactive learning systems with AI, progress tracking, and adaptive content.",
+        "price": "Contact for quote",
+        "features": ["Interactive learning platforms", "Progress tracking & analytics", "AI-adaptive content", "User-friendly for all ages"]
+      },
+      "workshops": {
+        "title": "AI & Development Workshops",
+        "description": "Hands-on workshops teaching how to use AI tools for software development and business automation. Perfect for development teams, entrepreneurs, and businesses wanting to lead with technology.",
+        "price": "Starting at $600",
+        "features": ["Claude Code & AI for dev", "Automation with AI tools", "Hands-on practical workshops", "Adapted to participant level"]
+      },
+      "whatsappAutomation": {
+        "title": "WhatsApp Automation",
+        "description": "Smart WhatsApp agents that work 24/7. Automated customer responses, appointment scheduling, reminder sending, and CRM integration. Every small business's dream.",
+        "price": "Starting at $1,000",
+        "features": ["24/7 AI WhatsApp agent", "Automated appointment scheduling", "CRM integration", "Reports & analytics"]
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Let's talk about your project. First consultation is free.",
+      "email": "Email",
+      "phone": "Phone",
+      "contactForm": "Send a Message"
     }
   },
   "language": {
