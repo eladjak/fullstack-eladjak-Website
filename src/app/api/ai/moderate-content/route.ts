@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Perspective } from 'perspective-api-client';
 
 export interface ContentAnalysis {
   toxic: boolean;
@@ -9,6 +8,24 @@ export interface ContentAnalysis {
   identity_attack: boolean;
   insult: boolean;
 }
+
+const SAFE_DEFAULTS: ContentAnalysis = {
+  toxic: false,
+  severe_toxic: false,
+  threat: false,
+  profanity: false,
+  identity_attack: false,
+  insult: false,
+};
+
+const ATTRIBUTES = [
+  'TOXICITY',
+  'SEVERE_TOXICITY',
+  'THREAT',
+  'PROFANITY',
+  'IDENTITY_ATTACK',
+  'INSULT',
+] as const;
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,31 +39,25 @@ export async function POST(request: NextRequest) {
     }
 
     if (!process.env.PERSPECTIVE_API_KEY) {
-      // Return safe defaults if API key is not configured
-      return NextResponse.json({
-        toxic: false,
-        severe_toxic: false,
-        threat: false,
-        profanity: false,
-        identity_attack: false,
-        insult: false
-      });
+      return NextResponse.json(SAFE_DEFAULTS);
     }
 
-    const perspective = new Perspective({
-      apiKey: process.env.PERSPECTIVE_API_KEY
+    const url = `https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${process.env.PERSPECTIVE_API_KEY}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        comment: { text },
+        requestedAttributes: Object.fromEntries(ATTRIBUTES.map(a => [a, {}])),
+      }),
     });
 
-    const result = await perspective.analyze(text, {
-      attributes: [
-        'TOXICITY',
-        'SEVERE_TOXICITY',
-        'THREAT',
-        'PROFANITY',
-        'IDENTITY_ATTACK',
-        'INSULT'
-      ]
-    });
+    if (!response.ok) {
+      console.error('Perspective API error:', response.status);
+      return NextResponse.json(SAFE_DEFAULTS);
+    }
+
+    const result = await response.json();
 
     const analysis: ContentAnalysis = {
       toxic: result.attributeScores.TOXICITY.summaryScore.value > 0.7,
@@ -54,20 +65,12 @@ export async function POST(request: NextRequest) {
       threat: result.attributeScores.THREAT.summaryScore.value > 0.7,
       profanity: result.attributeScores.PROFANITY.summaryScore.value > 0.7,
       identity_attack: result.attributeScores.IDENTITY_ATTACK.summaryScore.value > 0.7,
-      insult: result.attributeScores.INSULT.summaryScore.value > 0.7
+      insult: result.attributeScores.INSULT.summaryScore.value > 0.7,
     };
 
     return NextResponse.json(analysis);
   } catch (error) {
     console.error('Content analysis error:', error);
-    // Return safe defaults on error
-    return NextResponse.json({
-      toxic: false,
-      severe_toxic: false,
-      threat: false,
-      profanity: false,
-      identity_attack: false,
-      insult: false
-    });
+    return NextResponse.json(SAFE_DEFAULTS);
   }
 }
