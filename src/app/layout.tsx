@@ -65,9 +65,9 @@ export const metadata: Metadata = {
     locale: "he_IL",
     images: [
       {
-        url: `${SITE_URL}/og-image.png`,
-        width: 1200,
-        height: 630,
+        url: 'https://avatars.githubusercontent.com/u/108827199?v=4',
+        width: 460,
+        height: 460,
         alt: "אלעד יעקובוביץ' - מפתח Full-Stack ומומחה AI | ישראל",
       },
     ],
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
     description: "מפתח Full-Stack מומחה ל-Next.js, React ו-TypeScript. בניית אפליקציות ווב ופתרונות AI.",
-    images: [`${SITE_URL}/og-image.png`],
+    images: ['https://avatars.githubusercontent.com/u/108827199?v=4'],
   },
   robots: {
     index: true,
@@ -112,13 +112,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="אלעד יעקובוביץ'" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/108827199?v=4" />
         {/* Geo targeting for Israel */}
         <meta name="geo.region" content="IL" />
         <meta name="geo.placename" content="Migdal HaEmek" />
         <meta name="content-language" content="he" />
       </head>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-dvh bg-background font-sans antialiased">
         <WebVitalsReporter />
         <ClientLayout>
           {children}

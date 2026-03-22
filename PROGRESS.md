@@ -1,12 +1,30 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-19
+## Last Updated: 2026-03-22
 
 ## Current State
-Site live at fullstack-eladjak.co.il. 22 routes, TypeScript clean, React Doctor 83/100 "Great". Final quality pass completed -- all pages verified live, animations fixed, images optimized via Next.js Image, DESIGN.md updated.
+Major upgrade complete. Hero now shows real GitHub photo (ProfileAvatar) + FloatingTechIcons. StatsBar with animated counters. All content updated from resume. OG images from Gemini. /claude-code page migrated from hub. Build clean (22+ routes).
 
 ## What Was Done
+
+### Session 2026-03-22 - Major Upgrade (Resume-based + Component Wiring)
+- [x] **Hero: ProfileAvatar** — real GitHub photo with rotating gradient border + status dot
+- [x] **Hero: FloatingTechIcons** — animated floating tech emoji icons
+- [x] **Hero: Background** — hero-dev.jpg Gemini image as subtle background
+- [x] **StatsBar** — wired into homepage: 26+ apps, 50+ repos, 1000+ commits, 3 AI agents, 4+ years
+- [x] **Hero content** — updated from resume: server-side focus, 26+ deployed apps
+- [x] **Skills section** — 26+ projects, 4+ years (accurate per resume)
+- [x] **About page** — experience years corrected to 4+ (John Bryce 2022)
+- [x] **Command palette** — Hebrew placeholder ("חיפוש דפים ופעולות...")
+- [x] **Blog dates** — toLocaleDateString('he-IL') for Hebrew date format
+- [x] **h-screen → h-dvh** — 7 files updated for mobile viewport
+- [x] **OG image** — Gemini purple gradient + typography (public/og-image.jpg)
+- [x] **Apple touch icon** — Gemini EY monogram (public/apple-touch-icon.jpg)
+- [x] **hero-dev.jpg** — Gemini futuristic dev workspace image
+- [x] **/claude-code** — page migrated from hub with portfolio-matching design
+- [x] **HE/EN translations** — hero, stats, about, skills, journey updated
+- [x] Build: PASS (22+ pages)
 
 ### Session 2026-03-19 - Services Page + SEO + Accessibility + Final Quality Pass
 

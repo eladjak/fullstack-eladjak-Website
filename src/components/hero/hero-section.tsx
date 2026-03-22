@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { ProfileAvatar } from './profile-avatar';
+import { FloatingTechIcons } from './floating-tech-icons';
 
 /**
  * Hero Section Component
@@ -13,12 +16,27 @@ export default function HeroSection() {
   const t = useTranslations('hero');
 
   return (
-    <section id="hero" className="relative w-full min-h-[75vh] flex items-center overflow-hidden">
-      {/* Animated CSS gradient background */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background animate-gradient bg-[length:200%_200%]" />
+    <section id="hero" className="relative w-full min-h-[75dvh] flex items-center overflow-hidden">
+      {/* hero-dev.jpg background image - subtle futuristic dev workspace */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero-dev.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-15"
+          priority
+          aria-hidden="true"
+        />
+      </div>
 
-      {/* Subtle overlay for text readability */}
-      <div className="absolute inset-0 bg-background/40 dark:bg-background/60 z-[1]" />
+      {/* Animated CSS gradient background layered over image */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-br from-primary/10 via-accent/5 to-background animate-gradient bg-[length:200%_200%]" />
+
+      {/* Floating tech icons background */}
+      <FloatingTechIcons />
+
+      {/* Dark overlay so text stays readable */}
+      <div className="absolute inset-0 bg-background/50 dark:bg-background/70 z-[2]" />
 
       {/* Content */}
       <div className="container px-4 md:px-6 relative z-10">
@@ -26,8 +44,24 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-start space-y-6 text-start max-w-3xl"
+          className="flex flex-col md:flex-row items-center md:items-start gap-10 text-start"
         >
+          {/* Profile Avatar */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="shrink-0 order-first md:order-last"
+          >
+            <ProfileAvatar
+              src="https://avatars.githubusercontent.com/u/108827199?v=4"
+              alt="אלעד יעקובוביץ' - מפתח Full-Stack"
+              size={200}
+              showStatus={true}
+            />
+          </motion.div>
+
+          <div className="flex flex-col items-start space-y-6 max-w-2xl">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -101,6 +135,7 @@ export default function HeroSection() {
               <span>WhatsApp</span>
             </a>
           </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

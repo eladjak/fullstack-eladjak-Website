@@ -14,9 +14,9 @@
   },
   "hero": {
     "badge": "זמין לפרויקטים",
-    "heading": "אני בונה אפליקציות ווב שמצמיחות את העסק שלך",
-    "title": "מפתח Full-Stack | מומחה Next.js ו-AI | ישראל",
-    "description": "מרעיון לפרודקשן — אני מספק אפליקציות ווב מהירות ואמינות שעוזרות לעסקים למשוך לקוחות, לייעל תהליכים ולצמוח. בואו נהפוך את החזון שלכם לתוצאות.",
+    "heading": "מפתח Full-Stack עם דגש על צד שרת",
+    "title": "בניית backends ב-Node.js, REST APIs ומערכות PostgreSQL — 26+ אפליקציות בפרודקשן",
+    "description": "מרעיון לפרודקשן — בונה מערכות שרת חזקות, REST APIs ופתרונות AI שמצמיחים עסקים. AI tooling כמכפיל כוח. ישראל.",
     "viewProjects": "צפה בעבודות",
     "contactCta": "בואו נדבר"
   },
@@ -204,7 +204,8 @@
   "stats": {
     "repos": "ריפוזיטוריז",
     "commits": "תרומות קוד",
-    "projects": "פרויקטים",
+    "projects": "אפליקציות בפרודקשן",
+    "agents": "סוכני AI אוטונומיים",
     "blogPosts": "פוסטים בבלוג",
     "yearsExp": "שנות ניסיון"
   },
@@ -220,7 +221,7 @@
   "about": {
     "title": "אודותיי",
     "name": "אלעד יעקובוביץ'",
-    "subtitle": "מפתח Full-Stack עם הסמכת John Bryce College. משלב כישורים טכניים עם חזון יצירתי ותובנה עסקית.",
+    "subtitle": "מפתח Full-Stack עם דגש על צד שרת — Node.js, REST APIs ו-PostgreSQL. 26+ אפליקציות בפרודקשן. AI tooling כמכפיל כוח.",
     "highlights": {
       "technicalSkills": {
         "title": "כישורים טכניים",
@@ -240,35 +241,35 @@
       "subtitle": "דרך לא קונבנציונלית לפיתוח תוכנה",
       "items": {
         "arts": {
-          "year": "תחילת הקריירה",
-          "title": "אמנות ויצירה",
-          "description": "התחלתי בתחומי האמנות והיצירה, פיתחתי עין חדה לעיצוב וחוויית משתמש."
+          "year": "2006–2008",
+          "title": "שירות צבאי — צנחנים + ישיבת הסדר",
+          "description": "שירות קרבי כצנחן בצה\"ל ולימודים בישיבת הסדר. פיתחתי מנהיגות, משמעת ועבודת צוות תחת לחץ."
         },
         "business": {
-          "year": "אמצע הקריירה",
-          "title": "עסקים ושיווק",
-          "description": "רכשתי חוש עסקי יקר ערך וכישורי ניהול לקוחות בשיווק ויזמות."
+          "year": "2011–2023",
+          "title": "מייסד ומנהל — אמנות הקשר",
+          "description": "12 שנות ניהול עסק עצמאי — ניהול לקוחות, שיווק, תפעול ואסטרטגיה. חוש עסקי שמחזק כל פרויקט טכנולוגי."
         },
         "education": {
-          "year": "השכלה",
-          "title": "John Bryce College",
-          "description": "סיימתי הסמכת Full-Stack Development, תוך שליטה בטכנולוגיות ווב מודרניות."
+          "year": "2022",
+          "title": "John Bryce College — בהצטיינות",
+          "description": "תעודת Full-Stack Development בהצטיינות. שליטה ב-Node.js, React, TypeScript, PostgreSQL ו-AWS."
         },
         "present": {
-          "year": "הווה",
-          "title": "מפתח Full-Stack",
-          "description": "בונה יישומי ווב מודרניים עם Next.js, React, TypeScript ואינטגרציות AI."
+          "year": "2022–הווה",
+          "title": "מפתח Full-Stack ומהנדס AI",
+          "description": "בניית 26+ אפליקציות בפרודקשן — backends ב-Node.js, REST APIs, מסדי נתונים PostgreSQL ומערכות multi-agent AI."
         }
       }
     },
     "experience": {
       "title": "ניסיון ומומחיות",
-      "intro": "לאורך השנים, פיתחתי מגוון פרויקטים:",
+      "intro": "מאז 2022, בניתי 26+ אפליקציות בפרודקשן:",
       "haderech": "<strong>HaDerech</strong> - פלטפורמת למידה אינטראקטיבית מלאה עם מערכות קורסים, פורומים קהילתיים וסימולטורים לתרגול. נבנתה עם Next.js, TypeScript, Supabase ואינטגרציות AI.",
       "cms": "<strong>מערכות ניהול לקוחות</strong> - אפליקציות עסקיות לניהול לקוחות ומשימות עם Angular ו-JavaScript",
       "edutech": "<strong>EduTech Solutions</strong> - פלטפורמות טכנולוגיה חינוכית",
       "tools": "<strong>כלים שימושיים</strong> - כמו לוח שנה עברי-גרגוריאני אינטראקטיבי",
-      "expertise": "המומחיות העיקרית שלי היא ב-<strong>Next.js, React, TypeScript, Node.js ו-Supabase</strong>, אבל אני גם בקיא ב-Angular, PostgreSQL ועבודה עם APIs מודרניים.",
+      "expertise": "המומחיות העיקרית שלי: <strong>Node.js, TypeScript, React, Next.js, PostgreSQL/Supabase, AWS, Docker</strong>, אינטגרציות AI (Claude API, RAG Architecture, MCP Protocol), ומערכות multi-agent.",
       "beyond": "מעבר לטכנולוגיה, הניסיון שלי כיוצר, מפתח תוכן ואיש עסקים לימד אותי להקשיב ללקוחות, להבין צרכים אמיתיים ולבנות פתרונות שעובדים לא רק טכנית, אלא גם מנקודת מבט עסקית."
     },
     "unique": {

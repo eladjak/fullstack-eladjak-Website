@@ -14,9 +14,9 @@
   },
   "hero": {
     "badge": "Available for Projects",
-    "heading": "I Build Web Apps That Grow Your Business",
-    "title": "Full-Stack Developer | Next.js + AI Specialist | Israel",
-    "description": "From idea to production — I deliver fast, reliable web applications that help businesses attract customers, automate workflows, and scale. Let's turn your vision into results.",
+    "heading": "Full-Stack Developer with a Server-Side Focus",
+    "title": "Building Node.js backends, REST APIs & PostgreSQL systems — 26+ apps in production",
+    "description": "From idea to production — I build robust server-side systems, REST APIs, and AI-powered solutions. AI tooling as a force multiplier. Israel.",
     "viewProjects": "View My Work",
     "contactCta": "Let's Talk"
   },
@@ -204,7 +204,8 @@
   "stats": {
     "repos": "GitHub Repos",
     "commits": "Contributions",
-    "projects": "Projects Built",
+    "projects": "Apps in Production",
+    "agents": "Autonomous AI Agents",
     "blogPosts": "Blog Posts",
     "yearsExp": "Years Experience"
   },

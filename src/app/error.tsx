@@ -20,7 +20,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-dvh flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center space-y-6">
         {/* Error Icon */}
         <div className="flex justify-center">

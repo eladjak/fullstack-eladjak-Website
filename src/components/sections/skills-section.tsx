@@ -106,8 +106,8 @@ export default function SkillsSection() {
   const t = useTranslations('skills');
 
   const stats = [
-    { value: '3+', label: t('stats.experience') },
-    { value: '20+', label: t('stats.projects') },
+    { value: '4+', label: t('stats.experience') },
+    { value: '26+', label: t('stats.projects') },
     { value: '15+', label: t('stats.technologies') },
   ];
 

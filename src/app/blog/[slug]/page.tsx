@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { format } from 'date-fns';
 import { Calendar, Clock, User } from 'lucide-react';
 import { TagBadge } from '@/components/ui/tag-badge';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
@@ -123,7 +122,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               <time dateTime={post.frontmatter.date}>
-                {format(new Date(post.frontmatter.date), 'MMM dd, yyyy')}
+                {new Date(post.frontmatter.date).toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' })}
               </time>
             </div>
 

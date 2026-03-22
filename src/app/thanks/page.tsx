@@ -104,7 +104,7 @@ export default function ThanksPage() {
   });
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <main className="flex-1">
         {/* Hero */}
         <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">

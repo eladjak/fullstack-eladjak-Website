@@ -54,7 +54,7 @@ export default function ServicesPage() {
   const t = useTranslations('servicesPage');
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative w-full min-h-[50vh] flex items-center overflow-hidden pt-20">

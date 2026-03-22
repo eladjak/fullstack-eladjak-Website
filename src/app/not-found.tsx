@@ -8,7 +8,7 @@ export default function NotFound() {
   const t = useTranslations('notFound');
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-dvh flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center space-y-8">
         {/* 404 Animation */}
         <div className="relative">

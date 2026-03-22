@@ -9,6 +9,7 @@ import ProcessSection from '@/components/sections/process-section';
 import RecommendationsSection from '@/components/sections/recommendations-section';
 import ServicesPreviewSection from '@/components/sections/services-preview-section';
 import TechMarquee from '@/components/ui/tech-marquee';
+import StatsBar from '@/components/sections/stats-bar';
 
 export default function HomePage() {
   useMetaTags({
@@ -20,9 +21,11 @@ export default function HomePage() {
   });
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <main className="flex-1">
         <HeroSection />
+
+        <StatsBar />
 
         <TechMarquee />
 

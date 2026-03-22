@@ -140,7 +140,7 @@ export function CommandPalette() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Search pages, actions..."
+                    placeholder="חיפוש דפים ופעולות..."
                     className="flex-1 py-3 bg-transparent text-sm outline-none placeholder:text-muted-foreground/60"
                     aria-label="Search commands"
                     role="combobox"
@@ -160,7 +160,7 @@ export function CommandPalette() {
                 >
                   {filtered.length === 0 && (
                     <li className="px-4 py-8 text-center text-sm text-muted-foreground">
-                      No results found.
+                      לא נמצאו תוצאות
                     </li>
                   )}
                   {filtered.map((cmd, index) => (

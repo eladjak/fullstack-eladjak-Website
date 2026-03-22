@@ -47,11 +47,11 @@ export default function StatsBar() {
   const t = useTranslations('stats');
 
   const stats: StatItem[] = [
+    { icon: <Briefcase className="h-5 w-5" />, value: 26, suffix: '+', labelKey: 'projects' },
     { icon: <GitBranch className="h-5 w-5" />, value: 50, suffix: '+', labelKey: 'repos' },
     { icon: <Code2 className="h-5 w-5" />, value: 1000, suffix: '+', labelKey: 'commits' },
-    { icon: <Briefcase className="h-5 w-5" />, value: 12, suffix: '', labelKey: 'projects' },
-    { icon: <BookOpen className="h-5 w-5" />, value: 5, suffix: '', labelKey: 'blogPosts' },
-    { icon: <Zap className="h-5 w-5" />, value: 3, suffix: '+', labelKey: 'yearsExp' },
+    { icon: <BookOpen className="h-5 w-5" />, value: 3, suffix: '', labelKey: 'agents' },
+    { icon: <Zap className="h-5 w-5" />, value: 4, suffix: '+', labelKey: 'yearsExp' },
   ];
 
   return (
