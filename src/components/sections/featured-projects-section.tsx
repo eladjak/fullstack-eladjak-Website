@@ -137,7 +137,7 @@ export default function FeaturedProjectsSection() {
           {staticProjects.map((project) => (
             <div key={project.id} className="group scroll-scale">
               <TiltedCard tiltStrength={8} className="h-full">
-              <div className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
+              <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
                 {/* Project header - screenshot or gradient */}
                 <div
                   className={`relative h-40 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
@@ -174,7 +174,7 @@ export default function FeaturedProjectsSection() {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary"
+                        className="inline-flex items-center rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors duration-200 hover:bg-primary/15"
                       >
                         {tech}
                       </span>

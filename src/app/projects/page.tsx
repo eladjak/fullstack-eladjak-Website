@@ -253,7 +253,7 @@ export default function ProjectsPage() {
       >
         {filteredProjects.map((project) => (
           <motion.div key={project.id} variants={cardVariants} className="group">
-            <div className="relative h-full rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl">
+            <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
               {/* Project header - screenshot or gradient */}
               <div
                 className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
@@ -290,7 +290,7 @@ export default function ProjectsPage() {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary"
+                      className="inline-flex items-center rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors duration-200 hover:bg-primary/15"
                     >
                       {tech}
                     </span>

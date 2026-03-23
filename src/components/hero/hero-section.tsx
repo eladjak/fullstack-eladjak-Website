@@ -30,7 +30,7 @@ export default function HeroSection() {
       </div>
 
       {/* Animated CSS gradient background layered over image */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-br from-primary/10 via-accent/5 to-background animate-gradient bg-[length:200%_200%]" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-br from-primary/15 via-accent/10 to-background animate-gradient bg-[length:200%_200%]" />
 
       {/* Floating tech icons background */}
       <FloatingTechIcons />
@@ -51,8 +51,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="shrink-0 order-first md:order-last"
+            className="shrink-0 order-first md:order-last relative"
           >
+            {/* Ambient glow orb behind avatar */}
+            <div className="absolute inset-0 -z-10 rounded-full bg-primary/10 blur-3xl" />
             <ProfileAvatar
               src="https://avatars.githubusercontent.com/u/108827199?v=4"
               alt="אלעד יעקובוביץ' - מפתח Full-Stack"
@@ -68,7 +70,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-cta/10 border border-cta/20 px-4 py-1.5 text-sm font-medium text-cta">
+            <span className="inline-flex items-center gap-2 rounded-full bg-cta/10 border border-cta/20 px-4 py-1.5 text-sm font-medium text-cta shadow-sm shadow-cta/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cta opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cta" />
@@ -78,7 +80,7 @@ export default function HeroSection() {
           </motion.div>
 
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none">
+            <h1 className="text-glow text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none">
               {t('heading')}
             </h1>
 
@@ -110,7 +112,7 @@ export default function HeroSection() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-3.5 text-sm font-medium text-cta-foreground shadow-lg shadow-cta/25 transition-all duration-200 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-3.5 text-sm font-medium text-cta-foreground shadow-lg shadow-cta/25 transition-all duration-300 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {t('contactCta')}
               <ArrowRight className="h-4 w-4" />

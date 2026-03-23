@@ -67,10 +67,10 @@
 
   .dark {
     /* Dark Mode - Material Design 3 Color Tokens */
-    --background: #09090B;           /* Zinc-950 */
+    --background: #050810;           /* Deeper blue-tinted black */
     --foreground: #FAFAFA;           /* Gray-50 */
 
-    --card: #111827;                 /* Gray-900 */
+    --card: #0D1117;                 /* Slightly lighter, more contrast with bg */
     --card-foreground: #F9FAFB;
 
     --popover: #111827;
@@ -84,7 +84,7 @@
     --secondary: #8B5CF6;            /* Purple-600 - DISTINCT */
     --secondary-foreground: #F9FAFB;
 
-    --muted: #1F2937;                /* Gray-800 */
+    --muted: #141B27;                /* Deeper muted, blue-tinted */
     --muted-foreground: #D1D5DB;     /* Gray-300 - improved contrast from #A1A1AA */
 
     /* CRITICAL FIX: Accent was same as secondary (#27272A), now distinct */
@@ -118,6 +118,15 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: var(--background);
+    min-height: 100dvh;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(at 20% 80%, hsla(263, 70%, 50%, 0.06) 0, transparent 50%),
+      radial-gradient(at 80% 20%, hsla(200, 70%, 50%, 0.04) 0, transparent 50%),
+      radial-gradient(at 50% 50%, hsla(263, 50%, 30%, 0.03) 0, transparent 70%);
   }
 
   [dir="rtl"] {
@@ -186,7 +195,7 @@ html {
 
 /* Selection color */
 ::selection {
-  background-color: var(--primary);
+  background-color: hsl(263 70% 60% / 0.3);
   color: var(--primary-foreground);
 }
 
@@ -238,6 +247,32 @@ html {
 }
 ::view-transition-new(root) {
   z-index: 9999;
+}
+
+/* ========================================
+   Dark Mode Glow Utilities
+   Premium techy effects for dark mode
+   ======================================== */
+
+.glow-border {
+  position: relative;
+}
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, hsla(263, 70%, 60%, 0.3), hsla(200, 70%, 60%, 0.1), hsla(263, 70%, 60%, 0.3));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px hsla(263, 70%, 60%, 0.3), 0 0 40px hsla(263, 70%, 60%, 0.1);
 }
 
 /* ========================================
