@@ -271,3 +271,151 @@ If you are starting a new project in 2026, Next.js 16 with TypeScript and Tailwi
 ---
 
 *Building something with Next.js 16? I would love to hear about it. [Reach out](/contact) and let's talk.*
+
+---
+
+<div dir="rtl" lang="he">
+
+## בניית אפליקציות ווב מודרניות עם Next.js 16
+
+Next.js 16 הגיע, והוא מייצג קפיצה גדולה קדימה למפתחי React. עם App Router משוכלל, אינטגרציה עמוקה יותר של React Server Components, אסטרטגיות מטמון משופרות ותמיכה מהשורה הראשונה ב-TypeScript, קל מעולם לבנות יישומי ווב מהירים, גמישים וניתנים לתחזוקה. בפוסט זה אעבור על התכונות המרכזיות שאני מסתמך עליהן יומיום ואשתף דפוסים מעשיים מפרויקטים אמיתיים.
+
+### למה Next.js 16?
+
+נוף פיתוח הווב מתפתח במהירות, אבל Next.js נשאר תמיד קדימה על ידי אימוץ ההפשטות הנכונות בזמן הנכון. גרסה 16 מכפילה את השינוי הפרדיגמטי שהוצג עם App Router תוך טיפול בנקודות הכאב שמפתחים נתקלו בהן בגרסאות קודמות.
+
+הנה מה שבולט:
+
+- **React Server Components יציבים** - עיבוד Server-first כבר אינו ניסיוני; זה ברירת המחדל
+- **סטרימינג ו-Suspense משופרים** - מצבי טעינה גרגוריים שמרגישים טבעיים
+- **בקרת מטמון משופרת** - `revalidate`, `dynamicIO` ומדיניות מטמון לכל נתיב
+- **Turbopack בפרודקשן** - בנייה חלפות מהירות בצורה דרמטית
+- **הגדרת TypeScript מקורית** - `next.config.ts` נתמך במלואו עם הגדרות בטוחות טיפוסית
+
+### הגדרת פרויקט
+
+התחלת פרויקט Next.js 16 חדש עם TypeScript ו-Tailwind פשוטה. ה-CLI מגדיר את כל מה שצריך עם ברירות מחדל הגיוניות.
+
+```bash
+bunx create-next-app@latest my-app --typescript --tailwind --app --src-dir
+cd my-app
+bun dev
+```
+
+### React Server Components בפועל
+
+התכונה המשנה הכי הרבה ב-Next.js 16 היא הבגרות של React Server Components. כברירת מחדל, כל רכיב בתיקייה `app/` הוא Server Component. זה אומר שהוא רץ בשרת, שולח אפס JavaScript ללקוח, ויכול לגשת ישירות למסדי נתונים, מערכות קבצים ומשתני סביבה.
+
+```tsx
+// app/projects/page.tsx - זהו Server Component כברירת מחדל
+import { db } from "@/lib/database";
+
+export default async function ProjectsPage() {
+  const projects = await db.query("SELECT * FROM projects ORDER BY created_at DESC");
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-16">
+      <h1 className="mb-8 text-4xl font-bold tracking-tight">פרויקטים</h1>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <article key={project.id} className="rounded-2xl border p-6">
+            <h2>{project.title}</h2>
+            <p>{project.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+ללא `useEffect`. ללא `useState`. ללא לוגיקת ספינר טעינה. הנתונים נאספים בשרת, ה-HTML מועבר בסטרימינג ללקוח, והדף הוא אינטראקטיבי מיד. זהו שינוי יסודי באופן שבו אנחנו חושבים על יישומי React.
+
+### רכיבי לקוח: כשצריך אינטראקטיביות
+
+לא הכל שייך לשרת. טפסים, אנימציות, מטפלי אירועים וממשקי API של הדפדפן דורשים רכיבי לקוח. המפתח הוא לדחוף את הגבול `"use client"` כמה שיותר למטה בעץ, ולשמור על רוב האפליקציה כ-server-rendered.
+
+```tsx
+"use client";
+
+import { useState, useTransition } from "react";
+import { submitContactForm } from "@/actions/contact";
+
+export function ContactForm() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    startTransition(async () => {
+      await submitContactForm(formData);
+      setFormData({ name: "", email: "", message: "" });
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mx-auto max-w-lg space-y-4">
+      {/* שדות הטופס */}
+      <button type="submit" disabled={isPending}>
+        {isPending ? "שולח..." : "שלח הודעה"}
+      </button>
+    </form>
+  );
+}
+```
+
+### Server Actions: הבקאנד בתוך הפרונטאנד
+
+Server Actions מבטלים את הצורך בנתיבי API נפרדים לרוב מוטציות הנתונים. הם בטוחים טיפוסית, ממוקמים ביחד עם קוד ממשק המשתמש, ומטפלים בסריאליזציה באופן אוטומטי.
+
+```tsx
+// actions/contact.ts
+"use server";
+
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  message: z.string().min(10),
+});
+
+export async function submitContactForm(data: { name: string; email: string; message: string }) {
+  const parsed = contactSchema.safeParse(data);
+
+  if (!parsed.success) {
+    return { success: false, errors: parsed.error.flatten().fieldErrors };
+  }
+
+  // שמירת הנתונים במסד הנתונים
+  return { success: true };
+}
+```
+
+אימות קלט עם Zod מתרחש בשרת, שם לא ניתן לעקוף אותו. הפונקציה ניתנת לקריאה ישירות מרכיב הלקוח, אבל מתבצעת לחלוטין בשרת. דפוס זה מבטל קטגוריה שלמה של באגי אבטחה.
+
+### דפוסי ביצועים שאני עוקב אחריהם
+
+לאחר בניית מספר יישומי Next.js לפרודקשן, הנה הדפוסים שמספקים באופן עקבי את הביצועים הטובים ביותר:
+
+1. **Server Components כברירת מחדל** - הוסיפו `"use client"` רק כשצריך באמת ממשקי API של הדפדפן או מטפלי אירועים
+2. **סטרימינג עם Suspense** - עטפו שליפות נתונים איטיות בגבולות `<Suspense>`
+3. **אופטימיזציית תמונות** - השתמשו תמיד ב-`next/image` עם רוחב וגובה מפורשים
+4. **פיצול קוד ברמת נתיב** - App Router מטפל בזה אוטומטית
+5. **שליפת נתונים מקבילית** - השתמשו ב-`Promise.all` בעת שליפה ממספר מקורות עצמאיים
+
+### Tailwind CSS
+
+Tailwind CSS מתאים בצורה יוצאת מן הכלל ל-Next.js 16. הגישה utility-first אומרת שהסגנונות שלכם ממוקמים יחד עם ה-markup שלכם, אין תקורת JavaScript-in-CSS בזמן ריצה, וצעד הבנייה מנקה אוטומטית מחלקות לא בשימוש.
+
+### סיכום
+
+Next.js 16 הוא לא רק עדכון מצטבר. הוא מייצג מסגרת עבודה בשלה ודעתנית שהופכת את הבחירות האדריכליות הנכונות לקלות ואת הלא-נכונות לקשות. Server Components, Server Actions, סטרימינג ו-Turbopack יחד יוצרים חוויית פיתוח שהיא גם מהירה לבנות איתה וגם מהירה למשתמשי הקצה.
+
+אם אתם מתחילים פרויקט חדש ב-2026, Next.js 16 עם TypeScript ו-Tailwind הוא שילוב שקשה לנצח. האקוסיסטם בשל, הדפוסים נבדקו בקרב, וחוויית המפתח ממשיכה להשתפר.
+
+---
+
+*בונים משהו עם Next.js 16? אשמח לשמוע על זה. [פנו אלי](/contact) ונדבר.*
+
+</div>

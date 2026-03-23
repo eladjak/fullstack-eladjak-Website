@@ -362,3 +362,235 @@ The key is restraint. The best animations are the ones users feel but do not con
 ---
 
 *Want to see these animations in action? Browse this site -- every transition and hover effect uses the patterns described above. Have questions? [Get in touch](/contact).*
+
+---
+
+<div dir="rtl" lang="he">
+
+## מדריך ליצירת אנימציות חלקות עם Framer Motion
+
+אנימציות הן ההבדל בין אתר שעובד לאתר שמרגיש חי. הן מנחות תשומת לב, מתקשרות שינויי מצב, ויוצרות תחושת ליטוש שמשתמשים מבחינים בה, גם אם לא יכולים להסביר למה. אבל אנימציות שנעשות בצורה גרועה - רוטטות, איטיות, או מסיחות - גרועות יותר מאשר אין אנימציות בכלל.
+
+Framer Motion היא ספריית אנימציה מוכנה לפרודקשן עבור React שמקלה בצורה ניכרת על יצירת אנימציות חלקות וביצועיות. לאחר שימוש נרחב בה בתיק העבודות ובפרויקטים ללקוחות, פיתחתי סט דפוסים ועקרונות שאני רוצה לשתף.
+
+### הבסיס: רכיבי Motion
+
+Framer Motion עובד על ידי עטיפת אלמנטי HTML ו-SVG סטנדרטיים ברכיבי `motion`. `motion.div` הוא `div` רגיל עם כוחות-על של אנימציה. ממשק ה-API המרכזי מסתובב סביב שלושה props: `initial`, `animate` ו-`transition`.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+export function HeroSection() {
+  return (
+    <section className="flex min-h-dvh flex-col items-center justify-center px-4">
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mb-4 text-5xl font-bold"
+      >
+        מפתח Full-Stack
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+        className="max-w-xl text-center text-lg"
+      >
+        בניית יישומי ווב מודרניים עם React, TypeScript ותשוקה לקוד נקי וביצועי.
+      </motion.p>
+    </section>
+  );
+}
+```
+
+מצב `initial` הוא מקום התחלת האלמנט, `animate` הוא מקום הסיום, ו-`transition` שולט כיצד הוא מגיע לשם. בדוגמה זו, הכותרת מתעממת ומחליקה מעלה קודם, ואחריה הפסקה 200ms מאוחר יותר. התזמון המדורג יוצר חשיפה טבעית ומדורגת.
+
+הערה ביצועית קריטית: אני מנמטת רק מאפייני `opacity` ו-`transform` (שאליהם ממפים `y`, `x`, `scale` ו-`rotate`). מאפיינים אלה מורכבים על ידי ה-GPU ואינם מפעילים חישובי פריסה מחדש. לעולם אל תנמטו `width`, `height`, `top` או `left` ישירות.
+
+### Variants: אנימציות מתואמות
+
+כשיש מספר אלמנטים שצריכים אנימציות מתואמות, ניהול ידני של עיכובים הופך מייגע. Variants פותרים זאת בצורה אלגנטית. מגדירים מצבי אנימציה בשם, ו-Framer Motion מפיץ אותם אוטומטית דרך עץ הרכיבים עם סטאגרינג הניתן להגדרה.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+export function SkillsGrid() {
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      {skills.map((skill) => (
+        <motion.div key={skill.name} variants={itemVariants} className="rounded-xl border p-6">
+          <h3>{skill.name}</h3>
+          <div className="h-2 overflow-hidden rounded-full bg-neutral-200">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${skill.level}%` }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+              className="h-full rounded-full bg-blue-600"
+            />
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+```
+
+ה-`containerVariants` מגדירים `staggerChildren: 0.1`, מה שאומר שהאנימציה של כל ילד מתחילה 100ms לאחר הקודם. הילדים לא צריכים לדעת על הסטאגרינג - הם פשוט מגדירים את מצבי `hidden` ו-`visible` שלהם, וההורה מתזמן. זה יוצר אפקט גל מספק כשכרטיסי המיומנויות מופיעים אחד אחד.
+
+### אנימציות מופעלות גלילה
+
+לא כל האנימציות צריכות לפעול בטעינת הדף. אלמנטים רבים נמצאים מתחת לקפל ועל ידי אנימציה עם גלילה לתצוגה. ה-prop `whileInView` של Framer Motion מטפל בזה עם אינטגרציה מובנית של intersection observer.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+export function ProjectCard({ project }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className="group overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-lg"
+    >
+      {/* תוכן הכרטיס */}
+    </motion.article>
+  );
+}
+```
+
+ה-prop `viewport` עם `once: true` אומר שהאנימציה משוחקת רק בפעם הראשונה שהאלמנט נכנס לאזור הגלילה. ה-`margin: "-100px"` מפעיל את האנימציה מעט לפני שהאלמנט גלוי לחלוטין, מה שמרגיש יותר רספונסיבי.
+
+### מעברי עמודים עם AnimatePresence
+
+מעברי עמודים חלקים גורמים ליישום single-page להרגיש קוהרנטי. `AnimatePresence` מזהה מתי רכיבים מוסרים מעץ React ומאפשר להם לנמטת החוצה לפני שהם נעלמים.
+
+```tsx
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+
+const pageTransition = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.2, ease: "easeIn" } },
+};
+
+export function PageTransitionWrapper({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.main
+        key={pathname}
+        variants={pageTransition}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="min-h-dvh"
+      >
+        {children}
+      </motion.main>
+    </AnimatePresence>
+  );
+}
+```
+
+ה-prop `mode="wait"` מבטיח שהדף היוצא מסיים את אנימציה שלו לפני שהדף הנכנס מתחיל. אני שומר על מעברי עמודים מהירים (פחות מ-300ms בסה"כ) ועדינים - משתמשים צריכים להרגיש את הזרימה, לא לצפות באנימציה.
+
+### אנימציות מחוות
+
+Framer Motion מצטיין באנימציות מונעות מחוות. ה-props `whileHover`, `whileTap` ו-`drag` יוצרים אלמנטים אינטראקטיביים שמגיבים לקלט המשתמש ללא boilerplate.
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+export function InteractiveButton({ children, onClick }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      className="rounded-full bg-blue-600 px-8 py-3 font-medium text-white"
+    >
+      {children}
+    </motion.button>
+  );
+}
+```
+
+פיזיקת האביב על הכפתור יוצרת תחושה טבעית ומנטלת שהרבה יותר מספקת מאשר מעבר לינארי.
+
+### עקרונות אנימציה שאני עוקב אחריהם
+
+לאחר בניית עשרות ממשקים מונפשים, אלה הכללים שאני עוקב אחריהם ללא יוצא מן הכלל:
+
+1. **נמטו רק `transform` ו-`opacity`** - אלה המאפיינים היחידים שלא מפעילים חישוב פריסה מחדש. לעולם אל תנמטו `width`, `height`, `top`, `left` או `margin`.
+
+2. **שמרו על משכים מתחת ל-200ms עבור משוב** - לחיצות כפתור, מצבי hover, ומתגים צריכים להרגיש מיידיים.
+
+3. **השתמשו ב-300-600ms לחשיפות ומעברים** - מעברי עמודים, אנימציות גלילה ואפקטי כניסה יכולים להיות איטיים יותר.
+
+4. **כבדו העדפות motion מופחת** - חלק מהמשתמשים סובלים מהפרעות וסטיבולריות. תמיד ספקו חלופה עם motion מופחת.
+
+5. **נמטו עם מטרה** - כל אנימציה צריכה לתקשר משהו: שינוי מצב, קשר מרחבי, או רמז לאינטראקטיביות.
+
+6. **סטאגרו, אל תסנכרנו** - כשמספר אלמנטים מונפשים פנימה, סטאגרו את התזמון שלהם. אנימציות סימולטניות מרגישות מכניות; מדורגות מרגישות אורגניות.
+
+### שיקולי ביצועים
+
+Framer Motion מאוד מותאם, אבל אתם עדיין יכולים ליצור בעיות ביצועים אם לא זהירים:
+
+- **הימנעו מנמטת במהלך גלילה** - השתמשו ב-`whileInView` עם `once: true` במקום אנימציות מקושרות גלילה רציפות
+- **השתמשו ב-`layout` אנימציות בחיסכון** - ה-prop `layout` מפעיל מדידות פריסה בכל פריים
+- **הסירו רכיבים מונפשים** - השתמשו ב-`AnimatePresence` לניקוי נכון של רכיבים
+- **קבצו אנימציות קשורות** - השתמשו ב-variants עם `staggerChildren` במקום props של `delay` בודדים
+
+### סיכום
+
+Framer Motion הופך אנימציה ב-React מתהליך כואב ואימפרטיבי לתהליך דקלרטיבי וניתן להרכבה. ממשק ה-API של רכיב ה-motion מרגיש טבעי למפתחי React, variants מטפלים בתזמור מורכב בצורה אלגנטית, וברירות המחדל של ביצועים הגיוניות.
+
+המפתח הוא ריסון. האנימציות הטובות ביותר הן אלה שמשתמשים מרגישים אבל לא מבחינים בהן בצורה מודעת. הן גורמות ליישום שלכם להרגיש רספונסיבי, מלוטש וחי ללא הסחת דעת מהתוכן.
+
+---
+
+*רוצים לראות את האנימציות האלה בפעולה? עיינו באתר הזה - כל מעבר ואפקט hover משתמש בדפוסים המתוארים לעיל. יש שאלות? [צרו קשר](/contact).*
+
+</div>

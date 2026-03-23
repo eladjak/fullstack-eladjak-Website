@@ -64,7 +64,7 @@
         "description": "A high-converting developer portfolio that showcases technical excellence through smooth animations and bilingual content. Designed to turn visitors into clients."
       },
       "eyAiKids": {
-        "title": "EY.AI Kids",
+        "title": "SipurAI - AI Children's Story Platform",
         "description": "Safe AI-powered education that sparks creativity in children while giving parents full control. Features age-appropriate content filtering and engaging interactive experiences."
       },
       "omanut": {
@@ -376,7 +376,7 @@
         "description": "A high-converting developer portfolio that showcases technical excellence through smooth animations and bilingual content. Optimized for search engines and designed to turn visitors into clients with compelling storytelling."
       },
       "eyAiKids": {
-        "title": "EY.AI Kids Playground",
+        "title": "SipurAI - AI Children's Story Platform",
         "description": "Safe AI-powered education that sparks creativity in children while giving parents full control. Features age-appropriate content filtering, parental oversight, and engaging story creation that makes learning fun."
       },
       "omanut": {
@@ -468,6 +468,26 @@
         "name": "Guy Aga",
         "role": "Digital Marketing & AI Educator",
         "bio": "A visionary at the intersection of digital marketing and AI, helping professionals and businesses leverage AI tools for real-world impact."
+      },
+      "yuvalK": {
+        "name": "Yuval Keshtcher",
+        "role": "Founder of AI Makers Lab & UX Writing Hub",
+        "bio": "Teaching to design and write AI experiences without code"
+      },
+      "alexanderK": {
+        "name": "Alexander Kapit",
+        "role": "AI Content Creator",
+        "bio": "Practical content on AI tools and their integration at work"
+      },
+      "danielT": {
+        "name": "Daniel Trabelsi",
+        "role": "AI Content Creator",
+        "bio": "Sharing knowledge on AI and development"
+      },
+      "arielE": {
+        "name": "Ariel Eisen",
+        "role": "PixMind Studio - AI Content Creator",
+        "bio": "Creating visual content with AI"
       }
     }
   },

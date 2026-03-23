@@ -361,3 +361,287 @@ Supabase is not just a Firebase alternative. For TypeScript developers, it is ar
 ---
 
 *Want to discuss Supabase architecture or need help with your project's backend? [Let's connect](/contact).*
+
+---
+
+<div dir="rtl" lang="he">
+
+## Supabase למפתחי Full-Stack: מדריך מעשי
+
+כשגיליתי לראשונה את Supabase, זה שינה את האופן שבו אני ניגש לבניית יישומי ווב. במקום לבזבז שבועות בהגדרת אימות, עיצוב סכימות מסד נתונים ב-SQL גולמי, הגדרת שרתי WebSocket ואינטגרציית אחסון קבצים, קיבלתי בקאנד מוכן לפרודקשן בצהריים. Supabase היא חלופה לFirebase בקוד פתוח הבנויה על PostgreSQL, ומספקת לכם את כל מה שמפתח Full-Stack צריך מבלי לנעול אתכם בטכנולוגיה קניינית.
+
+במדריך זה אעבור על ארבעת עמודי התווך של Supabase שאני משתמש בכל פרויקט: אימות, מסד נתונים, Realtime ואחסון.
+
+### הגדרת Supabase עם TypeScript
+
+הצעד הראשון הוא תמיד בטיחות טיפוסית. ל-Supabase יש תמיכה מצוינת ב-TypeScript, ויצירת טיפוסים מסכימת מסד הנתונים שלכם מבטיחה שהפרונטאנד והבקאנד שלכם יישארו מסונכרנים.
+
+```typescript
+// lib/supabase.ts
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/types/supabase";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+
+// לקוח צד שרת עם service role לפעולות אדמין
+export function createServerClient() {
+  return createClient<Database>(
+    supabaseUrl,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    }
+  );
+}
+```
+
+צרו את טיפוסי TypeScript שלכם עם פקודה אחת:
+
+```bash
+bunx supabase gen types typescript --project-id your-project-id > types/supabase.ts
+```
+
+זה יוצר הגדרות טיפוס מלאות לכל טבלה, view ופונקציה במסד הנתונים שלכם. כשאתם שולחים שאילתה `supabase.from("projects").select("*")`, TypeScript יודע בדיוק אילו עמודות קיימות וסוגיהן. ללא ניחושים, ללא הפתעות בזמן ריצה.
+
+### אימות: פשוט אך עוצמתי
+
+Supabase Auth מטפל במורכבות אימות המשתמשים כך שאתם לא צריכים. הוא תומך באימות דרך דוא"ל/סיסמה, קישורים קסומים, ספקי OAuth (Google, GitHub, Discord ועוד רבים), ואפילו אימות טלפון. החלק הטוב ביותר הוא שהוא משתלב ישירות עם Row Level Security של PostgreSQL, כך שהשכבה האמינות ושכבת גישה לנתונים שלכם מאוחדות.
+
+הנה hook אימות מלא שאני משתמש בו בפרויקטים שלי:
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
+
+export function useAuth() {
+  const [authState, setAuthState] = useState({
+    user: null,
+    session: null,
+    isLoading: true,
+  });
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setAuthState({ user: session?.user ?? null, session, isLoading: false });
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setAuthState({ user: session?.user ?? null, session, isLoading: false });
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
+    return { error };
+  };
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    return { error };
+  };
+
+  return { ...authState, signInWithGoogle, signOut };
+}
+```
+
+ה-hook הזה נותן לכם מצב אימות ריאקטיבי בכל רחבי היישום שלכם. כשמשתמש נכנס או יוצא, כל רכיב שקורא ל-`useAuth()` מתעדכן אוטומטית.
+
+### מסד נתונים: PostgreSQL עם כוחות-על
+
+מתחת למכסה המנוע, Supabase הוא PostgreSQL. זה אומר שאתם מקבלים את הכוח המלא של מסד נתונים יחסי בוגר: joins, indexes, חיפוש טקסט מלא, עמודות JSON ופונקציות מאוחסנות. לקוח ה-JavaScript מספק query builder שמרגיש טבעי תוך שמירה על בטיחות טיפוסית.
+
+```typescript
+// lib/queries/projects.ts
+import { supabase } from "@/lib/supabase";
+
+export async function getProjects(options?: {
+  category?: string;
+  limit?: number;
+}) {
+  let query = supabase
+    .from("projects")
+    .select("*, project_tags(tag_name)", { count: "exact" })
+    .order("created_at", { ascending: false });
+
+  if (options?.category) {
+    query = query.eq("category", options.category);
+  }
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  const { data, error, count } = await query;
+
+  if (error) {
+    return { data: null, error: error.message, count: 0 };
+  }
+
+  return { data, error: null, count: count ?? 0 };
+}
+
+export async function searchProjects(searchTerm: string) {
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .textSearch("title", searchTerm, { type: "websearch" })
+    .limit(20);
+
+  return { data: data ?? [], error: error?.message ?? null };
+}
+```
+
+#### Row Level Security: הרשאות בשכבת מסד הנתונים
+
+אחת התכונות העוצמתיות ביותר של Supabase היא Row Level Security (RLS). במקום לבדוק הרשאות בקוד היישום שלכם, מגדירים מדיניות ישירות ב-PostgreSQL. מסד הנתונים עצמו אוכף מי יכול לקרוא, להכניס, לעדכן או למחוק כל שורה.
+
+```sql
+-- הפעלת RLS על טבלת הפרויקטים
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+
+-- כל אחד יכול לקרוא פרויקטים מפורסמים
+CREATE POLICY "ציבור יכול לצפות בפרויקטים מפורסמים"
+  ON projects FOR SELECT
+  USING (published = true);
+
+-- רק הבעלים יכול לעדכן את הפרויקטים שלו
+CREATE POLICY "בעלים יכולים לעדכן את הפרויקטים שלהם"
+  ON projects FOR UPDATE
+  USING (auth.uid() = user_id);
+```
+
+עם RLS, גם אם יש באג בקוד הפרונטאנד שלכם ששולח שאילתה שגויה, מסד הנתונים יסרב להחזיר או לשנות נתונים שהמשתמש לא אמור לגשת אליהם.
+
+### Realtime: נתונים חיים ללא המורכבות
+
+בניית תכונות realtime דורשת מסורתית הגדרת שרתי WebSocket, ניהול מצב חיבור, טיפול בחיבורים מחדש וסנכרון נתונים. Supabase Realtime מבטל את כל זה. אתם נרשמים לשינויי מסד נתונים ומקבלים עדכונים שנשלחים אל הלקוח שלכם אוטומטית.
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
+
+export function useChatMessages(roomId: string) {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    // טעינת הודעות ראשוניות
+    supabase
+      .from("chat_messages")
+      .select("*")
+      .eq("room_id", roomId)
+      .order("created_at", { ascending: true })
+      .limit(100)
+      .then(({ data }) => {
+        if (data) setMessages(data);
+      });
+
+    // הרשמה להודעות חדשות בזמן אמת
+    const channel = supabase
+      .channel(`room-${roomId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "chat_messages",
+          filter: `room_id=eq.${roomId}`,
+        },
+        (payload) => {
+          setMessages((prev) => [...prev, payload.new]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [roomId]);
+
+  const sendMessage = async (content: string, userId: string) => {
+    const { error } = await supabase.from("chat_messages").insert({
+      room_id: roomId,
+      content,
+      user_id: userId,
+    });
+    return { error: error?.message ?? null };
+  };
+
+  return { messages, sendMessage };
+}
+```
+
+ערוץ `postgres_changes` מאזין לאירועי INSERT אמיתיים של מסד הנתונים, מסוננים לפי חדר. כשלקוח כלשהו מכניס הודעה חדשה, כל לקוח אחר שנרשם לאותו חדר מקבל אותה מיד.
+
+### אחסון: העלאת קבצים בפשטות
+
+Supabase Storage בנוי על גבי אחסון אובייקטים תואם S3 עם מערכת מדיניות RLS משלו. העלאת קבצים, יצירת כתובות URL ציבוריות וניהול גישה הם ישירים.
+
+```typescript
+// lib/storage.ts
+import { supabase } from "@/lib/supabase";
+
+export async function uploadAvatar(userId: string, file: File) {
+  const fileExtension = file.name.split(".").pop();
+  const filePath = `${userId}/avatar.${fileExtension}`;
+
+  const { data, error } = await supabase.storage
+    .from("avatars")
+    .upload(filePath, file, {
+      cacheControl: "3600",
+      upsert: true,
+    });
+
+  if (error) {
+    return { url: null, error: error.message };
+  }
+
+  const { data: urlData } = supabase.storage
+    .from("avatars")
+    .getPublicUrl(data.path);
+
+  return { url: urlData.publicUrl, error: null };
+}
+```
+
+אפשרות `upsert: true` אומרת שהעלאה מחדש מחליפה את הקובץ הקיים ללא שגיאות.
+
+### שילוב הכל יחד
+
+מה שהופך את Supabase למשכנע הוא לא תכונה בודדת. זה האופן שבו כל ארבעת עמודי התווך עובדים יחד. Auth משתלב עם מדיניות RLS. שינויי מסד נתונים מפעילים מנויי Realtime. Storage מכבד את אותו הקשר אימות. הכל חולק את אותו פרויקט, אותו לוח מחוונים ואותה מערכת טיפוסים.
+
+למפתח Full-Stack, זה אומר שאתם יכולים ללכת מרעיון לפרודקשן עם שירות בקאנד יחיד שמטפל באימות, שמירת נתונים, עדכונים חיים וניהול קבצים. ללא תפירת חמישה מוצרי SaaS שונים. ללא ניהול מפתחות API ו-SDKs מרובים.
+
+### ההמלצות שלי
+
+לאחר בניית מספר יישומים לפרודקשן עם Supabase, הנה הדפוסים שאני תמיד עוקב אחריהם:
+
+1. **צרו טיפוסים לאחר כל שינוי סכימה** - הפעילו את פקודת יצירת הטיפוסים כחלק מזרימת העבודה שלכם
+2. **תמיד הפעילו RLS** - גם לטבלאות שאתם חושבים שהן "ציבוריות בלבד", הפעילו RLS וכתבו מדיניות מפורשת
+3. **השתמשו בלקוח השרת לפעולות אדמין** - לעולם אל תחשפו את מפתח service role לדפדפן
+4. **סננו מנויי Realtime** - תמיד השתמשו בפרמטר `filter` כדי להימנע מקבלת אירועים שאתם לא צריכים
+5. **ארגנו אחסון לפי ID משתמש** - הופך ניקוי ובקרת גישה לפשוטים
+
+Supabase אינה רק חלופה ל-Firebase. למפתחי TypeScript, היא ייתכן שהפלטפורמת בקאנד הפרודוקטיבית ביותר הזמינה היום.
+
+---
+
+*רוצים לדון בארכיטקטורת Supabase או צריכים עזרה עם הבקאנד של הפרויקט שלכם? [בואו נתחבר](/contact).*
+
+</div>

@@ -1,12 +1,52 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-22
+## Last Updated: 2026-03-23
 
 ## Current State
-Major upgrade complete. Hero now shows real GitHub photo (ProfileAvatar) + FloatingTechIcons. StatsBar with animated counters. All content updated from resume. OG images from Gemini. /claude-code page migrated from hub. Build clean (22+ routes).
+Portfolio Revival Sprint COMPLETE. 14 projects with Gemini thumbnails, 14/14 GitHub repos accessible (200 OK), 7 live deployments verified working. Build clean (22 routes). Site live at fullstack-eladjak.co.il.
 
 ## What Was Done
+
+### Session 2026-03-23 - Sprint Verification & Review
+
+#### Sprint Status Check
+- [x] Verified all 14 GitHub repo URLs return 200 OK
+- [x] Verified all 7 live deployment URLs return 200 OK (including VacationVibe which was previously broken)
+- [x] Confirmed all 14 project thumbnails exist in public/projects/ (11 Gemini-generated .jpg + 3 original .png)
+- [x] Confirmed all 14 projects have `image` fields in code (projects page + featured section)
+- [x] Build passes clean: 22 routes, TypeScript clean
+- [x] Opened live site in browser - projects page renders perfectly with all thumbnails
+
+#### Iteration Review
+- [x] Generated comprehensive HTML review page: `docs/reviews/iteration-2026-03-23.html`
+- [x] Review includes: sprint summary, 14 project cards, deployment status table, next steps, command guides
+- [x] Auto-opened review in browser
+
+#### Thanks Page Update (3 parallel agents)
+- [x] Added 4 new people: Yuval Keshtcher, Alexander Kapit, Daniel Trabelsi, Ariel Eisen (PixMind)
+- [x] Filled missing links: Gal Havkin (GitHub), Nadav Neve (LinkedIn + Twitter)
+- [x] Added new link types: YouTube, Facebook, Instagram, Telegram
+- [x] Translations HE+EN for all 4 new people
+
+#### Project URLs Update
+- [x] Bayit BeSeder: added `live_url: 'https://www.bayitbeseder.com'`
+- [x] EY.AI Kids renamed to SipurAI (סיפוראי) in both languages
+
+#### Blog Bilingual Content
+- [x] All 5 blog posts now have full Hebrew translations appended
+- [x] Hebrew sections use `<div dir="rtl" lang="he">` wrapper
+- [x] Code blocks kept in English, prose translated naturally
+
+#### Dark Mode Default
+- [x] Changed ThemeProvider defaultTheme from "system" to "dark"
+
+#### Remaining
+- [ ] Hebrew Calendar: needs Vercel deployment (CRA frontend only)
+- [ ] Visual facelift: dark-first design, glassmorphism, enhanced animations
+- [ ] More mentor links: find social profiles for Alexander Kapit, Daniel Trabelsi, Ariel Eisen
+- [ ] SipurAI: add live_url when domain confirmed
+- [ ] Lighthouse performance audit
 
 ### Session 2026-03-22 - Major Upgrade (Resume-based + Component Wiring)
 - [x] **Hero: ProfileAvatar** — real GitHub photo with rotating gradient border + status dot

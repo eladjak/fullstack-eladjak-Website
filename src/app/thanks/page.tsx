@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Globe, Twitter, Github, Linkedin, GraduationCap } from 'lucide-react';
+import { Globe, Twitter, Github, Linkedin, GraduationCap, Youtube, Facebook, Instagram, Send } from 'lucide-react';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { useMetaTags } from '@/hooks/useMetaTags';
 import { useTranslations } from 'next-intl';
@@ -18,7 +18,7 @@ const GRADIENT_COLORS = [
 ];
 
 interface PersonLink {
-  type: 'website' | 'twitter' | 'github' | 'linkedin';
+  type: 'website' | 'twitter' | 'github' | 'linkedin' | 'youtube' | 'facebook' | 'instagram' | 'telegram';
   url: string;
 }
 
@@ -54,7 +54,9 @@ const people: Person[] = [
   {
     key: 'gal',
     initials: 'GH',
-    links: [],
+    links: [
+      { type: 'github', url: 'https://github.com/Quegenx' },
+    ],
   },
   {
     key: 'roey',
@@ -74,7 +76,10 @@ const people: Person[] = [
   {
     key: 'nadav',
     initials: 'NV',
-    links: [],
+    links: [
+      { type: 'linkedin', url: 'https://linkedin.com/in/nadav-naveh' },
+      { type: 'twitter', url: 'https://x.com/Nadav__Naveh' },
+    ],
   },
   {
     key: 'guy',
@@ -84,6 +89,32 @@ const people: Person[] = [
       { type: 'linkedin', url: 'https://linkedin.com/in/guyaga' },
     ],
   },
+  {
+    key: 'yuvalK',
+    initials: 'YK',
+    links: [
+      { type: 'website', url: 'https://newsletter.aimakerslab.io' },
+      { type: 'linkedin', url: 'https://linkedin.com/in/yuvalkesh' },
+      { type: 'twitter', url: 'https://x.com/KeshYuval' },
+    ],
+  },
+  {
+    key: 'alexanderK',
+    initials: 'AK',
+    links: [
+      { type: 'website', url: 'https://alekapit.com' },
+    ],
+  },
+  {
+    key: 'danielT',
+    initials: 'DT',
+    links: [],
+  },
+  {
+    key: 'arielE',
+    initials: 'AE',
+    links: [],
+  },
 ];
 
 const linkIcons = {
@@ -91,6 +122,10 @@ const linkIcons = {
   twitter: Twitter,
   github: Github,
   linkedin: Linkedin,
+  youtube: Youtube,
+  facebook: Facebook,
+  instagram: Instagram,
+  telegram: Send,
 } as const;
 
 export default function ThanksPage() {
