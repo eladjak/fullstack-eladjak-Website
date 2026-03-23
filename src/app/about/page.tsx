@@ -62,7 +62,7 @@ export default function AboutPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <div className="relative">
+                <div className="relative shadow-lg shadow-primary/10">
                   <div className="h-28 w-28 rounded-full bg-gradient-to-br from-primary to-accent p-[3px]">
                     <div className="h-full w-full rounded-full bg-background flex items-center justify-center">
                       <span className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">EY</span>
@@ -75,7 +75,7 @@ export default function AboutPage() {
               </motion.div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">{t('title')}</h1>
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl text-glow">{t('title')}</h1>
                 <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('name')}</h2>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   {t('subtitle')}
@@ -90,7 +90,7 @@ export default function AboutPage() {
                     <ScrollAnimate key={key} delay={index * 0.05}>
                       <div className="group relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="relative flex flex-col items-center space-y-3 p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-300">
+                        <div className="relative flex flex-col items-center space-y-3 p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 transition-all duration-300">
                           <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                             <Icon className="h-6 w-6" />
                           </div>
@@ -194,7 +194,7 @@ export default function AboutPage() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     {traitKeys.map((key, index) => (
                       <ScrollAnimate key={key} delay={index * 0.05}>
-                        <div className="p-4 rounded-lg border border-border/50 bg-card/50 hover:border-primary/30 transition-colors duration-200">
+                        <div className="p-4 rounded-lg border border-border/50 bg-card/50 hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 transition-all duration-200">
                           <h3 className="font-semibold text-sm text-primary mb-1">
                             {t(`unique.traits.${key}.title`)}
                           </h3>

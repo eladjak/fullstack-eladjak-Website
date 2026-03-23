@@ -112,7 +112,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="w-full py-16 md:py-24 lg:py-32 bg-muted/30">
+    <section id="skills" className="w-full py-16 md:py-24 lg:py-32 bg-muted/20">
       <div className="container px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-12">
@@ -147,7 +147,7 @@ export default function SkillsSection() {
                 />
 
                 {/* Card */}
-                <div className="relative h-full p-6 md:p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+                <div className="relative h-full p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/50 hover:border-primary/40 hover:shadow-lg transition-all duration-300">
                   {/* Decorative corner accent */}
                   <div
                     className={`absolute -top-10 -end-10 h-20 w-20 rounded-full bg-gradient-to-br ${capability.gradient} opacity-40`}
@@ -197,7 +197,7 @@ export default function SkillsSection() {
               className="text-center scroll-scale"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-glow">
                 {stat.value}
               </div>
               <div className="text-sm text-muted-foreground mt-2">{stat.label}</div>

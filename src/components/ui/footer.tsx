@@ -28,7 +28,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative w-full border-t bg-card/50 backdrop-blur-sm" role="contentinfo">
+    <footer className="relative w-full bg-card/30 border-t border-border/30 backdrop-blur-sm" role="contentinfo">
       {/* Decorative gradient line at top */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
@@ -39,7 +39,7 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Code2 className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">Elad Ya&apos;akobovitch</span>
+                <span className="text-xl font-bold text-glow">Elad Ya&apos;akobovitch</span>
               </div>
               <p className="text-sm text-muted-foreground max-w-xs">
                 {tFooter('description')}
@@ -85,7 +85,7 @@ export default function Footer() {
                   (tech) => (
                     <span
                       key={tech}
-                      className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                      className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20 transition-colors duration-200 cursor-default"
                     >
                       {tech}
                     </span>

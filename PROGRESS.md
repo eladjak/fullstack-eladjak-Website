@@ -41,12 +41,22 @@ Portfolio Revival Sprint COMPLETE. 14 projects with Gemini thumbnails, 14/14 Git
 #### Dark Mode Default
 - [x] Changed ThemeProvider defaultTheme from "system" to "dark"
 
+#### SipurAI Domain
+- [x] Found domain: sipurai.ai (from project's vercel.json CSP headers)
+- [x] Added `live_url: 'https://sipurai.ai'` to ey-ai-kids project entry
+
+#### Visual Facelift (3 parallel agents)
+- [x] CSS: deeper dark background (#050810), gradient mesh (purple/cyan radial spots)
+- [x] CSS: glow-border + text-glow utility classes, translucent purple selection
+- [x] Hero: stronger gradient overlay, text-glow heading, avatar glow orb, CTA scale hover
+- [x] Projects: translucent cards (bg-card/60), purple glow shadow hover, interactive tech tags
+- [x] Committed and pushed: `16a4e91`
+
 #### Remaining
 - [ ] Hebrew Calendar: needs Vercel deployment (CRA frontend only)
-- [ ] Visual facelift: dark-first design, glassmorphism, enhanced animations
 - [ ] More mentor links: find social profiles for Alexander Kapit, Daniel Trabelsi, Ariel Eisen
-- [ ] SipurAI: add live_url when domain confirmed
 - [ ] Lighthouse performance audit
+- [ ] Portfolio visual facelift phase 2: nav, skills, CTA, footer enhancements
 
 ### Session 2026-03-22 - Major Upgrade (Resume-based + Component Wiring)
 - [x] **Hero: ProfileAvatar** — real GitHub photo with rotating gradient border + status dot

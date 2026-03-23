@@ -16,12 +16,12 @@ export default function CTASection() {
     <section id="cta" className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/5 blur-2xl pointer-events-none" />
+      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />
 
       <div className="container relative px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
               {t('title')}
             </h2>
             <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg">
@@ -43,7 +43,7 @@ export default function CTASection() {
                   viewport={{ once: true }}
                   className="group relative"
                 >
-                  <div className="relative p-6 rounded-xl bg-card/50 border border-border/50 backdrop-blur-sm text-center hover:border-primary/30 transition-all duration-300">
+                  <div className="relative p-6 rounded-xl bg-card/40 border border-border/50 backdrop-blur-sm text-center hover:border-primary/30 transition-all duration-300">
                     <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                       <Icon className="h-6 w-6" />
                     </div>
@@ -64,7 +64,7 @@ export default function CTASection() {
           <div className="text-center">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {t('getInTouch')}
               <ArrowRight className="h-5 w-5" />

@@ -128,7 +128,7 @@ export default function Navigation() {
       aria-label="Main navigation"
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/80 backdrop-blur-xl shadow-lg border-b border-border/30'
+          ? 'bg-background/70 backdrop-blur-xl shadow-lg border-b border-primary/10'
           : 'bg-background/40 backdrop-blur-md'
       }`}
     >
@@ -136,7 +136,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
+            className="text-xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
             aria-label="EY.dev - Home"
           >
             EY.dev
@@ -149,7 +149,7 @@ export default function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={`text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
-                  isActive(item.href) ? 'text-primary font-medium' : ''
+                  isActive(item.href) ? 'text-primary font-semibold' : ''
                 }`}
                 aria-current={isActive(item.href) ? 'page' : undefined}
               >
