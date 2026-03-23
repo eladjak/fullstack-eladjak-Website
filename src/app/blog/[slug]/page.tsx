@@ -95,18 +95,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           post.frontmatter.date
         )}
       />
-      <article className="container mx-auto px-4 py-12 max-w-4xl">
+      <article className="container mx-auto px-4 py-12 max-w-4xl transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/5">
         {/* Back Link (i18n) */}
         <BlogPostBackLink />
 
         {/* Header */}
         <header className="mb-8 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight text-glow">
             {post.frontmatter.title}
           </h1>
 
           {post.frontmatter.description && (
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-foreground/80">
               {post.frontmatter.description}
             </p>
           )}

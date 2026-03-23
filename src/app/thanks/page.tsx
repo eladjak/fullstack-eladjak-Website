@@ -165,10 +165,10 @@ export default function ThanksPage() {
               </motion.div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl [text-shadow:0_0_40px_hsl(var(--primary)/0.4)]">
                   {t('title')}
                 </h1>
-                <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg">
+                <p className="mx-auto max-w-[600px] text-foreground/70 md:text-lg">
                   {t('subtitle')}
                 </p>
               </div>
@@ -184,10 +184,10 @@ export default function ThanksPage() {
                 <ScrollAnimate key={person.key} delay={index * 0.04}>
                   <div className="group relative h-full">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative flex flex-col h-full p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+                    <div className="relative flex flex-col h-full p-6 rounded-xl bg-card border border-border/50 backdrop-blur-sm hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
                       {/* Avatar */}
                       <div className="flex items-start gap-4 mb-4">
-                        <div className={`flex-shrink-0 h-14 w-14 rounded-full bg-gradient-to-br ${GRADIENT_COLORS[index % GRADIENT_COLORS.length]} flex items-center justify-center`}>
+                        <div className={`flex-shrink-0 h-14 w-14 rounded-full bg-gradient-to-br ${GRADIENT_COLORS[index % GRADIENT_COLORS.length]} flex items-center justify-center shadow-md shadow-primary/20`}>
                           <span className="text-sm font-bold text-white">
                             {person.initials}
                           </span>
@@ -218,7 +218,7 @@ export default function ThanksPage() {
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary hover:scale-110 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                 aria-label={`ביקור בפרופיל ${link.type} של ${t(`people.${person.key}.name`)}`}
                               >
                                 <Icon className="h-4 w-4" aria-hidden="true" />

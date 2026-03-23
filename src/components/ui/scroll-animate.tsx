@@ -12,8 +12,8 @@ interface ScrollAnimateProps {
 /**
  * Reusable scroll-triggered fade-in-up animation wrapper.
  * Respects prefers-reduced-motion (IS 5568 / WCAG 2.3.3).
- * Content starts visible (opacity 0.85) and animates to full opacity on scroll.
- * Progressive enhancement: content is readable even without scroll trigger.
+ * Content starts hidden (opacity 0, y 24) and fades in on scroll.
+ * Progressive enhancement: reduced-motion users see content immediately.
  */
 export function ScrollAnimate({ children, className, delay = 0 }: ScrollAnimateProps) {
   const prefersReducedMotion = useReducedMotion();

@@ -26,7 +26,7 @@ export function TagBadge({
   className
 }: TagBadgeProps) {
   const variantStyles = {
-    default: "bg-primary/10 text-primary border-transparent",
+    default: "bg-primary/10 text-primary border-transparent hover:bg-primary/15",
     outline: "bg-transparent text-primary border-primary",
     solid: "bg-primary text-primary-foreground border-transparent",
   };

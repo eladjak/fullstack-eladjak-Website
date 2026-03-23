@@ -22,9 +22,9 @@ function markdownToHtml(markdown: string): string {
 
   // Code blocks (fenced) - must be processed before inline code
   html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, lang, code) => {
-    const langClass = lang ? ` class="language-${lang}"` : '';
+    const langAttr = lang ? ` language-${lang}` : '';
     const escaped = escapeHtml(code.trim());
-    return `<pre><code${langClass}>${escaped}</code></pre>`;
+    return `<pre class="bg-card rounded-lg p-4 overflow-x-auto border border-border"><code class="text-sm${langAttr}">${escaped}</code></pre>`;
   });
 
   // Split into lines for block-level processing
@@ -53,7 +53,7 @@ function markdownToHtml(markdown: string): string {
       blockquoteLines.push(line.slice(2));
       continue;
     } else if (inBlockquote) {
-      result.push(`<blockquote><p>${processInline(blockquoteLines.join(' '))}</p></blockquote>`);
+      result.push(`<blockquote class="border-l-4 border-primary/30 pl-4 italic text-foreground/80 my-4"><p>${processInline(blockquoteLines.join(' '))}</p></blockquote>`);
       inBlockquote = false;
       blockquoteLines = [];
     }
@@ -78,7 +78,7 @@ function markdownToHtml(markdown: string): string {
       const level = headingMatch[1]?.length ?? 1;
       const text = headingMatch[2] ?? '';
       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      result.push(`<h${level} id="${id}">${processInline(text)}</h${level}>`);
+      result.push(`<h${level} id="${id}" class="text-foreground font-bold">${processInline(text)}</h${level}>`);
       continue;
     }
 
@@ -130,7 +130,7 @@ function markdownToHtml(markdown: string): string {
 
   // Close any open elements
   if (inBlockquote) {
-    result.push(`<blockquote><p>${processInline(blockquoteLines.join(' '))}</p></blockquote>`);
+    result.push(`<blockquote class="border-l-4 border-primary/30 pl-4 italic text-foreground/80 my-4"><p>${processInline(blockquoteLines.join(' '))}</p></blockquote>`);
   }
   if (inList) {
     result.push(listType === 'ul' ? '</ul>' : '</ol>');
@@ -146,7 +146,7 @@ function processInline(text: string): string {
   result = result.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy" />');
 
   // Links
-  result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary hover:text-primary/80 underline underline-offset-4 transition-colors duration-200">$1</a>');
 
   // Bold + italic
   result = result.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
@@ -158,7 +158,7 @@ function processInline(text: string): string {
   result = result.replace(/\*(.+?)\*/g, '<em>$1</em>');
 
   // Inline code (avoid matching inside code blocks)
-  result = result.replace(/`([^`]+)`/g, '<code>$1</code>');
+  result = result.replace(/`([^`]+)`/g, '<code class="bg-primary/10 text-primary rounded px-1.5 py-0.5 text-sm font-mono">$1</code>');
 
   return result;
 }

@@ -211,11 +211,47 @@ const resources = [
   },
 ];
 
+const tocLabels: { id: string; label: string }[] = [
+  { id: "what-is", label: "מה זה?" },
+  { id: "install", label: "התקנה" },
+  { id: "first-steps", label: "צעדים ראשונים" },
+  { id: "claude-md", label: "CLAUDE.md" },
+  { id: "skills", label: "Skills" },
+  { id: "mcp", label: "MCP" },
+  { id: "agents", label: "Agents" },
+  { id: "workflows", label: "Workflows" },
+  { id: "tips", label: "טיפים" },
+];
+
 export default function ClaudeCodePage() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   return (
     <main className="min-h-dvh bg-background" dir="rtl">
+      {/* Sticky TOC pill bar */}
+      <div className="sticky top-16 z-30 py-2 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-wrap gap-2 bg-background/70 backdrop-blur-md border border-border/50 rounded-2xl px-4 py-2 shadow-sm">
+            {tocLabels.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setExpandedSection(item.id);
+                  document
+                    .getElementById(item.id)
+                    ?.scrollIntoView({ behavior: "smooth", block: "center" });
+                }}
+                className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors px-3 py-1 rounded-full hover:bg-primary/10"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Hero */}
       <section className="relative overflow-hidden py-20 sm:py-28">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-background" />
@@ -226,7 +262,7 @@ export default function ClaudeCodePage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-heebo">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-glow">
                 Claude Code
               </span>
               <br />
@@ -276,6 +312,7 @@ export default function ClaudeCodePage() {
           {sections.map((section, index) => (
             <motion.div
               key={section.id}
+              id={section.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.06 }}
@@ -289,15 +326,15 @@ export default function ClaudeCodePage() {
                 className="w-full text-right"
               >
                 <div
-                  className={`group bg-card rounded-2xl border border-border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 ${
+                  className={`group bg-card rounded-2xl border border-border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 ${
                     expandedSection === section.id
-                      ? "ring-2 ring-primary/30 shadow-lg shadow-primary/5"
+                      ? "ring-2 ring-primary/30 shadow-lg shadow-primary/5 border-primary/20"
                       : ""
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <div
-                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${section.color} flex items-center justify-center text-2xl shrink-0`}
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${section.color} flex items-center justify-center text-2xl shrink-0 shadow-sm shadow-primary/20`}
                     >
                       {section.emoji}
                     </div>
@@ -350,26 +387,36 @@ export default function ClaudeCodePage() {
                         {section.content.map((item, i) => (
                           <li
                             key={i}
-                            className="flex items-start gap-3 text-foreground/80"
+                            className="flex items-start gap-3 text-foreground/90"
                           >
                             <span className="text-primary mt-1 shrink-0">
                               &#x2022;
                             </span>
                             <span className="text-sm leading-relaxed">
-                              {item}
+                              {item.includes("→") ? (
+                                <>
+                                  <span className="bg-card/80 rounded-lg px-2 py-0.5 font-mono text-xs border border-border/50 ml-1">
+                                    {item.split("→")[0].trim()}
+                                  </span>
+                                  <span className="text-muted-foreground mx-1">→</span>
+                                  {item.split("→").slice(1).join("→").trim()}
+                                </>
+                              ) : (
+                                item
+                              )}
                             </span>
                           </li>
                         ))}
                       </ul>
                       {section.tips && (
-                        <div className="mt-6 bg-primary/5 rounded-xl p-4 border border-primary/20">
+                        <div className="mt-6 bg-primary/5 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
                           <p className="text-sm font-medium text-primary mb-2">
-                            טיפים
+                            💡 טיפים
                           </p>
                           {section.tips.map((tip, i) => (
                             <p
                               key={i}
-                              className="text-sm text-primary/80 mt-1"
+                              className="text-sm text-foreground/80 mt-1"
                             >
                               {tip}
                             </p>
