@@ -134,7 +134,7 @@ export default function FeaturedProjectsSection() {
         </ScrollAnimate>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {staticProjects.map((project) => (
+          {staticProjects.map((project, index) => (
             <div key={project.id} className="group scroll-scale">
               <TiltedCard tiltStrength={8} className="h-full">
               <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
@@ -149,6 +149,7 @@ export default function FeaturedProjectsSection() {
                       fill
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      {...(index < 3 ? { priority: true } : { loading: 'lazy' })}
                     />
                   ) : (
                     <>

@@ -102,6 +102,8 @@ export default function RootLayout({
         <StructuredData data={structuredDataGenerators.website()} />
         <StructuredData data={structuredDataGenerators.person("אלעד יעקובוביץ'", SITE_URL, "מפתח Full-Stack ומומחה AI")} />
         <StructuredData data={structuredDataGenerators.localBusiness()} />
+        {/* Preload critical above-the-fold image */}
+        <link rel="preload" href="/images/hero-dev.jpg" as="image" />
         {/* hreflang for Hebrew site */}
         <link rel="alternate" hrefLang="he-IL" href={SITE_URL} />
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />

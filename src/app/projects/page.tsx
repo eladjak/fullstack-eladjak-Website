@@ -210,7 +210,7 @@ export default function ProjectsPage() {
     <div className="container mx-auto px-4 py-12">
       <ScrollAnimate>
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl mb-4">
+          <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             {t('title')}
           </h1>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
@@ -251,7 +251,7 @@ export default function ProjectsPage() {
         animate="visible"
         className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {filteredProjects.map((project) => (
+        {filteredProjects.map((project, index) => (
           <motion.div key={project.id} variants={cardVariants} className="group">
             <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
               {/* Project header - screenshot or gradient */}
@@ -265,6 +265,7 @@ export default function ProjectsPage() {
                     fill
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    {...(index < 3 ? { priority: true } : { loading: 'lazy' })}
                   />
                 ) : (
                   <>

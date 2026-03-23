@@ -62,6 +62,7 @@ export default function ServicesPage() {
           <Image
             src="/images/services-hero.jpg"
             alt=""
+            aria-hidden="true"
             fill
             className="object-cover object-center z-0"
             priority

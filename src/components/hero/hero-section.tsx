@@ -44,7 +44,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row items-center md:items-start gap-10 text-start"
+          className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-10 text-center md:text-start"
         >
           {/* Profile Avatar */}
           <motion.div
@@ -55,15 +55,18 @@ export default function HeroSection() {
           >
             {/* Ambient glow orb behind avatar */}
             <div className="absolute inset-0 -z-10 rounded-full bg-primary/10 blur-3xl" />
-            <ProfileAvatar
-              src="https://avatars.githubusercontent.com/u/108827199?v=4"
-              alt="אלעד יעקובוביץ' - מפתח Full-Stack"
-              size={200}
-              showStatus={true}
-            />
+            {/* Responsive avatar wrapper: 120px on mobile, 160px on md+ */}
+            <div className="scale-75 sm:scale-90 md:scale-100 origin-center">
+              <ProfileAvatar
+                src="https://avatars.githubusercontent.com/u/108827199?v=4"
+                alt="אלעד יעקובוביץ' - מפתח Full-Stack"
+                size={160}
+                showStatus={true}
+              />
+            </div>
           </motion.div>
 
-          <div className="flex flex-col items-start space-y-6 max-w-2xl">
+          <div className="flex flex-col items-center md:items-start space-y-6 max-w-2xl w-full">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -80,7 +83,7 @@ export default function HeroSection() {
           </motion.div>
 
           <div className="space-y-4">
-            <h1 className="text-glow drop-shadow-lg text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none">
+            <h1 className="text-glow drop-shadow-lg text-2xl font-bold tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl/none">
               {t('heading')}
             </h1>
 
@@ -105,7 +108,7 @@ export default function HeroSection() {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto justify-center md:justify-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
