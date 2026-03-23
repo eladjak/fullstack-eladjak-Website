@@ -153,7 +153,7 @@ export default function ContactPage() {
               className="flex flex-col items-center space-y-8 text-center"
             >
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl text-glow">
                   {t('title')}
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
@@ -165,7 +165,7 @@ export default function ContactPage() {
               <div className="grid gap-6 grid-cols-2 md:grid-cols-4 max-w-4xl w-full mt-8">
                 {contactInfo.map((info, index) => (
                   <ScrollAnimate key={info.title} delay={index * 0.05}>
-                    <div className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50">
+                    <div className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50 hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 border border-transparent">
                       <info.icon className="h-8 w-8 text-primary" aria-hidden="true" />
                       <h3 className="text-lg font-semibold">{info.title}</h3>
                       {info.href ? (
@@ -187,7 +187,7 @@ export default function ContactPage() {
               {/* Contact Form */}
               <ScrollAnimate delay={0.1}>
                 <div className="w-full max-w-2xl mt-12">
-                  <div className="rounded-lg border bg-card p-8 shadow-sm">
+                  <div className="rounded-lg border bg-card p-8 shadow-sm backdrop-blur-sm">
                     <h2 className="text-2xl font-bold mb-2 text-center">{t('form.title')}</h2>
                     <p className="text-sm text-muted-foreground text-center mb-6">{t('form.responseTime')}</p>
                     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
@@ -269,7 +269,7 @@ export default function ContactPage() {
                         />
                       </div>
 
-                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      <Button type="submit" className="w-full hover:scale-105 transition-all duration-300" disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
                             <span className="animate-spin me-2">⏳</span>

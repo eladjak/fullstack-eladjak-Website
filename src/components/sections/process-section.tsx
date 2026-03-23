@@ -22,7 +22,7 @@ export default function ProcessSection() {
       <div className="container px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
               {t('title')}
             </h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
@@ -44,11 +44,11 @@ export default function ProcessSection() {
               return (
                 <div
                   key={key}
-                  className={`relative text-center group ${slideClass}`}
+                  className={`relative text-center group ${slideClass} rounded-2xl border border-transparent hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 p-4`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Step number */}
-                  <div className="text-6xl font-bold text-muted-foreground/10 absolute -top-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 select-none">
+                  <div className="text-6xl font-bold text-muted-foreground/10 absolute -top-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 select-none shadow-sm shadow-primary/20">
                     {String(index + 1).padStart(2, '0')}
                   </div>
 

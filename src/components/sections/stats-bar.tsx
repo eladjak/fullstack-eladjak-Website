@@ -69,7 +69,7 @@ export default function StatsBar() {
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary">
                 {stat.icon}
               </div>
-              <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-glow">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={inView} />
               </span>
               <span className="text-xs md:text-sm text-muted-foreground font-medium">

@@ -86,7 +86,7 @@ export default function ServicesPage() {
                 {t('badge')}
               </motion.span>
 
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-glow">
                 {t('title')}
               </h1>
 
@@ -116,7 +116,7 @@ export default function ServicesPage() {
                       className="group relative"
                     >
                       <div
-                        className={`relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-8 md:p-10 transition-all duration-300 hover:border-primary/30 hover:shadow-lg ${
+                        className={`relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-8 md:p-10 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10 ${
                           isEven ? '' : 'md:flex-row-reverse'
                         }`}
                       >
@@ -234,7 +234,7 @@ export default function ServicesPage() {
               <div className="text-center">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   {t('cta.contactForm')}
                   <ArrowRight className="h-5 w-5" />

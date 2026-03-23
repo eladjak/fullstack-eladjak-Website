@@ -36,7 +36,7 @@ export default function HeroSection() {
       <FloatingTechIcons />
 
       {/* Dark overlay so text stays readable */}
-      <div className="absolute inset-0 bg-background/50 dark:bg-background/70 z-[2]" />
+      <div className="absolute inset-0 bg-background/60 dark:bg-background/80 z-[2]" />
 
       {/* Content */}
       <div className="container px-4 md:px-6 relative z-10">
@@ -70,7 +70,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-cta/10 border border-cta/20 px-4 py-1.5 text-sm font-medium text-cta shadow-sm shadow-cta/20">
+            <span className="inline-flex items-center gap-2 rounded-full bg-cta/10 border border-cta/20 px-4 py-1.5 text-sm font-medium text-cta shadow-sm shadow-cta/20 backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cta opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cta" />
@@ -80,12 +80,12 @@ export default function HeroSection() {
           </motion.div>
 
           <div className="space-y-4">
-            <h1 className="text-glow text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none">
+            <h1 className="text-glow drop-shadow-lg text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl/none">
               {t('heading')}
             </h1>
 
             <motion.h2
-              className="text-xl md:text-2xl font-medium text-muted-foreground"
+              className="text-xl md:text-2xl font-medium text-foreground/80"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -94,7 +94,7 @@ export default function HeroSection() {
             </motion.h2>
 
             <motion.p
-              className="max-w-[600px] text-muted-foreground md:text-lg leading-relaxed"
+              className="max-w-[600px] text-foreground/90 md:text-lg leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}

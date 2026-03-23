@@ -67,7 +67,7 @@ export default function BlogPage() {
     <div className="container mx-auto px-4 py-12">
       <ScrollAnimate>
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
+          <h1 className="text-4xl font-bold mb-4 text-glow">{t('title')}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {t('subtitle')}
           </p>
@@ -83,7 +83,7 @@ export default function BlogPage() {
               className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
                 selectedTag === null
                   ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-primary/10 text-primary border-transparent hover:bg-primary/20'
+                  : 'bg-primary/10 text-primary border-transparent hover:bg-primary/15 transition-colors duration-200'
               }`}
             >
               <Tag className="h-3 w-3" />
@@ -96,7 +96,7 @@ export default function BlogPage() {
                 className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
                   selectedTag === tag
                     ? 'bg-primary text-primary-foreground border-primary'
-                    : 'bg-primary/10 text-primary border-transparent hover:bg-primary/20'
+                    : 'bg-primary/10 text-primary border-transparent hover:bg-primary/15 transition-colors duration-200'
                 }`}
               >
                 {tag}
@@ -125,7 +125,7 @@ export default function BlogPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: index * 0.05 }}
             >
-              <Card className="group overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] h-full flex flex-col">
+              <Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:translate-y-[-4px] hover:border-primary/20 h-full flex flex-col">
                 {/* Featured Image */}
                 {post.frontmatter.featured_image && (
                   <div className="relative w-full aspect-video overflow-hidden">
