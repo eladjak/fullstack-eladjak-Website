@@ -134,6 +134,7 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['React', 'FullCalendar', 'Hebrew Calendar API', 'Google OAuth', 'i18n'],
     github_url: 'https://github.com/eladjak/hebrew-gregorian-calendar',
+    live_url: 'https://hebrew-calendar-eosin.vercel.app',
     gradient: 'from-indigo-500/20 to-blue-500/20',
     icon: 'Calendar',
     image: '/projects/hebrew-calendar.jpg',

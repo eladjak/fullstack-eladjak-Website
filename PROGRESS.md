@@ -1,7 +1,7 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-23
+## Last Updated: 2026-03-24
 
 ## Current State
 Portfolio Revival Sprint COMPLETE. 14 projects with Gemini thumbnails, 14/14 GitHub repos accessible (200 OK), 7 live deployments verified working. Build clean (22 routes). Site live at fullstack-eladjak.co.il.
@@ -52,11 +52,37 @@ Portfolio Revival Sprint COMPLETE. 14 projects with Gemini thumbnails, 14/14 Git
 - [x] Projects: translucent cards (bg-card/60), purple glow shadow hover, interactive tech tags
 - [x] Committed and pushed: `16a4e91`
 
+#### Visual Facelift Phase 2 (3 agents - nav, skills+CTA, footer+about)
+- [x] Nav: glassmorphism bg/70, purple-cyan logo gradient, bold active links
+- [x] Skills: bg-card/60, stronger hover glow, text-glow stats
+- [x] CTA: stronger ambient glow, translucent cards, scale hover button
+- [x] Footer: glass bg-card/30, text-glow logo, interactive tech badges
+- [x] About: text-glow heading, avatar glow, hover shadows on cards
+
+#### Visual Facelift Phase 3 (3 agents - readability, pages, components)
+- [x] Hero: stronger overlay bg/80, drop-shadow-lg heading, brighter text
+- [x] Blog: text-glow, hover glow cards, interactive tag filters
+- [x] Contact: text-glow, card hover, backdrop-blur form, scale CTA
+- [x] Services: text-glow, card glow hover, scale CTA
+- [x] Process: text-glow, hover border cards, step number glow
+- [x] StatsBar: text-glow on counter numbers
+- [x] TechMarquee: edge fade overlays (RTL-aware), hover:text-primary
+
+#### Visual Facelift Phase 4 (4 agents - blog MDX, claude-code, thanks, FAB)
+- [x] Blog [slug]: text-glow, MDX code/headings/blockquotes/links styled
+- [x] Claude Code: sticky TOC pill bar, section hover, command pills
+- [x] Thanks: card lift hover, avatar glow, social links scale
+- [x] WhatsApp FAB: Hebrew tooltip, aria-label
+
+#### SEO + Performance + Mobile (3 agents)
+- [x] SEO: aria-hidden on decorative images, canonical URL verified
+- [x] Perf: lazy load images (priority first 3), hero preload, deviceSizes
+- [x] Mobile: hero centered, responsive text, CTA wrap, avatar scale, stats 3-col
+
 #### Remaining
 - [ ] Hebrew Calendar: needs Vercel deployment (CRA frontend only)
-- [ ] More mentor links: find social profiles for Alexander Kapit, Daniel Trabelsi, Ariel Eisen
-- [ ] Lighthouse performance audit
-- [ ] Portfolio visual facelift phase 2: nav, skills, CTA, footer enhancements
+- [ ] Mentor social links: waiting for WhatsApp responses from mentors
+- [ ] Deployed projects facelift: make apps match their Gemini thumbnails
 
 ### Session 2026-03-22 - Major Upgrade (Resume-based + Component Wiring)
 - [x] **Hero: ProfileAvatar** — real GitHub photo with rotating gradient border + status dot
