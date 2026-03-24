@@ -79,10 +79,21 @@ Portfolio Revival Sprint COMPLETE. 14 projects with Gemini thumbnails, 14/14 Git
 - [x] Perf: lazy load images (priority first 3), hero preload, deviceSizes
 - [x] Mobile: hero centered, responsive text, CTA wrap, avatar scale, stats 3-col
 
-#### Remaining
-- [ ] Hebrew Calendar: needs Vercel deployment (CRA frontend only)
-- [ ] Mentor social links: waiting for WhatsApp responses from mentors
-- [ ] Deployed projects facelift: make apps match their Gemini thumbnails
+#### Deployed Projects Facelift (3 agents - all pushed + auto-deployed)
+- [x] HTML-to-PPTX: dark mode, split-screen, glassmorphism, gradient badges
+- [x] Customer CRM: Angular Material dark theme, gradient cards, glass navbar
+- [x] VacationVibe: MUI dark theme, frosted AppBar, vacation card glassmorphism
+- [x] Team Meetings: MUI dark theme, calendar dark styling, gradient header, glow events
+- [x] Hebrew Calendar: deployed to Vercel (hebrew-calendar-eosin.vercel.app), live_url added
+
+#### Remaining for Next Session
+- [ ] Mentor social links: waiting for WhatsApp responses
+- [ ] More blog content (import real posts from meharoshelhadaf etc.)
+- [ ] Calendly/Cal.com "Book a Call" CTA integration
+- [ ] CV/Resume PDF download button
+- [ ] E2E tests with Playwright
+- [ ] Deploy more projects (Ninja Keyboard, ZehutAI demo)
+- [ ] Verify all 5 project facelifts render correctly on Vercel
 
 ### Session 2026-03-22 - Major Upgrade (Resume-based + Component Wiring)
 - [x] **Hero: ProfileAvatar** — real GitHub photo with rotating gradient border + status dot
