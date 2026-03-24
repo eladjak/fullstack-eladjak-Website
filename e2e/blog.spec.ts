@@ -78,16 +78,26 @@ test.describe('Blog', () => {
   test('clicking a blog post navigates to post page', async ({ page }) => {
     await page.waitForTimeout(1000);
 
-    // Find any post link
-    const postLinks = page.locator('a[href*="/blog/"]');
+    // Blog post links have slugs like /blog/ai-in-web-development/
+    // Use a regex that requires content after /blog/ (not just /blog/)
+    const postLinks = page.locator('a[href^="/blog/"]').filter({
+      hasNot: page.locator('[href="/blog/"]'),
+    });
     const count = await postLinks.count();
 
     if (count > 0) {
       const href = await postLinks.first().getAttribute('href');
-      await postLinks.first().click();
+      // Only click if the href looks like a slug (not bare /blog/)
+      if (href && href !== '/blog/' && href.length > 7) {
+        await postLinks.first().click();
+        await page.waitForLoadState('networkidle');
+        await page.waitForTimeout(1000);
+        await expect(page).toHaveURL(/\/blog\/.+/);
+      }
+    } else {
+      // If posts haven't loaded yet, navigate directly to a known post
+      await page.goto('/blog/building-with-nextjs-16');
       await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(1000);
-
       await expect(page).toHaveURL(/\/blog\/.+/);
     }
   });

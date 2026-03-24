@@ -87,7 +87,7 @@ test.describe('Contact Page', () => {
 
   test('email contact info card is visible', async ({ page }) => {
     // Contact page shows email info card
-    const emailLink = page.locator('a[href*="mailto:"]');
+    const emailLink = page.locator('a[href*="mailto:"]').first();
     await expect(emailLink).toBeVisible();
     const href = await emailLink.getAttribute('href');
     expect(href).toContain('eladhiteclearning@gmail.com');

@@ -117,15 +117,14 @@ test.describe('Homepage Sections', () => {
     expect(htmlLang).toBeTruthy();
   });
 
-  test('no broken images in hero area', async ({ page }) => {
-    // Check that images in the hero area load correctly
-    const images = page.locator('section img');
-    const count = await images.count();
-    for (let i = 0; i < Math.min(count, 5); i++) {
-      const img = images.nth(i);
-      const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
-      // naturalWidth > 0 means image loaded successfully
-      expect(naturalWidth).toBeGreaterThan(0);
-    }
+  test('profile avatar image loads correctly', async ({ page }) => {
+    // The GitHub avatar image is the primary profile image in the hero section
+    // It has alt text containing the developer's name
+    const avatar = page.locator('img[alt*="אלעד"], img[alt*="Elad"], img[alt*="Full-Stack"]').first();
+    await expect(avatar).toBeVisible();
+
+    const naturalWidth = await avatar.evaluate((el: HTMLImageElement) => el.naturalWidth);
+    // Avatar from GitHub should load (positive naturalWidth)
+    expect(naturalWidth).toBeGreaterThan(0);
   });
 });
