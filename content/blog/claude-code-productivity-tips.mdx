@@ -1,0 +1,391 @@
+---
+title: "10 Claude Code Tips That 10x'd My Productivity"
+titleHe: "10 טיפים ל-Claude Code שהכפילו את הפרודוקטיביות שלי פי 10"
+description: "Practical tips from a power user: CLAUDE.md files, parallel agents, MCP servers, custom skills, and more."
+descriptionHe: "טיפים מעשיים ממשתמש מתקדם: קבצי CLAUDE.md, סוכנים מקבילים, שרתי MCP, סקילים מותאמים, ועוד."
+date: "2026-03-22"
+tags: ["Claude Code", "Productivity", "AI Tools", "Developer Experience"]
+featured_image: "/projects/portfolio.png"
+author: "Elad Ya'akobovitch"
+published: true
+---
+
+# 10 Claude Code Tips That 10x'd My Productivity
+
+I've been using Claude Code as my primary development environment for over six months. Not as a code-completion plugin - as the main interface where I spend most of my engineering time. That level of daily use surfaces patterns that casual use never would. Here are the ten things that made the biggest difference.
+
+These are opinionated. Some of them go against the "obvious" way to use an AI assistant. I'll explain the reasoning behind each one.
+
+---
+
+## 1. CLAUDE.md Is Everything
+
+If there's one thing I'd force every Claude Code user to do, it's write a serious `CLAUDE.md` file.
+
+Claude Code reads this file automatically at the start of every session. It's your persistent memory for the project - conventions, architecture decisions, known gotchas, preferred libraries, what's been tried and rejected. Without it, you re-explain your project every session. With it, you pick up exactly where you left off.
+
+A minimal structure that works well:
+
+```markdown
+# Project: [Name]
+
+## Stack
+- Next.js 14, TypeScript, Tailwind
+- Convex for backend (not Supabase)
+- bun for package management (never npm/yarn)
+
+## Architecture Decisions
+- We use Result types (better-result) for error handling, never try/catch in business logic
+- Auth is handled by Clerk, not NextAuth
+- All API routes follow the pattern in /app/api/_lib/response.ts
+
+## Known Issues
+- The WebSocket reconnection in src/lib/ws.ts has a race condition in tests - don't touch it until #234 is resolved
+- The hero animation flickers on Safari 16 - tracked in TODO.md
+
+## What NOT To Do
+- Don't add Three.js (already removed, was a 1.2MB bundle hit)
+- Don't use placeholder images - generate with Gemini or use /public/projects/
+
+## Current Focus
+Working on the contact form - Resend integration is half-done in /app/api/contact/
+```
+
+The "What NOT To Do" section is underrated. It's the project's institutional memory of mistakes. Writing it once saves re-making those decisions over and over.
+
+**Pro tip**: Keep a global `~/.claude/CLAUDE.md` for preferences that apply to all projects: your preferred error handling style, your package manager, your testing philosophy. Claude reads both - project-level and user-level.
+
+---
+
+## 2. Parallel Agents for Speed
+
+The single biggest throughput win: run independent tasks simultaneously.
+
+Most people use Claude Code like a chatbot - ask a question, wait for the answer, ask the next question. That's sequential, and it's slow.
+
+The mental model shift: **treat Claude Code like a team member, not a search engine**. When you have independent tasks, give them all at once.
+
+```
+# Slow (sequential)
+"Review my authentication code for security issues."
+[wait 3 minutes]
+"Now check the API routes for N+1 queries."
+[wait 2 minutes]
+"And write tests for the auth module."
+[wait 4 minutes]
+Total: 9 minutes
+
+# Fast (parallel)
+"Do these three things simultaneously:
+1. Security review of src/auth/
+2. Check src/api/ for N+1 query patterns
+3. Write tests for the auth module (you'll need to read the module first)"
+[wait 4 minutes for all three]
+Total: 4 minutes
+```
+
+The results are comparable. The time is dramatically less.
+
+This extends to the `Task()` primitive in Claude Code's SDK - you can dispatch multiple sub-agents that work in parallel and report back. For large codebase analysis or multi-file refactors, this changes what's feasible.
+
+---
+
+## 3. MCP Servers: Context7 and Octocode Are Mandatory
+
+MCP (Model Context Protocol) servers extend Claude Code with external tools. There are many, but two are in my "never work without them" category.
+
+**Context7** gives Claude Code access to up-to-date library documentation. Claude's training data has a cutoff. If you're using a library that had breaking changes after that cutoff (which happens constantly), Claude will confidently suggest APIs that no longer exist. Context7 pulls current docs at query time.
+
+```
+# Without Context7
+Me: "How do I use the new Convex file storage API?"
+Claude: [suggests API that was changed 8 months ago]
+Me: [wastes 30 minutes debugging non-existent methods]
+
+# With Context7
+Claude: [queries Context7 first, gets current docs, suggests correct API]
+Me: [working code on the first try]
+```
+
+**Octocode** does GitHub code search. When I'm not sure how a library is used in real-world production code, Octocode finds actual implementations. Docs describe intent; real code shows practice. They're different, and both matter.
+
+To add them, install the MCP servers and add them to your Claude Code config:
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "octocode": {
+      "command": "npx",
+      "args": ["-y", "@octocode/mcp"]
+    }
+  }
+}
+```
+
+A practical workflow: when starting any non-trivial task with an external library, explicitly ask Claude Code to query Context7 first. Make it a habit. The extra 10 seconds of doc lookup saves minutes of debugging stale API usage.
+
+---
+
+## 4. Custom Skills: Codify Your Workflows Once
+
+A "skill" in Claude Code is a Markdown file that describes a repeatable procedure. Place it in `~/.claude/skills/` and it becomes a command you can invoke.
+
+The power is in codifying workflows you do repeatedly. Instead of re-explaining how you want code reviewed every time, write a `code-review.md` skill that describes your exact review criteria, preferred format, and common patterns to check for.
+
+Example skill for project-specific work:
+
+```markdown
+# skill: review-pr
+
+## When to Use
+When I say "review this PR" or "check my changes".
+
+## Steps
+1. Read the changed files using git diff
+2. Check for:
+   - Missing error handling (we use Result types, never throw)
+   - N+1 query patterns in any database calls
+   - Missing TypeScript types (no `any`)
+   - Console.log statements left in
+   - TODO comments that should be issues instead
+3. Group issues by: CRITICAL / HIGH / NICE-TO-HAVE
+4. For CRITICAL issues, suggest the fix inline
+
+## Output Format
+Brief summary of changes, then issues grouped by severity.
+Skip praise - just findings and fixes.
+```
+
+I have skills for: creating new API routes (follows our exact pattern), writing database migrations (with rollback), reviewing PRs, creating blog posts, and about 15 others. The time spent writing each skill pays back within a week of use.
+
+**Build your skill library incrementally.** When you notice you're explaining the same thing twice, that's a skill waiting to be written.
+
+---
+
+## 5. Git Worktrees for Safe Experimentation
+
+This isn't Claude Code-specific, but it transforms how you use Claude Code for exploratory work.
+
+Git worktrees let you check out multiple branches simultaneously, each in its own directory. With Claude Code, this means you can have an agent working on an experimental branch without touching your main working directory.
+
+```bash
+# Set up a worktree for a risky refactor
+git worktree add ../project-refactor-auth feature/auth-refactor
+
+# Now you have two working directories:
+# ~/project/           (main branch, current work)
+# ~/project-refactor-auth/  (feature branch, safe to experiment)
+
+# Open Claude Code in the worktree
+cd ~/project-refactor-auth
+claude
+```
+
+The agent has full autonomy in the worktree. It can make sweeping changes, break things, try approaches, refactor aggressively - and your main branch is untouched. If the experiment works, you merge. If it doesn't, you delete the worktree.
+
+For large refactors where you're not sure if the approach will pan out, this workflow is essential. It turns "let me try this carefully" into "let me try this completely."
+
+---
+
+## 6. /compact for Long Sessions
+
+Claude Code's context window is large but finite. Long sessions accumulate context from earlier in the conversation that's no longer relevant - old file reads, intermediate reasoning steps, abandoned approaches.
+
+`/compact` asks Claude Code to summarize the current conversation state into a compact form, discarding information that's no longer needed while preserving important decisions and current state.
+
+Use it:
+- Before starting a new sub-task in a long session
+- When you notice Claude Code seems to be "forgetting" earlier context
+- When you explicitly switch from one topic to another
+
+The practice I've settled on: update `PROGRESS.md` with current status, then run `/compact`. The file preserves the "what we're doing" context, and `/compact` clears the accumulated noise.
+
+```markdown
+# PROGRESS.md update before compacting
+## Current State (as of 2026-03-22 14:30)
+- Working on: contact form Resend integration
+- Done: API route /app/api/contact/route.ts - sends email, returns proper error types
+- In progress: form validation on frontend, file at /app/contact/ContactForm.tsx
+- Blocked on: need Resend API key (placeholder in .env.example)
+- Next: add rate limiting to the API route (see middleware.ts pattern)
+```
+
+After `/compact`, that file is your anchor. Claude Code picks it up and continues without needing the full conversation history.
+
+---
+
+## 7. Model Routing: Match the Model to the Task
+
+Claude Code supports multiple models. Using the same model for every task is inefficient - it's like using a sledgehammer for everything.
+
+The practical breakdown I use:
+
+| Task | Model | Why |
+|------|-------|-----|
+| Quick syntax question | Haiku | Fast, cheap, accurate for simple lookups |
+| Regular code writing | Sonnet | Best code quality per cost |
+| Architecture decisions | Opus | Deep reasoning worth the extra time |
+| Dependency/config lookup | Haiku | It's just retrieval |
+| Complex debugging | Opus | Multi-step reasoning pays off here |
+| Code review | Sonnet | Good quality, reasonable speed |
+
+In practice: default to Sonnet. Upgrade to Opus when you're making decisions that are expensive to undo (architecture, auth design, schema changes). Drop to Haiku for quick lookups and repetitive tasks.
+
+When using OMC (oh-my-claudecode), you can specify models per agent in the task dispatch. This becomes meaningful when you're running 5+ agents in parallel - routing cheaper agents to simpler subtasks saves real money.
+
+---
+
+## 8. Custom Hooks: Automate the Boring Safety Checks
+
+Claude Code has a hook system that runs scripts at specific points in its workflow. I use hooks for things I want to happen automatically, without having to remember to ask.
+
+Hooks I actually use:
+
+**PostToolUse - TypeScript check after file edit:**
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [{
+          "type": "command",
+          "command": "npx tsc --noEmit 2>&1 | head -20"
+        }]
+      }
+    ]
+  }
+}
+```
+This runs `tsc --noEmit` after every file edit and surfaces type errors immediately. Claude Code sees the output and fixes type errors before moving on. Without this, type errors accumulate and surface at build time when they're harder to attribute.
+
+**PostToolUse - console.log warning:**
+A hook that scans edited files for `console.log` and warns. Simple regex, but catches the most common "debug code committed" mistake.
+
+**Stop - Final verification:**
+Before Claude Code finishes a session, a hook runs the full test suite and lint check. If there are failures, the session continues until they're fixed. No more "I'll fix that later" -- "later" is enforced as "before we're done."
+
+Write hooks for your specific pain points. The framework is simple; the power is in knowing what your own recurring mistakes are.
+
+---
+
+## 9. Templates and Starter Projects
+
+Greenfield projects waste enormous time on configuration that's essentially the same every time: TypeScript config, ESLint setup, folder structure, CI config, environment variable handling.
+
+Maintain a small library of starter templates. Mine:
+- `next-fullstack-starter` - Next.js 14 + TypeScript + Tailwind + Convex + Clerk auth
+- `api-service-starter` - Fastify + TypeScript + Zod validation + Result types
+- `cli-tool-starter` - Node.js CLI with commander, config handling, and structured logging
+
+When starting a new project, I don't ask Claude Code to scaffold from nothing. I clone the relevant starter:
+
+```bash
+git clone https://github.com/me/next-fullstack-starter my-new-project
+cd my-new-project
+git remote remove origin
+```
+
+Then Claude Code's job is to customize and extend, not to make the same setup decisions for the hundredth time. The template already embodies all the conventions in my CLAUDE.md - no duplication.
+
+Keep templates updated. When you make a configuration improvement in one project that should be the new default, port it back to the template immediately.
+
+---
+
+## 10. Invest in Your Prompt Layer
+
+This is the meta-tip: the quality of your CLAUDE.md files, your skills library, your hooks, and your templates is a compounding asset. Every hour you spend improving them pays back across every future session.
+
+I track "friction points" - moments where I have to re-explain something, or where Claude Code makes the same mistake it made before, or where I do something manually that could be automated. Each friction point is a candidate for improvement in the prompt layer.
+
+The discipline:
+1. Notice friction during a session ("I've explained this pattern three times now")
+2. After the session, codify the fix (add to CLAUDE.md, create a skill, write a hook)
+3. Test it in the next session
+4. Refine if needed
+
+It's the same feedback loop as improving any system. The difference is that each improvement applies to the entire system immediately - the next project gets the benefit too.
+
+My CLAUDE.md files are now dense, opinionated documents that represent months of learned preferences. Starting a session feels like working with a collaborator who already knows the project deeply. That feeling is the payoff of consistent investment in the prompt layer.
+
+---
+
+## The Honest Perspective
+
+Claude Code is not magic. It still writes incorrect code sometimes, misunderstands requirements, and occasionally confidently proposes approaches that are subtly wrong. These tips don't eliminate those failure modes - they reduce the friction around them and make the good moments more frequent.
+
+The biggest shift I've seen in my own usage: I think less about "what can I ask Claude Code to do" and more about "how can I make Claude Code's context as rich as possible so it can make good decisions." The quality of the output is largely a function of the quality of the context. Invest in the context.
+
+---
+
+<div dir="rtl" lang="he">
+
+## גרסה בעברית: 10 טיפים ל-Claude Code שהכפילו את הפרודוקטיביות שלי
+
+השתמשתי ב-Claude Code כסביבת פיתוח ראשית שלי במשך יותר משישה חודשים. לא כ-plugin להשלמת קוד - אלא כממשק הראשי שבו אני מבלה את רוב זמן הפיתוח שלי. רמת שימוש יומיומית כזו חושפת דפוסים שלשימוש מזדמן לא יגיע אליהם.
+
+### 1. CLAUDE.md הוא הכל
+
+Claude Code קורא את הקובץ הזה אוטומטית בתחילת כל סשן. זה הזיכרון המתמשך שלך לפרויקט - מוסכמות, החלטות ארכיטקטוניות, בעיות ידועות, ספריות מועדפות, מה ניסינו ונדחה. בלי זה, אתה מסביר מחדש את הפרויקט שלך כל סשן. עם זה, אתה ממשיך בדיוק מאיפה שעצרת.
+
+הסעיף "מה לא לעשות" הוא underrated. הוא הזיכרון המוסדי של הפרויקט לגבי טעויות. לכתוב אותו פעם אחת חוסך קבלת אותן החלטות שוב ושוב.
+
+**טיפ מקצועי**: שמור `~/.claude/CLAUDE.md` גלובלי להעדפות שחלות על כל הפרויקטים: סגנון טיפול בשגיאות, מנהל חבילות, גישת בדיקות. Claude קורא את שניהם.
+
+### 2. סוכנים מקבילים למהירות
+
+הרווח הגדול ביותר בתפוקה: הרצת משימות בלתי תלויות בו-זמנית.
+
+רוב האנשים משתמשים ב-Claude Code כמו בצ'טבוט - שואלים שאלה, מחכים לתשובה, שואלים שאלה הבאה. זה סדרתי, וזה איטי.
+
+שינוי מנטלי: **התייחס ל-Claude Code כחבר צוות, לא כמנוע חיפוש**. כשיש לך משימות בלתי תלויות, תן אותן כולן בבת אחת. 9 דקות סדרתיות הופכות ל-4 דקות מקביליות.
+
+### 3. שרתי MCP: Context7 וOctocode הם חובה
+
+Context7 נותן ל-Claude Code גישה לתיעוד ספריות עדכני. ללא Context7, Claude יציע בביטחון APIs שכבר לא קיימים. Octocode עושה חיפוש קוד ב-GitHub ומציג implementations אמיתיים מפרויקטי production.
+
+### 4. סקילים מותאמים: לקדד את הworkflow שלך פעם אחת
+
+"סקיל" ב-Claude Code הוא קובץ Markdown שמתאר פרוצדורה ניתנת לחזרה. קבצים אלו ממוקמים ב-`~/.claude/skills/` ומהווים פקודות שאפשר להפעיל.
+
+הכוח הוא בקידוד workflows שאתה מבצע שוב ושוב. במקום להסביר מחדש כיצד אתה רוצה שהקוד ייסקר בכל פעם, כתוב סקיל `code-review.md` שמתאר את קריטריוני הסקירה המדויקים שלך.
+
+**בנה את ספריית הסקילים שלך בהדרגה.** כשאתה מבחין שאתה מסביר את אותו דבר פעמיים, זה סקיל שממתין להיכתב.
+
+### 5. Git Worktrees לניסוי בטוח
+
+Worktrees של Git מאפשרים לך לבדוק מספר branches בו-זמנית, כל אחד בספריה נפרדת שלו. עם Claude Code, זה אומר שאפשר להפעיל סוכן על branch ניסיוני מבלי לגעת בספריית העבודה הראשית שלך. הסוכן יכול לבצע שינויים נרחבים, לשבור דברים, לנסות גישות - ה-branch הראשי שלך נשאר שלם.
+
+### 6. /compact לסשנים ארוכים
+
+`/compact` מבקש מ-Claude Code לסכם את מצב השיחה הנוכחית לצורה קומפקטית, תוך השלכת מידע שכבר אינו רלוונטי. השתמש בו לפני תת-משימה חדשה בסשן ארוך, וכשאתה עובר מנושא לנושא.
+
+הפרקטיקה שהתייצבה אצלי: עדכן `PROGRESS.md` עם הסטטוס הנוכחי, ואז הרץ `/compact`. הקובץ שומר על ה"מה אנחנו עושים" ו-`/compact` מנקה את הרעש המצטבר.
+
+### 7. ניתוב מודלים: התאם את המודל למשימה
+
+שימוש באותו מודל לכל משימה הוא בזבזני. ברירת מחדל שלי: Sonnet. שדרוג ל-Opus כאשר מקבלים החלטות שיקרות לשינוי (ארכיטקטורה, עיצוב auth, שינויי schema). מעבר ל-Haiku לחיפושים מהירים ומשימות חוזרות.
+
+### 8. Hooks מותאמים: אוטומציה של בדיקות בטיחות משעממות
+
+לClaude Code יש מערכת hooks שמריצה סקריפטים בנקודות ספציפיות. hook ה-TypeScript שלי לאחר עריכת קובץ מריץ `tsc --noEmit` ומציג שגיאות type מיידית. Claude Code רואה את הפלט ומתקן שגיאות type לפני שממשיך. ה-hook הסופי לפני סיום סשן מריץ את חבילת הבדיקות המלאה ובדיקת lint - לא עוד "אתקן את זה אחר כך".
+
+### 9. תבניות ופרויקטי Starter
+
+שמור ספריה קטנה של תבניות starter. כשמתחילים פרויקט חדש, אני לא מבקש מ-Claude Code להרכיב מאפס. אני מקלון את ה-starter הרלוונטי. עבודת Claude Code היא להתאים ולהרחיב, לא לקבל אותן החלטות הגדרה בפעם המאה.
+
+### 10. השקע בשכבת הפרומפט שלך
+
+זה הטיפ המטא: איכות קבצי CLAUDE.md שלך, ספריית הסקילים, ה-hooks, והתבניות היא נכס מצטבר. כל שעה שאתה מוציא על שיפורם מחזירה את עצמה על פני כל סשן עתידי.
+
+אני עוקב אחר "נקודות חיכוך" - רגעים שבהם אני צריך להסביר משהו מחדש, או שבהם Claude Code עושה אותה טעות שעשה קודם. כל נקודת חיכוך היא מועמד לשיפור בשכבת הפרומפט.
+
+**נקודת מבט כנה**: הכלי עדיין כותב קוד שגוי לפעמים, מבין דרישות בצורה שגויה, ולעיתים מציע בביטחון גישות לא נכונות. הטיפים האלה לא מבטלים את אופני הכשל האלה - הם מפחיתים את החיכוך סביבם ומגבירים את תדירות הרגעים הטובים.
+
+השינוי הגדול ביותר שראיתי בשימוש שלי: אני חושב פחות על "מה אני יכול לבקש מ-Claude Code לעשות" ויותר על "איך אני יכול להפוך את הקונטקסט של Claude Code לעשיר ככל האפשר כדי שיוכל לקבל החלטות טובות". איכות הפלט היא בעיקר פונקציה של איכות הקונטקסט.
+
+</div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Github, Linkedin, Mail, Globe, Heart, Code2, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Mail, Globe, Heart, Code2, ArrowUp, Download } from 'lucide-react';
 import Link from 'next/link';
 import { SocialLink } from './social-link';
 import { useTranslations } from 'next-intl';
@@ -26,6 +26,8 @@ export default function Footer() {
     { href: '/thanks', label: tNav('thanks') },
     { href: '/claude-code', label: 'Claude Code' },
   ];
+
+  const cvHref = '/cv-elad-yaakobovitch.html';
 
   return (
     <footer className="relative w-full bg-card/30 border-t border-border/30 backdrop-blur-sm" role="contentinfo">
@@ -70,6 +72,17 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <a
+                    href={cvHref}
+                    download
+                    className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+                    aria-label="הורדת קורות חיים"
+                  >
+                    <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                    הורדת קורות חיים
+                  </a>
+                </li>
               </ul>
             </div>
           </ScrollAnimate>

@@ -14,6 +14,7 @@ import {
   Palette,
   Rocket,
   Heart,
+  Download,
 } from 'lucide-react';
 import { SocialLink } from '@/components/ui/social-link';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -80,6 +81,16 @@ export default function AboutPage() {
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   {t('subtitle')}
                 </p>
+                {/* CV Download Button */}
+                <a
+                  href="/cv-elad-yaakobovitch.html"
+                  download
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border/60 bg-background/50 px-6 py-2.5 text-sm font-medium text-foreground/80 transition-all duration-200 hover:bg-primary/10 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  aria-label="הורדת קורות חיים"
+                >
+                  <Download className="h-4 w-4" aria-hidden="true" />
+                  הורדת קורות חיים
+                </a>
               </div>
 
               {/* Highlights */}

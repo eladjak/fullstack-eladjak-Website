@@ -1,0 +1,296 @@
+---
+title: "Building a Multi-Agent AI Network: From Concept to Production"
+titleHe: "בניית רשת סוכני AI: מהרעיון לפרודקשן"
+description: "How I built a 3-agent AI system that runs 24/7 - architecture decisions, inter-agent communication, and lessons learned from production deployment."
+descriptionHe: "איך בניתי מערכת של 3 סוכני AI שרצה 24/7 - החלטות ארכיטקטוריות, תקשורת בין סוכנים, ולקחים מפריסה בפרודקשן."
+date: "2026-03-20"
+tags: ["AI", "Agents", "TypeScript", "Architecture", "Production"]
+featured_image: "/projects/voice-chat.jpg"
+author: "Elad Ya'akobovitch"
+published: true
+---
+
+# Building a Multi-Agent AI Network: From Concept to Production
+
+Most AI agent tutorials stop at a single agent in a Jupyter notebook. This post is about what happens *after* that - deploying a coordinated network of agents that run continuously, talk to each other, and handle real work autonomously. This is a technical account of what I built, why I made the architecture decisions I did, and what surprised me along the way.
+
+## Why Multi-Agent Instead of One Big Agent
+
+The first question I asked myself was whether I actually needed multiple agents, or if I was over-engineering.
+
+Here's the honest answer: a single LLM context window is a bottleneck. When you have diverse responsibilities - long-running coding sessions, real-time message handling, autonomous background tasks - they fight over the same context, the same rate limits, and they produce a single point of failure. The moment that one agent crashes or gets rate-limited, everything stops.
+
+The other reason is **specialization**. An agent optimized for real-time WhatsApp conversations (short, responsive, casual) is fundamentally different from an agent doing deep code analysis and file manipulation (long context, careful, methodical). Trying to make one agent do both well means making trade-offs that hurt both use cases.
+
+Multi-agent isn't always the right call. For a simple workflow, it's overkill. But when you need:
+- Different latency requirements per task (real-time vs. background)
+- Independent scaling per responsibility
+- Fault isolation (one agent failure shouldn't kill the others)
+- Context isolation (don't pollute a coding session with WhatsApp messages)
+
+...then multi-agent architecture earns its complexity.
+
+## System Architecture
+
+The network has three agents:
+
+```
+┌─────────────────────────────────────────────────┐
+│           Claude Code (Orchestrator)             │
+│  - Developer IDE sessions                        │
+│  - Long-context coding tasks                     │
+│  - Dispatches sub-agents via OMC                 │
+│  - Reads/writes shared bridge file               │
+└──────────────┬──────────────────────┬────────────┘
+               │ JSONL bridge          │ SSH / API
+               ▼                      ▼
+┌─────────────────────┐  ┌────────────────────────┐
+│   Kami (WhatsApp)   │  │  Kaylee (Autonomous)   │
+│  Hetzner VPS #1     │  │  Hetzner VPS #2        │
+│  37.27.31.1         │  │  37.27.26.173           │
+│  - Green API        │  │  - Scheduled tasks     │
+│  - Message handler  │  │  - Deployments         │
+│  - Request relay    │  │  - Monitoring          │
+│  - 24/7 uptime      │  │  - Background work     │
+└─────────────────────┘  └────────────────────────┘
+```
+
+**Claude Code** is the orchestrator and primary developer tool. It runs on my local machine, handles all IDE-level tasks, and is the "brain" that other agents report to. It's also the only agent with full filesystem access.
+
+**Kami** is the WhatsApp interface. Running 24/7 on a Hetzner VPS, it receives messages via Green API (WhatsApp Business API), processes them, and either responds directly or forwards requests to Claude Code via the bridge. When I'm away from my computer and need to trigger work, I message Kami.
+
+**Kaylee** handles autonomous background tasks - deployments, scheduled monitoring, periodic code reviews. She runs on a second VPS and is designed to complete tasks without human supervision.
+
+## The Bridge Protocol: Inter-Agent Communication
+
+This was the hardest design problem. How do agents that run on different machines, at different times, communicate reliably?
+
+I tried WebSockets first. Too much complexity - connection management, reconnection logic, session state. Then I considered a message queue (Redis, RabbitMQ). Solid, but heavy infrastructure for what is essentially a small personal network.
+
+The solution I landed on is embarrassingly simple: **a JSONL file**.
+
+```
+~/.claude/kami-bridge/messages.jsonl
+```
+
+Each line is a JSON object representing one message:
+
+```typescript
+interface BridgeMessage {
+  ts: string;         // ISO timestamp
+  from: "kami" | "claude" | "kaylee";
+  type: "request" | "response" | "notification";
+  id: string;         // "kami-1711234567" or "claude-1711234890"
+  content: string;    // The actual message
+  status: "pending" | "done";
+  metadata?: {
+    whatsapp_sender?: string;
+    priority?: "low" | "normal" | "high";
+    context?: string;
+  };
+}
+```
+
+Kami writes a request (status: "pending"). Claude Code reads the file at session start, finds pending messages, processes them, and appends a response (from: "claude", status: "pending"). Kami polls every 30 seconds, finds Claude's response, delivers it to WhatsApp, and marks it "done".
+
+```typescript
+// Kami polling logic (simplified)
+const pollBridge = async () => {
+  const lines = await fs.readFile(BRIDGE_PATH, 'utf-8');
+  const messages = lines
+    .trim()
+    .split('\n')
+    .map(l => JSON.parse(l) as BridgeMessage);
+
+  const pendingResponses = messages.filter(
+    m => m.from === 'claude' && m.status === 'pending'
+  );
+
+  for (const msg of pendingResponses) {
+    await sendWhatsAppMessage(msg.content, msg.metadata?.whatsapp_sender);
+    await markMessageDone(msg.id);
+  }
+};
+
+setInterval(pollBridge, 30_000);
+```
+
+Is this a real message queue? No. Is it reliable enough for a personal agent network? Absolutely. The file is on a shared mount that Claude Code can access directly. Kami accesses it over SSH. The simplicity means there's nothing to break.
+
+**What about concurrency?** Appending to a file is atomic on Linux (for small writes). Since agents append rather than rewrite, we avoid corruption. For anything requiring true transactions, I use a separate lock file.
+
+## Deployment: Hetzner VPS + systemd
+
+Both Kami and Kaylee run on Hetzner Cloud instances (CX11, €3.79/month each). Small, reliable, and in Frankfurt for low latency to European services.
+
+Each agent runs as a systemd service:
+
+```ini
+# /etc/systemd/system/kami.service
+[Unit]
+Description=Kami AI WhatsApp Agent
+After=network.target
+Restart=always
+
+[Service]
+Type=simple
+User=kami
+WorkingDirectory=/home/kami/agent
+ExecStart=/usr/local/bin/node dist/index.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+The key setting is `Restart=on-failure` with `RestartSec=10`. If the agent crashes, systemd brings it back within 10 seconds. This gives us basic self-healing without any external orchestration.
+
+For health checks, each agent exposes a minimal HTTP endpoint:
+
+```typescript
+// Health check server (runs alongside the agent)
+import { createServer } from 'http';
+
+const healthServer = createServer((req, res) => {
+  if (req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      status: 'ok',
+      uptime: process.uptime(),
+      lastActivity: lastActivityTimestamp,
+      messagesProcessed: messageCount,
+    }));
+    return;
+  }
+  res.writeHead(404);
+  res.end();
+});
+
+healthServer.listen(3000);
+```
+
+Kaylee runs a cron job that pings both agents every 5 minutes and sends a WhatsApp alert if any health check fails. The agents monitor each other.
+
+## Prompt Engineering for Specialized Agents
+
+Each agent has a different character/system prompt tuned for its role. This turned out to be more important than I expected.
+
+Kami's prompt emphasizes:
+- Conciseness (WhatsApp messages should be short)
+- Acknowledgment before execution ("Got it, I'll check...")
+- Knowing when to escalate vs. handle directly
+- Hebrew language defaults with English fallback
+
+Kaylee's prompt emphasizes:
+- Completing tasks to 100% before reporting
+- Logging everything with timestamps
+- Conservative defaults (if unsure, do less)
+- Explicit success/failure reporting
+
+Claude Code's prompt (in CLAUDE.md) emphasizes:
+- Full autonomy on implementation decisions
+- Asking only for business/strategy questions
+- Using the full agent catalog for specialized work
+- Leaving the system better than it found it
+
+The discipline of writing these prompts forced me to think clearly about what each agent's "job" actually is. That clarity would have been valuable even without the agents.
+
+## Lessons Learned
+
+**1. Start with a monolith, split when it hurts.**
+
+I spent two weeks running everything in Claude Code before spinning up the VPS agents. That experience taught me exactly where the pain points were: missed messages while coding, rate limit collisions, and the desire to "fire and forget" background tasks. Don't design for multi-agent from day one - let the pain show you where the boundaries belong.
+
+**2. Logs are your lifeline.**
+
+Every agent writes structured logs (JSON lines) to a file. When something goes wrong at 2am, the logs are the only thing you have. I made the mistake early on of using `console.log` with unstructured strings. Parsing those to understand what happened is miserable. Use structured logging from day one.
+
+```typescript
+const log = (level: 'info' | 'warn' | 'error', event: string, data?: object) => {
+  const entry = {
+    ts: new Date().toISOString(),
+    level,
+    event,
+    ...data,
+  };
+  fs.appendFileSync(LOG_PATH, JSON.stringify(entry) + '\n');
+  if (level === 'error') console.error(entry);
+};
+```
+
+**3. The bridge file needs a rotation strategy.**
+
+After 3 months, my `messages.jsonl` was 12,000 lines. Searching it was still fast (it's just `grep`), but it felt wrong. I added a weekly rotation that archives messages older than 30 days to `messages-archive-YYYY-MM.jsonl`. Simple cron job, zero downtime.
+
+**4. Test failure modes explicitly.**
+
+What happens when the VPS loses internet? What happens when Green API goes down? What happens when Claude Code is offline for 6 hours? I tested each of these by actually pulling the plug (metaphorically). The answers shaped the retry logic and queue-draining behavior significantly.
+
+**5. Human override is always possible.**
+
+No matter how autonomous the network gets, I kept simple escape hatches: a `PAUSE` file that any agent checks before processing (drop a file called `PAUSE` in the directory and all agents stop). An emergency "shutdown all" command via WhatsApp that Kami recognizes and executes via SSH. Good autonomous systems have good manual overrides.
+
+## What's Next
+
+The network is stable and handles my actual workload. Current things I'm exploring:
+
+- **Shared memory**: A simple key-value store (probably SQLite) that agents can read/write, so Kaylee can leave context for Claude Code and vice versa.
+- **Task queue**: Moving from the bridge file to a lightweight task queue for Kaylee's work units. SQLite again, probably.
+- **Observability dashboard**: A simple Next.js page that shows all three agents' status, recent activity, and message counts. Currently it's just SSH + journal logs.
+
+The honest summary: multi-agent AI is powerful but not magic. The gains come from parallelism, specialization, and fault isolation - the same reasons microservices work. The costs are coordination complexity and debugging difficulty. For the right problem, it's absolutely worth it.
+
+---
+
+<div dir="rtl" lang="he">
+
+## גרסה בעברית: בניית רשת סוכני AI מהרעיון לפרודקשן
+
+### למה ריבוי סוכנים ולא סוכן אחד גדול?
+
+השאלה הראשונה שהעלתי לעצמי הייתה האם אני באמת צריך ריבוי סוכנים, או שאני מסבך יתר על המידה.
+
+התשובה הכנה: חלון הקונטקסט של LLM יחיד הוא צוואר בקבוק. כשיש אחריויות מגוונות - סשנים ממושכים של קידוד, טיפול בהודעות בזמן אמת, משימות רקע אוטונומיות - הן מתחרות על אותו קונטקסט, אותם rate limits, ויוצרות נקודת כשל אחת. ברגע שהסוכן היחיד קורס או מגיע למגבלת קריאות, הכל נעצר.
+
+הסיבה הנוספת היא **התמחות**. סוכן שאופטימיזציה לשיחות WhatsApp בזמן אמת (קצרות, מהירות, סתמיות) שונה מהותית מסוכן שעושה ניתוח קוד מעמיק ומניפולציה על קבצים (קונטקסט ארוך, זהיר, שיטתי).
+
+### ארכיטקטורת המערכת
+
+הרשת כוללת שלושה סוכנים:
+
+**Claude Code** הוא האורכסטרטור וכלי הפיתוח העיקרי. רץ על המחשב המקומי שלי, מטפל בכל משימות ה-IDE, ו"המוח" שאליו מדווחים שאר הסוכנים.
+
+**Kami** הוא ממשק ה-WhatsApp. רץ 24/7 על VPS של Hetzner, מקבל הודעות דרך Green API, מעבד אותן, וחלק מעביר לClaude Code דרך ה"גשר". כשאני הרחק מהמחשב וצריך להפעיל עבודה, אני שולח הודעה ל-Kami.
+
+**Kaylee** מטפלת במשימות רקע אוטונומיות - פריסות, ניטור מתוזמן, סקירות קוד תקופתיות. רצה על VPS שני ומיועדת להשלים משימות ללא פיקוח אנושי.
+
+### פרוטוקול הגשר: תקשורת בין סוכנים
+
+זה היה האתגר העיצובי הקשה ביותר. איך סוכנים שרצים על מכונות שונות, בזמנים שונים, מתקשרים בצורה אמינה?
+
+הפתרון שאליו הגעתי הוא פשוט באופן מביך: **קובץ JSONL**.
+
+כל שורה היא אובייקט JSON המייצג הודעה אחת. Kami כותבת בקשה (status: "pending"). Claude Code קורא את הקובץ בתחילת כל סשן, מוצא הודעות ממתינות, מעבד אותן ומוסיף תשובה. Kami מחפשת כל 30 שניות, מוצאת את תשובת Claude, מעבירה לWhatsApp, ומסמנת כ-"done".
+
+האם זה queue הודעות אמיתי? לא. האם הוא מספיק אמין לרשת סוכנים אישית? לחלוטין.
+
+### פריסה: Hetzner VPS + systemd
+
+שני הסוכנים, Kami וKaylee, רצים על instances של Hetzner Cloud. כל סוכן רץ כשירות systemd עם הגדרת `Restart=on-failure` - אם הסוכן קורס, systemd מחזיר אותו תוך 10 שניות. Kaylee מריצה cron job שבודק את שני הסוכנים כל 5 דקות ושולח התראת WhatsApp אם בדיקת הבריאות נכשלת.
+
+### לקחים מהדרך
+
+**1. התחל עם מונוליט, פצל כשכואב.**
+בזבזתי שבועיים בהרצת הכל ב-Claude Code לפני שהקמתי את סוכני ה-VPS. הניסיון הזה לימד אותי בדיוק איפה נקודות הכאב.
+
+**2. לוגים הם קו החיים שלך.**
+כל סוכן כותב לוגים מובנים (JSON lines) לקובץ. כשמשהו משתבש ב-2 בלילה, הלוגים הם הדבר היחיד שיש לך. השתמש בלוגים מובנים מהיום הראשון.
+
+**3. תמיד אפשרי override ידני.**
+לא משנה כמה אוטונומית הרשת הופכת, שמרתי מנגנוני בריחה פשוטים. קובץ `PAUSE` שכל סוכן בודק לפני עיבוד. פקודת "כבה הכל" דרך WhatsApp שKami מזהה ומבצעת דרך SSH. מערכות אוטונומיות טובות צריכות overrides ידניים טובים.
+
+</div>
