@@ -10,14 +10,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: SITE_URL,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
       priority: 1.0,
-    },
-    {
-      url: `${SITE_URL}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
     },
     {
       url: `${SITE_URL}/projects`,
@@ -26,21 +20,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/blog`,
+      url: `${SITE_URL}/services`,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/services`,
+      url: `${SITE_URL}/blog`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/contact`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/claude-code`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
@@ -63,8 +69,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       blogPosts?.map((post) => ({
         url: `${SITE_URL}/blog/${post.slug}`,
         lastModified: new Date(post.updated_at || post.created_at),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
       })) || [];
 
     // Fetch projects
@@ -87,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: new Date(post.frontmatter.date),
       changeFrequency: 'monthly' as const,
-      priority: 0.7,
+      priority: 0.6,
     }));
 
     return [...staticRoutes, ...blogRoutes, ...mdxRoutes, ...projectRoutes];
@@ -99,7 +105,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: new Date(post.frontmatter.date),
       changeFrequency: 'monthly' as const,
-      priority: 0.7,
+      priority: 0.6,
     }));
     return [...staticRoutes, ...mdxRoutes];
   }

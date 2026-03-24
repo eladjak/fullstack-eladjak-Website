@@ -15,26 +15,6 @@ export default function robots(): MetadataRoute.Robots {
           '/private/',
         ],
       },
-      {
-        userAgent: 'GPTBot', // OpenAI bot
-        disallow: ['/'],
-      },
-      {
-        userAgent: 'CCBot', // Common Crawl bot
-        disallow: ['/'],
-      },
-      {
-        userAgent: 'ChatGPT-User',
-        disallow: ['/'],
-      },
-      {
-        userAgent: 'Google-Extended', // Google Bard
-        disallow: ['/'],
-      },
-      {
-        userAgent: 'anthropic-ai', // Claude crawler
-        disallow: ['/'],
-      },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
