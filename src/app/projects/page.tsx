@@ -31,7 +31,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://haderech-next.vercel.app',
     gradient: 'from-violet-500/20 to-purple-600/20',
     icon: 'HaDerech',
-    image: '/projects/haderech.png',
+    image: '/projects/haderech-screenshot.png',
   },
   {
     id: 'portfolio',
@@ -42,7 +42,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://fullstack-eladjak.co.il',
     gradient: 'from-blue-500/20 to-cyan-500/20',
     icon: 'Portfolio',
-    image: '/projects/portfolio.png',
+    image: '/projects/portfolio-screenshot.png',
   },
   {
     id: 'ey-ai-kids',
@@ -53,7 +53,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://sipurai.ai',
     gradient: 'from-emerald-500/20 to-teal-500/20',
     icon: 'EY.AI',
-    image: '/projects/ey-ai-kids.jpg',
+    image: '/projects/ey-ai-kids-screenshot.png',
   },
   {
     id: 'ninja-keyboard',
@@ -84,7 +84,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://omanut-hakesher-website.vercel.app',
     gradient: 'from-amber-500/20 to-orange-500/20',
     icon: 'Omanut',
-    image: '/projects/omanut.png',
+    image: '/projects/omanut-screenshot.png',
   },
   {
     id: 'bayit-beseder',
@@ -95,7 +95,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://www.bayitbeseder.com',
     gradient: 'from-lime-500/20 to-green-500/20',
     icon: 'Bayit',
-    image: '/projects/bayit-beseder.jpg',
+    image: '/projects/bayit-beseder-screenshot.png',
   },
   {
     id: 'zehutai',
@@ -126,7 +126,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://html-to-pptx-ten.vercel.app',
     gradient: 'from-orange-500/20 to-amber-500/20',
     icon: 'PPTX',
-    image: '/projects/html-to-pptx.jpg',
+    image: '/projects/html-to-pptx-screenshot.png',
   },
   {
     id: 'hebrew-calendar',
@@ -148,7 +148,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://vacation-vibe-pi.vercel.app',
     gradient: 'from-cyan-500/20 to-blue-500/20',
     icon: 'Vacation',
-    image: '/projects/vacation-vibe.jpg',
+    image: '/projects/vacation-vibe-screenshot.jpg',
   },
   {
     id: 'team-meetings',
@@ -170,7 +170,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://customer-crm-tau.vercel.app',
     gradient: 'from-rose-500/20 to-pink-500/20',
     icon: 'CRM',
-    image: '/projects/customer-crm.jpg',
+    image: '/projects/customer-crm-screenshot.jpg',
   },
 ];
 

@@ -221,24 +221,24 @@
   "about": {
     "title": "אודותיי",
     "name": "אלעד יעקובוביץ'",
-    "subtitle": "מפתח Full-Stack עם דגש על צד שרת — Node.js, REST APIs ו-PostgreSQL. 26+ אפליקציות בפרודקשן. AI tooling כמכפיל כוח.",
+    "subtitle": "מפתח Full-Stack ומהנדס AI — React, Next.js, Node.js, TypeScript. 26+ פרויקטים שנפרסו. בונה מערכות AI ומשתמש מתקדם ב-Claude Code.",
     "highlights": {
       "technicalSkills": {
-        "title": "כישורים טכניים",
-        "description": "מומחיות בטכנולוגיות ווב מודרניות ופיתוח Full-Stack."
+        "title": "פיתוח Full-Stack",
+        "description": "React, Next.js, Node.js, TypeScript, Supabase, Convex, Python — מ-UI ועד Backend ומסדי נתונים."
       },
       "continuousLearning": {
-        "title": "למידה מתמדת",
-        "description": "תמיד חוקר טכנולוגיות חדשות ושיטות עבודה מיטביות."
+        "title": "AI-Native Development",
+        "description": "בניית מערכות AI (Claude API, multi-agent, MCP) ושימוש ב-AI כמכפיל כוח בכל שלב הפיתוח."
       },
       "problemSolving": {
-        "title": "פתרון בעיות",
-        "description": "הפיכת אתגרים מורכבים לפתרונות אלגנטיים."
+        "title": "בנייה מהירה ורצינית",
+        "description": "26+ פרויקטים שנפרסו — EdTech, פיננסים, כלי AI, סוכנים אוטונומיים."
       }
     },
     "journey": {
       "title": "המסע שלי",
-      "subtitle": "דרך לא קונבנציונלית לפיתוח תוכנה",
+      "subtitle": "דרך לא קונבנציונלית לפיתוח תוכנה ו-AI",
       "items": {
         "arts": {
           "year": "2006–2008",
@@ -253,51 +253,51 @@
         "education": {
           "year": "2022",
           "title": "John Bryce College — בהצטיינות",
-          "description": "תעודת Full-Stack Development בהצטיינות. שליטה ב-Node.js, React, TypeScript, PostgreSQL ו-AWS."
+          "description": "תעודת Full-Stack Development בהצטיינות. שליטה ב-Node.js, React, TypeScript, PostgreSQL."
         },
         "present": {
-          "year": "2022–הווה",
-          "title": "מפתח Full-Stack ומהנדס AI",
-          "description": "בניית 26+ אפליקציות בפרודקשן — backends ב-Node.js, REST APIs, מסדי נתונים PostgreSQL ומערכות multi-agent AI."
+          "year": "2024–הווה",
+          "title": "מפתח עצמאי ומהנדס AI",
+          "description": "26+ פרויקטים שנפרסו: EdTech, סוכני AI, פיננסים וכלים יצירתיים. רשת סוכנים AI שרצה 24/7 — Claude Code, Kami (בוט WhatsApp) ו-Kaylee (עובד אוטונומי)."
         }
       }
     },
     "experience": {
       "title": "ניסיון ומומחיות",
-      "intro": "מאז 2022, בניתי 26+ אפליקציות בפרודקשן:",
-      "haderech": "<strong>HaDerech</strong> - פלטפורמת למידה אינטראקטיבית מלאה עם מערכות קורסים, פורומים קהילתיים וסימולטורים לתרגול. נבנתה עם Next.js, TypeScript, Supabase ואינטגרציות AI.",
-      "cms": "<strong>מערכות ניהול לקוחות</strong> - אפליקציות עסקיות לניהול לקוחות ומשימות עם Angular ו-JavaScript",
-      "edutech": "<strong>EduTech Solutions</strong> - פלטפורמות טכנולוגיה חינוכית",
-      "tools": "<strong>כלים שימושיים</strong> - כמו לוח שנה עברי-גרגוריאני אינטראקטיבי",
-      "expertise": "המומחיות העיקרית שלי: <strong>Node.js, TypeScript, React, Next.js, PostgreSQL/Supabase, AWS, Docker</strong>, אינטגרציות AI (Claude API, RAG Architecture, MCP Protocol), ומערכות multi-agent.",
-      "beyond": "מעבר לטכנולוגיה, הניסיון שלי כיוצר, מפתח תוכן ואיש עסקים לימד אותי להקשיב ללקוחות, להבין צרכים אמיתיים ולבנות פתרונות שעובדים לא רק טכנית, אלא גם מנקודת מבט עסקית."
+      "intro": "מאז 2024, בניתי 26+ פרויקטים שנפרסו:",
+      "haderech": "<strong>HaDerech</strong> — פלטפורמת למידה אינטראקטיבית עם מערכות קורסים, פורומים קהילתיים וסימולטורים לתרגול. נבנתה עם Next.js, TypeScript, Supabase ואינטגרציות AI.",
+      "cms": "<strong>רשת סוכני AI</strong> — מערכת 3 סוכנים (Claude Code + Kami בוט WhatsApp + Kaylee עובד אוטונומי) שרצה 24/7. תיאום multi-agent עם 32 סוכנים מיוחדים.",
+      "edutech": "<strong>Financial Manager</strong> — CLI + לוח בקרה React עם Green Invoice API לניהול פיננסי עסקי.",
+      "tools": "<strong>oh-my-claudecode</strong> — פריימוורק תזמור multi-agent עם 32 סוכנים מיוחדים ו-350+ skills מותאמים.",
+      "expertise": "כישורים טכניים: <strong>React, Next.js, TypeScript, Node.js, Python, Supabase, Convex, MongoDB</strong>. AI/ML: <strong>Claude API, תזמור multi-agent, אינטגרציית LLM, prompt engineering, שרתי MCP</strong>. DevOps: Git, GitHub Actions, Vercel, Hetzner VPS, Docker.",
+      "beyond": "עם רקע של 12 שנות ניהול עסק ושירות צבאי קרבי, אני מביא לכל פרויקט בגרות, ראייה מערכתית ויכולת לתת עדיפות לתוצאות עסקיות — לא רק מצוינות טכנית."
     },
     "unique": {
       "title": "מה מייחד אותי",
       "traits": {
         "maturity": {
-          "title": "בגרות וניסיון חיים",
-          "description": "גישה מקצועית ואחראית לפרויקטים"
+          "title": "AI-Native Developer",
+          "description": "בונה עם AI ובונה מערכות AI — Claude API, multi-agent orchestration, MCP servers"
         },
         "selfLearning": {
-          "title": "למידה עצמית",
-          "description": "תמיד מעודכן עם הטכנולוגיות האחרונות"
+          "title": "בנאי פרולפי",
+          "description": "26+ פרויקטים שנפרסו — EdTech, AI agents, פיננסים, כלים יצירתיים"
         },
         "creative": {
-          "title": "חשיבה יצירתית",
-          "description": "פתרונות מחוץ לקופסה בזכות רקע רב-תחומי"
+          "title": "מומחיות Hebrew RTL",
+          "description": "פיתוח דו-לשוני HE/EN מעמיק, Next.js i18n, עיצוב UI נגיש"
         },
         "results": {
-          "title": "מונע תוצאות",
-          "description": "מתמקד במה שחשוב, לא בשעות עבודה"
+          "title": "רקע עסקי חזק",
+          "description": "12 שנות יזמות + שירות קרבי — ראייה מערכתית ומיקוד בתוצאות"
         }
       }
     },
     "lookingFor": {
       "title": "מה אני מחפש",
-      "p1": "אני מחפש הזדמנויות לעבוד על פרויקטים מעניינים ומאתגרים - בין אם מדובר בפיתוח SaaS, אפליקציות אינטראקטיביות או מערכות עסקיות מורכבות.",
-      "p2": "אני מתעניין במיוחד בפרויקטים בתחומי החינוך, הטכנולוגיה החברתית ופיתוח כלים שעוזרים לאנשים לצמוח.",
-      "p3": "אם אתם מחפשים מפתח מנוסה ואחראי שמביא לא רק ידע טכני, אלא גם חזון עסקי וחשיבה יצירתית - אשמח לשמוע מכם."
+      "p1": "אני מחפש את התפקיד המקצועי הראשון שלי — כמפתח Full-Stack, מהנדס AI או מהנדס תוכנה — עם צוות שמאמין שפיתוח מונחה AI הוא העתיד.",
+      "p2": "אני מביא 26+ פרויקטים שנפרסו, רשת סוכני AI עובדת ו-350+ skills מותאמים ל-Claude Code. מוכן לעבוד ב-Remote, Hybrid או On-site בישראל.",
+      "p3": "אם אתם בונים משהו שמשנה את הדרך בה אנשים עובדים — EdTech, כלי AI, Developer tools — אשמח לדבר."
     },
     "connect": "התחברו איתי"
   },

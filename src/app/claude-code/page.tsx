@@ -12,6 +12,7 @@ interface GuideSection {
   color: string;
   content: string[];
   tips?: string[];
+  codeExample?: { label: string; code: string };
 }
 
 const sections: GuideSection[] = [
@@ -27,7 +28,7 @@ const sections: GuideSection[] = [
       "הוא עובד ישירות בטרמינל - לא צריך IDE מיוחד",
       "יכול לקרוא, לכתוב ולערוך קבצים, להריץ טסטים, ולבצע Git operations",
       "תומך ב-MCP (Model Context Protocol) לחיבור לשירותים חיצוניים",
-      "יש לו מערכת Skills שמרחיבה את היכולות שלו ב-230+ מיומנויות",
+      "יש לו מערכת Skills שמרחיבה את היכולות שלו ב-350+ מיומנויות",
     ],
     tips: [
       "Claude Code שונה מ-ChatGPT - הוא לא רק עונה על שאלות, הוא באמת עובד על הקוד שלך",
@@ -52,6 +53,10 @@ const sections: GuideSection[] = [
       "מומלץ להתחיל עם ה-CLI (שורת הפקודה) לחוויה המלאה",
       "צריך מנוי Anthropic - Pro ($20/חודש) או Max ($100/חודש)",
     ],
+    codeExample: {
+      label: "התקנה בשורה אחת",
+      code: "npm install -g @anthropic-ai/claude-code\ncd my-project\nclaude",
+    },
   },
   {
     id: "first-steps",
@@ -75,78 +80,154 @@ const sections: GuideSection[] = [
   {
     id: "claude-md",
     emoji: "📋",
-    title: "קובץ CLAUDE.md",
+    title: "CLAUDE.md - הקובץ הכי חשוב",
     description:
-      "הקובץ הכי חשוב - כאן אתה מלמד את Claude איך אתה עובד. זה כמו מדריך אישי שנטען בכל שיחה.",
+      "CLAUDE.md הוא 'חוזה העבודה' שלך עם Claude. הוא נטען אוטומטית בכל שיחה ומלמד את Claude איך אתה עובד, מה ה-stack שלך, ומה הכללים שחשובים לך.",
+    color: "from-blue-600 to-indigo-500",
+    content: [
+      "CLAUDE.md גלובלי → ~/.claude/CLAUDE.md (חל על כל הפרויקטים)",
+      "CLAUDE.md לפרויקט → /root/my-project/CLAUDE.md (ייחודי לפרויקט)",
+      "שניהם נטענים יחד - הגלובלי קודם, אחר-כך הייחודי",
+      "כלול: stack טכנולוגי, כלי package manager, כללי סגנון קוד, כלים מועדפים",
+      "הוסף: כיצד לטפל בשגיאות, מה לא לעשות, ועדיפויות החשיבה",
+      "אפשר לקשר לקבצי rules נוספים: @rules/coding-style.md",
+    ],
+    tips: [
+      "ככל שה-CLAUDE.md מפורט יותר, כך Claude מבין טוב יותר ושואל פחות שאלות",
+      "תחזיר על עצמך: אם Claude עשה משהו לא נכון, הוסף כלל ל-CLAUDE.md כדי שזה לא יקרה שוב",
+      "השתמש ב-/init כדי שClaude ייצור את הקובץ הראשוני לך אוטומטית",
+    ],
+    codeExample: {
+      label: "דוגמה ל-CLAUDE.md",
+      code: `# My Project
+
+## Package Manager
+Use bun ONLY. Never npm or yarn.
+
+## Code Style
+- TypeScript strict mode
+- Functional components only
+- Use Result types for errors (never try/catch in business logic)
+
+## Commit Messages
+Format: feat/fix/refactor: description in Hebrew
+
+## What NOT to do
+- Never use 'any' type
+- Never hardcode secrets
+- Never use placeholder images`,
+    },
+  },
+  {
+    id: "mcp-servers",
+    emoji: "🔌",
+    title: "MCP - Model Context Protocol",
+    description:
+      "MCP הוא הסטנדרט שמאפשר ל-Claude להתחבר לכלים חיצוניים. כל MCP Server מוסיף ל-Claude יכולות חדשות - גלישה באינטרנט, ניהול GitHub, עיצוב UI ועוד.",
+    color: "from-cyan-600 to-teal-500",
+    content: [
+      "Context7 → תיעוד עדכני של ספריות ישירות לתוך השיחה (no knowledge cutoff!)",
+      "Octocode → חיפוש קוד אמיתי מ-GitHub לדוגמאות עבודה",
+      "Stitch (Google) → עיצוב UI ויצוא HTML/Tailwind ישירות ל-Claude",
+      "Playwright → גלישה ואינטראקציה עם אתרים דרך עץ נגישות",
+      "GitHub MCP → ניהול PRs, issues, ו-repositories",
+      "Supabase / Convex MCP → ניהול בסיס נתונים מתוך הצ'אט",
+      "ההגדרות בקובץ: ~/.claude/.mcp.json",
+    ],
+    tips: [
+      "Context7 + Octocode ביחד = תיעוד רשמי + קוד אמיתי. שימוש בשניהם ביחד עדיף תמיד",
+      "כל MCP Server רץ כתהליך נפרד ב-Node.js - אפשר לפתח MCP משלך ב-TypeScript תוך שעה",
+    ],
+    codeExample: {
+      label: "~/.claude/.mcp.json",
+      code: `{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_TOKEN": "ghp_..." }
+    }
+  }
+}`,
+    },
+  },
+  {
+    id: "skills-hooks",
+    emoji: "🧩",
+    title: "Skills ו-Hooks",
+    description:
+      "Skills הם 'תוספים' לClaude שמלמדים אותו אומנויות ספציפיות. Hooks הם אוטומציות שרצות לפני/אחרי כל פעולה.",
     color: "from-amber-600 to-orange-500",
     content: [
-      "CLAUDE.md הוא קובץ הגדרות שנטען אוטומטית בכל session",
-      "מכיל: כללי פרויקט, סגנון קוד, כלים מועדפים, ועוד",
-      "אפשר ליצור CLAUDE.md גלובלי (~/.claude/CLAUDE.md) ו/או לכל פרויקט",
-      "Claude קורא אותו כדי להבין את ההעדפות שלך ולעקוב אחריהן",
-      "דוגמה: 'תשתמש רק ב-bun ולא ב-npm' או 'כתוב הודעות commit בעברית'",
+      "Skills נמצאים בתיקייה ~/.claude/skills/ - כל Skill הוא קובץ Markdown עם הוראות",
+      "/commit → Skill שכותב הודעות commit חכמות בפורמט Conventional Commits",
+      "/review → Skill שמפעיל 3 סוקרים מתמחים: איכות, אבטחה, ו-performance",
+      "/plan → Skill שמנהל תהליך תכנון מובנה לפני כל פיצ'ר גדול",
+      "Hooks: PreToolUse (לפני), PostToolUse (אחרי), Stop (בסיום שיחה)",
+      "דוגמה ל-Hook: auto-prettier אחרי כל עריכת JS/TS, tsc אחרי כל TypeScript",
+      "יצירת Skill: צור תיקייה ~/.claude/skills/my-skill/ עם קובץ skill.md",
     ],
     tips: [
-      "ככל שה-CLAUDE.md שלך מפורט יותר, כך Claude עובד טוב יותר",
-      "אל תפחד לעדכן אותו - Claude לומד מההעדפות שלך",
+      "350+ Skills זמינים ב-GitHub - מ-React ועד ביטוח לאומי ישראלי",
+      "Hooks חוסכים זמן: auto-format, auto-typecheck, ו-console.log audit רצים לבד",
+      "התקנת skill: npx skills add <repo>/<skill-name> -y -g",
     ],
-  },
-  {
-    id: "skills",
-    emoji: "🧩",
-    title: "Skills - מיומנויות",
-    description:
-      "Skills הם קבצי הוראות שמרחיבים את היכולות של Claude. כמו אפליקציות למכשיר - כל Skill מוסיף יכולת חדשה.",
-    color: "from-rose-600 to-pink-500",
-    content: [
-      "Skills נמצאים בתיקייה ~/.claude/skills/",
-      "כל Skill הוא תיקייה עם קובץ SKILL.md שמכיל הוראות מפורטות",
-      "יש 230+ Skills זמינים - מ-React ועד ביטוח לאומי",
-      "התקנה: npx skills add <repo/skill-name> -y -g",
-      "Claude טוען Skills רלוונטיים אוטומטית לפי ההקשר",
-    ],
-    tips: [
-      "יש לנו Skill Registry MCP שממליץ על ה-Skill הנכון לכל משימה",
-      "אפשר ליצור Skills מותאמים אישית לפרויקט שלך",
-    ],
-  },
-  {
-    id: "mcp",
-    emoji: "🔌",
-    title: "MCP - חיבור לעולם",
-    description:
-      "Model Context Protocol הוא הסטנדרט לחיבור AI לכלים חיצוניים. MCP הופך את Claude מ'מוח' ל'גוף' שיכול לפעול בעולם.",
-    color: "from-teal-600 to-cyan-500",
-    content: [
-      "MCP Servers חושפים כלים ש-Claude יכול להשתמש בהם",
-      "דוגמאות: Playwright (גלישה באינטרנט), GitHub, Slack, PowerPoint",
-      "ההגדרות בקובץ ~/.claude/.mcp.json",
-      "כל MCP Server רץ כתהליך נפרד ומתקשר עם Claude",
-      "אפשר לפתח MCP Servers מותאמים - זה TypeScript/Node.js פשוט",
-    ],
-    tips: [
-      "Playwright MCP חדש ומדהים - גולש דרך עץ נגישות במקום צילומי מסך",
-      "Context7 MCP מביא תיעוד עדכני של ספריות ישירות ל-Claude",
-    ],
+    codeExample: {
+      label: "הגדרת Hook ב-settings.json",
+      code: `{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{
+          "type": "command",
+          "command": "npx prettier --write \\"$CLAUDE_TOOL_INPUT_FILE_PATH\\""
+        }]
+      }
+    ]
+  }
+}`,
+    },
   },
   {
     id: "agents",
     emoji: "🤝",
-    title: "Multi-Agent - צוות סוכנים",
+    title: "עבודה עם סוכנים",
     description:
-      "למה להסתפק בסוכן אחד? Claude Code יכול להריץ צוות שלם של סוכנים מתמחים שעובדים במקביל.",
-    color: "from-indigo-600 to-blue-500",
+      "Claude Code יכול להפעיל תת-סוכנים שעובדים במקביל על משימות שונות. זה כמו לנהל צוות של מומחים - כל אחד מתמחה בתחומו.",
+    color: "from-rose-600 to-pink-500",
     content: [
-      "oh-my-claudecode (OMC) - מערכת אורקסטרציה עם 32 סוכנים מתמחים",
-      "סוכנים: architect, executor, security-reviewer, test-engineer ועוד",
-      "מצבי עבודה: team (צוות), autopilot (אוטונומי), ralph (התמדה)",
-      "אפשר להריץ 6+ סוכנים במקביל על משימות שונות",
-      "כל סוכן מקבל הקשר ייעודי וכלים מוגבלים לתפקידו",
+      "ה-Agent Tool מאפשר ל-Claude להריץ תת-Claude עם הקשר נקי ומבודד",
+      "תת-סוכן לסקירת קוד = אובייקטיביות מלאה (הוא לא כתב את הקוד!)",
+      "oh-my-claudecode (OMC) - 32 סוכנים מתמחים מוכנים: architect, executor, security-reviewer",
+      "מצב team: plan → design → execute → verify → fix (לולאה אוטומטית)",
+      "מצב autopilot: Claude לוקח משימה ועובד עד שהיא גמורה לחלוטין",
+      "מצב ralph: כמו autopilot אבל עם persistence - לא עוצר עד שהכל עובד",
+      "הרץ 6+ סוכנים במקביל על משימות עצמאיות - חוסך 70%+ זמן",
     ],
     tips: [
-      "Jim Prosser (יועץ תקשורת, לא מתכנת) בנה מערכת 'מנהל לשכה' שלם עם 6 סוכנים ב-36 שעות",
-      "הסוד הוא בארכיטקטורה - לא בקוד. חשיבה מערכתית > הנדסת תוכנה",
+      "קוד ריוויו עם תת-סוכן עדיף על ריוויו בשיחה הראשית - הוא לא מוטה כי לא כתב את הקוד",
+      "Jim Prosser, יועץ תקשורת שאינו מתכנת, בנה מערכת 'מנהל לשכה' שלמה עם 6 סוכנים ב-36 שעות",
     ],
+    codeExample: {
+      label: "הפעלת צוות סוכנים",
+      code: `# מצב team - צוות מלא
+team: בנה API לניהול משתמשים עם auth ו-CRUD מלא
+
+# מצב autopilot - עבודה עצמאית
+autopilot: הוסף dark mode לכל הקומפוננטות
+
+# מצב ralph - לא עוצר עד שגמור
+ralph: פתור את כל ה-TypeScript errors בפרויקט`,
+    },
   },
   {
     id: "workflows",
@@ -163,18 +244,38 @@ const sections: GuideSection[] = [
     ],
   },
   {
-    id: "tips",
+    id: "advanced",
     emoji: "💡",
     title: "טיפים מתקדמים",
-    description: "טריקים שיהפכו אותך לאלוף.",
-    color: "from-yellow-600 to-amber-500",
+    description:
+      "הטריקים שיהפכו אותך ממשתמש ביניים לאלוף Claude Code. כולל ניהול context, git worktrees, ו-ultrathink.",
+    color: "from-gray-600 to-zinc-500",
     content: [
-      "ultrathink - כתוב את המילה בפרומפט להפעלת מצב חשיבה מעמיקה (ותראה צבע קשת!)",
-      "LSP Integration - קוד חכם 900x יותר מהיר מ-grep, אפס false positives",
-      "Gemini Image Generation - ייצר תמונות AI בחינם עם nano-banana-poster",
-      "שלב כמה AIs: Claude לקוד, v0.dev ל-UI, Gemini לתמונות, Copilot לעבודת לילה",
-      "CLAUDE.md גלובלי + CLAUDE.md לפרויקט = Claude שמכיר אותך ואת הפרויקט",
+      "ultrathink → כתוב את המילה בפרומפט להפעלת מצב חשיבה מעמיקה (+ צבע קשת בשם!)",
+      "/compact → דוחס את ה-context כשהשיחה ארוכה מדי - חוסך טוקנים",
+      "Git Worktrees → פתח כמה שיחות Claude במקביל על branches שונות ללא conflict",
+      "LSP Integration → ניווט קוד 900x מהיר יותר מ-grep ללא false positives",
+      "Escape → בטל פעולה שClaude מריץ כרגע (בלי לסגור את השיחה)",
+      "Tab → אשר הצעת קוד בלי להקליד 'כן' / 'yes'",
+      "Gemini Image Generation → nano-banana-poster ליצירת תמונות AI בחינם מהטרמינל",
+      "שלב AIs: Claude לקוד, v0.dev ל-UI, Gemini לתמונות, Copilot לעבודת לילה",
     ],
+    tips: [
+      "Git Worktrees = super-power: תיקיה נפרדת לכל branch, Claude בכל אחת עצמאית",
+      "CLAUDE.md גלובלי + CLAUDE.md לפרויקט = Claude שמכיר אותך ואת הפרויקט לחלוטין",
+      "/cost בסוף כל שיחה - עקוב אחרי הצריכה כדי לדעת אילו tasks שווים את הכסף",
+    ],
+    codeExample: {
+      label: "Git Worktree workflow",
+      code: `# צור worktree לפיצ'ר חדש
+git worktree add ../my-project-feature feat/new-feature
+
+# פתח Claude בתיקייה הנפרדת
+cd ../my-project-feature
+claude
+
+# Claude עובד על הבranch הזה בלבד - ללא conflict עם main`,
+    },
   },
 ];
 
@@ -187,13 +288,13 @@ const resources = [
   },
   {
     title: "Ultimate AI Dev Environment",
-    description: "230+ Skills, 11 MCP Servers, 15 Agents",
+    description: "350+ Skills, 17 MCP Servers, 32 Agents",
     href: "https://github.com/eladjak/ultimate-ai-dev-environment",
     emoji: "🚀",
   },
   {
     title: "AI Agent Skills Repository",
-    description: "210+ Skills מוכנים להתקנה",
+    description: "350+ Skills מוכנים להתקנה",
     href: "https://github.com/eladjak/ai-agents-skills",
     emoji: "🧩",
   },
@@ -209,6 +310,12 @@ const resources = [
     href: "https://agentskills.co.il",
     emoji: "🇮🇱",
   },
+  {
+    title: "oh-my-claudecode (OMC)",
+    description: "מערכת multi-agent עם 32 סוכנים מתמחים",
+    href: "https://github.com/transcendr/oh-my-claudecode",
+    emoji: "🤝",
+  },
 ];
 
 const tocLabels: { id: string; label: string }[] = [
@@ -216,11 +323,11 @@ const tocLabels: { id: string; label: string }[] = [
   { id: "install", label: "התקנה" },
   { id: "first-steps", label: "צעדים ראשונים" },
   { id: "claude-md", label: "CLAUDE.md" },
-  { id: "skills", label: "Skills" },
-  { id: "mcp", label: "MCP" },
+  { id: "mcp-servers", label: "MCP" },
+  { id: "skills-hooks", label: "Skills" },
   { id: "agents", label: "Agents" },
   { id: "workflows", label: "Workflows" },
-  { id: "tips", label: "טיפים" },
+  { id: "advanced", label: "טיפים מתקדמים" },
 ];
 
 export default function ClaudeCodePage() {
@@ -261,18 +368,24 @@ export default function ClaudeCodePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-heebo">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-glow">
-                Claude Code
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
+              <span className="text-xs font-semibold text-primary tracking-wide uppercase">
+                2026 · מעודכן · מדריך מעשי בעברית
               </span>
-              <br />
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-medium text-muted-foreground">
-                המדריך המלא לפיתוח עם AI
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 font-heebo">
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-glow">
+                המדריך המלא ל-Claude Code
               </span>
             </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl sm:text-2xl font-medium text-muted-foreground mb-6">
+              מכלי AI לשותף פיתוח אמיתי
+            </p>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               איך להפוך את Claude Code למנוע הפיתוח שלך - מהתקנה ועד מערכות
-              מרובות סוכנים. 230+ מיומנויות, 11 שרתי MCP, וכל מה שצריך כדי
+              מרובות סוכנים. 350+ מיומנויות, 17 שרתי MCP, וכל מה שצריך כדי
               לבנות תוכנה ב-2026.
             </p>
           </motion.div>
@@ -285,8 +398,8 @@ export default function ClaudeCodePage() {
             className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4"
           >
             {[
-              { label: "Skills", value: "230+" },
-              { label: "MCP Servers", value: "11" },
+              { label: "Skills", value: "350+" },
+              { label: "MCP Servers", value: "17" },
               { label: "Agents", value: "32" },
               { label: "מהירות LSP", value: "900x" },
             ].map((stat) => (
@@ -301,6 +414,31 @@ export default function ClaudeCodePage() {
                   {stat.label}
                 </div>
               </div>
+            ))}
+          </motion.div>
+
+          {/* Quick links mini TOC */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-10 flex flex-wrap justify-center gap-3"
+          >
+            {tocLabels.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setExpandedSection(item.id);
+                  document
+                    .getElementById(item.id)
+                    ?.scrollIntoView({ behavior: "smooth", block: "center" });
+                }}
+                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors bg-card/60 border border-border/50 rounded-full px-4 py-1.5 hover:border-primary/30 hover:bg-primary/5"
+              >
+                {item.label} ↓
+              </a>
             ))}
           </motion.div>
         </div>
@@ -408,6 +546,29 @@ export default function ClaudeCodePage() {
                           </li>
                         ))}
                       </ul>
+
+                      {/* Code Example */}
+                      {section.codeExample && (
+                        <div className="mt-6">
+                          <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">
+                            {section.codeExample.label}
+                          </p>
+                          <div className="bg-zinc-950 rounded-xl border border-zinc-800 overflow-hidden">
+                            <div className="flex items-center gap-2 px-4 py-2 border-b border-zinc-800 bg-zinc-900/60">
+                              <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                              <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                              <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                            </div>
+                            <pre
+                              className="p-4 text-xs text-zinc-300 overflow-x-auto leading-relaxed font-mono"
+                              dir="ltr"
+                            >
+                              {section.codeExample.code}
+                            </pre>
+                          </div>
+                        </div>
+                      )}
+
                       {section.tips && (
                         <div className="mt-6 bg-primary/5 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
                           <p className="text-sm font-medium text-primary mb-2">
@@ -495,6 +656,52 @@ export default function ClaudeCodePage() {
               GitHub Repository
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* About the author */}
+      <section className="border-t border-border bg-card/30 py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-card rounded-2xl border border-border p-8"
+          >
+            {/* Avatar placeholder with initials */}
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl font-bold text-primary-foreground shrink-0 shadow-lg shadow-primary/20">
+              א
+            </div>
+            <div className="flex-1 text-center sm:text-right">
+              <h3 className="text-lg font-bold text-foreground font-heebo mb-1">
+                אלעד יעקובוביץ&apos;
+              </h3>
+              <p className="text-sm text-primary font-medium mb-3">
+                מפתח Full-Stack ומומחה AI
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                משתמש ב-Claude Code יום-יום עם 350+ סקילים ורשת של 3 סוכני AI
+                אוטונומיים. המדריך הזה מבוסס על שנה של עבודה אמיתית - לא
+                תיאוריה.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-start">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-primary hover:underline transition-colors"
+                >
+                  צור קשר
+                  <span aria-hidden="true">←</span>
+                </Link>
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  שירותי ייעוץ AI
+                  <span aria-hidden="true">←</span>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </main>

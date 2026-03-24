@@ -221,83 +221,83 @@
   "about": {
     "title": "About Me",
     "name": "Elad Ya'akobovitch",
-    "subtitle": "Full-Stack Developer with John Bryce College certification. Combining technical skills with creative vision and business insight.",
+    "subtitle": "Full-Stack Developer & AI Engineer — React, Next.js, Node.js, TypeScript. 26+ deployed projects. AI systems builder and advanced Claude Code power user.",
     "highlights": {
       "technicalSkills": {
-        "title": "Technical Skills",
-        "description": "Expertise in modern web technologies and full-stack development."
+        "title": "Full-Stack Development",
+        "description": "React, Next.js, Node.js, TypeScript, Supabase, Convex, Python — from UI through backend to databases."
       },
       "continuousLearning": {
-        "title": "Continuous Learning",
-        "description": "Always exploring new technologies and best practices."
+        "title": "AI-Native Development",
+        "description": "Building AI systems (Claude API, multi-agent, MCP) and using AI as a force multiplier at every stage of development."
       },
       "problemSolving": {
-        "title": "Problem Solving",
-        "description": "Turning complex challenges into elegant solutions."
+        "title": "Prolific Builder",
+        "description": "26+ deployed projects — EdTech, AI agents, finance, creative tools — shipped and live."
       }
     },
     "journey": {
       "title": "My Journey",
-      "subtitle": "A non-conventional path to software development",
+      "subtitle": "A non-conventional path to software development and AI",
       "items": {
         "arts": {
-          "year": "Early Career",
-          "title": "Arts & Creative Fields",
-          "description": "Started in arts and creative fields, developing a strong eye for design and user experience."
+          "year": "2006–2008",
+          "title": "Military Service — Paratroopers + Hesder Yeshiva",
+          "description": "Combat service as a paratrooper in the IDF alongside Hesder yeshiva studies. Developed leadership, discipline, and teamwork under pressure."
         },
         "business": {
-          "year": "Mid Career",
-          "title": "Business & Marketing",
-          "description": "Gained valuable business acumen and client management skills in marketing and entrepreneurship."
+          "year": "2011–2023",
+          "title": "Founder & Manager — Omanut HaKesher",
+          "description": "12 years running an independent business — client management, marketing, operations, and strategy. Business acumen that strengthens every tech project."
         },
         "education": {
-          "year": "Education",
-          "title": "John Bryce College",
-          "description": "Completed Full-Stack Development certification, mastering modern web technologies."
+          "year": "2022",
+          "title": "John Bryce College — With Honors",
+          "description": "Full-Stack Development certification with honors. Mastered Node.js, React, TypeScript, and PostgreSQL."
         },
         "present": {
-          "year": "Present",
-          "title": "Full-Stack Developer",
-          "description": "Building modern web applications with Next.js, React, TypeScript, and AI integrations."
+          "year": "2024–Present",
+          "title": "Independent Developer & AI Engineer",
+          "description": "26+ deployed projects: EdTech, AI agents, finance, and creative tools. Built an AI agent network running 24/7 — Claude Code, Kami (WhatsApp bot), and Kaylee (autonomous worker)."
         }
       }
     },
     "experience": {
       "title": "Experience & Expertise",
-      "intro": "Over the years, I've developed a variety of projects:",
-      "haderech": "<strong>HaDerech</strong> - A complete interactive learning platform with course systems, community forums, and practice simulators. Built with Next.js, TypeScript, Supabase, and AI integrations.",
-      "cms": "<strong>Customer Management Systems</strong> - Business applications for managing clients and tasks with Angular and JavaScript",
-      "edutech": "<strong>EduTech Solutions</strong> - Educational technology platforms",
-      "tools": "<strong>Useful Tools</strong> - Like an interactive Hebrew-Gregorian calendar",
-      "expertise": "My main expertise is in <strong>Next.js, React, TypeScript, Node.js, and Supabase</strong>, but I'm also proficient in Angular, PostgreSQL, and working with modern APIs.",
-      "beyond": "Beyond technology, my experience as a creator, content developer, and businessman taught me to listen to clients, understand real needs, and build solutions that work not just technically, but also from a business perspective."
+      "intro": "Since 2024, I've built and deployed 26+ projects:",
+      "haderech": "<strong>HaDerech</strong> — An interactive learning platform with course systems, community forums, and practice simulators. Built with Next.js, TypeScript, Supabase, and AI integrations.",
+      "cms": "<strong>AI Agent Network</strong> — A 3-agent system (Claude Code + Kami WhatsApp bot + Kaylee autonomous worker) running 24/7. Multi-agent coordination with 32 specialized sub-agents.",
+      "edutech": "<strong>Financial Manager</strong> — CLI + React Dashboard with Green Invoice API integration for business financial management.",
+      "tools": "<strong>oh-my-claudecode</strong> — Multi-agent orchestration framework with 32 specialized agents and 350+ custom skills.",
+      "expertise": "Technical skills: <strong>React, Next.js, TypeScript, Node.js, Python, Supabase, Convex, MongoDB</strong>. AI/ML: <strong>Claude API, multi-agent orchestration, LLM integration, prompt engineering, MCP servers</strong>. DevOps: Git, GitHub Actions, Vercel, Hetzner VPS, Docker.",
+      "beyond": "With 12 years of entrepreneurship and combat military service, I bring maturity, systems thinking, and the ability to prioritize business outcomes — not just technical excellence."
     },
     "unique": {
       "title": "What Makes Me Unique",
       "traits": {
         "maturity": {
-          "title": "Maturity & Life Experience",
-          "description": "Professional and responsible approach to projects"
+          "title": "AI-Native Developer",
+          "description": "Building with AI and building AI systems — Claude API, multi-agent orchestration, MCP servers"
         },
         "selfLearning": {
-          "title": "Self-Learning",
-          "description": "Always up-to-date with the latest technologies"
+          "title": "Prolific Builder",
+          "description": "26+ deployed projects — EdTech, AI agents, finance, creative tools"
         },
         "creative": {
-          "title": "Creative Thinking",
-          "description": "Out-of-the-box solutions thanks to multidisciplinary background"
+          "title": "Hebrew RTL Expertise",
+          "description": "Deep bilingual HE/EN development, Next.js i18n, accessible UI design"
         },
         "results": {
-          "title": "Results-Oriented",
-          "description": "Focus on what matters, not on hours worked"
+          "title": "Strong Business Background",
+          "description": "12 years entrepreneurship + combat military service — systems thinking and results focus"
         }
       }
     },
     "lookingFor": {
       "title": "What I'm Looking For",
-      "p1": "I'm seeking opportunities to work on interesting and challenging projects - whether it's SaaS development, interactive applications, or complex business systems.",
-      "p2": "I'm particularly interested in projects in education, social tech, and developing tools that help people grow.",
-      "p3": "If you're looking for an experienced and responsible developer who brings not just technical knowledge, but also business vision and creative thinking - I'd love to hear from you."
+      "p1": "I'm seeking my first full-time role — as a Full-Stack Developer, AI Engineer, or Software Engineer — with a team that believes AI-driven development is the future.",
+      "p2": "I bring 26+ deployed projects, a working AI agent network, and 350+ custom Claude Code skills. Open to Remote, Hybrid, or On-site in Israel.",
+      "p3": "If you're building something that changes how people work — EdTech, AI tools, developer tooling — I'd love to talk."
     },
     "connect": "Connect With Me"
   },

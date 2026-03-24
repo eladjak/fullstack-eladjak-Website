@@ -28,7 +28,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://haderech-next.vercel.app',
     gradient: 'from-violet-500/20 to-purple-600/20',
     icon: 'HaDerech',
-    image: '/projects/haderech.png',
+    image: '/projects/haderech-screenshot.png',
   },
   {
     id: 'portfolio',
@@ -38,7 +38,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://fullstack-eladjak.co.il',
     gradient: 'from-blue-500/20 to-cyan-500/20',
     icon: 'Portfolio',
-    image: '/projects/portfolio.png',
+    image: '/projects/portfolio-screenshot.png',
   },
   {
     id: 'ey-ai-kids',
@@ -47,7 +47,7 @@ const staticProjects: StaticProject[] = [
     github_url: 'https://github.com/eladjak/ey.ai-kids-playground',
     gradient: 'from-emerald-500/20 to-teal-500/20',
     icon: 'EY.AI',
-    image: '/projects/ey-ai-kids.jpg',
+    image: '/projects/ey-ai-kids-screenshot.png',
   },
   {
     id: 'omanut',
@@ -57,7 +57,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://omanut-hakesher-website.vercel.app',
     gradient: 'from-amber-500/20 to-orange-500/20',
     icon: 'Omanut',
-    image: '/projects/omanut.png',
+    image: '/projects/omanut-screenshot.png',
   },
   {
     id: 'voice-chat',
@@ -76,7 +76,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://html-to-pptx-ten.vercel.app',
     gradient: 'from-orange-500/20 to-amber-500/20',
     icon: 'PPTX',
-    image: '/projects/html-to-pptx.jpg',
+    image: '/projects/html-to-pptx-screenshot.png',
   },
   {
     id: 'zehutai',
