@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Code2, Zap } from 'lucide-react';
+import { ArrowRight, Calendar, Sparkles, Code2, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -24,8 +24,11 @@ export default function CTASection() {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
               {t('title')}
             </h2>
-            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg">
+            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg mb-2">
               {t('subtitle')}
+            </p>
+            <p className="text-sm font-medium text-primary/80">
+              {t('availability')}
             </p>
           </div>
         </ScrollAnimate>
@@ -61,14 +64,26 @@ export default function CTASection() {
         </ScrollAnimate>
 
         <ScrollAnimate delay={0.2}>
-          <div className="text-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              {t('getInTouch')}
-              <ArrowRight className="h-5 w-5" />
-            </Link>
+          <div className="text-center space-y-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                {t('getInTouch')}
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                <Calendar className="h-5 w-5" />
+                {t('bookCall')}
+              </Link>
+            </div>
+            <p className="text-xs text-muted-foreground/70">
+              {t('trustSignal')}
+            </p>
           </div>
         </ScrollAnimate>
       </div>

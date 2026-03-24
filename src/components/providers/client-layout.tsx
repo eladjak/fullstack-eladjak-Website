@@ -10,6 +10,7 @@ import Footer from '@/components/ui/footer';
 import { PageTransition } from '@/components/ui/page-transition';
 import { SpotlightCursor } from '@/components/ui/spotlight';
 import { WhatsAppFAB } from '@/components/ui/whatsapp-fab';
+import { ScrollToTop } from '@/components/ui/scroll-to-top';
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -43,6 +44,7 @@ export function ClientLayout({ children }: ClientLayoutProps) {
           </div>
           <Footer />
           <WhatsAppFAB />
+          <ScrollToTop />
           <SpotlightCursor />
           <Toaster />
         </AuthProvider>

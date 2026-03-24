@@ -167,8 +167,11 @@
     }
   },
   "cta": {
-    "title": "Let's Build Something Amazing",
+    "title": "Let's Build Your Next Project",
     "subtitle": "Looking for a developer who combines technical excellence with creative thinking?",
+    "availability": "Available now · Response within hours",
+    "bookCall": "Book a Call",
+    "trustSignal": "26+ apps in production · 10 live demos · 60 green tests",
     "getInTouch": "Get In Touch",
     "features": {
       "cleanCode": {
