@@ -1,14 +1,65 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-24
+## Last Updated: 2026-03-25
 
 ## Current State
-Portfolio Revival Sprint COMPLETE. 14 projects with Gemini thumbnails, 14/14 GitHub repos accessible (200 OK), 7 live deployments verified working. Build clean (22 routes). Site live at fullstack-eladjak.co.il.
+Major 3-day sprint complete. Dark-first design, 7 blog posts, Claude Code guide, CV download, 60 E2E tests, 10 live demos, 5 project facelifts, SEO per-page. 22 routes, TypeScript clean. Site live at fullstack-eladjak.co.il.
 
 ## What Was Done
 
-### Session 2026-03-23 - Sprint Verification & Review
+### Session 2026-03-25 - Content, Tests, SEO, UX
+
+#### Claude Code Guide Expansion
+- [x] Expanded from 502 to 709 lines - 5 new sections (CLAUDE.md, MCP, Skills/Hooks, Agents, Advanced)
+- [x] Code examples in macOS-style terminal blocks
+- [x] Hero banner with "המדריך המלא ל-Claude Code" + mini TOC
+- [x] Author section at bottom with links to /contact and /services
+- [x] Sticky TOC updated with new section IDs
+
+#### E2E Tests (Playwright)
+- [x] Playwright setup with 5 test suites (navigation, homepage, projects, blog, contact)
+- [x] 60/60 tests passing against live site (fullstack-eladjak.co.il)
+- [x] npm scripts: test:e2e, test:e2e:ui, test:e2e:headed, test:e2e:report
+
+#### About/CV Update from Appliable
+- [x] Skills, timeline, experience updated from appliable/profile/experience.md
+- [x] AI Agent Network, OMC, Financial Manager as real experience entries
+- [x] Differentiators: AI-native, prolific builder, Hebrew RTL, business background
+- [x] "Seeking first full-time role" (honest)
+
+#### CV Download
+- [x] Created public/cv-elad-yaakobovitch.html - professional A4 print-optimized resume
+- [x] Dark gradient header, 2-column layout, stats row, project spotlight
+- [x] Download buttons in hero, about page, and footer
+
+#### Technical Blog Posts (2 new)
+- [x] "Building a Multi-Agent AI Network" (296 lines) - architecture, JSONL bridge, deployment
+- [x] "10 Claude Code Tips That 10x'd My Productivity" (391 lines) - real tips with code
+- [x] Both bilingual (EN + HE) with real code examples
+- [x] Total blog posts: 7 (all bilingual)
+
+#### UX Improvements
+- [x] Scroll-to-top FAB - glassmorphism, RTL-aware (opposite WhatsApp FAB)
+- [x] Reading progress bar already existed in blog posts (verified working)
+
+#### SEO Per-Page
+- [x] 7 route-segment layouts with unique meta/OG/canonical per page
+- [x] Pages: projects, services, contact, about, thanks, claude-code, blog
+- [x] Sitemap: added /claude-code, aligned priorities for all 9 pages + blog posts
+- [x] Robots: removed AI bot blocks, single allow-all rule
+
+#### Homepage Conversion
+- [x] CTA heading: "בואו נבנה את הפרויקט הבא שלכם"
+- [x] "Book a Call" button (links to /contact, ready for YouCanBookMe)
+- [x] Trust signal: "26+ פרויקטים · 10 דמואים חיים · 60 טסטים ירוקים"
+- [x] Availability nudge: "זמינות מיידית · תגובה תוך שעות"
+
+#### Polish
+- [x] 404 page: text-glow, icon halo, glassmorphism cards, hover lift
+- [x] Build fix: added @alloc/quick-lru dependency
+
+### Session 2026-03-23/24 - Dark-First Facelift + Content + Deploys
 
 #### Sprint Status Check
 - [x] Verified all 14 GitHub repo URLs return 200 OK
