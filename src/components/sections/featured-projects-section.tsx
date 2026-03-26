@@ -95,7 +95,7 @@ const staticProjects: StaticProject[] = [
     live_url: 'https://team-meetings.vercel.app',
     gradient: 'from-purple-500/20 to-violet-500/20',
     icon: 'Meetings',
-    image: '/projects/team-meetings.jpg',
+    image: '/projects/team-meetings-screenshot.jpg',
   },
 ];
 

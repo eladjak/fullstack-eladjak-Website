@@ -10,7 +10,8 @@
     "featuredProjects": "Projects",
     "testimonials": "Testimonials",
     "thanks": "Thanks",
-    "services": "Services"
+    "services": "Services",
+    "claudeCode": "Claude Code"
   },
   "hero": {
     "badge": "Available for Projects",
@@ -488,9 +489,9 @@
         "bio": "Sharing knowledge on AI and development"
       },
       "arielE": {
-        "name": "Ariel Eisen",
-        "role": "PixMind Studio - AI Content Creator",
-        "bio": "Creating visual content with AI"
+        "name": "Ariel Eisenstadt",
+        "role": "AI Content & Creative Expert",
+        "bio": "Expert in AI-powered content creation, visual production, and digital creativity. Helps businesses and organizations integrate AI tools into creative workflows."
       }
     }
   },

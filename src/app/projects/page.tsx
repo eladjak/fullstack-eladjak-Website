@@ -137,7 +137,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://hebrew-calendar-eosin.vercel.app',
     gradient: 'from-indigo-500/20 to-blue-500/20',
     icon: 'Calendar',
-    image: '/projects/hebrew-calendar.jpg',
+    image: '/projects/hebrew-calendar-screenshot.jpg',
   },
   {
     id: 'vacation-vibe',
@@ -159,7 +159,7 @@ const allProjects: StaticProject[] = [
     live_url: 'https://team-meetings.vercel.app',
     gradient: 'from-purple-500/20 to-violet-500/20',
     icon: 'Meetings',
-    image: '/projects/team-meetings.jpg',
+    image: '/projects/team-meetings-screenshot.jpg',
   },
   {
     id: 'customer-crm',
