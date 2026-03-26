@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { Github, ExternalLink, Eye } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { ProjectPreviewModal } from '@/components/ui/project-preview-modal';
 
 type Category = 'all' | 'web' | 'ai' | 'tools';
 
@@ -194,6 +195,8 @@ const cardVariants = {
 export default function ProjectsPage() {
   const t = useTranslations('projectsPage');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
+  const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+  const [previewProject, setPreviewProject] = useState<StaticProject | null>(null);
 
   const categories: { key: Category; label: string }[] = [
     { key: 'all', label: t('allCategories') },
@@ -202,133 +205,284 @@ export default function ProjectsPage() {
     { key: 'tools', label: t('categories.tools') },
   ];
 
-  const filteredProjects =
-    activeCategory === 'all'
-      ? allProjects
-      : allProjects.filter((p) => p.category === activeCategory);
+  // Collect all unique technologies across all projects, sorted by frequency
+  const allTechs = useMemo(() => {
+    const freq: Record<string, number> = {};
+    for (const p of allProjects) {
+      for (const tech of p.technologies) {
+        freq[tech] = (freq[tech] ?? 0) + 1;
+      }
+    }
+    return Object.entries(freq)
+      .sort((a, b) => b[1] - a[1])
+      .map(([tech]) => tech);
+  }, []);
+
+  const toggleTech = (tech: string) => {
+    setSelectedTechs((prev) =>
+      prev.includes(tech) ? prev.filter((item) => item !== tech) : [...prev, tech]
+    );
+  };
+
+  const filteredProjects = useMemo(() => {
+    let result = activeCategory === 'all' ? allProjects : allProjects.filter((p) => p.category === activeCategory);
+    if (selectedTechs.length > 0) {
+      result = result.filter((p) => selectedTechs.every((tech) => p.technologies.includes(tech)));
+    }
+    return result;
+  }, [activeCategory, selectedTechs]);
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <ScrollAnimate>
-        <div className="text-center mb-12">
-          <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            {t('title')}
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-            {t('subtitle')}
-          </p>
-        </div>
-      </ScrollAnimate>
+    <>
+      <div className="container mx-auto px-4 py-12">
+        <ScrollAnimate>
+          <div className="text-center mb-12">
+            <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+              {t('title')}
+            </h1>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+              {t('subtitle')}
+            </p>
+          </div>
+        </ScrollAnimate>
 
-      {/* Category filters */}
-      <ScrollAnimate delay={0.1}>
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {categories.map((cat) => (
-            <button
-              key={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
-              className={`rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                activeCategory === cat.key
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
-              }`}
-            >
-              {cat.label}
-              <span className="ms-1.5 text-xs opacity-70">
-                {cat.key === 'all'
-                  ? allProjects.length
-                  : allProjects.filter((p) => p.category === cat.key).length}
-              </span>
-            </button>
-          ))}
-        </div>
-      </ScrollAnimate>
-
-      {/* Projects grid */}
-      <motion.div
-        key={activeCategory}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {filteredProjects.map((project, index) => (
-          <motion.div key={project.id} variants={cardVariants} className="group">
-            <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
-              {/* Project header - screenshot or gradient */}
-              <div
-                className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
+        {/* Category filters */}
+        <ScrollAnimate delay={0.1}>
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {categories.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  activeCategory === cat.key
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                }`}
               >
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={t(`projects.${project.messageKey}.title`)}
-                    fill
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    {...(index < 3 ? { priority: true } : { loading: 'lazy' })}
-                  />
-                ) : (
-                  <>
-                    <div className="absolute -top-8 -end-8 h-24 w-24 rounded-full bg-primary/10 pointer-events-none" />
-                    <div className="absolute -bottom-4 -start-4 h-16 w-16 rounded-full bg-accent/10 pointer-events-none" />
-                    <span className="relative text-2xl font-bold text-primary/80">
-                      {project.icon}
-                    </span>
-                  </>
-                )}
-              </div>
+                {cat.label}
+                <span className="ms-1.5 text-xs opacity-70">
+                  {cat.key === 'all'
+                    ? allProjects.length
+                    : allProjects.filter((p) => p.category === cat.key).length}
+                </span>
+              </button>
+            ))}
+          </div>
+        </ScrollAnimate>
 
-              <div className="p-5">
-                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200">
-                  {t(`projects.${project.messageKey}.title`)}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                  {t(`projects.${project.messageKey}.description`)}
-                </p>
+        {/* Tech stack filter bar */}
+        <ScrollAnimate delay={0.15}>
+          <div
+            className="mb-10"
+            role="group"
+            aria-label={t('techFilter.label')}
+          >
+            <div className="flex flex-wrap justify-center gap-2">
+              {/* "All Tech" pill */}
+              <button
+                onClick={() => setSelectedTechs([])}
+                aria-pressed={selectedTechs.length === 0}
+                className={`rounded-full px-3.5 py-1 text-xs font-medium border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
+                  selectedTechs.length === 0
+                    ? 'border-purple-500/60 bg-purple-500/15 text-purple-300'
+                    : 'border-white/10 bg-white/5 text-white/50 hover:border-white/20 hover:bg-white/10 hover:text-white/80'
+                }`}
+              >
+                {t('techFilter.all')}
+              </button>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="inline-flex items-center rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors duration-200 hover:bg-primary/15"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-4 pt-2 border-t border-border/50">
-                  <a
-                    href={project.github_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                    aria-label={`צפייה בקוד המקור של ${t(`projects.${project.messageKey}.title`)}`}
+              {allTechs.map((tech) => {
+                const active = selectedTechs.includes(tech);
+                return (
+                  <button
+                    key={tech}
+                    onClick={() => toggleTech(tech)}
+                    aria-pressed={active}
+                    className={`rounded-full px-3.5 py-1 text-xs font-medium border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
+                      active
+                        ? 'border-purple-500/60 bg-purple-500/15 text-purple-300 shadow-[0_0_8px_rgba(168,85,247,0.25)]'
+                        : 'border-white/10 bg-white/5 text-white/50 hover:border-white/20 hover:bg-white/10 hover:text-white/80'
+                    }`}
                   >
-                    <Github className="h-4 w-4" aria-hidden="true" />
-                    <span>{t('code')}</span>
-                  </a>
-                  {project.live_url && (
-                    <a
-                      href={project.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                      aria-label={`דמו חי של ${t(`projects.${project.messageKey}.title`)}`}
-                    >
-                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                      <span>{t('liveDemo')}</span>
-                    </a>
-                  )}
-                </div>
-              </div>
+                    {tech}
+                  </button>
+                );
+              })}
             </div>
+
+            {/* Active filter summary */}
+            {selectedTechs.length > 0 && (
+              <p className="text-center text-xs text-white/40 mt-2">
+                {filteredProjects.length} / {allProjects.length} projects
+                {' · '}
+                <button
+                  onClick={() => setSelectedTechs([])}
+                  className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors"
+                >
+                  clear
+                </button>
+              </p>
+            )}
+          </div>
+        </ScrollAnimate>
+
+        {/* Projects grid */}
+        <LayoutGroup>
+          <motion.div
+            key={`${activeCategory}-${selectedTechs.join(',')}`}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
+                  className="group"
+                >
+                  <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+                    {/* Project header - screenshot or gradient */}
+                    <div
+                      className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
+                    >
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={t(`projects.${project.messageKey}.title`)}
+                          fill
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          {...(index < 3 ? { priority: true } : { loading: 'lazy' })}
+                        />
+                      ) : (
+                        <>
+                          <div className="absolute -top-8 -end-8 h-24 w-24 rounded-full bg-primary/10 pointer-events-none" />
+                          <div className="absolute -bottom-4 -start-4 h-16 w-16 rounded-full bg-accent/10 pointer-events-none" />
+                          <span className="relative text-2xl font-bold text-primary/80">
+                            {project.icon}
+                          </span>
+                        </>
+                      )}
+
+                      {/* Live Preview overlay button — shows on hover when live_url exists */}
+                      {project.live_url && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                          <button
+                            onClick={() => setPreviewProject(project)}
+                            aria-label={`${t('livePreview')} — ${t(`projects.${project.messageKey}.title`)}`}
+                            className="inline-flex items-center gap-2 rounded-lg bg-purple-600/90 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-purple-500 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                          >
+                            <Eye className="h-4 w-4" aria-hidden="true" />
+                            {t('livePreview')}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200">
+                        {t(`projects.${project.messageKey}.title`)}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                        {t(`projects.${project.messageKey}.description`)}
+                      </p>
+
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {project.technologies.map((tech) => (
+                          <button
+                            key={tech}
+                            onClick={() => {
+                              if (!selectedTechs.includes(tech)) toggleTech(tech);
+                            }}
+                            aria-pressed={selectedTechs.includes(tech)}
+                            title={`Filter by ${tech}`}
+                            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                              selectedTechs.includes(tech)
+                                ? 'bg-purple-500/20 text-purple-300 ring-1 ring-purple-500/40'
+                                : 'bg-primary/5 text-primary hover:bg-primary/15 cursor-pointer'
+                            }`}
+                          >
+                            {tech}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Links */}
+                      <div className="flex items-center gap-4 pt-2 border-t border-border/50">
+                        <a
+                          href={project.github_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                          aria-label={`צפייה בקוד המקור של ${t(`projects.${project.messageKey}.title`)}`}
+                        >
+                          <Github className="h-4 w-4" aria-hidden="true" />
+                          <span>{t('code')}</span>
+                        </a>
+                        {project.live_url && (
+                          <>
+                            <a
+                              href={project.live_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                              aria-label={`דמו חי של ${t(`projects.${project.messageKey}.title`)}`}
+                            >
+                              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                              <span>{t('liveDemo')}</span>
+                            </a>
+                            <button
+                              onClick={() => setPreviewProject(project)}
+                              className="ms-auto inline-flex items-center gap-1.5 text-sm text-purple-400 hover:text-purple-300 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                              aria-label={`${t('livePreview')} — ${t(`projects.${project.messageKey}.title`)}`}
+                            >
+                              <Eye className="h-4 w-4" aria-hidden="true" />
+                              <span>{t('livePreview')}</span>
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
-        ))}
-      </motion.div>
-    </div>
+        </LayoutGroup>
+
+        {/* Empty state when filters return nothing */}
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-24 text-muted-foreground"
+          >
+            <p className="text-lg mb-3">No projects match the selected filters.</p>
+            <button
+              onClick={() => { setActiveCategory('all'); setSelectedTechs([]); }}
+              className="text-sm text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors"
+            >
+              Clear all filters
+            </button>
+          </motion.div>
+        )}
+      </div>
+
+      {/* Live Preview Modal */}
+      {previewProject?.live_url && (
+        <ProjectPreviewModal
+          url={previewProject.live_url}
+          title={t(`projects.${previewProject.messageKey}.title`)}
+          onClose={() => setPreviewProject(null)}
+        />
+      )}
+    </>
   );
 }

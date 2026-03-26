@@ -370,6 +370,23 @@
     },
     "code": "קוד מקור",
     "liveDemo": "צפייה באתר",
+    "livePreview": "תצוגה מקדימה",
+    "techFilter": {
+      "all": "כל הטכנולוגיות",
+      "label": "סנן לפי טכנולוגיה"
+    },
+    "preview": {
+      "openInTab": "פתח בלשונית חדשה",
+      "close": "סגור תצוגה מקדימה",
+      "loading": "טוען תצוגה מקדימה…",
+      "blocked": "תצוגה מקדימה לא זמינה",
+      "blockedDetail": "לא ניתן להטמיע אתר זה. פתח אותו בלשונית חדשה.",
+      "openExternal": "פתח אתר",
+      "deviceDesktop": "מחשב",
+      "deviceTablet": "טאבלט",
+      "deviceMobile": "נייד",
+      "urlBar": "כתובת האתר"
+    },
     "projects": {
       "haderech": {
         "title": "HaDerech - פלטפורמת למידה",
@@ -572,5 +589,49 @@
       "title": "אנשים שמשפיעים עליי | אלעד יעקובוביץ'",
       "description": "מנטורים, מחנכים ומובילי דעה בעולם הטכנולוגיה וה-AI שעיצבו את המסע המקצועי שלי."
     }
+  },
+  "faq": {
+    "title": "שאלו אותי כל דבר",
+    "subtitle": "שאלות נפוצות על השירותים שלי, תהליך העבודה והמומחיות",
+    "chatHeader": "שאלו אותי",
+    "typingLabel": "מקליד...",
+    "suggestedLabel": "שאלות מוצעות:",
+    "questions": {
+      "services": "אילו שירותים אתה מציע?",
+      "pricing": "מה טווחי המחירים שלך?",
+      "technologies": "עם אילו טכנולוגיות אתה עובד?",
+      "availability": "האם אתה פנוי לפרויקטים חדשים?",
+      "process": "איך נראה תהליך הפיתוח שלך?",
+      "aiExpertise": "ספר לי על המומחיות שלך ב-AI",
+      "hebrew": "האם אתה תומך בפיתוח עברית ו-RTL?",
+      "contact": "איך אני יוצר איתך קשר?",
+      "timeline": "כמה זמן לוקח פרויקט טיפוסי?",
+      "support": "האם אתה מספק תמיכה לאחר השקה?"
+    },
+    "answers": {
+      "services": "אני מציע חמישה שירותי ליבה: אוטומציית AI ופיתוח צ'אטבוטים, אפליקציות Full-Stack (Node.js/Next.js/React), פלטפורמות EdTech, סדנאות טכנולוגיה לצוותים ויחידים, ומערכות אוטומציה ל-WhatsApp. כל פרויקט מקבל קוד נקי, תמיכה דו-לשונית ואספקה מוכנה לפרודקשן.",
+      "pricing": "המחיר תלוי בהיקף ומורכבות. דפי נחיתה פשוטים או כלים קטנים מתחילים מ-₪3,000–6,000. אפליקציות Full-Stack עם backend ומסד נתונים נעות בין ₪8,000–25,000. אינטגרציות AI ומערכות אוטומציה עולות בדרך כלל ₪5,000–20,000. אשמח לדון בצרכים הספציפיים שלך ולהציע הצעת מחיר מותאמת.",
+      "technologies": "ה-stack הליבתי שלי: Node.js, Next.js, React ו-TypeScript לצד שרת וצד לקוח. אני משתמש ב-PostgreSQL ו-Supabase למסדי נתונים, Prisma כ-ORM, ו-Framer Motion לאנימציות UI. ב-AI: Claude API, OpenAI, Whisper, ElevenLabs ומערכות multi-agent עם MCP.",
+      "availability": "כן, אני פנוי לפרויקטים חדשים! אני לוקח בדרך כלל 1–2 פרויקטים במקביל כדי להבטיח איכות ורספונסיביות. זמן תגובה הוא בדרך כלל תוך מספר שעות. הדרך הטובה ביותר לבדוק היא לפנות ישירות ב-WhatsApp או במייל.",
+      "process": "התהליך שלי בן ארבעה שלבים: גילוי (הבנת המטרות והמשתמשים), תכנון (ארכיטקטורה ובחירת טכנולוגיה), בנייה עם עדכונים שוטפים, והשקה עם תמיכה. אני משתמש בגישה אג'ילית עם דמואים כדי שתדע תמיד מה קורה. תקשורת ברורה בכל שלב.",
+      "aiExpertise": "בניתי מערכות מונעות AI במספר תחומים: אפליקציות שיחה קולית עם Whisper ו-ElevenLabs, NLP לעברית עם RAG pipelines, יצירת סיפורים לילדים עם סינון תוכן, מערכות אוטומציה multi-agent, ואינטגרציות Claude Code. אני גם מתחזק את דף /claude-code — מדריך למפתחים שלומדים AI tooling.",
+      "hebrew": "בהחלט — עברית ו-RTL הם התמחות מרכזית. אני בונה אפליקציות דו-לשוניות (HE/EN) עם RTL תקין, logical CSS properties, ותמיכת i18n מלאה עם next-intl. יש לי ניסיון עמוק בטיפוגרפיה עברית, פריסות מקלדת, ועדינויות פיתוח ממשק מימין-לשמאל.",
+      "contact": "ניתן ליצור איתי קשר ב-WhatsApp במספר 052-542-7474 (תגובה מהירה ביותר), במייל eladhiteclearning@gmail.com, או דרך טופס יצירת הקשר באתר. אני מגיב בדרך כלל תוך מספר שעות בימי עסקים.",
+      "timeline": "לוח הזמנים תלוי בהיקף. דף נחיתה או כלי פשוט: 1–2 שבועות. אפליקציית ווב מלאה עם backend ומסד נתונים: 4–8 שבועות. מערכות AI מורכבות או פלטפורמות גדולות: 2–4 חודשים. אתן לך הערכה ריאלית מראש — ללא הפתעות.",
+      "support": "כן! אני מציע תמיכה ותחזוקה לאחר השקה. לאחר המסירה, אני מספק בדרך כלל 2–4 שבועות של תיקונים כלולים. לתחזוקה שוטפת, אני מציע תוכניות ריטיינר חודשיות. אני גם כותב תיעוד כדי שתוכל לנהל את המערכת בעצמך אם תעדיף."
+    },
+    "followUps": {
+      "services": ["pricing", "technologies", "availability"],
+      "pricing": ["services", "timeline", "contact"],
+      "technologies": ["aiExpertise", "hebrew", "services"],
+      "availability": ["contact", "process", "timeline"],
+      "process": ["timeline", "support", "contact"],
+      "aiExpertise": ["technologies", "services", "contact"],
+      "hebrew": ["technologies", "services", "contact"],
+      "contact": ["availability", "pricing", "process"],
+      "timeline": ["process", "pricing", "contact"],
+      "support": ["pricing", "contact", "process"]
+    },
+    "initialQuestions": ["services", "aiExpertise", "availability", "hebrew"]
   }
 }

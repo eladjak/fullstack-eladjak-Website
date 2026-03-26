@@ -370,6 +370,23 @@
     },
     "code": "Source Code",
     "liveDemo": "Live Demo",
+    "livePreview": "Live Preview",
+    "techFilter": {
+      "all": "All Tech",
+      "label": "Filter by technology"
+    },
+    "preview": {
+      "openInTab": "Open in new tab",
+      "close": "Close preview",
+      "loading": "Loading preview…",
+      "blocked": "Preview unavailable",
+      "blockedDetail": "This site cannot be embedded. Open it in a new tab.",
+      "openExternal": "Open site",
+      "deviceDesktop": "Desktop",
+      "deviceTablet": "Tablet",
+      "deviceMobile": "Mobile",
+      "urlBar": "Site URL"
+    },
     "projects": {
       "haderech": {
         "title": "HaDerech - Learning Platform",
@@ -572,5 +589,49 @@
       "title": "People Who Inspire Me | Elad Ya'akobovitch",
       "description": "Mentors, educators, and thought leaders in tech and AI who have shaped my professional journey."
     }
+  },
+  "faq": {
+    "title": "Ask Me Anything",
+    "subtitle": "Common questions about my services, process, and expertise",
+    "chatHeader": "Ask Me",
+    "typingLabel": "Typing...",
+    "suggestedLabel": "Suggested questions:",
+    "questions": {
+      "services": "What services do you offer?",
+      "pricing": "What are your pricing ranges?",
+      "technologies": "What technologies do you work with?",
+      "availability": "Are you currently available for new projects?",
+      "process": "What does your development process look like?",
+      "aiExpertise": "Tell me about your AI expertise",
+      "hebrew": "Do you support Hebrew and RTL development?",
+      "contact": "How can I get in touch with you?",
+      "timeline": "How long does a typical project take?",
+      "support": "Do you provide post-launch support?"
+    },
+    "answers": {
+      "services": "I offer five core services: AI automation and chatbot development, full-stack web applications (Node.js/Next.js/React), EdTech platforms, tech workshops for teams and individuals, and WhatsApp automation systems. Every project gets clean code, bilingual support, and production-ready delivery.",
+      "pricing": "Pricing depends on scope and complexity. Small landing pages or tools start around ₪3,000–6,000. Full-stack web apps with backend and database range from ₪8,000–25,000. AI integrations and automation systems typically run ₪5,000–20,000. I'm happy to discuss your specific needs and provide a custom estimate.",
+      "technologies": "My core stack is Node.js, Next.js, React, and TypeScript for the backend and frontend. I use PostgreSQL and Supabase for databases, Prisma as an ORM, and Framer Motion for UI animations. For AI, I work with the Claude API, OpenAI, Whisper, ElevenLabs, and multi-agent systems with MCP.",
+      "availability": "Yes, I'm currently available for new projects! I typically take on 1–2 projects at a time to ensure quality and responsiveness. Response time is usually within a few hours. The best way to check is to reach out directly via WhatsApp or email.",
+      "process": "My process has four phases: Discover (understanding your goals and users), Plan (architecture and tech stack decisions), Build with regular check-ins, and Launch with support. I use agile iterations with demos so you always know what's happening. Clear communication at every step.",
+      "aiExpertise": "I've built AI-powered systems across several domains: voice conversation apps using Whisper and ElevenLabs, Hebrew NLP with RAG pipelines, children's story generation with content filtering, multi-agent automation systems, and Claude Code integrations. I also maintain the /claude-code guide page — a resource for developers learning AI tooling.",
+      "hebrew": "Absolutely — Hebrew and RTL are a core specialty. I build bilingual (HE/EN) applications with proper RTL layout, logical CSS properties, and full i18n support using next-intl. I have deep experience with Hebrew typography, keyboard layouts, and the nuances of right-to-left UI development.",
+      "contact": "You can reach me on WhatsApp at 052-542-7474 (fastest response), by email at eladhiteclearning@gmail.com, or via the contact form on this site. I usually respond within a few hours during business days.",
+      "timeline": "Timeline depends on scope. A landing page or simple tool: 1–2 weeks. A full web application with backend and database: 4–8 weeks. Complex AI systems or large platforms: 2–4 months. I'll give you a realistic estimate upfront — no surprises.",
+      "support": "Yes! I offer post-launch support and maintenance. After delivery, I typically provide 2–4 weeks of included fixes. For ongoing maintenance, I offer monthly retainer plans. I also write documentation so you can manage the system yourself if you prefer."
+    },
+    "followUps": {
+      "services": ["pricing", "technologies", "availability"],
+      "pricing": ["services", "timeline", "contact"],
+      "technologies": ["aiExpertise", "hebrew", "services"],
+      "availability": ["contact", "process", "timeline"],
+      "process": ["timeline", "support", "contact"],
+      "aiExpertise": ["technologies", "services", "contact"],
+      "hebrew": ["technologies", "services", "contact"],
+      "contact": ["availability", "pricing", "process"],
+      "timeline": ["process", "pricing", "contact"],
+      "support": ["pricing", "contact", "process"]
+    },
+    "initialQuestions": ["services", "aiExpertise", "availability", "hebrew"]
   }
 }
