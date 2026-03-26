@@ -107,3 +107,57 @@ Before designing ANY UI component, page, or layout:
 2. הרץ typecheck: `bunx tsc --noEmit`
 3. ודא build עובד לפני commit
 4. commit עם הודעה: `feat/fix/refactor: תיאור באנגלית`
+
+---
+
+## המשך פיתוח - הנחיות לסשן הבא
+
+### מה נעשה (סשנים 19+22 מרץ 2026)
+- **סשן 19:** דף שירותים חדש (5 שירותים עם מחירים), SEO מלא (JSON-LD, hreflang, geo targeting), נגישות (skip-to-content, reduced-motion, focus-visible), 11 תמונות פרויקטים, RTL logical properties, WhatsApp CTA בהירו, React Doctor 83/100
+- **סשן 22:** Hero חדש עם תמונת GitHub אמיתית (ProfileAvatar) + FloatingTechIcons, StatsBar עם מונים מונפשים, תוכן מעודכן מקורות חיים, OG images מ-Gemini, דף /claude-code הועבר מה-Hub, h-screen→h-dvh, תרגומים HE/EN
+
+### מצב נוכחי
+- **Build:** עובר נקי (22+ routes)
+- **Deploy:** Vercel, דומיין fullstack-eladjak.co.il
+- **Stack:** Next.js 14, TypeScript, Tailwind, Framer Motion
+- **נגישות:** skip-to-content, reduced-motion, focus-visible, aria-labels
+- **SEO:** JSON-LD, OG/Twitter cards, hreflang, geo targeting
+- **i18n:** HE+EN מלא בכל הדפים
+
+### מה עדיין צריך לעשות
+
+#### עדיפות גבוהה
+1. **עוד פרויקטים ב-Showcase** — הוספת screenshots אמיתיים (agent-browser או Gemini), live preview links, ו-interactive demos לפרויקטים קיימים
+2. **בלוג עם תוכן אמיתי** — לאלעד 6 בלוגים ו-83+ פוסטים. לייבא תוכן אמיתי (meharoshelhadaf, צוות תעלומה, ועוד), לא רק mock data
+3. **טופס יצירת קשר** — כרגע Resend API (כשיש key) + mailto fallback. לשקול FormSubmit.co או שירות אחר שעובד בלי setup
+
+#### עדיפות בינונית
+4. **ביצועים** — Lighthouse audit, Core Web Vitals, bundle size optimization
+5. **Mobile responsiveness** — fine-tuning לכל הדפים, בדיקה עם agent-browser
+6. **SEO per-page** — meta tags ייחודיים לכל דף (כרגע חלק משתפים את אותו meta)
+7. **Scheduling integration** — Calendly/Cal.com עם CTA "Book a Call"
+8. **CV download** — כפתור להורדת קורות חיים (PDF)
+
+#### עדיפות נמוכה
+9. **Testimonials** — כשיהיו לקוחות אמיתיים, להחליף placeholders
+10. **E2E tests** — Playwright לזרימות קריטיות
+11. **Blog strategy** — social media integration, homepage visibility
+
+### תזכורות חשובות
+- **עיצוב:** Stitch MCP לדפים/סקשנים חדשים, Gemini (nano-banana-poster) לתמונות
+- **נתוני קורות חיים:** כבר משולבים - hero, stats, skills, about. מקור: resume של אלעד
+- **WhatsApp:** 052-542-7474 (972525427474)
+- **Email:** eladhiteclearning@gmail.com
+- **React Doctor:** 83/100 — לשמור או לשפר
+- **npm ולא bun** — bun לא עובד ב-Windows MSYS
+
+
+---
+
+## Iteration Protocol (MANDATORY)
+
+This project follows the global iteration protocol:
+- Reference: `~/.claude/rules/iteration-protocol.md`
+- Update `PROGRESS.md` every 10-15 exchanges
+- End every session with verification + HTML review
+- Non-negotiable: PROGRESS.md must be updated before session ends

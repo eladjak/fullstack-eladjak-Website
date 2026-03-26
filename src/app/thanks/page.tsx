@@ -113,7 +113,9 @@ const people: Person[] = [
   {
     key: 'arielE',
     initials: 'AE',
-    links: [],
+    links: [
+      { type: 'website', url: 'https://aisrael.co.il' },
+    ],
   },
 ];
 
