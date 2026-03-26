@@ -1,12 +1,52 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-25
+## Last Updated: 2026-03-26
 
 ## Current State
-Major 3-day sprint complete. Dark-first design, 7 blog posts, Claude Code guide, CV download, 60 E2E tests, 10 live demos, 5 project facelifts, SEO per-page. 22 routes, TypeScript clean. Site live at fullstack-eladjak.co.il.
+Interactivity sprint complete. Chat FAQ on services page, live project preview modal, tech stack filters, Claude Code in nav, all 14 project images fixed. 22 routes, TypeScript clean. Site live at fullstack-eladjak.co.il.
 
 ## What Was Done
+
+### Session 2026-03-26 - Interactivity, Navigation, Project Images
+
+#### Claude Code in Navigation
+- [x] Added /claude-code link to top nav bar (between Projects and Blog)
+- [x] Added `claudeCode` translation key to en.json and he.json
+
+#### Project Images Fixed (14/14)
+- [x] Real Playwright screenshots from 6 live sites (HaDerech, Portfolio, SipurAI, Omanut, Bayit BeSeder, HTML-to-PPTX)
+- [x] Gemini AI mockups for 4 auth-gated sites (Hebrew Calendar, Team Meetings, Vacation Vibe, Customer CRM)
+- [x] Kept existing Gemini images for 4 projects without live URLs (Ninja Keyboard, Voice Chat, ZehutAI, Kidushishi)
+- [x] Unified naming: all *-screenshot.{png,jpg}, removed old mismatched files
+- [x] Updated take-screenshots.mjs script for consistent naming
+
+#### Interactive Chat FAQ (Services Page)
+- [x] New `ChatFAQ` component: chat-style Q&A with typing animation
+- [x] Clickable suggested questions → user bubble → typing dots → assistant response
+- [x] Follow-up question suggestions after each answer
+- [x] 10 bilingual Q&A pairs (services, pricing, tech stack, availability, process, AI, Hebrew/RTL, contact, timeline, support)
+- [x] Glassmorphism design, RTL support, Framer Motion animations
+- [x] Auto-scroll to latest message, mobile-first
+
+#### Live Project Preview Modal
+- [x] New `ProjectPreviewModal` component: iframe-based live site preview
+- [x] Device frame selector: Desktop (1280px), Tablet (768px), Mobile (375px)
+- [x] URL bar, open-in-new-tab button, loading spinner
+- [x] Graceful fallback for X-Frame-Options blocked sites
+- [x] AnimatePresence open/close, click-outside/Escape to close
+
+#### Tech Stack Filter Bar (Projects Page)
+- [x] Multi-select pill filters sorted by frequency across all projects
+- [x] "All Tech" reset pill + active filter count summary
+- [x] Combined filtering: category + tech stack (intersection logic)
+- [x] Animated card reflow with Framer Motion LayoutGroup
+- [x] Clicking tech badge on a card activates that tech filter
+- [x] Empty state with "Clear all filters" link
+
+#### Deployment
+- [x] 2 commits pushed: d1fbe11 (nav + images) and e1654ce (interactive features)
+- [x] Build passes clean, TypeScript clean, 22 routes
 
 ### Session 2026-03-25 - Content, Tests, SEO, UX
 
