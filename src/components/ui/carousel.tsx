@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface CarouselProps {
@@ -30,11 +30,24 @@ export function Carousel({
 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleItems, setVisibleItems] = useState(itemsPerView.mobile);
+  const [containerWidth, setContainerWidth] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const totalItems = children.length;
   const maxIndex = Math.max(0, totalItems - visibleItems);
+
+  // Measure container width
+  useEffect(() => {
+    const measure = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   // Responsive items per view
   useEffect(() => {
@@ -100,14 +113,18 @@ export function Carousel({
   const handleTouchEnd = (e: React.TouchEvent) => {
     const diff = touchStartX.current - e.changedTouches[0]!.clientX;
     if (Math.abs(diff) > 50) {
-      // RTL-aware: in RTL, swipe directions are reversed
       const isRTL = document.documentElement.dir === 'rtl';
       if (isRTL ? diff < 0 : diff > 0) goNext();
       else goPrev();
     }
   };
 
-  const itemWidth = `calc((100% - ${gap * (visibleItems - 1)}px) / ${visibleItems})`;
+  // Calculate pixel-based dimensions
+  const totalGap = gap * (visibleItems - 1);
+  const itemWidthPx = containerWidth > 0
+    ? (containerWidth - totalGap) / visibleItems
+    : 0;
+  const slideOffset = currentIndex * (itemWidthPx + gap);
 
   return (
     <div
@@ -120,9 +137,7 @@ export function Carousel({
         <motion.div
           className="flex"
           style={{ gap: `${gap}px` }}
-          animate={{
-            x: `calc(-${currentIndex} * (${itemWidth} + ${gap}px))`,
-          }}
+          animate={{ x: -slideOffset }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
@@ -131,7 +146,7 @@ export function Carousel({
             <div
               key={i}
               className="shrink-0"
-              style={{ width: itemWidth }}
+              style={{ width: itemWidthPx > 0 ? `${itemWidthPx}px` : `${100 / visibleItems}%` }}
               role="group"
               aria-roledescription="slide"
               aria-label={`Slide ${i + 1} of ${totalItems}`}
