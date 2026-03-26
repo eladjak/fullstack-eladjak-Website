@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import Image from 'next/image';
 import {
   Globe,
   Sparkles,
@@ -112,8 +113,20 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="w-full py-16 md:py-24 lg:py-32 bg-muted/20">
-      <div className="container px-4 md:px-6">
+    <section id="skills" className="relative w-full py-16 md:py-24 lg:py-32 bg-muted/20 overflow-hidden">
+      {/* Section illustration */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/section-skills.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-8"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-muted/90 to-background/80" />
+      </div>
+      <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">

@@ -135,6 +135,17 @@ export default function Navigation() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
+          {/* Mobile Menu Button - appears FIRST (start/right in RTL) on mobile */}
+          <button
+            className="md:hidden p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md"
+            onClick={toggleMenu}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+
           <Link
             href="/"
             className="text-xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
@@ -207,16 +218,8 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md"
-            onClick={toggleMenu}
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Spacer for mobile layout alignment (hamburger is at start) */}
+          <div className="md:hidden w-10" />
         </div>
       </div>
 
@@ -239,13 +242,32 @@ export default function Navigation() {
               role="dialog"
               aria-modal="true"
               aria-label="Navigation menu"
-              initial={{ x: locale === 'he' ? '-100%' : '100%' }}
+              initial={{ x: locale === 'he' ? '100%' : '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: locale === 'he' ? '-100%' : '100%' }}
+              exit={{ x: locale === 'he' ? '100%' : '-100%' }}
               transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-              className={`fixed inset-y-0 ${locale === 'he' ? 'left-0 border-e' : 'right-0 border-s'} w-64 bg-background shadow-xl md:hidden z-50`}
+              className={`fixed inset-y-0 ${locale === 'he' ? 'right-0 border-s' : 'left-0 border-e'} w-72 bg-background/95 backdrop-blur-xl shadow-xl md:hidden z-50`}
             >
-              <div className="flex flex-col p-4 pt-20">
+              <div className="flex flex-col h-full">
+                {/* Mobile menu header */}
+                <div className="flex items-center justify-between p-4 border-b border-border/30">
+                  <Link
+                    href="/"
+                    className="text-lg font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    EY.dev
+                  </Link>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-2 rounded-md hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    aria-label="Close menu"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-4">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
@@ -287,6 +309,7 @@ export default function Navigation() {
                       </button>
                     );
                   })}
+                </div>
                 </div>
               </div>
             </motion.div>

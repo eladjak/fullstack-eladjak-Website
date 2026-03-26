@@ -142,6 +142,24 @@
         "initials": "ML",
         "role": "Product Manager",
         "text": "Elad is not just a great developer, but a true partner in the process. He understands UX, suggests smart solutions, and always thinks about the end user. Highly recommended."
+      },
+      "rec4": {
+        "name": "Yuval Avidani",
+        "initials": "YA",
+        "role": "AI Content Creator & Tech Mentor",
+        "text": "Elad demonstrates endless curiosity and rapid learning ability. He grasps complex AI concepts and applies them in real projects at a pace I've rarely seen before."
+      },
+      "rec5": {
+        "name": "Noam Nissan",
+        "initials": "NN",
+        "role": "Technology Instructor",
+        "text": "Elad's persistence is exceptional. He never gives up on problems and searches for creative solutions until he achieves a perfect result. A rare quality to find."
+      },
+      "rec6": {
+        "name": "Roey Tzezana",
+        "initials": "RT",
+        "role": "Futurist & Technology Researcher",
+        "text": "Elad understands that the future is a blend of humanity and technology. His projects reflect this vision — technically brilliant yet accessible and human."
       }
     }
   },

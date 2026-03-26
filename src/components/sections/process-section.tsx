@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { MessageSquare, Lightbulb, Code2, Rocket } from 'lucide-react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
@@ -18,8 +19,20 @@ export default function ProcessSection() {
   const t = useTranslations('process');
 
   return (
-    <section className="w-full py-16 md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
+    <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
+      {/* Section illustration */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/section-process.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-8"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      </div>
+      <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">

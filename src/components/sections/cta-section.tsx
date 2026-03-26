@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Sparkles, Code2, Zap } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -14,6 +15,17 @@ export default function CTASection() {
 
   return (
     <section id="cta" className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
+      {/* Section illustration */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/section-cta.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-10"
+          loading="lazy"
+          aria-hidden="true"
+        />
+      </div>
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
       <div className="absolute top-1/2 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/8 blur-2xl pointer-events-none" />

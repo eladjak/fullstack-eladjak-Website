@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { Globe, Twitter, Github, Linkedin, GraduationCap, Youtube, Facebook, Instagram, Send } from 'lucide-react';
+import Image from 'next/image';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { useMetaTags } from '@/hooks/useMetaTags';
 import { useTranslations } from 'next-intl';
+import { useLocale } from '@/components/providers/locale-provider';
 
 const GRADIENT_COLORS = [
   'from-violet-500 to-purple-600',
@@ -22,9 +24,28 @@ interface PersonLink {
   url: string;
 }
 
+type PersonCategory = 'ai' | 'dev' | 'educator' | 'creator' | 'futurist';
+
+const categoryColors: Record<PersonCategory, string> = {
+  ai: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+  dev: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+  educator: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  creator: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  futurist: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
+};
+
+const categoryLabels: Record<PersonCategory, { he: string; en: string }> = {
+  ai: { he: 'AI', en: 'AI' },
+  dev: { he: 'פיתוח', en: 'Dev' },
+  educator: { he: 'חינוך', en: 'Education' },
+  creator: { he: 'יוצר', en: 'Creator' },
+  futurist: { he: 'עתידנות', en: 'Futurism' },
+};
+
 interface Person {
   key: string;
   initials: string;
+  category: PersonCategory;
   links: PersonLink[];
 }
 
@@ -32,8 +53,10 @@ const people: Person[] = [
   {
     key: 'yuval',
     initials: 'YA',
+    category: 'ai',
     links: [
       { type: 'website', url: 'https://yuv.ai' },
+      { type: 'linkedin', url: 'https://linkedin.com/in/yuval-avidani-87081474' },
       { type: 'twitter', url: 'https://x.com/yuvalav' },
       { type: 'github', url: 'https://github.com/hoodini' },
     ],
@@ -41,19 +64,23 @@ const people: Person[] = [
   {
     key: 'avitz',
     initials: 'AV',
+    category: 'ai',
     links: [
       { type: 'website', url: 'https://aviz.live' },
       { type: 'twitter', url: 'https://x.com/avitz' },
+      { type: 'youtube', url: 'https://youtube.com/@avitz' },
     ],
   },
   {
     key: 'noam',
     initials: 'NN',
+    category: 'educator',
     links: [],
   },
   {
     key: 'gal',
     initials: 'GH',
+    category: 'dev',
     links: [
       { type: 'github', url: 'https://github.com/Quegenx' },
     ],
@@ -61,21 +88,27 @@ const people: Person[] = [
   {
     key: 'roey',
     initials: 'RT',
+    category: 'futurist',
     links: [
       { type: 'website', url: 'https://curatingthefuture.com' },
       { type: 'twitter', url: 'https://x.com/blazing_science' },
+      { type: 'youtube', url: 'https://youtube.com/@curatingthefuture' },
     ],
   },
   {
     key: 'roi',
     initials: 'RY',
+    category: 'ai',
     links: [
       { type: 'website', url: 'https://yozevitch.com' },
+      { type: 'linkedin', url: 'https://linkedin.com/in/dr-roy-yozevitch-8a44516b' },
+      { type: 'facebook', url: 'https://facebook.com/Yozevitch.Roi' },
     ],
   },
   {
     key: 'nadav',
     initials: 'NV',
+    category: 'creator',
     links: [
       { type: 'linkedin', url: 'https://linkedin.com/in/nadav-naveh' },
       { type: 'twitter', url: 'https://x.com/Nadav__Naveh' },
@@ -84,14 +117,17 @@ const people: Person[] = [
   {
     key: 'guy',
     initials: 'GA',
+    category: 'ai',
     links: [
       { type: 'website', url: 'https://ai-academy.co.il' },
       { type: 'linkedin', url: 'https://linkedin.com/in/guyaga' },
+      { type: 'facebook', url: 'https://facebook.com/Guyaga' },
     ],
   },
   {
     key: 'yuvalK',
     initials: 'YK',
+    category: 'creator',
     links: [
       { type: 'website', url: 'https://newsletter.aimakerslab.io' },
       { type: 'linkedin', url: 'https://linkedin.com/in/yuvalkesh' },
@@ -101,20 +137,25 @@ const people: Person[] = [
   {
     key: 'alexanderK',
     initials: 'AK',
+    category: 'dev',
     links: [
       { type: 'website', url: 'https://alekapit.com' },
+      { type: 'linkedin', url: 'https://linkedin.com/in/akapit' },
     ],
   },
   {
     key: 'danielT',
     initials: 'DT',
+    category: 'educator',
     links: [],
   },
   {
     key: 'arielE',
     initials: 'AE',
+    category: 'ai',
     links: [
       { type: 'website', url: 'https://aisrael.co.il' },
+      { type: 'linkedin', url: 'https://linkedin.com/in/ariel-eisen' },
     ],
   },
 ];
@@ -132,6 +173,7 @@ const linkIcons = {
 
 export default function ThanksPage() {
   const t = useTranslations('thanksPage');
+  const { locale } = useLocale();
 
   useMetaTags({
     title: "אנשים שמשפיעים עליי | אלעד יעקובוביץ'",
@@ -145,6 +187,17 @@ export default function ThanksPage() {
       <main className="flex-1">
         {/* Hero */}
         <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden">
+          {/* Hero illustration */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/section-thanks.jpg"
+              alt=""
+              fill
+              className="object-cover opacity-15"
+              priority
+              aria-hidden="true"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
           <div className="absolute top-20 start-10 w-72 h-72 rounded-full bg-primary/5 blur-3xl" />
           <div className="absolute bottom-10 end-10 w-56 h-56 rounded-full bg-accent/5 blur-3xl" />
@@ -187,6 +240,13 @@ export default function ThanksPage() {
                   <div className="group relative h-full">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative flex flex-col h-full p-6 rounded-xl bg-card border border-border/50 backdrop-blur-sm hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
+                      {/* Category badge */}
+                      <div className="absolute top-3 end-3">
+                        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${categoryColors[person.category]}`}>
+                          {categoryLabels[person.category][locale === 'he' ? 'he' : 'en']}
+                        </span>
+                      </div>
+
                       {/* Avatar */}
                       <div className="flex items-start gap-4 mb-4">
                         <div className={`flex-shrink-0 h-14 w-14 rounded-full bg-gradient-to-br ${GRADIENT_COLORS[index % GRADIENT_COLORS.length]} flex items-center justify-center shadow-md shadow-primary/20`}>

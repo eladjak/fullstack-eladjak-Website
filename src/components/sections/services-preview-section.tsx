@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Bot, Code2, GraduationCap, Presentation, MessageCircle, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -19,8 +20,20 @@ export default function ServicesPreviewSection() {
   const tNav = useTranslations('nav');
 
   return (
-    <section id="services" className="w-full py-16 md:py-24">
-      <div className="container px-4 md:px-6">
+    <section id="services" className="relative w-full py-16 md:py-24 overflow-hidden">
+      {/* Section illustration */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/section-services.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-8"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      </div>
+      <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">

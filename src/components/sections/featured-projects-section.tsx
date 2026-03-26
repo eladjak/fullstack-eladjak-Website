@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { Carousel } from '@/components/ui/carousel';
 import TiltedCard from '@/components/ui/tilted-card';
 
 interface StaticProject {
@@ -133,7 +134,59 @@ export default function FeaturedProjectsSection() {
           </div>
         </ScrollAnimate>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile: horizontal carousel */}
+        <div className="sm:hidden px-2">
+          <Carousel
+            autoPlay={4000}
+            showDots={true}
+            showArrows={false}
+            itemsPerView={{ mobile: 1, tablet: 1, desktop: 1 }}
+            gap={16}
+          >
+            {staticProjects.slice(0, 6).map((project) => (
+              <div key={project.id} className="group">
+                <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden">
+                  <div className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}>
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={project.icon}
+                        fill
+                        className="object-cover object-top"
+                        sizes="90vw"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="text-2xl font-bold text-primary/80">{project.icon}</span>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold mb-1">{t(`projects.${project.messageKey}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{t(`projects.${project.messageKey}.description`)}</p>
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {project.technologies.slice(0, 3).map((tech) => (
+                        <span key={tech} className="inline-flex items-center rounded-full bg-primary/5 px-2 py-0.5 text-xs font-medium text-primary">{tech}</span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                        <Github className="h-4 w-4" /> {t('code')}
+                      </a>
+                      {project.live_url && (
+                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                          <ExternalLink className="h-4 w-4" /> {t('liveDemo')}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Carousel>
+        </div>
+
+        {/* Desktop: grid layout */}
+        <div className="hidden sm:grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {staticProjects.map((project, index) => (
             <div key={project.id} className="group scroll-scale">
               <TiltedCard tiltStrength={8} className="h-full">
