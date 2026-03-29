@@ -27,7 +27,7 @@ export default function ServicesPreviewSection() {
           src="/images/section-services.jpg"
           alt=""
           fill
-          className="object-cover opacity-8"
+          className="object-cover opacity-[0.06]"
           loading="lazy"
           aria-hidden="true"
         />

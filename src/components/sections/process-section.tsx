@@ -26,7 +26,7 @@ export default function ProcessSection() {
           src="/images/section-process.jpg"
           alt=""
           fill
-          className="object-cover opacity-8"
+          className="object-cover opacity-[0.06]"
           loading="lazy"
           aria-hidden="true"
         />

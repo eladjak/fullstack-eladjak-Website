@@ -29,11 +29,11 @@ export default function RecommendationsSection() {
           src="/images/section-testimonials.jpg"
           alt=""
           fill
-          className="object-cover opacity-10"
+          className="object-cover opacity-[0.06]"
           loading="lazy"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background/95" />
       </div>
 
       <div className="container relative z-10 px-4 md:px-6">

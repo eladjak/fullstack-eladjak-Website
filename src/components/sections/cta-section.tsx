@@ -21,7 +21,7 @@ export default function CTASection() {
           src="/images/section-cta.jpg"
           alt=""
           fill
-          className="object-cover opacity-10"
+          className="object-cover opacity-[0.06]"
           loading="lazy"
           aria-hidden="true"
         />

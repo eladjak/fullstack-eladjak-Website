@@ -193,7 +193,7 @@ export default function ThanksPage() {
               src="/images/section-thanks.jpg"
               alt=""
               fill
-              className="object-cover opacity-15"
+              className="object-cover opacity-[0.08]"
               priority
               aria-hidden="true"
             />
