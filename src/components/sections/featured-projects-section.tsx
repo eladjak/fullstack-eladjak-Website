@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
-import { Carousel } from '@/components/ui/carousel';
 import TiltedCard from '@/components/ui/tilted-card';
 
 interface StaticProject {
@@ -134,26 +133,21 @@ export default function FeaturedProjectsSection() {
           </div>
         </ScrollAnimate>
 
-        {/* Mobile: horizontal carousel */}
-        <div className="sm:hidden px-2">
-          <Carousel
-            autoPlay={4000}
-            showDots={true}
-            showArrows={false}
-            itemsPerView={{ mobile: 1, tablet: 1, desktop: 1 }}
-            gap={16}
-          >
+
+        {/* Mobile: native scroll-snap carousel (no JS measurement needed) */}
+        <div className="sm:hidden -mx-4">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 scrollbar-hide">
             {staticProjects.slice(0, 6).map((project) => (
-              <div key={project.id} className="group">
+              <div key={project.id} className="snap-center shrink-0 w-[85vw] group">
                 <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden">
-                  <div className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}>
+                  <div className={`relative h-40 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}>
                     {project.image ? (
                       <Image
                         src={project.image}
                         alt={project.icon}
                         fill
                         className="object-cover object-top"
-                        sizes="90vw"
+                        sizes="85vw"
                         loading="lazy"
                       />
                     ) : (
@@ -182,7 +176,8 @@ export default function FeaturedProjectsSection() {
                 </div>
               </div>
             ))}
-          </Carousel>
+          </div>
+          <p className="text-center text-xs text-muted-foreground/50 mt-2">← החליקו לעוד פרויקטים →</p>
         </div>
 
         {/* Desktop: grid layout */}
