@@ -128,13 +128,26 @@ export default function SkillsSection() {
       </div>
       <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-              {t('title')}
-            </h2>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-              {t('subtitle')}
-            </p>
+          <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+            {/* Section illustration */}
+            <div className="relative w-48 h-32 md:w-64 md:h-44 rounded-2xl overflow-hidden shrink-0 border border-border/30 shadow-lg shadow-primary/5">
+              <Image
+                src="/images/illustration-skills.jpg"
+                alt=""
+                fill
+                className="object-cover"
+                loading="lazy"
+                aria-hidden="true"
+              />
+            </div>
+            <div className="text-center md:text-start flex-1">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                {t('title')}
+              </h2>
+              <p className="mx-auto md:mx-0 max-w-[700px] text-muted-foreground md:text-lg">
+                {t('subtitle')}
+              </p>
+            </div>
           </div>
         </ScrollAnimate>
 

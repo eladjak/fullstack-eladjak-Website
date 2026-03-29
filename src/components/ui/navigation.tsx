@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
@@ -48,31 +48,28 @@ export default function Navigation() {
   const t = useTranslations('nav');
   const { locale, setLocale } = useLocale();
   const pathname = usePathname();
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close mobile menu on Escape
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsOpen(false);
-      }
+      if (e.key === 'Escape') setIsOpen(false);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   // Close language dropdown on click outside
   useEffect(() => {
@@ -83,9 +80,7 @@ export default function Navigation() {
       }
     };
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setLangDropdownOpen(false);
-      }
+      if (e.key === 'Escape') setLangDropdownOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleKeyDown);
@@ -97,15 +92,9 @@ export default function Navigation() {
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   const navItems = [
     { href: '/', label: t('home') },
@@ -123,157 +112,162 @@ export default function Navigation() {
     return pathname.startsWith(href);
   };
 
+  const isRTL = locale === 'he';
+
   return (
-    <nav
-      role="navigation"
-      aria-label="Main navigation"
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/70 backdrop-blur-xl shadow-lg border-b border-primary/10'
-          : 'bg-background/40 backdrop-blur-md'
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Mobile Menu Button - appears FIRST (start/right in RTL) on mobile */}
-          <button
-            className="md:hidden p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md"
-            onClick={toggleMenu}
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+    <>
+      <nav
+        role="navigation"
+        aria-label="Main navigation"
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-background/70 backdrop-blur-xl shadow-lg border-b border-primary/10'
+            : 'bg-background/40 backdrop-blur-md'
+        }`}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo - always visible, always at end (left in RTL) */}
+            <Link
+              href="/"
+              className="text-xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm order-2 md:order-first"
+              aria-label="EY.dev - Home"
+            >
+              EY.dev
+            </Link>
 
-          <Link
-            href="/"
-            className="text-xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
-            aria-label="EY.dev - Home"
-          >
-            EY.dev
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
-                  isActive(item.href) ? 'text-primary font-semibold' : ''
-                }`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <CommandPalette />
-            <ThemeToggle />
-            {/* Language Dropdown - keyboard accessible */}
-            <div className="relative" ref={langDropdownRef}>
-              <button
-                className="flex items-center gap-1.5 text-foreground/80 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1 py-0.5"
-                aria-label="Switch language"
-                aria-expanded={langDropdownOpen}
-                aria-haspopup="listbox"
-                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              >
-                {(() => {
-                  const current = languages.find((l) => l.code === locale);
-                  if (!current) return null;
-                  const { Flag } = current;
-                  return <Flag className="h-5 w-5 rounded-sm overflow-hidden" />;
-                })()}
-                <span className="text-sm">{languages.find((l) => l.code === locale)?.name}</span>
-              </button>
-              {langDropdownOpen && (
-                <div
-                  className="absolute end-0 mt-2 w-40 bg-background border rounded-md shadow-lg"
-                  role="listbox"
-                  aria-label="Select language"
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-sm text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
+                    isActive(item.href) ? 'text-primary font-semibold' : ''
+                  }`}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
                 >
-                  {languages.map((lang) => {
-                    const { Flag } = lang;
-                    return (
-                      <button
-                        key={lang.code}
-                        role="option"
-                        aria-selected={locale === lang.code}
-                        onClick={() => {
-                          setLocale(lang.code);
-                          setLangDropdownOpen(false);
-                        }}
-                        className={`flex items-center gap-2 w-full text-start px-4 py-2 hover:bg-muted text-sm transition-colors focus-visible:outline-none focus-visible:bg-muted ${
-                          locale === lang.code ? 'text-primary font-medium' : ''
-                        }`}
-                      >
-                        <Flag className="h-4 w-4 rounded-sm" />
-                        {lang.name}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+                  {item.label}
+                </Link>
+              ))}
+              <CommandPalette />
+              <ThemeToggle />
+              {/* Language Dropdown */}
+              <div className="relative" ref={langDropdownRef}>
+                <button
+                  className="flex items-center gap-1.5 text-foreground/80 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-1 py-0.5"
+                  aria-label="Switch language"
+                  aria-expanded={langDropdownOpen}
+                  aria-haspopup="listbox"
+                  onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                >
+                  {(() => {
+                    const current = languages.find((l) => l.code === locale);
+                    if (!current) return null;
+                    const { Flag } = current;
+                    return <Flag className="h-5 w-5 rounded-sm overflow-hidden" />;
+                  })()}
+                  <span className="text-sm">{languages.find((l) => l.code === locale)?.name}</span>
+                </button>
+                {langDropdownOpen && (
+                  <div
+                    className="absolute end-0 mt-2 w-40 bg-background border rounded-md shadow-lg z-50"
+                    role="listbox"
+                    aria-label="Select language"
+                  >
+                    {languages.map((lang) => {
+                      const { Flag } = lang;
+                      return (
+                        <button
+                          key={lang.code}
+                          role="option"
+                          aria-selected={locale === lang.code}
+                          onClick={() => {
+                            setLocale(lang.code);
+                            setLangDropdownOpen(false);
+                          }}
+                          className={`flex items-center gap-2 w-full text-start px-4 py-2 hover:bg-muted text-sm transition-colors focus-visible:outline-none focus-visible:bg-muted ${
+                            locale === lang.code ? 'text-primary font-medium' : ''
+                          }`}
+                        >
+                          <Flag className="h-4 w-4 rounded-sm" />
+                          {lang.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
+
+            {/* Mobile: Hamburger button - at start (right in RTL) */}
+            <button
+              className="md:hidden p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md order-1 md:order-none"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
           </div>
-
-          {/* Spacer for mobile layout alignment (hamburger is at start) */}
-          <div className="md:hidden w-10" />
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Navigation */}
+      {/* ═══ Mobile Navigation Drawer ═══ */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop overlay */}
+            {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-background/50 backdrop-blur-sm md:hidden z-40"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden z-[60]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
               aria-hidden="true"
             />
+
+            {/* Drawer panel */}
             <motion.div
-              ref={mobileMenuRef}
               id="mobile-menu"
               role="dialog"
               aria-modal="true"
-              aria-label="Navigation menu"
-              initial={{ x: locale === 'he' ? '100%' : '-100%' }}
+              aria-label="תפריט ניווט"
+              initial={{ x: isRTL ? '100%' : '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: locale === 'he' ? '100%' : '-100%' }}
-              transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-              className={`fixed inset-y-0 ${locale === 'he' ? 'right-0 border-s' : 'left-0 border-e'} w-72 bg-background/95 backdrop-blur-xl shadow-xl md:hidden z-50`}
+              exit={{ x: isRTL ? '100%' : '-100%' }}
+              transition={{ type: 'spring', bounce: 0, duration: 0.35 }}
+              className={`fixed inset-y-0 ${isRTL ? 'right-0' : 'left-0'} w-[280px] bg-background shadow-2xl md:hidden z-[70] flex flex-col`}
             >
-              <div className="flex flex-col h-full">
-                {/* Mobile menu header */}
-                <div className="flex items-center justify-between p-4 border-b border-border/30">
-                  <Link
-                    href="/"
-                    className="text-lg font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    EY.dev
-                  </Link>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-md hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                    aria-label="Close menu"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
+              {/* Drawer header */}
+              <div className="flex items-center justify-between h-16 px-4 border-b border-border/30 shrink-0">
+                <Link
+                  href="/"
+                  className="text-lg font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                  onClick={() => setIsOpen(false)}
+                >
+                  EY.dev
+                </Link>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  aria-label="סגור תפריט"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
 
-                <div className="flex-1 overflow-y-auto p-4">
+              {/* Nav links */}
+              <div className="flex-1 overflow-y-auto py-2">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`py-3 px-2 text-foreground/80 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md ${
-                      isActive(item.href) ? 'text-primary font-medium' : ''
+                    className={`block py-3 px-6 text-base transition-colors ${
+                      isActive(item.href)
+                        ? 'text-primary font-medium bg-primary/5 border-e-2 border-primary'
+                        : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
                     }`}
                     aria-current={isActive(item.href) ? 'page' : undefined}
                     onClick={() => setIsOpen(false)}
@@ -281,13 +275,15 @@ export default function Navigation() {
                     {item.label}
                   </Link>
                 ))}
-                <div className="border-t my-4" />
-                <div className="flex items-center justify-between py-2 px-2">
-                  <span className="text-foreground/80">{t('theme')}</span>
+              </div>
+
+              {/* Drawer footer: theme + language */}
+              <div className="border-t border-border/30 p-4 space-y-3 shrink-0">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">{t('theme')}</span>
                   <ThemeToggle />
                 </div>
-                <div className="border-t my-4" />
-                <div className="space-y-1">
+                <div className="flex gap-2">
                   {languages.map((lang) => {
                     const { Flag } = lang;
                     return (
@@ -297,25 +293,24 @@ export default function Navigation() {
                           setLocale(lang.code);
                           setIsOpen(false);
                         }}
-                        className={`flex items-center gap-2 w-full text-start py-3 px-2 transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                        className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-sm font-medium transition-colors ${
                           locale === lang.code
-                            ? 'text-primary font-medium'
-                            : 'text-foreground/80 hover:text-foreground'
+                            ? 'bg-primary/10 text-primary border border-primary/20'
+                            : 'bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted'
                         }`}
                         aria-label={`Switch to ${lang.name}`}
                       >
-                        <Flag className="h-5 w-5 rounded-sm" />
+                        <Flag className="h-4 w-4 rounded-sm" />
                         {lang.name}
                       </button>
                     );
                   })}
-                </div>
                 </div>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

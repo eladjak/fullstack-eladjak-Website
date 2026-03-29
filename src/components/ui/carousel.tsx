@@ -37,17 +37,19 @@ export function Carousel({
   const totalItems = children.length;
   const maxIndex = Math.max(0, totalItems - visibleItems);
 
-  // Measure container width
+  // Measure container width (with retry for SSR/hydration)
   useEffect(() => {
     const measure = () => {
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
     };
+    // Measure after layout paint
     measure();
+    requestAnimationFrame(measure);
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
-  }, []);
+  }, [visibleItems]);
 
   // Responsive items per view
   useEffect(() => {
@@ -146,7 +148,7 @@ export function Carousel({
             <div
               key={i}
               className="shrink-0"
-              style={{ width: itemWidthPx > 0 ? `${itemWidthPx}px` : `${100 / visibleItems}%` }}
+              style={{ width: itemWidthPx > 0 ? `${itemWidthPx}px` : '100%' }}
               role="group"
               aria-roledescription="slide"
               aria-label={`Slide ${i + 1} of ${totalItems}`}

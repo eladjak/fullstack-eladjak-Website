@@ -32,16 +32,28 @@ export default function CTASection() {
 
       <div className="container relative px-4 md:px-6">
         <ScrollAnimate>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
-              {t('title')}
-            </h2>
-            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg mb-2">
-              {t('subtitle')}
-            </p>
-            <p className="text-sm font-medium text-primary/80">
-              {t('availability')}
-            </p>
+          <div className="flex flex-col items-center gap-6 mb-12">
+            <div className="relative w-56 h-36 md:w-72 md:h-48 rounded-2xl overflow-hidden border border-border/30 shadow-lg shadow-primary/10">
+              <Image
+                src="/images/illustration-cta.jpg"
+                alt=""
+                fill
+                className="object-cover"
+                loading="lazy"
+                aria-hidden="true"
+              />
+            </div>
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
+                {t('title')}
+              </h2>
+              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg mb-2">
+                {t('subtitle')}
+              </p>
+              <p className="text-sm font-medium text-primary/80">
+                {t('availability')}
+              </p>
+            </div>
           </div>
         </ScrollAnimate>
 

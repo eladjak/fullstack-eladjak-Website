@@ -34,13 +34,25 @@ export default function ProcessSection() {
       </div>
       <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
-              {t('title')}
-            </h2>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-              {t('subtitle')}
-            </p>
+          <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
+            <div className="relative w-48 h-32 md:w-64 md:h-44 rounded-2xl overflow-hidden shrink-0 border border-border/30 shadow-lg shadow-primary/5">
+              <Image
+                src="/images/illustration-process.jpg"
+                alt=""
+                fill
+                className="object-cover"
+                loading="lazy"
+                aria-hidden="true"
+              />
+            </div>
+            <div className="text-center md:text-start flex-1">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
+                {t('title')}
+              </h2>
+              <p className="mx-auto md:mx-0 max-w-[700px] text-muted-foreground md:text-lg">
+                {t('subtitle')}
+              </p>
+            </div>
           </div>
         </ScrollAnimate>
 
@@ -60,15 +72,13 @@ export default function ProcessSection() {
                   className={`relative text-center group ${slideClass} rounded-2xl border border-transparent hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 p-4`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Step number */}
-                  <div className="text-6xl font-bold text-muted-foreground/10 absolute -top-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 select-none shadow-sm shadow-primary/20">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-
-                  {/* Icon */}
+                  {/* Step number + Icon combined */}
                   <div className="relative mx-auto mb-5">
-                    <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="h-7 w-7" />
+                    <div className="text-5xl font-bold text-muted-foreground/10 select-none mb-2">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="h-6 w-6" />
                     </div>
                   </div>
 
