@@ -46,6 +46,7 @@ interface Person {
   key: string;
   initials: string;
   category: PersonCategory;
+  photo?: string;
   links: PersonLink[];
 }
 
@@ -54,6 +55,7 @@ const people: Person[] = [
     key: 'yuval',
     initials: 'YA',
     category: 'ai',
+    photo: '/images/mentors/yuval-avidani.jpg',
     links: [
       { type: 'website', url: 'https://yuv.ai' },
       { type: 'linkedin', url: 'https://linkedin.com/in/yuval-avidani-87081474' },
@@ -65,6 +67,7 @@ const people: Person[] = [
     key: 'avitz',
     initials: 'AV',
     category: 'ai',
+    photo: '/images/mentors/avitz.jpg',
     links: [
       { type: 'website', url: 'https://aviz.live' },
       { type: 'twitter', url: 'https://x.com/avitz' },
@@ -81,6 +84,7 @@ const people: Person[] = [
     key: 'gal',
     initials: 'GH',
     category: 'dev',
+    photo: '/images/mentors/gal-havkin.jpg',
     links: [
       { type: 'github', url: 'https://github.com/Quegenx' },
     ],
@@ -89,6 +93,7 @@ const people: Person[] = [
     key: 'roey',
     initials: 'RT',
     category: 'futurist',
+    photo: '/images/mentors/roey-tzezana.jpg',
     links: [
       { type: 'website', url: 'https://curatingthefuture.com' },
       { type: 'twitter', url: 'https://x.com/blazing_science' },
@@ -99,6 +104,7 @@ const people: Person[] = [
     key: 'roi',
     initials: 'RY',
     category: 'ai',
+    photo: '/images/mentors/roi-yozevitch.png',
     links: [
       { type: 'website', url: 'https://yozevitch.com' },
       { type: 'linkedin', url: 'https://linkedin.com/in/dr-roy-yozevitch-8a44516b' },
@@ -249,11 +255,24 @@ export default function ThanksPage() {
 
                       {/* Avatar */}
                       <div className="flex items-start gap-4 mb-4">
-                        <div className={`flex-shrink-0 h-14 w-14 rounded-full bg-gradient-to-br ${GRADIENT_COLORS[index % GRADIENT_COLORS.length]} flex items-center justify-center shadow-md shadow-primary/20`}>
-                          <span className="text-sm font-bold text-white">
-                            {person.initials}
-                          </span>
-                        </div>
+                        {person.photo ? (
+                          <div className={`flex-shrink-0 h-14 w-14 rounded-full bg-gradient-to-br ${GRADIENT_COLORS[index % GRADIENT_COLORS.length]} p-[2px] shadow-md shadow-primary/20`}>
+                            <Image
+                              src={person.photo}
+                              alt={t(`people.${person.key}.name`)}
+                              width={56}
+                              height={56}
+                              className="rounded-full object-cover w-full h-full"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className={`flex-shrink-0 h-14 w-14 rounded-full bg-gradient-to-br ${GRADIENT_COLORS[index % GRADIENT_COLORS.length]} flex items-center justify-center shadow-md shadow-primary/20`}>
+                            <span className="text-sm font-bold text-white">
+                              {person.initials}
+                            </span>
+                          </div>
+                        )}
                         <div className="min-w-0">
                           <h3 className="font-semibold text-lg leading-tight">
                             {t(`people.${person.key}.name`)}
