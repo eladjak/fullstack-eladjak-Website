@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import {
   Github,
   Linkedin,
@@ -64,10 +65,15 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <div className="relative shadow-lg shadow-primary/10">
-                  <div className="h-28 w-28 rounded-full bg-gradient-to-br from-primary to-accent p-[3px]">
-                    <div className="h-full w-full rounded-full bg-background flex items-center justify-center">
-                      <span className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">EY</span>
-                    </div>
+                  <div className="h-32 w-32 rounded-full bg-gradient-to-br from-primary to-accent p-[3px]">
+                    <Image
+                      src="https://avatars.githubusercontent.com/u/108827199?v=4"
+                      alt="אלעד יעקובוביץ'"
+                      width={128}
+                      height={128}
+                      className="rounded-full object-cover"
+                      priority
+                    />
                   </div>
                   <div className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-emerald-500 border-4 border-background flex items-center justify-center">
                     <span className="text-white text-xs">&#10003;</span>
