@@ -4,13 +4,14 @@ import { type ReactNode } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 import { LocaleProvider } from '@/components/providers/locale-provider';
-import { AuthProvider } from '@/lib/auth';
 import Navigation from '@/components/ui/navigation';
 import Footer from '@/components/ui/footer';
 import { PageTransition } from '@/components/ui/page-transition';
 import { SpotlightCursor } from '@/components/ui/spotlight';
 import { WhatsAppFAB } from '@/components/ui/whatsapp-fab';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -28,7 +29,6 @@ export function ClientLayout({ children }: ClientLayoutProps) {
   return (
     <LocaleProvider>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <AuthProvider>
           {/* Skip to content link - WCAG 2.4.1 / IS 5568 */}
           <a
             href="#main-content"
@@ -47,7 +47,8 @@ export function ClientLayout({ children }: ClientLayoutProps) {
           <ScrollToTop />
           <SpotlightCursor />
           <Toaster />
-        </AuthProvider>
+          <Analytics />
+          <SpeedInsights />
       </ThemeProvider>
     </LocaleProvider>
   );

@@ -160,7 +160,37 @@ export async function POST(request: Request) {
     const contactEmail = process.env.CONTACT_EMAIL || 'elad@hiteclearning.co.il';
 
     if (!resendApiKey) {
-      // No Resend API key - return mailto fallback info
+      // No Resend API key - try Web3Forms before mailto fallback
+      const web3formsKey = process.env.WEB3FORMS_ACCESS_KEY;
+
+      if (web3formsKey) {
+        try {
+          const web3Response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              access_key: web3formsKey,
+              name: data.name,
+              email: data.email,
+              subject: `[Portfolio] ${data.subject}`,
+              message: data.message,
+              from_name: 'Portfolio Contact Form',
+            }),
+          });
+
+          const web3Result = await web3Response.json() as { success: boolean };
+
+          if (web3Result.success) {
+            return NextResponse.json({ success: true });
+          }
+
+          console.error('Web3Forms submission failed:', web3Result);
+        } catch (web3Error) {
+          console.error('Web3Forms error:', web3Error);
+        }
+      }
+
+      // Neither Resend nor Web3Forms configured/working - return mailto fallback
       return NextResponse.json(
         { success: false, fallback: 'mailto', email: contactEmail },
         { status: 200 }

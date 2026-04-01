@@ -8,8 +8,13 @@ import { usePathname } from 'next/navigation';
 import ThemeToggle from './theme-toggle';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
-import { CommandPalette } from '@/components/ui/command-palette';
+import dynamic from 'next/dynamic';
 import type { Locale } from '@/i18n';
+
+const CommandPalette = dynamic(
+  () => import('@/components/ui/command-palette').then((m) => m.CommandPalette),
+  { ssr: false }
+);
 
 /** Inline Israel flag SVG (for Hebrew) */
 function FlagIL({ className }: { className?: string }) {

@@ -210,7 +210,14 @@
   "blog": {
     "latestPosts": "פוסטים אחרונים",
     "subtitle": "מחשבות על פיתוח, טכנולוגיה ועוד",
-    "readMore": "קרא עוד פוסטים"
+    "readMore": "קרא עוד פוסטים",
+    "share": {
+      "twitter": "שתף ב-X",
+      "linkedin": "שתף ב-LinkedIn",
+      "whatsapp": "שתף בוואטסאפ",
+      "copyLink": "העתק קישור",
+      "copied": "הקישור הועתק!"
+    }
   },
   "blogPage": {
     "title": "בלוג",

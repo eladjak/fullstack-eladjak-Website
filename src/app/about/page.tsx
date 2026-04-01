@@ -71,6 +71,7 @@ export default function AboutPage() {
                       alt="אלעד יעקובוביץ'"
                       width={128}
                       height={128}
+                      sizes="128px"
                       className="rounded-full object-cover"
                       priority
                     />

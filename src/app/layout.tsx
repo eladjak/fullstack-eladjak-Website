@@ -1,6 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import { Assistant, Heebo } from "next/font/google";
-import { type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
 import { ClientLayout } from "@/components/providers/client-layout";
@@ -55,6 +55,9 @@ export const metadata: Metadata = {
       'he-IL': SITE_URL,
       'en': `${SITE_URL}/en`,
     },
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
   },
   openGraph: {
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
@@ -89,6 +92,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  other: {
+    'theme-color': '#050810',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#050810',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -109,7 +121,6 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
         {/* PWA Meta Tags */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#8b5cf6" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />

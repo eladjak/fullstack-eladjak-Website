@@ -5,8 +5,13 @@ import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { Github, ExternalLink, Eye } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
-import { ProjectPreviewModal } from '@/components/ui/project-preview-modal';
+
+const ProjectPreviewModal = dynamic(
+  () => import('@/components/ui/project-preview-modal').then((m) => m.ProjectPreviewModal),
+  { ssr: false }
+);
 
 type Category = 'all' | 'web' | 'ai' | 'tools';
 

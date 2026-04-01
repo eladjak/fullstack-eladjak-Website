@@ -210,7 +210,14 @@
   "blog": {
     "latestPosts": "Latest Posts",
     "subtitle": "Thoughts on development, technology, and more",
-    "readMore": "Read More Posts"
+    "readMore": "Read More Posts",
+    "share": {
+      "twitter": "Share on X",
+      "linkedin": "Share on LinkedIn",
+      "whatsapp": "Share on WhatsApp",
+      "copyLink": "Copy Link",
+      "copied": "Link copied!"
+    }
   },
   "blogPage": {
     "title": "Blog",

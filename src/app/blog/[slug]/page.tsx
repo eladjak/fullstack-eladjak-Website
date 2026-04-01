@@ -8,6 +8,7 @@ import { MDXRenderer } from '@/components/blog/mdx-renderer';
 import { BlogPostBackLink, BlogPostFooter, BlogPostReadingTime } from '@/components/blog/blog-post-nav';
 import { RelatedPosts } from '@/components/blog/related-posts';
 import { ReadingProgressBar } from '@/components/blog/reading-progress';
+import { SocialShare } from '@/components/blog/social-share';
 import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
@@ -59,6 +60,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
   const post = getMDXPostBySlug(slug);
 
   if (!post) {
@@ -141,6 +143,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ))}
             </div>
           )}
+
+          {/* Social Share */}
+          <SocialShare url={`${siteUrl}/blog/${slug}`} title={post.frontmatter.title} />
         </header>
 
         {/* Featured Image */}

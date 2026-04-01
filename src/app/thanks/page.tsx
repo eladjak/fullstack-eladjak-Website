@@ -262,6 +262,7 @@ export default function ThanksPage() {
                               alt={t(`people.${person.key}.name`)}
                               width={56}
                               height={56}
+                              sizes="56px"
                               className="rounded-full object-cover w-full h-full"
                               loading="lazy"
                             />
