@@ -1,12 +1,72 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-03-26
+## Last Updated: 2026-04-03
 
 ## Current State
-Interactivity sprint complete. Chat FAQ on services page, live project preview modal, tech stack filters, Claude Code in nav, all 14 project images fixed. 22 routes, TypeScript clean. Site live at fullstack-eladjak.co.il.
+Analytics, social sharing, performance, and infrastructure sprint complete. Vercel Analytics + Speed Insights, blog social share buttons (X, LinkedIn, WhatsApp, Copy), RSS feed, Web3Forms contact fallback, dynamic imports for 3 heavy components, viewport meta, npm audit 0 vulnerabilities, dead code cleanup (-3,918 lines), conflicting lockfiles removed. 22 routes + feed.xml, TypeScript 0 errors. Site live at fullstack-eladjak.co.il. Deploy via `npx vercel --prod` (GitHub auto-deploy broken, needs investigation).
 
 ## What Was Done
+
+### Session 2026-04-03 - Analytics, Social, Performance, Infrastructure
+
+#### Disk Space Crisis & Cleanup
+- [x] Diagnosed terminal crashes: disk was at 1.8GB free (killing processes)
+- [x] Deleted 3 installed app installers (Obsidian, OBS, Discord) = +536MB
+- [x] Cleaned Playwright browsers (+656MB) and npm cache
+- [x] Extracted 4 OneDrive zips (254 photos) to eladjak-hub/public/images/onedrive-photos/
+- [x] Deleted OneDrive zips from Downloads (+383MB)
+- [x] Final: 1.8GB → 35.8GB free
+
+#### Vercel Analytics + Speed Insights
+- [x] Installed `@vercel/analytics` and `@vercel/speed-insights`
+- [x] Added `<Analytics />` and `<SpeedInsights />` to client-layout.tsx
+
+#### Blog Social Sharing
+- [x] New `SocialShare` component: X, LinkedIn, WhatsApp, Copy Link buttons
+- [x] Glassmorphism pill style (bg-white/5 backdrop-blur border-white/10)
+- [x] Bilingual labels (EN + HE) via next-intl
+- [x] Placed in blog post header after tags
+
+#### RSS Feed
+- [x] New route handler at `/feed.xml` with all blog posts
+- [x] RSS 2.0 with Atom self-link, proper categories
+- [x] Added RSS alternate link in layout metadata
+- [x] 1-hour cache header
+
+#### Contact Form Improvement
+- [x] Added Web3Forms as fallback (Resend > Web3Forms > mailto)
+- [x] Web3Forms try/catch silently falls through to mailto on failure
+- [x] Updated .env.example with WEB3FORMS_ACCESS_KEY docs
+
+#### Performance Optimization
+- [x] Dynamic imports (ssr: false) for CommandPalette, ChatFAQ, ProjectPreviewModal
+- [x] Added viewport export with themeColor (#050810)
+- [x] Added image `sizes` to mentor avatars (56px) and about profile (128px)
+- [x] Removed duplicate manual `<meta name="theme-color">` from head
+
+#### Dead Code Cleanup (-3,918 lines)
+- [x] Deleted unused hooks: useBlogPosts, useBlogQuery, usePostCache, useAnalytics, useCache, useRealtimeSubscription, useRealtimeUpdates
+- [x] Deleted unused components: auth-dialog, blog-card, blog-generator, blog-post-grid, snippet-editor, notifications
+- [x] Deleted unused libs: auth.tsx, blog-generator.ts, github/sync.ts, services/code-review.ts, services/openai.ts, supabase.ts, supabase.types.ts
+- [x] Deleted unused types: blog.ts, realtime.ts
+- [x] Deleted unused API routes: ai/generate-blog, ai/moderate-content, ai/review-code, cron/sync-github
+- [x] Deleted entire supabase/ directory (config, functions, temp files)
+
+#### Security
+- [x] npm audit: 4 vulnerabilities → 0 (picomatch ReDoS/injection, yaml stack overflow)
+- [x] Removed conflicting lockfiles (bun.lockb + pnpm-lock.yaml) — caused Vercel build failures
+
+#### Vercel Deploy Fix
+- [x] GitHub auto-deploy was failing (0ms builds = install failure from multiple lockfiles)
+- [x] Fixed with `npx vercel --prod --force` (manual deploy works)
+- [x] Set NEXT_PUBLIC_SITE_URL=https://fullstack-eladjak.co.il in Vercel env vars
+- [x] Verified share buttons and RSS feed live on production
+
+#### Commits
+- [x] 63144fd: feat: analytics, social sharing, performance, contact fallback + dead code cleanup
+- [x] 25f798a: fix: resolve all npm audit vulnerabilities (4 → 0)
+- [x] 533f77c: fix: remove conflicting lockfiles (keep package-lock.json only)
 
 ### Session 2026-03-26 - Interactivity, Navigation, Project Images
 
