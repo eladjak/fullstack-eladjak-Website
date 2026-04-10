@@ -38,19 +38,29 @@ Demo project sprint: Added demo modes to 4 portfolio projects (CRM, Vacation Vib
 - [x] Pushed to GitHub: eladjak/hebrew-gregorian-calendar (main branch)
 - [x] Build passes locally
 
-#### Team Meetings - Build Fix
-- [x] Identified blank page cause: corrupted @mui/icons-material package
-- [x] Force-triggered Vercel rebuild via empty commit
-- [ ] Clean npm install in progress (node_modules corruption)
+#### Team Meetings - Fixed Blank Page Bug
+- [x] Root cause: `MEETING_STATUSES` imported from wrong file + `MeetingStatus` enum used as runtime value
+- [x] Fixed import to use `types/meetings.ts` instead of `constants/meetings.ts`
+- [x] Fixed `MEETING_STATUS_DISPLAY` to use string keys instead of undefined enum values
+- [x] Clean npm install fixed corrupted @mui/icons-material
+- [x] Pushed fix to GitHub
+
+#### Hebrew Calendar - Fixed 3 Cascading Bugs (Blank Page)
+- [x] Bug 1: Missing MUI ThemeProvider in App.js → `Cannot read 'hover' of undefined`
+- [x] Bug 2: MUI Fade transition wrapping component without ref → `Cannot read 'scrollTop' of null`
+- [x] Bug 3: Infinite re-render loop - inline `showMessage` callback changed every render → useCallback deps loop
+- [x] Bug 4: HebrewCalendar component renders HDate objects as React children → defaulted to Gregorian view
+- [x] Demo events load when API unavailable (5 sample events)
+- [x] All fixes pushed to GitHub, verified working locally
 
 #### Live Demo Status (Browser Verified)
 | Project | URL | Status |
 |---------|-----|--------|
-| Crypto Tracker | crypto-tracker-iota-mocha.vercel.app | Working - coins loading |
-| Customer CRM | customer-crm-tau.vercel.app | Pending rebuild with demo mode |
-| Vacation Vibe | vacation-vibe-pi.vercel.app | Pending rebuild with guest login |
-| Hebrew Calendar | hebrew-calendar-eosin.vercel.app | Pending rebuild with demo events |
-| Team Meetings | team-meetings.vercel.app | Pending rebuild with fixed deps |
+| Crypto Tracker | crypto-tracker-iota-mocha.vercel.app | LIVE - Working |
+| Customer CRM | customer-crm-tau.vercel.app | Pushed to main, awaiting Vercel rebuild |
+| Vacation Vibe | vacation-vibe-pi.vercel.app | Pushed to main, awaiting Vercel rebuild |
+| Hebrew Calendar | hebrew-calendar-eosin.vercel.app | Pushed fixes, verified locally, awaiting rebuild |
+| Team Meetings | team-meetings.vercel.app | Pushed fix, awaiting rebuild |
 
 ---
 
