@@ -178,6 +178,16 @@ const allProjects: StaticProject[] = [
     icon: 'CRM',
     image: '/projects/customer-crm-screenshot.jpg',
   },
+  {
+    id: 'crypto-tracker',
+    messageKey: 'cryptoTracker',
+    category: 'tools',
+    technologies: ['jQuery', 'AJAX', 'CoinGecko API', 'Chart.js', 'Bootstrap'],
+    github_url: 'https://github.com/eladjak/Jquery-AJAX---Cryptocurrency-API-Tracking-Application-Project',
+    gradient: 'from-yellow-500/20 to-amber-500/20',
+    icon: 'Crypto',
+    image: '/projects/crypto-tracker-screenshot.jpg',
+  },
 ];
 
 const containerVariants = {

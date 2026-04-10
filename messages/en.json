@@ -468,6 +468,10 @@
       "customerCrm": {
         "title": "Customer CRM",
         "description": "Full-stack customer and task management system built with Angular and Node.js. CRUD operations, per-customer task tracking, JWT authentication, and a clean Hebrew interface for managing client relationships."
+      },
+      "cryptoTracker": {
+        "title": "Crypto Tracker",
+        "description": "Real-time cryptocurrency tracking application using the CoinGecko API. Features live price charts, dynamic coin comparison, and responsive Bootstrap UI with AJAX-powered data updates."
       }
     }
   },
