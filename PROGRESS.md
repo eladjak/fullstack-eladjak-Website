@@ -4,9 +4,55 @@
 ## Last Updated: 2026-04-10
 
 ## Current State
-Conversion sprint: Calendly scheduling CTA, Web3Forms contact, blog on homepage, crypto project added, Vercel auto-deploy fixed. Previous: analytics, social sharing, performance, infrastructure. Vercel Analytics + Speed Insights, blog social share buttons (X, LinkedIn, WhatsApp, Copy), RSS feed, Web3Forms contact fallback, dynamic imports for 3 heavy components, viewport meta, npm audit 0 vulnerabilities, dead code cleanup (-3,918 lines), conflicting lockfiles removed. 22 routes + feed.xml, TypeScript 0 errors. Site live at fullstack-eladjak.co.il. Deploy via `npx vercel --prod` (GitHub auto-deploy broken, needs investigation).
+Demo project sprint: Added demo modes to 4 portfolio projects (CRM, Vacation Vibe, Hebrew Calendar, Team Meetings) so visitors can interact without backend servers. Crypto Tracker deployed to Vercel with serverless API proxy. Previous: Conversion sprint, analytics, social sharing, performance.
 
 ## What Was Done
+
+### Session 2026-04-10 (2) - Demo Projects & Crypto Tracker Deploy
+
+#### Crypto Tracker Deployed to Vercel
+- [x] Cloned repo, created Vercel serverless API routes (proxy to CoinGecko)
+- [x] Replaced localhost:54187 with relative /api paths
+- [x] Deployed: https://crypto-tracker-iota-mocha.vercel.app
+- [x] Added live_url to portfolio projects page
+- [x] Committed and pushed to GitHub
+
+#### Customer CRM - Demo Mode (Angular)
+- [x] Created `DemoModeInterceptor` - catches HTTP errors (status 0/504) and returns mock data
+- [x] 7 demo customers + 8 demo tasks with Hebrew content
+- [x] Full CRUD support in demo mode (add/edit/delete in-memory)
+- [x] Registered in app.module.ts as first interceptor
+- [x] Pushed to GitHub: eladjak/Custome-Mengment-Angular (master branch)
+- [ ] Vercel auto-deploy pending (needs to rebuild from GitHub)
+
+#### Vacation Vibe - Guest Login + Demo Mode (React/Redux)
+- [x] Created `demo-mode.ts` service with mock user, token, and 8 vacation destinations
+- [x] Added "כניסה כאורח (דמו)" guest login button to Login page
+- [x] Modified axios interceptor to fall back to demo data on network errors
+- [x] Pushed to GitHub: eladjak/Vacation-STUDENT_ID_Final (main branch)
+- [ ] Vercel auto-deploy pending
+
+#### Hebrew Calendar - Demo Events Fallback
+- [x] Added 5 demo calendar events to useEvents hook
+- [x] Events load automatically when API fails (no blank page)
+- [x] Pushed to GitHub: eladjak/hebrew-gregorian-calendar (main branch)
+- [x] Build passes locally
+
+#### Team Meetings - Build Fix
+- [x] Identified blank page cause: corrupted @mui/icons-material package
+- [x] Force-triggered Vercel rebuild via empty commit
+- [ ] Clean npm install in progress (node_modules corruption)
+
+#### Live Demo Status (Browser Verified)
+| Project | URL | Status |
+|---------|-----|--------|
+| Crypto Tracker | crypto-tracker-iota-mocha.vercel.app | Working - coins loading |
+| Customer CRM | customer-crm-tau.vercel.app | Pending rebuild with demo mode |
+| Vacation Vibe | vacation-vibe-pi.vercel.app | Pending rebuild with guest login |
+| Hebrew Calendar | hebrew-calendar-eosin.vercel.app | Pending rebuild with demo events |
+| Team Meetings | team-meetings.vercel.app | Pending rebuild with fixed deps |
+
+---
 
 ### Session 2026-04-10 - Conversion, Deploy Fix, Project Expansion
 
