@@ -658,5 +658,12 @@
       "support": ["pricing", "contact", "process"]
     },
     "initialQuestions": ["services", "aiExpertise", "availability", "hebrew"]
+  },
+  "latestPosts": {
+    "title": "מהבלוג",
+    "subtitle": "מאמרים טכניים על פיתוח, AI וכלים שעובדים בפרודקשן",
+    "viewAll": "לכל הפוסטים",
+    "readMore": "קרא עוד",
+    "minRead": "דקות קריאה"
   }
 }

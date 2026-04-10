@@ -93,14 +93,6 @@
   "ct3aMetadata": {
     "initVersion": "7.38.1"
   },
-  "packageManager": "pnpm@9.6.0",
-  "pnpm": {
-    "overrides": {
-      "axios": "^1.13.5",
-      "follow-redirects": ">=1.15.9",
-      "markdown-it": ">=14.1.1"
-    }
-  },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@testing-library/jest-dom": "^6.9.1",

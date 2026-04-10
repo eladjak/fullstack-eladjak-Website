@@ -658,5 +658,12 @@
       "support": ["pricing", "contact", "process"]
     },
     "initialQuestions": ["services", "aiExpertise", "availability", "hebrew"]
+  },
+  "latestPosts": {
+    "title": "From the Blog",
+    "subtitle": "Technical articles on development, AI, and tools that work in production",
+    "viewAll": "View All Posts",
+    "readMore": "Read More",
+    "minRead": "min read"
   }
 }

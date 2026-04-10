@@ -10,6 +10,7 @@ import RecommendationsSection from '@/components/sections/recommendations-sectio
 import ServicesPreviewSection from '@/components/sections/services-preview-section';
 import TechMarquee from '@/components/ui/tech-marquee';
 import StatsBar from '@/components/sections/stats-bar';
+import LatestPostsSection from '@/components/sections/latest-posts-section';
 
 export default function HomePage() {
   useMetaTags({
@@ -36,6 +37,9 @@ export default function HomePage() {
 
         {/* Static Featured Projects - always visible */}
         <FeaturedProjectsSection />
+
+        {/* Latest Blog Posts */}
+        <LatestPostsSection />
 
         {/* Recommendations */}
         <RecommendationsSection />

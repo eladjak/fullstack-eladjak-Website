@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { BOOKING_URL, IS_EXTERNAL_BOOKING_URL } from '@/lib/config';
 
 const featureIcons = [Code2, Sparkles, Zap] as const;
 const featureKeys = ['cleanCode', 'aiIntegration', 'fastDelivery'] as const;
@@ -97,13 +98,25 @@ export default function CTASection() {
                 {t('getInTouch')}
                 <ArrowRight className="h-5 w-5" />
               </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                <Calendar className="h-5 w-5" />
-                {t('bookCall')}
-              </Link>
+              {IS_EXTERNAL_BOOKING_URL ? (
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <Calendar className="h-5 w-5" />
+                  {t('bookCall')}
+                </a>
+              ) : (
+                <Link
+                  href={BOOKING_URL}
+                  className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <Calendar className="h-5 w-5" />
+                  {t('bookCall')}
+                </Link>
+              )}
             </div>
             <p className="text-xs text-muted-foreground/70">
               {t('trustSignal')}
