@@ -1,12 +1,106 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-04-03
+## Last Updated: 2026-04-10
 
 ## Current State
-Analytics, social sharing, performance, and infrastructure sprint complete. Vercel Analytics + Speed Insights, blog social share buttons (X, LinkedIn, WhatsApp, Copy), RSS feed, Web3Forms contact fallback, dynamic imports for 3 heavy components, viewport meta, npm audit 0 vulnerabilities, dead code cleanup (-3,918 lines), conflicting lockfiles removed. 22 routes + feed.xml, TypeScript 0 errors. Site live at fullstack-eladjak.co.il. Deploy via `npx vercel --prod` (GitHub auto-deploy broken, needs investigation).
+Conversion sprint: Calendly scheduling CTA, Web3Forms contact, blog on homepage, crypto project added, Vercel auto-deploy fixed. Previous: analytics, social sharing, performance, infrastructure. Vercel Analytics + Speed Insights, blog social share buttons (X, LinkedIn, WhatsApp, Copy), RSS feed, Web3Forms contact fallback, dynamic imports for 3 heavy components, viewport meta, npm audit 0 vulnerabilities, dead code cleanup (-3,918 lines), conflicting lockfiles removed. 22 routes + feed.xml, TypeScript 0 errors. Site live at fullstack-eladjak.co.il. Deploy via `npx vercel --prod` (GitHub auto-deploy broken, needs investigation).
 
 ## What Was Done
+
+### Session 2026-04-10 - Conversion, Deploy Fix, Project Expansion
+
+#### Vercel Auto-Deploy Fixed (3 root causes)
+- [x] Removed deleted `@/lib/supabase` import from sitemap.ts
+- [x] Removed `packageManager: "pnpm@9.6.0"` from package.json
+- [x] Deleted vercel.json (had reference to deleted cron route)
+- [x] Vercel auto-deploy now works on git push!
+
+#### Latest Blog Posts on Homepage
+- [x] New `LatestPostsSection` component showing 3 most recent posts
+- [x] Glassmorphism cards with title, description, date, reading time
+- [x] Added between Featured Projects and Recommendations sections
+- [x] Bilingual translations (EN + HE)
+
+#### YouCanBookMe → Calendly CTA
+- [x] Created `src/lib/config.ts` with BOOKING_URL config
+- [x] CTA button opens external URL (new tab) or falls back to /contact
+- [x] Set `NEXT_PUBLIC_BOOKING_URL=https://calendly.com/eladhiteclearning` on Vercel
+
+#### Contact Form Activated
+- [x] Set `WEB3FORMS_ACCESS_KEY` on Vercel — form now sends real emails!
+- [x] Fallback chain: Resend > Web3Forms > mailto
+
+#### Crypto Tracker Project Added
+- [x] Added CoinGecko API crypto tracker to portfolio (jQuery/AJAX/Chart.js)
+- [x] Bilingual translations, GitHub link
+
+#### Deployment
+- [x] Commits: afc3b4c (blog+CTA+deploy fix) + ece9580 (crypto project)
+- [x] All deploying via Vercel auto-deploy (fixed!)
+
+---
+
+## NEXT SESSION TODO (CRITICAL - Project Demo Fixes)
+
+### Priority 1: Make Demo Projects Work Without Login
+The user's portfolio shows project links. Visitors MUST be able to click and USE each app immediately — no sign-up, no passwords.
+
+**Projects that need demo/guest mode:**
+
+1. **Customer CRM** (`customer-crm-tau.vercel.app`)
+   - Stack: Angular + Node.js + Express + MongoDB + JWT Auth
+   - Local repo: `/c/Users/eladj/projects/customer-crm`
+   - Need: Guest login bypass OR demo credentials auto-filled
+   - Need: Pre-populated demo data (5-10 fake customers with tasks)
+   - Priority: HIGH (most impressive to employers)
+
+2. **Vacation Vibe** (`vacation-vibe-pi.vercel.app`)
+   - Stack: React + TypeScript + NestJS + TypeORM + Redux + MUI
+   - Local repo: `/c/Users/eladj/projects/vacation-vibe`
+   - Need: Guest access without login
+   - Priority: HIGH
+
+3. **Team Meetings** (`team-meetings.vercel.app`)
+   - Stack: React + TypeScript + Vite + FullCalendar + MUI
+   - Local repo: `/c/Users/eladj/projects/team-meetings`
+   - Need: Verify works without auth, add sample meetings data
+   - Priority: MEDIUM
+
+4. **Hebrew Calendar** (`hebrew-calendar-eosin.vercel.app`)
+   - Stack: React + FullCalendar + Hebrew Calendar API
+   - Local repo: `/c/Users/eladj/projects/hebrew-calendar`
+   - Need: Verify works, may just need visual polish
+   - Priority: MEDIUM
+
+5. **SipurAI** (`sipurai.ai`) — Uses Clerk, separate project
+6. **HaDerech** (`haderech-next.vercel.app`) — Uses Clerk, separate project
+
+### Priority 2: Visual Facelift for All Demo Projects
+All 4 projects above need modern UI improvements. Current look is dated.
+
+### Priority 3: Crypto Tracker
+- GitHub repo: `eladjak/Jquery-AJAX---Cryptocurrency-API-Tracking-Application-Project`
+- Need: Deploy to Vercel (static site, should be simple)
+- Need: Generate screenshot for portfolio card
+- No auth issues (pure client-side)
+
+### Priority 4: Calendly Page Design
+- URL: https://calendly.com/eladhiteclearning
+- User wants it designed/customized to look better
+- Need to explore Calendly's customization options via browser
+
+### Approach for Each Project
+For each project, work in its own repo:
+1. `cd /c/Users/eladj/projects/PROJECT_NAME`
+2. Understand current auth flow
+3. Add guest/demo mode (skip login OR auto-fill demo credentials)
+4. Add seed data where needed
+5. Visual improvements (modern colors, spacing, typography)
+6. Deploy to Vercel
+7. Take screenshot for portfolio
+
+---
 
 ### Session 2026-04-03 - Analytics, Social, Performance, Infrastructure
 
