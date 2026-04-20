@@ -22,10 +22,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const boxGuide: AgentGuideData = {
   slug: "box",
   agentName: "Box",
-  agentNameHe: "בוקס",
-  tagline: "מאמן בריאות אישי בוואטסאפ — intake קל, טיפול כבד",
-  heroDescription:
-    "Box (בוקסר + התמחות באגרוף) הוא מאמן בריאות אוטונומי שמקבל את מה שאכלת בהודעה פשוטה, מחשב קלוריות/חלבון, זוכר מגמות, ומציע הצעדות הבא. 16:8 fasting, keto, משקל-יעד — הכל מתועד.",
+  agentNameHe: "מאמן בריאות בוואטסאפ",
+  tagline: "אפליקציית בריאות שבאמת משתמשים בה — בוואטסאפ",
+  heroDescription: "מאמן בריאות אוטונומי שמקבל את מה שאכלת בהודעה פשוטה, מחשב קלוריות וחלבון, זוכר מגמות, ומציע את הצעד הבא. 16:8 fasting, keto, משקל-יעד — הכל מתועד בלי כניסה לאפליקציה. אצלי נקרא Box (על שם אגרוף).",
   badgeText: "2026 · Health Coach AI · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/box",
   stats: [

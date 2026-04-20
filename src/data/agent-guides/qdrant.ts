@@ -21,10 +21,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const qdrantGuide: AgentGuideData = {
   slug: "qdrant",
   agentName: "Qdrant",
-  agentNameHe: "Qdrant",
-  tagline: "Vector database — זיכרון סמנטי לסוכנים שלך",
-  heroDescription:
-    "Postgres שומר עובדות. Redis שומר cache. Qdrant שומר משמעות. זה המאגר שמאפשר ל-Kami לזכור שיחות, ל-Hermes לדעת מה עבד בעבר, ול-Adopter לסנן כפילויות — דרך דמיון סמנטי, לא מחרוזות.",
+  agentNameHe: "זיכרון סמנטי לסוכנים",
+  tagline: "הבסיס לזכירה לפי משמעות, לא לפי מילים",
+  heroDescription: "Postgres שומר עובדות. Redis שומר cache. בסיס נתונים וקטורי שומר משמעות. זה מה שמאפשר לסוכן AI לזכור שיחות מלפני שבוע, למצוא תשובה דומה מבלי לחפש במילים המדויקות, ולסנן כפילויות באופן חכם. Qdrant הוא הבסיס הפתוח והמהיר שאני משתמש בו.",
   badgeText: "2026 · Vector Memory · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/qdrant",
   stats: [

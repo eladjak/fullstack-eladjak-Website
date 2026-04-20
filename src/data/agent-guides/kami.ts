@@ -23,10 +23,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const kamiGuide: AgentGuideData = {
   slug: "kami",
   agentName: "Kami",
-  agentNameHe: "קאמי",
-  tagline: "סוכן AI אוטונומי בוואטסאפ — שומע, מדבר, זוכר",
-  heroDescription:
-    "לא עוד בוט שמחזיר תשובה. Kami הוא סוכן AI שלם שחי בוואטסאפ שלך — מתמלל הודעות קוליות, מדבר חזרה בקול, זוכר שיחות ישנות, יוזם פעולות, ומתקשר עם שאר הסוכנים ברשת.",
+  agentNameHe: "עוזר AI בוואטסאפ",
+  tagline: "עוזר AI אישי שחי בוואטסאפ — שומע, מדבר, זוכר שיחות",
+  heroDescription: "לא עוד בוט שמחזיר תשובה. עוזר AI מלא שחי בוואטסאפ שלך — מתמלל הודעות קוליות, מדבר חזרה בקול עברי, זוכר שיחות ישנות, יוזם פעולות ומשתפר עם הזמן. אצלי נקרא Kami (קאמי), אבל אפשר לקרוא לו בכל שם.",
   badgeText: "2026 · סוכן WhatsApp עברי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kami",
   stats: [

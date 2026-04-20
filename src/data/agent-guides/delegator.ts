@@ -21,10 +21,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const delegatorGuide: AgentGuideData = {
   slug: "delegator",
   agentName: "Delegator",
-  agentNameHe: "Delegator",
-  tagline: "שער אחד, 100+ endpoints, כל הרשת מאחוריהם",
-  heroDescription:
-    "Delegator הוא ה-API מרכזי של הרשת שלי. במקום לפזר credentials, IP-ים וחוזים בין כל הסוכנים — יש endpoint אחד: hub.eladjak.com. שם יש routing, caching, calendar gating, cost logging, וכל שאר ה-cross-cutting concerns.",
+  agentNameHe: "שער API מרכזי לכל רשת",
+  tagline: "שער אחד, 100+ endpoints, כל הרשת מאחור",
+  heroDescription: "יש לכם 5 סוכני AI, כולם צריכים לשלוח אימייל, SMS, ולבדוק לוח שנה? במקום לפזר credentials וחוזים — יש שער אחד שמרכז את כל האינטגרציות, האבטחה, והניטור. אצלי קראתי לו Delegator.",
   badgeText: "2026 · Central API Router · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/delegator",
   stats: [

@@ -105,7 +105,7 @@ export default function Navigation() {
     { href: '/', label: t('home') },
     { href: '/services', label: t('services') },
     { href: '/projects', label: t('projects') },
-    { href: '/claude-code', label: t('claudeCode') },
+    { href: '/guide', label: t('guides') },
     { href: '/blog', label: t('blog') },
     { href: '/about', label: t('about') },
     { href: '/thanks', label: t('thanks') },

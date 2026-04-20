@@ -23,10 +23,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const hermesGuide: AgentGuideData = {
   slug: "hermes",
   agentName: "Hermes",
-  agentNameHe: "הרמס",
-  tagline: "Self-healing — שירותים שמתקנים את עצמם",
-  heroDescription:
-    "Hermes הוא pattern ליישום ריפוי עצמי במערכת agents. מזהה תקלה, מנסה תיקון לפי חוקי whitelist, מאמת שעבד, ומעדכן memory של ריפויים להבא. על הpractice הזה קיילי בנויה.",
+  agentNameHe: "שירותים שמתקנים את עצמם",
+  tagline: "Self-healing — תקלות לא צריכות להעיר אתכם",
+  heroDescription: "90% מהתקלות הן אותן 10 בעיות שחוזרות. pattern של Self-Healing פותר אותן לבד, ומעיר אתכם רק למשהו חדש. 5 שלבים: זיהוי, אבחון, תיקון, אימות, למידה. אצלי קוראים לזה Hermes — אבל זה pattern, לא כלי.",
   badgeText: "2026 · Self-Healing Infrastructure · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/hermes",
   stats: [

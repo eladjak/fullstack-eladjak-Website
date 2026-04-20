@@ -23,9 +23,8 @@ export const claudeCodeGuide: AgentGuideData = {
   slug: "claude-code",
   agentName: "Claude Code",
   agentNameHe: "Claude Code",
-  tagline: "לא עוד כלי AI — לשכה שלמה של מומחים שעובדת בשבילך",
-  heroDescription:
-    "תארו לעצמכם שיש לכם צוות של מתכנת, מעצב, בודק, מומחה אבטחה, וכותב תוכן — כולם זמינים 24/7, עובדים במקביל, ועולים פחות ממנוי חודשי אחד. זה Claude Code.",
+  tagline: "לא עוד כלי AI — צוות שלם של מומחים שעובד בשבילך",
+  heroDescription: "תארו לעצמכם שיש לכם צוות של מתכנת, מעצב, בודק, מומחה אבטחה, וכותב תוכן — כולם זמינים 24/7, עובדים במקביל, ועולים פחות ממנוי חודשי אחד. זה Claude Code — וכבר שנה שאני משתמש בו יומיום.",
   badgeText: "2026 · מעודכן · מדריך מעשי בעברית",
   canonical: "https://fullstack-eladjak.co.il/claude-code",
   heroBgImage: "/images/claude-code-hero.jpg",

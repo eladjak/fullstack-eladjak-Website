@@ -21,10 +21,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const adopterGuide: AgentGuideData = {
   slug: "adopter",
   agentName: "Adopter",
-  agentNameHe: "Adopter",
-  tagline: "חדשות, כלים ומאמרים — מסווגים, מסוננים, מותאמים",
-  heroDescription:
-    "Adopter הוא סוכן אוטונומי שעוקב אחרי ערוצי טלגרם רלוונטיים, מסווג כל פוסט עם Gemini, ומחליט לבד מה לאמץ לרשת. בזמן שאתה ישן, הוא מפלטר 500 פוסטים ל-5 מעניינים — ומזהיר אם יש סיכון.",
+  agentNameHe: "סינון אוטונומי של חדשות וכלים",
+  tagline: "במקום לקרוא 500 פוסטים ביום — סוכן שמסנן",
+  heroDescription: "יש יותר מדי תוכן. סוכן שעוקב אחרי ערוצי טלגרם, מסווג כל פוסט עם AI, ומחליט לבד מה שווה לאמץ — מביא לך 3-5 ממצאים ביום במקום 500 פוסטים. אצלי קראתי לו Adopter.",
   badgeText: "2026 · Autonomous Content Adoption · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/adopter",
   stats: [

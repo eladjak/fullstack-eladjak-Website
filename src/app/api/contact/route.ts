@@ -201,7 +201,7 @@ export async function POST(request: Request) {
     const resend = new Resend(resendApiKey);
 
     const { error } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
+      from: 'Portfolio Contact <portfolio@eladjak.com>',
       to: [contactEmail],
       replyTo: data.email,
       subject: `[Portfolio] ${escapeHtml(data.subject)}`,

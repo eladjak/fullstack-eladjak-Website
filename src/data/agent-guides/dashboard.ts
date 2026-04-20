@@ -21,10 +21,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const dashboardGuide: AgentGuideData = {
   slug: "dashboard",
   agentName: "Dashboard",
-  agentNameHe: "Dashboard",
-  tagline: "Mission Control — 12 טאבים, UI אחד, כל הרשת במבט",
-  heroDescription:
-    "ה-UI המרכזי שלי. Node server קטן ב-Windows שמציג kanban, health, costs, network memory, reports. לא משלם על Grafana, Linear או Retool — יש לי UI מותאם שמבין את הרשת שלי.",
+  agentNameHe: "Mission Control לרשת שלך",
+  tagline: "UI אחד, 12 טאבים, כל הסוכנים במבט",
+  heroDescription: "במקום 5 טאבים פתוחים (Grafana, Linear, GitHub, UptimeKuma, Gmail) — UI אחד מקומי שמציג את הכל בזמן אמת, מותאם בדיוק לזרימת העבודה שלך. קוד פתוח, Node פשוט, ללא עלויות חודשיות. אצלי פשוט קוראים לו Dashboard.",
   badgeText: "2026 · Self-hosted Mission Control · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/dashboard",
   stats: [

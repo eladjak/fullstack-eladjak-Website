@@ -23,10 +23,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const kayleeGuide: AgentGuideData = {
   slug: "kaylee",
   agentName: "Kaylee",
-  agentNameHe: "קיילי",
-  tagline: "סוכנת תשתית אוטונומית — שומרת על השרת שלך 24/7",
-  heroDescription:
-    "תקלה ב-03:00 בבוקר? קיילי כבר אבחנה, ניסתה restart, ואם זה לא עזר — פותחת לוג מפורט בטלגרם. היא OpenClaw עם גישה מלאה ל-Docker, systemd, וקבצים — עם כללי אבטחה נוקשים.",
+  agentNameHe: "סוכנת תשתית אוטונומית",
+  tagline: "מי שומר על השרת שלך ב-3 בבוקר? סוכנת AI שלא ישנה",
+  heroDescription: "תקלה ב-03:00 בבוקר? היא כבר אבחנה, ניסתה restart, ואם לא עזר — פותחת לוג מפורט בטלגרם. סוכנת AI עם גישה מלאה ל-Docker, systemd וקבצים — עם כללי אבטחה נוקשים. אצלי נקראת Kaylee (קיילי).",
   badgeText: "2026 · ניטור + ריפוי עצמי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kaylee",
   stats: [

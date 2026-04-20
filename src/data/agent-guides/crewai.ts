@@ -21,10 +21,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const crewaiGuide: AgentGuideData = {
   slug: "crewai",
   agentName: "CrewAI",
-  agentNameHe: "CrewAI",
-  tagline: "צוותי AI במקביל — במקום סוכן אחד, צוות של מומחים",
-  heroDescription:
-    "במקום לבקש מ-LLM אחד 'תכתוב שיעור TypeScript בעברית' — נותנים את זה לצוות: חוקר → מעצב תכנית → כותב. כל אחד עם role, goal, backstory. התוצאה איכותית כמו של צוות אמיתי.",
+  agentNameHe: "צוותי AI במקביל",
+  tagline: "במקום סוכן אחד, צוות של מומחים שעובד ביחד",
+  heroDescription: "במקום לבקש מ-AI אחד 'תכתוב שיעור TypeScript בעברית' — נותנים את זה לצוות: חוקר → מעצב → כותב. כל אחד עם תפקיד ייחודי. המסגרת שנקראת CrewAI מאפשרת לתזמר את הצוות הזה בקלות.",
   badgeText: "2026 · Multi-Agent Orchestration · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/crewai",
   stats: [
