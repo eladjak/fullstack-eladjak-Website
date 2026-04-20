@@ -4,9 +4,9 @@ import { ChevronLeft } from "lucide-react";
 import { allGuides } from "@/data/agent-guides";
 
 export const metadata: Metadata = {
-  title: "מדריכי סוכני AI | אלעד יעקובוביץ'",
+  title: "מדריכי סוכני AI + תשתית | אלעד יעקובוביץ'",
   description:
-    "10 מדריכים מעשיים בעברית לסוכני AI — Claude Code, Kami, Kaylee, CrewAI, Box, Hermes, Qdrant, Delegator, Adopter, Dashboard. התקנה, שימוש, וטיפים מניסיון אמיתי.",
+    "14 מדריכים מעשיים בעברית — סוכני AI (Claude Code, Kami, Kaylee, CrewAI, Box, Hermes, Adopter, Dashboard), אחסון סמנטי (Qdrant), תזמור (Delegator), ותשתית (Docker, Ollama, n8n, Aider). התקנה, שימוש, וטיפים.",
   alternates: {
     canonical: "https://fullstack-eladjak.co.il/guide",
   },
@@ -14,10 +14,11 @@ export const metadata: Metadata = {
     "מדריכי AI",
     "סוכני AI בעברית",
     "Claude Code עברית",
-    "מדריך WhatsApp AI",
-    "Kami",
-    "Kaylee",
-    "CrewAI",
+    "Docker מדריך",
+    "Ollama עברית",
+    "n8n מדריך",
+    "Aider מדריך",
+    "Qdrant",
     "agent network",
   ],
 };
@@ -29,7 +30,7 @@ export default function GuideIndex() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
             <span className="text-xs font-semibold text-primary tracking-wide uppercase">
-              2026 · 10 מדריכים · סוכנים אוטונומיים
+              2026 · 14 מדריכים · סוכנים + תשתית
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 font-heebo text-balance">
@@ -38,8 +39,8 @@ export default function GuideIndex() {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            10 מדריכים בעברית לסוכני AI שאני מפעיל יומיום. לא תיאוריה — שימוש אמיתי,
-            טיפים מתוך ניסיון, ודוגמאות קוד שעובדות.
+            14 מדריכים בעברית לרשת סוכני AI מלאה + רכיבי תשתית. לא תיאוריה —
+            התקנה מעשית, טיפים מתוך שימוש אמיתי, ודוגמאות קוד שעובדות.
           </p>
         </div>
       </section>

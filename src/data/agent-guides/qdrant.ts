@@ -23,7 +23,7 @@ export const qdrantGuide: AgentGuideData = {
   agentName: "Qdrant",
   agentNameHe: "זיכרון סמנטי לסוכנים",
   tagline: "הבסיס לזכירה לפי משמעות, לא לפי מילים",
-  heroDescription: "Postgres שומר עובדות. Redis שומר cache. בסיס נתונים וקטורי שומר משמעות. זה מה שמאפשר לסוכן AI לזכור שיחות מלפני שבוע, למצוא תשובה דומה מבלי לחפש במילים המדויקות, ולסנן כפילויות באופן חכם. Qdrant הוא הבסיס הפתוח והמהיר שאני משתמש בו.",
+  heroDescription: "Qdrant הוא vector database בקוד פתוח, כתוב ב-Rust, רץ ב-Docker container עם HTTP + gRPC API. יכולות: אחסון embeddings (עד 65,536 מימדים), HNSW indexing, semantic search, filters מורכבים, payload arbitrary, sharding ו-replication. אצלי יש 10 collections (kami_memory, box_coach, network_memory ועוד) עם אלפי וקטורים. אצלך Qdrant יכול לשמש memory ל-chatbot, semantic search על מאגר מסמכים, recommendation engine, או דה-דופליקציה סמנטית של תוכן — בכל מקום שצריך 'לזכור משמעות' ולא רק מילות מפתח.",
   badgeText: "2026 · Vector Memory · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/qdrant",
   heroBgImage: "/images/guides/guide-qdrant-hero.jpg",
@@ -286,5 +286,5 @@ export const qdrantGuide: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "אני משתמש ב-Qdrant כבר 8 חודשים — 10 collections בייצור, 10k+ embeddings, אפס תקלות. הכי מדהים אותי: העלות האפסית. המדריך מבוסס על שימוש רציף — כולל בעיה שעלתה כשהחלפתי embedding model וצריך היה re-index מאפס.",
+    "Qdrant הוא ה-vector database שבו משתמשים כל הסוכנים ברשת לזיכרון סמנטי. 10 collections בייצור, אלפי וקטורים, עלות אפסית. המדריך מציג את הדפוסים המוצלחים: איך לבחור dimensions, מתי לעשות re-index, איך לנהל payload, ואיך להשתלב עם embedding models קוד-פתוחים — כדי שתוכלו לבנות זיכרון סמנטי לסוכן משלכם בשעה אחת.",
 };

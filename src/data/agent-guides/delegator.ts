@@ -23,7 +23,7 @@ export const delegatorGuide: AgentGuideData = {
   agentName: "Delegator",
   agentNameHe: "שער API מרכזי לכל רשת",
   tagline: "שער אחד, 100+ endpoints, כל הרשת מאחור",
-  heroDescription: "יש לכם 5 סוכני AI, כולם צריכים לשלוח אימייל, SMS, ולבדוק לוח שנה? במקום לפזר credentials וחוזים — יש שער אחד שמרכז את כל האינטגרציות, האבטחה, והניטור. אצלי קראתי לו Delegator.",
+  heroDescription: "Delegator הוא HTTP router מבוסס Node/TypeScript שרץ על port 3900 ב-VPS. מרכז 100+ endpoints: email (Resend), SMS (Twilio), calendar (Hebcal + Google), drive, research (Perplexity/Gemini), content-studio, landing-pages, campaigns, pipeline orchestration ו-auto-routing. Auth: API key + JWT, logging ב-Qdrant. אצלי הוא מרכז את כל 10 הסוכנים מאחורי שער אחד — אצלך הוא יכול להחליף Zapier/Make ולשמש API gateway לכל ארכיטקטורת multi-agent, בלי לפזר credentials ב-5 קבצי .env.",
   badgeText: "2026 · Central API Router · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/delegator",
   heroBgImage: "/images/guides/guide-delegator-hero.jpg",
@@ -164,7 +164,7 @@ export const delegatorGuide: AgentGuideData = {
       title: "Calendar Gate — חובה ישראלית",
       subtitle: "חסימת פרסום בשבת, חגים, ימי זיכרון",
       description:
-        "Sprint 7.2 הוסיף `_il_calendar_status()` לכל publishing endpoint.",
+        "IL calendar gate — כל publishing endpoint בודק Hebcal ומשתתק בשבת/חג.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
       beginner:
@@ -227,7 +227,7 @@ export const delegatorGuide: AgentGuideData = {
       id: "advanced",
       icon: Lightbulb,
       title: "טיפים מתקדמים",
-      subtitle: "מה שלמדתי אחרי 6 חודשים",
+      subtitle: "הלקחים מההקמה ומהתחזוקה",
       description:
         "הניואנסים שהופכים API gateway פשוט ל-production-ready.",
       color: "from-slate-600 to-zinc-500",

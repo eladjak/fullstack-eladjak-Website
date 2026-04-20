@@ -24,7 +24,7 @@ export const claudeCodeGuide: AgentGuideData = {
   agentName: "Claude Code",
   agentNameHe: "Claude Code",
   tagline: "לא עוד כלי AI — צוות שלם של מומחים שעובד בשבילך",
-  heroDescription: "תארו לעצמכם שיש לכם צוות של מתכנת, מעצב, בודק, מומחה אבטחה, וכותב תוכן — כולם זמינים 24/7, עובדים במקביל, ועולים פחות ממנוי חודשי אחד. זה Claude Code — וכבר שנה שאני משתמש בו יומיום.",
+  heroDescription: "Claude Code הוא CLI + IDE extensions של Anthropic (זמין ב-VS Code, JetBrains, desktop וב-web). מודלים: Opus 4.7 (1M context), Sonnet 4.6, Haiku 4.5. תכונות ליבה: MCP servers, sub-agents, skills, slash commands, hooks, sandboxed bash, TodoWrite ו-Plan mode. אצלי הוא רץ 24/7 עם 350+ skills, 32 sub-agents ו-17 MCP servers — אבל אצלך זה יכול להיות CLI יומיומי פשוט ל-code review, refactoring, debug, data analysis, DevOps, research ואפילו business automation. זה הבסיס שעליו מורכבים כל שאר הסוכנים שמוצגים במדריכים האחרים.",
   badgeText: "2026 · מעודכן · מדריך מעשי בעברית",
   canonical: "https://fullstack-eladjak.co.il/claude-code",
   heroBgImage: "/images/guides/guide-claude-code-hero.jpg",

@@ -25,7 +25,7 @@ export const kayleeGuide: AgentGuideData = {
   agentName: "Kaylee",
   agentNameHe: "סוכנת תשתית אוטונומית",
   tagline: "מי שומר על השרת שלך ב-3 בבוקר? סוכנת AI שלא ישנה",
-  heroDescription: "תקלה ב-03:00 בבוקר? היא כבר אבחנה, ניסתה restart, ואם לא עזר — פותחת לוג מפורט בטלגרם. סוכנת AI עם גישה מלאה ל-Docker, systemd וקבצים — עם כללי אבטחה נוקשים. אצלי נקראת Kaylee (קיילי).",
+  heroDescription: "סוכן תשתית (SRE agent) מבוסס OpenClaw (Python), רץ ב-Docker container על VPS עם גישה ל-systemd, Docker socket ו-file system. שכבת LLM: Gemini Flash (חינמי). ממשק פעיל: Telegram bot (@kylie_elad_bot). Self-healing נבנה על whitelist של פעולות מותרות + verification-after-fix. אצלי היא שומרת על 10 שירותים 24/7 ומעוררת רק כשנדרש אדם — אצלך היא יכולה להיות on-call משופר, log rotator, auto-scaler, או כל תחזוקה אוטונומית של server יחיד או רשת.",
   badgeText: "2026 · ניטור + ריפוי עצמי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kaylee",
   heroBgImage: "/images/guides/guide-kaylee-hero.jpg",
@@ -319,5 +319,5 @@ export const kayleeGuide: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "קיילי רצה על ה-VPS שלי 24/7 ושומרת על Kami, CrewAI, Qdrant, ו-7 שירותים נוספים. במשך 4 חודשים היא פתרה ~40 תקלות עצמאית — בלי שאני יודע שהיה משהו. המדריך בנוי על log אמיתי של תיקונים, לא תיאוריה.",
+    "קיילי היא הסוכנת שאחראית לשמור על יתר הרשת. היא רצה 24/7 על VPS יחיד ומנטרת 10 שירותים במקביל, מבצעת self-healing על תקלות מוכרות, ומעירה אדם רק כשהיא לא יודעת מה לעשות. המדריך מציג את הארכיטקטורה של SRE agent שאפשר לאמץ לכל production stack — קטן כגדול.",
 };

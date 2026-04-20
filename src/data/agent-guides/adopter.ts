@@ -23,7 +23,7 @@ export const adopterGuide: AgentGuideData = {
   agentName: "Adopter",
   agentNameHe: "סינון אוטונומי של חדשות וכלים",
   tagline: "במקום לקרוא 500 פוסטים ביום — סוכן שמסנן",
-  heroDescription: "יש יותר מדי תוכן. סוכן שעוקב אחרי ערוצי טלגרם, מסווג כל פוסט עם AI, ומחליט לבד מה שווה לאמץ — מביא לך 3-5 ממצאים ביום במקום 500 פוסטים. אצלי קראתי לו Adopter.",
+  heroDescription: "Adopter הוא Python service + cron שמאזין לערוצי Telegram דרך Telethon, שולח כל פוסט ל-Gemini Flash עם schema סיווג (novelty × signal × actionability × risk) ושומר רק את ה-top-K ב-Qdrant collection `network_memory`. circuit breaker של 5 אימוצים ליום. אצלי מסנן 500 פוסטים/יום ל-3-5 ממצאים — אצלך אפשר להפנות אותו ל-RSS feeds, Discord channels, פורומי Reddit/טוויטר, mailing lists, או כל content firehose שצריך פילטר חכם.",
   badgeText: "2026 · Autonomous Content Adoption · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/adopter",
   heroBgImage: "/images/guides/guide-adopter-hero.jpg",

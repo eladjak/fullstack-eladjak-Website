@@ -25,7 +25,7 @@ export const hermesGuide: AgentGuideData = {
   agentName: "Hermes",
   agentNameHe: "שירותים שמתקנים את עצמם",
   tagline: "Self-healing — תקלות לא צריכות להעיר אתכם",
-  heroDescription: "90% מהתקלות הן אותן 10 בעיות שחוזרות. pattern של Self-Healing פותר אותן לבד, ומעיר אתכם רק למשהו חדש. 5 שלבים: זיהוי, אבחון, תיקון, אימות, למידה. אצלי קוראים לזה Hermes — אבל זה pattern, לא כלי.",
+  heroDescription: "Hermes הוא CLI של self-healing infrastructure כתוב ב-Go (v0.8.0 אצלי). הפילוסופיה: whitelist של פעולות מותרות + verification-after-fix + למידה מתקלות חוזרות. ארכיטקטורה בת חמישה שלבים: detect → diagnose → fix → verify → learn. רץ כ-cron או webhook responder, שומר היסטוריה ב-SQLite/JSON. אצלי הוא מבצע autoheal ל-Kami ול-OpenClaw — אבל אצלך זה pattern שאפשר לאמץ עם כל CLI (או אפילו bash scripts): חמשת השלבים מתאימים לכל מערכת production, לא רק לסוכני AI.",
   badgeText: "2026 · Self-Healing Infrastructure · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/hermes",
   heroBgImage: "/images/guides/guide-hermes-hero.jpg",
@@ -64,7 +64,7 @@ export const hermesGuide: AgentGuideData = {
     {
       title: "צוותי SRE קטנים",
       description:
-        "Senior שמצוברה מדי כבר 6 חודשים? Hermes מוריד ~40% מהעומס בשבוע.",
+        "Senior שמוצף בתורנויות? Pattern של self-healing מוריד משמעותית את העומס תוך שבוע.",
       icon: Rocket,
       color: "from-emerald-500 to-teal-500",
     },
@@ -207,7 +207,7 @@ export const hermesGuide: AgentGuideData = {
         "דוח שבועי: 'Top 5 problem-action pairs' — מראה patterns",
       ],
       tips: [
-        "אחרי 3 חודשים מערך ה-memory נהיה ערך משמעותי — רוב התקלות מקבלות תיקון ידוע",
+        "ככל שמערך ה-memory גדל, יותר תקלות מקבלות תיקון מוכר — ה-pattern הופך חכם יותר",
       ],
     },
     {

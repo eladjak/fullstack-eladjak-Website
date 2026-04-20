@@ -9,6 +9,10 @@ import { qdrantGuide } from "./qdrant";
 import { delegatorGuide } from "./delegator";
 import { adopterGuide } from "./adopter";
 import { dashboardGuide } from "./dashboard";
+import { dockerGuide } from "./docker";
+import { ollamaGuide } from "./ollama";
+import { n8nGuide } from "./n8n";
+import { aiderGuide } from "./aider";
 
 export const allGuides: AgentGuideData[] = [
   claudeCodeGuide,
@@ -21,6 +25,10 @@ export const allGuides: AgentGuideData[] = [
   delegatorGuide,
   adopterGuide,
   dashboardGuide,
+  dockerGuide,
+  ollamaGuide,
+  n8nGuide,
+  aiderGuide,
 ];
 
 export const guideBySlug = new Map<string, AgentGuideData>(
@@ -38,4 +46,8 @@ export {
   delegatorGuide,
   adopterGuide,
   dashboardGuide,
+  dockerGuide,
+  ollamaGuide,
+  n8nGuide,
+  aiderGuide,
 };

@@ -50,7 +50,7 @@ export const boxGuide: AgentGuideData = {
 
   tagline: "אפליקציית בריאות שבאמת משתמשים בה — בוואטסאפ",
 
-  heroDescription: "מאמן בריאות אוטונומי שמקבל את מה שאכלת בהודעה פשוטה, מחשב קלוריות וחלבון, זוכר מגמות, ומציע את הצעד הבא. 16:8 fasting, keto, משקל-יעד — הכל מתועד בלי כניסה לאפליקציה. אצלי נקרא Box (על שם אגרוף).",
+  heroDescription: "סוכן coaching אישי מבוסס Claude Code + CrewAI, עם זיכרון ארוך-טווח ב-Qdrant, OCR תמונות דרך Google Cloud Vision API, ולוח ICS שנוצר אוטומטית. ממשק: WhatsApp דרך Delegator. ה-state מאוחסן כ-JSON + SQLite מוצפן. אצלי הוא מלווה תוכנית אישית של ירידה במשקל + בניית כוח, אבל זה pattern של coach-agent, לא תוכנית דיאטה: אצלך אפשר להתאים אותו לשינה, ריצה, גמילה, לימוד מוזיקה, ניהול כספים, או כל יעד אישי מדיד שהמשתמש קובע לעצמו.",
 
   badgeText: "2026 · Health Coach AI · מדריך מעשי",
 
@@ -60,11 +60,11 @@ export const boxGuide: AgentGuideData = {
 
   stats: [
 
-    { label: "משקל התחלתי (שלי)", value: "122kg" },
+    { label: "זמן intake לאוכל", value: "<5s" },
 
-    { label: "יעד", value: "90kg" },
+    { label: "זיכרון ארוחות", value: "90 יום" },
 
-    { label: "זמן intake", value: "<5s" },
+    { label: "OCR תמונות", value: "חי" },
 
     { label: "חלונות 16:8", value: "ICS" },
 
@@ -446,7 +446,7 @@ export const boxGuide: AgentGuideData = {
 
         "Garmin/Fitbit webhook — משקל נשמר אוטומטית כל בוקר",
 
-        "Shabbat awareness — בשבת + חגים בוקס שקט אוטומטית (Sprint 6.9+7.2)",
+        "Shabbat awareness — בשבת + חגים ישראליים בוקס שקט אוטומטית",
 
         "Multi-user — אפשר לפצל state per-user ולתת Box למטופלים",
 
@@ -563,7 +563,7 @@ export const boxGuide: AgentGuideData = {
 
   authorBio:
 
-    "Box הוא מאמן הבריאות שלי. התחלתי ב-122kg, היעד 90kg, keto + 16:8. Box זוכר כל ארוחה, עוקב מגמות, ומזכיר לי לסיים מים. המדריך בנוי על 4 חודשים של intakes אמיתיים — המערכת עובדת כי היא בוואטסאפ, לא באפליקציה שאני נוטש.",
+    "Box בנוי כ-pattern של coach-agent לכל יעד אישי: בריאות, גמילה, שינה, לימוד, כספים. הערך האמיתי הוא שהממשק בוואטסאפ — המקום שבו המשתמש כבר נמצא, בלי אפליקציה חדשה שננטשת אחרי שבוע. המדריך מציג את הארכיטקטורה והתבנית כדי שתוכלו להתאים אותה לכל coaching use case שיש בארגון או בחיים האישיים.",
 
 };
 

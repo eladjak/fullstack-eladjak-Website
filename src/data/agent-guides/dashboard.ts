@@ -23,7 +23,7 @@ export const dashboardGuide: AgentGuideData = {
   agentName: "Dashboard",
   agentNameHe: "Mission Control לרשת שלך",
   tagline: "UI אחד, 12 טאבים, כל הסוכנים במבט",
-  heroDescription: "במקום 5 טאבים פתוחים (Grafana, Linear, GitHub, UptimeKuma, Gmail) — UI אחד מקומי שמציג את הכל בזמן אמת, מותאם בדיוק לזרימת העבודה שלך. קוד פתוח, Node פשוט, ללא עלויות חודשיות. אצלי פשוט קוראים לו Dashboard.",
+  heroDescription: "Dashboard הוא Next.js 14 app מקומי שרץ על port 3456 עם WebSocket server (3457). מקורות נתונים: hub.eladjak.com REST, Qdrant, local bridge files, PowerShell status scripts ו-file system watchers. 12 טאבים: Mission Control, Agents, Projects, CrewAI, Costs, Health, Logs ועוד. אצלי זה המסך המרכזי של AI CEO — אצלך הוא יכול להיות control panel ל-home lab, small SaaS ops, agent network, או DevTooling team: פשוט החלפת ה-data sources שלך ב-adapters משלך.",
   badgeText: "2026 · Self-hosted Mission Control · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/dashboard",
   heroBgImage: "/images/guides/guide-dashboard-hero.jpg",
@@ -276,5 +276,5 @@ export const dashboardGuide: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "הדשבורד רץ אצלי מ-Sprint 1, גדל מ-3 טאבים ל-12. הוא UI הראשון שאני פותח בבוקר וה-UI האחרון שאני סוגר בערב. המדריך מבוסס על 6 חודשים של שימוש אמיתי — כולל טעויות (בסוף הוצאתי dashboard/server.js מהכרך, נפרד).",
+    "הדשבורד הוא ה-UI המרכזי של רשת הסוכנים אצלי — חלון יחיד שמאגד סטטוס, עלויות, קרונים ולוגים. המדריך מציג את הארכיטקטורה כך שתוכלו לבנות control panel משלכם מעל כל data sources שיש לכם (REST, WebSocket, file watchers). התוצאה: UI מותאם אישית, לא עוד SaaS גנרי ב-100$/חודש.",
 };
