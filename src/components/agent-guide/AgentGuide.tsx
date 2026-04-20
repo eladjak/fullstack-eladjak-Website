@@ -9,9 +9,13 @@ import {
   Copy,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Lightbulb,
+  LayoutGrid,
 } from "lucide-react";
 import type { AgentGuideData, Difficulty } from "./types";
+import { allGuides } from "@/data/agent-guides";
 
 const difficultyConfig: Record<
   Difficulty,
@@ -42,6 +46,17 @@ export function AgentGuide({ guide }: AgentGuideProps) {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [showBeginner, setShowBeginner] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Prev/next guide for nav
+  const guideIndex = allGuides.findIndex((g) => g.slug === guide.slug);
+  const prevGuide = guideIndex > 0 ? allGuides[guideIndex - 1] : undefined;
+  const nextGuide =
+    guideIndex >= 0 && guideIndex < allGuides.length - 1
+      ? allGuides[guideIndex + 1]
+      : undefined;
+  const guideHref = (slug: string) =>
+    slug === "claude-code" ? "/claude-code" : `/guide/${slug}`;
 
   const handleShare = async () => {
     const url = guide.canonical;
@@ -64,24 +79,104 @@ export function AgentGuide({ guide }: AgentGuideProps) {
 
   return (
     <main className="min-h-dvh bg-background" dir="rtl">
-      {/* Sticky TOC */}
+      {/* Sticky TOC + guide nav */}
       <div className="sticky top-16 z-30 py-2 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-wrap gap-1.5 bg-background/70 backdrop-blur-md border border-border/50 rounded-2xl px-3 py-2 shadow-sm">
-            {guide.toc.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.id);
-                }}
-                className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors px-2.5 py-1 rounded-full hover:bg-primary/10"
+          <div className="flex items-center gap-2 bg-background/70 backdrop-blur-md border border-border/50 rounded-2xl px-3 py-2 shadow-sm">
+            {/* prev/next between guides */}
+            <div className="flex items-center gap-1 shrink-0 border-e border-border/50 pe-2 me-1">
+              {prevGuide ? (
+                <Link
+                  href={guideHref(prevGuide.slug)}
+                  className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                  aria-label={`למדריך הקודם: ${prevGuide.agentNameHe}`}
+                  title={prevGuide.agentNameHe}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <span className="p-1.5 opacity-30" aria-hidden="true">
+                  <ChevronRight className="h-4 w-4" />
+                </span>
+              )}
+              <button
+                type="button"
+                onClick={() => setMenuOpen((v) => !v)}
+                className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                aria-label="כל המדריכים"
+                aria-expanded={menuOpen}
+                title="כל המדריכים"
               >
-                {item.label}
-              </a>
-            ))}
+                <LayoutGrid className="h-4 w-4" />
+              </button>
+              {nextGuide ? (
+                <Link
+                  href={guideHref(nextGuide.slug)}
+                  className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                  aria-label={`למדריך הבא: ${nextGuide.agentNameHe}`}
+                  title={nextGuide.agentNameHe}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Link>
+              ) : (
+                <span className="p-1.5 opacity-30" aria-hidden="true">
+                  <ChevronLeft className="h-4 w-4" />
+                </span>
+              )}
+            </div>
+            {/* section TOC */}
+            <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
+              {guide.toc.map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(item.id);
+                  }}
+                  className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors px-2.5 py-1 rounded-full hover:bg-primary/10 whitespace-nowrap"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
+
+          {/* Guide menu dropdown */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.15 }}
+                className="mt-2 bg-background/95 backdrop-blur-md border border-border/50 rounded-2xl p-3 shadow-lg"
+                role="menu"
+              >
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                  {allGuides.map((g) => {
+                    const isCurrent = g.slug === guide.slug;
+                    return (
+                      <Link
+                        key={g.slug}
+                        href={guideHref(g.slug)}
+                        onClick={() => setMenuOpen(false)}
+                        role="menuitem"
+                        aria-current={isCurrent ? "page" : undefined}
+                        className={`text-xs font-medium px-3 py-2 rounded-lg transition-colors text-center ${
+                          isCurrent
+                            ? "bg-primary/15 text-primary border border-primary/30"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted border border-transparent"
+                        }`}
+                      >
+                        {g.agentNameHe}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
@@ -558,6 +653,63 @@ export function AgentGuide({ guide }: AgentGuideProps) {
               )}
               {copied ? "הועתק!" : "העתיקו קישור"}
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* GUIDE PREV/NEXT NAVIGATION */}
+      <section className="border-t border-border py-10 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-4">
+            {prevGuide ? (
+              <Link
+                href={guideHref(prevGuide.slug)}
+                className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4"
+              >
+                <ChevronRight className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground mb-1">
+                    המדריך הקודם
+                  </div>
+                  <div className="font-semibold font-heebo group-hover:text-primary transition-colors text-balance">
+                    {prevGuide.agentNameHe}
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <span aria-hidden="true" />
+            )}
+            {nextGuide ? (
+              <Link
+                href={guideHref(nextGuide.slug)}
+                className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 sm:flex-row-reverse sm:text-start text-end"
+              >
+                <ChevronLeft className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground mb-1">
+                    המדריך הבא
+                  </div>
+                  <div className="font-semibold font-heebo group-hover:text-primary transition-colors text-balance">
+                    {nextGuide.agentNameHe}
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <Link
+                href="/guide"
+                className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 sm:flex-row-reverse sm:text-start text-end"
+              >
+                <LayoutGrid className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground mb-1">
+                    כל המדריכים
+                  </div>
+                  <div className="font-semibold font-heebo group-hover:text-primary transition-colors">
+                    חזרה לאינדקס
+                  </div>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </section>

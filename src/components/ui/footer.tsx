@@ -24,7 +24,7 @@ export default function Footer() {
     { href: '/about', label: tNav('about') },
     { href: '/contact', label: tNav('contact') },
     { href: '/thanks', label: tNav('thanks') },
-    { href: '/claude-code', label: 'Claude Code' },
+    { href: '/guide', label: tNav('guides') },
   ];
 
   const cvHref = '/cv-elad-yaakobovitch.html';
