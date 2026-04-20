@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllMDXPosts } from '@/lib/mdx';
+import { allGuides } from '@/data/agent-guides';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 
@@ -55,6 +56,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Agent guide index + individual guides
+  const guideIndexRoute: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/guide`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+  ];
+  const guideRoutes: MetadataRoute.Sitemap = allGuides
+    .filter((g) => g.slug !== 'claude-code')
+    .map((g) => ({
+      url: `${SITE_URL}/guide/${g.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.75,
+    }));
+
   // MDX blog posts (local files)
   const mdxPosts = getAllMDXPosts();
   const mdxRoutes: MetadataRoute.Sitemap = mdxPosts.map((post) => ({
@@ -64,5 +83,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...mdxRoutes];
+  return [...staticRoutes, ...guideIndexRoute, ...guideRoutes, ...mdxRoutes];
 }
