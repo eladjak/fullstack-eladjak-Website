@@ -26,6 +26,7 @@ export const qdrantGuide: AgentGuideData = {
   heroDescription: "Postgres שומר עובדות. Redis שומר cache. בסיס נתונים וקטורי שומר משמעות. זה מה שמאפשר לסוכן AI לזכור שיחות מלפני שבוע, למצוא תשובה דומה מבלי לחפש במילים המדויקות, ולסנן כפילויות באופן חכם. Qdrant הוא הבסיס הפתוח והמהיר שאני משתמש בו.",
   badgeText: "2026 · Vector Memory · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/qdrant",
+  heroBgImage: "/images/guides/guide-qdrant-hero.jpg",
   stats: [
     { label: "collections אצלי", value: "10" },
     { label: "embeddings total", value: "10k+" },

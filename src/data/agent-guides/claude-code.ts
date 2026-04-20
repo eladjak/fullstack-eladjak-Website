@@ -27,7 +27,7 @@ export const claudeCodeGuide: AgentGuideData = {
   heroDescription: "תארו לעצמכם שיש לכם צוות של מתכנת, מעצב, בודק, מומחה אבטחה, וכותב תוכן — כולם זמינים 24/7, עובדים במקביל, ועולים פחות ממנוי חודשי אחד. זה Claude Code — וכבר שנה שאני משתמש בו יומיום.",
   badgeText: "2026 · מעודכן · מדריך מעשי בעברית",
   canonical: "https://fullstack-eladjak.co.il/claude-code",
-  heroBgImage: "/images/claude-code-hero.jpg",
+  heroBgImage: "/images/guides/guide-claude-code-hero.jpg",
   stats: [
     { label: "מיומנויות", value: "350+" },
     { label: "חיבורי MCP", value: "17" },

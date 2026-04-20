@@ -28,6 +28,7 @@ export const hermesGuide: AgentGuideData = {
   heroDescription: "90% מהתקלות הן אותן 10 בעיות שחוזרות. pattern של Self-Healing פותר אותן לבד, ומעיר אתכם רק למשהו חדש. 5 שלבים: זיהוי, אבחון, תיקון, אימות, למידה. אצלי קוראים לזה Hermes — אבל זה pattern, לא כלי.",
   badgeText: "2026 · Self-Healing Infrastructure · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/hermes",
+  heroBgImage: "/images/guides/guide-hermes-hero.jpg",
   stats: [
     { label: "זמן תיקון ממוצע", value: "<90s" },
     { label: "נסיונות לפני escalation", value: "3" },

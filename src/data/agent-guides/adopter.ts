@@ -26,6 +26,7 @@ export const adopterGuide: AgentGuideData = {
   heroDescription: "יש יותר מדי תוכן. סוכן שעוקב אחרי ערוצי טלגרם, מסווג כל פוסט עם AI, ומחליט לבד מה שווה לאמץ — מביא לך 3-5 ממצאים ביום במקום 500 פוסטים. אצלי קראתי לו Adopter.",
   badgeText: "2026 · Autonomous Content Adoption · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/adopter",
+  heroBgImage: "/images/guides/guide-adopter-hero.jpg",
   stats: [
     { label: "ערוצים מנוטרים", value: "20+" },
     { label: "פוסטים ליום", value: "500+" },

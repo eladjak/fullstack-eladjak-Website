@@ -28,6 +28,7 @@ export const kamiGuide: AgentGuideData = {
   heroDescription: "לא עוד בוט שמחזיר תשובה. עוזר AI מלא שחי בוואטסאפ שלך — מתמלל הודעות קוליות, מדבר חזרה בקול עברי, זוכר שיחות ישנות, יוזם פעולות ומשתפר עם הזמן. אצלי נקרא Kami (קאמי), אבל אפשר לקרוא לו בכל שם.",
   badgeText: "2026 · סוכן WhatsApp עברי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kami",
+  heroBgImage: "/images/guides/guide-kami-hero.jpg",
   stats: [
     { label: "תוכל להגיע", value: "24/7" },
     { label: "שפת ברירת מחדל", value: "עברית" },

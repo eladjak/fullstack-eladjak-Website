@@ -28,6 +28,7 @@ export const kayleeGuide: AgentGuideData = {
   heroDescription: "תקלה ב-03:00 בבוקר? היא כבר אבחנה, ניסתה restart, ואם לא עזר — פותחת לוג מפורט בטלגרם. סוכנת AI עם גישה מלאה ל-Docker, systemd וקבצים — עם כללי אבטחה נוקשים. אצלי נקראת Kaylee (קיילי).",
   badgeText: "2026 · ניטור + ריפוי עצמי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kaylee",
+  heroBgImage: "/images/guides/guide-kaylee-hero.jpg",
   stats: [
     { label: "בדיקות אוטומטיות", value: "5m" },
     { label: "ריפוי עצמי", value: "10m" },

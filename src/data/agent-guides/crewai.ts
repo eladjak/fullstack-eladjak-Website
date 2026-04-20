@@ -26,6 +26,7 @@ export const crewaiGuide: AgentGuideData = {
   heroDescription: "במקום לבקש מ-AI אחד 'תכתוב שיעור TypeScript בעברית' — נותנים את זה לצוות: חוקר → מעצב → כותב. כל אחד עם תפקיד ייחודי. המסגרת שנקראת CrewAI מאפשרת לתזמר את הצוות הזה בקלות.",
   badgeText: "2026 · Multi-Agent Orchestration · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/crewai",
+  heroBgImage: "/images/guides/guide-crewai-hero.jpg",
   stats: [
     { label: "crews ברשת שלי", value: "10" },
     { label: "זמן ריצת crew", value: "60-180s" },

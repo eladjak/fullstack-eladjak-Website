@@ -26,6 +26,7 @@ export const dashboardGuide: AgentGuideData = {
   heroDescription: "במקום 5 טאבים פתוחים (Grafana, Linear, GitHub, UptimeKuma, Gmail) — UI אחד מקומי שמציג את הכל בזמן אמת, מותאם בדיוק לזרימת העבודה שלך. קוד פתוח, Node פשוט, ללא עלויות חודשיות. אצלי פשוט קוראים לו Dashboard.",
   badgeText: "2026 · Self-hosted Mission Control · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/dashboard",
+  heroBgImage: "/images/guides/guide-dashboard-hero.jpg",
   stats: [
     { label: "טאבים", value: "12" },
     { label: "WebSocket updates", value: "5s" },
