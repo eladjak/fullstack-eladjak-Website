@@ -32,6 +32,7 @@ export const aiderGuideEn: AgentGuideData = {
   badgeText: "2026 · AI Pair-Programming CLI · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/aider",
   heroBgImage: "/images/guides/guide-aider-hero.jpg",
+  videoUrl: "/videos/guides/aider.mp4",
   stats: [
     { label: "Supported models", value: "200+" },
     { label: "git integration", value: "auto" },

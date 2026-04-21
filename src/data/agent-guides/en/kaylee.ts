@@ -31,6 +31,7 @@ export const kayleeGuideEn: AgentGuideData = {
   badgeText: "2026 · Monitoring + Self-Healing · Hands-On Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/kaylee",
   heroBgImage: "/images/guides/guide-kaylee-hero.jpg",
+  videoUrl: "/videos/guides/kaylee.mp4",
   stats: [
     { label: "Automated checks", value: "5m" },
     { label: "Self-healing cycle", value: "10m" },

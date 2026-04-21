@@ -32,6 +32,7 @@ export const n8nGuideEn: AgentGuideData = {
   badgeText: "2026 · Workflow Automation · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/n8n",
   heroBgImage: "/images/guides/guide-n8n-hero.jpg",
+  videoUrl: "/videos/guides/n8n.mp4",
   stats: [
     { label: "built-in nodes", value: "500+" },
     { label: "executions", value: "unlimited" },

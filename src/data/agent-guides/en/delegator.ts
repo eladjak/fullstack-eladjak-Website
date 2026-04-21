@@ -28,6 +28,7 @@ export const delegatorGuideEn: AgentGuideData = {
   badgeText: "2026 · Central API Router · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/delegator",
   heroBgImage: "/images/guides/guide-delegator-hero.jpg",
+  videoUrl: "/videos/guides/delegator.mp4",
   stats: [
     { label: "endpoints", value: "100+" },
     { label: "services behind it", value: "10" },

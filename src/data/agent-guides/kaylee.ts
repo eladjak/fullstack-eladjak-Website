@@ -30,6 +30,7 @@ export const kayleeGuide: AgentGuideData = {
   badgeText: "2026 · ניטור + ריפוי עצמי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kaylee",
   heroBgImage: "/images/guides/guide-kaylee-hero.jpg",
+  videoUrl: "/videos/guides/kaylee.mp4",
   stats: [
     { label: "בדיקות אוטומטיות", value: "כל 5 ד׳" },
     { label: "ריפוי עצמי", value: "כל 10 ד׳" },

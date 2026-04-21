@@ -30,6 +30,7 @@ export const kamiGuide: AgentGuideData = {
   badgeText: "2026 · סוכן WhatsApp עברי · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/kami",
   heroBgImage: "/images/guides/guide-kami-hero.jpg",
+  videoUrl: "/videos/guides/kami.mp4",
   stats: [
     { label: "תוכל להגיע", value: "24/7" },
     { label: "שפת ברירת מחדל", value: "עברית" },

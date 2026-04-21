@@ -31,6 +31,7 @@ export const boxGuideEn: AgentGuideData = {
   badgeText: "2026 · Health Coach AI · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/box",
   heroBgImage: "/images/guides/guide-box-hero.jpg",
+  videoUrl: "/videos/guides/box.mp4",
   stats: [
     { label: "Meal intake time", value: "<5s" },
     { label: "Meal memory", value: "90 days" },

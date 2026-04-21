@@ -31,6 +31,7 @@ export const hermesGuideEn: AgentGuideData = {
   badgeText: "2026 · Self-Healing Infrastructure · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/hermes",
   heroBgImage: "/images/guides/guide-hermes-hero.jpg",
+  videoUrl: "/videos/guides/hermes.mp4",
   stats: [
     { label: "Avg. time to fix", value: "<90s" },
     { label: "Attempts before escalation", value: "3" },

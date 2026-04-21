@@ -33,6 +33,7 @@ export const ollamaGuide: AgentGuideData = {
   badgeText: "2026 · Local LLM Runtime · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/ollama",
   heroBgImage: "/images/guides/guide-ollama-hero.jpg",
+  videoUrl: "/videos/guides/ollama.mp4",
   stats: [
     { label: "עלות", value: "חינם" },
     { label: "זמן התקנה", value: "5 דקות" },

@@ -30,6 +30,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
   badgeText: "2026 · Updated · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/claude-code",
   heroBgImage: "/images/guides/guide-claude-code-hero.jpg",
+  videoUrl: "/videos/guides/claude-code.mp4",
   stats: [
     { label: "Skills", value: "350+" },
     { label: "MCP connectors", value: "17" },

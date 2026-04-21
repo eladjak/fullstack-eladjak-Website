@@ -30,6 +30,7 @@ export const claudeCodeGuide: AgentGuideData = {
   badgeText: "2026 · מעודכן · מדריך מעשי בעברית",
   canonical: "https://fullstack-eladjak.co.il/claude-code",
   heroBgImage: "/images/guides/guide-claude-code-hero.jpg",
+  videoUrl: "/videos/guides/claude-code.mp4",
   stats: [
     { label: "מיומנויות", value: "350+" },
     { label: "חיבורי MCP", value: "17" },

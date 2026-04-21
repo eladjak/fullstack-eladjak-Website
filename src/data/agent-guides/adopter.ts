@@ -28,6 +28,7 @@ export const adopterGuide: AgentGuideData = {
   badgeText: "2026 · Autonomous Content Adoption · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/adopter",
   heroBgImage: "/images/guides/guide-adopter-hero.jpg",
+  videoUrl: "/videos/guides/adopter.mp4",
   stats: [
     { label: "ערוצים מנוטרים", value: "20+" },
     { label: "פוסטים ליום", value: "500+" },

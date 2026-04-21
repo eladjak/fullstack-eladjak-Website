@@ -71,6 +71,17 @@ export interface AgentGuideData {
    * Example: "/images/guide-logos/kami-logo.png"
    */
   logoImage?: string;
+  /**
+   * Optional path (relative to /public) to a short introduction video for this
+   * guide. Shown below the hero as a native HTML5 player. Generated via the
+   * video-pipeline Python/Node scripts with Gemini TTS narration.
+   * Example: "/videos/guides/ollama.mp4"
+   */
+  videoUrl?: string;
+  /**
+   * Optional poster image for the video player; defaults to heroBgImage.
+   */
+  videoPoster?: string;
   stats: GuideStat[]; // 4 stats for hero
   paradigmShifts: ParadigmShift[];
   paradigmTitle: string;

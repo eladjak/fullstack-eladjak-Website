@@ -29,6 +29,7 @@ export const qdrantGuideEn: AgentGuideData = {
   badgeText: "2026 · Vector Memory · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/qdrant",
   heroBgImage: "/images/guides/guide-qdrant-hero.jpg",
+  videoUrl: "/videos/guides/qdrant.mp4",
   stats: [
     { label: "my collections", value: "10" },
     { label: "total embeddings", value: "10k+" },

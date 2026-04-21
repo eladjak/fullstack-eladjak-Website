@@ -34,6 +34,7 @@ export const ollamaGuideEn: AgentGuideData = {
   badgeText: "2026 · Local LLM Runtime · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/ollama",
   heroBgImage: "/images/guides/guide-ollama-hero.jpg",
+  videoUrl: "/videos/guides/ollama.mp4",
   stats: [
     { label: "Cost", value: "Free" },
     { label: "Install time", value: "5 minutes" },

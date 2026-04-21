@@ -30,6 +30,7 @@ export const kamiGuideEn: AgentGuideData = {
   badgeText: "2026 · Hebrew-native WhatsApp agent · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/kami",
   heroBgImage: "/images/guides/guide-kami-hero.jpg",
+  videoUrl: "/videos/guides/kami.mp4",
   stats: [
     { label: "Availability", value: "24/7" },
     { label: "Default language", value: "Hebrew" },

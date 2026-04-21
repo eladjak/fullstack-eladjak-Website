@@ -28,6 +28,7 @@ export const dashboardGuide: AgentGuideData = {
   badgeText: "2026 · Self-hosted Mission Control · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/dashboard",
   heroBgImage: "/images/guides/guide-dashboard-hero.jpg",
+  videoUrl: "/videos/guides/dashboard.mp4",
   stats: [
     { label: "טאבים", value: "12" },
     { label: "WebSocket updates", value: "5s" },

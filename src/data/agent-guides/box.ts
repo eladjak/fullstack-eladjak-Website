@@ -59,6 +59,7 @@ export const boxGuide: AgentGuideData = {
   canonical: "https://fullstack-eladjak.co.il/guide/box",
 
   heroBgImage: "/images/guides/guide-box-hero.jpg",
+  videoUrl: "/videos/guides/box.mp4",
 
   stats: [
 

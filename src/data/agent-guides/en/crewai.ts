@@ -29,6 +29,7 @@ export const crewaiGuideEn: AgentGuideData = {
   badgeText: "2026 · Multi-Agent Orchestration · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/crewai",
   heroBgImage: "/images/guides/guide-crewai-hero.jpg",
+  videoUrl: "/videos/guides/crewai.mp4",
   stats: [
     { label: "crews in my network", value: "10" },
     { label: "crew runtime", value: "60-180s" },

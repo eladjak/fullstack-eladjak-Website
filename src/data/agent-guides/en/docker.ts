@@ -34,6 +34,7 @@ export const dockerGuideEn: AgentGuideData = {
   badgeText: "2026 · Containers & Compose · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/docker",
   heroBgImage: "/images/guides/guide-docker-hero.jpg",
+  videoUrl: "/videos/guides/docker.mp4",
   stats: [
     { label: "containers I run", value: "14" },
     { label: "uptime", value: "99.7%" },
