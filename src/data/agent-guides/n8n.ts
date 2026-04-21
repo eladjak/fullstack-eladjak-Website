@@ -26,25 +26,25 @@ export const n8nGuide: AgentGuideData = {
   agentNameHe: "n8n — פלטפורמת אוטומציות ויזואלית",
   category: "infra",
   logoImage: "/images/guide-logos/n8n-logo.png",
-  tagline: "Zapier בקוד פתוח — 1000+ אינטגרציות, self-hosted, ללא מגבלת executions",
+  tagline: "Zapier בקוד פתוח — 500+ אינטגרציות מובנות, self-hosted, ללא מגבלת executions",
   heroDescription:
-    "n8n זו פלטפורמה חינמית וקוד פתוח מבית חברת n8n שבגרמניה, שמאפשרת לבנות אוטומציות מורכבות בלי לכתוב כמעט שורת קוד. אתם בוודאי מכירים שירותים כמו Zapier או Make — אלה המערכות שמחברות בין האפליקציות השונות שלכם ומבצעות משימות אוטומטיות (למשל: 'כשמגיע אימייל חדש מלקוח, שמור אותו ב-Google Sheets, שלח הודעת וואטסאפ לצוות ופתח כרטיס ב-Trello'). הבעיה עם Zapier ו-Make היא המחיר — הם מתחילים ב-20 דולר לחודש ועולים במהירות למאות דולרים כשהשימוש גדל. n8n לוקחת את אותו רעיון בדיוק, פותחת את הקוד בחינם, ומאפשרת לכם להריץ אותה אצלכם על השרת — בלי מגבלת כמות אוטומציות, ובלי צורך לשלם לאף אחד. הממשק שלה ויזואלי לחלוטין ונוח להבנה: גוררים קופסאות למסך (כל קופסה מייצגת פעולה — קריאת אימייל, שליחת הודעה, חישוב משהו, שמירה במסד נתונים) ומחברים ביניהן בקווים. מעל 1,000 'קופסאות' מוכנות לשימוש עבור כל שירות פופולרי — Gmail, Slack, Postgres, Google Sheets, מודלי AI כמו ChatGPT ו-[Claude](/claude-code), ואפילו סוכנים מהרשת שלי כמו [Kami](/guide/kami) ו-[CrewAI](/guide/crewai). אצלי n8n מריצה 25 אוטומציות עסקיות שחוסכות לי שעות בשבוע (הפקת חשבוניות, פרסום תוכן, מעקב אחרי ביצועי סוכנים) — אצלכם היא יכולה להחליף לגמרי את Zapier ו-Make, או לשמש כ'דבק' שמחבר את כל המערכות הפנים-ארגוניות שלכם.",
+    "n8n זו פלטפורמה חינמית וקוד פתוח מבית n8n GmbH — חברה גרמנית בוגרת, בוגרת Series B — שמאפשרת לבנות אוטומציות מורכבות בלי לכתוב כמעט שורת קוד. אתם בוודאי מכירים שירותים כמו Zapier או Make — אלה המערכות שמחברות בין האפליקציות השונות שלכם ומבצעות משימות אוטומטיות (למשל: 'כשמגיע אימייל חדש מלקוח, שמור אותו ב-Google Sheets, שלח הודעת וואטסאפ לצוות ופתח כרטיס ב-Trello'). הבעיה עם Zapier ו-Make היא המחיר — Zapier Starter עומד על 29$ לחודש (750 משימות), Zapier Professional על 73$ לחודש (2,000 משימות), ו-Zapier Team על 103$ למשתמש לחודש; Make יותר נדיב (Core ב-10.59$ לחודש, Pro ב-18.82$ לחודש), אבל עדיין עולה ככל שהשימוש גדל. n8n לוקחת את אותו רעיון בדיוק, פותחת את הקוד בחינם, ומאפשרת לכם להריץ אותה אצלכם על השרת — בלי מגבלת כמות אוטומציות, ובלי צורך לשלם לאף אחד (התוכנית המנוהלת של n8n, אם ממש רוצים, מתחילה ב-20$ לחודש עם 2,500 executions). הממשק שלה ויזואלי לחלוטין ונוח להבנה: גוררים קופסאות למסך (כל קופסה מייצגת פעולה — קריאת אימייל, שליחת הודעה, חישוב משהו, שמירה במסד נתונים) ומחברים ביניהן בקווים. מעל 500 קופסאות מובנות לכל שירות פופולרי — Gmail, Slack, Postgres, Google Sheets, AI Agent, Vector Store (Qdrant, Pinecone, Supabase Vector), LangChain, מודלי AI כמו ChatGPT ו-[Claude](/claude-code), ואפילו סוכנים מהרשת שלי כמו [Kami](/guide/kami) ו-[CrewAI](/guide/crewai). אצלי n8n מריצה 25 אוטומציות עסקיות שחוסכות לי שעות בשבוע (הפקת חשבוניות, פרסום תוכן, מעקב אחרי ביצועי סוכנים) — אצלכם היא יכולה להחליף לגמרי את Zapier ו-Make, או לשמש כ'דבק' שמחבר את כל המערכות הפנים-ארגוניות שלכם.",
   badgeText: "2026 · Workflow Automation · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/n8n",
   heroBgImage: "/images/guides/guide-n8n-hero.jpg",
   stats: [
-    { label: "nodes זמינים", value: "1000+" },
+    { label: "nodes מובנים", value: "500+" },
     { label: "executions", value: "ללא הגבלה" },
     { label: "עלות self-host", value: "0$" },
     { label: "אינטגרציות אצלי", value: "25" },
   ],
   paradigmTitle: "למה לא Zapier?",
   paradigmSub:
-    "Zapier נהדר עד שאתם מגיעים ל-20$/חודש על 750 טריגרים. n8n לוקח את כל היכולת, פותח אותה, ומוסיף יכולת לכתוב JS בתוך ה-workflow.",
+    "Zapier נהדר עד שאתם מגיעים ל-29$/חודש על 750 משימות (ו-73$ ל-2,000). n8n לוקח את כל היכולת, פותח אותה, ומוסיף יכולת לכתוב JS בתוך ה-workflow.",
   paradigmShifts: [
     {
-      before: "Zapier Starter 20$/חודש — 750 טריגרים",
-      after: "n8n ב-VPS 5$/חודש — executions אינסופיים",
+      before: "Zapier Starter 29$/חודש — 750 משימות",
+      after: "n8n על Hetzner CPX11 בכ-4.75€/חודש — executions אינסופיים",
       icon: Zap,
     },
     {
@@ -67,7 +67,7 @@ export const n8nGuide: AgentGuideData = {
     {
       title: "צוותי ops קטנים",
       description:
-        "רוצים workflows בלי לגעת בקוד, אבל לא רוצים לשלם 200$/חודש ל-Zapier Team.",
+        "רוצים workflows בלי לגעת בקוד, אבל לא רוצים לשלם 103$ למשתמש/חודש ל-Zapier Team.",
       icon: Users,
       color: "from-pink-500 to-rose-500",
     },
@@ -106,15 +106,15 @@ export const n8nGuide: AgentGuideData = {
       id: "what-is",
       icon: Workflow,
       title: "n8n — מה הוא בגישה טכנית",
-      subtitle: "Workflow engine + ממשק ויזואלי + 1000 מתאמים",
+      subtitle: "Workflow engine + ממשק ויזואלי + 500+ מתאמים מובנים",
       description:
-        "n8n זו פלטפורמת אוטומציות ויזואלית בקוד פתוח מבית חברת n8n שבגרמניה — דמיינו 'Zapier בקוד פתוח' שאתם מריצים בעצמכם על שרת, בלי מגבלה של כמה אוטומציות אתם מפעילים בחודש. תחת מכסה המנוע יש שלוש שכבות: (1) מנוע ביצוע כתוב ב-Node.js שמריץ את האוטומציות (ב-n8n קוראים לכל אוטומציה 'workflow' — זרימת עבודה), (2) בסיס נתונים (PostgreSQL או SQLite) ששומר את ה-workflows ואת היסטוריית הריצות, ו-(3) עורך ויזואלי יפה בדפדפן שבו גוררים קופסאות ומחברים ביניהן בקווים. אצלי (אלעד) n8n הוא פס הייצור החכם של הרשת — ~25 workflows שמחברים את [Kami](/guide/kami), [CrewAI](/guide/crewai), ו-[Qdrant](/guide/qdrant) עם שירותים חיצוניים כמו Gmail, Slack ו-WhatsApp.",
+        "n8n זו פלטפורמת אוטומציות ויזואלית בקוד פתוח מבית n8n GmbH (חברה גרמנית בוגרת Series B) — דמיינו 'Zapier בקוד פתוח' שאתם מריצים בעצמכם על שרת, בלי מגבלה של כמה אוטומציות אתם מפעילים בחודש. תחת מכסה המנוע יש שלוש שכבות: (1) מנוע ביצוע כתוב ב-Node.js שמריץ את האוטומציות (ב-n8n קוראים לכל אוטומציה 'workflow' — זרימת עבודה), (2) בסיס נתונים (PostgreSQL או SQLite) ששומר את ה-workflows ואת היסטוריית הריצות, ו-(3) עורך ויזואלי יפה בדפדפן שבו גוררים קופסאות ומחברים ביניהן בקווים. אצלי (אלעד) n8n הוא פס הייצור החכם של הרשת — ~25 workflows שמחברים את [Kami](/guide/kami), [CrewAI](/guide/crewai), ו-[Qdrant](/guide/qdrant) עם שירותים חיצוניים כמו Gmail, Slack ו-WhatsApp.",
       color: "from-pink-600 to-rose-500",
       difficulty: "beginner",
       beginner:
-        "תחשבו על n8n כמו פס ייצור במפעל: על הפס יש תחנות (nodes), וכל תחנה עושה פעולה אחת — 'קרא אימייל חדש', 'שלח הודעת וואטסאפ', 'שמור ב-Google Sheets'. אתם בונים את הפס פעם אחת על ידי גרירת תחנות ויצירת חיבורים ביניהן — ומאותו רגע, בכל פעם שמגיע טריגר (למשל אימייל חדש), הפס רץ אוטומטית ומבצע את כל הפעולות בשרשרת. לעומת Zapier שגובה ~20$ בחודש על 750 ריצות, n8n על VPS ב-5€ בחודש נותן לכם ריצות אינסופיות — חיסכון של 100$+ בחודש.",
+        "תחשבו על n8n כמו פס ייצור במפעל: על הפס יש תחנות (nodes), וכל תחנה עושה פעולה אחת — 'קרא אימייל חדש', 'שלח הודעת וואטסאפ', 'שמור ב-Google Sheets'. אתם בונים את הפס פעם אחת על ידי גרירת תחנות ויצירת חיבורים ביניהן — ומאותו רגע, בכל פעם שמגיע טריגר (למשל אימייל חדש), הפס רץ אוטומטית ומבצע את כל הפעולות בשרשרת. לעומת Zapier שגובה 29$ בחודש על 750 משימות (ו-73$ על 2,000), n8n על VPS ב-Hetzner CPX11 בכ-4.75€ בחודש נותן לכם ריצות אינסופיות — חיסכון של עשרות עד מאות דולרים בחודש כבר מהיום הראשון.",
       content: [
-        "node — תחנה אחת בפס הייצור. כל node מבצע פעולה אחת (שליחת אימייל, קריאה מ-API, שאילתה ל-DB). יש 1000+ nodes מוכנים ועוד אפשרות לכתוב משלכם",
+        "node — תחנה אחת בפס הייצור. כל node מבצע פעולה אחת (שליחת אימייל, קריאה מ-API, שאילתה ל-DB). יש 500+ nodes מובנים (ועוד מאות nodes בקהילה) ואפשרות לכתוב משלכם. חידושים עכשוויים: AI Agent node, Vector Store nodes (Qdrant, Pinecone, Supabase Vector), ו-LangChain nodes",
         "trigger node — הנקודה שמפעילה את ה-workflow: Webhook (מקבל בקשת HTTP), Cron (רץ לפי זמן מתוזמן כמו 'כל יום ב-09:00'), Gmail Trigger (כשמגיע אימייל חדש) ועוד",
         "workflow — ה-DAG (גרף מכוון ללא מעגלים) של כל ה-nodes המחוברים ביניהם. הנתונים זורמים מ-node ל-node דרך החיבורים שציירתם בעורך הויזואלי",
         "expression — שפת תבניות פנימית בסגנון {{$json.field}} ששולפת ערכים מה-node הקודם. מאפשרת להשתמש בתוצאה של שלב אחד כקלט לשלב הבא, בלי לכתוב קוד",
@@ -138,9 +138,9 @@ export const n8nGuide: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
-        "אצלי (אלעד) n8n רץ על ה-VPS הראשי ב-Hetzner יחד עם שאר הסוכנים ברשת. אצלכם, אפילו VPS הכי קטן של Hetzner או DigitalOcean (כ-5€ בחודש) יספיק להרצת n8n + Postgres. הקובץ compose.yml הוא פחות מ-30 שורות, הפקודה להרים את הכל היא docker compose up -d, ו-Caddy דואג לתעודת HTTPS חינמית אוטומטית מ-Let's Encrypt. תוך חצי שעה יש לכם פלטפורמת אוטומציות מקצועית, והחיסכון מול Zapier Starter ($20/חודש) משתלם כבר מהשבוע הראשון.",
+        "אצלי (אלעד) n8n רץ על ה-VPS הראשי ב-Hetzner יחד עם שאר הסוכנים ברשת. אצלכם, אפילו VPS קטן של Hetzner (CX11 בכ-4.15€/חודש או CPX11 בכ-4.75€/חודש), DigitalOcean Droplet (מ-4$/חודש) או Contabo (מ-~4.50€/חודש עם משאבים נדיבים בהרבה) יספיק להרצת n8n + Postgres. הקובץ compose.yml הוא פחות מ-30 שורות, הפקודה להרים את הכל היא docker compose up -d, ו-Caddy דואג לתעודת HTTPS חינמית אוטומטית מ-Let's Encrypt. תוך חצי שעה יש לכם פלטפורמת אוטומציות מקצועית, והחיסכון מול Zapier Starter (29$/חודש) משתלם כבר מהשבוע הראשון.",
       content: [
-        "image רשמית: n8nio/n8n הגרסה היציבה מבוססת Node.js 20 וכוללת את כל ה-1000+ nodes מובנים כברירת מחדל — אין צורך להתקין שום דבר נוסף",
+        "image רשמית: n8nio/n8n הגרסה היציבה מבוססת Node.js 20 וכוללת את כל 500+ ה-nodes המובנים (כולל AI Agent, Vector Store, LangChain) כברירת מחדל — אין צורך להתקין שום דבר נוסף",
         "PostgreSQL מומלץ במקום SQLite ברגע שיש יותר מ-5 workflows פעילים — SQLite מקרטע עם executions מקבילים, Postgres מטפל בזה בקלות",
         "env vars חשובים: N8N_HOST (הדומיין שלכם), N8N_PROTOCOL=https, WEBHOOK_URL (כתובת ציבורית ל-webhooks), ו-DB_POSTGRESDB_* (פרטי חיבור למסד)",
         "volumes: התיקייה /home/node/.n8n שומרת credentials מוצפנים + קבצים מקומיים — חייבים למפות אותה ל-volume, אחרת כל הנתונים ייעלמו עם restart",
@@ -163,7 +163,7 @@ export const n8nGuide: AgentGuideData = {
       title: "nodes עיקריים וטריגרים",
       subtitle: "20 nodes שפותרים 90% מהמשימות",
       description:
-        "למרות ש-n8n מגיע עם יותר מ-1000 nodes, האמת היא שבכל ה-workflows שלי — 25 מהם בייצור — חוזרים בערך 20 nodes בסיסיים שפותרים 90% מהמשימות. להכיר את הכלים האלה לעומק זה ההבדל בין בניית workflow בחצי שעה לבין יום שלם של תסכול.",
+        "למרות ש-n8n מגיע עם 500+ nodes מובנים (ועוד מאות בקהילה), האמת היא שבכל ה-workflows שלי — 25 מהם בייצור — חוזרים בערך 20 nodes בסיסיים שפותרים 90% מהמשימות. להכיר את הכלים האלה לעומק זה ההבדל בין בניית workflow בחצי שעה לבין יום שלם של תסכול.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       content: [
@@ -174,7 +174,7 @@ export const n8nGuide: AgentGuideData = {
         "אינטגרציות אימייל: Gmail, Outlook, SMTP גנרי, Mailchimp, Resend — אצלי שולחים הכל דרך Resend כי יש API נקי וחינם עד 3000 מיילים בחודש",
         "אינטגרציות מסרים: Slack, Discord, Telegram — לוואטסאפ יש node לא-רשמי, אצלי עוקפים אותו ושולחים דרך [Kami](/guide/kami) עם HTTP Request",
         "בסיסי נתונים: Postgres, MySQL, MongoDB, Airtable, Google Sheets, Notion — הנוחות של Google Sheets כ-'DB קטן' לא יסולא בפז לפרויקטים קטנים",
-        "AI: OpenAI, Anthropic ([Claude](/claude-code)), [Ollama](/guide/ollama) (מודלים מקומיים חינם), LangChain, HuggingFace — שרשור של LLMs הפך בן רגע לטבעי",
+        "AI: AI Agent node (חדש), OpenAI, Anthropic ([Claude](/claude-code)), [Ollama](/guide/ollama) (מודלים מקומיים חינם), LangChain nodes, HuggingFace — שרשור של LLMs וסוכנים הפך בן רגע לטבעי",
         "בסיסי נתונים וקטוריים: [Qdrant](/guide/qdrant), Pinecone, Weaviate, Supabase Vector — לחיפוש סמנטי וזיכרון של סוכנים",
       ],
       tips: [
@@ -253,7 +253,7 @@ export const n8nGuide: AgentGuideData = {
         "Secrets — תמיד דרך n8n credentials, אף פעם לא כ-API key ישיר ב-expression. credentials מוצפנים במסד, expressions נראים בפלייני-טקסט בכל ריצה",
       ],
       tips: [
-        "n8n Cloud משתלם רק מתחת ל-20 workflows פעילים. מעל זה, VPS self-hosted חוסך מאות דולרים בשנה הראשונה — וזה לפני שמדברים על שליטה מלאה בנתונים",
+        "n8n Cloud (Starter ב-20$/חודש ל-2,500 executions, Pro ב-50$/חודש ל-10,000, Enterprise בהתאמה) משתלם רק מתחת ל-20 workflows פעילים. מעל זה, VPS self-hosted חוסך מאות דולרים בשנה הראשונה — וזה לפני שמדברים על שליטה מלאה בנתונים",
         "Error Workflow עם התראה לוואטסאפ שלכם דרך [Kami](/guide/kami) = השקט הנפשי הגדול בהיסטוריה. כש-workflow גדול נכשל ב-03:00 בלילה, אתם יודעים על זה תוך שניות",
         "בדקו את ההגדרות N8N_SECURE_COOKIE=true ו-N8N_HIRING_COOKIE_PATH — קלים לשכוח, וחשובים לאבטחה בעיקר כשהאינסטנס מאחורי reverse proxy",
       ],

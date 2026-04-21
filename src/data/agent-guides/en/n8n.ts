@@ -26,25 +26,25 @@ export const n8nGuideEn: AgentGuideData = {
   agentNameHe: "n8n — Visual Automation Platform",
   category: "infra",
   logoImage: "/images/guide-logos/n8n-logo.png",
-  tagline: "Open-source Zapier — 1000+ integrations, self-hosted, unlimited executions",
+  tagline: "Open-source Zapier — 500+ built-in integrations, self-hosted, unlimited executions",
   heroDescription:
-    "n8n is an open-source workflow automation platform (TypeScript/Node) with a visual drag-and-drop interface for building pipelines from 1000+ integrations (Slack, Gmail, Postgres, Webhooks, HTTP, OpenAI, [Qdrant](/en/guide/qdrant), and more). It runs on [Docker](/en/guide/docker) with PostgreSQL behind it. On my stack, n8n handles business cron jobs (invoicing, content publishing, agent heartbeats) and replaces three separate SaaS products that used to cost ~$80/month. On yours, n8n can be the glue of the entire stack — CRM automation, marketing ops, internal system integrations, or a full replacement for Zapier/Make.",
+    "n8n is an open-source workflow automation platform (TypeScript/Node) built by n8n GmbH — a mature German company that raised a Series B — with a visual drag-and-drop interface for building pipelines from 500+ built-in integrations (Slack, Gmail, Postgres, Webhooks, HTTP, OpenAI, AI Agent, Vector Store nodes like [Qdrant](/en/guide/qdrant)/Pinecone/Supabase Vector, LangChain, and more). It runs on [Docker](/en/guide/docker) with PostgreSQL behind it. On my stack, n8n handles business cron jobs (invoicing, content publishing, agent heartbeats) and replaces three separate SaaS products that used to cost ~$80/month. On yours, n8n can be the glue of the entire stack — CRM automation, marketing ops, internal system integrations, or a full replacement for Zapier (Starter $29/mo for 750 tasks, Professional $73/mo for 2,000, Team $103/user/mo) and Make (Core $10.59/mo, Pro $18.82/mo, Teams $34.12/mo).",
   badgeText: "2026 · Workflow Automation · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/n8n",
   heroBgImage: "/images/guides/guide-n8n-hero.jpg",
   stats: [
-    { label: "available nodes", value: "1000+" },
+    { label: "built-in nodes", value: "500+" },
     { label: "executions", value: "unlimited" },
     { label: "self-host cost", value: "$0" },
     { label: "my integrations", value: "25" },
   ],
   paradigmTitle: "Why not Zapier?",
   paradigmSub:
-    "Zapier is great until you hit $20/month for 750 triggers. n8n takes the same capability, opens it up, and adds the ability to write JS inside the workflow.",
+    "Zapier is great until you hit $29/month for 750 tasks (and $73 for 2,000). n8n takes the same capability, opens it up, and adds the ability to write JS inside the workflow.",
   paradigmShifts: [
     {
-      before: "Zapier Starter $20/month — 750 triggers",
-      after: "n8n on a $5/month VPS — unlimited executions",
+      before: "Zapier Starter $29/month — 750 tasks",
+      after: "n8n on a Hetzner CPX11 at ~€4.75/month — unlimited executions",
       icon: Zap,
     },
     {
@@ -67,7 +67,7 @@ export const n8nGuideEn: AgentGuideData = {
     {
       title: "Small ops teams",
       description:
-        "Want workflows without touching code, but don't want to pay $200/month for Zapier Team.",
+        "Want workflows without touching code, but don't want to pay $103/user/month for Zapier Team.",
       icon: Users,
       color: "from-pink-500 to-rose-500",
     },
@@ -106,15 +106,15 @@ export const n8nGuideEn: AgentGuideData = {
       id: "what-is",
       icon: Workflow,
       title: "n8n — the technical view",
-      subtitle: "Workflow engine + visual interface + 1000 connectors",
+      subtitle: "Workflow engine + visual interface + 500+ built-in connectors",
       description:
-        "n8n is an open-source visual automation platform built by a German company of the same name — think of it as 'open-source Zapier' that you run yourself on a server, with no cap on how many automations fire each month. Under the hood it has three layers: (1) an execution engine written in Node.js that runs the automations (each one is called a 'workflow' in n8n), (2) a database (PostgreSQL or SQLite) that stores the workflows and execution history, and (3) a polished visual editor in the browser where you drag boxes around and connect them with lines. On my setup n8n is the smart assembly line of the network — about 25 workflows that wire [Kami](/en/guide/kami), [CrewAI](/en/guide/crewai), and [Qdrant](/en/guide/qdrant) together with external services like Gmail, Slack, and WhatsApp.",
+        "n8n is an open-source visual automation platform built by n8n GmbH (a mature German company that raised a Series B) — think of it as 'open-source Zapier' that you run yourself on a server, with no cap on how many automations fire each month. Under the hood it has three layers: (1) an execution engine written in Node.js that runs the automations (each one is called a 'workflow' in n8n), (2) a database (PostgreSQL or SQLite) that stores the workflows and execution history, and (3) a polished visual editor in the browser where you drag boxes around and connect them with lines. On my setup n8n is the smart assembly line of the network — about 25 workflows that wire [Kami](/en/guide/kami), [CrewAI](/en/guide/crewai), and [Qdrant](/en/guide/qdrant) together with external services like Gmail, Slack, and WhatsApp.",
       color: "from-pink-600 to-rose-500",
       difficulty: "beginner",
       beginner:
-        "Think of n8n as a factory assembly line: along the line are stations (nodes), and each station performs one action — 'read new email', 'send a WhatsApp message', 'save to Google Sheets'. You build the line once by dragging stations and drawing connections between them — and from that moment on, every time a trigger fires (say, a new email arrives), the line runs automatically and performs all the actions in sequence. Compared to Zapier charging ~$20/month for 750 runs, n8n on a €5/month VPS gives you unlimited runs — savings of $100+ per month.",
+        "Think of n8n as a factory assembly line: along the line are stations (nodes), and each station performs one action — 'read new email', 'send a WhatsApp message', 'save to Google Sheets'. You build the line once by dragging stations and drawing connections between them — and from that moment on, every time a trigger fires (say, a new email arrives), the line runs automatically and performs all the actions in sequence. Compared to Zapier charging $29/month for 750 tasks (and $73 for 2,000), n8n on a Hetzner CPX11 at ~€4.75/month gives you unlimited runs — savings of tens to hundreds of dollars a month from day one.",
       content: [
-        "node — a single station on the assembly line. Each node performs one action (send email, call an API, query a DB). There are 1000+ ready-made nodes and the option to write your own",
+        "node — a single station on the assembly line. Each node performs one action (send email, call an API, query a DB). There are 500+ built-in nodes (and hundreds more community nodes) plus the option to write your own. Recent additions: the AI Agent node, Vector Store nodes (Qdrant, Pinecone, Supabase Vector), and LangChain nodes",
         "trigger node — the entry point that fires the workflow: Webhook (receives an HTTP request), Cron (runs on a schedule like 'every day at 09:00'), Gmail Trigger (new email arrives), and more",
         "workflow — the DAG (directed acyclic graph) of all the connected nodes. Data flows from node to node through the connections you drew in the visual editor",
         "expression — an internal templating language in the form {{$json.field}} that pulls values from the previous node. Lets you use the result of one step as input to the next, without writing code",
@@ -138,9 +138,9 @@ export const n8nGuideEn: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
-        "On my setup n8n runs on the main Hetzner VPS alongside the rest of the agent network. On yours, even the smallest Hetzner or DigitalOcean VPS (around €5/month) is enough to run n8n + Postgres. The compose.yml is under 30 lines, the command to bring everything up is docker compose up -d, and Caddy takes care of a free HTTPS certificate automatically from Let's Encrypt. Within half an hour you have a professional automation platform, and the savings vs. Zapier Starter ($20/month) pay off in the very first week.",
+        "On my setup n8n runs on the main Hetzner VPS alongside the rest of the agent network. On yours, even a small VPS — Hetzner (CX11 at ~€4.15/month or CPX11 at ~€4.75/month), DigitalOcean (Droplet from $4/month), or Contabo (from ~€4.50/month, with much beefier specs at the same price) — is enough to run n8n + Postgres. The compose.yml is under 30 lines, the command to bring everything up is docker compose up -d, and Caddy takes care of a free HTTPS certificate automatically from Let's Encrypt. Within half an hour you have a professional automation platform, and the savings vs. Zapier Starter ($29/month) pay off in the very first week.",
       content: [
-        "Official image: n8nio/n8n — the stable release is built on Node.js 20 and ships with all 1000+ nodes by default — nothing extra to install",
+        "Official image: n8nio/n8n — the stable release is built on Node.js 20 and ships with all 500+ built-in nodes (including AI Agent, Vector Store, LangChain) by default — nothing extra to install",
         "PostgreSQL is recommended over SQLite once you have more than 5 active workflows — SQLite stumbles on concurrent executions, Postgres handles it easily",
         "Important env vars: N8N_HOST (your domain), N8N_PROTOCOL=https, WEBHOOK_URL (public address for webhooks), and DB_POSTGRESDB_* (database connection details)",
         "Volumes: the /home/node/.n8n directory stores encrypted credentials and local files — you must map it to a volume, otherwise everything vanishes on restart",
@@ -163,7 +163,7 @@ export const n8nGuideEn: AgentGuideData = {
       title: "Key nodes and triggers",
       subtitle: "20 nodes that solve 90% of the tasks",
       description:
-        "Even though n8n ships with over 1000 nodes, the truth is that across all my workflows — 25 of them in production — roughly 20 core nodes recur and solve 90% of the work. Knowing these tools deeply is the difference between building a workflow in half an hour versus a full day of frustration.",
+        "Even though n8n ships with 500+ built-in nodes (and hundreds more community nodes), the truth is that across all my workflows — 25 of them in production — roughly 20 core nodes recur and solve 90% of the work. Knowing these tools deeply is the difference between building a workflow in half an hour versus a full day of frustration.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       content: [
@@ -174,7 +174,7 @@ export const n8nGuideEn: AgentGuideData = {
         "Email integrations: Gmail, Outlook, generic SMTP, Mailchimp, Resend — I send everything via Resend because it has a clean API and is free up to 3000 emails/month",
         "Messaging integrations: Slack, Discord, Telegram — there's an unofficial node for WhatsApp, but I skip it and send through [Kami](/en/guide/kami) via HTTP Request",
         "Databases: Postgres, MySQL, MongoDB, Airtable, Google Sheets, Notion — the convenience of Google Sheets as a 'small DB' is priceless for tiny projects",
-        "AI: OpenAI, Anthropic ([Claude](/en/claude-code)), [Ollama](/en/guide/ollama) (free local models), LangChain, HuggingFace — chaining LLMs together became instantly natural",
+        "AI: the new AI Agent node, OpenAI, Anthropic ([Claude](/en/claude-code)), [Ollama](/en/guide/ollama) (free local models), LangChain nodes, HuggingFace — chaining LLMs and agents together became instantly natural",
         "Vector databases: [Qdrant](/en/guide/qdrant), Pinecone, Weaviate, Supabase Vector — for semantic search and agent memory",
       ],
       tips: [
@@ -253,7 +253,7 @@ export const n8nGuideEn: AgentGuideData = {
         "Secrets — always via n8n credentials, never as a raw API key inside an expression. Credentials are encrypted at rest; expressions appear in plain text on every run",
       ],
       tips: [
-        "n8n Cloud makes sense only below 20 active workflows. Above that, a self-hosted VPS saves hundreds of dollars in the first year — before you even factor in full data ownership",
+        "n8n Cloud (Starter $20/mo for 2,500 executions, Pro $50/mo for 10,000, Enterprise custom) makes sense only below 20 active workflows. Above that, a self-hosted VPS saves hundreds of dollars in the first year — before you even factor in full data ownership",
         "An Error Workflow with WhatsApp alerts via [Kami](/en/guide/kami) = the biggest peace of mind in history. When a major workflow fails at 3am, you know within seconds",
         "Double-check the N8N_SECURE_COOKIE=true and N8N_HIRING_COOKIE_PATH settings — easy to forget, and important for security especially when the instance sits behind a reverse proxy",
       ],

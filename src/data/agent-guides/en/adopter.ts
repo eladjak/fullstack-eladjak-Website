@@ -25,7 +25,7 @@ export const adopterGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/adopter-logo.png",
   tagline: "Instead of reading 500 posts a day — an agent that filters",
   heroDescription:
-    "Adopter is a Python service plus cron that listens to Telegram channels through Telethon, sends each post to Gemini Flash with a classification schema (novelty × signal × actionability × risk), and stores only the top-K items in a [Qdrant](/en/guide/qdrant) collection called `network_memory`. A circuit breaker caps it at 5 adoptions per day. For me it filters 500 posts a day down to 3-5 findings — for you it can point at RSS feeds, Discord channels, Reddit or Twitter forums, mailing lists, or any content firehose that needs a smart filter.",
+    "Adopter is a Python service plus cron that listens to Telegram channels through Telethon (a Python client that speaks MTProto — the full Telegram user protocol, not the restricted Bot API), sends each post to Gemini 2.5 Flash with a classification schema (novelty × signal × actionability × risk), and stores only the top-K items in a [Qdrant](/en/guide/qdrant) collection called `network_memory`. A circuit breaker caps it at 5 adoptions per day. For me it filters 500 posts a day down to 3-5 findings — for you it can point at RSS feeds, Discord channels, Reddit or Twitter forums, mailing lists, or any content firehose that needs a smart filter.",
   badgeText: "2026 · Autonomous Content Adoption · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/adopter",
   heroBgImage: "/images/guides/guide-adopter-hero.jpg",
@@ -113,7 +113,7 @@ export const adopterGuideEn: AgentGuideData = {
         "Think of it this way: instead of a personal news editor sitting in an office reading the paper for you, you get a robot that never sleeps, never tires, and never forgets — one that follows 20 sources in parallel, checks every post against four smart questions ('is it new? is it strong? can I act on it? how risky is it?'), and at the end of the day hands you 3-5 gems instead of 500 posts. In my case it has been running for three months and saves me 4-5 hours of scrolling a day. For you it can replace the compulsive habit of refreshing social feeds.",
       content: [
         "Input: roughly 20 public Telegram channels across AI, developer tooling, news and research — you pick which channels to read",
-        "Process: every hour cron runs a scan → sends the posts to Gemini Flash for classification (completely free up to 15 requests per minute) → decides to adopt or skip",
+        "Process: every hour cron runs a scan → sends the posts to Gemini 2.5 Flash for classification (Google AI Studio's free tier — roughly 15 RPM plus a generous daily token allowance) → decides to adopt or skip",
         "Output: records stored in a collection called network_memory (a virtual folder inside [Qdrant](/en/guide/qdrant)) tagged category=adopted-content to keep them separate from other content",
         "Rate limiting: at most 5 adoptions per day via a circuit breaker (a 'breaker' mechanism that prevents flooding — the name is borrowed from electrical engineering)",
         "Audit trail: every decision is logged — skips included — with a clear reason. You can always go back and see what Adopter 'thought' about any given post",
@@ -134,7 +134,7 @@ export const adopterGuideEn: AgentGuideData = {
         "Step 1 — cron (the operating system's scheduler) runs the tg-public-ingest.py script at the top of every hour. That is the only trigger: no button, no human in the loop",
         "Step 2 — a Telethon client (a Python library that connects to Telegram through the official MTProto protocol — not the limited Bot API, but the full user-grade connection) pulls the 50 most recent messages from each listed channel",
         "Step 3 — a fast pre-filter throws out obvious junk: media-only posts without text, posts that are just a shortened link with no context, or posts shorter than 50 characters",
-        "Step 4 — semantic dedup: we generate an embedding (a translation of the text into a 768-number vector that captures meaning — see the [Qdrant guide](/en/guide/qdrant) for the full explanation) and check whether a similar post already exists. Similarity above 90% means we skip it",
+        "Step 4 — semantic dedup: we generate an embedding (a 3072-dim vector from Google's gemini-embedding-001 model that captures meaning — see the [Qdrant guide](/en/guide/qdrant) for the full explanation) and check whether a similar post already exists. Similarity above 90% means we skip it",
         "Step 5 — the classifier: Gemini Flash receives the post and returns JSON with a category ({valuable, maybe, noise}) and a confidence score between 0 and 1",
         "Step 6 — decision: if the result is valuable with confidence above 0.8 → adopt. Otherwise → skip. The decision is POSTed to the [Delegator](/en/guide/delegator) (the central API gateway of the agent network), which writes the full record into network_memory with a link back to the source",
       ],
@@ -201,7 +201,7 @@ export const adopterGuideEn: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       content: [
-        "Before every adoption — Adopter builds an embedding of the post. An embedding is a translation of text into a 768-dimensional vector that captures meaning. Two posts that say the same thing with different words end up with similar vectors",
+        "Before every adoption — Adopter builds an embedding of the post with Google's gemini-embedding-001. An embedding is a translation of text into a 3072-dimensional vector (truncatable to 768/1536 via Matryoshka) that captures meaning. Two posts that say the same thing with different words end up with similar vectors",
         "The search runs against the telegram_news collection in [Qdrant](/en/guide/qdrant) with a threshold of 0.9 — i.e. 90% similarity and above counts as 'the same story'",
         "If a match comes back with score ≥ 0.9, we skip immediately. The post never reaches the classifier — saving the model call cost too",
         "Posts flagged as duplicates are still stored in telegram_news (they just are not promoted to an adoption) — so the database keeps every source for later",

@@ -114,8 +114,8 @@ export const kamiGuideEn: AgentGuideData = {
         "Think of Kami as a friend who has all the knowledge of ChatGPT, but belongs to you alone, lives inside WhatsApp, and actually remembers what you told him yesterday and last week. You type a message or record a quick voice note on your way to work, and he answers — just like a friend who is always available. The real magic is that there is no extra app to open: he lives inside the app that is already open on your phone all day.",
       content: [
         "A service running on a VPS 24/7 that listens to WhatsApp via a Green API webhook (a webhook is a 'doorbell' — an incoming call from an external server whenever something happens, in our case a new message)",
-        "Every incoming message passes through [Claude Sonnet](/en/claude-code) 4.5 with a custom system prompt (the system prompt is the background instructions that tell the model who it is and how to behave — in my setup it is defined as Elad's personal assistant)",
-        "Voice notes are transcribed automatically by OpenAI Whisper — a top-tier STT (Speech-to-Text, turning spoken audio into written text) service that performs excellently in Hebrew",
+        "Every incoming message passes through [Claude Sonnet](/en/claude-code) 4.6 with a custom system prompt (the system prompt is the background instructions that tell the model who it is and how to behave — in my setup it is defined as Elad's personal assistant)",
+        "Voice notes are transcribed automatically by OpenAI Whisper (whisper-1) — a top-tier STT (Speech-to-Text, turning spoken audio into written text) service that performs excellently in Hebrew; for higher accuracy you can swap in whisper-large-v3 via Groq",
         "Replies go out as text or as voice through Gemini TTS (Text-to-Speech, turning text back into spoken audio) using the Charon voice — a clear, natural male voice that Google offers for free",
         "Long-term memory is stored in [Qdrant](/en/guide/qdrant) — a semantic database that lets you retrieve past messages by meaning rather than by exact keywords",
       ],
@@ -172,8 +172,8 @@ export const kamiGuideEn: AgentGuideData = {
         "The magic: if you sent text you get text back, if you sent voice you get voice back — Kami mirrors the channel you reached out on",
       ],
       tips: [
-        "Whisper large-v3 is more accurate than whisper-1 in Hebrew but more expensive; for everyday conversation, whisper-1 produces excellent results at negligible cost",
-        "Gemini TTS is free in most cases (within the free tier of Gemini Flash 2.5) — that saves roughly $5/month you would otherwise pay to ElevenLabs",
+        "whisper-large-v3 (via Groq) is more accurate than whisper-1 in Hebrew but more expensive; for everyday conversation, whisper-1 produces excellent results at negligible cost",
+        "Gemini TTS is free in most cases (within the free tier of Gemini 2.5 Flash) — that saves the $5–$22/month you would otherwise pay ElevenLabs (depending on plan)",
         "If there is heavy background noise, Groq Whisper Turbo delivers better results with blazing-fast response times — around 500 milliseconds",
       ],
     },

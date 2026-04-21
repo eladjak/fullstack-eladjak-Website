@@ -52,7 +52,7 @@ export const hermesGuideEn: AgentGuideData = {
       icon: Lightbulb,
     },
     {
-      before: "PagerDuty, Opsgenie, VictorOps — $100+/month",
+      before: "PagerDuty, BetterStack, Grafana OnCall — $21-$100+/month per user",
       after: "Hermes is open, transparent, repair rules stored as JSON",
       icon: Shield,
     },
@@ -227,7 +227,7 @@ export const hermesGuideEn: AgentGuideData = {
       title: "Escalation — when it's right to wake you (and as little as possible)",
       subtitle: "The gold of self-healing: alert only when it's truly worth your sleep",
       description:
-        "Escalation is a last resort — the moment Hermes throws its hands up and says 'I can't do this, please help.' The whole point of Hermes is to cut alerts down to 10% of cases — reserved only for the new and interesting. If Hermes sends too many alerts, that's a sign the whitelist or memory isn't good enough, not a sign that 'the tool is noisy.' PagerDuty costs $29/user/month; Hermes costs $0 and saves your sleep on top.",
+        "Escalation is a last resort — the moment Hermes throws its hands up and says 'I can't do this, please help.' The whole point of Hermes is to cut alerts down to 10% of cases — reserved only for the new and interesting. If Hermes sends too many alerts, that's a sign the whitelist or memory isn't good enough, not a sign that 'the tool is noisy.' PagerDuty's starter plan runs $21/user/month (modern alternatives like BetterStack, Grafana OnCall or Squadcast come in cheaper still); Hermes costs $0 and saves your sleep on top.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
       content: [
@@ -257,7 +257,7 @@ export const hermesGuideEn: AgentGuideData = {
         "You can add this pattern to any agent in the network — [Kami](/en/guide/kami), [Box](/en/guide/box), [Adopter](/en/guide/adopter), [CrewAI](/en/guide/crewai) — with no architectural changes",
         "Health endpoints: a baseline requirement. Every service must expose a /health endpoint that returns JSON with {status, version, uptime}. Without it — there is no real verification",
         "Centralized logs: `journalctl` on Linux, `docker logs` on [Docker](/en/guide/docker) — these are Hermes's basic diagnostic tools. If you have Loki or Datadog — even better",
-        "Integration with PagerDuty/Opsgenie: not mandatory (Hermes replaces them in 90% of cases), but you can wire them into the escalation path as an extra fallback",
+        "Integration with PagerDuty/BetterStack/Grafana OnCall (or Jira Service Management Incident Management, which is the rebranded Opsgenie after Atlassian absorbed it): not mandatory (Hermes replaces them in 90% of cases), but you can wire them into the escalation path as an extra fallback",
         "[Dashboard](/en/guide/dashboard) endpoint: /health/agents displays the real-time status of every service. This is your UI over the entire network — keep it open in a monitor tab all day",
         "Pairing with [n8n](/en/guide/n8n) or [Aider](/en/guide/aider): Hermes can trigger n8n flows as part of a repair (e.g. 'restart + post a message to Slack'), or ask Aider to automatically fix code when a build fails",
       ],

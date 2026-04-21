@@ -25,7 +25,7 @@ export const dashboardGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/dashboard-logo.png",
   tagline: "One UI, 12 tabs, every agent at a glance",
   heroDescription:
-    "The Dashboard is a local Next.js 14 app running on port 3456 with a dedicated WebSocket server on 3457. Its data sources: the hub.eladjak.com REST API (via the [Delegator](/en/guide/delegator)), [Qdrant](/en/guide/qdrant), local bridge files, PowerShell status scripts, and file-system watchers. It exposes 12 tabs — Mission Control, Agents, Projects, CrewAI, Costs, Health, Logs, and more. For me it's the main screen of my AI CEO setup; for you it can be the control panel for a home lab, a small SaaS ops team, an agent network, or a DevTooling squad. You just swap the data sources for your own adapters.",
+    "The Dashboard is a local self-hosted Node.js app (plain HTTP server, no framework) running on port 3456, with a dedicated WebSocket server on 3457 backed by the `ws` library. Its data sources: the hub.eladjak.com REST API (via the [Delegator](/en/guide/delegator)), [Qdrant](/en/guide/qdrant), local bridge files, PowerShell status scripts, and file-system watchers. It exposes 12 tabs — Mission Control, Agents, Projects, CrewAI, Costs, Health, Logs, and more. For me it's the main screen of my AI CEO setup; for you it can be the control panel for a home lab, a small SaaS ops team, an agent network, or a DevTooling squad. You just swap the data sources for your own adapters.",
   badgeText: "2026 · Self-hosted Mission Control · Hands-on Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/dashboard",
   heroBgImage: "/images/guides/guide-dashboard-hero.jpg",
@@ -45,7 +45,7 @@ export const dashboardGuideEn: AgentGuideData = {
       icon: LayoutDashboard,
     },
     {
-      before: "$100/month on Datadog + Retool + Linear",
+      before: "Datadog from $15/host/mo + Retool from $10/user/mo + Linear Business from $10/user/mo = tens-to-hundreds of dollars a month",
       after: "A local Node server — $0",
       icon: Settings,
     },
@@ -105,7 +105,7 @@ export const dashboardGuideEn: AgentGuideData = {
       title: "What is the Dashboard?",
       subtitle: "A Node HTTP server on Windows, with a UI that plugs into everything",
       description:
-        "The Dashboard is a private website that runs on my own machine — a kind of Mission Control that gathers all my agents, projects, costs, and system health in one place. Under the hood it's a plain Node.js server (the language behind countless web servers) with no heavy framework — no Next.js, no Express, just about 3,000 lines of direct code. That's the beauty of it: I can add a new tab or tweak something in minutes. It's a dashboard that speaks the language of your business, instead of paying $100/month for generic tools like Datadog or Retool that never quite match how you actually work.",
+        "The Dashboard is a private website that runs on my own machine — a kind of Mission Control that gathers all my agents, projects, costs, and system health in one place. Under the hood it's a plain Node.js server (the language behind countless web servers) with no heavy framework — no Next.js, no Express, just about 3,000 lines of direct code. That's the beauty of it: I can add a new tab or tweak something in minutes. It's a dashboard that speaks the language of your business, instead of stacking tens of dollars a month on generic tools like Datadog (from $15/host) or Retool (from $10/user) that never quite match how you actually work.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "beginner",
       beginner:
@@ -211,7 +211,7 @@ export const dashboardGuideEn: AgentGuideData = {
       title: "Add a new tab — 50 lines and you have your own feature",
       subtitle: "The big win of a simple workshop: change, run, done",
       description:
-        "My design philosophy for the Dashboard is deliberate minimalism: two files only — server.js on the server, index.html on the client — no build step (no compilation phase), no hot-reload, no dependencies to update every week. That's an intentional choice: less sophistication = less friction. Want to add a feature? Thirty minutes and it's running. This is exactly the paradigm that saves you from paying $100/month for generic SaaS: you control your tool. For a marketable, production-grade product I'd reach for Next.js — but for a personal mission control? Simplicity wins.",
+        "My design philosophy for the Dashboard is deliberate minimalism: two files only — server.js on the server, index.html on the client — no build step (no compilation phase), no hot-reload, no dependencies to update every week. That's an intentional choice: less sophistication = less friction. Want to add a feature? Thirty minutes and it's running. This is exactly the paradigm that saves you from stacking Datadog/Retool/Linear subscriptions: you control your tool. For a marketable, production-grade product I'd reach for Next.js 14 or 15 (14 is the current LTS) — but for a personal mission control? Simplicity wins.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [
@@ -280,5 +280,5 @@ export const dashboardGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "The Dashboard is the central UI for my agent network — a single pane of glass that aggregates status, costs, cron jobs, and logs. This guide walks through the architecture so you can build your own control panel on top of whatever data sources you have (REST, WebSocket, file watchers). The result: a UI that fits your workflow, instead of another $100/month generic SaaS.",
+    "The Dashboard is the central UI for my agent network — a single pane of glass that aggregates status, costs, cron jobs, and logs. This guide walks through the architecture so you can build your own control panel on top of whatever data sources you have (REST, WebSocket, file watchers). The result: a UI that fits your workflow, instead of stacking yet another monthly SaaS subscription (Datadog, Retool, Linear and friends).",
 };

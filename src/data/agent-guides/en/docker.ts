@@ -30,14 +30,14 @@ export const dockerGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/docker-logo.png",
   tagline: "containers, docker-compose, and the architecture that lets an entire agent network live on a single VPS",
   heroDescription:
-    "Docker is one of the most important technologies to emerge from the software world in the last decade, and it is what allows most of today's cloud services and AI agents to run the way they do. At its core, Docker solves a simple but painful problem: every software service needs a specific environment to run (a particular language version, specific libraries, network settings), and when you try to install several services on the same machine they collide — and what worked yesterday stops working tomorrow. Docker solves this by packaging each service into its own isolated 'box' (a container), which holds everything the service needs — so it runs exactly the same on every machine, in every environment. Docker's extension called docker-compose lets you define many boxes together in a single file, spin them all up with one command, and manage the network between them — much like a conductor with an orchestra. For me (Elad), the entire agent network featured on this site (ten different services such as [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Qdrant](/en/guide/qdrant), and [Delegator](/en/guide/delegator)) runs on a single docker-compose deployment on a thrifty 5€/month server. For you, Docker can be the foundation of any project: from a local dev environment, through a CI/CD pipeline, all the way to a full production service in the cloud. Once you understand docker-compose, most of what the other guides show becomes something you can build yourself.",
+    "Docker is one of the most important technologies to emerge from the software world in the last decade, and it is what allows most of today's cloud services and AI agents to run the way they do. At its core, Docker solves a simple but painful problem: every software service needs a specific environment to run (a particular language version, specific libraries, network settings), and when you try to install several services on the same machine they collide — and what worked yesterday stops working tomorrow. Docker solves this by packaging each service into its own isolated 'box' (a container), which holds everything the service needs — so it runs exactly the same on every machine, in every environment. Docker's extension called docker-compose lets you define many boxes together in a single file, spin them all up with one command, and manage the network between them — much like a conductor with an orchestra. For me (Elad), the entire agent network featured on this site (ten different services such as [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Qdrant](/en/guide/qdrant), and [Delegator](/en/guide/delegator)) runs on a single docker-compose deployment on a Hetzner CPX11 (~€4.75/month, 2 vCPU · 2GB RAM). For you, Docker can be the foundation of any project: from a local dev environment, through a CI/CD pipeline, all the way to a full production service in the cloud. Once you understand docker-compose, most of what the other guides show becomes something you can build yourself.",
   badgeText: "2026 · Containers & Compose · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/docker",
   heroBgImage: "/images/guides/guide-docker-hero.jpg",
   stats: [
     { label: "containers I run", value: "14" },
     { label: "uptime", value: "99.7%" },
-    { label: "base server cost", value: "5€/month" },
+    { label: "base server cost", value: "~€4.75/month" },
     { label: "compose files", value: "1" },
   ],
   paradigmTitle: "Why Docker is the foundation of the whole network",
@@ -120,10 +120,10 @@ export const dockerGuideEn: AgentGuideData = {
         "Image — the template a container is started from. Like a blueprint of a house from which you can build any number of identical houses (the same relationship as between a class in code and an object created from it)",
         "Dockerfile — a plain text file describing how to build the image. It's a step-by-step recipe: which base to start from (FROM), which files to copy in (COPY), which commands to run (RUN), and what to launch when the container boots (CMD)",
         "Docker Hub — the world's public library of ready-made images (nginx, postgres, python, and thousands more). One line of code and you have a database server running",
-        "Compatibility — on Linux it runs natively; on Mac and Windows it runs inside a tiny virtual machine behind the scenes (via Docker Desktop, Colima, or OrbStack)",
+        "Compatibility — on Linux it runs natively; on Mac and Windows it runs inside a tiny virtual machine behind the scenes (via Docker Desktop, Colima, OrbStack, or Podman). Note: Docker Desktop is free for personal use and small businesses, but requires a paid license for large enterprises (over 250 employees or $10M annual revenue); Podman and Colima are fully open-source with no such restriction",
       ],
       tips: [
-        "Mac users — OrbStack saves about 50% on memory usage compared to Docker Desktop and is noticeably faster. It is worth the switch",
+        "Mac users — OrbStack ($8/mo personal, $18/mo business) cuts memory usage roughly in half vs. Docker Desktop and feels noticeably faster; Colima is a fully open-source, completely free alternative if you prefer OSS",
         "`docker ps` shows which containers are currently running; `docker logs -f <name>` streams their output in real time — two commands you will use every single day",
       ],
       codeExample: {
@@ -137,7 +137,7 @@ export const dockerGuideEn: AgentGuideData = {
       title: "docker-compose: orchestrating multiple services",
       subtitle: "One YAML file that defines the entire network",
       description:
-        "docker-compose is a Docker extension that handles the next natural problem: once you have more than one service, running each container by hand with its own command becomes a headache. Instead, you write a single text file in YAML (named `docker-compose.yml`) that describes every service in the network — which image each one uses, which folders it has access to, which ports it listens on, and even who depends on whom. One command — `docker compose up -d` — brings them all up together in the right order, on the same private network. It is like a conductor cueing every player at the same time.",
+        "docker-compose is a Docker extension that handles the next natural problem: once you have more than one service, running each container by hand with its own command becomes a headache. Instead, you write a single text file in YAML (named `docker-compose.yml`) that describes every service in the network — which image each one uses, which folders it has access to, which ports it listens on, and even who depends on whom. Since Compose v2 (bundled into Docker as the `compose` plugin — no need to install the old standalone `docker-compose` binary) the command is `docker compose up -d` (with a space, not a hyphen), and it brings them all up together in the right order on the same private network. It is like a conductor cueing every player at the same time.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
@@ -157,7 +157,7 @@ export const dockerGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "A minimal compose.yml for an agent network",
-        code: "version: '3.9'\nservices:\n  qdrant:\n    image: qdrant/qdrant:latest\n    restart: unless-stopped\n    ports: ['6333:6333']\n    volumes: ['./data/qdrant:/qdrant/storage']\n  kami:\n    build: ./kami\n    restart: unless-stopped\n    depends_on: [qdrant]\n    env_file: .env\n    ports: ['3001:3001']",
+        code: "# Compose v2 — the 'version' field is no longer required\nservices:\n  qdrant:\n    image: qdrant/qdrant:latest\n    restart: unless-stopped\n    ports: ['6333:6333']\n    volumes: ['./data/qdrant:/qdrant/storage']\n  kami:\n    build: ./kami\n    restart: unless-stopped\n    depends_on: [qdrant]\n    env_file: .env\n    ports: ['3001:3001']",
       },
     },
     {
@@ -317,5 +317,5 @@ export const dockerGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "My entire agent network (10 services, 14 containers, Qdrant holding thousands of vectors) runs in a single docker-compose on a Hetzner VPS for 5€/month. This guide is built on the experience of rebuilding that network three times over two years, including a migration from ARM to x86 and a recovery after a disk crash.",
+    "My entire agent network (10 services, 14 containers, Qdrant holding thousands of vectors) runs in a single docker-compose on a Hetzner CPX11 VPS for about €4.75/month. This guide is built on the experience of rebuilding that network three times over two years, including a migration from ARM to x86 and a recovery after a disk crash.",
 };

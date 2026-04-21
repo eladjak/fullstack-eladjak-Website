@@ -30,14 +30,14 @@ export const dockerGuide: AgentGuideData = {
   logoImage: "/images/guide-logos/docker-logo.png",
   tagline: "containers, docker-compose, והארכיטקטורה שמאפשרת רשת סוכנים ב-VPS אחד",
   heroDescription:
-    "Docker היא אחת מהטכנולוגיות החשובות ביותר שצמחו בעולם התוכנה בעשור האחרון, והיא זו שמאפשרת לרוב שירותי הענן והסוכנים החכמים של היום לעבוד כמו שהם עובדים. בבסיסה, Docker פותרת בעיה פשוטה אבל כאובה: כל שירות תוכנה דורש סביבה מסוימת כדי לרוץ (גרסה מסוימת של שפה, ספריות ספציפיות, הגדרות רשת), וכשמנסים להתקין כמה שירותים על אותו שרת — הם מתנגשים, ומה שעבד אתמול מפסיק לעבוד מחר. Docker פותרת את זה על ידי אריזה של כל שירות ל'קופסה' מבודדת משלו (באנגלית: container — קונטיינר), שמכילה את הכל מה שהשירות צריך — וכך הוא רץ בדיוק אותו דבר על כל מחשב, בכל סביבה. ההרחבה של Docker שנקראת docker-compose מאפשרת להגדיר כמה קופסאות יחד בקובץ אחד, להרים את כולן בפקודה אחת, ולנהל את הרשת ביניהן — ממש כמו מנצח תזמורת. אצלי (אלעד) כל רשת הסוכנים שמופיעה באתר הזה (עשרה שירותים שונים כמו [Kami](/guide/kami), [Kaylee](/guide/kaylee), [Qdrant](/guide/qdrant), ו-[Delegator](/guide/delegator)) רצה בהתקנה אחת של docker-compose על שרת חסכוני של 5 יורו בחודש. אצלכם, Docker יכולה להיות הבסיס לכל פרויקט: מסביבת פיתוח מקומית, דרך pipeline של CI/CD, ועד שירות ייצור מלא בענן. אחרי שמכירים את docker-compose, רוב מה שמוצג בשאר המדריכים הופך להיות אפשרי בעצמכם.",
+    "Docker היא אחת מהטכנולוגיות החשובות ביותר שצמחו בעולם התוכנה בעשור האחרון, והיא זו שמאפשרת לרוב שירותי הענן והסוכנים החכמים של היום לעבוד כמו שהם עובדים. בבסיסה, Docker פותרת בעיה פשוטה אבל כאובה: כל שירות תוכנה דורש סביבה מסוימת כדי לרוץ (גרסה מסוימת של שפה, ספריות ספציפיות, הגדרות רשת), וכשמנסים להתקין כמה שירותים על אותו שרת — הם מתנגשים, ומה שעבד אתמול מפסיק לעבוד מחר. Docker פותרת את זה על ידי אריזה של כל שירות ל'קופסה' מבודדת משלו (באנגלית: container — קונטיינר), שמכילה את הכל מה שהשירות צריך — וכך הוא רץ בדיוק אותו דבר על כל מחשב, בכל סביבה. ההרחבה של Docker שנקראת docker-compose מאפשרת להגדיר כמה קופסאות יחד בקובץ אחד, להרים את כולן בפקודה אחת, ולנהל את הרשת ביניהן — ממש כמו מנצח תזמורת. אצלי (אלעד) כל רשת הסוכנים שמופיעה באתר הזה (עשרה שירותים שונים כמו [Kami](/guide/kami), [Kaylee](/guide/kaylee), [Qdrant](/guide/qdrant), ו-[Delegator](/guide/delegator)) רצה בהתקנה אחת של docker-compose על Hetzner CPX11 בכ-4.75€ לחודש (2 vCPU · 2GB RAM). אצלכם, Docker יכולה להיות הבסיס לכל פרויקט: מסביבת פיתוח מקומית, דרך pipeline של CI/CD, ועד שירות ייצור מלא בענן. אחרי שמכירים את docker-compose, רוב מה שמוצג בשאר המדריכים הופך להיות אפשרי בעצמכם.",
   badgeText: "2026 · Containers & Compose · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/docker",
   heroBgImage: "/images/guides/guide-docker-hero.jpg",
   stats: [
     { label: "containers אצלי", value: "14" },
     { label: "uptime", value: "99.7%" },
-    { label: "עלות שרת בסיס", value: "5€/חודש" },
+    { label: "עלות שרת בסיס", value: "~4.75€/חודש" },
     { label: "compose files", value: "1" },
   ],
   paradigmTitle: "למה Docker הוא הבסיס של כל הרשת",
@@ -120,10 +120,10 @@ export const dockerGuide: AgentGuideData = {
         "Image (אימג') — התבנית שממנה מריצים קונטיינר. כמו שרטוט של בית שממנו אפשר לבנות אינסוף בתים זהים (אותו קשר שיש בין מחלקה בתכנות לעצם שנוצר ממנה)",
         "Dockerfile — קובץ טקסט פשוט שמתאר איך בונים את האימג'. זה מתכון שלב-אחר-שלב: מאיזה בסיס להתחיל (FROM), אילו קבצים להכניס (COPY), אילו פקודות להריץ (RUN), ומה להפעיל כשהקונטיינר עולה (CMD)",
         "Docker Hub — הספרייה הציבורית של העולם לאימג'ים מוכנים (nginx, postgres, python ועוד אלפים). שורה אחת בקוד ויש לכם שרת דאטאבייס שרץ",
-        "תאימות — על Linux זה עובד טבעי לחלוטין; על Mac ו-Windows זה רץ בתוך מכונה וירטואלית קטנטנה מאחורי הקלעים (באמצעות Docker Desktop, Colima או OrbStack)",
+        "תאימות — על Linux זה עובד טבעי לחלוטין; על Mac ו-Windows זה רץ בתוך מכונה וירטואלית קטנטנה מאחורי הקלעים (באמצעות Docker Desktop, Colima, OrbStack, או Podman). שימו לב: Docker Desktop חינמי לשימוש אישי ולעסקים קטנים, אבל דורש רישיון בארגונים גדולים (מעל 250 עובדים או 10M$ הכנסה שנתית); Podman ו-Colima פתוחים לחלוטין בחינם ללא מגבלה",
       ],
       tips: [
-        "משתמשי Mac — OrbStack חוסך כ-50% מצריכת הזיכרון לעומת Docker Desktop, ומהיר יותר באופן מורגש. שווה את המעבר",
+        "משתמשי Mac — OrbStack (8$ לחודש אישי / 18$ לחודש עסקי) חוסך כ-50% מצריכת הזיכרון לעומת Docker Desktop ומהיר יותר באופן מורגש; Colima היא אלטרנטיבה פתוחה חינמית לגמרי לאלה שמעדיפים קוד פתוח",
         "`docker ps` מראה אילו קונטיינרים רצים כרגע; `docker logs -f <name>` מציג את הפלט שלהם בזמן אמת — שני פקודות שתשתמשו בהן כל יום",
       ],
       codeExample: {
@@ -137,7 +137,7 @@ export const dockerGuide: AgentGuideData = {
       title: "docker-compose: תזמור של כמה שירותים",
       subtitle: "קובץ YAML אחד שמגדיר את כל הרשת",
       description:
-        "docker-compose זו הרחבה של Docker שמטפלת בבעיה הטבעית הבאה: כשיש לכם יותר משירות אחד, להריץ כל קונטיינר ידנית בפקודה נפרדת זה כאב ראש. במקום זה, כותבים קובץ טקסט אחד בפורמט YAML (קובץ בשם `docker-compose.yml`) שמתאר את כל השירותים ברשת — איזה אימג' לכל אחד, לאילו תיקיות יש גישה, באילו פורטים הם מקשיבים, ואפילו מי תלוי במי. פקודה אחת — `docker compose up -d` — מרימה את כולם יחד, בסדר הנכון, על אותה רשת פרטית. זה כמו מנצח של תזמורת שמקריא את התווים לכולם בו-זמנית.",
+        "docker-compose זו הרחבה של Docker שמטפלת בבעיה הטבעית הבאה: כשיש לכם יותר משירות אחד, להריץ כל קונטיינר ידנית בפקודה נפרדת זה כאב ראש. במקום זה, כותבים קובץ טקסט אחד בפורמט YAML (קובץ בשם `docker-compose.yml`) שמתאר את כל השירותים ברשת — איזה אימג' לכל אחד, לאילו תיקיות יש גישה, באילו פורטים הם מקשיבים, ואפילו מי תלוי במי. מאז Compose v2 (שמובנה בתוך Docker עצמה כתוסף `compose` — לא צריך להתקין את הבינארי הישן `docker-compose` בנפרד) הפקודה היא `docker compose up -d` (עם רווח, לא מקף) — והיא מרימה את כולם יחד, בסדר הנכון, על אותה רשת פרטית. זה כמו מנצח של תזמורת שמקריא את התווים לכולם בו-זמנית.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
@@ -157,7 +157,7 @@ export const dockerGuide: AgentGuideData = {
       ],
       codeExample: {
         label: "compose.yml מינימלי לרשת סוכנים",
-        code: "version: '3.9'\nservices:\n  qdrant:\n    image: qdrant/qdrant:latest\n    restart: unless-stopped\n    ports: ['6333:6333']\n    volumes: ['./data/qdrant:/qdrant/storage']\n  kami:\n    build: ./kami\n    restart: unless-stopped\n    depends_on: [qdrant]\n    env_file: .env\n    ports: ['3001:3001']",
+        code: "# Compose v2 — שדה version כבר לא נדרש\nservices:\n  qdrant:\n    image: qdrant/qdrant:latest\n    restart: unless-stopped\n    ports: ['6333:6333']\n    volumes: ['./data/qdrant:/qdrant/storage']\n  kami:\n    build: ./kami\n    restart: unless-stopped\n    depends_on: [qdrant]\n    env_file: .env\n    ports: ['3001:3001']",
       },
     },
     {
@@ -317,5 +317,5 @@ export const dockerGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "כל רשת הסוכנים שלי (10 שירותים, 14 containers, Qdrant עם אלפי וקטורים) רצה ב-docker-compose יחיד על VPS של Hetzner ב-5€/חודש. המדריך הזה בנוי על הניסיון של הקמה מחדש של הרשת הזו 3 פעמים במהלך שנתיים, כולל migration מ-ARM ל-x86 ושחזור אחרי crash של disk.",
+    "כל רשת הסוכנים שלי (10 שירותים, 14 containers, Qdrant עם אלפי וקטורים) רצה ב-docker-compose יחיד על Hetzner CPX11 בכ-4.75€/חודש. המדריך הזה בנוי על הניסיון של הקמה מחדש של הרשת הזו 3 פעמים במהלך שנתיים, כולל migration מ-ARM ל-x86 ושחזור אחרי crash של disk.",
 };

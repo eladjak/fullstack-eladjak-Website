@@ -25,7 +25,7 @@ export const qdrantGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/qdrant-logo.png",
   tagline: "The foundation for remembering by meaning, not by keywords",
   heroDescription:
-    "Qdrant is an open-source vector database written in Rust, running inside a Docker container with both HTTP and gRPC APIs. Its capabilities: storing embeddings (up to 65,536 dimensions), HNSW indexing, semantic search, rich filters, arbitrary JSON payloads, sharding and replication. In my setup there are 10 collections ([kami_memory](/en/guide/kami), [box_coach](/en/guide/box), [network_memory](/en/guide/adopter) and more) holding thousands of vectors. In your product, Qdrant can serve as memory for a chatbot, power semantic search over a document corpus, drive a recommendation engine, or deduplicate content by meaning — anywhere you need to 'remember meaning' rather than just keywords.",
+    "Qdrant is an open-source vector database written in Rust (v1.14+ as of late 2025), running inside a Docker container with both HTTP (6333) and gRPC (6334) APIs. Its capabilities: storing embeddings (up to 4096 dimensions per dense vector, plus sparse vectors for hybrid search), HNSW indexing, scalar and product quantization, semantic search, rich filters, arbitrary JSON payloads, sharding and replication. In my setup there are 10 collections ([kami_memory](/en/guide/kami), [box_coach](/en/guide/box), [network_memory](/en/guide/adopter) and more) holding thousands of vectors. In your product, Qdrant can serve as memory for a chatbot, power semantic search over a document corpus, drive a recommendation engine, or deduplicate content by meaning — anywhere you need to 'remember meaning' rather than just keywords.",
   badgeText: "2026 · Vector Memory · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/qdrant",
   heroBgImage: "/images/guides/guide-qdrant-hero.jpg",
@@ -55,8 +55,8 @@ export const qdrantGuideEn: AgentGuideData = {
       icon: Database,
     },
     {
-      before: "Pinecone / Weaviate Cloud — $70+/month",
-      after: "Qdrant docker locally — $0, 100k+ embeddings easily",
+      before: "Pinecone serverless ~$70+/mo for a comparable workload (Weaviate Cloud similar)",
+      after: "Qdrant docker locally — $0, 100k+ embeddings easily (or Qdrant Cloud free 1GB tier / ~$0.04/hr on the smallest cluster)",
       icon: Package,
     },
   ],
@@ -140,9 +140,9 @@ export const qdrantGuideEn: AgentGuideData = {
         "Imagine every sentence in the world has a unique coordinate on a 3D 'map' (or in our case, a 768-dimensional one). Sentences with similar meaning — 'I ate a salad' and 'I had a healthy lunch' — land at nearby coordinates on that map. Sentences that are far apart in meaning — 'I ate a salad' and 'I fixed my car' — land far apart. That's the whole trick: when you search for something, you're really asking 'which coordinates on the map are closest to mine?'",
       content: [
         "Google's gemini-embedding-001 — completely free, returns a 768-number vector, and works remarkably well even in Hebrew (this is what I use)",
-        "OpenAI text-embedding-3-small — about $0.02 per million words, 1536 dimensions (a good fit if you already pay OpenAI)",
-        "Voyage voyage-3 — considered the highest-quality English embedding model in the RAG world, but it's more expensive and not free",
-        "Cohere embed-multilingual-v3 — an excellent model supporting 100+ languages, including solid Hebrew",
+        "OpenAI text-embedding-3-small — about $0.02 per million tokens, 1536 dimensions (a good fit if you already pay OpenAI). Its bigger sibling text-embedding-3-large gives 3072 dimensions at higher cost",
+        "Voyage voyage-3 — 1024 dimensions, considered the highest-quality English embedding model in the RAG world today, but paid",
+        "nomic-embed-text-v1.5 — open-source, 768 dimensions, runs locally via Ollama; Cohere embed-multilingual-v3 covers 100+ languages including solid Hebrew",
         "Every service returns an array of floating-point numbers — that's exactly the vector you store in Qdrant alongside your metadata",
         "Important: you cannot search across one collection with vectors from a different model or a different dimension — each model's map is essentially a different language",
       ],

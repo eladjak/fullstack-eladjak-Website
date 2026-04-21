@@ -28,14 +28,14 @@ export const aiderGuide: AgentGuideData = {
   logoImage: "/images/guide-logos/aider-logo.png",
   tagline: "Aider בכל editor. Claude Code הוא הראשי — Aider הוא ה-backup החופשי",
   heroDescription:
-    "Aider זה כלי חינמי ובקוד פתוח מבית החוקר האמריקאי Paul Gauthier שמשמש כשותף תכנות וירטואלי — סוג של 'חבר לצוות' שיושב איתכם כשאתם כותבים קוד, מבין מה אתם מנסים להשיג, ומסייע בזריזות. הוא רץ מתוך הטרמינל (חלון הפקודות השחור שמפתחים עובדים איתו), מתחבר למודל בינה מלאכותית לפי בחירתכם ($ [Claude](/claude-code) של Anthropic, GPT של OpenAI, Gemini של Google, או מודל מקומי חינמי דרך [Ollama](/guide/ollama)), ועושה משהו שצ'אטים רגילים כמו ChatGPT לא עושים: הוא עורך ישירות את קבצי הקוד שלכם. אתם מבקשים בעברית 'תקן את הבאג בקובץ login.ts', Aider פותח את הקובץ בעצמו, מבצע את התיקון, ושומר היסטוריה מלאה ב-git (מערכת הניהול של גרסאות קוד שמשמשת כמעט כל מפתח בעולם) כך שאפשר תמיד לחזור אחורה בלחיצה אחת. אצלי (אלעד) Aider משלים את [Claude Code](/claude-code) ומשמש כגיבוי חינמי לגמרי למקרים שבהם המכסה של המנוי הראשי נגמרת — כל זה דרך OpenRouter (שירות שמאגד מודלי AI רבים במחיר סמלי או בחינם). אצלכם, אם אין לכם תקציב למנוי פרימיום של Claude, Aider יכול להיות הכלי הראשי שלכם ולתת 80% מהיכולות של הכלים החזקים בתחום — בחינם מוחלט, עם שליטה מלאה על הפרטיות של הקוד שלכם.",
+    "Aider זה כלי חינמי ובקוד פתוח מבית החוקר האמריקאי Paul Gauthier שמשמש כשותף תכנות וירטואלי — סוג של 'חבר לצוות' שיושב איתכם כשאתם כותבים קוד, מבין מה אתם מנסים להשיג, ומסייע בזריזות. הוא רץ מתוך הטרמינל (חלון הפקודות השחור שמפתחים עובדים איתו), מתחבר למודל בינה מלאכותית לפי בחירתכם (Claude Sonnet 4.6 של Anthropic, GPT-5 או GPT-4.1 של OpenAI, Gemini 2.5 Pro של Google, Grok של xAI, או מודל מקומי חינמי דרך [Ollama](/guide/ollama)), ועושה משהו שצ'אטים רגילים כמו ChatGPT לא עושים: הוא עורך ישירות את קבצי הקוד שלכם. אתם מבקשים בעברית 'תקן את הבאג בקובץ login.ts', Aider פותח את הקובץ בעצמו, מבצע את התיקון, ושומר היסטוריה מלאה ב-git (מערכת הניהול של גרסאות קוד שמשמשת כמעט כל מפתח בעולם) כך שאפשר תמיד לחזור אחורה בלחיצה אחת. אצלי (אלעד) Aider משלים את [Claude Code](/claude-code) ומשמש כגיבוי חינמי לגמרי למקרים שבהם המכסה של המנוי הראשי נגמרת — כל זה דרך OpenRouter (שער שמאגד יותר מ-300 מודלים מ-Anthropic, OpenAI, Google, Meta, DeepSeek, Mistral ועוד). אצלכם, אם אין לכם תקציב למנוי פרימיום של Claude, Aider יכול להיות הכלי הראשי שלכם ולתת 80% מהיכולות של הכלים החזקים בתחום — בחינם מוחלט, עם שליטה מלאה על הפרטיות של הקוד שלכם.",
   badgeText: "2026 · AI Pair Programming CLI · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/aider",
   heroBgImage: "/images/guides/guide-aider-hero.jpg",
   stats: [
-    { label: "מודלים נתמכים", value: "100+" },
+    { label: "מודלים נתמכים", value: "200+" },
     { label: "git integration", value: "auto" },
-    { label: "התקנה", value: "pip" },
+    { label: "התקנה", value: "pipx" },
     { label: "fallback חינם", value: "קיים" },
   ],
   paradigmTitle: "למה עוד כלי?",
@@ -44,7 +44,7 @@ export const aiderGuide: AgentGuideData = {
   paradigmShifts: [
     {
       before: "Claude Pro 20$/חודש הוא המינימום ל-AI coding",
-      after: "Aider + OpenRouter qwen3:free = 0$ לחלוטין",
+      after: "Aider + OpenRouter free tier (Qwen 2.5 Coder / DeepSeek V3) = 0$ לחלוטין",
       icon: DollarSign,
     },
     {
@@ -59,7 +59,7 @@ export const aiderGuide: AgentGuideData = {
     },
     {
       before: "סוד של ארגון לא יוצא מהמחשב",
-      after: "Aider + Ollama qwen3-coder = air-gapped full",
+      after: "Aider + Ollama (Qwen 3 Coder / DeepSeek Coder) = air-gapped full",
       icon: Terminal,
     },
   ],
@@ -67,7 +67,7 @@ export const aiderGuide: AgentGuideData = {
     {
       title: "מפתחים ללא Claude Pro",
       description:
-        "רוצים AI pair programming בחינם — OpenRouter עם qwen3-coder:free נותן את רוב הערך.",
+        "רוצים AI pair programming בחינם — OpenRouter עם Qwen 2.5 Coder:free או DeepSeek V3:free נותן את רוב הערך.",
       icon: DollarSign,
       color: "from-emerald-500 to-green-500",
     },
@@ -118,7 +118,7 @@ export const aiderGuide: AgentGuideData = {
         "Repo-map — אחת היכולות החכמות של Aider. כשהוא נכנס לפרויקט שלכם, הוא סורק את כל הקבצים, יוצר סיכום קצר של כל אחד, ושולח ל-LLM רק את החלקים הרלוונטיים לבקשה הנוכחית. זה חוסך המון טוקנים (היחידות שעליהן מחייבים מודלי AI) ומאפשר לו לעבוד על פרויקטים ענקיים בלי לבלבל את המודל.",
         "Auto-commit — כל שינוי שה-Aider עושה נשמר אוטומטית ב-git (מערכת ניהול הגרסאות של הקוד) עם הודעה ברורה: מה השתנה, איזו בקשה הבאתם, ובאיזה מודל השתמש. זה אומר שגם אם משהו ישתבש, תמיד יש לכם 'כפתור undo' מלא של כל צעד וצעד.",
         "Diff view (תצוגת הבדלים) — לפני כל שינוי Aider מראה לכם בבירור מה הוא עומד לעשות: מה ימחק באדום, מה ייכנס בירוק. אם לא אהבתם — `/undo` וזה חוזר אחורה. התחושה היא כמו לעבוד עם שותף שמבקש אישור לכל פעולה.",
-        "תומך ב-100+ מודלים דרך ספרייה בשם LiteLLM (מעין 'מתרגם אוניברסלי' בין מודלי AI שונים). אתם יכולים לבחור בין [Claude](/claude-code) של Anthropic, GPT-4 של OpenAI, Gemini של Google, מודלים מקומיים דרך [Ollama](/guide/ollama), או מודלים חינמיים דרך OpenRouter (שער תשלום שמאגד עשרות ספקים).",
+        "תומך ביותר מ-200 מודלים דרך ספרייה בשם LiteLLM (מעין 'מתרגם אוניברסלי' בין מודלי AI שונים). אתם יכולים לבחור בין [Claude](/claude-code) Sonnet/Haiku/Opus של Anthropic, GPT-5 / GPT-4.1 / o4-mini של OpenAI, Gemini 2.5 Pro/Flash של Google, Grok של xAI, מודלים מקומיים דרך [Ollama](/guide/ollama), או יותר מ-300 מודלים דרך OpenRouter (שער תשלום שמאגד ספקים מ-Anthropic, OpenAI, Google, Meta, DeepSeek, Mistral AI, xAI, Cohere ועוד).",
         "שני מצבי הפעלה: chat mode אינטראקטיבי (מדברים, הוא עונה, שולח שינויים בזמן אמת) ו-non-interactive mode שמופעל עם הדגל `--yes --message '...'` — מצב שבו Aider מקבל פקודה אחת, מבצע, יוצא. זה המצב שמאפשר להטמיע אותו ב-CI/CD (מערכות אוטומציה כמו GitHub Actions שרצות אחרי כל commit).",
       ],
       tips: [
@@ -137,14 +137,14 @@ export const aiderGuide: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
       beginner:
-        "למה כל הטרחה הזו של בידוד? תחשבו על זה כמו על שני חשבונות בנק: אחד לעבודה ואחד לחסכונות. אם שניהם באותו כרטיס אשראי, כל קנייה שורפת גם מהחסכונות. אותו דבר פה — אם Aider משתמש באותם מפתחות API של [Claude Code](/claude-code), כל שורת קוד שהוא יכתוב תתקצץ מאותה מכסה חודשית. בידוד מלא = שקט נפשי. Aider רץ על חשבון חינמי של OpenRouter (שער תשלום שמציע מודלים חינמיים כמו qwen3-coder:free של חברת Alibaba), בזמן ש-[Claude Code](/claude-code) ממשיך לעבוד לו בצד על המנוי הראשי.",
+        "למה כל הטרחה הזו של בידוד? תחשבו על זה כמו על שני חשבונות בנק: אחד לעבודה ואחד לחסכונות. אם שניהם באותו כרטיס אשראי, כל קנייה שורפת גם מהחסכונות. אותו דבר פה — אם Aider משתמש באותם מפתחות API של [Claude Code](/claude-code), כל שורת קוד שהוא יכתוב תתקצץ מאותה מכסה חודשית. בידוד מלא = שקט נפשי. Aider רץ על חשבון חינמי של OpenRouter (שער שמציע מודלים חינמיים כמו Qwen 2.5 Coder:free של Alibaba Cloud ו-DeepSeek V3:free של DeepSeek), בזמן ש-[Claude Code](/claude-code) ממשיך לעבוד לו בצד על המנוי הראשי.",
       content: [
         "התקנה נקייה: `pipx install aider-chat` — הפקודה הזו יוצרת ל-Aider סביבת Python משלו בתיקייה `~/.local/pipx`, כך שלא יתנגש עם ספריות של פרויקטים אחרים. pipx זה כלי שבנוי בדיוק בשביל התקנה גלובלית מבודדת של כלי CLI בשפת Python.",
-        "חשבון נפרד לחלוטין: נכנסים ל-openrouter.ai, נרשמים בחינם, מייצרים API key, ומשתמשים בו עם qwen3-coder:free. המודל הזה הוא קוד פתוח של Alibaba, באיכות מרשימה ובעלות אפסית — מושלם כ-backup.",
-        "קובץ הגדרות `~/.aider.conf.yml` שאומר ל-Aider איזה מודל לבחור כברירת מחדל ואיפה לחפש אותו. לדוגמה: `model: openrouter/qwen3-coder:free` + `openai-api-base: https://openrouter.ai/api/v1`. ככה בכל פעם שתפעילו Aider הוא כבר יידע לאן לפנות.",
+        "חשבון נפרד לחלוטין: נכנסים ל-openrouter.ai, נרשמים בחינם, מייצרים API key, ומשתמשים בו עם מודל כמו `qwen/qwen-2.5-coder-32b-instruct:free` או `deepseek/deepseek-chat-v3:free`. המודלים האלה הם קוד פתוח (Qwen של Alibaba Cloud, DeepSeek של DeepSeek), באיכות מרשימה ובעלות אפסית — מושלמים כ-backup. שימו לב שה-free tier של OpenRouter מוגבל ב-RPM (בקשות לדקה) ובמכסה יומית; מעבר לכך עוברים ל-tier בתשלום.",
+        "קובץ הגדרות `~/.aider.conf.yml` שאומר ל-Aider איזה מודל לבחור כברירת מחדל ואיפה לחפש אותו. לדוגמה: `model: openrouter/qwen/qwen-2.5-coder-32b-instruct:free` + `openai-api-base: https://openrouter.ai/api/v1`. ככה בכל פעם שתפעילו Aider הוא כבר יידע לאן לפנות.",
         "הערה קריטית: אל תגדירו את משתנה הסביבה `ANTHROPIC_API_KEY` באותו טרמינל שבו רץ Aider — אחרת Aider יבחר בו אוטומטית (זה ברירת המחדל שלו) וישרוף לכם את מכסת [Claude](/claude-code) בלי שתשימו לב. או שתריצו את Aider מתוך סקריפט עם `env -i` (שמריץ עם משתני סביבה נקיים), או שתשימו את המפתחות בקובץ `.aider.conf.yml` עצמו ולא ב-env.",
         "אם אתם דווקא רוצים להשתמש ב-Anthropic דרך Aider — תייצרו מפתח API נפרד בדשבורד של Anthropic, תגדירו לו תקרת חיוב (billing cap) של $10/חודש, וזה יהיה הבאפר הבטוח שלכם. אם המפתח הזה ישרף — [Claude Code](/claude-code) הראשי ממשיך לעבוד ללא הפרעה.",
-        "רוצים פרטיות מלאה? הגדירו `model: ollama/qwen3-coder` + `api_base: http://localhost:11434`. [Ollama](/guide/ollama) זה כלי שמריץ מודלי AI ישר על המחשב שלכם, בלי לשלוח שום שורת קוד לשרת חיצוני. מושלם לתחומים רגישים כמו רפואה, משפט, או קוד ארגוני סודי.",
+        "רוצים פרטיות מלאה? הגדירו `model: ollama/qwen2.5-coder:32b` (או `qwen3-coder` אם התקנתם את Qwen 3 Coder) + `api_base: http://localhost:11434`. [Ollama](/guide/ollama) זה כלי שמריץ מודלי AI ישר על המחשב שלכם, בלי לשלוח שום שורת קוד לשרת חיצוני. מושלם לתחומים רגישים כמו רפואה, משפט, או קוד ארגוני סודי.",
       ],
       tips: [
         "אצלכם ב-Windows או WSL (Windows Subsystem for Linux, סביבת לינוקס בתוך חלונות): הפקודה `pipx install aider-chat` בדרך כלל עובדת חלק. אם נתקלים בבעיות תלויות, גיבוי טוב הוא להתקין דרך conda — מנהל חבילות חלופי: `pipx install conda` קודם, ואז להתקין Aider בתוכו.",
@@ -153,7 +153,7 @@ export const aiderGuide: AgentGuideData = {
       ],
       codeExample: {
         label: "~/.aider.conf.yml עם OpenRouter",
-        code: "model: openrouter/qwen3-coder:free\nopenai-api-base: https://openrouter.ai/api/v1\n# API key ב-env: OPENROUTER_API_KEY=sk-or-...\nauto-commits: true\nauto-lint: true\nedit-format: diff\nstream: true\nshow-diffs: true\nsubtree-only: true",
+        code: "model: openrouter/qwen/qwen-2.5-coder-32b-instruct:free\nweak-model: openrouter/qwen/qwen-2.5-coder-32b-instruct:free\nopenai-api-base: https://openrouter.ai/api/v1\n# API key ב-env: OPENROUTER_API_KEY=sk-or-...\nauto-commits: true\nauto-lint: true\nedit-format: diff\nstream: true\nshow-diffs: true\nsubtree-only: true",
       },
     },
     {
@@ -162,26 +162,27 @@ export const aiderGuide: AgentGuideData = {
       title: "מודלים — מה עובד הכי טוב לאיזה שימוש",
       subtitle: "חינמי מול בתשלום, מודל שמתמחה בקוד מול מודל כללי",
       description:
-        "Aider יכול להתחבר ליותר מ-100 מודלי AI שונים דרך ספרייה בשם LiteLLM (חשבו עליה כעל 'שקע אוניברסלי' שמתרגם את הבקשה לכל ספק בנפרד). בפועל, רוב המפתחים עובדים עם 5-7 מודלים בלבד שמכסים 95% מהצרכים. בסעיף הזה נעבור עליהם לפי קטגוריה — מהיקר והטוב ביותר ועד לחלופות החינמיות שעושות 80% מהעבודה. הבחירה הנכונה חוסכת המון כסף: לא שורפים את המודל הכי טוב על תיקון טעות כתיב.",
+        "Aider יכול להתחבר ליותר מ-200 מודלי AI שונים דרך ספרייה בשם LiteLLM (חשבו עליה כעל 'שקע אוניברסלי' שמתרגם את הבקשה לכל ספק בנפרד). בפועל, רוב המפתחים עובדים עם 5-7 מודלים בלבד שמכסים 95% מהצרכים. בסעיף הזה נעבור עליהם לפי קטגוריה — מהיקר והטוב ביותר ועד לחלופות החינמיות שעושות 80% מהעבודה. הבחירה הנכונה חוסכת המון כסף: לא שורפים את המודל הכי טוב על תיקון טעות כתיב.",
       color: "from-indigo-600 to-blue-500",
       difficulty: "intermediate",
       content: [
-        "[Claude Sonnet 4.6](/claude-code) של Anthropic — זה המודל הטוב ביותר כיום לעריכת קוד מורכבת, במיוחד בפרויקטים גדולים עם הרבה קבצים שתלויים זה בזה. העלות: כ-$3 לכל מיליון טוקני קלט (מיליון טוקנים = בערך 750 אלף מילים). כאן מדובר במודל שמבין context ארוך ועושה refactoring (ארגון מחדש של קוד) בצורה חלקה. זו הבחירה שלי ל-[Claude Code](/claude-code) הראשי.",
-        "GPT-4.1 ו-o3-mini של OpenAI — מצוינים לבעיות שדורשות חשיבה עמוקה (reasoning) ולשינויים שמשפיעים על הרבה קבצים בו-זמנית. GPT-4.1 הוא הגרסה המלאה, o3-mini הוא האחיין הזריז והזול יותר. שימושי כשרוצים דעה שנייה על בעיה ש-Claude מתקשה איתה.",
-        "Gemini 2.5 Pro של Google — באיכות דומה ל-GPT-4 אבל בעלות נמוכה משמעותית. מבריק במיוחד בתיקונים המוניים (batch fixes) — למשל 'תעבור על 50 קבצים ותחליף בכל אחד את הפונקציה הישנה בחדשה'. בזכות ה-context הארוך שלו (מיליון טוקנים) הוא מחזיק פרויקטים שלמים ב-RAM.",
-        "qwen3-coder:free של חברת Alibaba, דרך OpenRouter — המודל החינמי הטוב ביותר לקוד שקיים היום. איטי יותר ממודלים בתשלום ומוגבל ב-context (כמות הטקסט שהוא זוכר בפעם), אבל בחינם מוחלט. אצלי (אלעד) זה ה-backup כש-[Claude Max](/claude-code) מגיע למכסה. אצלכם — אם אין Claude Pro/Max, זה יכול להיות הכלי הראשי.",
-        "deepseek-coder-v3 של DeepSeek — מצטיין במיוחד בקוד Python. קצת פחות חד ב-TypeScript, אז לא מתאים לכל פרויקט. חינמי במסלול הבסיסי של OpenRouter.",
-        "[Ollama](/guide/ollama) עם qwen3-coder או deepseek-coder מקומיים — האופציה הכי פרטית שיש. הקוד לא יוצא מהמחשב, אין לוג אצל אף ספק ענן, וזה מושלם לתעשיות רגישות (רפואה, משפט, ביטחון). הדרישה היחידה: מחשב עם כרטיס מסך חזק (GPU — מעבד גרפי). בלי GPU טוב זה איטי מאוד.",
-        "הדגל `--weak-model` — פטנט חיסכון חכם. Aider משתמש במודל קטן ופשוט לכתיבת כותרות commit (ההודעה הקצרה שמתארת מה השתנה). אין סיבה לשרוף Sonnet יקר על 'fix: typo in login' — תגדירו מודל חינמי ל-weak-model ותחסכו 30-40% מהעלות הכוללת.",
+        "[Claude Sonnet 4.6](/claude-code) של Anthropic — זה המודל הטוב ביותר כיום לעריכת קוד מורכבת, במיוחד בפרויקטים גדולים עם הרבה קבצים שתלויים זה בזה. העלות: כ-$3 לכל מיליון טוקני קלט ו-$15 לכל מיליון טוקני פלט (מיליון טוקנים = בערך 750 אלף מילים). כאן מדובר במודל שמבין context ארוך ועושה refactoring (ארגון מחדש של קוד) בצורה חלקה. זו הבחירה שלי ל-[Claude Code](/claude-code) הראשי.",
+        "GPT-5 ו-GPT-4.1 של OpenAI — מצוינים לבעיות שדורשות חשיבה עמוקה (reasoning) ולשינויים שמשפיעים על הרבה קבצים בו-זמנית. GPT-5 הוא הדגל החדש, GPT-4.1 הוא הוותיק היציב, ו-o4-mini (יורשו של o3-mini) הוא האחיין הזריז והזול יותר שמתמחה ב-reasoning. שימושי כשרוצים דעה שנייה על בעיה ש-Claude מתקשה איתה.",
+        "Gemini 2.5 Pro ו-Gemini 2.5 Flash של Google — 2.5 Pro באיכות דומה ל-GPT-5 אבל בעלות נמוכה משמעותית (סביב $1.25/M input), ו-Flash זול עוד יותר למשימות מהירות. מבריק במיוחד בתיקונים המוניים (batch fixes) — למשל 'תעבור על 50 קבצים ותחליף בכל אחד את הפונקציה הישנה בחדשה'. בזכות ה-context הארוך שלו (מיליון טוקנים — ו-2 מיליון בגרסת Pro) הוא מחזיק פרויקטים שלמים ב-RAM.",
+        "Qwen 2.5 Coder 32B:free ו-Qwen 3 Coder של Alibaba Cloud, דרך OpenRouter — בין המודלים החינמיים הטובים ביותר לקוד. איטיים יותר ממודלים בתשלום ומוגבלים ב-rate limit ב-free tier, אבל בחינם מוחלט. אצלי (אלעד) זה ה-backup כש-[Claude Max](/claude-code) מגיע למכסה. אצלכם — אם אין Claude Pro/Max, זה יכול להיות הכלי הראשי. Qwen 3 Coder (הגרסה החדשה) זמין ב-tier בתשלום של OpenRouter במחיר מאוד תחרותי.",
+        "DeepSeek V3 ו-DeepSeek Coder של DeepSeek — מצטיינים ביחס ביצועים/מחיר. DeepSeek V3 הוא מודל reasoning כללי מצוין, וב-free tier של OpenRouter זמינים כ-`deepseek/deepseek-chat-v3:free`. חזקים במיוחד ב-Python, קצת פחות חדים ב-TypeScript.",
+        "[Ollama](/guide/ollama) עם Qwen 2.5 Coder / Qwen 3 Coder / DeepSeek Coder / Llama 3 (של Meta) / Gemma 3 (של Google DeepMind) מקומיים — האופציה הכי פרטית שיש. הקוד לא יוצא מהמחשב, אין לוג אצל אף ספק ענן, וזה מושלם לתעשיות רגישות (רפואה, משפט, ביטחון). הדרישה היחידה: מחשב עם כרטיס מסך חזק (GPU — מעבד גרפי) עם לפחות 24GB VRAM למודלים של 32B. בלי GPU טוב זה איטי מאוד.",
+        "הדגל `--weak-model` — פטנט חיסכון חכם. Aider משתמש במודל קטן ופשוט לכתיבת כותרות commit (ההודעה הקצרה שמתארת מה השתנה). אין סיבה לשרוף Sonnet יקר על 'fix: typo in login' — תגדירו `weak-model: anthropic/claude-haiku-4-5` (Haiku הרבה יותר זול: ~$1/M input, $5/M output) או מודל חינמי של OpenRouter ותחסכו 30-40% מהעלות הכוללת.",
+        "מצב `/architect` — תכונה חזקה: מפעילה מודל חזק (למשל Sonnet 4.6 או o4-mini) ל-planning, ואז מעבירה את תוצר התכנון למודל עריכה זול יותר (editor-model) שמבצע את השינויים בפועל. התוצאה: איכות תכנון של מודל פרימיום בעלות של מודל בינוני.",
       ],
       tips: [
-        "הדגל `--edit-format diff` מתאים לרוב הפרויקטים — הוא שולח ל-LLM רק את השינוי עצמו, לא את כל הקובץ. עבור שינויים גדולים ומורכבים, `--edit-format udiff` עדיף (זה פורמט diff מתוחכם יותר). Sonnet מטפל בשניהם הכי טוב מכל המודלים.",
-        "לפני שאתם מפעילים בקשה גדולה על Aider, תריצו `aider --msg '/tokens'` — זה מראה לכם כמה טוקנים כרגע ב-context ומה ההוצאה המשוערת. בערך 30 אלף טוקנים זה שיחה רגילה, 100 אלף זה כבר יקר, ומעל 200 אלף זה הימור על הארנק.",
-        "לבעיות פשוטות (typo, תיקון שורה בודדת, שינוי משתנה) — תשתמשו ב-haiku של Anthropic או ב-qwen3-coder:free. אין טעם לשרוף Opus, המודל הכי יקר של Anthropic, על bug של חמש דקות.",
+        "הדגל `--edit-format diff` מתאים לרוב הפרויקטים — הוא שולח ל-LLM רק את השינוי עצמו, לא את כל הקובץ. עבור שינויים גדולים ומורכבים, `--edit-format udiff` עדיף (זה פורמט diff מתוחכם יותר). Sonnet 4.6 מטפל בשניהם הכי טוב מכל המודלים.",
+        "לפני שאתם מפעילים בקשה גדולה על Aider, תריצו את פקודת `/tokens` בתוך הסשן — זה מראה לכם כמה טוקנים כרגע ב-context ומה ההוצאה המשוערת. בערך 30 אלף טוקנים זה שיחה רגילה, 100 אלף זה כבר יקר, ומעל 200 אלף זה הימור על הארנק.",
+        "לבעיות פשוטות (typo, תיקון שורה בודדת, שינוי משתנה) — תשתמשו ב-Claude Haiku 4.5 של Anthropic, ב-GPT-4.1 mini של OpenAI, ב-Gemini 2.5 Flash, או ב-Qwen 2.5 Coder:free. אין טעם לשרוף Claude Opus 4.5, המודל הכי יקר של Anthropic ($15/M input), על bug של חמש דקות.",
       ],
       codeExample: {
-        label: "hybrid: Anthropic ל-main, Ollama ל-weak",
-        code: "# בקובץ ~/.aider.conf.yml\nmodel: anthropic/claude-sonnet-4-6\nweak-model: ollama/qwen3-coder  # לכותרות commits + פעולות קטנות\neditor-model: anthropic/claude-sonnet-4-6\n# שומר 30-40% על tokens",
+        label: "hybrid: Sonnet ל-main, Haiku ל-weak, architect mode",
+        code: "# בקובץ ~/.aider.conf.yml\nmodel: anthropic/claude-sonnet-4-6\nweak-model: anthropic/claude-haiku-4-5  # לכותרות commits + פעולות קטנות\neditor-model: anthropic/claude-sonnet-4-6\narchitect: true  # planning במודל חזק, עריכה במודל זול יותר\n# שומר 30-40% על tokens",
       },
     },
     {
@@ -208,8 +209,8 @@ export const aiderGuide: AgentGuideData = {
       ],
       tips: [
         "תתחילו כל session עם `/add` של כל הקבצים הרלוונטיים לפני הבקשה הראשונה. context מקיף = תשובה טובה יותר. אל תוסיפו קבצים טיפה-טיפה — זה מבלבל את ה-LLM ואת עצמכם.",
-        "`/model claude-sonnet-4-6` מחליף את המודל באמצע session. שימושי כשהמודל החלש נכשל ואתם צריכים 'לשדרג' לעוצמה רצינית יותר — או להיפך, כשסיימתם את החלק המורכב ורוצים לחזור למודל זול לפעולות קלות.",
-        "`/voice` — אם הגדרתם OpenAI Whisper (שירות המרת דיבור לטקסט), אתם יכולים להקליט את הבקשה בקול במקום להקליד. פי 2 מהיר, במיוחד בעברית. אצלי זה חוסך המון זמן בישיבות ארוכות מול המסך.",
+        "`/model anthropic/claude-sonnet-4-6` מחליף את המודל באמצע session. שימושי כשהמודל החלש נכשל ואתם צריכים 'לשדרג' לעוצמה רצינית יותר — או להיפך, כשסיימתם את החלק המורכב ורוצים לחזור למודל זול לפעולות קלות. פקודות נוספות שחוסכות זמן: `/architect` להדלקת architect mode, `/commit` ל-commit ידני, ו-watch mode (`--watch-files`) שגורם ל-Aider לעקוב אוטומטית אחר קבצים שאתם עורכים ב-editor אחר.",
+        "`/voice` — אם הגדרתם OpenAI Whisper (שירות המרת דיבור לטקסט בתשלום לפי דקה, או חלופה מקומית כמו whisper.cpp), אתם יכולים להקליט את הבקשה בקול במקום להקליד. פי 2 מהיר, במיוחד בעברית. אצלי זה חוסך המון זמן בישיבות ארוכות מול המסך.",
       ],
       codeExample: {
         label: "session טיפוסי",
@@ -255,18 +256,18 @@ export const aiderGuide: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       content: [
-        "[Claude Code](/claude-code) מציע חוויית עבודה עשירה: ממשק גרפי מלא בטרמינל, אינטגרציה עם MCP (Model Context Protocol — פרוטוקול סטנדרטי שמחבר את Claude לכלים חיצוניים), sub-agents (סוכני-משנה שמבצעים משימות במקביל), skills, hooks (פעולות אוטומטיות שרצות בנקודות מסוימות), TodoWrite (ניהול רשימת משימות פנימי). אידיאלי לפיתוח רציני עם מנוי Max של $100-200 לחודש.",
-        "Aider הוא CLI טהור ומינימלי — פשוט יותר, מהיר יותר, קל יותר לאוטומציה. תומך בכל ספקי ה-AI הגדולים דרך LiteLLM, ויש לו מסלול חינמי מלא דרך OpenRouter. יתרון: מי שצריך backup או אין לו תקציב יקבל כלי שעדיין ברמה גבוהה.",
+        "[Claude Code](/claude-code) מציע חוויית עבודה עשירה: ממשק גרפי מלא בטרמינל, אינטגרציה מובנית עם MCP (Model Context Protocol — פרוטוקול סטנדרטי שמחבר את Claude לכלים חיצוניים), sub-agents (סוכני-משנה שמבצעים משימות במקביל), skills, hooks (פעולות אוטומטיות שרצות בנקודות מסוימות), TodoWrite (ניהול רשימת משימות פנימי). אידיאלי לפיתוח רציני עם מנוי Max של $100 או $200 לחודש.",
+        "Aider הוא CLI טהור ומינימלי — פשוט יותר, מהיר יותר, קל יותר לאוטומציה. תומך ביותר מ-200 ספקי AI דרך LiteLLM (Anthropic, OpenAI, Google, xAI, Meta דרך OpenRouter, DeepSeek, Mistral AI, Cohere ועוד), יש לו מסלול חינמי מלא דרך OpenRouter, ותמיכה קהילתית ב-MCP (דרך גרסאות fork וקונפיגורציה ידנית). יתרון: מי שצריך backup או אין לו תקציב יקבל כלי שעדיין ברמה גבוהה.",
         "עריכת קוד: [Claude Code](/claude-code) עם ה-diff UI שלו נוח יותר לעבודה אינטראקטיבית. Aider עם patch mode מוצלח במיוחד ב-CI אוטומטי (הפלט קצר וקל לניתוח).",
         "שילוב git: שני הכלים מעולים, אבל אצל Aider זה אוטומטי לחלוטין — כל שינוי הופך ל-commit בלי שאלות. ב-[Claude Code](/claude-code) נדרשת פקודת `/commit` מפורשת, מה שנותן שליטה אבל דורש יותר צעדים.",
         "Context רב-קבצי: [Claude Code](/claude-code) משתמש ב-sub-agents לפרויקטים גדולים מאוד (עשרות אלפי קבצים). Aider עם repo-map עובד יפה עד בינוני-גדול, ואז ממליץ להתמקד בתת-פרויקט בודד.",
-        "עלות חודשית: [Claude Code](/claude-code) דורש מנוי Max ($100-200/חודש) או API key עם תשלום לפי שימוש. Aider יכול להיות חינמי מוחלט עם qwen3-coder:free, או בעלות נמוכה עם OpenRouter pay-as-you-go.",
+        "עלות חודשית: [Claude Code](/claude-code) דורש מנוי Max ($100 או $200/חודש) או API key עם תשלום לפי שימוש. Aider יכול להיות חינמי מוחלט עם Qwen 2.5 Coder:free או DeepSeek V3:free דרך OpenRouter, או בעלות נמוכה עם OpenRouter pay-as-you-go.",
         "AI מקומי: Aider מצוין יחד עם [Ollama](/guide/ollama) ומאפשר עבודה air-gapped (מנותקת לגמרי מהאינטרנט — הקוד לא יוצא מהמחשב). [Claude Code](/claude-code) תלוי בשירות הענן של Anthropic וכרגע אין לו מצב offline.",
       ],
       tips: [
         "אצלי (אלעד) השילוב הוא: [Claude Code](/claude-code) ל-planning ולמשימות מורכבות שדורשות חשיבה ארוכה עם [Kami](/guide/kami), [Kaylee](/guide/kaylee) וסוכני ה-[Delegator](/guide/delegator). Aider לתיקוני lint המוניים ול-refactoring גדול על עשרות קבצים.",
         "אם יש לכם [Claude Max](/claude-code) — [Claude Code](/claude-code) עדיף ב-90% מהזמן בזכות הסוכנים, ה-MCP ויכולות ה-planning. Aider ישרת אתכם בתפקיד backup, בעבודה על קוד רגיש שדורש air-gap, או ב-CI/CD.",
-        "אם אין לכם [Claude Max](/claude-code) — התחילו עם Aider + OpenRouter qwen3-coder:free. תקבלו 80% מהיכולת בחינם. כשתתקלו בבקשה שבה Aider לא מספיק, תשקלו מעבר ל-[Claude Code](/claude-code).",
+        "אם אין לכם [Claude Max](/claude-code) — התחילו עם Aider + OpenRouter Qwen 2.5 Coder:free או DeepSeek V3:free. תקבלו 80% מהיכולת בחינם. כשתתקלו בבקשה שבה Aider לא מספיק, תשקלו מעבר ל-[Claude Code](/claude-code).",
       ],
     },
   ],
@@ -285,7 +286,7 @@ export const aiderGuide: AgentGuideData = {
     },
     {
       title: "OpenRouter",
-      description: "API gateway ל-100+ מודלים כולל qwen3-coder:free",
+      description: "API gateway ליותר מ-300 מודלים כולל free tier (Qwen 2.5 Coder, DeepSeek V3)",
       href: "https://openrouter.ai",
       icon: ExternalLink,
     },
@@ -322,5 +323,5 @@ export const aiderGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "Aider משלים את Claude Code ל-tasks מבודדים: lint fixes, refactoring קטנים, ו-CI automations. היתרון המרכזי — תומך ב-100+ מודלים כולל חינמיים (OpenRouter) ומקומיים (Ollama), כך שאפשר לבנות hybrid שחוסך בעלויות בלי לוותר על איכות. המדריך מציג את ה-setup המבודד, בחירת המודל לפי המשימה, ואיך לשלב Aider ב-workflow יומיומי או ב-pipeline אוטומטי.",
+    "Aider משלים את Claude Code ל-tasks מבודדים: lint fixes, refactoring קטנים, ו-CI automations. היתרון המרכזי — תומך ביותר מ-200 מודלים דרך LiteLLM כולל חינמיים (Qwen 2.5 Coder, DeepSeek V3 ב-OpenRouter) ומקומיים (Ollama), כך שאפשר לבנות hybrid שחוסך בעלויות בלי לוותר על איכות. המדריך מציג את ה-setup המבודד, בחירת המודל לפי המשימה, ואיך לשלב Aider ב-workflow יומיומי או ב-pipeline אוטומטי.",
 };

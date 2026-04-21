@@ -25,7 +25,7 @@ export const crewaiGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/crewai-logo.png",
   tagline: "Instead of a single agent, a team of specialists working together",
   heroDescription:
-    "CrewAI is an open-source Python framework for orchestrating multiple AI agents around a shared task. Each Agent is defined with a role, a goal, a set of tools, and its own LLM (for example [Claude](/en/claude-code) or a local model via [Ollama](/en/guide/ollama)); workflows are described as `sequential`, `hierarchical` or `consensus`. A typical deployment runs behind FastAPI + [Docker](/en/guide/docker). I currently run 10 crews on my VPS (blog-he, marketing-team, yt-to-blog-he, research-crew and more) — but for you, CrewAI can power content automation, research ops, distributed code review, data analysis, customer research, or anything that needs more than a single prompt to a single LLM.",
+    "CrewAI is an open-source Python orchestration framework by João Moura / CrewAI Inc., not just a library — a full multi-agent platform with Crews, Tasks, Agents, Flows (event-driven workflows added in 2024), and built-in tools (SerperDev, WebsiteSearchTool, ScrapeTool and more). It supports 100+ LLM providers through LiteLLM: Anthropic ([Claude](/en/claude-code) Sonnet 4.6, Opus 4.7, Haiku 4.5), Google Gemini 2.5 Pro/Flash, OpenAI, Groq, DeepSeek V3, Mistral, and local models via [Ollama](/en/guide/ollama). Each Agent is defined with a role, a goal, a set of tools, and its own LLM; workflows run as `sequential` or `hierarchical` Processes, or as event-driven Flows. A typical deployment runs behind FastAPI + [Docker](/en/guide/docker). I currently run 10 crews on my VPS (blog-he, marketing-team, yt-to-blog-he, research-crew and more) — but for you, CrewAI can power content automation, research ops, distributed code review, data analysis, customer research, or anything that needs more than a single prompt to a single LLM.",
   badgeText: "2026 · Multi-Agent Orchestration · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/crewai",
   heroBgImage: "/images/guides/guide-crewai-hero.jpg",
@@ -104,9 +104,9 @@ export const crewaiGuideEn: AgentGuideData = {
       icon: Users,
       title: "What is CrewAI? An AI team that works for you",
       subtitle:
-        "An open-source Python library for orchestrating multiple AI agents around a shared task",
+        "An open-source Python orchestration framework for multi-agent workflows with Flows, Crews, and 100+ LLM providers via LiteLLM",
       description:
-        "CrewAI is a Python library that began as an open-source project in 2023, born from a simple realization: no matter how capable a single language model is, it rarely produces the best result on genuinely complex tasks. CrewAI's approach is simple but elegant: instead of asking one AI to write an entire article, you define a team of agents — each with a clear role, a defined goal, and access to its own tools — and let them work together, the way a human team would. The result is deeper, more accurate, and usually cheaper, because you can reserve your strongest model for the parts that truly need it. An Agent is the basic worker; a Task is a unit of work; a Crew is the whole team plus the Process that ties them together; and an LLM is the model that powers each agent.",
+        "CrewAI is a Python framework by João Moura and CrewAI Inc. that began as an open-source project in 2023, born from a simple realization: no matter how capable a single language model is, it rarely produces the best result on genuinely complex tasks. In 2026 it is one of the most mature multi-agent platforms available, with support for 100+ LLM providers through LiteLLM (Anthropic, Google, OpenAI, Groq, DeepSeek, Mistral, Ollama and more), Flows for event-driven pipelines (added in 2024), Crews for collaborative teams, and a rich built-in tool set (SerperDev, WebsiteSearchTool, FileReadTool and more). CrewAI's approach is simple but elegant: instead of asking one AI to write an entire article, you define a team of agents — each with a clear role, a defined goal, and access to its own tools — and let them work together, the way a human team would. The result is deeper, more accurate, and usually cheaper, because you can reserve your strongest model for the parts that truly need it. An Agent is the basic worker; a Task is a unit of work; a Crew is the whole team plus the Process that ties them together; and an LLM is the model that powers each agent.",
       color: "from-violet-600 to-purple-500",
       difficulty: "beginner",
       beginner:
@@ -115,8 +115,8 @@ export const crewaiGuideEn: AgentGuideData = {
         "Agent: the basic unit — every agent is defined with a role (what it does), a goal (what it is trying to achieve), a backstory (background that shapes its personality), tools (what it can call), and an llm (the model driving its reasoning).",
         "Task: a single unit of work — what needs to be done, what the expected output looks like, and which agent owns it. The output of one task can flow as input into the next.",
         "Crew: the collection of agents + tasks + process. This is the 'organization' you actually run.",
-        "Process: how the team operates — sequential (each task waits for the previous one), hierarchical (a manager dispatches work), or consensus (the agents deliberate together).",
-        "LLM: CrewAI supports every major model — Anthropic's [Claude](/en/claude-code), Google's Gemini, OpenAI's GPT, and local models via [Ollama](/en/guide/ollama). You can assign a different model to each agent — for example a researcher on Gemini (fast and cheap) and a writer on Claude (stronger for nuanced language).",
+        "Process: how the team operates — sequential (each task waits for the previous one) or hierarchical (a manager dispatches work). For more complex orchestration there are Flows — event-driven pipelines built with @start and @listen decorators.",
+        "LLM: CrewAI supports 100+ providers through LiteLLM — Anthropic [Claude](/en/claude-code) (Sonnet 4.6 / Opus 4.7 / Haiku 4.5), Google's Gemini 2.5 Pro/Flash, OpenAI's GPT, DeepSeek V3, Groq, Mistral, and local models via [Ollama](/en/guide/ollama). You can assign a different model to each agent — for example a researcher on Gemini Flash (fast and cheap) and a writer on Claude Sonnet (stronger for nuanced language).",
         "Tools: Python functions your agents can invoke — web search, database queries, API calls, sending a message through the [Delegator](/en/guide/delegator), searching [Qdrant](/en/guide/qdrant), and more.",
       ],
       tips: [
@@ -133,7 +133,7 @@ export const crewaiGuideEn: AgentGuideData = {
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       content: [
-        "Agent is a single worker — you define its role (for example 'Hebrew writer' or 'market researcher'), its goal, a backstory that sets its personality and tone, and its llm (the model driving it — [Claude](/en/claude-code), Gemini, or a local model via [Ollama](/en/guide/ollama)).",
+        "Agent is a single worker — you define its role (for example 'Hebrew writer' or 'market researcher'), its goal, a backstory that sets its personality and tone, and its llm (the model driving it — [Claude](/en/claude-code) Sonnet 4.6, Gemini 2.5, DeepSeek V3, or a local model via [Ollama](/en/guide/ollama)).",
         "Task is a single assignment — a description of what to do, an expected_output describing what the result should look like, and the agent responsible. Think of it as a clear work order you hand to an employee.",
         "context=[t1] — the mechanism that chains tasks. The next task receives t1's output as its input, just like a writer receiving the researcher's notes before starting.",
         "Crew is the team itself — a bundle of agents + tasks + process. It is the object you actually run, and it holds the logic for how work flows between members.",
@@ -157,8 +157,8 @@ export const crewaiGuideEn: AgentGuideData = {
       beginner:
         "This is the moment you go from 'I've heard of CrewAI' to 'I have a crew that works'. Install the library, grab a free Gemini key, define three simple agents, and run it. If you've never written Python end to end — do not worry, the code is short and clear, and you can ask [Claude](/en/claude-code) to walk you through it step by step.",
       content: [
-        "pip install crewai crewai-tools installs the library itself and the default tool pack — web search, file reading, scraping, and more.",
-        "Grab a free Gemini API key from ai.google.dev — Google gives you a million tokens per month for free, more than enough for dozens of crew runs.",
+        "pip install crewai crewai-tools installs the library itself and the default tool pack — SerperDev (web search), WebsiteSearchTool, FileReadTool, ScrapeTool, and more.",
+        "Grab a free Gemini API key from ai.google.dev — Gemini 2.5 Flash's free tier offers ~15 RPM and a generous daily token allowance, more than enough for dozens of crew runs in personal use.",
         "Define three agents: a researcher (pulls the facts), a writer (turns facts into flowing prose), and a reviewer (critiques and polishes).",
         "Define three tasks with context — the writer receives the researcher's output, and the reviewer receives the writer's draft. A flow that mirrors a newsroom.",
         "crew.kickoff(inputs={'topic': 'yours'}) triggers the whole chain. Pass in a topic and get a finished piece back.",
@@ -206,9 +206,9 @@ export const crewaiGuideEn: AgentGuideData = {
         "The problem: CrewAI expects the model to emit a precise format — 'Thought: ...' followed by 'Action: ...' and 'Action Input: ...'. Gemini sometimes jumps straight to the Final Answer and skips the scaffolding, at which point CrewAI's parser cannot extract an answer.",
         "The classic symptom: a /run call hangs until the 240-second timeout, or you see retry loops in your [Docker](/en/guide/docker) logs.",
         "Fix 1: bypass CrewAI entirely for that task — write three direct Gemini calls in Python and chain them yourself. You lose the elegant orchestration, but you gain stability.",
-        "Fix 2: move the problematic agent to [Claude](/en/claude-code) Haiku — it follows ReAct faithfully and costs roughly $0.25 per blog-post run. Relatively cheap, vastly more reliable.",
+        "Fix 2: move the problematic agent to [Claude](/en/claude-code) Haiku 4.5 — it follows ReAct faithfully and costs roughly $1 per million input tokens and $5 per million output (about $0.10–$0.20 per typical blog-post run). Cheap, vastly more reliable than Gemini on ReAct.",
         "Fix 3: shorten the input — for instance, summarize a long transcript with Gemini Flash before handing it to the crew. The team receives a digest instead of the full text.",
-        "Fix 4: upgrade to CrewAI 0.80 or later — Gemini support improved significantly. pip install --upgrade crewai.",
+        "Fix 4: upgrade to a recent CrewAI release (0.100+) — Gemini support improved significantly through 2025. pip install --upgrade crewai.",
       ],
       tips: [
         "A practical rule I follow: keep every task description under 2,000 characters. If you truly need a long input, skip CrewAI for that task and call Gemini directly through the [Delegator](/en/guide/delegator).",
@@ -221,7 +221,7 @@ export const crewaiGuideEn: AgentGuideData = {
       title: "Hierarchical processes + a manager agent",
       subtitle: "When sequential isn't enough",
       description:
-        "Process.hierarchical is where CrewAI stops being a relay race and becomes a real orchestra with a conductor. Instead of tasks moving in a straight line, a manager agent (typically a strong model like GPT-4 or [Claude](/en/claude-code) Opus) makes real-time decisions: who gets which task, when to split, when to combine, and when to stop. It is advanced territory — only one of my ten crews runs this way — everything else is sequential, simply because it is more predictable and cheaper. But when you genuinely need flexibility, hierarchical is worth the effort.",
+        "Process.hierarchical is where CrewAI stops being a relay race and becomes a real orchestra with a conductor. Instead of tasks moving in a straight line, a manager agent (typically a strong model like [Claude](/en/claude-code) Opus 4.7 or GPT-5) makes real-time decisions: who gets which task, when to split, when to combine, and when to stop. It is advanced territory — only one of my ten crews runs this way — everything else is sequential, simply because it is more predictable and cheaper. But when you genuinely need flexibility, hierarchical is worth the effort.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [

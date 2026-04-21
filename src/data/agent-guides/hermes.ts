@@ -51,7 +51,7 @@ export const hermesGuide: AgentGuideData = {
       icon: Lightbulb,
     },
     {
-      before: "PagerDuty, Opsgenie, VictorOps — $100+/חודש",
+      before: "PagerDuty, BetterStack, Grafana OnCall — $21-$100+/חודש למשתמש",
       after: "Hermes פתוח, ציבורי, חוקי תיקון כ-JSON",
       icon: Shield,
     },
@@ -226,7 +226,7 @@ export const hermesGuide: AgentGuideData = {
       title: "Escalation — מתי נכון להעיר אתכם (וכמה שפחות)",
       subtitle: "הזהב של self-healing: להתריע רק כשזה באמת שווה השינה שלכם",
       description:
-        "Escalation הוא last resort — הרגע שבו Hermes מרים ידיים ואומר 'אני לא מצליח, תעזור/י'. כל הרעיון של Hermes הוא לצמצם את ההתראות ל-10% מהמקרים — רק לדברים חדשים ומעניינים. אם Hermes שולח יותר מדי התראות — זה סימן שה-whitelist או ה-memory לא טובים מספיק, לא סימן ש'הכלי רועש'. PagerDuty עולה $29/user/חודש; Hermes עולה 0 וחוסך גם את השינה.",
+        "Escalation הוא last resort — הרגע שבו Hermes מרים ידיים ואומר 'אני לא מצליח, תעזור/י'. כל הרעיון של Hermes הוא לצמצם את ההתראות ל-10% מהמקרים — רק לדברים חדשים ומעניינים. אם Hermes שולח יותר מדי התראות — זה סימן שה-whitelist או ה-memory לא טובים מספיק, לא סימן ש'הכלי רועש'. PagerDuty starter עולה $21/user/חודש (ומתחלופה מודרנית כמו BetterStack, Grafana OnCall או Squadcast עולה אפילו פחות); Hermes עולה 0 וחוסך גם את השינה.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
       content: [
@@ -256,7 +256,7 @@ export const hermesGuide: AgentGuideData = {
         "אפשר להוסיף לכל סוכן ברשת — [Kami](/guide/kami), [Box](/guide/box), [Adopter](/guide/adopter), [CrewAI](/guide/crewai) — את אותו pattern בלי שינויי ארכיטקטורה",
         "Health endpoints: תנאי סף. כל שירות חייב לחשוף /health שמחזיר JSON עם {status, version, uptime}. בלי זה — אין verification אמיתי",
         "Centralized logs: `journalctl` ב-Linux, `docker logs` ב-[Docker](/guide/docker) — אלה הכלים הבסיסיים של Hermes ל-diagnosis. אם יש לכם Loki או Datadog — עוד יותר טוב",
-        "Integration ל-PagerDuty/Opsgenie: לא חובה (Hermes יחליף אותם ב-90%), אבל אפשר לחבר ל-escalation path כ-fallback נוסף",
+        "Integration ל-PagerDuty/BetterStack/Grafana OnCall (או Jira Service Management, שהוא הגלגול של Opsgenie אחרי הרכישה של Atlassian): לא חובה (Hermes מחליף אותם ב-90% מהמקרים), אבל אפשר לחבר ל-escalation path כ-fallback נוסף",
         "[Dashboard](/guide/dashboard) endpoint: /health/agents מציג את מצב כל השירותים בזמן אמת. זה ה-UI שלכם מול כל הרשת — פתוח במונה טור כל היום",
         "שילוב עם [n8n](/guide/n8n) או [Aider](/guide/aider): Hermes יכול להפעיל flows של n8n כחלק מ-repair (למשל 'restart + הודעה ב-Slack'), או לבקש מ-Aider לתקן קוד אוטומטית כשה-build נכשל",
       ],
