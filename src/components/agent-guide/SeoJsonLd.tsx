@@ -9,6 +9,7 @@ const PUBLISHER_LOGO = "https://avatars.githubusercontent.com/u/108827199?v=4";
 
 interface SeoJsonLdProps {
   guide: AgentGuideData;
+  locale?: "he" | "en";
 }
 
 /**
@@ -23,11 +24,13 @@ interface SeoJsonLdProps {
  *
  * No external deps; pure inline <script type="application/ld+json">.
  */
-export function SeoJsonLd({ guide }: SeoJsonLdProps) {
+export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
+  const isEn = locale === "en";
+  const prefix = isEn ? "/en" : "";
   const pageUrl =
     guide.slug === "claude-code"
-      ? `${SITE_URL}/claude-code`
-      : `${SITE_URL}/guide/${guide.slug}`;
+      ? `${SITE_URL}${prefix}/claude-code`
+      : `${SITE_URL}${prefix}/guide/${guide.slug}`;
 
   const imageUrl = guide.heroBgImage
     ? guide.heroBgImage.startsWith("http")
@@ -42,15 +45,19 @@ export function SeoJsonLd({ guide }: SeoJsonLdProps) {
   const datePublished = "2026-01-15";
   const dateModified = new Date().toISOString().split("T")[0];
 
+  const headline = isEn
+    ? `${guide.agentName} — The Complete Guide`
+    : `המדריך המלא ל-${guide.agentNameHe}`;
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    headline: `המדריך המלא ל-${guide.agentNameHe}`,
+    headline,
     description: guide.tagline,
     image: [imageUrl],
     datePublished,
     dateModified,
-    inLanguage: "he-IL",
+    inLanguage: isEn ? "en-US" : "he-IL",
     url: pageUrl,
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -58,12 +65,12 @@ export function SeoJsonLd({ guide }: SeoJsonLdProps) {
     },
     author: {
       "@type": "Person",
-      name: AUTHOR_NAME,
+      name: isEn ? "Elad Yaakobovitch" : AUTHOR_NAME,
       url: AUTHOR_URL,
     },
     publisher: {
       "@type": "Person",
-      name: AUTHOR_NAME,
+      name: isEn ? "Elad Yaakobovitch" : AUTHOR_NAME,
       url: AUTHOR_URL,
       logo: {
         "@type": "ImageObject",
@@ -74,16 +81,25 @@ export function SeoJsonLd({ guide }: SeoJsonLdProps) {
       "@type": "Thing",
       name: guide.agentName,
     },
-    keywords: [
-      guide.agentName,
-      guide.agentNameHe,
-      `מדריך ${guide.agentName}`,
-      `מדריך ${guide.agentNameHe}`,
-      "סוכני AI",
-      "AI agent",
-      "agent network",
-      "בינה מלאכותית",
-    ].join(", "),
+    keywords: isEn
+      ? [
+          guide.agentName,
+          `${guide.agentName} guide`,
+          `${guide.agentName} tutorial`,
+          "AI agents",
+          "AI agent network",
+          "artificial intelligence",
+        ].join(", ")
+      : [
+          guide.agentName,
+          guide.agentNameHe,
+          `מדריך ${guide.agentName}`,
+          `מדריך ${guide.agentNameHe}`,
+          "סוכני AI",
+          "AI agent",
+          "agent network",
+          "בינה מלאכותית",
+        ].join(", "),
     articleSection: guide.category === "infra" ? "Infrastructure" : "AI Agents",
     proficiencyLevel: "Beginner to Advanced",
   };
@@ -95,19 +111,19 @@ export function SeoJsonLd({ guide }: SeoJsonLdProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "דף הבית",
+        name: isEn ? "Home" : "דף הבית",
         item: SITE_URL,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "מדריכים",
-        item: `${SITE_URL}/guide`,
+        name: isEn ? "Guides" : "מדריכים",
+        item: `${SITE_URL}${prefix}/guide`,
       },
       {
         "@type": "ListItem",
         position: 3,
-        name: guide.agentNameHe,
+        name: isEn ? guide.agentName : guide.agentNameHe,
         item: pageUrl,
       },
     ],

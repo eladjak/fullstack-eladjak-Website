@@ -16,7 +16,93 @@ import {
 } from "lucide-react";
 import type { AgentGuideData, Difficulty } from "./types";
 import { allGuides } from "@/data/agent-guides";
+import { allGuidesEn } from "@/data/agent-guides/en";
 import { SeoJsonLd } from "./SeoJsonLd";
+
+type Locale = "he" | "en";
+
+/**
+ * i18n strings for UI chrome. Content comes from the guide data object
+ * (already localized in he/en variants under /data/agent-guides/{,/en}).
+ */
+const T = {
+  he: {
+    allGuides: "כל המדריכים",
+    prevGuide: "למדריך הקודם",
+    nextGuide: "למדריך הבא",
+    simpleExplanation: "הסבר פשוט",
+    technicalMode: "מצב טכני",
+    inSimpleTerms: "בשפה פשוטה:",
+    practicalGuide: "המדריך המעשי",
+    clickToOpen: "לחצו על כל סעיף לפתיחה",
+    whoIsThisFor: "למי זה מתאים?",
+    hereHow: "הנה איך:",
+    resources: "משאבים ולינקים",
+    liked: "אהבתם? שתפו:",
+    copyLink: "העתיקו קישור",
+    copied: "הועתק!",
+    share: "שתפו",
+    tipsFromExperience: "טיפים מהניסיון",
+    previousGuide: "המדריך הקודם",
+    nextGuideLabel: "המדריך הבא",
+    backToIndex: "חזרה לאינדקס",
+    contact: "צרו קשר",
+    consultingServices: "שירותי ייעוץ AI",
+    moreGuides: "עוד מדריכים",
+    completeGuideTo: (name: string) => `המדריך המלא ל-${name}`,
+    aboutAuthor: "אלעד יעקובוביץ'",
+    authorRole: "מפתח Full-Stack ומומחה AI",
+    switchLang: "English",
+    switchLangHref: (slug: string) =>
+      slug === "claude-code" ? "/en/claude-code" : `/en/guide/${slug}`,
+    agentsHeading: "סוכני AI",
+    infraHeading: "תשתית ורכיבי בסיס",
+    difficulty: {
+      beginner: "למתחילים",
+      intermediate: "בינוני",
+      advanced: "מתקדם",
+    } as Record<Difficulty, string>,
+    guideIndex: "/guide",
+  },
+  en: {
+    allGuides: "All guides",
+    prevGuide: "Previous guide",
+    nextGuide: "Next guide",
+    simpleExplanation: "Simple explanation",
+    technicalMode: "Technical mode",
+    inSimpleTerms: "In plain terms:",
+    practicalGuide: "The practical guide",
+    clickToOpen: "Click any section to open it",
+    whoIsThisFor: "Who is this for?",
+    hereHow: "Here's how:",
+    resources: "Resources & links",
+    liked: "Liked it? Share:",
+    copyLink: "Copy link",
+    copied: "Copied!",
+    share: "Share",
+    tipsFromExperience: "Tips from experience",
+    previousGuide: "Previous guide",
+    nextGuideLabel: "Next guide",
+    backToIndex: "Back to index",
+    contact: "Contact",
+    consultingServices: "AI consulting services",
+    moreGuides: "More guides",
+    completeGuideTo: (name: string) => `${name} — The Complete Guide`,
+    aboutAuthor: "Elad Yaakobovitch",
+    authorRole: "Full-Stack Developer & AI Specialist",
+    switchLang: "עברית",
+    switchLangHref: (slug: string) =>
+      slug === "claude-code" ? "/claude-code" : `/guide/${slug}`,
+    agentsHeading: "AI Agents",
+    infraHeading: "Infrastructure",
+    difficulty: {
+      beginner: "Beginner",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+    } as Record<Difficulty, string>,
+    guideIndex: "/en/guide",
+  },
+} as const;
 
 /**
  * Parse markdown-style links in a string: [label](href) → <Link>label</Link>
@@ -47,22 +133,19 @@ function renderWithLinks(text: string): React.ReactNode {
   });
 }
 
-const difficultyConfig: Record<
+const difficultyColors: Record<
   Difficulty,
-  { label: string; color: string; bg: string }
+  { color: string; bg: string }
 > = {
   beginner: {
-    label: "למתחילים",
     color: "text-emerald-400",
     bg: "bg-emerald-500/10 border-emerald-500/20",
   },
   intermediate: {
-    label: "בינוני",
     color: "text-amber-400",
     bg: "bg-amber-500/10 border-amber-500/20",
   },
   advanced: {
-    label: "מתקדם",
     color: "text-rose-400",
     bg: "bg-rose-500/10 border-rose-500/20",
   },
@@ -70,28 +153,34 @@ const difficultyConfig: Record<
 
 interface AgentGuideProps {
   guide: AgentGuideData;
+  locale?: Locale;
 }
 
-export function AgentGuide({ guide }: AgentGuideProps) {
+export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
+  const t = T[locale];
+  const isRtl = locale === "he";
+  const guidesList = locale === "en" ? allGuidesEn : allGuides;
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [showBeginner, setShowBeginner] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Prev/next guide for nav
-  const guideIndex = allGuides.findIndex((g) => g.slug === guide.slug);
-  const prevGuide = guideIndex > 0 ? allGuides[guideIndex - 1] : undefined;
+  // Prev/next guide for nav (locale-aware)
+  const guideIndex = guidesList.findIndex((g) => g.slug === guide.slug);
+  const prevGuide = guideIndex > 0 ? guidesList[guideIndex - 1] : undefined;
   const nextGuide =
-    guideIndex >= 0 && guideIndex < allGuides.length - 1
-      ? allGuides[guideIndex + 1]
+    guideIndex >= 0 && guideIndex < guidesList.length - 1
+      ? guidesList[guideIndex + 1]
       : undefined;
+  const guidePrefix = locale === "en" ? "/en/guide" : "/guide";
+  const claudeCodeHref = locale === "en" ? "/en/claude-code" : "/claude-code";
   const guideHref = (slug: string) =>
-    slug === "claude-code" ? "/claude-code" : `/guide/${slug}`;
+    slug === "claude-code" ? claudeCodeHref : `${guidePrefix}/${slug}`;
 
   const handleShare = async () => {
     const url = guide.canonical;
     if (typeof navigator !== "undefined" && navigator.share) {
-      await navigator.share({ title: `המדריך המלא ל-${guide.agentName}`, url });
+      await navigator.share({ title: t.completeGuideTo(guide.agentName), url });
     } else {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -107,9 +196,17 @@ export function AgentGuide({ guide }: AgentGuideProps) {
   const PrimaryIcon = guide.primaryCta.icon;
   const SecondaryIcon = guide.secondaryCta?.icon;
 
+  // In RTL, prev visually on the right uses ChevronRight; in LTR, prev on left uses ChevronLeft.
+  const PrevArrowIcon = isRtl ? ChevronRight : ChevronLeft;
+  const NextArrowIcon = isRtl ? ChevronLeft : ChevronRight;
+
   return (
-    <main className="min-h-dvh bg-background" dir="rtl" lang="he">
-      <SeoJsonLd guide={guide} />
+    <main
+      className="min-h-dvh bg-background"
+      dir={isRtl ? "rtl" : "ltr"}
+      lang={locale}
+    >
+      <SeoJsonLd guide={guide} locale={locale} />
       {/* Sticky TOC + guide nav */}
       <div className="sticky top-16 z-30 py-2 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
@@ -120,23 +217,23 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                 <Link
                   href={guideHref(prevGuide.slug)}
                   className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-                  aria-label={`למדריך הקודם: ${prevGuide.agentNameHe}`}
-                  title={prevGuide.agentNameHe}
+                  aria-label={`${t.prevGuide}: ${prevGuide.agentName}`}
+                  title={prevGuide.agentName}
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <PrevArrowIcon className="h-4 w-4" />
                 </Link>
               ) : (
                 <span className="p-1.5 opacity-30" aria-hidden="true">
-                  <ChevronRight className="h-4 w-4" />
+                  <PrevArrowIcon className="h-4 w-4" />
                 </span>
               )}
               <button
                 type="button"
                 onClick={() => setMenuOpen((v) => !v)}
                 className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-                aria-label="כל המדריכים"
+                aria-label={t.allGuides}
                 aria-expanded={menuOpen}
-                title="כל המדריכים"
+                title={t.allGuides}
               >
                 <LayoutGrid className="h-4 w-4" />
               </button>
@@ -144,16 +241,24 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                 <Link
                   href={guideHref(nextGuide.slug)}
                   className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-                  aria-label={`למדריך הבא: ${nextGuide.agentNameHe}`}
-                  title={nextGuide.agentNameHe}
+                  aria-label={`${t.nextGuide}: ${nextGuide.agentName}`}
+                  title={nextGuide.agentName}
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <NextArrowIcon className="h-4 w-4" />
                 </Link>
               ) : (
                 <span className="p-1.5 opacity-30" aria-hidden="true">
-                  <ChevronLeft className="h-4 w-4" />
+                  <NextArrowIcon className="h-4 w-4" />
                 </span>
               )}
+              <Link
+                href={t.switchLangHref(guide.slug)}
+                className="ms-1 px-2 py-1 rounded-full text-[10px] font-semibold text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors border border-border/60"
+                hrefLang={locale === "he" ? "en" : "he"}
+                title={t.switchLang}
+              >
+                {t.switchLang}
+              </Link>
             </div>
             {/* section TOC */}
             <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
@@ -494,7 +599,10 @@ export function AgentGuide({ guide }: AgentGuideProps) {
         <div className="space-y-4">
           {guide.sections.map((section, index) => {
             const Icon = section.icon;
-            const diff = difficultyConfig[section.difficulty];
+            const diff = {
+              ...difficultyColors[section.difficulty],
+              label: t.difficulty[section.difficulty],
+            };
             const isExpanded = expandedSection === section.id;
 
             return (
