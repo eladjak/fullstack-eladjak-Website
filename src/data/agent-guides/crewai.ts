@@ -21,7 +21,9 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const crewaiGuide: AgentGuideData = {
   slug: "crewai",
   agentName: "CrewAI",
-  agentNameHe: "צוותי AI במקביל",
+  agentNameHe: "CrewAI — צוותי AI שעובדים יחד",
+  brandIconSlug: "crewai",
+  brandIconColor: "FF5A5A",
   tagline: "במקום סוכן אחד, צוות של מומחים שעובד ביחד",
   heroDescription: "CrewAI היא מסגרת Python פתוחה לתזמור מספר agents סביב משימה משותפת. כל agent מוגדר עם role, goal, tools ו-LLM עצמאי; ה-workflows מתוארים כ-`sequential`, `hierarchical` או `consensus`. ריצה טיפוסית מאחורי FastAPI + Docker. אצלי רצים 10 crews ב-VPS (blog-he, marketing-team, yt-to-blog-he, research-crew ועוד) — אבל אצלך CrewAI יכול לייצר אוטומציות תוכן, research ops, code review מבוזר, ניתוח דאטה, תחקירי לקוחות, או כל משימה שדורשת יותר מ-prompt יחיד ל-LLM אחד.",
   badgeText: "2026 · Multi-Agent Orchestration · מדריך מעשי",

@@ -24,11 +24,9 @@ export const metadata: Metadata = {
   ],
 };
 
-const INFRA_SLUGS = new Set(["docker", "ollama", "n8n", "aider"]);
-
 export default function GuideIndex() {
-  const agentGuides = allGuides.filter((g) => !INFRA_SLUGS.has(g.slug));
-  const infraGuides = allGuides.filter((g) => INFRA_SLUGS.has(g.slug));
+  const agentGuides = allGuides.filter((g) => (g.category ?? "agent") === "agent");
+  const infraGuides = allGuides.filter((g) => g.category === "infra");
 
   return (
     <main className="min-h-dvh bg-background" dir="rtl">
@@ -177,6 +175,17 @@ function GuideCard({
               className={`absolute bottom-3 start-3 size-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-lg`}
             >
               <Icon className="h-5 w-5 text-white" />
+            </div>
+          )}
+          {guide.brandIconSlug && (
+            <div className="absolute top-3 end-3 size-9 rounded-xl bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-lg ring-1 ring-black/5">
+              <Image
+                src={`https://cdn.simpleicons.org/${guide.brandIconSlug}/${guide.brandIconColor ?? "currentColor"}`}
+                alt={`לוגו ${guide.agentName}`}
+                width={20}
+                height={20}
+                unoptimized
+              />
             </div>
           )}
         </div>

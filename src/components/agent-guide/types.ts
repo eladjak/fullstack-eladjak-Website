@@ -46,15 +46,25 @@ export interface TocItem {
   label: string;
 }
 
+export type GuideCategory = "agent" | "infra";
+
 export interface AgentGuideData {
   slug: string;
   agentName: string; // e.g. "Kami", "קאמי"
   agentNameHe: string;
+  category?: GuideCategory; // defaults to "agent"
   tagline: string; // short hero subtitle
   heroDescription: string;
   badgeText: string; // e.g. "2026 · סוכן WhatsApp עברי · מדריך מעשי"
   canonical: string;
   heroBgImage?: string; // optional, defaults to none
+  /**
+   * Optional slug for simpleicons.org CDN (e.g. "docker", "n8n", "ollama", "anthropic")
+   * Renders as a recognizable brand logo alongside the lucide icon.
+   */
+  brandIconSlug?: string;
+  /** Optional brand color hex (without #) for the simpleicons URL tint. */
+  brandIconColor?: string;
   stats: GuideStat[]; // 4 stats for hero
   paradigmShifts: ParadigmShift[];
   paradigmTitle: string;

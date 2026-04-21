@@ -23,7 +23,8 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const aiderGuide: AgentGuideData = {
   slug: "aider",
   agentName: "Aider",
-  agentNameHe: "Aider — CLI לתכנות בזוג",
+  agentNameHe: "Aider — עוזר תכנות מהטרמינל",
+  category: "infra",
   tagline: "Aider בכל editor. Claude Code הוא הראשי — Aider הוא ה-backup החופשי",
   heroDescription:
     "Aider הוא CLI לתכנות בזוג עם AI, כתוב ב-Python. תומך ב-100+ מודלים (Anthropic, OpenAI, Gemini, OpenRouter, Ollama), מבצע edits ישירות על קבצים, committים אוטומטית ב-git, ומכיל repo-map חכם שמבין את הפרויקט. אצלי Aider מותקן מבודד עם credentials נפרדים (לא Claude Max) ומודלים חינמיים (qwen3-coder:free דרך OpenRouter) — כ-backup כש-Claude Max במכסה או בזמן שרוצה פרסום פרטי. אצלך Aider יכול להיות הכלי הראשי: אם אין לכם Claude Pro/Max, או שאתם חוקרי privacy שצריכים local-only (עם Ollama), Aider נותן 80% מהיכולת של Claude Code בחינם מוחלט.",

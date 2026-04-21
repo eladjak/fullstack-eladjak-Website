@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Website - Iteration Report 2026-03-23</title>
+<style>
+  :root {
+    --bg-primary: #050810;
+    --bg-secondary: #0d1117;
+    --bg-card: #111827;
+    --bg-card-hover: #1a2035;
+    --text-primary: #e8eaf0;
+    --text-secondary: #9ca3b8;
+    --text-muted: #6b7280;
+    --accent-blue: #60a5fa;
+    --accent-purple: #a78bfa;
+    --accent-green: #34d399;
+    --accent-amber: #fbbf24;
+    --accent-red: #f87171;
+    --accent-orange: #fb923c;
+    --accent-cyan: #22d3ee;
+    --border-color: #1e2740;
+    --gradient-start: #8b5cf6;
+    --gradient-mid: #22d3ee;
+    --gradient-end: #8b5cf6;
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.15);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --font-hebrew: 'Heebo', 'Segoe UI', system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-hebrew);
+    background: var(--bg-primary);
+    background-image:
+      radial-gradient(at 20% 80%, hsla(263, 70%, 50%, 0.06) 0, transparent 50%),
+      radial-gradient(at 80% 20%, hsla(200, 70%, 50%, 0.04) 0, transparent 50%);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* Animated gradient header */
+  @keyframes gradientShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+  .header {
+    text-align: center; margin-bottom: 48px; padding: 48px 32px;
+    background: linear-gradient(135deg, #8b5cf6, #22d3ee, #a78bfa, #8b5cf6);
+    background-size: 300% 300%;
+    animation: gradientShift 6s ease infinite;
+    border-radius: var(--radius); position: relative; overflow: hidden;
+  }
+  .header::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 50%,rgba(255,255,255,0.12) 0%,transparent 60%); pointer-events:none; }
+  .header h1 { font-size:2.2rem; font-weight:800; color:#fff; margin-bottom:8px; text-shadow:0 0 20px rgba(139,92,246,0.4); }
+  .header .subtitle { font-size:1.1rem; color:rgba(255,255,255,0.85); }
+  .header .version-badge { display:inline-block; margin-top:16px; padding:4px 16px; background:rgba(255,255,255,0.2); border-radius:999px; font-size:0.85rem; color:#fff; font-weight:600; backdrop-filter:blur(4px); }
+
+  /* Glassmorphism sections */
+  .section {
+    margin-bottom: 20px; background: rgba(17,24,39,0.6); backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color); border-radius: var(--radius);
+    box-shadow: var(--shadow-card); overflow: hidden;
+    animation: fadeInUp 0.5s ease forwards; opacity: 0;
+  }
+  .section:nth-child(2){animation-delay:.1s} .section:nth-child(3){animation-delay:.15s}
+  .section:nth-child(4){animation-delay:.2s} .section:nth-child(5){animation-delay:.25s}
+  .section:nth-child(6){animation-delay:.3s} .section:nth-child(7){animation-delay:.35s}
+  .section:nth-child(8){animation-delay:.4s}
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  .section-header { display:flex; align-items:center; gap:12px; padding:20px 24px; cursor:pointer; user-select:none; transition:background .15s; }
+  .section-header:hover { background:var(--bg-card-hover); }
+  .section-header .icon { font-size:1.3rem; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-sm); flex-shrink:0; }
+  .section-header h2 { font-size:1.1rem; font-weight:700; flex:1; }
+  .section-header .chevron { font-size:.8rem; color:var(--text-muted); transition:transform .2s; }
+  .section.collapsed .chevron { transform:rotate(90deg); }
+  .section-body { padding:0 24px 24px; overflow:hidden; transition:max-height .3s,opacity .2s; }
+  .section.collapsed .section-body { max-height:0!important; padding:0 24px; opacity:0; }
+
+  .icon-done { background:rgba(52,211,153,0.15); color:var(--accent-green); }
+  .icon-stats { background:rgba(96,165,250,0.15); color:var(--accent-blue); }
+  .icon-issues { background:rgba(248,113,113,0.15); color:var(--accent-red); }
+  .icon-questions { background:rgba(251,191,36,0.15); color:var(--accent-amber); }
+  .icon-next { background:rgba(167,139,250,0.15); color:var(--accent-purple); }
+  .icon-timeline { background:rgba(251,146,60,0.15); color:var(--accent-orange); }
+  .icon-growth { background:rgba(34,211,238,0.15); color:var(--accent-cyan); }
+
+  /* Stats with animated counters */
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; }
+  .stat-card {
+    background:rgba(13,17,23,0.8); border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    padding:18px; text-align:center; transition:all .25s;
+    position:relative; overflow:hidden;
+  }
+  .stat-card::before { content:''; position:absolute; inset:-1px; border-radius:inherit; background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(34,211,238,0.1)); z-index:-1; opacity:0; transition:opacity .3s; }
+  .stat-card:hover::before { opacity:1; }
+  .stat-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-glow); }
+  @keyframes countUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .stat-value { font-size:2rem; font-weight:800; background:linear-gradient(135deg,var(--gradient-start),var(--gradient-mid)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:countUp .6s ease forwards; }
+  .stat-label { font-size:.82rem; color:var(--text-secondary); margin-top:4px; font-weight:500; }
+  .stat-sub { font-size:.72rem; color:var(--text-muted); margin-top:2px; }
+
+  /* Animated progress bar */
+  .progress-bar-container { margin-top:16px; background:rgba(13,17,23,0.8); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:16px 20px; }
+  .progress-label { display:flex; justify-content:space-between; font-size:.85rem; margin-bottom:8px; font-weight:600; }
+  .progress-label span:last-child { color:var(--accent-green); }
+  .progress-track { height:10px; background:var(--bg-primary); border-radius:999px; overflow:hidden; }
+  @keyframes fillBar { from{width:0} }
+  .progress-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,var(--gradient-start),var(--accent-green)); animation:fillBar 1.5s ease forwards; }
+
+  /* Rainbow bar */
+  .rainbow-bar { height:3px; background:linear-gradient(90deg,#8b5cf6,#22d3ee,#34d399,#fbbf24,#f87171,#8b5cf6); background-size:200%; animation:gradientShift 4s linear infinite; margin:20px 0; border-radius:2px; }
+
+  /* Task list */
+  .task-list { list-style:none; }
+  .task-list li { padding:10px 0; border-bottom:1px solid var(--border-color); display:flex; align-items:flex-start; gap:10px; font-size:.93rem; }
+  .task-list li:last-child { border-bottom:none; }
+  .task-list .bullet { width:8px; height:8px; border-radius:50%; background:var(--accent-green); flex-shrink:0; margin-top:8px; }
+
+  /* Badges */
+  .badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:.72rem; font-weight:700; }
+  .badge-green { background:rgba(52,211,153,0.2); color:var(--accent-green); }
+  .badge-purple { background:rgba(139,92,246,0.2); color:var(--accent-purple); }
+  .badge-amber { background:rgba(251,191,36,0.2); color:var(--accent-amber); }
+  .badge-blue { background:rgba(96,165,250,0.2); color:var(--accent-blue); }
+
+  /* Delta indicators */
+  .delta-up { color:var(--accent-green); font-size:.75rem; font-weight:700; }
+  .delta-new { color:var(--accent-cyan); font-size:.75rem; font-weight:700; }
+
+  /* Questions */
+  .questions-list { list-style:none; }
+  .questions-list li { padding:14px 18px; margin-bottom:10px; background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.2); border-radius:var(--radius-sm); font-size:.93rem; display:flex; align-items:flex-start; gap:10px; }
+  .questions-list li:last-child { margin-bottom:0; }
+
+  /* Next steps */
+  .next-steps-list { list-style:none; counter-reset:steps; }
+  .next-steps-list li { counter-increment:steps; padding:12px 0; border-bottom:1px solid var(--border-color); display:flex; align-items:flex-start; gap:14px; font-size:.93rem; }
+  .next-steps-list li:last-child { border-bottom:none; }
+  .next-steps-list li::before { content:counter(steps); width:28px; height:28px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--gradient-start),var(--gradient-mid)); color:#fff; border-radius:50%; font-size:.8rem; font-weight:700; flex-shrink:0; }
+
+  /* Growth dimension bars */
+  .dim-row { display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--border-color); }
+  .dim-row:last-child { border-bottom:none; }
+  .dim-label { width:100px; font-size:.82rem; font-weight:600; flex-shrink:0; }
+  .dim-bar-track { flex:1; height:8px; background:var(--bg-primary); border-radius:999px; overflow:hidden; }
+  .dim-bar-fill { height:100%; border-radius:999px; transition:width 1s ease; }
+  .dim-score { width:30px; text-align:center; font-size:.82rem; font-weight:700; }
+
+  /* Timeline */
+  .timeline { position:relative; padding:0; }
+  .timeline::before { content:''; position:absolute; top:0; bottom:0; width:3px; background:linear-gradient(180deg,var(--gradient-start),var(--gradient-mid)); border-radius:999px; right:14px; }
+  .timeline-item { position:relative; padding-bottom:24px; padding-right:44px; }
+  .timeline-item:last-child { padding-bottom:0; }
+  .timeline-dot { position:absolute; top:4px; right:9px; width:12px; height:12px; border-radius:50%; background:var(--accent-blue); border:3px solid var(--bg-card); z-index:1; }
+  .timeline-dot.current { background:var(--accent-green); box-shadow:0 0 10px rgba(52,211,153,0.4); }
+  .timeline-date { font-size:.78rem; color:var(--text-muted); font-weight:600; }
+  .timeline-title { font-size:.93rem; font-weight:600; }
+  .timeline-desc { font-size:.82rem; color:var(--text-secondary); margin-top:2px; }
+
+  /* Tooltip */
+  .tooltip { position:relative; cursor:help; }
+  .tooltip::after { content:attr(data-tip); position:absolute; bottom:120%; right:50%; transform:translateX(50%); background:var(--bg-card); border:1px solid var(--border-color); color:var(--text-primary); padding:6px 12px; border-radius:8px; font-size:.75rem; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .2s; z-index:10; }
+  .tooltip:hover::after { opacity:1; }
+
+  /* Export button */
+  .export-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); color:var(--accent-purple); border-radius:8px; font-size:.78rem; font-weight:600; cursor:pointer; transition:all .2s; font-family:inherit; }
+  .export-btn:hover { background:rgba(139,92,246,0.25); transform:translateY(-1px); }
+
+  .footer { text-align:center; margin-top:48px; padding-top:24px; border-top:1px solid var(--border-color); color:var(--text-muted); font-size:.78rem; }
+  .footer a { color:var(--accent-blue); text-decoration:none; }
+
+  @media (max-width:640px) {
+    .container { padding:20px 16px 60px; }
+    .header { padding:32px 20px; }
+    .header h1 { font-size:1.5rem; }
+    .stats-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+    .dim-label { width:70px; font-size:.75rem; }
+  }
+  @media print {
+    body { background:#fff; color:#111; }
+    .header { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .section { break-inside:avoid; box-shadow:none; }
+    .section.collapsed .section-body { max-height:none!important; opacity:1!important; padding-bottom:24px!important; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>אתר Portfolio - EY.dev</h1>
+    <div class="subtitle">דוח סיכום איטרציה - 23 במרץ 2026</div>
+    <div class="version-badge">Sprint: Revival + Facelift</div>
+  </div>
+
+  <!-- WHAT WAS DONE -->
+  <div class="section" id="s-done">
+    <div class="section-header" onclick="toggleSection('s-done')">
+      <div class="icon icon-done">&#10003;</div>
+      <h2>מה בוצע</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <ul class="task-list">
+        <li><span class="bullet"></span><span><strong>בלוג דו-לשוני</strong> — 5 פוסטים עם תוכן עברי מלא (959 שורות תוכן חדש) <span class="badge badge-green">חדש</span></span></li>
+        <li><span class="bullet"></span><span><strong>דף תודות</strong> — 12 מנטורים (4 חדשים: יובל קשטכר, אלכסנדר קאפיט, דניאל טרבלסי, אריאל אייזן) + תמיכה ב-6 סוגי רשתות חברתיות <span class="badge badge-green">חדש</span></span></li>
+        <li><span class="bullet"></span><span><strong>SipurAI</strong> — שם מעודכן (EY.AI → סיפוראי), דומיין sipurai.ai, live_url נוסף <span class="badge badge-purple">עדכון</span></span></li>
+        <li><span class="bullet"></span><span><strong>Bayit BeSeder</strong> — live_url: bayitbeseder.com נוסף <span class="badge badge-purple">עדכון</span></span></li>
+        <li><span class="bullet"></span><span><strong>Dark Mode</strong> — ברירת מחדל כהה, רקע #050810 עם gradient mesh סגול/כחול <span class="badge badge-green">חדש</span></span></li>
+        <li><span class="bullet"></span><span><strong>מתיחת פנים שלב 1</strong> — text-glow, avatar glow orb, CTA scale, purple shadow on cards <span class="badge badge-green">חדש</span></span></li>
+        <li><span class="bullet"></span><span><strong>מתיחת פנים שלב 2</strong> — nav glassmorphism, logo gradient, skills/CTA/footer/about enhancements <span class="badge badge-green">חדש</span></span></li>
+        <li><span class="bullet"></span><span><strong>אימות ספרינט</strong> — 14/14 GitHub repos (200 OK), 7/7 live deployments, 14/14 thumbnails <span class="badge badge-blue">אומת</span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STATISTICS -->
+  <div class="section" id="s-stats">
+    <div class="section-header" onclick="toggleSection('s-stats')">
+      <div class="icon icon-stats">&#9776;</div>
+      <h2>נתונים</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="stats-grid">
+        <div class="stat-card tooltip" data-tip="src/ + content/ + messages/">
+          <div class="stat-value">111</div>
+          <div class="stat-label">קבצי מקור</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="TypeScript + TSX">
+          <div class="stat-value">10,248</div>
+          <div class="stat-label">שורות קוד</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="5 פוסטים דו-לשוניים">
+          <div class="stat-value">2,269</div>
+          <div class="stat-label">שורות בלוג</div>
+          <div class="stat-sub delta-up">+959 עברית</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="22 routes, TypeScript clean">
+          <div class="stat-value">22</div>
+          <div class="stat-label">Routes</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="Gemini AI thumbnails">
+          <div class="stat-value">14</div>
+          <div class="stat-label">פרויקטים</div>
+          <div class="stat-sub delta-up">14/14 תמונות</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="כולל VacationVibe שתוקן">
+          <div class="stat-value">9</div>
+          <div class="stat-label">Live URLs</div>
+          <div class="stat-sub delta-new">+2 חדשים</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="3 commits באיטרציה זו">
+          <div class="stat-value">1,212</div>
+          <div class="stat-label">שורות נוספו</div>
+          <div class="stat-sub">22 קבצים שונו</div>
+        </div>
+        <div class="stat-card tooltip" data-tip="4 חדשים + 2 עודכנו">
+          <div class="stat-value">12</div>
+          <div class="stat-label">מנטורים</div>
+          <div class="stat-sub delta-new">+4 חדשים</div>
+        </div>
+      </div>
+
+      <div class="rainbow-bar"></div>
+
+      <div class="progress-bar-container">
+        <div class="progress-label"><span>התקדמות הספרינט</span><span>85%</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width:85%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ISSUES -->
+  <div class="section" id="s-issues">
+    <div class="section-header" onclick="toggleSection('s-issues')">
+      <div class="icon icon-issues">&#9888;</div>
+      <h2>בעיות שנמצאו</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+        <thead><tr style="border-bottom:2px solid var(--border-color);">
+          <th style="text-align:right;padding:10px 14px;color:var(--text-secondary);font-size:.78rem;">עדיפות</th>
+          <th style="text-align:right;padding:10px 14px;color:var(--text-secondary);font-size:.78rem;">תיאור</th>
+          <th style="text-align:right;padding:10px 14px;color:var(--text-secondary);font-size:.78rem;">סטטוס</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 14px;"><span class="badge badge-amber">בינוני</span></td><td style="padding:10px 14px;">קישורי רשתות חברתיות חסרים ל-3 יוצרים (קאפיט, טרבלסי, אייזן)</td><td style="padding:10px 14px;color:var(--accent-amber);">ממתין למידע</td></tr>
+          <tr style="border-bottom:1px solid var(--border-color);"><td style="padding:10px 14px;"><span class="badge badge-amber">בינוני</span></td><td style="padding:10px 14px;">Hebrew Calendar לא deployed ל-Vercel</td><td style="padding:10px 14px;color:var(--accent-amber);">ממתין</td></tr>
+          <tr><td style="padding:10px 14px;"><span class="badge badge-blue">נמוך</span></td><td style="padding:10px 14px;">npm install נדרש לפני build (next לא בנתיב)</td><td style="padding:10px 14px;color:var(--accent-green);">נפתר</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="section" id="s-questions">
+    <div class="section-header" onclick="toggleSection('s-questions')">
+      <div class="icon icon-questions">&#63;</div>
+      <h2>שאלות להחלטתך</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <ul class="questions-list">
+        <li><span style="color:var(--accent-amber);">&#10067;</span><span>מה שמות המשתמש של דניאל טרבלסי ואריאל אייזן/PixMind ברשתות? (לא מצאתי בחיפוש)</span></li>
+        <li><span style="color:var(--accent-amber);">&#10067;</span><span>האם התרגומים העבריים בבלוג טובים? רוצה שאשפר?</span></li>
+        <li><span style="color:var(--accent-amber);">&#10067;</span><span>האם dark mode כברירת מחדל מתאים? או שרוצה system detection?</span></li>
+        <li><span style="color:var(--accent-amber);">&#10067;</span><span>רוצה להמשיך למתיחת פנים לפרויקטים deployed (שייראו כמו הthumbnails)?</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section" id="s-next">
+    <div class="section-header" onclick="toggleSection('s-next')">
+      <div class="icon icon-next">&#10140;</div>
+      <h2>הצעדים הבאים</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <ol class="next-steps-list">
+        <li><span>מתיחת פנים לפרויקטים deployed - שייראו כמו התמונות של Gemini</span></li>
+        <li><span>Deploy Hebrew Calendar ל-Vercel (CRA frontend)</span></li>
+        <li><span>מדריך Claude Code מקיף יותר + קישור מהבלוג</span></li>
+        <li><span>Calendly/Cal.com אינטגרציה - "Book a Call" CTA</span></li>
+        <li><span>CV/Resume download PDF</span></li>
+        <li><span>Lighthouse performance audit + Core Web Vitals</span></li>
+        <li><span>E2E tests עם Playwright</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- GROWTH REPORT -->
+  <div class="section" id="s-growth">
+    <div class="section-header" onclick="toggleSection('s-growth')">
+      <div class="icon icon-growth">&#9650;</div>
+      <h2>דוח צמיחה</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div style="margin-bottom:16px;">
+        <div class="dim-row"><div class="dim-label">איכות</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:90%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-green));"></div></div><div class="dim-score" style="color:var(--accent-green)">4.5</div></div>
+        <div class="dim-row"><div class="dim-label">מהירות</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:94%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-cyan));"></div></div><div class="dim-score" style="color:var(--accent-cyan)">4.7</div></div>
+        <div class="dim-row"><div class="dim-label">יעילות</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:96%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-blue));"></div></div><div class="dim-score" style="color:var(--accent-blue)">4.8</div></div>
+        <div class="dim-row"><div class="dim-label">דיוק</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:88%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-purple));"></div></div><div class="dim-score" style="color:var(--accent-purple)">4.4</div></div>
+        <div class="dim-row"><div class="dim-label">אוטונומיה</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:90%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-amber));"></div></div><div class="dim-score" style="color:var(--accent-amber)">4.5</div></div>
+        <div class="dim-row"><div class="dim-label">יוזמה</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:86%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-orange));"></div></div><div class="dim-score" style="color:var(--accent-orange)">4.3</div></div>
+        <div class="dim-row"><div class="dim-label">למידה</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:80%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-green));"></div></div><div class="dim-score" style="color:var(--accent-green)">4.0</div></div>
+        <div class="dim-row"><div class="dim-label">חדשנות</div><div class="dim-bar-track"><div class="dim-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--gradient-start),var(--accent-cyan));"></div></div><div class="dim-score" style="color:var(--accent-cyan)">4.2</div></div>
+      </div>
+
+      <div class="rainbow-bar"></div>
+
+      <h3 style="font-size:.95rem;margin-bottom:10px;">תובנות מהאיטרציה</h3>
+      <ul class="task-list">
+        <li><span class="bullet" style="background:var(--accent-cyan);"></span><span><strong>הקבלה עובדת מצוין</strong> — 6 סוכנים רצו במקביל (3+3), חסכו ~70% זמן</span></li>
+        <li><span class="bullet" style="background:var(--accent-purple);"></span><span><strong>מחקר אנשים מוגבל</strong> — Web search לא מצא יוצרי AI ישראליים קטנים. צריך לחפש ב-YouTube/TikTok ישירות</span></li>
+        <li><span class="bullet" style="background:var(--accent-green);"></span><span><strong>sipurai.ai נמצא מהקוד</strong> — vercel.json CSP headers חשפו את הדומיין. חיפוש בקבצי הפרויקט עדיף מ-web search</span></li>
+        <li><span class="bullet" style="background:var(--accent-amber);"></span><span><strong>dark-first עובד</strong> — הפורטפוליו נראה פי 10 יותר טוב ב-dark mode עם glassmorphism</span></li>
+      </ul>
+
+      <div style="margin-top:16px;">
+        <button class="export-btn" onclick="navigator.clipboard.writeText(document.getElementById('s-growth').querySelector('.section-body').innerText).then(()=>this.textContent='&#10003; הועתק!')">&#128203; העתק דוח צמיחה</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section" id="s-timeline">
+    <div class="section-header" onclick="toggleSection('s-timeline')">
+      <div class="icon icon-timeline">&#9202;</div>
+      <h2>ציר זמן</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot current"></div><div><div class="timeline-date">23.03.2026 - עכשיו</div><div class="timeline-title">מתיחת פנים + בלוג + תודות</div><div class="timeline-desc">3 commits, 1,212 שורות, dark-first design, 5 פוסטים דו-לשוניים, 12 מנטורים</div></div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div><div class="timeline-date">22.03.2026</div><div class="timeline-title">שדרוג מקורות חיים + Hero</div><div class="timeline-desc">ProfileAvatar, StatsBar, FloatingTechIcons, OG images, /claude-code</div></div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div><div class="timeline-date">19.03.2026</div><div class="timeline-title">דף שירותים + SEO + נגישות</div><div class="timeline-desc">5 שירותים, JSON-LD, hreflang, IS 5568, 11 תמונות פרויקט</div></div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div><div class="timeline-date">10.03.2026</div><div class="timeline-title">Portfolio Revival Sprint</div><div class="timeline-desc">HTML2PPTX, VacationVibe, Team Meetings, Customer CRM - 14 פרויקטים</div></div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div><div class="timeline-date">24.02.2026</div><div class="timeline-title">nav fixes, thanks page</div><div class="timeline-desc">8 מנטורים, marquee fix, command palette, Three.js removed</div></div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div><div class="timeline-date">23.02.2026</div><div class="timeline-title">Conversion + Cleanup</div><div class="timeline-desc">Hero rewrite, WhatsApp FAB, OG image, CSS gradient</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated on 2026-03-23 by Claude Code iteration-report skill<br>
+    <a href="https://fullstack-eladjak.co.il" target="_blank">fullstack-eladjak.co.il</a> |
+    <a href="https://github.com/eladjak/fullstack-eladjak-Website" target="_blank">GitHub</a>
+    <br><br>
+    <span style="font-size:.7rem;color:var(--text-muted);">Visual techniques: animated gradient, glassmorphism, mesh background, scroll animations, animated counters, tooltips, animated bars, rainbow bar, delta indicators, badges, export button, dimension scores (12 techniques)</span>
+  </div>
+
+</div>
+<script>
+function toggleSection(id){document.getElementById(id).classList.toggle('collapsed')}
+</script>
+</body>
+</html>

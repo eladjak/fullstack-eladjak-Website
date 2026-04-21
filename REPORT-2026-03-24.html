@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דוח איטרציה — EY.dev Portfolio — 24.03.2026</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --bg3: #0d1428;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.09);
+    --purple: #a855f7;
+    --purple2: #7c3aed;
+    --cyan: #22d3ee;
+    --cyan2: #0891b2;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --pink: #ec4899;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #64748b;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== GRADIENT MESH BACKGROUND ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% -10%, rgba(120,40,200,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 110%, rgba(34,211,238,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(16,185,129,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--cyan), var(--green), var(--amber), var(--pink), var(--purple));
+    background-size: 200% 100%;
+    animation: progressMove 3s linear infinite;
+    z-index: 1000;
+  }
+  @keyframes progressMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+  }
+
+  /* Actual fill */
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 5%; bottom: 0;
+    left: 0;
+    background: inherit;
+    width: 95%;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    background: linear-gradient(180deg, rgba(120,40,200,0.15) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,85,247,0.15);
+    border: 1px solid rgba(168,85,247,0.35);
+    border-radius: 99px;
+    padding: 6px 18px;
+    font-size: 0.78rem;
+    color: var(--purple);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .header-badge .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #fff 0%, var(--purple) 50%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-sub {
+    color: var(--text2);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--text3);
+  }
+  .header-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ===== RAINBOW BAR ===== */
+  .rainbow-bar {
+    height: 2px;
+    background: linear-gradient(90deg,
+      #a855f7, #6366f1, #22d3ee, #10b981, #f59e0b, #ec4899, #a855f7);
+    margin: 2.5rem 0;
+    opacity: 0.6;
+  }
+
+  /* ===== LAYOUT ===== */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .section-header:hover { background: rgba(255,255,255,0.08); }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .section-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .section-toggle {
+    color: var(--text3);
+    font-size: 0.9rem;
+    transition: transform 0.25s;
+  }
+  .section.collapsed .section-toggle { transform: rotate(-90deg); }
+
+  .section-body {
+    padding: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .section.collapsed .section-body {
+    display: none;
+  }
+
+  /* ===== STAT CARDS ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    text-align: center;
+    cursor: default;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+  }
+  .stat-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168,85,247,0.4);
+  }
+  .stat-card:hover .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-4px);
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text2);
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(10,15,30,0.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    color: var(--text2);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+
+  /* ===== TASK LIST ===== */
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+  }
+  .task-item:hover { border-color: rgba(168,85,247,0.3); }
+  .task-check { color: var(--green); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .task-text { color: var(--text); }
+  .task-note { color: var(--text3); font-size: 0.8rem; margin-top: 2px; }
+
+  /* ===== NEXT STEPS ===== */
+  .next-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .next-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem 1rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+  }
+  .next-item:hover { border-color: rgba(34,211,238,0.3); }
+  .next-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple2), var(--cyan2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    flex-shrink: 0;
+    color: white;
+  }
+
+  /* ===== LIVE URLS ===== */
+  .url-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+  .url-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem 1rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: var(--text2);
+    transition: all 0.2s;
+  }
+  .url-card:hover {
+    border-color: rgba(34,211,238,0.4);
+    color: var(--cyan);
+    background: rgba(34,211,238,0.05);
+    transform: translateY(-2px);
+  }
+  .url-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(16,185,129,0.6);
+  }
+
+  /* ===== GROWTH BARS ===== */
+  .growth-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .growth-item { }
+  .growth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+  }
+  .growth-label {
+    font-size: 0.88rem;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .growth-score {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--purple);
+  }
+  .growth-bar-track {
+    height: 8px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .growth-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .growth-bar-fill.purple { background: linear-gradient(90deg, var(--purple2), var(--purple)); }
+  .growth-bar-fill.cyan { background: linear-gradient(90deg, var(--cyan2), var(--cyan)); }
+  .growth-bar-fill.green { background: linear-gradient(90deg, #059669, var(--green)); }
+  .growth-bar-fill.amber { background: linear-gradient(90deg, #d97706, var(--amber)); }
+
+  .export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1.2rem;
+    padding: 0.6rem 1.2rem;
+    background: rgba(168,85,247,0.15);
+    border: 1px solid rgba(168,85,247,0.35);
+    border-radius: 8px;
+    color: var(--purple);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .export-btn:hover {
+    background: rgba(168,85,247,0.25);
+    border-color: var(--purple);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-right: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--purple), var(--cyan));
+    opacity: 0.4;
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.4rem;
+    padding: 1rem 1.2rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    right: -1.75rem;
+    top: 1rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 2px solid var(--bg);
+  }
+  .tl-item.current::before {
+    background: var(--green);
+    box-shadow: 0 0 10px rgba(16,185,129,0.6);
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(16,185,129,0.5); }
+    50% { box-shadow: 0 0 16px rgba(16,185,129,0.9); }
+  }
+  .tl-date {
+    font-size: 0.8rem;
+    color: var(--cyan);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .tl-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .tag {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 99px;
+    border: 1px solid;
+  }
+  .tag-purple { color: var(--purple); border-color: rgba(168,85,247,0.35); background: rgba(168,85,247,0.08); }
+  .tag-cyan { color: var(--cyan); border-color: rgba(34,211,238,0.35); background: rgba(34,211,238,0.08); }
+  .tag-green { color: var(--green); border-color: rgba(16,185,129,0.35); background: rgba(16,185,129,0.08); }
+  .tag-amber { color: var(--amber); border-color: rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
+  .tag-pink { color: var(--pink); border-color: rgba(236,72,153,0.35); background: rgba(236,72,153,0.08); }
+
+  /* ===== TWO COLUMN ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  /* ===== ISSUE / EMPTY STATES ===== */
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text3);
+    font-size: 0.88rem;
+  }
+  .empty-state .big { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  .issue-ok {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 8px;
+    color: var(--green);
+    font-size: 0.9rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text3);
+    font-size: 0.8rem;
+  }
+  footer .techniques {
+    display: inline-flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+  footer .tech-badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    color: var(--text3);
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; color: black; }
+    body::before { display: none; }
+    .progress-bar { display: none; }
+    .section-header { cursor: default; }
+    .section.collapsed .section-body { display: block; }
+    .section-toggle { display: none; }
+    .export-btn { display: none; }
+    footer { border-top: 1px solid #ddd; color: #666; }
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 3px; }
+
+  /* ===== MISC ===== */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gradient-text-amber {
+    background: linear-gradient(135deg, var(--amber), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-muted { color: var(--text2); font-size: 0.85rem; }
+
+  p { color: var(--text2); font-size: 0.9rem; line-height: 1.7; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .url-grid { grid-template-columns: 1fr; }
+    .header { padding: 3rem 1rem 2rem; }
+    .container { padding: 0 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-badge">
+    <span class="dot"></span>
+    Sprint: Revival + Facelift + Deploy
+  </div>
+  <h1>דוח איטרציה — EY.dev</h1>
+  <p class="header-sub">Portfolio Website · ספרינט מרץ 2026 · 2 ימי עבודה אינטנסיבית</p>
+  <div class="header-meta">
+    <span>📅 24.03.2026</span>
+    <span>📦 8 קומיטים</span>
+    <span>✅ 22 routes</span>
+    <span>🔧 TypeScript clean</span>
+    <span>🚀 10/14 פרויקטים עם live demo</span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="container">
+
+  <div class="rainbow-bar"></div>
+
+  <!-- === STATISTICS === -->
+  <section class="section" id="sec-stats">
+    <div class="section-header" onclick="toggle('sec-stats')">
+      <div class="section-title">
+        <span class="section-icon">📊</span>
+        סטטיסטיקות ספרינט
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">111</div>
+          <div class="stat-label">קבצי מקור</div>
+          <div class="tooltip">10,314 שורות קוד כולל</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8</div>
+          <div class="stat-label">קומיטים לפורטפוליו</div>
+          <div class="tooltip">54 קבצים · 1,387 שורות נוספו</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">פרויקטים שקיבלו facelift</div>
+          <div class="tooltip">HTML-to-PPTX, CRM, VacationVibe, Team Meetings, Hebrew Calendar</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">10</div>
+          <div class="stat-label">פרויקטים עם Live Demo</div>
+          <div class="tooltip">מתוך 14 פרויקטים בפורטפוליו</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">מנטורים בדף Thanks</div>
+          <div class="tooltip">4 חדשים נוספו, 6 סוגי קישורים חברתיים</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">פוסטי בלוג דו-לשוניים</div>
+          <div class="tooltip">תרגומים מלאים לעברית + אנגלית</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24+</div>
+          <div class="stat-label">סוכנים במקביל</div>
+          <div class="tooltip">OMC multi-agent orchestration</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">22</div>
+          <div class="stat-label">Routes</div>
+          <div class="tooltip">TypeScript clean · 0 שגיאות</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">0</div>
+          <div class="stat-label">שגיאות TypeScript</div>
+          <div class="tooltip">Build עובר נקי לחלוטין</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">95%</div>
+          <div class="stat-label">אחוז השלמה</div>
+          <div class="tooltip">נותר: קישורים חברתיים מהמנטורים</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === WHAT WAS DONE === -->
+  <section class="section" id="sec-done">
+    <div class="section-header" onclick="toggle('sec-done')">
+      <div class="section-title">
+        <span class="section-icon">✅</span>
+        מה נעשה — 15 משימות
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="task-list">
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">בלוג דו-לשוני — 5 פוסטים עם תרגומים מלאים לעברית</div>
+            <div class="task-note">MDX styling, syntax highlighting, קישורי ניווט</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">דף Thanks — 12 מנטורים (4 חדשים), 6 סוגי קישורים חברתיים</div>
+            <div class="task-note">YouTube / Facebook / Instagram / Telegram / LinkedIn / GitHub</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">URLs חיים עבור SipurAI (sipurai.ai) + Bayit BeSeder (bayitbeseder.com)</div>
+            <div class="task-note">זיהוי דומיין sipurai.ai בצורה אוטונומית</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Dark Mode כברירת מחדל — ערכת נושא כהה בכל הפרויקטים</div>
+            <div class="task-note">#050810 רקע · גרדיאנט פורפל/ציאן · צלליות כרטיסים</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Visual Facelift שלב 1 — CSS theme, gradient mesh, glow בהירו, card shadows</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Visual Facelift שלב 2 — ניווט glassmorphism, skills/CTA/footer/about</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Visual Facelift שלב 3 — hero readability, blog/contact/services/process/stats/marquee</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Visual Facelift שלב 4 — MDX styling, sticky TOC, כרטיסי Thanks, WhatsApp tooltip</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">SEO Audit — Canonical URL verified, תיקוני aria-hidden</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Performance — Lazy loading, hero preload, אופטימיזציית תמונות</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Mobile Responsiveness — hero centered, text scaling, stats grid, avatar</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Hebrew Calendar — פרוס ל-Vercel (hebrew-calendar-eosin.vercel.app)</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">HTML-to-PPTX Facelift — dark mode, split-screen, glassmorphism</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">Customer CRM Facelift — Angular Material dark theme, gradient cards</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">VacationVibe + Team Meetings Facelift — MUI dark theme, frosted UI</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check">✓</span>
+          <div>
+            <div class="task-text">הודעות WhatsApp ל-12 מנטורים לבקשת קישורים חברתיים</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === LIVE URLS === -->
+  <section class="section" id="sec-urls">
+    <div class="section-header" onclick="toggle('sec-urls')">
+      <div class="section-title">
+        <span class="section-icon">🌐</span>
+        URLs פעילים — 200 OK
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="url-grid">
+        <a class="url-card" href="https://fullstack-eladjak.co.il" target="_blank">
+          <div class="url-dot"></div>
+          <span>fullstack-eladjak.co.il</span>
+        </a>
+        <a class="url-card" href="https://sipurai.ai" target="_blank">
+          <div class="url-dot"></div>
+          <span>sipurai.ai</span>
+        </a>
+        <a class="url-card" href="https://bayitbeseder.com" target="_blank">
+          <div class="url-dot"></div>
+          <span>bayitbeseder.com</span>
+        </a>
+        <a class="url-card" href="https://haderech-next.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>haderech-next.vercel.app</span>
+        </a>
+        <a class="url-card" href="https://omanut-hakesher-website.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>omanut-hakesher-website.vercel.app</span>
+        </a>
+        <a class="url-card" href="https://html-to-pptx-ten.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>html-to-pptx-ten.vercel.app</span>
+        </a>
+        <a class="url-card" href="https://vacation-vibe-pi.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>vacation-vibe-pi.vercel.app</span>
+        </a>
+        <a class="url-card" href="https://team-meetings.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>team-meetings.vercel.app</span>
+        </a>
+        <a class="url-card" href="https://customer-crm-tau.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>customer-crm-tau.vercel.app</span>
+        </a>
+        <a class="url-card" href="https://hebrew-calendar-eosin.vercel.app" target="_blank">
+          <div class="url-dot"></div>
+          <span>hebrew-calendar-eosin.vercel.app</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- === ISSUES === -->
+  <section class="section" id="sec-issues">
+    <div class="section-header" onclick="toggle('sec-issues')">
+      <div class="section-title">
+        <span class="section-icon">🐛</span>
+        בעיות ידועות
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="issue-ok">
+        <span style="font-size:1.3rem">✅</span>
+        <span>אין בעיות קריטיות. Build עובר נקי. 0 שגיאות TypeScript.</span>
+      </div>
+      <div style="margin-top:1rem; padding:0.9rem 1rem; background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.25); border-radius:8px; font-size:0.88rem; color: var(--amber);">
+        <strong>ממתין:</strong> קישורים חברתיים מהמנטורים — הודעות WhatsApp נשלחו, ממתינים לתגובות
+      </div>
+    </div>
+  </section>
+
+  <!-- === QUESTIONS === -->
+  <section class="section" id="sec-questions">
+    <div class="section-header" onclick="toggle('sec-questions')">
+      <div class="section-title">
+        <span class="section-icon">❓</span>
+        שאלות לאלעד
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="empty-state">
+        <div class="big">🎉</div>
+        <div>אין שאלות פתוחות! כל ההחלטות התקבלו באוטונומיה.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === NEXT STEPS === -->
+  <section class="section" id="sec-next">
+    <div class="section-header" onclick="toggle('sec-next')">
+      <div class="section-title">
+        <span class="section-icon">🔮</span>
+        הצעדים הבאים
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="next-list">
+        <div class="next-item">
+          <div class="next-num">1</div>
+          <div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--text)">איסוף קישורים חברתיים מהמנטורים</div>
+            <div class="text-muted">עדכון דף Thanks עם URLs מתגובות WhatsApp</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">2</div>
+          <div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--text)">תוכן בלוג נוסף</div>
+            <div class="text-muted">יבוא פוסטים אמיתיים מ-meharoshelhadaf, צוות תעלומה ועוד</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">3</div>
+          <div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--text)">אינטגרציית Calendly / Cal.com</div>
+            <div class="text-muted">CTA "קבע שיחה" עם לינק פעיל</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">4</div>
+          <div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--text)">קורות חיים PDF</div>
+            <div class="text-muted">כפתור הורדת CV</div>
+          </div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">5</div>
+          <div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--text)">E2E Tests עם Playwright</div>
+            <div class="text-muted">בדיקות לזרימות קריטיות</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === GROWTH DIMENSIONS === -->
+  <section class="section" id="sec-growth">
+    <div class="section-header" onclick="toggle('sec-growth')">
+      <div class="section-title">
+        <span class="section-icon">📈</span>
+        ממדי צמיחה
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="growth-grid" id="growth-grid">
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">🎯 איכות — עיצוב dark-first בכל 5 פרויקטים</div>
+            <div class="growth-score">4.7 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill purple" data-pct="94"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">⚡ מהירות — 24+ סוכנים במקביל</div>
+            <div class="growth-score">4.8 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill cyan" data-pct="96"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">💡 יעילות — עריכות ממוקדות, מינימום בזבוז tokens</div>
+            <div class="growth-score">4.9 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill green" data-pct="98"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">🎯 דיוק — כל הbuild עוברים, 0 שגיאות TS</div>
+            <div class="growth-score">4.5 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill amber" data-pct="90"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">🤖 אוטונומיה — זיהוי דומיין sipurai.ai באוטונומיה</div>
+            <div class="growth-score">4.8 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill purple" data-pct="96"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">🚀 יוזמה — שיפור 4 פרויקטים פרוסים ביוזמה עצמית</div>
+            <div class="growth-score">4.9 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill cyan" data-pct="98"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">📚 למידה — PowerShell לפתיחת קבצים, CSP domains</div>
+            <div class="growth-score">4.3 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill green" data-pct="86"></div>
+          </div>
+        </div>
+        <div class="growth-item">
+          <div class="growth-header">
+            <div class="growth-label">✨ חדשנות — sticky TOC, edge fade marquee, WhatsApp tooltip</div>
+            <div class="growth-score">4.6 / 5</div>
+          </div>
+          <div class="growth-bar-track">
+            <div class="growth-bar-fill amber" data-pct="92"></div>
+          </div>
+        </div>
+      </div>
+      <button class="export-btn" onclick="exportGrowth()">
+        ⬇ ייצוא ממדי צמיחה כ-JSON
+      </button>
+    </div>
+  </section>
+
+  <!-- === TIMELINE === -->
+  <section class="section" id="sec-timeline">
+    <div class="section-header" onclick="toggle('sec-timeline')">
+      <div class="section-title">
+        <span class="section-icon">🕐</span>
+        ציר הזמן
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="timeline">
+        <div class="tl-item current">
+          <div class="tl-date">24.03.2026 — היום</div>
+          <div class="tl-title">Deploy + Project Facelifts</div>
+          <div class="tl-tags">
+            <span class="tag tag-green">Hebrew Calendar → Vercel</span>
+            <span class="tag tag-purple">HTML-to-PPTX Facelift</span>
+            <span class="tag tag-cyan">CRM Dark Mode</span>
+            <span class="tag tag-amber">VacationVibe MUI</span>
+            <span class="tag tag-pink">Team Meetings MUI</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">23.03.2026 — אחה"צ</div>
+          <div class="tl-title">Facelift שלבים 3-4 + SEO + Performance + Mobile</div>
+          <div class="tl-tags">
+            <span class="tag tag-purple">Hero readability</span>
+            <span class="tag tag-cyan">Blog MDX styling</span>
+            <span class="tag tag-green">Sticky TOC</span>
+            <span class="tag tag-amber">Mobile responsive</span>
+            <span class="tag tag-pink">WhatsApp tooltip</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">23.03.2026 — בוקר</div>
+          <div class="tl-title">תוכן + Dark Mode + Facelift שלבים 1-2</div>
+          <div class="tl-tags">
+            <span class="tag tag-purple">5 blog posts HE/EN</span>
+            <span class="tag tag-cyan">Dark mode default</span>
+            <span class="tag tag-green">Glassmorphism nav</span>
+            <span class="tag tag-amber">Gradient mesh</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">22.03.2026</div>
+          <div class="tl-title">Hero Upgrade + StatsBar + Resume Content</div>
+          <div class="tl-tags">
+            <span class="tag tag-purple">ProfileAvatar GitHub</span>
+            <span class="tag tag-cyan">FloatingTechIcons</span>
+            <span class="tag tag-green">StatsBar animated</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">19.03.2026</div>
+          <div class="tl-title">דף שירותים + SEO + נגישות</div>
+          <div class="tl-tags">
+            <span class="tag tag-purple">5 שירותים עם מחירים</span>
+            <span class="tag tag-cyan">JSON-LD Schema</span>
+            <span class="tag tag-green">hreflang + geo</span>
+            <span class="tag tag-amber">IS 5568</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === TOOLS USED === -->
+  <section class="section" id="sec-tools">
+    <div class="section-header" onclick="toggle('sec-tools')">
+      <div class="section-title">
+        <span class="section-icon">🛠</span>
+        כלים ו-Agents בשימוש
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <div style="font-size:0.82rem; color:var(--text3); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.75rem;">OMC Agents</div>
+          <div class="tl-tags" style="flex-wrap:wrap; gap:6px;">
+            <span class="tag tag-purple">executor</span>
+            <span class="tag tag-purple">deep-executor</span>
+            <span class="tag tag-purple">quality-reviewer</span>
+            <span class="tag tag-purple">verifier</span>
+            <span class="tag tag-cyan">planner</span>
+            <span class="tag tag-cyan">designer</span>
+            <span class="tag tag-cyan">build-fixer</span>
+            <span class="tag tag-cyan">explore</span>
+            <span class="tag tag-green">test-engineer</span>
+            <span class="tag tag-green">security-reviewer</span>
+            <span class="tag tag-green">writer</span>
+            <span class="tag tag-amber">debugger</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:0.82rem; color:var(--text3); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.75rem;">MCPs & Tools</div>
+          <div class="tl-tags" style="flex-wrap:wrap; gap:6px;">
+            <span class="tag tag-purple">context7</span>
+            <span class="tag tag-purple">octocode</span>
+            <span class="tag tag-cyan">lsp_diagnostics</span>
+            <span class="tag tag-cyan">ast_grep</span>
+            <span class="tag tag-green">Bash / Edit / Read</span>
+            <span class="tag tag-green">Grep / Glob</span>
+            <span class="tag tag-amber">nano-banana-poster</span>
+            <span class="tag tag-amber">tsc --noEmit</span>
+            <span class="tag tag-pink">Vercel CLI</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1rem; padding:0.75rem 1rem; background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.2); border-radius:8px; font-size:0.82rem; color:var(--amber);">
+        <strong>הזדמנות שהוחמצה:</strong> Stitch MCP לעיצוב מסכים לפני קוד, agent-browser לאימות ויזואלי
+      </div>
+    </div>
+  </section>
+
+  <!-- === INSIGHTS === -->
+  <section class="section" id="sec-insights">
+    <div class="section-header" onclick="toggle('sec-insights')">
+      <div class="section-title">
+        <span class="section-icon">💡</span>
+        תובנות מפתח
+      </div>
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="task-list">
+        <div class="task-item">
+          <span class="task-check" style="color:var(--cyan)">→</span>
+          <div>
+            <div class="task-text">PowerShell לפתיחת קבצים ב-Windows MSYS</div>
+            <div class="task-note"><code style="background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px; font-size:0.8rem;">powershell.exe -Command "Start-Process 'path'"</code> במקום <code style="background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px; font-size:0.8rem;">start ""</code></div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check" style="color:var(--cyan)">→</span>
+          <div>
+            <div class="task-text">vercel.json עם CSP headers מכיל את הדומיינים הנכונים</div>
+            <div class="task-note">דרוש עדכון ידני בכל פרוייקט עם CNAME משלו</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check" style="color:var(--cyan)">→</span>
+          <div>
+            <div class="task-text">Dark-first design שיפור ויזואלי משמעותי ל-4 פרויקטים ב-Angular/MUI</div>
+            <div class="task-note">פוטנציאל לתבנית אוטומטית לשאר הפרויקטים</div>
+          </div>
+        </div>
+        <div class="task-item">
+          <span class="task-check" style="color:var(--cyan)">→</span>
+          <div>
+            <div class="task-text">Sticky TOC + edge-fade marquee — pattern שעובד מצוין ב-RTL</div>
+            <div class="task-note">מועמד ל-skill חדש: rtl-scroll-patterns</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rainbow-bar"></div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer>
+  <div>נוצר אוטונומית על ידי Claude Code · EY.dev Portfolio Sprint · 24.03.2026</div>
+  <div class="techniques">
+    <span class="tech-badge">RTL Hebrew</span>
+    <span class="tech-badge">Glassmorphism</span>
+    <span class="tech-badge">Animated Gradient</span>
+    <span class="tech-badge">Collapsible Sections</span>
+    <span class="tech-badge">Progress Bars</span>
+    <span class="tech-badge">Timeline</span>
+    <span class="tech-badge">Live URLs Grid</span>
+    <span class="tech-badge">Growth Dimensions</span>
+    <span class="tech-badge">Tooltips</span>
+    <span class="tech-badge">Export JSON</span>
+    <span class="tech-badge">Print Styles</span>
+    <span class="tech-badge">Responsive</span>
+    <span class="tech-badge">No CDN</span>
+  </div>
+  <div style="margin-top:0.75rem; color: var(--text3); font-size:0.75rem;">
+    13 טכניקות עיצוב · 100% self-contained · No external dependencies
+  </div>
+</footer>
+
+<script>
+  // Toggle sections
+  function toggle(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('collapsed');
+  }
+
+  // Animate growth bars when they come into view
+  function animateBars() {
+    const fills = document.querySelectorAll('.growth-bar-fill[data-pct]');
+    fills.forEach(el => {
+      const pct = el.getAttribute('data-pct');
+      el.style.width = pct + '%';
+    });
+  }
+
+  // Intersection observer for growth bars
+  const growthSection = document.getElementById('sec-growth');
+  let barsAnimated = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !barsAnimated) {
+        barsAnimated = true;
+        setTimeout(animateBars, 100);
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(growthSection);
+
+  // Export growth as JSON
+  function exportGrowth() {
+    const data = {
+      sprint: "Revival + Facelift + Deploy",
+      date: "2026-03-24",
+      dimensions: [
+        { name: "Quality", label: "איכות", score: 4.7, note: "dark-first design across 5 projects" },
+        { name: "Speed", label: "מהירות", score: 4.8, note: "24+ parallel agents" },
+        { name: "Efficiency", label: "יעילות", score: 4.9, note: "minimal token waste, targeted edits" },
+        { name: "Accuracy", label: "דיוק", score: 4.5, note: "all builds pass, 0 TS errors" },
+        { name: "Autonomy", label: "אוטונומיה", score: 4.8, note: "found sipurai.ai domain autonomously" },
+        { name: "Initiative", label: "יוזמה", score: 4.9, note: "proactively improved 4 deployed projects" },
+        { name: "Learning", label: "למידה", score: 4.3, note: "PowerShell for file opening, vercel.json CSP" },
+        { name: "Innovation", label: "חדשנות", score: 4.6, note: "sticky TOC, edge fade marquee, WhatsApp tooltip" }
+      ],
+      average: 4.69
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'growth-dimensions-2026-03-24.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Animate stats numbers on load
+  function animateNumber(el, target, duration) {
+    const start = 0;
+    const startTime = performance.now();
+    const isDecimal = target % 1 !== 0;
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = start + (target - start) * eased;
+      el.textContent = isDecimal ? current.toFixed(1) : Math.round(current);
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('load', () => {
+    const statVals = document.querySelectorAll('.stat-value');
+    statVals.forEach(el => {
+      const text = el.textContent.trim();
+      const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+      if (!isNaN(num) && num > 0 && !text.includes('%') && !text.includes('+')) {
+        el.textContent = '0';
+        setTimeout(() => animateNumber(el, num, 1200), 300);
+      }
+    });
+  });
+</script>
+</body>
+</html>

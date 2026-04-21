@@ -24,10 +24,13 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const ollamaGuide: AgentGuideData = {
   slug: "ollama",
   agentName: "Ollama",
-  agentNameHe: "Ollama — LLMs מקומיים בחינם",
-  tagline: "Gemma, Qwen, Llama — LLMs שרצים במחשב שלכם ללא עלות ענן",
+  agentNameHe: "Ollama — מודלי שפה חכמים על המחשב שלך, בחינם",
+  category: "infra",
+  brandIconSlug: "ollama",
+  brandIconColor: "FFFFFF",
+  tagline: "מודלי שפה חכמים (כמו ChatGPT) שרצים ישירות על המחשב שלך, בלי חיבור לענן",
   heroDescription:
-    "Ollama הוא runtime כתוב ב-Go שמריץ LLMs קוד-פתוח (Gemma, Qwen, Llama, Mistral, DeepSeek ועוד) ישירות על ה-CPU או GPU המקומיים שלכם. REST API תואם ל-OpenAI, הורדת מודל ב-pull יחיד, אין שליחת דאטה החוצה. אצלי Ollama רץ כ-fallback כש-Anthropic/OpenAI נחסמים או נגמרים credits — וגם ל-classification tasks פרטיים. אבל אצלך Ollama יכול להיות ה-LLM הראשי שלך בכלל: air-gapped environments, medical/legal עם privacy מחמירה, home automation, או פשוט לחסוך 40$/חודש על API calls.",
+    "Ollama זו פלטפורמה לקוד פתוח שמאפשרת להריץ מודלי שפה חכמים של בינה מלאכותית (הידועים בקיצור LLMs — Large Language Models, המנוע שמאחורי ChatGPT, Claude וחבריהם) ישירות על המחשב שלך. אין צורך בחיבור לאינטרנט, אין שליחת נתונים לחברות כמו OpenAI או Google, והכל קורה אצלך, בפרטיות מלאה. הפלטפורמה כתובה בשפת Go והיא יודעת להריץ עשרות מודלים מפורסמים כמו Gemma של Google, Llama של Meta, Qwen של Alibaba, ו-DeepSeek — כולם בחינם לחלוטין. אצלי (אלעד) Ollama משמשת בעיקר כרשת ביטחון: כשהמודלים בענן יקרים מדי או לא זמינים, הסוכנים שלי עוברים אוטומטית להשתמש במודל מקומי — וחוסכים המון כסף על משימות שגרתיות. אצלך זה יכול להיות הרבה יותר מכך: סביבת AI מלאה שפועלת גם בלי אינטרנט, פתרון עבור ארגונים עם דרישות פרטיות מחמירות (רפואה, משפט, ביטחון), או פשוט דרך להכיר את העולם של מודלי שפה פתוחים בלי לשלם דולר אחד.",
   badgeText: "2026 · Local LLM Runtime · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/ollama",
   heroBgImage: "/images/guides/guide-ollama-hero.jpg",
@@ -37,9 +40,9 @@ export const ollamaGuide: AgentGuideData = {
     { label: "מודלים נפוצים", value: "50+" },
     { label: "פרטיות", value: "100% local" },
   ],
-  paradigmTitle: "כשה-LLM רץ אצלכם — הכל משתנה",
+  paradigmTitle: "כשהבינה המלאכותית רצה אצלכם — הכל משתנה",
   paradigmSub:
-    "אין rate limits, אין API keys, אין privacy concerns. רק המחשב שלכם והמודל.",
+    "אין מגבלות על מספר הבקשות, אין מפתחות API לנהל, אין דאגות פרטיות. רק המחשב שלכם, המודל, והשיחה ביניכם.",
   paradigmShifts: [
     {
       before: "40$/חודש על OpenAI/Anthropic API",
@@ -104,30 +107,30 @@ export const ollamaGuide: AgentGuideData = {
     {
       id: "what-is",
       icon: Cpu,
-      title: "Ollama בגישה מעשית",
-      subtitle: "LLM runtime שמסתיר את כל המורכבות",
+      title: "מה זה בעצם Ollama?",
+      subtitle: "הדרך הפשוטה ביותר להכיר את העולם של בינה מלאכותית מקומית",
       description:
-        "Ollama כולל 3 רכיבים: (1) engine ב-Go שמריץ GGUF/safetensors, (2) model registry עם מודלים מוכנים (כמו Docker Hub ל-LLMs), (3) REST API על port 11434 תואם ל-OpenAI chat/completions.",
+        "Ollama נולדה כפרויקט שמאתגר תפיסה אחת: שכדי להשתמש ב-AI מתקדם חייבים להתחבר לחברת ענק כלשהי ולשלם לה. היא מספקת כלי אחד פשוט שיודע להוריד מודל, לטעון אותו לזיכרון, ולפתוח אותו לשיחה — בדיוק כמו ChatGPT, אבל בלי ש-OpenAI יודעת עליכם דבר.",
       color: "from-indigo-600 to-blue-500",
       difficulty: "beginner",
       beginner:
-        "במקום ללמוד CUDA, HuggingFace, Transformers, quantization — מתקינים Ollama, מריצים ollama pull gemma3, ומקבלים server מקומי שמדבר כמו ChatGPT. פשוט.",
+        "חשבו על Ollama כמו Spotify של מודלי שפה: יש ספרייה גדולה של 'שירים' (מודלים), בוחרים איזה להוריד, והוא מתנגן אצלכם. ההבדל הגדול הוא שהנגן הזה דורש מעבד חזק יחסית — ומה שמתנגן אצלכם הוא 'שיחה אינטליגנטית', לא מוזיקה.",
       content: [
-        "engine: Go binary ~30MB, משתמש ב-llama.cpp כ-backend ל-inference",
-        "quantization: המודלים מגיעים ב-GGUF format (Q4_K_M מאוזן בין איכות לגודל)",
-        "GPU acceleration אוטומטית: CUDA (NVIDIA), Metal (Mac Silicon), ROCm (AMD)",
-        "context window: משתנה בין מודלים (Gemma3 8k, Qwen2.5 32k, Llama3 128k)",
-        "REST API: POST /api/chat + /api/generate; תואם OpenAI דרך /v1/chat/completions",
-        "model library: ollama.com/library — Gemma, Qwen, Llama, Mistral, DeepSeek, Phi, CodeLlama",
+        "התקנה אחת פשוטה, ללא צורך בידע טכני עמוק — קובץ התקנה שעובד ב-Mac, ב-Windows, וב-Linux",
+        "ספרייה עם מעל 50 מודלים מובילים: Gemma (של Google), Llama (של Meta), Qwen (של Alibaba), DeepSeek, Mistral ועוד — כולם בחינם מוחלט",
+        "ממשק API זהה לחלוטין לזה של OpenAI — כך שכל תוכנה שכבר מדברת עם ChatGPT יכולה לדבר עם Ollama במקום זה, בהחלפת כתובת אחת",
+        "רץ ברקע כשירות בסיס (port 11434), זמין לכל אפליקציה אחרת במחשב — לכן אפשר לחבר אותו בקלות לסוכנים, כלים, ואתרים שבניתם",
+        "תומך ב-GPU אוטומטית — כרטיס NVIDIA, שבב Apple Silicon, או AMD יקפיץ את המהירות פי 5-10 לעומת CPU בלבד",
+        "המודלים מגיעים בפורמט חסכוני (GGUF) שדוחס את המידע מבלי לפגוע משמעותית באיכות — כך שגם מחשב ביתי של 8GB RAM יכול להריץ מודל מכובד",
       ],
       tips: [
-        "Gemma3 2B = ברירת מחדל מצוינת ל-MacBook Air — איכות סבירה, מהיר, 2GB RAM",
-        "אם יש GPU עם 16GB+ VRAM — תריצו Qwen2.5-14B, איכות קרובה ל-GPT-3.5",
-        "עבור code — qwen3-coder או deepseek-coder עדיפים על Llama",
+        "התחילו מ-Gemma 3 בגודל 2B: ברירת מחדל מצוינת שרצה יפה גם על MacBook Air רגיל. איכות סבירה, מהירה, ודורשת רק 2GB זיכרון.",
+        "אם יש לכם GPU חזק (16GB VRAM ומעלה) — נסו את Qwen 2.5 14B. האיכות שלו כבר קרובה לזו של ChatGPT-3.5 של פעם.",
+        "לעבודה על קוד — qwen3-coder או deepseek-coder עדיפים משמעותית על Llama הכללי. הם אומנו על מיליוני שורות קוד אמיתיות.",
       ],
       codeExample: {
-        label: "התקנה והרצה ב-2 פקודות",
-        code: "# Mac/Linux\ncurl -fsSL https://ollama.com/install.sh | sh\nollama pull gemma3:2b\nollama run gemma3:2b \"שלום, מה שלומך?\"",
+        label: "שני פקודות, ויש לכם AI מקומי",
+        code: "# Mac/Linux — להתקנה\ncurl -fsSL https://ollama.com/install.sh | sh\n\n# להורדת מודל ולשיחה איתו\nollama pull gemma3:2b\nollama run gemma3:2b \"שלום, מה שלומך?\"",
       },
     },
     {

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iteration Review - Final | 23.03.2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .animate-fade { animation: fadeInUp 0.5s ease-out forwards; opacity:0; }
+    .d1 { animation-delay:.1s } .d2 { animation-delay:.2s } .d3 { animation-delay:.3s } .d4 { animation-delay:.4s } .d5 { animation-delay:.5s }
+    body { background: #07080f; font-family: 'Segoe UI', sans-serif; }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.06); }
+    .gradient-text { background: linear-gradient(135deg, #a78bfa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .shimmer-bg { background: linear-gradient(90deg, transparent, rgba(139,92,246,0.08), transparent); background-size: 200% 100%; animation: shimmer 3s infinite; }
+    .divider { height:1px; background: linear-gradient(to left, transparent, rgba(139,92,246,0.25), transparent); }
+    .badge-done { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+    .badge-todo { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .badge-info { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.12); }
+    .card { transition: all 0.25s ease; }
+  </style>
+</head>
+<body class="text-gray-300 min-h-screen">
+
+  <!-- Header -->
+  <header class="max-w-5xl mx-auto pt-10 pb-6 px-6 animate-fade">
+    <div class="text-center">
+      <div class="text-xs text-purple-400/70 tracking-widest mb-3">ITERATION REVIEW</div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2"><span class="gradient-text">Portfolio Sprint - Final</span></h1>
+      <p class="text-gray-500">23 במרץ 2026 | fullstack-eladjak.co.il</p>
+    </div>
+  </header>
+
+  <!-- Status Badges -->
+  <div class="max-w-5xl mx-auto px-6 mb-10 animate-fade d1">
+    <div class="flex flex-wrap justify-center gap-2">
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">Build PASS</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">22 Routes</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">TypeScript Clean</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">14 Projects</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">7 Live Deploys</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">Dark Mode Default</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">5 Bilingual Posts</span>
+      <span class="badge-done px-3 py-1 rounded-full text-xs font-medium">12 Mentors</span>
+    </div>
+  </div>
+
+  <div class="divider max-w-5xl mx-auto mb-10"></div>
+
+  <!-- What Was Done -->
+  <section class="max-w-5xl mx-auto px-6 mb-10 animate-fade d2">
+    <h2 class="text-xl font-bold mb-5 text-white">מה בוצע באיטרציה הזו</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+      <div class="glass rounded-xl p-5 card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">&#10003;</span>
+          <h3 class="font-semibold text-white text-sm">דף תודות - 4 אנשים חדשים</h3>
+        </div>
+        <ul class="text-xs text-gray-400 space-y-1.5 mr-9">
+          <li><strong class="text-gray-300">יובל קשטכר</strong> - AI Makers Lab, UX Writing Hub</li>
+          <li><strong class="text-gray-300">אלכסנדר קאפיט</strong> - יוצר תוכן AI</li>
+          <li><strong class="text-gray-300">דניאל טרבלסי</strong> - יוצר תוכן AI</li>
+          <li><strong class="text-gray-300">אריאל אייזן</strong> - PixMind Studio</li>
+          <li class="text-gray-500">+ קישורים חדשים לגל חבקין, נדב נוה</li>
+          <li class="text-gray-500">+ תמיכה ב-YouTube, Facebook, Instagram, Telegram</li>
+        </ul>
+      </div>
+
+      <div class="glass rounded-xl p-5 card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">&#10003;</span>
+          <h3 class="font-semibold text-white text-sm">בלוג דו-לשוני - 5 פוסטים</h3>
+        </div>
+        <ul class="text-xs text-gray-400 space-y-1.5 mr-9">
+          <li>המסע שלי ל-Full-Stack</li>
+          <li>AI בפיתוח ווב</li>
+          <li>בנייה עם Next.js 16</li>
+          <li>מדריך Framer Motion</li>
+          <li>Supabase למפתחים</li>
+          <li class="text-gray-500">כל פוסט עם סקשן עברי מלא (RTL)</li>
+        </ul>
+      </div>
+
+      <div class="glass rounded-xl p-5 card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">&#10003;</span>
+          <h3 class="font-semibold text-white text-sm">עדכון פרויקטים</h3>
+        </div>
+        <ul class="text-xs text-gray-400 space-y-1.5 mr-9">
+          <li><strong class="text-gray-300">Bayit BeSeder</strong> - נוסף live_url: bayitbeseder.com</li>
+          <li><strong class="text-gray-300">EY.AI Kids → סיפוראי</strong> - שם עודכן בשתי השפות</li>
+          <li>14/14 GitHub repos נגישים (200 OK)</li>
+          <li>7 live deployments פעילים</li>
+          <li>14/14 תמונות פרויקט Gemini</li>
+        </ul>
+      </div>
+
+      <div class="glass rounded-xl p-5 card">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm">&#10003;</span>
+          <h3 class="font-semibold text-white text-sm">Dark Mode כברירת מחדל</h3>
+        </div>
+        <ul class="text-xs text-gray-400 space-y-1.5 mr-9">
+          <li>ThemeProvider: defaultTheme שונה מ-system ל-dark</li>
+          <li>מתאים לקהל מפתחים וטק</li>
+          <li>Hero gradient, glassmorphism ייראו מרשימים יותר</li>
+          <li>המשתמש יכול עדיין לעבור ל-light mode</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider max-w-5xl mx-auto mb-10"></div>
+
+  <!-- People on Thanks Page -->
+  <section class="max-w-5xl mx-auto px-6 mb-10 animate-fade d3">
+    <h2 class="text-xl font-bold mb-5 text-white">דף תודות - 12 אנשים</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">YA</div>
+        <div class="text-xs text-white">יובל אבידני</div>
+        <div class="text-[10px] text-gray-500">yuv.ai | X | GitHub</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">AV</div>
+        <div class="text-xs text-white">אביץ</div>
+        <div class="text-[10px] text-gray-500">aviz.live | X</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">NN</div>
+        <div class="text-xs text-white">נועם נאומובסקי</div>
+        <div class="text-[10px] text-gray-500">-</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">GH</div>
+        <div class="text-xs text-white">גל חבקין</div>
+        <div class="text-[10px] text-emerald-400">+ GitHub</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">RT</div>
+        <div class="text-xs text-white">ד"ר רועי צזנה</div>
+        <div class="text-[10px] text-gray-500">curatingthefuture.com | X</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">RY</div>
+        <div class="text-xs text-white">ד"ר רועי יוזביץ'</div>
+        <div class="text-[10px] text-gray-500">yozevitch.com</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">NV</div>
+        <div class="text-xs text-white">נדב נוה</div>
+        <div class="text-[10px] text-emerald-400">+ LinkedIn + X</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card">
+        <div class="text-lg font-bold gradient-text mb-1">GA</div>
+        <div class="text-xs text-white">גיא אגא</div>
+        <div class="text-[10px] text-gray-500">ai-academy.co.il | LinkedIn</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card shimmer-bg">
+        <div class="text-lg font-bold text-cyan-400 mb-1">YK</div>
+        <div class="text-xs text-white">יובל קשטכר</div>
+        <div class="text-[10px] text-emerald-400">NEW - aimakerslab | LinkedIn | X</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card shimmer-bg">
+        <div class="text-lg font-bold text-cyan-400 mb-1">AK</div>
+        <div class="text-xs text-white">אלכסנדר קאפיט</div>
+        <div class="text-[10px] text-emerald-400">NEW - alekapit.com</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card shimmer-bg">
+        <div class="text-lg font-bold text-cyan-400 mb-1">DT</div>
+        <div class="text-xs text-white">דניאל טרבלסי</div>
+        <div class="text-[10px] text-amber-400">NEW - צריך קישורים</div>
+      </div>
+      <div class="glass rounded-lg p-3 text-center card shimmer-bg">
+        <div class="text-lg font-bold text-cyan-400 mb-1">AE</div>
+        <div class="text-xs text-white">אריאל אייזן</div>
+        <div class="text-[10px] text-amber-400">NEW - PixMind - צריך קישורים</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider max-w-5xl mx-auto mb-10"></div>
+
+  <!-- Projects Status -->
+  <section class="max-w-5xl mx-auto px-6 mb-10 animate-fade d4">
+    <h2 class="text-xl font-bold mb-5 text-white">פרויקטים - דומיינים וסטטוס</h2>
+    <div class="glass rounded-xl overflow-hidden">
+      <table class="w-full text-xs">
+        <thead><tr class="border-b border-white/10 text-gray-500">
+          <th class="p-2.5 text-right font-medium">פרויקט</th>
+          <th class="p-2.5 text-right font-medium">דומיין/URL</th>
+          <th class="p-2.5 text-center font-medium">סטטוס</th>
+          <th class="p-2.5 text-right font-medium">הערות</th>
+        </tr></thead>
+        <tbody>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Portfolio</td><td class="p-2.5 text-cyan-400">fullstack-eladjak.co.il</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">Dark mode default</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">HaDerech</td><td class="p-2.5 text-cyan-400">haderech-next.vercel.app</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Bayit BeSeder</td><td class="p-2.5 text-cyan-400">bayitbeseder.com</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-emerald-400">+ נוסף URL</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Omanut HaKesher</td><td class="p-2.5 text-cyan-400">omanut-hakesher-website.vercel.app</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">דומיין בקרוב</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">HTML to PPTX</td><td class="p-2.5 text-cyan-400">html-to-pptx-ten.vercel.app</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">VacationVibe</td><td class="p-2.5 text-cyan-400">vacation-vibe-pi.vercel.app</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Team Meetings</td><td class="p-2.5 text-cyan-400">team-meetings.vercel.app</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Customer CRM</td><td class="p-2.5 text-cyan-400">customer-crm-tau.vercel.app</td><td class="p-2.5 text-center"><span class="badge-done px-2 py-0.5 rounded-full text-[10px]">LIVE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">סיפוראי (EY.AI)</td><td class="p-2.5 text-gray-500">ממתין לאישור דומיין</td><td class="p-2.5 text-center"><span class="badge-todo px-2 py-0.5 rounded-full text-[10px]">SOON</span></td><td class="p-2.5 text-emerald-400">שם עודכן</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Ninja Keyboard</td><td class="p-2.5 text-gray-500">טרם נרכש</td><td class="p-2.5 text-center"><span class="badge-todo px-2 py-0.5 rounded-full text-[10px]">SOON</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Hebrew Calendar</td><td class="p-2.5 text-gray-500">צריך deploy</td><td class="p-2.5 text-center"><span class="badge-info px-2 py-0.5 rounded-full text-[10px]">CODE</span></td><td class="p-2.5 text-gray-500">CRA - Vercel</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">Voice Chat Claude</td><td class="p-2.5 text-gray-500">צריך בנייה</td><td class="p-2.5 text-center"><span class="badge-info px-2 py-0.5 rounded-full text-[10px]">CODE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+          <tr class="border-b border-white/5"><td class="p-2.5 text-white">ZehutAI</td><td class="p-2.5 text-gray-500">צריך demo</td><td class="p-2.5 text-center"><span class="badge-info px-2 py-0.5 rounded-full text-[10px]">CODE</span></td><td class="p-2.5 text-gray-500">מנוע חיפוש עברי</td></tr>
+          <tr><td class="p-2.5 text-white">Kidushishi</td><td class="p-2.5 text-gray-500">אפליקציית ניהול</td><td class="p-2.5 text-center"><span class="badge-info px-2 py-0.5 rounded-full text-[10px]">CODE</span></td><td class="p-2.5 text-gray-500">-</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider max-w-5xl mx-auto mb-10"></div>
+
+  <!-- Action Items for Elad -->
+  <section class="max-w-5xl mx-auto px-6 mb-10 animate-fade d5">
+    <h2 class="text-xl font-bold mb-5 text-white">מה צריך ממך, אלעד</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+      <div class="glass rounded-xl p-5 border-r-2 border-amber-500/50">
+        <div class="text-amber-400 font-bold text-sm mb-3">קישורים חסרים</div>
+        <ul class="text-xs text-gray-400 space-y-2">
+          <li>&#9744; <strong class="text-gray-300">דניאל טרבלסי</strong> - תן לי LinkedIn, YouTube, או כל קישור אחר שלו</li>
+          <li>&#9744; <strong class="text-gray-300">אריאל אייזן / PixMind</strong> - תן לי את הערוצים שלו (YouTube? Instagram?)</li>
+          <li>&#9744; <strong class="text-gray-300">אלכסנדר קאפיט</strong> - alekapit.com נכון? יש YouTube?</li>
+          <li>&#9744; <strong class="text-gray-300">סיפוראי</strong> - מה הדומיין? sipurai.co.il?</li>
+        </ul>
+      </div>
+
+      <div class="glass rounded-xl p-5 border-r-2 border-purple-500/50">
+        <div class="text-purple-400 font-bold text-sm mb-3">אישורים</div>
+        <ul class="text-xs text-gray-400 space-y-2">
+          <li>&#9744; בדוק את הבלוגים - תוכן עברי נוסף, האם התרגום טוב?</li>
+          <li>&#9744; בדוק את דף התודות - 12 אנשים, האם חסר מישהו?</li>
+          <li>&#9744; Dark mode כברירת מחדל - מתאים?</li>
+          <li>&#9744; רוצה להמשיך עם מתיחת פנים ויזואלית?</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider max-w-5xl mx-auto mb-10"></div>
+
+  <!-- Next Steps -->
+  <section class="max-w-5xl mx-auto px-6 mb-10">
+    <h2 class="text-xl font-bold mb-5 text-white">הצעדים הבאים</h2>
+    <div class="glass rounded-xl p-5">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div>
+          <div class="text-red-400 font-bold mb-2">עדיפות 1 - ויזואלי</div>
+          <ul class="text-gray-400 space-y-1">
+            <li>&#9744; מתיחת פנים dark-first design</li>
+            <li>&#9744; Glassmorphism + glow effects</li>
+            <li>&#9744; שיפור Hero section</li>
+            <li>&#9744; שיפור פרויקטים deployed</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-amber-400 font-bold mb-2">עדיפות 2 - תוכן</div>
+          <ul class="text-gray-400 space-y-1">
+            <li>&#9744; Claude Code מדריך מקיף</li>
+            <li>&#9744; Calendly/Cal.com CTA</li>
+            <li>&#9744; CV download PDF</li>
+            <li>&#9744; Deploy Hebrew Calendar</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-blue-400 font-bold mb-2">עדיפות 3 - טכני</div>
+          <ul class="text-gray-400 space-y-1">
+            <li>&#9744; Lighthouse audit</li>
+            <li>&#9744; E2E tests</li>
+            <li>&#9744; Vercel analytics</li>
+            <li>&#9744; Core Web Vitals</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="max-w-5xl mx-auto text-center py-8 px-6 text-gray-600 text-xs">
+    <div class="mb-3 space-x-4 space-x-reverse">
+      <a href="https://fullstack-eladjak.co.il" target="_blank" class="text-purple-400/70 hover:text-purple-400">Live Site</a>
+      <a href="https://fullstack-eladjak.co.il/projects" target="_blank" class="text-purple-400/70 hover:text-purple-400">Projects</a>
+      <a href="https://fullstack-eladjak.co.il/thanks" target="_blank" class="text-purple-400/70 hover:text-purple-400">Thanks</a>
+      <a href="https://fullstack-eladjak.co.il/blog" target="_blank" class="text-purple-400/70 hover:text-purple-400">Blog</a>
+      <a href="https://github.com/eladjak/fullstack-eladjak-Website" target="_blank" class="text-purple-400/70 hover:text-purple-400">GitHub</a>
+    </div>
+    <p>Generated by Claude Code | Iteration Review | 23.03.2026</p>
+  </footer>
+
+</body>
+</html>

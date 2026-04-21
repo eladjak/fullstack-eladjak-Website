@@ -26,9 +26,12 @@ export const dockerGuide: AgentGuideData = {
   slug: "docker",
   agentName: "Docker",
   agentNameHe: "Docker — השרת שלך בקופסאות",
+  category: "infra",
+  brandIconSlug: "docker",
+  brandIconColor: "2496ED",
   tagline: "containers, docker-compose, והארכיטקטורה שמאפשרת רשת סוכנים ב-VPS אחד",
   heroDescription:
-    "Docker הוא כלי container runtime שמאפשר לארוז כל שירות — עם התלויות שלו, הגרסה שלו, והקונפיגורציה שלו — ליחידה אטומית שרצה זהה בכל מקום. Compose מוסיף שכבת תזמור לכמה containers ביחד (network + volumes + env). אצלי כל רשת הסוכנים (10 שירותים) רצה ב-docker-compose יחיד על VPS של Hetzner — אבל אצלך Docker יכול להיות הבסיס לכל dev environment, CI/CD, staging, production, או home-lab. מי שמבין docker-compose, יכול להקים את רוב הדברים שמוצגים בשאר המדריכים.",
+    "Docker היא אחת מהטכנולוגיות החשובות ביותר שצמחו בעולם התוכנה בעשור האחרון, והיא זו שמאפשרת לרוב שירותי הענן והסוכנים החכמים של היום לעבוד כמו שהם עובדים. בבסיסה, Docker פותרת בעיה פשוטה אבל כאובה: כל שירות תוכנה דורש סביבה מסוימת כדי לרוץ (גרסה מסוימת של שפה, ספריות ספציפיות, הגדרות רשת), וכשמנסים להתקין כמה שירותים על אותו שרת — הם מתנגשים, ומה שעבד אתמול מפסיק לעבוד מחר. Docker פותרת את זה על ידי אריזה של כל שירות ל'קופסה' מבודדת משלו (באנגלית: container — קונטיינר), שמכילה את הכל מה שהשירות צריך — וכך הוא רץ בדיוק אותו דבר על כל מחשב, בכל סביבה. ההרחבה של Docker שנקראת docker-compose מאפשרת להגדיר כמה קופסאות יחד בקובץ אחד, להרים את כולן בפקודה אחת, ולנהל את הרשת ביניהן — ממש כמו מנצח תזמורת. אצלי (אלעד) כל רשת הסוכנים שמופיעה באתר הזה (עשרה שירותים שונים) רצה בהתקנה אחת של docker-compose על שרת חסכוני של 5 יורו בחודש. אצלכם, Docker יכולה להיות הבסיס לכל פרויקט: מסביבת פיתוח מקומית, דרך pipeline של CI/CD, ועד שירות ייצור מלא בענן. אחרי שמכירים את docker-compose, רוב מה שמוצג בשאר המדריכים הופך להיות אפשרי בעצמכם.",
   badgeText: "2026 · Containers & Compose · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/docker",
   heroBgImage: "/images/guides/guide-docker-hero.jpg",

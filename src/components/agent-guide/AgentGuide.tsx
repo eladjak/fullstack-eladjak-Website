@@ -150,30 +150,65 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.15 }}
-                className="mt-2 bg-background/95 backdrop-blur-md border border-border/50 rounded-2xl p-3 shadow-lg"
+                className="mt-2 bg-background/95 backdrop-blur-md border border-border/50 rounded-2xl p-4 shadow-lg"
                 role="menu"
               >
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
-                  {allGuides.map((g) => {
-                    const isCurrent = g.slug === guide.slug;
-                    return (
-                      <Link
-                        key={g.slug}
-                        href={guideHref(g.slug)}
-                        onClick={() => setMenuOpen(false)}
-                        role="menuitem"
-                        aria-current={isCurrent ? "page" : undefined}
-                        className={`text-xs font-medium px-3 py-2 rounded-lg transition-colors text-center ${
-                          isCurrent
-                            ? "bg-primary/15 text-primary border border-primary/30"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted border border-transparent"
-                        }`}
-                      >
-                        {g.agentNameHe}
-                      </Link>
-                    );
-                  })}
-                </div>
+                {(["agent", "infra"] as const).map((cat) => {
+                  const items = allGuides.filter(
+                    (g) => (g.category ?? "agent") === cat
+                  );
+                  if (!items.length) return null;
+                  const heading = cat === "agent" ? "סוכני AI" : "תשתית ורכיבי בסיס";
+                  return (
+                    <div key={cat} className="mb-3 last:mb-0">
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 px-1">
+                        {heading}
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                        {items.map((g) => {
+                          const isCurrent = g.slug === guide.slug;
+                          const logoUrl = g.brandIconSlug
+                            ? `https://cdn.simpleicons.org/${g.brandIconSlug}/${g.brandIconColor ?? "currentColor"}`
+                            : undefined;
+                          return (
+                            <Link
+                              key={g.slug}
+                              href={guideHref(g.slug)}
+                              onClick={() => setMenuOpen(false)}
+                              role="menuitem"
+                              aria-current={isCurrent ? "page" : undefined}
+                              className={`flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors ${
+                                isCurrent
+                                  ? "bg-primary/15 text-primary border border-primary/30"
+                                  : "text-muted-foreground hover:text-foreground hover:bg-muted border border-transparent"
+                              }`}
+                            >
+                              {logoUrl ? (
+                                <Image
+                                  src={logoUrl}
+                                  alt=""
+                                  width={14}
+                                  height={14}
+                                  className="shrink-0"
+                                  unoptimized
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <span
+                                  className="size-1.5 rounded-full bg-primary/60 shrink-0"
+                                  aria-hidden="true"
+                                />
+                              )}
+                              <span className="truncate text-start flex-1">
+                                {g.agentName}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
               </motion.div>
             )}
           </AnimatePresence>
@@ -202,6 +237,21 @@ export function AgentGuide({ guide }: AgentGuideProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {/* Brand logo (if available) */}
+            {guide.brandIconSlug && (
+              <div className="mb-6 flex justify-center">
+                <div className="inline-flex size-20 items-center justify-center rounded-2xl bg-card/80 backdrop-blur-sm border border-border/60 shadow-lg">
+                  <Image
+                    src={`https://cdn.simpleicons.org/${guide.brandIconSlug}/${guide.brandIconColor ?? "currentColor"}`}
+                    alt={`לוגו ${guide.agentName}`}
+                    width={44}
+                    height={44}
+                    unoptimized
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5">
                 <span className="text-xs font-semibold text-primary tracking-wide uppercase">

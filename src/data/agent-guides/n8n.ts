@@ -23,7 +23,10 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const n8nGuide: AgentGuideData = {
   slug: "n8n",
   agentName: "n8n",
-  agentNameHe: "n8n — אוטומציות ויזואליות",
+  agentNameHe: "n8n — פלטפורמת אוטומציות ויזואלית",
+  category: "infra",
+  brandIconSlug: "n8n",
+  brandIconColor: "EA4B71",
   tagline: "Zapier בקוד פתוח — 1000+ אינטגרציות, self-hosted, ללא מגבלת executions",
   heroDescription:
     "n8n הוא workflow automation platform בקוד פתוח (TypeScript/Node), עם ממשק ויזואלי של drag-and-drop לבניית pipelines מ-1000+ אינטגרציות (Slack, Gmail, Postgres, Webhooks, HTTP, OpenAI, Qdrant, ועוד). רץ ב-Docker עם PostgreSQL מאחור. אצלי n8n מבצע cron-jobs עסקיים (invoicing, content publishing, agent heartbeats) ומחליף 3 SaaS שונים שהיו עולים ~80$/חודש. אצלך n8n יכול להיות ה-glue של כל ה-stack — אוטומציה של CRM, marketing ops, integration בין מערכות פנים-ארגוניות, או תחליף מלא ל-Zapier/Make.",
