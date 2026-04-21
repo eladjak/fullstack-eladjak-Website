@@ -23,10 +23,10 @@ export const claudeCodeGuide: AgentGuideData = {
   slug: "claude-code",
   agentName: "Claude Code",
   agentNameHe: "Claude Code",
-  brandIconSlug: "anthropic",
-  brandIconColor: "F37366",
+  logoImage: "/images/guide-logos/claude-code-logo.png",
   tagline: "לא עוד כלי AI — צוות שלם של מומחים שעובד בשבילך",
-  heroDescription: "Claude Code הוא CLI + IDE extensions של Anthropic (זמין ב-VS Code, JetBrains, desktop וב-web). מודלים: Opus 4.7 (1M context), Sonnet 4.6, Haiku 4.5. תכונות ליבה: MCP servers, sub-agents, skills, slash commands, hooks, sandboxed bash, TodoWrite ו-Plan mode. אצלי הוא רץ 24/7 עם 350+ skills, 32 sub-agents ו-17 MCP servers — אבל אצלך זה יכול להיות CLI יומיומי פשוט ל-code review, refactoring, debug, data analysis, DevOps, research ואפילו business automation. זה הבסיס שעליו מורכבים כל שאר הסוכנים שמוצגים במדריכים האחרים.",
+  heroDescription:
+    "Claude Code הוא פריצת הדרך האמיתית של שנת 2025 בעולם פיתוח התוכנה: במקום להשתמש ב-AI כ'עוזר צד' שכותב עבורכם פיסות קוד ב-ChatGPT, Claude Code מביא את הבינה המלאכותית המתקדמת בעולם ישירות לתוך הטרמינל וסביבת העבודה שלכם — עם יכולת לערוך קבצים, להריץ פקודות, לנהל git, לבדוק אתרים בדפדפן, ולבצע משימות מורכבות לגמרי לבד. מדובר בכלי של חברת Anthropic (יוצרי מודל Claude — המתחרה הישיר של ChatGPT של OpenAI, ובתחום פיתוח התוכנה נחשב למודל המתקדם ביותר בעולם היום). ה-CLI של Claude Code משתלב עם כל סביבת פיתוח מובילה (VS Code, Cursor, JetBrains), מציע גישה לשלושה מודלים — Opus 4.7 (החזק ביותר, עם זיכרון של מיליון מילים), Sonnet 4.6 (ברירת מחדל מאוזנת), ו-Haiku 4.5 (מהיר וחסכוני) — ותומך באקוסיסטם פתוח ועצום של הרחבות: Skills (מיומנויות מוכנות שמלמדות את Claude לבצע משימות ספציפיות), MCP Servers (חיבורים לשירותים חיצוניים), Sub-Agents (צוות וירטואלי של מומחים שעובדים במקביל), Hooks (אוטומציות לפני/אחרי כל פעולה), ועוד. מה שהכנתי ואני משתף במדריך הזה — סביבת העבודה המלאה שלי עם 350+ Skills מקצועיים, 32 סוכנים מתמחים, ו-17 שרתי MCP — שווה מאות שעות של מחקר, התנסות, וטעויות יקרות שכבר עשיתי בשבילכם. הכל בקוד פתוח, חינם לחלוטין, מתעדכן באופן שוטף, ומוכן להתקנה אצלכם בפקודה אחת. בין אם אתם מפתחים ותיקים שרוצים לזנק קדימה בעשרות אחוזים בתפוקה, יזמים שרוצים לבנות MVP של מוצר בלילה אחד, או סקרנים שרוצים להכיר את הטכנולוגיה שמעצבת מחדש את עולם העבודה — Claude Code הוא נקודת הכניסה, והמדריך הזה (יחד עם המאגרים המצורפים למטה) הוא הקיצור הטוב ביותר שיש.",
   badgeText: "2026 · מעודכן · מדריך מעשי בעברית",
   canonical: "https://fullstack-eladjak.co.il/claude-code",
   heroBgImage: "/images/guides/guide-claude-code-hero.jpg",

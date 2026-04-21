@@ -48,6 +48,8 @@ export const boxGuide: AgentGuideData = {
 
   agentNameHe: "מאמן בריאות בוואטסאפ",
 
+  logoImage: "/images/guide-logos/box-logo.png",
+
   tagline: "אפליקציית בריאות שבאמת משתמשים בה — בוואטסאפ",
 
   heroDescription: "סוכן coaching אישי מבוסס Claude Code + CrewAI, עם זיכרון ארוך-טווח ב-Qdrant, OCR תמונות דרך Google Cloud Vision API, ולוח ICS שנוצר אוטומטית. ממשק: WhatsApp דרך Delegator. ה-state מאוחסן כ-JSON + SQLite מוצפן. אצלי הוא מלווה תוכנית אישית של ירידה במשקל + בניית כוח, אבל זה pattern של coach-agent, לא תוכנית דיאטה: אצלך אפשר להתאים אותו לשינה, ריצה, גמילה, לימוד מוזיקה, ניהול כספים, או כל יעד אישי מדיד שהמשתמש קובע לעצמו.",

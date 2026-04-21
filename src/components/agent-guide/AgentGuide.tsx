@@ -167,9 +167,12 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                         {items.map((g) => {
                           const isCurrent = g.slug === guide.slug;
-                          const logoUrl = g.brandIconSlug
-                            ? `https://cdn.simpleicons.org/${g.brandIconSlug}/${g.brandIconColor ?? "currentColor"}`
-                            : undefined;
+                          const logoSrc = g.logoImage
+                            ? g.logoImage
+                            : g.brandIconSlug
+                              ? `https://cdn.simpleicons.org/${g.brandIconSlug}/${g.brandIconColor ?? "currentColor"}`
+                              : undefined;
+                          const unopt = !g.logoImage;
                           return (
                             <Link
                               key={g.slug}
@@ -177,20 +180,20 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                               onClick={() => setMenuOpen(false)}
                               role="menuitem"
                               aria-current={isCurrent ? "page" : undefined}
-                              className={`flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors ${
+                              className={`flex items-center gap-2.5 text-xs font-medium px-3 py-2 rounded-lg transition-colors ${
                                 isCurrent
                                   ? "bg-primary/15 text-primary border border-primary/30"
                                   : "text-muted-foreground hover:text-foreground hover:bg-muted border border-transparent"
                               }`}
                             >
-                              {logoUrl ? (
+                              {logoSrc ? (
                                 <Image
-                                  src={logoUrl}
+                                  src={logoSrc}
                                   alt=""
-                                  width={14}
-                                  height={14}
-                                  className="shrink-0"
-                                  unoptimized
+                                  width={24}
+                                  height={24}
+                                  className="shrink-0 rounded-md"
+                                  unoptimized={unopt}
                                   aria-hidden="true"
                                 />
                               ) : (
@@ -237,18 +240,40 @@ export function AgentGuide({ guide }: AgentGuideProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* Brand logo (if available) */}
-            {guide.brandIconSlug && (
-              <div className="mb-6 flex justify-center">
-                <div className="inline-flex size-20 items-center justify-center rounded-2xl bg-card/80 backdrop-blur-sm border border-border/60 shadow-lg">
-                  <Image
-                    src={`https://cdn.simpleicons.org/${guide.brandIconSlug}/${guide.brandIconColor ?? "currentColor"}`}
-                    alt={`לוגו ${guide.agentName}`}
-                    width={44}
-                    height={44}
-                    unoptimized
-                  />
-                </div>
+            {/* Brand/Custom logo (prefer logoImage over brandIconSlug) */}
+            {(guide.logoImage || guide.brandIconSlug) && (
+              <div className="mb-8 flex justify-center">
+                {guide.logoImage ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="relative"
+                  >
+                    <div
+                      className="absolute inset-0 bg-primary/30 rounded-3xl blur-2xl opacity-60"
+                      aria-hidden="true"
+                    />
+                    <Image
+                      src={guide.logoImage}
+                      alt={`לוגו ${guide.agentName}`}
+                      width={144}
+                      height={144}
+                      className="relative rounded-3xl shadow-2xl shadow-primary/20 ring-1 ring-white/10"
+                      priority
+                    />
+                  </motion.div>
+                ) : (
+                  <div className="inline-flex size-28 items-center justify-center rounded-3xl bg-card/80 backdrop-blur-sm border border-border/60 shadow-xl">
+                    <Image
+                      src={`https://cdn.simpleicons.org/${guide.brandIconSlug}/${guide.brandIconColor ?? "currentColor"}`}
+                      alt={`לוגו ${guide.agentName}`}
+                      width={72}
+                      height={72}
+                      unoptimized
+                    />
+                  </div>
+                )}
               </div>
             )}
 

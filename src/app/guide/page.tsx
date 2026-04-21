@@ -177,17 +177,27 @@ function GuideCard({
               <Icon className="h-5 w-5 text-white" />
             </div>
           )}
-          {guide.brandIconSlug && (
-            <div className="absolute top-3 end-3 size-9 rounded-xl bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-lg ring-1 ring-black/5">
+          {guide.logoImage ? (
+            <div className="absolute top-3 end-3 size-16 sm:size-20 rounded-2xl overflow-hidden shadow-xl ring-2 ring-white/20">
+              <Image
+                src={guide.logoImage}
+                alt={`לוגו ${guide.agentName}`}
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </div>
+          ) : guide.brandIconSlug ? (
+            <div className="absolute top-3 end-3 size-14 rounded-2xl bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-xl ring-2 ring-white/20">
               <Image
                 src={`https://cdn.simpleicons.org/${guide.brandIconSlug}/${guide.brandIconColor ?? "currentColor"}`}
                 alt={`לוגו ${guide.agentName}`}
-                width={20}
-                height={20}
+                width={32}
+                height={32}
                 unoptimized
               />
             </div>
-          )}
+          ) : null}
         </div>
       )}
       {!heroImage && Icon && (

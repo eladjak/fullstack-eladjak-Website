@@ -59,12 +59,18 @@ export interface AgentGuideData {
   canonical: string;
   heroBgImage?: string; // optional, defaults to none
   /**
-   * Optional slug for simpleicons.org CDN (e.g. "docker", "n8n", "ollama", "anthropic")
-   * Renders as a recognizable brand logo alongside the lucide icon.
+   * Optional slug for simpleicons.org CDN (e.g. "docker", "n8n", "ollama")
+   * Used for well-known public brands only. Prefer `logoImage` for custom agents.
    */
   brandIconSlug?: string;
   /** Optional brand color hex (without #) for the simpleicons URL tint. */
   brandIconColor?: string;
+  /**
+   * Path (relative to /public) to a custom logo image for this guide.
+   * Takes priority over `brandIconSlug` when present.
+   * Example: "/images/guide-logos/kami-logo.png"
+   */
+  logoImage?: string;
   stats: GuideStat[]; // 4 stats for hero
   paradigmShifts: ParadigmShift[];
   paradigmTitle: string;

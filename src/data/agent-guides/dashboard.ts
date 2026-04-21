@@ -22,6 +22,7 @@ export const dashboardGuide: AgentGuideData = {
   slug: "dashboard",
   agentName: "Dashboard",
   agentNameHe: "Mission Control לרשת שלך",
+  logoImage: "/images/guide-logos/dashboard-logo.png",
   tagline: "UI אחד, 12 טאבים, כל הסוכנים במבט",
   heroDescription: "Dashboard הוא Next.js 14 app מקומי שרץ על port 3456 עם WebSocket server (3457). מקורות נתונים: hub.eladjak.com REST, Qdrant, local bridge files, PowerShell status scripts ו-file system watchers. 12 טאבים: Mission Control, Agents, Projects, CrewAI, Costs, Health, Logs ועוד. אצלי זה המסך המרכזי של AI CEO — אצלך הוא יכול להיות control panel ל-home lab, small SaaS ops, agent network, או DevTooling team: פשוט החלפת ה-data sources שלך ב-adapters משלך.",
   badgeText: "2026 · Self-hosted Mission Control · מדריך מעשי",

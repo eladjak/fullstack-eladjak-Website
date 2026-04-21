@@ -22,6 +22,7 @@ export const adopterGuide: AgentGuideData = {
   slug: "adopter",
   agentName: "Adopter",
   agentNameHe: "סינון אוטונומי של חדשות וכלים",
+  logoImage: "/images/guide-logos/adopter-logo.png",
   tagline: "במקום לקרוא 500 פוסטים ביום — סוכן שמסנן",
   heroDescription: "Adopter הוא Python service + cron שמאזין לערוצי Telegram דרך Telethon, שולח כל פוסט ל-Gemini Flash עם schema סיווג (novelty × signal × actionability × risk) ושומר רק את ה-top-K ב-Qdrant collection `network_memory`. circuit breaker של 5 אימוצים ליום. אצלי מסנן 500 פוסטים/יום ל-3-5 ממצאים — אצלך אפשר להפנות אותו ל-RSS feeds, Discord channels, פורומי Reddit/טוויטר, mailing lists, או כל content firehose שצריך פילטר חכם.",
   badgeText: "2026 · Autonomous Content Adoption · מדריך מעשי",
