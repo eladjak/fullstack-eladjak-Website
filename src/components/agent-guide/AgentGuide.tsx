@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import type { AgentGuideData, Difficulty } from "./types";
 import { allGuides } from "@/data/agent-guides";
+import { SeoJsonLd } from "./SeoJsonLd";
 
 /**
  * Parse markdown-style links in a string: [label](href) → <Link>label</Link>
@@ -107,7 +108,8 @@ export function AgentGuide({ guide }: AgentGuideProps) {
   const SecondaryIcon = guide.secondaryCta?.icon;
 
   return (
-    <main className="min-h-dvh bg-background" dir="rtl">
+    <main className="min-h-dvh bg-background" dir="rtl" lang="he">
+      <SeoJsonLd guide={guide} />
       {/* Sticky TOC + guide nav */}
       <div className="sticky top-16 z-30 py-2 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">

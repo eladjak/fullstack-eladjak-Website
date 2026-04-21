@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/claude-code`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.7,
+      priority: 0.85,
     },
     {
       url: `${SITE_URL}/thanks`,
@@ -62,16 +62,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/guide`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.8,
+      priority: 0.85,
     },
   ];
+  // Agents get higher priority than infra guides (Elad's flagship content).
   const guideRoutes: MetadataRoute.Sitemap = allGuides
     .filter((g) => g.slug !== 'claude-code')
     .map((g) => ({
       url: `${SITE_URL}/guide/${g.slug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
-      priority: 0.75,
+      priority: (g.category ?? 'agent') === 'agent' ? 0.8 : 0.7,
     }));
 
   // MDX blog posts (local files)

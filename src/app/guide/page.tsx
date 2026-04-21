@@ -4,24 +4,80 @@ import Image from "next/image";
 import { ChevronLeft, Sparkles, Bot, Server, Zap } from "lucide-react";
 import { allGuides } from "@/data/agent-guides";
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
+const GUIDE_INDEX_URL = `${SITE_URL}/guide`;
+const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
+
 export const metadata: Metadata = {
-  title: "מדריכי סוכני AI + תשתית | אלעד יעקובוביץ'",
+  title: "מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
   description:
-    "14 מדריכים מעשיים בעברית — סוכני AI (Claude Code, Kami, Kaylee, CrewAI, Box, Hermes, Adopter, Dashboard), אחסון סמנטי (Qdrant), תזמור (Delegator), ותשתית (Docker, Ollama, n8n, Aider). התקנה, שימוש, וטיפים.",
+    "14 מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: Claude Code, Kami (WhatsApp), Kaylee, CrewAI, Box, Hermes, Adopter, Dashboard, Qdrant (vector DB), Delegator (orchestration), Docker, Ollama (LLM מקומי), n8n (אוטומציה) ו-Aider. התקנה, קוד, וטיפים מייצור 24/7 — כתובים על ידי מפתח שמפעיל את הרשת הזו בפועל.",
   alternates: {
-    canonical: "https://fullstack-eladjak.co.il/guide",
+    canonical: GUIDE_INDEX_URL,
+    languages: {
+      "he-IL": GUIDE_INDEX_URL,
+    },
   },
   keywords: [
     "מדריכי AI",
+    "מדריך AI בעברית",
     "סוכני AI בעברית",
-    "Claude Code עברית",
-    "Docker מדריך",
-    "Ollama עברית",
-    "n8n מדריך",
-    "Aider מדריך",
-    "Qdrant",
+    "סוכן בינה מלאכותית",
+    "AI agent network",
     "agent network",
+    "Claude Code עברית",
+    "Claude Code מדריך",
+    "MCP",
+    "מדריך Docker עברית",
+    "Ollama בעברית",
+    "LLM מקומי",
+    "n8n מדריך עברית",
+    "Aider מדריך",
+    "Qdrant מדריך",
+    "vector database",
+    "CrewAI",
+    "WhatsApp AI agent",
+    "Kami WhatsApp",
+    "Delegator orchestration",
+    "אלעד יעקובוביץ'",
+    "fullstack-eladjak",
   ],
+  openGraph: {
+    title: "14 מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
+    description:
+      "רשת סוכני AI מלאה בעברית — Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד, וטיפים מייצור.",
+    url: GUIDE_INDEX_URL,
+    type: "website",
+    locale: "he_IL",
+    siteName: "אלעד יעקובוביץ' - תיק עבודות",
+    images: [
+      {
+        url: GUIDE_INDEX_OG,
+        width: 1200,
+        height: 630,
+        alt: "מדריכי סוכני AI + תשתית בעברית",
+      },
+    ],
+  },
+  twitter: {
+    title: "14 מדריכי סוכני AI + תשתית בעברית",
+    description:
+      "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד — מדריכים מעשיים בעברית.",
+    card: "summary_large_image",
+    images: [GUIDE_INDEX_OG],
+    creator: "@eladjak",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function GuideIndex() {
