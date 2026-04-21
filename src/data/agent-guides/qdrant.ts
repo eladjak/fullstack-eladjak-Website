@@ -101,25 +101,29 @@ export const qdrantGuide: AgentGuideData = {
     {
       id: "what-is",
       icon: Database,
-      title: "מה זה Qdrant?",
-      subtitle: "Vector database — OSS, Rust, מהיר",
+      title: "מה זה Qdrant? בסיס נתונים שמבין משמעות",
+      subtitle: "בקוד פתוח, כתוב ב-Rust, ומריץ חיפוש סמנטי מהיר יותר מכל מתחרה",
       description:
-        "Qdrant זה בסיס נתונים שמתמחה באחסון וחיפוש של וקטורים — מספרים שמייצגים משמעות. כתוב ב-Rust, מהיר, פתוח.",
+        "Qdrant הוא סוג של בסיס נתונים חדש יחסית שנקרא 'מסד וקטורי' (Vector Database). בניגוד ל-Postgres או MySQL שמחפשים התאמה מדויקת של מילים (למשל 'מצא לי את כל הלקוחות ששמם דוד'), Qdrant מחפש התאמה של *משמעות* — ולכן הוא הפך בשנים האחרונות לאחד הרכיבים החשובים בכל מערכת AI רצינית שצריכה 'לזכור' דברים. הוא נכתב בשפת Rust (אחת השפות המהירות ביותר בעולם התוכנה), והוא בקוד פתוח לחלוטין.",
       color: "from-red-600 to-rose-500",
       difficulty: "beginner",
       beginner:
-        "תחשבו על זה ככה: במקום לחפש 'טקסט מכיל את המילה X', Qdrant מחפש 'מה דומה למשמעות של הטקסט הזה'. זה מה שמאפשר ל-AI לזכור דברים לפי הרעיון, לא לפי המילה הספציפית.",
+        "תחשבו על זה ככה: בספרייה רגילה, כדי למצוא ספר צריך לדעת את השם המדויק או את שם הסופר. במסד וקטורי כמו Qdrant — אפשר לבוא ולהגיד 'אני מחפש משהו על בישול צמחוני עם טעם ים-תיכוני' — והוא ימצא לכם ספרים רלוונטיים, גם אם המילים שהוא יחזיר עם השם אף פעם לא הופיעו בשאילתה שלכם. זו בדיוק היכולת שמאפשרת לסוכני AI כמו [Kami](/guide/kami) ו-[Box](/guide/box) 'לזכור' את השיחות שלכם איתם לפי מה שנאמר, ולא לפי המילים המדויקות.",
       content: [
-        "Vector database — מאחסן נקודות ב-n-dimensional space",
-        "חיפוש nearest neighbors — הכי מהיר בקטגוריה (HNSW index)",
-        "Filtering — אפשר לשלב with vector search (למשל 'רק מ-2025')",
-        "Payload — כל point נושא metadata חופשי (JSON)",
-        "Collections — כמו tables; כל אחד עם מימד embedding שונה",
-        "Docker image רשמי, 150MB, רץ על 256MB RAM בקלות",
+        "בסיס נתונים וקטורי: מאחסן 'נקודות' במרחב רב-מימדי (בדרך כלל 768 או 1536 מימדים). כל נקודה מייצגת משפט, תמונה, קטע קוד — כל מה שאפשר להמיר ל-embedding",
+        "חיפוש שכנים קרובים ביותר (Nearest Neighbors) — אלגוריתם בשם HNSW שמוצא את 10 הנקודות הכי דומות למשהו שחיפשתם, גם אם יש מיליוני נקודות במאגר, תוך פחות מ-50 מילישניות",
+        "סינון חכם: אפשר לשלב חיפוש וקטורי עם סינון רגיל (למשל 'מצא לי שיחות דומות, אבל רק מהחודש האחרון, ורק של משתמש ספציפי') — הרכב מנצח שמעט מתחרים נותנים",
+        "Payload גמיש: לצד כל וקטור אפשר לשמור JSON חופשי עם metadata — מזהה משתמש, תאריך, תגיות, או כל שדה אחר שתרצו לסנן לפיו",
+        "Collections מרובים: ארגון לפי נושא או שימוש (אצלי יש collection נפרד לכל סוכן — kami_memory, box_coach, network_memory ועוד). כל collection יכול להשתמש ב-embedding model שונה",
+        "פריסה פשוטה: image רשמי של Docker במשקל 150MB, רץ בנוחות גם על VPS של 256MB זיכרון, ומגיע עם ממשק ויזואלי יפה לחקר הנתונים בכתובת localhost:6333/dashboard",
+      ],
+      tips: [
+        "התקנה ב-docker-compose — ראו את [המדריך ל-Docker](/guide/docker) לפרטים על networks, volumes ואיך להגדיר את זה להיות persistent",
+        "אם אתם משתמשים ב-[CrewAI](/guide/crewai) או בסוכן שלכם עם [Claude](/claude-code) — חיבור ל-Qdrant דרך LangChain או הקוד הישיר הוא פקודה אחת; הספרייה (qdrant-client) ב-Python מעולה",
       ],
       codeExample: {
-        label: "התקנה ב-30 שניות",
-        code: "docker run -d -p 6333:6333 -p 6334:6334 \\\n  -v $(pwd)/qdrant_storage:/qdrant/storage \\\n  qdrant/qdrant",
+        label: "התקנה מיידית ב-30 שניות",
+        code: "docker run -d -p 6333:6333 -p 6334:6334 \\\n  -v $(pwd)/qdrant_storage:/qdrant/storage \\\n  qdrant/qdrant\n\n# עכשיו יש לכם UI ב-http://localhost:6333/dashboard\n# ו-REST API ב-http://localhost:6333",
       },
     },
     {
