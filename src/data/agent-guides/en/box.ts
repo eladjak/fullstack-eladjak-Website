@@ -148,7 +148,7 @@ export const boxGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Sending from curl",
-        code: 'curl -X POST https://hub.eladjak.com/coach/intake \\\n  -H \'content-type: application/json\' \\\n  -d \'{"text":"ארוחת צהריים — סלט טונה עם אבוקדו","source":"elad-direct"}\'',
+        code: 'curl -X POST https://hub.eladjak.com/coach/intake \\\n  -H \'content-type: application/json\' \\\n  -d \'{"text":"Lunch — tuna salad with avocado","source":"elad-direct"}\'',
       },
     },
     {
@@ -195,7 +195,7 @@ export const boxGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "VCALENDAR example",
-        code: "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Box//Elad//HE\nBEGIN:VEVENT\nUID:box-eat-2026-04-21\nSUMMARY:חלון אכילה 16:8\nDTSTART:20260421T100000\nDTEND:20260421T180000\nEND:VEVENT\nEND:VCALENDAR",
+        code: "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Box//Elad//EN\nBEGIN:VEVENT\nUID:box-eat-2026-04-21\nSUMMARY:16:8 Eating Window\nDTSTART:20260421T100000\nDTEND:20260421T180000\nEND:VEVENT\nEND:VCALENDAR",
       },
     },
     {

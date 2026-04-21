@@ -124,7 +124,7 @@ export const qdrantGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Instant install in 30 seconds",
-        code: "docker run -d -p 6333:6333 -p 6334:6334 \\\n  -v $(pwd)/qdrant_storage:/qdrant/storage \\\n  qdrant/qdrant\n\n# עכשיו יש לכם UI ב-http://localhost:6333/dashboard\n# ו-REST API ב-http://localhost:6333",
+        code: "docker run -d -p 6333:6333 -p 6334:6334 \\\n  -v $(pwd)/qdrant_storage:/qdrant/storage \\\n  qdrant/qdrant\n\n# Now you have a UI at http://localhost:6333/dashboard\n# And a REST API at http://localhost:6333",
       },
     },
     {
@@ -152,7 +152,7 @@ export const qdrantGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Creating an embedding",
-        code: "import requests\n\nresp = requests.post(\n    f'https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key={KEY}',\n    json={'content': {'parts': [{'text': 'אכלתי סלט יווני'}]}, 'outputDimensionality': 768}\n)\nembedding = resp.json()['embedding']['values']  # list of 768 floats",
+        code: "import requests\n\nresp = requests.post(\n    f'https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent?key={KEY}',\n    json={'content': {'parts': [{'text': 'I ate a Greek salad'}]}, 'outputDimensionality': 768}\n)\nembedding = resp.json()['embedding']['values']  # list of 768 floats",
       },
     },
     {

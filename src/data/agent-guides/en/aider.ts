@@ -153,7 +153,7 @@ export const aiderGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "~/.aider.conf.yml with OpenRouter",
-        code: "model: openrouter/qwen3-coder:free\nopenai-api-base: https://openrouter.ai/api/v1\n# API key ב-env: OPENROUTER_API_KEY=sk-or-...\nauto-commits: true\nauto-lint: true\nedit-format: diff\nstream: true\nshow-diffs: true\nsubtree-only: true",
+        code: "model: openrouter/qwen3-coder:free\nopenai-api-base: https://openrouter.ai/api/v1\n# API key in env: OPENROUTER_API_KEY=sk-or-...\nauto-commits: true\nauto-lint: true\nedit-format: diff\nstream: true\nshow-diffs: true\nsubtree-only: true",
       },
     },
     {
@@ -181,7 +181,7 @@ export const aiderGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "hybrid: Anthropic for main, Ollama for weak",
-        code: "# בקובץ ~/.aider.conf.yml\nmodel: anthropic/claude-sonnet-4-6\nweak-model: ollama/qwen3-coder  # לכותרות commits + פעולות קטנות\neditor-model: anthropic/claude-sonnet-4-6\n# שומר 30-40% על tokens",
+        code: "# In ~/.aider.conf.yml\nmodel: anthropic/claude-sonnet-4-6\nweak-model: ollama/qwen3-coder  # for commit titles + small tasks\neditor-model: anthropic/claude-sonnet-4-6\n# Saves 30-40% on tokens",
       },
     },
     {
@@ -213,7 +213,7 @@ export const aiderGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "a typical session",
-        code: "$ cd my-project\n$ aider\n> /add src/auth/login.ts src/auth/types.ts\n> תקן את הטיפוס של user — email יכול להיות null\n[Aider עורך, commits, מראה diff]\n> /test\n[runs npm test]\n> ה-test עובר. תוסיף test לזה\n[Aider כותב test, commits]",
+        code: "$ cd my-project\n$ aider\n> /add src/auth/login.ts src/auth/types.ts\n> Fix the user type — email can be null\n[Aider edits, commits, shows diff]\n> /test\n[runs npm test]\n> The test passes. Add a test for this case.\n[Aider writes test, commits]",
       },
     },
     {

@@ -149,7 +149,7 @@ export const kamiGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "First run",
-        code: "git clone https://github.com/eladjak/elad-personal-agent.git\ncd elad-personal-agent\nbun install\ncp .env.example .env\n# ערכו את .env עם המפתחות שלכם\nbun run build\nbun run start",
+        code: "git clone https://github.com/eladjak/elad-personal-agent.git\ncd elad-personal-agent\nbun install\ncp .env.example .env\n# Edit .env with your keys\nbun run build\nbun run start",
       },
     },
     {
@@ -201,7 +201,7 @@ export const kamiGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Semantic memory search",
-        code: "// בתוך תגובת Kami\nconst memories = await qdrant.search('kami_memory', {\n  vector: embeddingOfQuestion,\n  limit: 10,\n  with_payload: true,\n});\n// הזיכרונות הכי רלוונטיים נכנסים לקונטקסט של Claude",
+        code: "// Inside Kami's response flow\nconst memories = await qdrant.search('kami_memory', {\n  vector: embeddingOfQuestion,\n  limit: 10,\n  with_payload: true,\n});\n// The most relevant memories get added to Claude's context",
       },
     },
     {
@@ -251,7 +251,7 @@ export const kamiGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "A bridge message",
-        code: '{"ts":"2026-04-20T21:00:00Z","from":"elad","to":"claude-code","type":"request","content":"תבדוק את הבילד של הפרויקט","status":"pending"}',
+        code: '{"ts":"2026-04-20T21:00:00Z","from":"elad","to":"claude-code","type":"request","content":"Check the project build","status":"pending"}',
       },
     },
     {

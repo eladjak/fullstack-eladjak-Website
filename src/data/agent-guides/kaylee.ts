@@ -31,10 +31,10 @@ export const kayleeGuide: AgentGuideData = {
   canonical: "https://fullstack-eladjak.co.il/guide/kaylee",
   heroBgImage: "/images/guides/guide-kaylee-hero.jpg",
   stats: [
-    { label: "בדיקות אוטומטיות", value: "5m" },
-    { label: "ריפוי עצמי", value: "10m" },
+    { label: "בדיקות אוטומטיות", value: "כל 5 ד׳" },
+    { label: "ריפוי עצמי", value: "כל 10 ד׳" },
     { label: "כלים פעילים", value: "50+" },
-    { label: "זמן אבחון ממוצע", value: "<3s" },
+    { label: "זמן אבחון ממוצע", value: "<3 שניות" },
   ],
   paradigmTitle: "DevOps שישן בלילה",
   paradigmSub:
@@ -56,7 +56,7 @@ export const kayleeGuide: AgentGuideData = {
       icon: Wrench,
     },
     {
-      before: "תשכח לעדכן docker images חודשים",
+      before: "שוכחים לעדכן docker images במשך חודשים",
       after: "בדיקה שבועית + דוח + המלצה 'יש 3 updates חשובים'",
       icon: RefreshCw,
     },
@@ -106,7 +106,7 @@ export const kayleeGuide: AgentGuideData = {
       title: "מה זה Kaylee? הכירו את סוכנת ה-DevOps שלכם",
       subtitle: "OpenClaw שרץ ב-Docker, חושב עם Gemini, ומדבר בטלגרם",
       description:
-        "קיילי היא סוכנת בינה מלאכותית אוטונומית שיש לה 'ידיים אמיתיות' על השרת: היא יכולה להריץ פקודות, לבדוק סטטוס של שירותים, לערוך קבצי הגדרה, להפעיל containers מחדש, ולקרוא לוגים — בדיוק כמו אדמין מערכת בשר ודם. הבסיס הטכנולוגי שלה הוא [OpenClaw](/guide/kaylee) — פלטפורמה חדשה יחסית של סוכני AI שנבנתה מעל Claude Agent SDK, ומאפשרת לחבר LLM כלשהו למעטפת של כלי לינוקס ולתת לו לעבוד באופן עצמאי.",
+        "קיילי היא סוכנת בינה מלאכותית אוטונומית שיש לה 'ידיים אמיתיות' על השרת: היא יכולה להריץ פקודות, לבדוק סטטוס של שירותים, לערוך קבצי הגדרה, להפעיל containers מחדש, ולקרוא לוגים — בדיוק כמו אדמין מערכת בשר ודם. הבסיס הטכנולוגי שלה הוא OpenClaw — פלטפורמה חדשה יחסית של סוכני AI שנבנתה מעל Claude Agent SDK, ומאפשרת לחבר מודל שפה כלשהו למעטפת של כלי לינוקס ולתת לו לעבוד באופן עצמאי.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       beginner:
@@ -116,7 +116,7 @@ export const kayleeGuide: AgentGuideData = {
         "שכבת הבינה: כברירת מחדל [Gemini 2.5 Flash](https://ai.google.dev) של Google — חינמי לחלוטין עד כמה אלפי בקשות ביום. אפשר להחליף לכל מודל שרוצים (Claude Sonnet, GPT-4, Ollama מקומי — הכל דרך שורת קונפיגורציה)",
         "גישה לכלי מערכת: shell (bash), Docker CLI, systemd, קריאה וכתיבה של קבצים — הכל דרך allowlist מוגדר כך שהיא לא יכולה להוציא לעצמה הרשאות מיותרות",
         "ממשק המשתמש: בוט בטלגרם (@kylie_elad_bot אצלי) — פשוט שולחים לה הודעה ומקבלים תשובה. בנוסף יש לה webhook פתוח על port 18789 לחיבור מסוכנים אחרים ברשת",
-        "תקשורת עם הרשת: היא מקבלת הודעות גם מ-[Delegator](/guide/delegator) (שער ה-API המרכזי) וגם מ-[Kami](/guide/kami) (כשהוא מאוחר ממני בקשה בוואטסאפ) — כך נוצר מעגל סוכנים שעוזרים זה לזה",
+        "תקשורת עם הרשת: היא מקבלת הודעות גם מ-[Delegator](/guide/delegator) (שער ה-API המרכזי) וגם מ-[Kami](/guide/kami) (כשהוא מעביר בקשה שהתקבלה בוואטסאפ) — כך נוצר מעגל סוכנים שעוזרים זה לזה",
         "זיכרון ארוך-טווח: כל פעולה שהיא מבצעת נרשמת ב-[Qdrant](/guide/qdrant) עם metadata — מה ביקשתי, מה היא עשתה, מה התוצאה. אחרי חודש יש היסטוריה שלמה שאפשר לחפש בה",
       ],
       tips: [
@@ -189,7 +189,7 @@ export const kayleeGuide: AgentGuideData = {
       content: [
         "heartbeat cron כל 5 דקות — בודק את מצב הבריאות (health check) של כל 10 הסוכנים ברשת, וכותב את התוצאה לקולקשן בשם agent_status בתוך [Qdrant](/guide/qdrant). זה מאפשר ל-[Dashboard](/guide/dashboard) להראות מצב חי של כל הרשת",
         "self-heal cron כל 10 דקות — אם קיילי זיהתה ששירות נפל, היא מנסה להפעיל אותו מחדש באופן אוטומטי (עד 3 ניסיונות) לפני שהיא מסלימה את הבעיה לאדם",
-        "auto-kaylee-reports cron כל 5 דקות — סורק את journalctl (מערכת הלוגים של systemd) לאירועים חריגים, מסכם אותם ומעלה ל-[Dashboard](/guide/dashboard) כהתראות קצרות",
+        "דוחות ניטור אוטומטיים כל 5 דקות — קיילי סורקת את journalctl (מערכת הלוגים המרכזית של systemd) לאירועים חריגים, מסכמת אותם, ומעלה ל-[Dashboard](/guide/dashboard) כהתראות קצרות שמופיעות בזמן אמת",
         "דוח בוקר 08:00 — סיכום יומי של בריאות השרת: שימוש בדיסק, שימוש ב-RAM, עומס על המעבד, וכמה קונטיינרים במצב בריא. מגיע ישירות לטלגרם של המשתמש",
         "ניקיון ערב 22:00 — הפעלת ניקוי של /tmp (תיקיית קבצים זמניים), של docker prune (הסרת image ישנים שלא בשימוש), ושל log rotation (החלפת קבצי לוג מלאים בחדשים)",
       ],

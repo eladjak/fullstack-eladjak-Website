@@ -130,7 +130,7 @@ export const ollamaGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Two commands and you have local AI",
-        code: "# Mac/Linux — להתקנה\ncurl -fsSL https://ollama.com/install.sh | sh\n\n# להורדת מודל ולשיחה איתו\nollama pull gemma3:2b\nollama run gemma3:2b \"שלום, מה שלומך?\"",
+        code: "# Mac/Linux — install\ncurl -fsSL https://ollama.com/install.sh | sh\n\n# Download a model and chat with it\nollama pull gemma3:2b\nollama run gemma3:2b \"Hello, how are you?\"",
       },
     },
     {
@@ -188,7 +188,7 @@ export const ollamaGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Searching and inspecting a model",
-        code: "ollama list           # מה מותקן\nollama pull qwen3-coder:7b\nollama show qwen3-coder:7b  # config, context, params\nollama rm MODEL       # מחיקה (המודלים כבדים)",
+        code: "ollama list           # what is installed\nollama pull qwen3-coder:7b\nollama show qwen3-coder:7b  # config, context, params\nollama rm MODEL       # delete (models are heavy)",
       },
     },
     {
@@ -215,7 +215,7 @@ export const ollamaGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Calling from Node/TypeScript",
-        code: "const res = await fetch('http://localhost:11434/api/chat', {\n  method: 'POST',\n  body: JSON.stringify({\n    model: 'gemma3:2b',\n    messages: [{ role: 'user', content: 'מה זה container?' }],\n    stream: false,\n    options: { num_ctx: 4096, temperature: 0.7 },\n  }),\n});\nconst { message } = await res.json();",
+        code: "const res = await fetch('http://localhost:11434/api/chat', {\n  method: 'POST',\n  body: JSON.stringify({\n    model: 'gemma3:2b',\n    messages: [{ role: 'user', content: 'What is a container?' }],\n    stream: false,\n    options: { num_ctx: 4096, temperature: 0.7 },\n  }),\n});\nconst { message } = await res.json();",
       },
     },
     {

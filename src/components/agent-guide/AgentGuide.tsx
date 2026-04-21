@@ -294,7 +294,8 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     (g) => (g.category ?? "agent") === cat
                   );
                   if (!items.length) return null;
-                  const heading = cat === "agent" ? "סוכני AI" : "תשתית ורכיבי בסיס";
+                  const heading =
+                    cat === "agent" ? t.agentsHeading : t.infraHeading;
                   return (
                     <div key={cat} className="mb-3 last:mb-0">
                       <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 px-1">
@@ -392,7 +393,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     />
                     <Image
                       src={guide.logoImage}
-                      alt={`לוגו ${guide.agentName}`}
+                      alt={`${guide.agentName} logo`}
                       width={144}
                       height={144}
                       className="relative rounded-3xl shadow-2xl shadow-primary/20 ring-1 ring-white/10"
@@ -403,7 +404,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                   <div className="inline-flex size-28 items-center justify-center rounded-3xl bg-card/80 backdrop-blur-sm border border-border/60 shadow-xl">
                     <Image
                       src={`https://cdn.simpleicons.org/${guide.brandIconSlug}/${guide.brandIconColor ?? "currentColor"}`}
-                      alt={`לוגו ${guide.agentName}`}
+                      alt={`${guide.agentName} logo`}
                       width={72}
                       height={72}
                       unoptimized
@@ -422,20 +423,20 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               <button
                 onClick={handleShare}
                 className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-3 py-1.5 text-xs text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
-                aria-label="שיתוף המדריך"
+                aria-label={locale === "he" ? "שיתוף המדריך" : "Share guide"}
               >
                 {copied ? (
                   <Check className="h-3.5 w-3.5" />
                 ) : (
                   <Share2 className="h-3.5 w-3.5" />
                 )}
-                {copied ? "הועתק!" : "שתפו"}
+                {copied ? t.copied : t.share}
               </button>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 font-heebo text-balance">
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                המדריך המלא ל-{guide.agentNameHe}
+                {t.completeGuideTo(locale === "he" ? guide.agentNameHe : guide.agentName)}
               </span>
             </h1>
             <p className="text-xl sm:text-2xl font-medium text-foreground/80 mb-4 text-balance">
@@ -478,7 +479,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             <div
               className="inline-flex bg-card/60 border border-border/50 rounded-full p-1"
               role="tablist"
-              aria-label="רמת הסבר"
+              aria-label={locale === "he" ? "רמת הסבר" : "Explanation level"}
             >
               <button
                 onClick={() => setShowBeginner(true)}
@@ -490,7 +491,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                הסבר פשוט
+                {t.simpleExplanation}
               </button>
               <button
                 onClick={() => setShowBeginner(false)}
@@ -502,7 +503,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                מצב טכני
+                {t.technicalMode}
               </button>
             </div>
           </motion.div>
@@ -558,8 +559,10 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
 
           {/* Who is this for */}
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold font-heebo mb-2">למי זה מתאים?</h3>
-            <p className="text-muted-foreground">הנה איך:</p>
+            <h3 className="text-2xl font-bold font-heebo mb-2">
+              {t.whoIsThisFor}
+            </h3>
+            <p className="text-muted-foreground">{t.hereHow}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {guide.whoIsThisFor.map((item, i) => {
@@ -592,8 +595,10 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
       {/* GUIDE SECTIONS */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold font-heebo mb-2">המדריך המעשי</h2>
-          <p className="text-muted-foreground">לחצו על כל סעיף לפתיחה</p>
+          <h2 className="text-3xl font-bold font-heebo mb-2">
+            {t.practicalGuide}
+          </h2>
+          <p className="text-muted-foreground">{t.clickToOpen}</p>
         </div>
 
         <div className="space-y-4">
@@ -677,7 +682,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                         {showBeginner && section.beginner && (
                           <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 mb-5">
                             <p className="text-sm font-medium text-emerald-400 mb-1 flex items-center gap-1.5">
-                              <Lightbulb className="h-4 w-4" /> בשפה פשוטה:
+                              <Lightbulb className="h-4 w-4" /> {t.inSimpleTerms}
                             </p>
                             <p className="text-sm text-foreground/80 leading-relaxed text-pretty">
                               {renderWithLinks(section.beginner)}
@@ -758,7 +763,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                         {section.tips && (
                           <div className="mt-6 bg-primary/5 rounded-xl p-4 border border-primary/20">
                             <p className="text-sm font-medium text-primary mb-2 flex items-center gap-1.5">
-                              <Lightbulb className="h-4 w-4" /> טיפים מהניסיון
+                              <Lightbulb className="h-4 w-4" /> {t.tipsFromExperience}
                             </p>
                             {section.tips.map((tip, i) => (
                               <p
@@ -784,7 +789,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
       <section className="bg-card/50 border-t border-border py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-10 font-heebo">
-            משאבים ולינקים
+            {t.resources}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {guide.resources.map((resource, index) => {
@@ -856,18 +861,18 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
           </div>
 
           <div className="mt-10 flex items-center justify-center gap-3">
-            <span className="text-sm text-muted-foreground">אהבתם? שתפו:</span>
+            <span className="text-sm text-muted-foreground">{t.liked}</span>
             <button
               onClick={handleShare}
               className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
-              aria-label="העתקת קישור"
+              aria-label={t.copyLink}
             >
               {copied ? (
                 <Check className="h-4 w-4" />
               ) : (
                 <Copy className="h-4 w-4" />
               )}
-              {copied ? "הועתק!" : "העתיקו קישור"}
+              {copied ? t.copied : t.copyLink}
             </button>
           </div>
         </div>
@@ -882,13 +887,13 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 href={guideHref(prevGuide.slug)}
                 className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4"
               >
-                <ChevronRight className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
+                <PrevArrowIcon className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                 <div className="flex-1 min-w-0">
                   <div className="text-xs text-muted-foreground mb-1">
-                    המדריך הקודם
+                    {t.previousGuide}
                   </div>
                   <div className="font-semibold font-heebo group-hover:text-primary transition-colors text-balance">
-                    {prevGuide.agentNameHe}
+                    {locale === "he" ? prevGuide.agentNameHe : prevGuide.agentName}
                   </div>
                 </div>
               </Link>
@@ -898,30 +903,30 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             {nextGuide ? (
               <Link
                 href={guideHref(nextGuide.slug)}
-                className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 sm:flex-row-reverse sm:text-start text-end"
+                className={`group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 ${isRtl ? "sm:flex-row-reverse sm:text-start text-end" : ""}`}
               >
-                <ChevronLeft className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
+                <NextArrowIcon className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                 <div className="flex-1 min-w-0">
                   <div className="text-xs text-muted-foreground mb-1">
-                    המדריך הבא
+                    {t.nextGuideLabel}
                   </div>
                   <div className="font-semibold font-heebo group-hover:text-primary transition-colors text-balance">
-                    {nextGuide.agentNameHe}
+                    {locale === "he" ? nextGuide.agentNameHe : nextGuide.agentName}
                   </div>
                 </div>
               </Link>
             ) : (
               <Link
-                href="/guide"
-                className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 sm:flex-row-reverse sm:text-start text-end"
+                href={t.guideIndex}
+                className={`group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 ${isRtl ? "sm:flex-row-reverse sm:text-start text-end" : ""}`}
               >
                 <LayoutGrid className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                 <div className="flex-1 min-w-0">
                   <div className="text-xs text-muted-foreground mb-1">
-                    כל המדריכים
+                    {t.allGuides}
                   </div>
                   <div className="font-semibold font-heebo group-hover:text-primary transition-colors">
-                    חזרה לאינדקס
+                    {t.backToIndex}
                   </div>
                 </div>
               </Link>
@@ -941,17 +946,21 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
           >
             <Image
               src="https://avatars.githubusercontent.com/u/108827199?v=4"
-              alt="Elad Yaakobovitch"
+              alt={t.aboutAuthor}
               width={64}
               height={64}
               className="rounded-2xl shadow-lg shadow-primary/20 shrink-0"
             />
-            <div className="flex-1 text-center sm:text-right">
+            <div className={`flex-1 text-center ${isRtl ? "sm:text-right" : "sm:text-left"}`}>
               <h3 className="text-lg font-bold text-foreground font-heebo mb-1">
-                אלעד יעקובוביץ&apos;
+                {locale === "he" ? (
+                  <>אלעד יעקובוביץ&apos;</>
+                ) : (
+                  <>{t.aboutAuthor}</>
+                )}
               </h3>
               <p className="text-sm text-primary font-medium mb-3">
-                מפתח Full-Stack ומומחה AI
+                {t.authorRole}
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4 text-pretty">
                 {guide.authorBio}
@@ -961,19 +970,20 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-primary hover:underline"
                 >
-                  צרו קשר <span aria-hidden="true">←</span>
+                  {t.contact}{" "}
+                  <span aria-hidden="true">{isRtl ? "←" : "→"}</span>
                 </Link>
                 <Link
                   href="/services"
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
                 >
-                  שירותי ייעוץ AI
+                  {t.consultingServices}
                 </Link>
                 <Link
-                  href="/guide"
+                  href={t.guideIndex}
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
                 >
-                  עוד מדריכים
+                  {t.moreGuides}
                 </Link>
               </div>
             </div>

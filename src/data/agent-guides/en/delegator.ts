@@ -180,7 +180,7 @@ export const delegatorGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Example response from Delegator when trying to publish on Memorial Day",
-        code: '{\n  "sensitive": true,\n  "category": "solemn_modern",\n  "reason": "Yom HaZikaron — פרסום שיווקי חסום עד שקיעה.",\n  "resume_at_iso": "2026-04-21T19:30:00"\n}',
+        code: '{\n  "sensitive": true,\n  "category": "solemn_modern",\n  "reason": "Yom HaZikaron (Memorial Day) — marketing publishing blocked until sundown.",\n  "resume_at_iso": "2026-04-21T19:30:00"\n}',
       },
     },
     {
