@@ -195,7 +195,7 @@ export const claudeCodeGuide: AgentGuideData = {
       ],
       tips: [
         "ככל שה-CLAUDE.md מפורט יותר — Claude מבין טוב יותר ושואל פחות שאלות",
-        "הקלידו /init כדי שClaude ייצור את הקובץ הראשוני לכם אוטומטית",
+        "הקלידו /init כדי ש-Claude ייצור את הקובץ הראשוני לכם אוטומטית",
       ],
       codeExample: {
         label: "דוגמה ל-CLAUDE.md",
@@ -315,7 +315,7 @@ export const claudeCodeGuide: AgentGuideData = {
         "Git Worktrees → כמה שיחות Claude במקביל על branches שונות",
         "LSP Integration → ניווט קוד 900x מהיר מ-grep",
         "Tab → אישור מהיר בלי להקליד 'כן'",
-        "Escape → ביטול פעולה שClaude מריץ כרגע",
+        "Escape → ביטול פעולה ש-Claude מריץ כרגע",
         "שילוב AIs: Claude לקוד, Gemini לתמונות, Copilot לעבודת לילה",
       ],
       tips: [

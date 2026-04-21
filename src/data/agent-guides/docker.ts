@@ -244,7 +244,7 @@ export const dockerGuide: AgentGuideData = {
       id: "debugging",
       icon: Terminal,
       title: "ניפוי באגים: הכלים שחוסכים שעות",
-      subtitle: "מה לעשות כשcontainer לא עולה",
+      subtitle: "מה לעשות כש-container לא עולה",
       description:
         "רוב הבעיות ב-Docker הן misconfiguration של volumes, networks או env. יש רצף בדיקות שפותר 80% מהמקרים.",
       color: "from-slate-600 to-zinc-500",
