@@ -11,7 +11,9 @@ const GUIDE_INDEX_URL_HE = `${SITE_URL}/guide`;
 const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
 
 export const metadata: Metadata = {
-  title: "AI Agent + Infrastructure Guides | Elad Yaakobovitch",
+  title: {
+    absolute: "AI Agent + Infrastructure Guides | Elad Yaakobovitch",
+  },
   description:
     "14 practical guides covering a full AI agent network: Claude Code, Kami (WhatsApp agent), Kaylee (SRE), CrewAI, Box, Hermes, Adopter, Dashboard, Qdrant, Delegator, Docker, Ollama, n8n, and Aider. Installation, code, and production tips from a developer running this network 24/7.",
   alternates: {

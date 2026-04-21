@@ -30,7 +30,7 @@ export async function generateMetadata({
     };
   }
 
-  const title = `המדריך המלא ל-${guide.agentNameHe} | אלעד יעקובוביץ'`;
+  const title = `המדריך המלא ל-${guide.agentNameHe}`;
   // Strip markdown-style links [label](href) from description so meta stays clean.
   const cleanTagline = guide.tagline.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
   const cleanHero = guide.heroDescription.replace(

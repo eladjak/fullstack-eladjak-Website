@@ -26,7 +26,7 @@ export async function generateMetadata({
   }
   const heGuide = guideBySlug.get(slug);
 
-  const title = `${guide.agentName} — The Complete Guide | Elad Yaakobovitch`;
+  const title = `${guide.agentName} — The Complete Guide`;
   const cleanTagline = guide.tagline.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
   const cleanHero = guide.heroDescription.replace(
     /\[([^\]]+)\]\([^)]+\)/g,
@@ -47,7 +47,9 @@ export async function generateMetadata({
     : `${SITE_URL}/images/og-default.jpg`;
 
   return {
-    title,
+    title: {
+      absolute: `${title} | Elad Yaakobovitch`,
+    },
     description,
     keywords: [
       guide.agentName,

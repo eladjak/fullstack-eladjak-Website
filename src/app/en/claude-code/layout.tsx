@@ -6,7 +6,9 @@ const CANONICAL_EN = `${SITE_URL}/en/claude-code`;
 const CANONICAL_HE = `${SITE_URL}/claude-code`;
 
 export const metadata: Metadata = {
-  title: "Claude Code — The Complete Guide | Elad Yaakobovitch",
+  title: {
+    absolute: "Claude Code — The Complete Guide | Elad Yaakobovitch",
+  },
   description:
     "Claude Code is Anthropic's CLI + IDE extensions — the most advanced AI coding tool of 2026. A practical English guide with 350+ ready-to-install skills, 32 specialized sub-agents, and 17 MCP servers. Everything free and open source.",
   alternates: {
