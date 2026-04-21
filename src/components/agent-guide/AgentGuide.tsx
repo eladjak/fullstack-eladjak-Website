@@ -440,10 +440,10 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               </span>
             </h1>
             <p className="text-xl sm:text-2xl font-medium text-foreground/80 mb-4 text-balance">
-              {guide.tagline}
+              {renderWithLinks(guide.tagline)}
             </p>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-              {guide.heroDescription}
+              {renderWithLinks(guide.heroDescription)}
             </p>
           </motion.div>
 
