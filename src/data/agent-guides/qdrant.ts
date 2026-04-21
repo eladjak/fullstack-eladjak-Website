@@ -24,7 +24,7 @@ export const qdrantGuide: AgentGuideData = {
   agentNameHe: "Qdrant — זיכרון סמנטי לסוכנים",
   logoImage: "/images/guide-logos/qdrant-logo.png",
   tagline: "הבסיס לזכירה לפי משמעות, לא לפי מילים",
-  heroDescription: "Qdrant הוא vector database בקוד פתוח, כתוב ב-Rust, רץ ב-Docker container עם HTTP + gRPC API. יכולות: אחסון embeddings (עד 65,536 מימדים), HNSW indexing, semantic search, filters מורכבים, payload arbitrary, sharding ו-replication. אצלי יש 10 collections (kami_memory, box_coach, network_memory ועוד) עם אלפי וקטורים. אצלך Qdrant יכול לשמש memory ל-chatbot, semantic search על מאגר מסמכים, recommendation engine, או דה-דופליקציה סמנטית של תוכן — בכל מקום שצריך 'לזכור משמעות' ולא רק מילות מפתח.",
+  heroDescription: "Qdrant הוא vector database בקוד פתוח, כתוב ב-Rust, רץ ב-Docker container עם HTTP + gRPC API. יכולות: אחסון embeddings (עד 65,536 מימדים), HNSW indexing, semantic search, filters מורכבים, payload arbitrary, sharding ו-replication. אצלי יש 10 collections ([kami_memory](/guide/kami), [box_coach](/guide/box), [network_memory](/guide/adopter) ועוד) עם אלפי וקטורים. אצלך Qdrant יכול לשמש memory ל-chatbot, semantic search על מאגר מסמכים, recommendation engine, או דה-דופליקציה סמנטית של תוכן — בכל מקום שצריך 'לזכור משמעות' ולא רק מילות מפתח.",
   badgeText: "2026 · Vector Memory · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/qdrant",
   heroBgImage: "/images/guides/guide-qdrant-hero.jpg",

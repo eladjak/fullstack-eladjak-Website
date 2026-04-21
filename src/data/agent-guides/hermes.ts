@@ -26,7 +26,7 @@ export const hermesGuide: AgentGuideData = {
   agentNameHe: "שירותים שמתקנים את עצמם",
   logoImage: "/images/guide-logos/hermes-logo.png",
   tagline: "Self-healing — תקלות לא צריכות להעיר אתכם",
-  heroDescription: "Hermes הוא CLI של self-healing infrastructure כתוב ב-Go (v0.8.0 אצלי). הפילוסופיה: whitelist של פעולות מותרות + verification-after-fix + למידה מתקלות חוזרות. ארכיטקטורה בת חמישה שלבים: detect → diagnose → fix → verify → learn. רץ כ-cron או webhook responder, שומר היסטוריה ב-SQLite/JSON. אצלי הוא מבצע autoheal ל-Kami ול-OpenClaw — אבל אצלך זה pattern שאפשר לאמץ עם כל CLI (או אפילו bash scripts): חמשת השלבים מתאימים לכל מערכת production, לא רק לסוכני AI.",
+  heroDescription: "Hermes הוא CLI של self-healing infrastructure כתוב ב-Go (v0.8.0 אצלי). הפילוסופיה: whitelist של פעולות מותרות + verification-after-fix + למידה מתקלות חוזרות. ארכיטקטורה בת חמישה שלבים: detect → diagnose → fix → verify → learn. רץ כ-cron או webhook responder, שומר היסטוריה ב-SQLite/JSON. אצלי הוא מבצע autoheal ל-[Kami](/guide/kami) ול-OpenClaw (ה-engine של [Kaylee](/guide/kaylee)) — אבל אצלך זה pattern שאפשר לאמץ עם כל CLI (או אפילו bash scripts): חמשת השלבים מתאימים לכל מערכת production, לא רק לסוכני AI.",
   badgeText: "2026 · Self-Healing Infrastructure · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/hermes",
   heroBgImage: "/images/guides/guide-hermes-hero.jpg",

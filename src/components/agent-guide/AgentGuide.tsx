@@ -17,6 +17,35 @@ import {
 import type { AgentGuideData, Difficulty } from "./types";
 import { allGuides } from "@/data/agent-guides";
 
+/**
+ * Parse markdown-style links in a string: [label](href) → <Link>label</Link>
+ * Used to create real clickable cross-links between guides in content fields.
+ */
+function renderWithLinks(text: string): React.ReactNode {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (match) {
+      const [, label, href] = match;
+      if (!href) return part;
+      const isExternal = href.startsWith("http");
+      return (
+        <Link
+          key={i}
+          href={href}
+          {...(isExternal
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+          className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary transition-colors font-medium"
+        >
+          {label}
+        </Link>
+      );
+    }
+    return part;
+  });
+}
+
 const difficultyConfig: Record<
   Difficulty,
   { label: string; color: string; bg: string }
@@ -541,13 +570,13 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                               <Lightbulb className="h-4 w-4" /> בשפה פשוטה:
                             </p>
                             <p className="text-sm text-foreground/80 leading-relaxed text-pretty">
-                              {section.beginner}
+                              {renderWithLinks(section.beginner)}
                             </p>
                           </div>
                         )}
 
                         <p className="text-muted-foreground mb-4 text-sm text-pretty">
-                          {section.description}
+                          {renderWithLinks(section.description)}
                         </p>
 
                         <ul className="space-y-3">
@@ -574,10 +603,12 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                                     >
                                       →
                                     </span>
-                                    {item.split("→").slice(1).join("→").trim()}
+                                    {renderWithLinks(
+                                      item.split("→").slice(1).join("→").trim()
+                                    )}
                                   </>
                                 ) : (
-                                  item
+                                  renderWithLinks(item)
                                 )}
                               </span>
                             </li>
@@ -624,7 +655,7 @@ export function AgentGuide({ guide }: AgentGuideProps) {
                                 key={i}
                                 className="text-sm text-foreground/80 mt-1 text-pretty"
                               >
-                                {tip}
+                                {renderWithLinks(tip)}
                               </p>
                             ))}
                           </div>

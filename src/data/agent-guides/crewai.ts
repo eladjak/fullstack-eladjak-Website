@@ -24,7 +24,7 @@ export const crewaiGuide: AgentGuideData = {
   agentNameHe: "CrewAI — צוותי AI שעובדים יחד",
   logoImage: "/images/guide-logos/crewai-logo.png",
   tagline: "במקום סוכן אחד, צוות של מומחים שעובד ביחד",
-  heroDescription: "CrewAI היא מסגרת Python פתוחה לתזמור מספר agents סביב משימה משותפת. כל agent מוגדר עם role, goal, tools ו-LLM עצמאי; ה-workflows מתוארים כ-`sequential`, `hierarchical` או `consensus`. ריצה טיפוסית מאחורי FastAPI + Docker. אצלי רצים 10 crews ב-VPS (blog-he, marketing-team, yt-to-blog-he, research-crew ועוד) — אבל אצלך CrewAI יכול לייצר אוטומציות תוכן, research ops, code review מבוזר, ניתוח דאטה, תחקירי לקוחות, או כל משימה שדורשת יותר מ-prompt יחיד ל-LLM אחד.",
+  heroDescription: "CrewAI היא מסגרת Python פתוחה לתזמור מספר agents סביב משימה משותפת. כל agent מוגדר עם role, goal, tools ו-LLM עצמאי (למשל [Claude](/claude-code) או מודל מקומי דרך [Ollama](/guide/ollama)); ה-workflows מתוארים כ-`sequential`, `hierarchical` או `consensus`. ריצה טיפוסית מאחורי FastAPI + [Docker](/guide/docker). אצלי רצים 10 crews ב-VPS (blog-he, marketing-team, yt-to-blog-he, research-crew ועוד) — אבל אצלך CrewAI יכול לייצר אוטומציות תוכן, research ops, code review מבוזר, ניתוח דאטה, תחקירי לקוחות, או כל משימה שדורשת יותר מ-prompt יחיד ל-LLM אחד.",
   badgeText: "2026 · Multi-Agent Orchestration · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/crewai",
   heroBgImage: "/images/guides/guide-crewai-hero.jpg",

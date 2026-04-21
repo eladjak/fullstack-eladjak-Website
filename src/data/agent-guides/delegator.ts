@@ -24,7 +24,7 @@ export const delegatorGuide: AgentGuideData = {
   agentNameHe: "שער API מרכזי לכל רשת",
   logoImage: "/images/guide-logos/delegator-logo.png",
   tagline: "שער אחד, 100+ endpoints, כל הרשת מאחור",
-  heroDescription: "Delegator הוא HTTP router מבוסס Node/TypeScript שרץ על port 3900 ב-VPS. מרכז 100+ endpoints: email (Resend), SMS (Twilio), calendar (Hebcal + Google), drive, research (Perplexity/Gemini), content-studio, landing-pages, campaigns, pipeline orchestration ו-auto-routing. Auth: API key + JWT, logging ב-Qdrant. אצלי הוא מרכז את כל 10 הסוכנים מאחורי שער אחד — אצלך הוא יכול להחליף Zapier/Make ולשמש API gateway לכל ארכיטקטורת multi-agent, בלי לפזר credentials ב-5 קבצי .env.",
+  heroDescription: "Delegator הוא HTTP router מבוסס Node/TypeScript שרץ על port 3900 ב-VPS. מרכז 100+ endpoints: email (Resend), SMS (Twilio), calendar (Hebcal + Google), drive, research (Perplexity/Gemini), content-studio, landing-pages, campaigns, pipeline orchestration ו-auto-routing. Auth: API key + JWT, logging ב-[Qdrant](/guide/qdrant). אצלי הוא מרכז את כל 10 הסוכנים מאחורי שער אחד — אצלך הוא יכול להחליף Zapier/Make ולשמש API gateway לכל ארכיטקטורת multi-agent, בלי לפזר credentials ב-5 קבצי .env.",
   badgeText: "2026 · Central API Router · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/delegator",
   heroBgImage: "/images/guides/guide-delegator-hero.jpg",
