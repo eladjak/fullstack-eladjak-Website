@@ -1,14 +1,12 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Calendar, Clock, User } from 'lucide-react';
-import { TagBadge } from '@/components/ui/tag-badge';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
 import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug } from '@/lib/mdx';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
-import { BlogPostBackLink, BlogPostFooter, BlogPostReadingTime } from '@/components/blog/blog-post-nav';
+import { BlogPostBackLink, BlogPostFooter } from '@/components/blog/blog-post-nav';
 import { RelatedPosts } from '@/components/blog/related-posts';
 import { ReadingProgressBar } from '@/components/blog/reading-progress';
-import { SocialShare } from '@/components/blog/social-share';
+import { BlogPostLocalizedHeader } from '@/components/blog/blog-post-localized-header';
 import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
@@ -101,52 +99,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Back Link (i18n) */}
         <BlogPostBackLink />
 
-        {/* Header */}
-        <header className="mb-8 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight text-glow">
-            {post.frontmatter.title}
-          </h1>
-
-          {post.frontmatter.description && (
-            <p className="text-xl text-foreground/80">
-              {post.frontmatter.description}
-            </p>
-          )}
-
-          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-            {/* Author */}
-            <div className="flex items-center gap-2">
-              <User className="h-4 w-4" />
-              <span>{post.frontmatter.author || "Elad Ya'akobovitch"}</span>
-            </div>
-
-            {/* Date */}
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <time dateTime={post.frontmatter.date}>
-                {new Date(post.frontmatter.date).toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </time>
-            </div>
-
-            {/* Reading Time (i18n) */}
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4" />
-              <BlogPostReadingTime minutes={post.readingTime} />
-            </div>
-          </div>
-
-          {/* Tags */}
-          {post.frontmatter.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.frontmatter.tags.map((tag) => (
-                <TagBadge key={tag} tag={tag} variant="default" showIcon={true} />
-              ))}
-            </div>
-          )}
-
-          {/* Social Share */}
-          <SocialShare url={`${siteUrl}/blog/${slug}`} title={post.frontmatter.title} />
-        </header>
+        {/* Header (locale-aware) */}
+        <BlogPostLocalizedHeader
+          frontmatter={post.frontmatter}
+          shareUrl={`${siteUrl}/blog/${slug}`}
+          readingTime={post.readingTime}
+        />
 
         {/* Featured Image */}
         {post.frontmatter.featured_image && (

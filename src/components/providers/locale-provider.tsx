@@ -1,19 +1,23 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { type Locale, defaultLocale, messages, getDirection } from '@/i18n';
+import { getLocaleFromPath, toggleLocaleInPath, hasEnglishRoute, stripLocalePrefix } from '@/lib/locale-path';
 
 interface LocaleContextValue {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   direction: 'rtl' | 'ltr';
+  canSwitchToEnglish: boolean;
 }
 
 const LocaleContext = createContext<LocaleContextValue>({
   locale: defaultLocale,
   setLocale: () => {},
   direction: 'rtl',
+  canSwitchToEnglish: false,
 });
 
 export function useLocale() {
@@ -23,38 +27,61 @@ export function useLocale() {
 const STORAGE_KEY = 'portfolio-locale';
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const pathLocale = pathname ? getLocaleFromPath(pathname) : null;
+  const strippedPath = pathname ? stripLocalePrefix(pathname) : '/';
+  const canSwitchToEnglish = hasEnglishRoute(strippedPath);
+
+  const [storageLocale, setStorageLocale] = useState<Locale>(defaultLocale);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
-    if (stored && (stored === 'he' || stored === 'en')) {
-      setLocaleState(stored);
+    if (stored === 'he' || stored === 'en') {
+      setStorageLocale(stored);
     }
     setMounted(true);
   }, []);
 
-  const setLocale = useCallback((newLocale: Locale) => {
-    setLocaleState(newLocale);
-    localStorage.setItem(STORAGE_KEY, newLocale);
-    const dir = getDirection(newLocale);
-    document.documentElement.lang = newLocale;
-    document.documentElement.dir = dir;
-  }, []);
+  const locale: Locale = pathLocale ?? storageLocale;
 
-  // Apply direction on mount and locale change
+  const setLocale = useCallback(
+    (newLocale: Locale) => {
+      setStorageLocale(newLocale);
+      try {
+        localStorage.setItem(STORAGE_KEY, newLocale);
+      } catch {
+        // localStorage unavailable (SSR, private mode) — path still drives locale
+      }
+
+      if (pathname) {
+        const target = toggleLocaleInPath(pathname, newLocale);
+        if (target !== pathname) {
+          router.push(target);
+        }
+      }
+    },
+    [pathname, router]
+  );
+
   useEffect(() => {
-    if (mounted) {
-      const dir = getDirection(locale);
-      document.documentElement.lang = locale;
-      document.documentElement.dir = dir;
-    }
+    if (!mounted) return;
+    const dir = getDirection(locale);
+    document.documentElement.lang = locale;
+    document.documentElement.dir = dir;
   }, [locale, mounted]);
 
   const direction = getDirection(locale);
 
+  const contextValue = useMemo<LocaleContextValue>(
+    () => ({ locale, setLocale, direction, canSwitchToEnglish }),
+    [locale, setLocale, direction, canSwitchToEnglish]
+  );
+
   return (
-    <LocaleContext.Provider value={{ locale, setLocale, direction }}>
+    <LocaleContext.Provider value={contextValue}>
       <NextIntlClientProvider
         locale={locale}
         messages={messages[locale]}
