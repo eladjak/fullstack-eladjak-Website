@@ -274,7 +274,12 @@ html, body {
 function sceneIntro(guide, iconDataUri) {
   // Intro: center the logo + compact title. Scale down title when the name is long.
   const name = guide.agentNameHe || guide.agentName;
-  const titleSize = name.length > 18 ? 104 : name.length > 12 ? 128 : 152;
+  const titleSize =
+    name.length > 20 ? 96 :
+    name.length > 16 ? 112 :
+    name.length > 12 ? 128 :
+    name.length > 9 ? 144 :
+    156;
   return `
 <div class="scene">
   <div class="glow-right"></div>
@@ -457,7 +462,7 @@ async function render(slug, { skipTts = false } = {}) {
   //  - concatenates with 0.5s crossfade between scenes
   const sceneCount = sceneImages.length;
   const sceneDur = duration / sceneCount;
-  const fadeDur = 0.5;
+  const fadeDur = 0.7;
 
   // Build per-scene zoompan + scale segment.
   const inputs = sceneImages.flatMap((p) => ["-loop", "1", "-t", sceneDur.toFixed(3), "-i", p]);
@@ -466,7 +471,7 @@ async function render(slug, { skipTts = false } = {}) {
     const totalF = Math.round(sceneDur * FPS);
     // Scale 1.00→1.06 over the scene; minor left pan to feel alive.
     return `[${i}:v]scale=${WIDTH * 2}:${HEIGHT * 2}:flags=lanczos,` +
-      `zoompan=z='min(zoom+0.00045,1.06)':d=${totalF}:x='iw/2-(iw/zoom/2)-(on*0.3)':y='ih/2-(ih/zoom/2)':s=${WIDTH}x${HEIGHT}:fps=${FPS}[v${i}]`;
+      `zoompan=z='min(zoom+0.00060,1.08)':d=${totalF}:x='iw/2-(iw/zoom/2)-(on*0.35)':y='ih/2-(ih/zoom/2)':s=${WIDTH}x${HEIGHT}:fps=${FPS}[v${i}]`;
   });
   // Chain xfade transitions between consecutive scenes.
   let xfadeChain = "";
