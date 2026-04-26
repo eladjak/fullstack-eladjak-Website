@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { ChevronLeft, Sparkles, Bot, Server, Zap } from "lucide-react";
 import { allGuides } from "@/data/agent-guides";
 
@@ -84,8 +85,78 @@ export default function GuideIndex() {
   const agentGuides = allGuides.filter((g) => (g.category ?? "agent") === "agent");
   const infraGuides = allGuides.filter((g) => g.category === "infra");
 
+  // JSON-LD: CollectionPage wrapping an ItemList of all 14 guides as
+  // LearningResource entries. This helps AI search engines (ChatGPT,
+  // Perplexity, Claude, Gemini) and Google AI Overviews understand the
+  // index page as a curated collection of educational Hebrew resources.
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": GUIDE_INDEX_URL,
+    url: GUIDE_INDEX_URL,
+    name: "מדריכי סוכני AI + תשתית בעברית",
+    description:
+      "14 מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: סוכנים (Claude Code, Kami, Kaylee, Box, Hermes, Delegator, Adopter, Dashboard, CrewAI) ותשתית (Qdrant, Docker, Ollama, n8n, Aider).",
+    inLanguage: "he-IL",
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": SITE_URL,
+      name: "אלעד יעקובוביץ' - תיק עבודות",
+      url: SITE_URL,
+    },
+    author: {
+      "@type": "Person",
+      name: "Elad Yaakobovitch",
+      url: SITE_URL,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      name: "14 מדריכי סוכני AI ותשתית",
+      numberOfItems: allGuides.length,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: allGuides.map((guide, index) => {
+        const guideUrl =
+          guide.slug === "claude-code"
+            ? `${SITE_URL}/claude-code`
+            : `${SITE_URL}/guide/${guide.slug}`;
+        return {
+          "@type": "ListItem",
+          position: index + 1,
+          url: guideUrl,
+          item: {
+            "@type": "LearningResource",
+            "@id": guideUrl,
+            name: `המדריך המלא ל-${guide.agentNameHe}`,
+            url: guideUrl,
+            description: guide.tagline,
+            inLanguage: "he-IL",
+            learningResourceType:
+              guide.category === "infra"
+                ? "Infrastructure Guide"
+                : "AI Agent Guide",
+            educationalLevel: "Beginner to Advanced",
+            author: {
+              "@type": "Person",
+              name: "Elad Yaakobovitch",
+            },
+            about: {
+              "@type": "Thing",
+              name: guide.agentName,
+            },
+          },
+        };
+      }),
+    },
+  };
+
   return (
     <main className="min-h-dvh bg-background" dir="rtl">
+      <Script
+        id="jsonld-guide-collection"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative py-20 sm:py-28 overflow-hidden">
         {/* Decorative background */}
@@ -150,20 +221,30 @@ export default function GuideIndex() {
         </div>
       </section>
 
-      {/* Infrastructure */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
-        <div className="mb-8 mt-4 flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shrink-0">
-            <Server className="size-5 text-white" />
-          </div>
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-heebo">
-              תשתית ורכיבי בסיס
-            </h2>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              הכלים שמאפשרים לרשת לעבוד — containers, LLMs מקומיים, אוטומציות,
-              ו-CLI משלים
-            </p>
+      {/* Build your server */}
+      <section
+        id="build-your-server"
+        className="max-w-6xl mx-auto px-4 sm:px-6 pb-20"
+      >
+        <div className="mb-8 mt-4 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/[0.04] via-transparent to-cyan-500/[0.04] p-5 sm:p-6">
+          <div className="flex items-start gap-3">
+            <div className="size-11 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
+              <Server className="size-5 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-heebo">
+                  בנה את השרת שלך
+                </h2>
+                <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                  {infraGuides.length} כלי ליבה
+                </span>
+              </div>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">
+                כלי הליבה שאני בונה איתם את השרת האישי שלי. כל אחד מהם רץ אצלי
+                על Hetzner VPS ומשרת את 13 הסוכנים.
+              </p>
+            </div>
           </div>
         </div>
 

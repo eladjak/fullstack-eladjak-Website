@@ -22,6 +22,11 @@ interface MDXPostSerialized {
     tags: string[];
     featured_image?: string;
     author?: string;
+    /**
+     * Optional locale restriction. When set, post shows only on matching locale's
+     * blog index. When omitted, post is bilingual (visible in both `he` and `en`).
+     */
+    locale?: 'he' | 'en';
   };
   readingTime: number;
 }
@@ -45,13 +50,38 @@ export default function BlogPage() {
       });
   }, []);
 
+  // Locale filter: keep posts that either match the current locale OR have no
+  // locale field (bilingual posts default to visible in both languages).
+  const localeFilteredPosts = posts.filter(
+    post => !post.frontmatter.locale || post.frontmatter.locale === locale
+  );
+
   const allTags = Array.from(
-    new Set(posts.flatMap(post => post.frontmatter.tags))
+    new Set(localeFilteredPosts.flatMap(post => post.frontmatter.tags))
   ).sort();
 
   const filteredPosts = selectedTag
-    ? posts.filter(post => post.frontmatter.tags.includes(selectedTag))
-    : posts;
+    ? localeFilteredPosts.filter(post => post.frontmatter.tags.includes(selectedTag))
+    : localeFilteredPosts;
+
+  // Detect duplicate featured_image values across the rendered list.
+  // The first post to use an image keeps it; subsequent posts using the same
+  // image render a gradient placeholder instead.
+  const seenImages = new Set<string>();
+  const imageUsage = new Map<string, boolean>(); // slug -> useImage?
+  for (const post of filteredPosts) {
+    const img = post.frontmatter.featured_image;
+    if (!img) {
+      imageUsage.set(post.slug, false);
+      continue;
+    }
+    if (seenImages.has(img)) {
+      imageUsage.set(post.slug, false);
+    } else {
+      seenImages.add(img);
+      imageUsage.set(post.slug, true);
+    }
+  }
 
   const getTitle = (post: MDXPostSerialized) =>
     locale === 'he' && post.frontmatter.titleHe
@@ -126,8 +156,9 @@ export default function BlogPage() {
               transition={{ duration: 0.2, delay: index * 0.05 }}
             >
               <Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:translate-y-[-4px] hover:border-primary/20 h-full flex flex-col">
-                {/* Featured Image */}
-                {post.frontmatter.featured_image && (
+                {/* Featured Image — render real image only when not a duplicate.
+                    Duplicates and missing images fall back to a gradient placeholder. */}
+                {imageUsage.get(post.slug) && post.frontmatter.featured_image ? (
                   <div className="relative w-full aspect-video overflow-hidden">
                     <Image
                       src={post.frontmatter.featured_image}
@@ -137,6 +168,13 @@ export default function BlogPage() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       loading="lazy"
                     />
+                  </div>
+                ) : (
+                  <div
+                    className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-primary/30 via-primary/10 to-secondary/20 flex items-center justify-center"
+                    aria-hidden="true"
+                  >
+                    <Tag className="h-10 w-10 text-primary/40" />
                   </div>
                 )}
                 <CardHeader>

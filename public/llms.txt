@@ -1,0 +1,29 @@
+# Elad Yaakobovitch — Full-Stack Developer + AI Network Operator
+
+> Hebrew/English bilingual site of Elad Yaakobovitch — a full-stack dev who builds and operates a 13-agent AI microservice network on a self-hosted VPS.
+
+## Core pages
+- [About](https://fullstack-eladjak.co.il/about): Background, philosophy, AI workflow
+- [Services](https://fullstack-eladjak.co.il/services): 5 core services with pricing
+- [Projects](https://fullstack-eladjak.co.il/projects): Showcase of full-stack and AI projects
+- [Contact](https://fullstack-eladjak.co.il/contact): WhatsApp, email, contact form
+
+## Agent guides (Hebrew, original work)
+- [Claude Code](https://fullstack-eladjak.co.il/guide/claude-code): Anthropic's terminal coding agent
+- [Kami](https://fullstack-eladjak.co.il/guide/kami): WhatsApp-based personal AI agent
+- [Kaylee](https://fullstack-eladjak.co.il/guide/kaylee): Telegram-based work agent on OpenClaw
+- [Box](https://fullstack-eladjak.co.il/guide/box): Personal coach agent (nutrition, fitness, mind)
+- [Hermes](https://fullstack-eladjak.co.il/guide/hermes): Multi-agent orchestration CLI
+- [Delegator](https://fullstack-eladjak.co.il/guide/delegator): Single-entry agent router (port 3900)
+- [Adopter](https://fullstack-eladjak.co.il/guide/adopter): Autonomous content discovery + integration
+- [Dashboard](https://fullstack-eladjak.co.il/guide/dashboard): 12-tab control center for the network
+- [CrewAI](https://fullstack-eladjak.co.il/guide/crewai): Multi-agent crews framework
+- [Qdrant](https://fullstack-eladjak.co.il/guide/qdrant): Vector database for agent memory
+- [Docker](https://fullstack-eladjak.co.il/guide/docker): Containerization for self-hosted services
+- [Ollama](https://fullstack-eladjak.co.il/guide/ollama): Local LLM runtime
+- [n8n](https://fullstack-eladjak.co.il/guide/n8n): Visual workflow automation
+- [Aider](https://fullstack-eladjak.co.il/guide/aider): Pair-programming AI in the terminal
+
+## Optional
+- [Blog](https://fullstack-eladjak.co.il/blog): Articles on AI, full-stack dev, agent architectures
+- [English version](https://fullstack-eladjak.co.il/en/claude-code): Selected guides in English

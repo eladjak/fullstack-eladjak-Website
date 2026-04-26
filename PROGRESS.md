@@ -1,7 +1,35 @@
 # Full-Stack Portfolio Website - Progress
 
 ## Status: active
-## Last Updated: 2026-04-10
+## Last Updated: 2026-04-27
+
+## Session 2026-04-27 — AIO + Skills Universe + Hyperframes + Build-Server
+
+### Shipped (4 parallel agents)
+1. **AIO bundle** — `public/llms.txt` (llmstxt.org spec) + `public/ai.txt` + `robots.ts` rewrite (20 explicit AI crawler allows: GPTBot, ChatGPT-User, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended, Applebot-Extended, cohere-ai, anthropic-ai, CCBot, OAI-SearchBot, Perplexity-User, GoogleOther, Applebot, Bytespider, FacebookBot, Meta-ExternalAgent, Amazonbot, DuckAssistBot, YouBot) + JSON-LD CollectionPage + ItemList of all 14 guides on /guide.
+2. **Blog fixes** — opt-in `locale: 'he' | 'en'` frontmatter on MDXFrontmatter + `localeFilteredPosts` in /blog page + defensive runtime image-dedup map (gradient fallback if same featured_image used twice). Found: 2 posts use /projects/ screenshots instead of dedicated blog images (need Gemini regen later).
+3. **Skills Universe** — `/skills-universe` 3D page. 38 skills × 6 categories (frontend/backend/AI/devops/lang/tools), Fibonacci-sphere layout, OrbitControls auto-rotate, Stars background, hover tooltips, click → side panel, respects prefers-reduced-motion. Uses three + @react-three/fiber + @react-three/drei (lazy-loaded, ~150KB on that route only). Added to sitemap.
+4. **Build-Server + Hyperframes video** — `/guide` page reframed infra section as "🛠️ בנה את השרת שלך" with anchor + explanatory copy + count badge. Added `category: "infra"` to qdrant.ts (only one missing). Created `GuideVideo` component (HTML5 video, aspect-video, RTL aria-label) wired into AgentGuide.tsx. All 14 guides have populated `videoUrl` + matching mp4s in `public/videos/guides/`.
+
+### Verified end-to-end
+- `npx tsc --noEmit` → exit 0 across all 4 changes integrated
+- Dev server (Next 16.2.1 Turbopack) ready in 637ms
+- HTTP: /llms.txt 200, /ai.txt 200, /robots.txt 200, /guide 200, /skills-universe 200, /blog 200
+- Browser: Skills Universe loads (39 skills counted across 6 categories), 3D canvas mounts dynamically, Hebrew title + legend render correctly
+- HTML grep confirms: video tag with `src="/videos/guides/kami.mp4"` + `aria-label="וידאו הסבר על עוזר AI בוואטסאפ"` + `id="build-your-server"` anchor
+
+### Pre-existing benign warnings
+- next-themes hydration mismatch on `<html>` className/color-scheme — not from this session, not our code
+- Chrome extension noise about message-channel — irrelevant
+
+### Open follow-ups (deferred to next portfolio session)
+- Gemini-generate dedicated blog images for `building-ai-agent-network` + `claude-code-productivity-tips` (currently reuse /projects/* screenshots)
+- Add /skills-universe link to top navigation when ready to surface
+- Phase 2 Deep i18n (branch: i18n-phase-2)
+- Navigation v2 (sticky bar + chevrons + dropdown)
+- English i18n integration for /en/guide routes
+
+## Last Updated (legacy): 2026-04-10
 
 ## Current State
 Demo project sprint completed. 3/5 projects LIVE and working (Crypto Tracker, Team Meetings, Hebrew Calendar). CRM auto-deploy from GitHub connected. VV needs babel dependency fix. Deep bugs fixed: TM blank page (wrong import), HC blank page (4 cascading bugs: missing ThemeProvider, Fade ref crash, infinite render loop, HDate rendering). Disk space critical (454GB drive, 1.7GB free - cleaned external node_modules).

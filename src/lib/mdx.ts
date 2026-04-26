@@ -15,6 +15,12 @@ export interface MDXFrontmatter {
   featured_image?: string;
   author?: string;
   published?: boolean;
+  /**
+   * Optional locale restriction. When set, the post is shown only on the matching
+   * locale's blog index. When omitted, the post is treated as bilingual (visible
+   * on both `he` and `en` indexes) — Hebrew is the primary language by default.
+   */
+  locale?: 'he' | 'en';
 }
 
 export interface MDXPost {

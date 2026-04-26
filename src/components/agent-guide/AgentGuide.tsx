@@ -18,6 +18,7 @@ import type { AgentGuideData, Difficulty } from "./types";
 import { allGuides } from "@/data/agent-guides";
 import { allGuidesEn } from "@/data/agent-guides/en";
 import { SeoJsonLd } from "./SeoJsonLd";
+import { GuideVideo } from "./GuideVideo";
 
 type Locale = "he" | "en";
 
@@ -512,30 +513,13 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
 
       {/* VIDEO (optional) */}
       {guide.videoUrl && (
-        <section className="relative py-10 sm:py-14 overflow-hidden">
-          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5 }}
-              className="rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/10 bg-card/60 backdrop-blur-sm"
-            >
-              <video
-                className="w-full h-auto block"
-                controls
-                preload="metadata"
-                poster={guide.videoPoster || guide.heroBgImage}
-                playsInline
-              >
-                <source src={guide.videoUrl} type="video/mp4" />
-                {locale === "he"
-                  ? "הדפדפן שלך לא תומך בנגן וידאו."
-                  : "Your browser does not support the video tag."}
-              </video>
-            </motion.div>
-          </div>
-        </section>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <GuideVideo
+            src={guide.videoUrl}
+            title={locale === "he" ? guide.agentNameHe : guide.agentName}
+            poster={guide.videoPoster || guide.heroBgImage}
+          />
+        </div>
       )}
 
       {/* PARADIGM SHIFT */}
