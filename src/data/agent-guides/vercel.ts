@@ -22,6 +22,8 @@ export const vercelGuide: AgentGuideData = {
   agentNameHe: "Vercel — פלטפורמה לדפלוי Next.js בדקה וחצי",
   category: "infra",
   brandIconSlug: "vercel",
+  brandIconColor: "FFFFFF",
+  heroBgImage: "/images/guides/guide-vercel-hero.jpg",
   tagline: "git push → אתר חי. CDN גלובלי, SSL אוטומטי, preview deployments. החינמי נדיב.",
   heroDescription:
     "Vercel היא הפלטפורמה החזקה ביותר ב-2026 ל-deploy של אתרי Next.js — לא מקרה, היא נבנתה על ידי האנשים שיוצרים את Next.js עצמו. אבל היא תומכת גם ב-React, Vue, Svelte, Astro, ו-static sites. הקונספט שלה גאוני בפשטות שלו: אתם מחברים את ה-GitHub repo, וכל push ל-main אוטומטית בונה ופורס לדומיין שלכם — תוך 90 שניות. כל PR מקבל preview deployment עם URL ייחודי, כך שאפשר להראות ללקוחות גרסאות לפני merge. CDN גלובלי, SSL חינמי, אנליטיקס מובנה, ואפס שרתים לתחזוקה. אצלי (אלעד) האתר הזה (fullstack-eladjak.co.il) רץ על Vercel מאז 2023, יחד עם 5+ landing pages ופרויקטים נוספים. החינמי נדיב מאוד (100GB bandwidth, builds ללא הגבלה, deploys ללא הגבלה) — מספיק לרוב פרויקטים אישיים ופרילנסרים. השלב הבא (Pro $20/חודש) פותח features מתקדמות (אנליטיקס מורחב, קבוצות, password protection ל-previews). היתרון הגדול: אתם לא מתעסקים ב-VPS, ב-nginx, ב-SSL, או ב-deploy scripts. אתם רק כותבים קוד — Vercel דואג לכל השאר. החיסרון: vendor lock וקשר עם הפלטפורמה. אבל לפרויקטים פרונט-end טהורים, הפשטות שווה את זה.",

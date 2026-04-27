@@ -23,6 +23,7 @@ export const ufwGuide: AgentGuideData = {
   agentNameHe: "UFW — חומת אש פשוטה ל-Ubuntu בפקודה אחת",
   category: "infra",
   brandIconSlug: "",
+  heroBgImage: "/images/guides/guide-ufw-hero.jpg",
   tagline: "Uncomplicated Firewall — שלוש פקודות בין שרת חשוף לשרת מוגן",
   heroDescription:
     "UFW (ראשי תיבות של Uncomplicated Firewall — חומת אש לא מסובכת) זה כלי command-line ל-Ubuntu שעוטף את iptables של לינוקס בסינטקס פשוט וברור. iptables עצמו הוא הכלי הסטנדרטי לחומת אש בלינוקס מאז שנות ה-2000 — חזק מאוד, אבל מורכב להחריד (פקודות עם 6 פרמטרים, chains ו-tables וpolicies). UFW לוקח את כל הכוח הזה ומציע ממשק שאפשר ללמוד ב-5 דקות: 'תרשה SSH', 'תחסום הכל אחר', 'תפעיל'. זה בדיוק מה שצריך לרוב הליסעריםם של VPS אישי. אצלי (אלעד) על Hetzner UFW הוא הקו הראשון של ההגנה: הוא חוסם הכל מלבד SSH (22), HTTP (80, ל-Let's Encrypt), ו-HTTPS (443). כל ה-13 הסוכנים שרצים על פורטים פנימיים 3700-3900 לא נגישים מהאינטרנט בכלל — UFW פשוט מתעלם מבקשות אליהם. זה משלים את Cloudflare Tunnel באופן מושלם: אם משהו ב-Tunnel נשבר ויש פתאום פורט פתוח — UFW עדיין חוסם. שתי שכבות הגנה במקום אחת. המדריך הזה יראה לכם את 5 הפקודות שתשתמשו בהן ב-100% מהזמן ואת ההגדרות הנפוצות שכל VPS בייצור צריך.",

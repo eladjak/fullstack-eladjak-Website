@@ -22,6 +22,8 @@ export const githubActionsGuideEn: AgentGuideData = {
   agentNameHe: "GitHub Actions — CI/CD Built Into Your Repo",
   category: "infra",
   brandIconSlug: "github",
+  brandIconColor: "2088FF",
+  heroBgImage: "/images/guides/guide-github-actions-hero.jpg",
   tagline: "every push runs tests, builds and deploys — without a separate CI server, free for open source",
   heroDescription:
     "GitHub Actions is a CI/CD (continuous integration / continuous deployment) system built directly into GitHub. CI/CD is the name for the automation that, every time you push code, runs tests, builds the application, and if everything is green — deploys it to production. Once upon a time, building such a pipeline required a separate CI server (Jenkins, TeamCity), hours of setup, and ongoing maintenance. With GitHub Actions, it's a single YAML file inside the repo (`.github/workflows/`) and GitHub itself runs everything on their servers — free for open source projects, and with 2,000 free minutes per month for private projects. For me (Elad), GitHub Actions builds this site (Next.js) every time something is pushed to main, deploys it automatically to Vercel, runs TypeScript checks, and verifies that no secrets accidentally leaked into the code. I also have actions that run daily tasks (cron triggers), open PRs automatically when dependencies are out of date (Dependabot) — all without a single server of mine. It's the tool that makes the difference between 'I'm just hacking alone' and 'I have a professional process'.",

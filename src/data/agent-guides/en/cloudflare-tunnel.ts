@@ -23,6 +23,8 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
   agentNameHe: "Cloudflare Tunnel — Expose a Service Without Opening a Port",
   category: "infra",
   brandIconSlug: "cloudflare",
+  brandIconColor: "F38020",
+  heroBgImage: "/images/guides/guide-cloudflare-tunnel-hero.jpg",
   tagline: "the tunnel your VPS opens to Cloudflare — and gets a public domain without a single open port",
   heroDescription:
     "Cloudflare Tunnel (formerly known as Argo Tunnel, today simply 'Tunnel') is a fully free Cloudflare service that solves one of the biggest problems of a personal VPS: how to expose a service to the world without opening any ports, without worrying about DDoS, and without buying a static IP. The idea is brilliantly simple — instead of the internet connecting to your server, your server reaches out and creates a 'tunnel' to Cloudflare. All requests for your domain hit Cloudflare (which has a CDN of 300+ datacenters), and Cloudflare passes them through the tunnel to your server. The result: port 443 on your server stays hermetically sealed, but users get a working site with HTTPS, CDN, and DDoS protection — for free. For me (Elad), the domain `hub.eladjak.com` points in DNS to Cloudflare, and a small daemon called `cloudflared` running on my Hetzner VPS manages the tunnel. Every request to `hub.eladjak.com` goes through Cloudflare, enters via the tunnel, and reaches an internal nginx on port 80 — without any port being open on the server to the outside world. It is a paradigm shift: you've moved from 'how do I secure an open port' to 'there is no open port'.",

@@ -22,6 +22,8 @@ export const postgresGuideEn: AgentGuideData = {
   agentNameHe: "PostgreSQL — The Database You'll Pick For Years",
   category: "infra",
   brandIconSlug: "postgresql",
+  brandIconColor: "4169E1",
+  heroBgImage: "/images/guides/guide-postgres-hero.jpg",
   tagline: "the relational database that holds your agent network state in production",
   heroDescription:
     "PostgreSQL (Postgres for short) is the most mature, most stable, most 'boringly reliable' open-source relational database — and that is exactly why it is the right pick for almost any project that needs to remember things in production. Unlike SQLite (perfect for development and local tools — a single file on disk), Postgres runs as a separate service that handles dozens of concurrent connections, complex transactions, and large data volumes without breaking a sweat. For me (Elad), Postgres on Hetzner VPS holds the state of all my agents: who talked to whom, what actions were decided, the status of every task, and who paid which invoice. In 2026 Postgres is no longer just a 'database' — with extensions like pgvector (semantic search, an alternative to [Qdrant](/en/guide/qdrant) for smaller workloads), TimescaleDB (time series), and PostGIS (maps and geography), it becomes a full platform. When you build a new product my recommendation is simple: start with SQLite, switch to Postgres the moment you have a second user. Even if you eventually move to DynamoDB or Firebase, the years you invest in learning Postgres will pay off in every project you ever touch.",

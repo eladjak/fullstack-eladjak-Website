@@ -23,6 +23,8 @@ export const cloudflareTunnelGuide: AgentGuideData = {
   agentNameHe: "Cloudflare Tunnel — לחשוף שירות בלי לפתוח פורט",
   category: "infra",
   brandIconSlug: "cloudflare",
+  brandIconColor: "F38020",
+  heroBgImage: "/images/guides/guide-cloudflare-tunnel-hero.jpg",
   tagline: "המנהרה ש-VPS שלכם פותח אל Cloudflare — ומקבל דומיין ציבורי בלי שום פורט פתוח",
   heroDescription:
     "Cloudflare Tunnel (היה ידוע בעבר כ-Argo Tunnel, היום פשוט 'Tunnel') הוא שירות חינמי לחלוטין של Cloudflare שפותר את אחת הבעיות הכי גדולות של VPS אישי: איך חושפים שירות לעולם בלי לפתוח פורטים, בלי לדאוג ל-DDoS, ובלי לקנות IP סטטי. האידיאה גאונית בפשטות שלה — במקום שהאינטרנט יתחבר לשרת שלכם, השרת שלכם יוצא ויוצר 'מנהרה' אל Cloudflare. כל הבקשות לדומיין שלכם מגיעות ל-Cloudflare (שיש להם רשת CDN של 300+ datacenters), ו-Cloudflare מעביר אותן דרך המנהרה לשרת. התוצאה: הפורט 443 על השרת שלכם נשאר סגור הרמטית, אבל המשתמשים מקבלים אתר תקין עם HTTPS, CDN, ו-DDoS protection — בחינם. אצלי (אלעד) דומיין `hub.eladjak.com` מצביע ב-DNS על Cloudflare, וטפ-דמון בשם `cloudflared` שרץ על ה-VPS שלי בHetzner מנהל את המנהרה. כל בקשה ל-`hub.eladjak.com` עוברת דרך Cloudflare, נכנסת דרך המנהרה, ומגיעה ל-nginx פנימי על פורט 80 — בלי שאף פורט בכלל פתוח על השרת לעולם החיצוני. זה שינוי פרדיגמה: עברתם מ-'איך לאבטח פורט פתוח' ל-'אין פורט פתוח'.",

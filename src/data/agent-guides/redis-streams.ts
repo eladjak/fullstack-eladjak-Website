@@ -22,6 +22,8 @@ export const redisStreamsGuide: AgentGuideData = {
   agentNameHe: "Redis Streams — לב התקשורת בין סוכנים",
   category: "infra",
   brandIconSlug: "redis",
+  brandIconColor: "DC382D",
+  heroBgImage: "/images/guides/guide-redis-streams-hero.jpg",
   tagline: "message bus קל-משקל שמחבר 13 סוכנים בלי Kafka, RabbitMQ, או SQS",
   heroDescription:
     "Redis Streams זו תכונה של Redis (החל מגרסה 5.0, 2018) שהופכת אותו ל-message broker קליל מאוד — תקשורת אסינכרונית בין שירותים, בלי הסיבוך של Kafka או RabbitMQ. Redis עצמו זה מאגר key-value בזיכרון שרץ במאות אלפי VPS ברחבי העולם — מהיר במיוחד (פעולות במיקרושנניות), פשוט להגדרה, וזולל מינימום משאבים. Streams הוסיפו לו את היכולת להחזיק תורים מתמשכים של הודעות עם consumer groups (קבוצות צרכנים שמתחלקות בעבודה), acknowledgments (אישור שהודעה טופלה), ו-replay (יכולת לחזור להודעות ישנות). אצלי (אלעד) Redis Streams זה ה'עצב המרכזי' של רשת ה-13 הסוכנים שלי על Hetzner: כשמסר WhatsApp מגיע ל-Kami, הוא לא מטפל בו לבד — הוא דוחף הודעה ל-stream, וצרכנים שונים (Box לתזונה, Adopter לתוכן, Hermes לזמנים) קוראים ומגיבים. אם סוכן אחד נופל, ההודעות מחכות ב-stream עד שהוא חוזר. אם רוצים סוכן חדש שמאזין לאותם events — מוסיפים אותו לcategoria consumer ב-30 שניות. מאז המעבר ל-Redis Streams (לפני שנתיים, Q2 2024), המערכת שלי הרבה יותר יציבה: כל סוכן עובד לבד, וההיגיון 'מי מקשיב למה' מנוהל ב-Redis במקום ב-API calls ישירים.",

@@ -342,10 +342,14 @@ async function main() {
   console.log(`Found ${skillEntries.length} skills, ${commandEntries.length} commands`);
 
   if (skillEntries.length === 0 && commandEntries.length === 0) {
-    console.error('FATAL: zero entries discovered. Paths tried:');
-    console.error(`  skills:   ${SKILLS_DIR}`);
-    console.error(`  commands: ${COMMANDS_DIR}`);
-    process.exit(1);
+    // CI environments (Vercel, GitHub Actions) don't have ~/.claude/skills.
+    // The committed src/data/skills-universe-generated.ts already has the
+    // last-known-good list — keep it and exit cleanly so the build proceeds.
+    console.warn('No entries found. Paths tried:');
+    console.warn(`  skills:   ${SKILLS_DIR}`);
+    console.warn(`  commands: ${COMMANDS_DIR}`);
+    console.warn('Preserving existing src/data/skills-universe-generated.ts (CI-safe exit).');
+    process.exit(0);
   }
 
   const all = [...skillEntries, ...commandEntries];

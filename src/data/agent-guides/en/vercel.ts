@@ -22,6 +22,8 @@ export const vercelGuideEn: AgentGuideData = {
   agentNameHe: "Vercel — Deploy Next.js In 90 Seconds",
   category: "infra",
   brandIconSlug: "vercel",
+  brandIconColor: "FFFFFF",
+  heroBgImage: "/images/guides/guide-vercel-hero.jpg",
   tagline: "git push → live site. Global CDN, automatic SSL, preview deployments. Generous free tier.",
   heroDescription:
     "Vercel is the most powerful platform in 2026 for deploying Next.js sites — no accident, it was built by the people who create Next.js itself. But it also supports React, Vue, Svelte, Astro, and static sites. Its concept is brilliantly simple: you connect a GitHub repo, and every push to main automatically builds and deploys to your domain — within 90 seconds. Every PR gets a preview deployment with a unique URL, so you can show clients versions before merge. Global CDN, free SSL, built-in analytics, and zero servers to maintain. For me (Elad), this site (fullstack-eladjak.co.il) has been on Vercel since 2023, alongside 5+ landing pages and other projects. The free tier is very generous (100GB bandwidth, unlimited builds, unlimited deploys) — enough for most personal projects and freelancers. The next tier (Pro $20/month) unlocks more advanced features (extended analytics, teams, password protection for previews). The big upside: you don't deal with a VPS, with nginx, with SSL, or with deploy scripts. You just write code — Vercel handles the rest. The downside: vendor lock and platform tie-in. But for pure frontend projects, the simplicity is worth it.",

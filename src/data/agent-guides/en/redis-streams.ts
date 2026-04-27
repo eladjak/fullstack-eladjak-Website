@@ -22,6 +22,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
   agentNameHe: "Redis Streams — The Heart Of Inter-Agent Communication",
   category: "infra",
   brandIconSlug: "redis",
+  brandIconColor: "DC382D",
+  heroBgImage: "/images/guides/guide-redis-streams-hero.jpg",
   tagline: "lightweight message bus connecting 13 agents without Kafka, RabbitMQ, or SQS",
   heroDescription:
     "Redis Streams is a Redis feature (since version 5.0, 2018) that turns it into a lightweight message broker — async communication between services, without the complexity of Kafka or RabbitMQ. Redis itself is an in-memory key-value store running on hundreds of thousands of VPSes around the world — extremely fast (microsecond operations), easy to set up, and minimal resource usage. Streams added to it the ability to hold persistent message queues with consumer groups (groups of consumers that share work), acknowledgments (confirming a message was handled), and replay (the ability to go back to old messages). For me (Elad), Redis Streams is the 'central nervous system' of my 13-agent network on Hetzner: when a WhatsApp message hits Kami, it doesn't process it alone — it pushes a message to a stream, and various consumers (Box for nutrition, Adopter for content, Hermes for scheduling) read and react. If one agent goes down, messages wait in the stream until it returns. If we want a new agent listening to those events — we add it to a consumer group in 30 seconds. Since moving to Redis Streams (two years ago, Q2 2024), my system has been much more stable: each agent works independently, and the 'who listens to what' logic is managed in Redis instead of through direct API calls.",

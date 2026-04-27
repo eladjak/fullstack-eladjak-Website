@@ -23,6 +23,7 @@ export const systemdGuide: AgentGuideData = {
   agentNameHe: "systemd — מנהל השירותים של לינוקס המודרני",
   category: "infra",
   brandIconSlug: "",
+  heroBgImage: "/images/guides/guide-systemd-hero.jpg",
   tagline: "איך להפוך כל סקריפט לשירות שעולה אוטומטית, מתחזק את עצמו, ומדבר לוגים — ב-25 שורות YAML",
   heroDescription:
     "systemd זה מנהל התהליכים והשירותים של רוב הפצות לינוקס המודרניות (Ubuntu, Debian, CentOS, Fedora, Arch — כולן). בלי systemd, כל פעם שאתם רוצים להריץ סקריפט שיעלה אוטומטית בכל boot, יקום מחדש אם הוא נפל, ויקבל זיכרון/CPU מוגבלים — אתם הייתם צריכים לכתוב הרבה קוד מלוכלך עם cron, screen, supervisord ו-init.d. עם systemd, כל זה זה קובץ טקסט קטן בסגנון INI עם 10-20 שורות, ופקודה אחת. אצלי (אלעד) על ה-Hetzner VPS systemd מנהל את כל ה-13 סוכני המיקרו-שירותים שלי: כל אחד הוא systemd unit נפרד, מתחיל אוטומטית, מתעד לוגים מרכזיים ב-journalctl, ומתחיל מחדש לבד אם הוא קורס. בנוסף systemd-timer מחליף לי את cron עם סינטקס יותר ברור והיסטוריית הפעלות, ו-systemd-resolved מטפל ב-DNS. זה לא הכלי הכי פופולרי בקרב חובבי 'Unix פילוסופיה' (יש מי שאוהב init scripts קלאסי), אבל המציאות היא שאם אתם בעולם לינוקס בייצור — אתם משתמשים ב-systemd. המדריך הזה יראה לכם את החלק שתשתמשו בו ב-90% מהזמן: יצירת service units, ניהול דרך systemctl, וקריאת לוגים ב-journalctl.",

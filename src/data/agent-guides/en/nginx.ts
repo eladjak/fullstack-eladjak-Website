@@ -23,6 +23,8 @@ export const nginxGuideEn: AgentGuideData = {
   agentNameHe: "Nginx — The Edge Server That Sorts All Traffic",
   category: "infra",
   brandIconSlug: "nginx",
+  brandIconColor: "009639",
+  heroBgImage: "/images/guides/guide-nginx-hero.jpg",
   tagline: "reverse proxy, SSL termination, and load balancing — everything that sits in front of your application",
   heroDescription:
     "Nginx (pronounced 'engine-x') is an open-source web server and reverse proxy that as of 2026 runs roughly a third of all websites in the world, and that is no accident. It is exceptionally fast (handles 10,000 concurrent connections on a small server), uses very little RAM (typically 50MB), and is rock-solid stable — for me (Elad), the same nginx process runs for months on end without ever needing a restart. Its classic role is 'reverse proxy': a server that sits at the edge of your VPS, receives every request from the internet, and decides which internal service to route each one to. On my Hetzner VPS, nginx receives every request hitting `fullstack-eladjak.co.il`, `hub.eladjak.com`, and a dozen subdomains — and routes each one to the right Docker container among 13 agents running on internal ports 3700-3900. It also handles SSL/HTTPS (the certificates themselves are free from Let's Encrypt), compresses responses, and serves static files faster than any application server. Popular alternatives (Caddy, Traefik) are easier to configure, but nginx remains the standard because it is everywhere and the documentation is enormous. If you build a serious server — get to know it.",

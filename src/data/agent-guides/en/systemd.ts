@@ -23,6 +23,7 @@ export const systemdGuideEn: AgentGuideData = {
   agentNameHe: "systemd — The Service Manager Of Modern Linux",
   category: "infra",
   brandIconSlug: "",
+  heroBgImage: "/images/guides/guide-systemd-hero.jpg",
   tagline: "turn any script into a service that auto-starts, self-heals, and ships logs — in 25 lines of YAML",
   heroDescription:
     "systemd is the process and service manager of most modern Linux distributions (Ubuntu, Debian, CentOS, Fedora, Arch — all of them). Without systemd, every time you wanted a script to start automatically at boot, restart if it crashes, and get bounded RAM/CPU — you had to write a lot of dirty code with cron, screen, supervisord and init.d. With systemd, all of that is a small INI-style text file with 10-20 lines and one command. For me (Elad) on the Hetzner VPS, systemd manages all 13 of my microservice agents: each is a separate systemd unit, auto-starts, ships logs centrally to journalctl, and restarts itself if it crashes. systemd-timer also replaces my cron with clearer syntax and execution history, and systemd-resolved handles DNS. It is not the most popular tool among Unix-philosophy purists (some prefer classic init scripts), but the reality is that if you're in production Linux — you're using systemd. This guide will show the parts you'll use 90% of the time: writing service units, managing them via systemctl, and reading logs in journalctl.",

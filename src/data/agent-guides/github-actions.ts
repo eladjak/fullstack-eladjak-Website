@@ -22,6 +22,8 @@ export const githubActionsGuide: AgentGuideData = {
   agentNameHe: "GitHub Actions — CI/CD שמובנה לתוך הריפו",
   category: "infra",
   brandIconSlug: "github",
+  brandIconColor: "2088FF",
+  heroBgImage: "/images/guides/guide-github-actions-hero.jpg",
   tagline: "כל push מריץ tests, builds ו-deploys — בלי שרת CI נפרד, בחינם לפרויקטים פתוחים",
   heroDescription:
     "GitHub Actions זו מערכת CI/CD (continuous integration / continuous deployment) שמובנית ישירות בתוך GitHub. CI/CD זה השם של אוטומציה שכל פעם שאתם דוחפים קוד, המערכת רצה בדיקות (tests), בונה את האפליקציה (build), ואם הכל תקין — פורסת אותה לייצור (deploy). פעם, להקים pipeline כזה דרש שרת CI נפרד (Jenkins, TeamCity), שעות הגדרה, ותחזוקה מתמשכת. עם GitHub Actions, זה קובץ YAML אחד בתוך הריפו (`.github/workflows/`) ו-GitHub עצמם מריצים את כל הפעולות על שרתים שלהם — בחינם לפרויקטים פתוחים, ועם 2,000 דקות חינמיות לחודש לפרויקטים פרטיים. אצלי (אלעד) GitHub Actions בונה את האתר הזה (Next.js) כל פעם שדוחפים ל-main, פורס אותו אוטומטית ל-Vercel, מריץ TypeScript checks, ובודק שאין secrets שיצאו בטעות לקוד. בנוסף יש לי actions שמתזמנים מטלות יומיות (cron triggers), פותחים PRs אוטומטית כשתלות מתעדכנת (Dependabot), וכל זה בלי שרת אחד שלי. זה הכלי שעושה את ההבדל בין 'אני מפתח לבד' ל-'יש לי תהליך מקצועי'.",

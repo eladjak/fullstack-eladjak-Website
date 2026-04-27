@@ -23,6 +23,7 @@ export const ufwGuideEn: AgentGuideData = {
   agentNameHe: "UFW — Simple Ubuntu Firewall In One Command",
   category: "infra",
   brandIconSlug: "",
+  heroBgImage: "/images/guides/guide-ufw-hero.jpg",
   tagline: "Uncomplicated Firewall — three commands between an exposed server and a hardened one",
   heroDescription:
     "UFW (short for Uncomplicated Firewall) is a command-line tool for Ubuntu that wraps Linux's iptables in clear, simple syntax. iptables itself is the standard Linux firewall tool since the early 2000s — extremely powerful, but punishingly complex (commands with 6 parameters, chains and tables and policies). UFW takes all that power and exposes it through an interface you can learn in 5 minutes: 'allow SSH', 'block everything else', 'enable'. That is exactly what most personal-VPS users need. For me (Elad) on Hetzner, UFW is the first line of defense: it blocks everything except SSH (22), HTTP (80, for Let's Encrypt), and HTTPS (443). All 13 agents running on internal ports 3700-3900 are not reachable from the internet at all — UFW simply ignores requests to them. It complements Cloudflare Tunnel perfectly: if something in the Tunnel breaks and a port suddenly opens — UFW still blocks. Two layers of defense instead of one. This guide will show you the 5 commands you'll use 100% of the time and the common configurations every production VPS needs.",
