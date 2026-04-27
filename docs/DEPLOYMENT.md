@@ -3,33 +3,46 @@
 ## Current state (2026-04-27)
 
 Production: `https://fullstack-eladjak.co.il` (Vercel)
-Project: `eladjak-website` (team `T6dJ4LNsyZ8LDt9uU9Po1exz`, project `prj_8SafUUr6VeV26vLClbq9MkgPyBXQ`)
+Project: `eladjak-website` (org `team_T6dJ4LNsyZ8LDt9uU9Po1exz`, project `prj_8SafUUr6VeV26vLClbq9MkgPyBXQ`)
 
 ## How to deploy
 
-### Quick path — manual deploy from local
+### Auto-deploy on push to main (PRIMARY)
+
+**Status: RESTORED 2026-04-27** via `vercel git connect`.
+
+Every push to `main` triggers a Vercel build automatically. The connection was re-established with:
+
+```bash
+vercel git connect https://github.com/eladjak/fullstack-eladjak-Website --yes
+# > Connecting GitHub repository: https://github.com/eladjak/fullstack-eladjak-Website
+# > Connected
+```
+
+If auto-deploy stops working again, run the same command from the project root.
+
+To verify the integration is healthy:
+1. Push a small commit to `main`.
+2. Check Vercel dashboard → eladjak-website → Deployments — a new build should appear within ~30 seconds.
+3. Check the GitHub webhook: `https://github.com/eladjak/fullstack-eladjak-Website/settings/hooks` — `vercel.com` webhook should be green (recent successful POSTs).
+
+### Manual deploy from local (fallback)
 
 ```bash
 npm run deploy   # → vercel --prod --yes
 ```
 
-This builds locally, uploads, and aliases to `fullstack-eladjak.co.il`. Takes ~1 minute.
+This builds locally, uploads, and aliases to `fullstack-eladjak.co.il`. Takes ~1 minute. Use this if auto-deploy is broken or you need to deploy a build that isn't pushed yet.
 
-### Auto-deploy on push to main
+### Reconnect helper (one-liner)
 
-**Status: BROKEN since 2026-04-10.**
+If Vercel git integration breaks again, run from the project root:
 
-Vercel git integration stopped triggering deployments around April 10, 2026. The previous "Deploy to Vercel" GitHub Actions workflow (now removed from the repo) was also failing since 2026-02-13.
+```bash
+vercel git connect https://github.com/eladjak/fullstack-eladjak-Website --yes
+```
 
-**Fix to re-enable auto-deploy:**
-
-1. Open Vercel dashboard → eladjak-website project → Settings → Git
-2. Verify the GitHub repo `eladjak/fullstack-eladjak-Website` is connected
-3. If disconnected: click "Connect GitHub" and re-authorize (1 click)
-4. Production branch should be `main`
-5. Verify webhook on GitHub side: `https://github.com/eladjak/fullstack-eladjak-Website/settings/hooks` — should have `vercel.com` webhook with green status
-
-After reconnecting, every push to `main` triggers a Vercel build automatically. Until then, run `npm run deploy` manually.
+The CLI is already authenticated as `eladjak` on Elad's machine.
 
 ## CI build check
 
@@ -37,7 +50,47 @@ After reconnecting, every push to `main` triggers a Vercel build automatically. 
 - Type-check (`npx tsc --noEmit`)
 - Production build (`npm run build`)
 
-This catches build errors BEFORE they hit Vercel. Does NOT deploy.
+This catches build errors BEFORE they hit Vercel. Does NOT deploy — Vercel handles that via the git integration above.
+
+## GitHub Action fallback (only if Vercel git integration breaks irrecoverably)
+
+If `vercel git connect` stops working on Vercel's side (e.g. they revoke the webhook and the CLI can't recreate it), use a GitHub Action to deploy on every push to main.
+
+**Setup steps (one-time, requires Elad's manual action):**
+
+1. **Create a Vercel token** — https://vercel.com/account/tokens → "Create Token" → name it `github-actions-deploy`, scope to `eladjaks-projects`, no expiry. Copy the token.
+
+2. **Add three secrets** to the GitHub repo (https://github.com/eladjak/fullstack-eladjak-Website/settings/secrets/actions):
+   - `VERCEL_TOKEN` = the token from step 1
+   - `VERCEL_ORG_ID` = `team_T6dJ4LNsyZ8LDt9uU9Po1exz` (from `.vercel/project.json` — not secret)
+   - `VERCEL_PROJECT_ID` = `prj_8SafUUr6VeV26vLClbq9MkgPyBXQ` (from `.vercel/project.json` — not secret)
+
+3. **Create `.github/workflows/deploy.yml`** with:
+   ```yaml
+   name: Deploy to Vercel
+   on:
+     push:
+       branches: [main]
+     workflow_dispatch:
+
+   jobs:
+     deploy:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-node@v4
+           with: { node-version: '20' }
+         - run: npm ci
+         - name: Deploy to Vercel
+           run: npx vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+           env:
+             VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+   ```
+
+4. **Disable Vercel's auto-deploy** to avoid double builds: Vercel dashboard → Settings → Git → "Ignored Build Step" → set to `exit 0` (or disconnect git).
+
+This workflow file is intentionally NOT committed — only spin it up if the primary integration fails permanently.
 
 ## Environment variables (production)
 

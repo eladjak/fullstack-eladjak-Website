@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import { headers } from "next/headers";
 import { ChevronLeft, Sparkles, Bot, Server, Zap } from "lucide-react";
 import { allGuides } from "@/data/agent-guides";
 
@@ -81,9 +82,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GuideIndex() {
+export default async function GuideIndex() {
   const agentGuides = allGuides.filter((g) => (g.category ?? "agent") === "agent");
   const infraGuides = allGuides.filter((g) => g.category === "infra");
+
+  // Per-request CSP nonce from src/proxy.ts so the inline JSON-LD
+  // <script> below satisfies our nonce-based CSP without 'unsafe-inline'.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   // JSON-LD: CollectionPage wrapping an ItemList of all 14 guides as
   // LearningResource entries. This helps AI search engines (ChatGPT,
@@ -155,6 +160,7 @@ export default function GuideIndex() {
         id="jsonld-guide-collection"
         type="application/ld+json"
         strategy="beforeInteractive"
+        nonce={nonce}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
       {/* Hero */}

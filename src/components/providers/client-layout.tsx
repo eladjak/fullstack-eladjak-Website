@@ -15,6 +15,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 interface ClientLayoutProps {
   children: ReactNode;
+  /** CSP nonce forwarded from server (src/proxy.ts) so next-themes can stamp
+   * its inline FOUC-prevention script and pass strict-dynamic CSP. */
+  nonce?: string;
 }
 
 /**
@@ -25,10 +28,10 @@ interface ClientLayoutProps {
  * - Navigation + Footer
  * - Page transitions between routes
  */
-export function ClientLayout({ children }: ClientLayoutProps) {
+export function ClientLayout({ children, nonce }: ClientLayoutProps) {
   return (
     <LocaleProvider>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem nonce={nonce}>
           {/* Skip to content link - WCAG 2.4.1 / IS 5568 */}
           <a
             href="#main-content"

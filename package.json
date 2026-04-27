@@ -11,6 +11,7 @@
     "compress:images": "node scripts/compress-guide-images.mjs",
     "compress:logos": "node scripts/compress-guide-logos.mjs",
     "deploy": "vercel --prod --yes",
+    "reconnect:vercel": "vercel git connect https://github.com/eladjak/fullstack-eladjak-Website --yes",
     "check": "next lint && tsc --noEmit",
     "dev": "next dev --turbo",
     "lint": "eslint",

@@ -1,6 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import { Assistant, Heebo } from "next/font/google";
 import { type Metadata, type Viewport } from "next";
+import { headers } from "next/headers";
 import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
 import { ClientLayout } from "@/components/providers/client-layout";
@@ -103,11 +104,15 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Per-request CSP nonce from src/proxy.ts. Forwarded into <ClientLayout>
+  // so next-themes can stamp it on the inline FOUC-prevention script it
+  // injects in <head> (otherwise strict-dynamic CSP blocks it).
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html lang="he" dir="rtl" className={`${GeistSans.variable} ${heebo.variable} ${assistant.variable}`}>
       <head>
@@ -136,7 +141,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-dvh bg-background font-sans antialiased">
         <WebVitalsReporter />
-        <ClientLayout>
+        <ClientLayout nonce={nonce}>
           {children}
         </ClientLayout>
       </body>

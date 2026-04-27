@@ -50,25 +50,11 @@ const config = {
       {
         source: '/:path*',
         headers: [
-          {
-            // CSP rationale (2026-04-27):
-            // - script-src removed 'unsafe-eval' (Next 16 production doesn't need it; Turbopack uses eval only in dev)
-            // - script-src kept 'unsafe-inline' for Next.js bootstrap scripts; future migration to nonce-based via middleware
-            // - style-src kept 'unsafe-inline' for runtime CSS-in-JS (Tailwind variants, framer-motion inline styles)
-            // - X-Frame-Options DENY mirrors frame-ancestors 'none' for legacy browsers
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https: blob:",
-              "font-src 'self' data:",
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openai.com https://api.github.com https://api.resend.com https://hub.eladjak.com",
-              "frame-ancestors 'none'",
-              "base-uri 'self'",
-              "form-action 'self'"
-            ].join('; ')
-          },
+          // Content-Security-Policy is now set per-request by src/middleware.ts
+          // with a fresh nonce so we can drop 'unsafe-inline' from script-src.
+          // The middleware matcher excludes /api, /_next/static, /images, etc.,
+          // and those responses don't execute scripts so they don't need CSP.
+          // The remaining headers below apply globally.
           {
             key: 'X-Frame-Options',
             value: 'DENY'

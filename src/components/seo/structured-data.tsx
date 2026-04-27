@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import { headers } from 'next/headers';
 
 interface Person {
   '@type': 'Person';
@@ -93,7 +94,7 @@ interface StructuredDataProps {
   data: StructuredDataType;
 }
 
-export function StructuredData({ data }: StructuredDataProps) {
+export async function StructuredData({ data }: StructuredDataProps) {
   const jsonLd = {
     '@context': 'https://schema.org',
     ...data,
@@ -103,10 +104,15 @@ export function StructuredData({ data }: StructuredDataProps) {
   const dataObj = data as unknown as Record<string, unknown>;
   const typeId = (dataObj['@type'] ? String(dataObj['@type']) : 'generic').toLowerCase();
 
+  // Per-request nonce from src/proxy.ts so this inline JSON-LD script
+  // satisfies our nonce-based CSP (no 'unsafe-inline' fallback).
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
+
   return (
     <Script
       id={`structured-data-${typeId}`}
       type="application/ld+json"
+      nonce={nonce}
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   );
