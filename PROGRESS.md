@@ -3,6 +3,14 @@
 ## Status: active
 ## Last Updated: 2026-04-27
 
+## Session 2026-04-27 (Round 2) — Nav v2 + Skills Universe link + Gemini blog images
+
+### Shipped (commit 2e1a6a9)
+- **Navigation v2**: sticky threshold 20→100px, motion.div wrapper with scale 1→0.96 + opacity 1→0.98 on scroll, 200ms easeOut, respects prefers-reduced-motion
+- **Skills Universe nav link**: added between /guide and /blog (i18n he+en)
+- **Skills Universe page polish**: mobile bottom-sheet for skill panel (sm:+ stays side panel), contact CTA below canvas
+- **Gemini blog images**: agent-network.jpg (758KB) + claude-code-productivity.jpg (590KB) generated via Gemini 3.1 Flash FREE, frontmatter updated on 2 posts
+
 ## Session 2026-04-27 — AIO + Skills Universe + Hyperframes + Build-Server
 
 ### Shipped (4 parallel agents)
