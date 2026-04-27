@@ -180,11 +180,11 @@ export default function SkillsCanvas() {
         />
       </Canvas>
 
-      {/* Side detail panel for selected skill */}
+      {/* Detail panel — bottom sheet on mobile, side panel from sm: up */}
       {selected && (
         <aside
           dir="rtl"
-          className="absolute bottom-4 start-4 end-4 rounded-xl border border-white/15 bg-black/85 p-4 text-white shadow-2xl backdrop-blur-md sm:end-auto sm:max-w-sm"
+          className="absolute inset-x-0 bottom-0 max-h-[60%] overflow-y-auto rounded-t-2xl border border-white/15 border-b-0 bg-black/90 p-4 text-white shadow-2xl backdrop-blur-md sm:inset-x-auto sm:bottom-4 sm:start-4 sm:end-auto sm:max-w-sm sm:rounded-xl sm:border-b"
         >
           <div className="mb-2 flex items-start justify-between gap-2">
             <div>

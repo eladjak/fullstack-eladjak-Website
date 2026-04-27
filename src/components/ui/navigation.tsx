@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -54,10 +54,12 @@ export default function Navigation() {
   const { locale, setLocale } = useLocale();
   const pathname = usePathname();
   const langDropdownRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 100);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -106,6 +108,7 @@ export default function Navigation() {
     { href: '/services', label: t('services') },
     { href: '/projects', label: t('projects') },
     { href: '/guide', label: t('guides') },
+    { href: '/skills-universe', label: t('skillsUniverse') },
     { href: '/blog', label: t('blog') },
     { href: '/about', label: t('about') },
     { href: '/thanks', label: t('thanks') },
@@ -131,7 +134,14 @@ export default function Navigation() {
         }`}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <motion.div
+            className="flex items-center justify-between h-16 origin-top will-change-transform"
+            animate={{
+              scale: prefersReducedMotion ? 1 : scrolled ? 0.96 : 1,
+              opacity: scrolled ? 0.98 : 1,
+            }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
             {/* Logo - always visible, always at end (left in RTL) */}
             <Link
               href="/"
@@ -215,7 +225,7 @@ export default function Navigation() {
             >
               <Menu className="h-6 w-6" />
             </button>
-          </div>
+          </motion.div>
         </div>
       </nav>
 

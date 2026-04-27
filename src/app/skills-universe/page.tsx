@@ -1,6 +1,8 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
 import {
   CATEGORY_COLORS,
   CATEGORY_LABELS_HE,
@@ -80,6 +82,20 @@ export default function SkillsUniversePage() {
           {SKILLS.length} כישורים · בנוי עם React Three Fiber + Drei.
           הסצנה מכבדת prefers-reduced-motion ומאטה את הסיבוב האוטומטי.
         </p>
+
+        {/* CTA */}
+        <section className="mt-16 text-center">
+          <p className="text-muted-foreground mb-4">
+            רואים כישור שמתאים לפרויקט שלכם? אני אשמח לשמוע על מה שאתם בונים.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            רוצה לעבוד יחד? בוא נדבר
+            <ChevronLeft className="h-4 w-4" />
+          </Link>
+        </section>
       </main>
     </div>
   );
