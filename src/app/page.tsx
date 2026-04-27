@@ -1,59 +1,46 @@
-'use client';
+import type { Metadata } from 'next';
+import HomePageClient from '@/components/sections/home-page-client';
 
-import { useMetaTags } from '@/hooks/useMetaTags';
-import SkillsSection from '@/components/sections/skills-section';
-import HeroSection from '@/components/hero/hero-section';
-import FeaturedProjectsSection from '@/components/sections/featured-projects-section';
-import CTASection from '@/components/sections/cta-section';
-import ProcessSection from '@/components/sections/process-section';
-import RecommendationsSection from '@/components/sections/recommendations-section';
-import ServicesPreviewSection from '@/components/sections/services-preview-section';
-import TechMarquee from '@/components/ui/tech-marquee';
-import StatsBar from '@/components/sections/stats-bar';
-import LatestPostsSection from '@/components/sections/latest-posts-section';
-import B2BBand from '@/components/sections/b2b-band';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
+const OG_IMAGE = 'https://avatars.githubusercontent.com/u/108827199?v=4';
 
-export default function HomePage() {
-  useMetaTags({
+export const metadata: Metadata = {
+  title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
+  description:
+    "מפתח Full-Stack שבונה ומפעיל רשת של 13 סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI לארגונים.",
+  alternates: {
+    canonical: `${SITE_URL}/`,
+    languages: {
+      'he-IL': `${SITE_URL}/`,
+      'en': `${SITE_URL}/en`,
+    },
+  },
+  openGraph: {
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
     description:
-      'מפתח Full-Stack מומחה ל-Next.js, React ו-TypeScript. בניית אפליקציות ווב מודרניות עם אינטגרציית AI וחשיבה עסקית. ישראל.',
-    image: 'https://avatars.githubusercontent.com/u/108827199?v=4',
+      "מפתח Full-Stack שבונה ומפעיל רשת של 13 סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI לארגונים.",
     type: 'website',
-  });
+    url: `${SITE_URL}/`,
+    siteName: "אלעד יעקובוביץ' - תיק עבודות",
+    locale: 'he_IL',
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 460,
+        height: 460,
+        alt: "אלעד יעקובוביץ' - מפתח Full-Stack ומומחה AI | ישראל",
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
+    description:
+      "מפתח Full-Stack שבונה ומפעיל רשת של 13 סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI.",
+    images: [OG_IMAGE],
+  },
+};
 
-  return (
-    <div className="flex min-h-dvh flex-col">
-      <main className="flex-1">
-        <HeroSection />
-
-        <StatsBar />
-
-        <TechMarquee />
-
-        <SkillsSection />
-
-        {/* Services Preview */}
-        <ServicesPreviewSection />
-
-        {/* Static Featured Projects - always visible */}
-        <FeaturedProjectsSection />
-
-        {/* Latest Blog Posts */}
-        <LatestPostsSection />
-
-        {/* Recommendations */}
-        <RecommendationsSection />
-
-        {/* Process / How I Work */}
-        <ProcessSection />
-
-        {/* B2B-focused band — additive, sits above the main CTA */}
-        <B2BBand />
-
-        {/* CTA Section */}
-        <CTASection />
-      </main>
-    </div>
-  );
+export default function HomePage() {
+  return <HomePageClient />;
 }

@@ -1,0 +1,50 @@
+'use client';
+
+import SkillsSection from '@/components/sections/skills-section';
+import HeroSection from '@/components/hero/hero-section';
+import FeaturedProjectsSection from '@/components/sections/featured-projects-section';
+import CTASection from '@/components/sections/cta-section';
+import ProcessSection from '@/components/sections/process-section';
+import RecommendationsSection from '@/components/sections/recommendations-section';
+import ServicesPreviewSection from '@/components/sections/services-preview-section';
+import TechMarquee from '@/components/ui/tech-marquee';
+import StatsBar from '@/components/sections/stats-bar';
+import LatestPostsSection from '@/components/sections/latest-posts-section';
+import B2BBand from '@/components/sections/b2b-band';
+
+export default function HomePageClient() {
+  return (
+    <div className="flex min-h-dvh flex-col">
+      <main className="flex-1">
+        <HeroSection />
+
+        <StatsBar />
+
+        <TechMarquee />
+
+        <SkillsSection />
+
+        {/* Services Preview */}
+        <ServicesPreviewSection />
+
+        {/* Static Featured Projects - always visible */}
+        <FeaturedProjectsSection />
+
+        {/* Latest Blog Posts */}
+        <LatestPostsSection />
+
+        {/* Recommendations */}
+        <RecommendationsSection />
+
+        {/* Process / How I Work */}
+        <ProcessSection />
+
+        {/* B2B-focused band — additive, sits above the main CTA */}
+        <B2BBand />
+
+        {/* CTA Section */}
+        <CTASection />
+      </main>
+    </div>
+  );
+}

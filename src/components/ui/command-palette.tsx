@@ -6,8 +6,22 @@ import { Search, ArrowRight, Moon, Sun, Globe, FileText, User, Mail, Home, Brief
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
+import { track } from '@vercel/analytics/react';
 import { useLocale } from '@/components/providers/locale-provider';
 import { allGuides } from '@/data/agent-guides';
+
+const RESULT_LIMIT = 12;
+const QUERY_TRUNCATE = 50;
+const QUERY_DEBOUNCE_MS = 500;
+
+type CommandKind = 'guide' | 'blog' | 'page' | 'action';
+
+function kindFromId(id: string): CommandKind {
+  if (id.startsWith('guide-')) return 'guide';
+  if (id.startsWith('blog-')) return 'blog';
+  if (id === 'theme' || id === 'language' || id === 'github') return 'action';
+  return 'page';
+}
 
 interface CommandItem {
   id: string;
@@ -44,6 +58,18 @@ export function CommandPalette() {
     router.push(href);
     setOpen(false);
   }, [router]);
+
+  const runCommand = useCallback((cmd: CommandItem) => {
+    try {
+      track('palette_select', {
+        kind: kindFromId(cmd.id),
+        label: cmd.label,
+      });
+    } catch {
+      // Analytics failures must never break navigation.
+    }
+    cmd.action();
+  }, []);
 
   // Fetch blog posts once when palette first opens (with abort + timeout + fallback)
   useEffect(() => {
@@ -113,10 +139,11 @@ export function CommandPalette() {
     return [...navCommands, ...guideCommands, ...blogCommands, ...actionCommands];
   }, [t, theme, locale, navigate, setTheme, setLocale, blogPosts]);
 
-  const filtered = useMemo(() => {
+  const { filtered, totalMatches } = useMemo(() => {
     if (!query) {
-      // No query: show top 8 (mix of nav + a few guides) for orientation
-      return commands.slice(0, 8);
+      // No query: show top RESULT_LIMIT (mix of nav + a few guides) for orientation
+      const slice = commands.slice(0, RESULT_LIMIT);
+      return { filtered: slice, totalMatches: slice.length };
     }
     const lower = query.toLowerCase();
     const matches = commands.filter((cmd) =>
@@ -125,7 +152,7 @@ export function CommandPalette() {
       cmd.description?.toLowerCase().includes(lower) ||
       cmd.keywords?.some((kw) => kw.toLowerCase().includes(lower))
     );
-    return matches.slice(0, 8);
+    return { filtered: matches.slice(0, RESULT_LIMIT), totalMatches: matches.length };
   }, [query, commands]);
 
   // Keyboard shortcut to open
@@ -143,14 +170,32 @@ export function CommandPalette() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // Focus input when opened
+  // Focus input when opened + emit open analytics event
   useEffect(() => {
     if (open) {
       setQuery('');
       setSelectedIndex(0);
       setTimeout(() => inputRef.current?.focus(), 50);
+      try {
+        track('palette_open');
+      } catch {
+        // Silent — analytics is best-effort.
+      }
     }
   }, [open]);
+
+  // Debounced query analytics (500ms) with privacy truncation
+  useEffect(() => {
+    if (!open || !query) return;
+    const handle = setTimeout(() => {
+      try {
+        track('palette_query', { q: query.slice(0, QUERY_TRUNCATE) });
+      } catch {
+        // Silent — analytics is best-effort.
+      }
+    }, QUERY_DEBOUNCE_MS);
+    return () => clearTimeout(handle);
+  }, [query, open]);
 
   // Keyboard navigation
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -162,9 +207,9 @@ export function CommandPalette() {
       setSelectedIndex(prev => Math.max(prev - 1, 0));
     } else if (e.key === 'Enter' && filtered[selectedIndex]) {
       e.preventDefault();
-      filtered[selectedIndex].action();
+      runCommand(filtered[selectedIndex]);
     }
-  }, [filtered, selectedIndex]);
+  }, [filtered, selectedIndex, runCommand]);
 
   useEffect(() => {
     setSelectedIndex(0);
@@ -241,7 +286,7 @@ export function CommandPalette() {
                       key={cmd.id}
                       role="option"
                       aria-selected={index === selectedIndex}
-                      onClick={() => cmd.action()}
+                      onClick={() => runCommand(cmd)}
                       onMouseEnter={() => setSelectedIndex(index)}
                       className={`flex items-center gap-3 px-4 py-2.5 cursor-pointer transition-colors text-sm ${
                         index === selectedIndex
@@ -271,6 +316,11 @@ export function CommandPalette() {
                     </li>
                   ))}
                 </ul>
+                {totalMatches > RESULT_LIMIT && (
+                  <div className="border-t border-border/40 px-4 py-2 text-center text-[11px] text-muted-foreground/70">
+                    +{totalMatches - RESULT_LIMIT} עוד תוצאות. צמצם חיפוש להציגן.
+                  </div>
+                )}
               </div>
             </motion.div>
           </>

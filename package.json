@@ -7,6 +7,7 @@
     "build": "next build",
     "prebuild": "node scripts/generate-skills.mjs",
     "generate:skills": "node scripts/generate-skills.mjs",
+    "compress:images": "node scripts/compress-guide-images.mjs",
     "deploy": "vercel --prod --yes",
     "check": "next lint && tsc --noEmit",
     "dev": "next dev --turbo",
@@ -109,6 +110,7 @@
     "@types/three": "^0.184.0",
     "@vitejs/plugin-react": "^5.1.4",
     "jsdom": "^28.1.0",
+    "sharp": "^0.34.5",
     "vitest": "^4.0.18"
   }
 }

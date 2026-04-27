@@ -59,6 +59,151 @@ const AGENTS = [
   'crewai',
 ];
 
+const HUB_HEALTH_URL = 'https://hub.eladjak.com/health';
+const HUB_TIMEOUT_MS = 5_000;
+// Cache health for 60s on the fetch layer; route revalidates every 5min anyway.
+const HUB_REVALIDATE_S = 60;
+
+type AgentStatusValue = 'ok' | 'down' | 'unknown';
+
+interface AgentNetworkHealth {
+  total: number;
+  healthy: number;
+  statuses: Record<string, AgentStatusValue>;
+  last_checked: string;
+  hub_reachable: boolean;
+  error?: string;
+  note?: string;
+}
+
+function normalizeStatus(raw: unknown): AgentStatusValue {
+  if (raw === true) return 'ok';
+  if (raw === false) return 'down';
+  if (typeof raw !== 'string') return 'unknown';
+  const v = raw.toLowerCase().trim();
+  if (v === 'ok' || v === 'healthy' || v === 'up' || v === 'green' || v === 'alive') {
+    return 'ok';
+  }
+  if (v === 'down' || v === 'fail' || v === 'failed' || v === 'red' || v === 'dead' || v === 'error') {
+    return 'down';
+  }
+  return 'unknown';
+}
+
+function parseHubHealth(json: unknown, fetchedAt: string): AgentNetworkHealth {
+  if (!json || typeof json !== 'object') {
+    return {
+      total: 0,
+      healthy: 0,
+      statuses: {},
+      last_checked: fetchedAt,
+      hub_reachable: true,
+      note: 'Hub responded with non-object payload',
+    };
+  }
+
+  const data = json as Record<string, unknown>;
+  const statuses: Record<string, AgentStatusValue> = {};
+  let total: number | undefined;
+  let healthy: number | undefined;
+
+  // Shape 1 (preferred): { agents: { total, healthy, statuses: { name: 'ok' | ... } } }
+  if (data.agents && typeof data.agents === 'object') {
+    const agentsObj = data.agents as Record<string, unknown>;
+    if (typeof agentsObj.total === 'number') total = agentsObj.total;
+    if (typeof agentsObj.healthy === 'number') healthy = agentsObj.healthy;
+    if (agentsObj.statuses && typeof agentsObj.statuses === 'object') {
+      for (const [name, value] of Object.entries(
+        agentsObj.statuses as Record<string, unknown>
+      )) {
+        statuses[name] = normalizeStatus(value);
+      }
+    }
+  }
+
+  // Shape 2: { services: [{ name, status }, ...] }
+  if (Array.isArray(data.services)) {
+    const services = data.services as Array<Record<string, unknown>>;
+    for (const svc of services) {
+      const name = typeof svc.name === 'string' ? svc.name : null;
+      if (!name) continue;
+      const status = normalizeStatus(svc.status ?? svc.healthy);
+      // Don't clobber a status already set from preferred shape.
+      if (!(name in statuses)) statuses[name] = status;
+    }
+    if (total === undefined) total = services.length;
+    if (healthy === undefined) {
+      healthy = services.filter((s) => normalizeStatus(s.status ?? s.healthy) === 'ok').length;
+    }
+  }
+
+  // Shape 3 (flat): { total, healthy }
+  if (typeof data.total === 'number' && total === undefined) total = data.total;
+  if (typeof data.healthy === 'number' && healthy === undefined) healthy = data.healthy;
+
+  // If we couldn't parse anything meaningful, be honest about it.
+  if (total === undefined && healthy === undefined && Object.keys(statuses).length === 0) {
+    return {
+      total: 0,
+      healthy: 0,
+      statuses: {},
+      last_checked: fetchedAt,
+      hub_reachable: true,
+      note: 'Hub reachable but response shape was not recognized',
+    };
+  }
+
+  return {
+    total: total ?? Object.keys(statuses).length,
+    healthy: healthy ?? Object.values(statuses).filter((s) => s === 'ok').length,
+    statuses,
+    last_checked: fetchedAt,
+    hub_reachable: true,
+  };
+}
+
+async function fetchAgentNetworkHealth(): Promise<AgentNetworkHealth> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), HUB_TIMEOUT_MS);
+  const fetchedAt = new Date().toISOString();
+
+  try {
+    const res = await fetch(HUB_HEALTH_URL, {
+      signal: controller.signal,
+      headers: { Accept: 'application/json' },
+      next: { revalidate: HUB_REVALIDATE_S },
+    });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) {
+      return {
+        total: 0,
+        healthy: 0,
+        statuses: {},
+        last_checked: fetchedAt,
+        hub_reachable: false,
+        error: `HTTP ${res.status}`,
+      };
+    }
+
+    const json: unknown = await res.json();
+    return parseHubHealth(json, fetchedAt);
+  } catch (err) {
+    clearTimeout(timeoutId);
+    const isAbort =
+      err instanceof Error &&
+      (err.name === 'AbortError' || err.message.toLowerCase().includes('abort'));
+    return {
+      total: 0,
+      healthy: 0,
+      statuses: {},
+      last_checked: fetchedAt,
+      hub_reachable: false,
+      error: isAbort ? 'timeout' : err instanceof Error ? err.message : 'unknown',
+    };
+  }
+}
+
 export const dynamic = 'force-static';
 export const revalidate = 300;
 
@@ -69,6 +214,8 @@ export async function GET() {
   } catch {
     posts = [];
   }
+
+  const health = await fetchAgentNetworkHealth();
 
   const blogPosts = posts.map((p) => ({
     slug: p.slug,
@@ -112,6 +259,7 @@ export async function GET() {
       // Delegator is firewall-blocked externally; route via hub.
       delegator_url: 'https://hub.eladjak.com/delegator',
       agents: AGENTS,
+      health,
     },
     contact: {
       email: 'eladhiteclearning@gmail.com',

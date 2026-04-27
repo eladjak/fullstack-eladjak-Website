@@ -13,6 +13,7 @@ import {
   Clock,
   Sparkles,
 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -38,16 +39,30 @@ export default function MethodologyPage() {
       <main className="flex-1">
         {/* Hero */}
         <section className="relative w-full pt-28 pb-16 md:pb-24 overflow-hidden">
-          <div
+          {/* Background image - using Next.js Image for optimization */}
+          <Image
+            src="/images/methodology-hero.jpg"
+            alt=""
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none"
+            fill
+            className="object-cover object-center z-0 opacity-30"
+            priority
+            sizes="100vw"
           />
           <div
             aria-hidden="true"
-            className="absolute top-0 start-1/2 -translate-x-1/2 size-[600px] rounded-full bg-primary/10 blur-[120px] pointer-events-none"
+            className="absolute inset-0 bg-background/60 dark:bg-background/75 z-[1] pointer-events-none"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none z-[1]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute top-0 start-1/2 -translate-x-1/2 size-[600px] rounded-full bg-primary/10 blur-[120px] pointer-events-none z-[1]"
           />
 
-          <div className="container relative px-4 md:px-6">
+          <div className="container relative z-10 px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

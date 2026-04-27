@@ -1,8 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
+import SkillsLazyMount from '@/components/skills-universe/SkillsLazyMount';
 import {
   ALL_SKILLS,
   CATEGORY_COLORS,
@@ -11,20 +11,6 @@ import {
   SKILLS,
   type SkillCategory,
 } from '@/data/skills-universe';
-
-// Lazy-load three.js bundle on the client only — keeps initial JS small
-// and avoids SSR mismatch from window/document access.
-const SkillsCanvas = dynamic(
-  () => import('@/components/skills-universe/SkillsCanvas'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-[70vh] min-h-[500px] w-full items-center justify-center rounded-2xl border border-white/10 bg-black text-white/60">
-        טוען את היקום…
-      </div>
-    ),
-  },
-);
 
 const CATEGORIES: SkillCategory[] = [
   'frontend',
@@ -76,8 +62,8 @@ export default function SkillsUniversePage() {
           })}
         </ul>
 
-        {/* The 3D canvas */}
-        <SkillsCanvas />
+        {/* The 3D canvas — lazy-mounted behind a poster + click to keep TBT low */}
+        <SkillsLazyMount />
 
         {/* Footer note */}
         <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-muted-foreground/70">

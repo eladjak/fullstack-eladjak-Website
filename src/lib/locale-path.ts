@@ -3,6 +3,7 @@ import type { Locale } from '@/i18n';
 const EN_ROUTES_WITH_DEDICATED_EN_PAGE = new Set([
   '/guide',
   '/claude-code',
+  '/methodology',
 ]);
 
 export function getLocaleFromPath(pathname: string): Locale | null {
