@@ -3,6 +3,32 @@
 ## Status: active
 ## Last Updated: 2026-04-27
 
+## Session 2026-04-27 (Round 3) — Skills Universe 420 + 8 infra guides + MCP + B2B (commit 0c7228d)
+
+### Major shipped
+- **Skills Universe 107→420**: filesystem scan via `scripts/generate-skills.mjs` of `~/.claude/skills/` + `~/.claude/commands/`. Two concentric Fibonacci spheres (107 core + 313 outer). Idempotent generator wired as `prebuild` script. Symlink-safe walker.
+- **8 new infra guides** (HE+EN = 16 files): postgres, nginx, cloudflare-tunnel, systemd, ufw, github-actions, redis-streams, vercel. Total guides: 14 → 22.
+- **/api/mcp/skills** — agent-facing JSON capabilities endpoint with CORS *, force-static, cache headers. Lists 107 skills + 22 guides + 7 posts + 5 services + 13 agents.
+- **AgentNetworkStatus footer widget** — polls hub.eladjak.com/health every 60s. Honest "לא זמין" fallback. Pauses on tab hidden.
+- **CommandPalette extended** to search guides + blog.
+- **CalBookingButton** with WhatsApp fallback.
+- **/methodology** page — 6 phases of Elad's process (Hebrew RTL).
+- **/services pillars layer** — Implementation/Consulting/Training tabs ADDED on top of existing 5 service cards (zero regression).
+- **B2BBand on home** — additive section between ProcessSection and CTASection.
+- **CSP fix**: added `https://hub.eladjak.com` to connect-src (status widget was silently blocked).
+- **docs/BLOG_VS_ARTICLES.md** — decision doc on blog/articles split (deferred until 3+ short notes exist).
+
+### Reviewer pass (3 agents in parallel: opus + 2 sonnet)
+- 0 CRITICAL, 4 HIGH (CSP, honesty, untracked file, unused imports) — all fixed before commit
+- Typo "pakage" → "חבילה" caught + fixed
+- Symlink hardening added to generator
+- delegator URL routed via hub (was misleading 37.27.31.1:3900)
+
+### Verified
+- `npx tsc --noEmit` exit 0 (after fixes)
+- `npm run build` exit 0 — 29 routes, /methodology static, /skills-universe static, /api/mcp/skills dynamic
+- Browser: 420 skills render with proper category counts, footer widget mounts, no new console errors
+
 ## Session 2026-04-27 (Round 2) — Nav v2 + Skills Universe link + Gemini blog images
 
 ### Shipped (commit 2e1a6a9)
