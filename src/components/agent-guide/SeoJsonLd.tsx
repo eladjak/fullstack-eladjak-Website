@@ -129,6 +129,36 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
     ],
   };
 
+  // HowTo schema — emit only when the guide has 5+ sections (otherwise it's
+  // not really a step-by-step). Each section becomes a HowToStep with a
+  // jump-link URL so AI engines can cite specific steps.
+  const howToJsonLd =
+    guide.sections.length >= 5
+      ? {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: isEn
+            ? `${guide.agentName} — How to get started`
+            : `${guide.agentNameHe} — איך מתחילים`,
+          description: guide.tagline,
+          inLanguage: isEn ? "en-US" : "he-IL",
+          image: imageUrl,
+          totalTime: "PT30M",
+          author: {
+            "@type": "Person",
+            name: isEn ? "Elad Yaakobovitch" : AUTHOR_NAME,
+            url: AUTHOR_URL,
+          },
+          step: guide.sections.map((section, index) => ({
+            "@type": "HowToStep",
+            position: index + 1,
+            name: section.title,
+            text: section.description,
+            url: `${pageUrl}#${section.id}`,
+          })),
+        }
+      : null;
+
   return (
     <>
       <Script
@@ -143,6 +173,14 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {howToJsonLd && (
+        <Script
+          id={`jsonld-howto-${guide.slug}`}
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+        />
+      )}
     </>
   );
 }

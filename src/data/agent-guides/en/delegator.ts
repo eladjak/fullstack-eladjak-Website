@@ -197,7 +197,7 @@ export const delegatorGuideEn: AgentGuideData = {
         "The internal function `_log_llm_call(tier, model, requester, tokens_in, tokens_out, latency)` runs after every successful call — without hurting the agent's response time",
         "Data is written in JSONL format (one JSON line per event) to `/opt/ai-factory/data/costs/llm-calls.jsonl`. A simple format that's easy to slice with `grep`, with pandas, or with any other tool",
         "A live dashboard at `/costs/llm` refreshes every 60 seconds — pivot by agent, by model, by tier, or by date",
-        "4 cost tiers: `ollama-local` (completely free, runs locally on [Ollama](/en/guide/ollama)), `gemini-flash` (Gemini 2.5 Flash free tier via Google AI Studio — ~15 RPM and a generous daily token allowance), `stepfun-openrouter` (StepFun's `:free` model via OpenRouter — ~50 requests/day without credit, or ~1000/day with $10 on OpenRouter), `claude-sonnet` (Claude Sonnet 4.6 paid — $3 per million input tokens, $15 output)",
+        "4 cost tiers: `ollama-local` (completely free, runs locally on [Ollama](/en/guide/ollama)), `gemini-flash` (Gemini 2.5 Flash free tier via Google AI Studio — ~15 RPM and a generous daily token allowance), `stepfun-openrouter` (StepFun's `:free` model via OpenRouter — ~50 requests/day without credit, or ~1,000/day with $10 on OpenRouter), `claude-sonnet` (Claude Sonnet 4.6 paid — $3 per million input tokens, $15 output)",
         "For me: actual [Claude Sonnet 4.6](/en/claude-code) spend runs about $2-5 a month, because it's only used as an emergency fallback. Most of the work is done on free Gemini Flash",
       ],
       tips: [
@@ -216,7 +216,7 @@ export const delegatorGuideEn: AgentGuideData = {
       content: [
         "Tier 1 — Ollama Local: if [Ollama](/en/guide/ollama) (a local model runtime) is running on the same server with the qwen3:4b model loaded — the call is completely free and the fastest. Requires 8GB+ RAM and preferably a GPU",
         "Tier 2 — Gemini 2.5 Flash: Google AI Studio's free tier (~15 RPM and a generous daily token allowance). Excellent quality for most tasks, including Hebrew. Gemini 2.5 Pro is available as a paid upgrade",
-        "Tier 3 — StepFun via OpenRouter: a strong Chinese model with the `:free` suffix on OpenRouter. The free tier is capped at ~50 requests per day (or ~1000/day if you hold a $10 credit on OpenRouter). Useful as an extra fallback",
+        "Tier 3 — StepFun via OpenRouter: a strong Chinese model with the `:free` suffix on OpenRouter. The free tier is capped at ~50 requests per day (or ~1,000/day if you hold a $10 credit on OpenRouter). Useful as an extra fallback",
         "Tier 4 — Claude Sonnet 4.6: paid, used only if all the previous tiers failed. I've configured it as an emergency fallback only. You can also wire in Haiku 4.5 (cheaper) or Opus 4.7 (heavy reasoning) as additional tiers",
         "Response format: `{ok, tier, model, latency_ms, cost_usd_estimate, response, tried: [...]}` — including a list of every model I tried before the success",
         "There's an internal pricing table in the Delegator that computes an accurate cost_usd_estimate from tokens_in × tokens_out × the provider's rate",

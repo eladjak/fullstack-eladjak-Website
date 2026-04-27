@@ -33,7 +33,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
     { label: "consumer groups I run", value: "8" },
     { label: "messages / day", value: "~50k" },
     { label: "latency", value: "<5ms" },
-    { label: "RAM", value: "~100MB" },
+    { label: "RAM", value: "~100 MB" },
   ],
   paradigmTitle: "From direct API calls to event-driven",
   paradigmSub:
@@ -55,8 +55,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
       icon: Database,
     },
     {
-      before: "Kafka = 4GB RAM + Zookeeper + maintenance",
-      after: "Redis = 100MB, one command",
+      before: "Kafka = 4 GB RAM + Zookeeper + maintenance",
+      after: "Redis = 100 MB, one command",
       icon: Zap,
     },
   ],
@@ -201,7 +201,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
       ],
       tips: [
         "Fan-out + work-queue together = the typical agent network architecture. Every agent pushes to events, every agent listens with its own group",
-        "If messages are large (>1MB), don't store them in the stream — store in DB/S3 and pass only the ID",
+        "If messages are large (>1 MB), don't store them in the stream — store in DB/S3 and pass only the ID",
       ],
     },
     {
@@ -225,7 +225,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Redis Cluster — horizontal sharding. For most needs, single instance is enough",
       ],
       tips: [
-        "My Redis runs in Docker with volume persistence and AOF. The reveal: 100MB RAM serves all 13 agents, latency under 5ms",
+        "My Redis runs in Docker with volume persistence and AOF. The reveal: 100 MB RAM serves all 13 agents, latency under 5ms",
         "Always make sure you have backups of the RDB/AOF. If Redis crashes mid-operation, you may lose the last second of data",
       ],
       codeExample: {
@@ -309,5 +309,5 @@ export const redisStreamsGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "On my Hetzner, Redis Streams connects 13 agents handling ~50k messages a day. RAM use: ~100MB. Average latency: under 5ms. I moved to Streams two years ago after deciding Kafka had exceeded my tolerance for ops complexity. The migration was a success — the system has been much more stable and easier to maintain ever since.",
+    "On my Hetzner, Redis Streams connects 13 agents handling ~50k messages a day. RAM use: ~100 MB. Average latency: under 5ms. I moved to Streams two years ago after deciding Kafka had exceeded my tolerance for ops complexity. The migration was a success — the system has been much more stable and easier to maintain ever since.",
 };

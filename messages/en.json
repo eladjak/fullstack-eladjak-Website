@@ -585,6 +585,174 @@
       "email": "Email",
       "phone": "Phone",
       "contactForm": "Send a Message"
+    },
+    "pillarsSection": {
+      "badge": "Three Service Pillars",
+      "title": "Implementation · Consulting · Training",
+      "subtitle": "Same services, organized by engagement type. Pick a pillar to filter — or leave on \"All\" for the full list.",
+      "ariaLabel": "Filter services by pillar"
+    },
+    "pillars": {
+      "all": {
+        "title": "All Services",
+        "shortLabel": "All",
+        "description": "Full view of all five services"
+      },
+      "implementation": {
+        "title": "Implementation",
+        "shortLabel": "Implementation",
+        "description": "Hands-on building — websites, applications, dashboards, MVPs, AI integrations, and automation."
+      },
+      "consulting": {
+        "title": "Consulting",
+        "shortLabel": "Consulting",
+        "description": "Architecture, code review, organizational AI mapping, technical guidance for development teams. From $90/hour — let's talk."
+      },
+      "training": {
+        "title": "Training",
+        "shortLabel": "Training",
+        "description": "AI workshops for development teams, full-day Claude Code workshops, and organizational training. Let's talk."
+      }
+    },
+    "b2b": {
+      "title": "For Organizations: Let's Talk About a Custom Project",
+      "description": "Working at an organization that needs dedicated AI, complex integrations, or training for a development team? I build tailored packages — combining implementation, consulting, and training as needed. Detailed quote, clear contract, full documentation. No vendor lock-in.",
+      "ctaPrimary": "Schedule an Organizational Call",
+      "ctaSecondary": "How I Work"
+    }
+  },
+  "b2bBand": {
+    "eyebrow": "For Organizations & Dev Teams",
+    "title": "Working with Organizations on AI",
+    "items": [
+      {
+        "label": "Strategic Consulting",
+        "description": "AI matrix, architecture, code review"
+      },
+      {
+        "label": "Full Development",
+        "description": "From PRD to deploy, weekly iterations"
+      },
+      {
+        "label": "AI Workshops",
+        "description": "Full-day workshops for dev teams"
+      }
+    ],
+    "cta": "Let's Talk"
+  },
+  "methodology": {
+    "badge": "How I Work",
+    "titleLine1": "How I Work —",
+    "titleLine2": "From Idea to Production",
+    "subtitle": "Six clear phases that take an AI or Full-Stack project from initial idea to a system running in production. The same approach works for organizations, development teams, and founders — adapted to scope and budget.",
+    "deliverablesLabel": "What you get",
+    "phases": [
+      {
+        "title": "Initial Consultation",
+        "subtitle": "Half an hour. No cost. No commitment.",
+        "paragraph": "We meet for thirty minutes on Zoom or by phone to understand what you want to build, the business pain behind the request, and your timeline. I'll give an honest read on whether the project is a fit — sometimes I'll refer you elsewhere if it isn't my domain. If there's a fit, I leave the call with a first-pass picture of scope, top risks, and a rough price range. If there isn't, we lost 30 minutes and nothing more.",
+        "duration": "One call · 30 minutes",
+        "deliverables": [
+          "Clear understanding of business and technical goals",
+          "User and needs mapping",
+          "Initial scope and budget assessment",
+          "Honest recommendation — take it on or refer out"
+        ]
+      },
+      {
+        "title": "Specification Document",
+        "subtitle": "A detailed PRD with mockups and architecture — so we're all talking about the same thing.",
+        "paragraph": "This is where the idea becomes a working document. I write a PRD (Product Requirements Document) covering all features, user flows, edge cases, and integrations. In parallel I build mockups of the main screens (using tools like Stitch or v0) and propose a fitted technical architecture — which database, which services, how AI plugs in if relevant. By the end of this phase you have a 10–30 page document you can show to a board, a development team, or a partner — and I have a roadmap to build from.",
+        "duration": "3–7 working days",
+        "deliverables": [
+          "Detailed PRD with feature list and user stories",
+          "Mockups of the main screens",
+          "Technical architecture proposal (DB, API, integrations)",
+          "Accurate effort estimates and timeline",
+          "Final price quote"
+        ]
+      },
+      {
+        "title": "Weekly Iteration Development",
+        "subtitle": "Weekly sprint, Friday demo, fast iteration.",
+        "paragraph": "The core of the work. I run weekly sprints — on Sunday we decide what goes into the round, on Thursday or Friday there's a demo of what shipped, and any feedback gets handled in the next round. You see real progress every week, not a month of silence followed by a big reveal. I work in Git with feature branches, clear commit messages, and documented PRs — so you have full visibility even when we're not in a meeting. Every commit passes type-check and lint, and I use AI tooling (Claude Code, Copilot) as a productivity multiplier — but the code itself goes through human review.",
+        "duration": "2–12 weeks (depends on scope)",
+        "deliverables": [
+          "Weekly progress demo (Zoom or Loom)",
+          "Full Git repository access",
+          "Live PROGRESS.md updates in the project",
+          "Slack/WhatsApp channel for quick questions",
+          "Live staging environment for testing"
+        ]
+      },
+      {
+        "title": "Testing & Refinement",
+        "subtitle": "QA, accessibility, performance — before going live.",
+        "paragraph": "Before the system sees the light of day, we run a structured testing pass. Functional tests for every critical user flow, accessibility tests against IS 5568 / WCAG 2.1 (especially important for public-sector and enterprise projects), performance testing with Lighthouse and Core Web Vitals, and basic security checks (OWASP Top 10). Load testing if relevant. Every bug found goes into the list, gets fixed, and gets retested. This phase is short on time but critical to quality.",
+        "duration": "1–2 weeks",
+        "deliverables": [
+          "QA report covering every user flow tested",
+          "Accessibility report (axe-core / Lighthouse)",
+          "Performance metrics (LCP, FID, CLS, TTI)",
+          "Basic security review",
+          "List of fixes applied"
+        ]
+      },
+      {
+        "title": "Launch & Support",
+        "subtitle": "Deploy, monitoring, and 30 days of included support.",
+        "paragraph": "Launch day. I handle the full deployment — Vercel, Railway, a Hetzner VPS, or your internal cloud. I set up monitoring (Sentry for errors, Plausible/PostHog for analytics if relevant), confirm DNS, SSL, and the rest of the infrastructure are working, and run a final smoke test in production. After launch, you get 30 days of included support — every bug, every question, every small fix is handled at no extra charge. This is when the project really moves from \"code\" to \"a live system\".",
+        "duration": "1–3 days",
+        "deliverables": [
+          "Production deploy (Vercel/Railway/VPS)",
+          "Monitoring and logging setup",
+          "Deployment documentation in README",
+          "30 days of included post-launch support",
+          "Handover call with your team"
+        ]
+      },
+      {
+        "title": "Ongoing Maintenance",
+        "subtitle": "Monthly retainer — optional, never required.",
+        "paragraph": "After the included 30 days, if you want me to keep maintaining the system, I offer a flexible monthly retainer. The idea is straightforward: a guaranteed number of hours per month for bug fixes, security updates, small features, and fast incident response. You can also choose to take the code in-house and work with your own team — I'll run a clean handover and leave thorough documentation. No lock-in. My approach is to build systems that can run without me.",
+        "duration": "Monthly, no long commitment",
+        "deliverables": [
+          "Guaranteed monthly hours (8/16/40)",
+          "Priority response to incidents",
+          "Security updates and dependency upgrades",
+          "Monthly status call",
+          "Option to add new features at your pace"
+        ]
+      }
+    ],
+    "principles": {
+      "title": "Four Principles That Run Through Every Phase",
+      "subtitle": "Why I work this way — and how much it saves you down the line",
+      "items": [
+        {
+          "title": "Full Transparency",
+          "description": "Git access, weekly demos, live PROGRESS.md updates. No surprises."
+        },
+        {
+          "title": "Short Iterations",
+          "description": "Weekly sprints. If something isn't working, we change it next round — not next month."
+        },
+        {
+          "title": "No Lock-in",
+          "description": "Your code, your infrastructure, your documentation. You can always continue with an internal team."
+        },
+        {
+          "title": "AI as Multiplier, Not Replacement",
+          "description": "I use Claude Code and AI tooling to accelerate development, but every line of code goes through human review."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Start a Conversation?",
+      "subtitle": "A 30-minute initial consultation, free of charge and with no commitment. We'll figure out together if there's a fit — and if there is, how to start.",
+      "ctaPrimary": "Schedule a Consultation",
+      "ctaSecondary": "View All Services",
+      "bookCall": "Book a Call — 30 Minutes Free"
     }
   },
   "language": {

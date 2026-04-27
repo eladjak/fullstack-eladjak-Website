@@ -57,7 +57,7 @@ export const qdrantGuideEn: AgentGuideData = {
     },
     {
       before: "Pinecone serverless ~$70+/mo for a comparable workload (Weaviate Cloud similar)",
-      after: "Qdrant docker locally — $0, 100k+ embeddings easily (or Qdrant Cloud free 1GB tier / ~$0.04/hr on the smallest cluster)",
+      after: "Qdrant docker locally — $0, 100k+ embeddings easily (or Qdrant Cloud free 1 GB tier / ~$0.04/hr on the smallest cluster)",
       icon: Package,
     },
   ],
@@ -117,7 +117,7 @@ export const qdrantGuideEn: AgentGuideData = {
         "Smart filtering: you can combine vector search with classic filters (e.g. 'find similar conversations, but only from the last month, and only for a specific user') — a winning combination that few competitors offer",
         "Flexible payload: alongside each vector you can store a free-form JSON blob of metadata — user id, date, tags, or any other field you want to filter by",
         "Multiple collections: organise by topic or use case (I have a separate collection per agent — kami_memory, box_coach, network_memory and others). Each collection can use a different embedding model",
-        "Simple deployment: an official 150MB Docker image that runs comfortably even on a 256MB VPS, and ships with a beautiful visual dashboard for exploring your data at localhost:6333/dashboard",
+        "Simple deployment: an official 150 MB Docker image that runs comfortably even on a 256 MB VPS, and ships with a beautiful visual dashboard for exploring your data at localhost:6333/dashboard",
       ],
       tips: [
         "Install it via docker-compose — see the [Docker guide](/en/guide/docker) for details on networks, volumes, and making it persistent",
@@ -172,7 +172,7 @@ export const qdrantGuideEn: AgentGuideData = {
         "A point is the equivalent of a 'row' — made of an id, a vector (the numeric fingerprint), and a payload (free-form JSON with whatever metadata you want)",
         "Distance metric (how 'similar' is measured): Cosine similarity (angle between vectors — recommended for text), Euclidean (straight-line distance), or Dot product (inner product)",
         "Indexing: Qdrant uses an algorithm called HNSW (Hierarchical Navigable Small Worlds), which automatically builds a multi-layer map for fast nearest-neighbour search, with no need to scan every vector",
-        "In my network: kami_memory (1000 WhatsApp messages from [Kami](/en/guide/kami)), kaylee_memory (memory for [Kaylee](/en/guide/kaylee)), agents_registry (who-does-what), healing_history (what [Hermes](/en/guide/hermes) has fixed in the past), network_memory, telegram_news and more",
+        "In my network: kami_memory (1,000 WhatsApp messages from [Kami](/en/guide/kami)), kaylee_memory (memory for [Kaylee](/en/guide/kaylee)), agents_registry (who-does-what), healing_history (what [Hermes](/en/guide/hermes) has fixed in the past), network_memory, telegram_news and more",
         "Creating a collection is a one-time API call: PUT /collections/<name> with the vector configuration — from then on you only add or search",
       ],
       codeExample: {

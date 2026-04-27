@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { SocialLink } from './social-link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import { NewsletterSignup } from '@/components/widgets/NewsletterSignup';
 import dynamic from 'next/dynamic';
 
 const AgentNetworkStatus = dynamic(
@@ -41,7 +42,7 @@ export default function Footer() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
       <div className="container px-4 md:px-6 py-12 md:py-16">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <ScrollAnimate>
             <div className="space-y-4">
@@ -112,6 +113,11 @@ export default function Footer() {
                 )}
               </div>
             </div>
+          </ScrollAnimate>
+
+          {/* Newsletter */}
+          <ScrollAnimate delay={0.2}>
+            <NewsletterSignup />
           </ScrollAnimate>
         </div>
 

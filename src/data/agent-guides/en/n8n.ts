@@ -150,7 +150,7 @@ export const n8nGuideEn: AgentGuideData = {
       ],
       tips: [
         "Set N8N_ENCRYPTION_KEY up front and store it somewhere safe — if it ever changes, all encrypted credentials get wiped and you'll have to re-enter everything",
-        "Allocate at least 1GB RAM and 10GB disk. Execution history and data pile up fast — especially if you have workflows running every 5 minutes",
+        "Allocate at least 1 GB RAM and 10 GB disk. Execution history and data pile up fast — especially if you have workflows running every 5 minutes",
         "Hetzner, DigitalOcean, and Railway all offer one-click n8n images — a single click and you're live, no manual compose.yml wrangling",
       ],
       codeExample: {
@@ -172,7 +172,7 @@ export const n8nGuideEn: AgentGuideData = {
         "HTTP Request — the most important node of them all: sends to external APIs via POST/GET/PUT, supports every auth type (Bearer, Basic, OAuth2, API Key), auto-retries on failures, and has built-in pagination",
         "Logic and flow: IF (classic if/else condition), Switch (like switch/case — route to 5+ branches), Merge (join two data streams), Split In Batches (process a list in small chunks), Loop (repeat an action)",
         "Data transformation: Set (define new JSON fields), Code (write inline JavaScript or Python — the rescue tool that replaces 10 fancy nodes), Function, Item Lists",
-        "Email integrations: Gmail, Outlook, generic SMTP, Mailchimp, Resend — I send everything via Resend because it has a clean API and is free up to 3000 emails/month",
+        "Email integrations: Gmail, Outlook, generic SMTP, Mailchimp, Resend — I send everything via Resend because it has a clean API and is free up to 3,000 emails/month",
         "Messaging integrations: Slack, Discord, Telegram — there's an unofficial node for WhatsApp, but I skip it and send through [Kami](/en/guide/kami) via HTTP Request",
         "Databases: Postgres, MySQL, MongoDB, Airtable, Google Sheets, Notion — the convenience of Google Sheets as a 'small DB' is priceless for tiny projects",
         "AI: the new AI Agent node, OpenAI, Anthropic ([Claude](/en/claude-code)), [Ollama](/en/guide/ollama) (free local models), LangChain nodes, HuggingFace — chaining LLMs and agents together became instantly natural",
@@ -223,7 +223,7 @@ export const n8nGuideEn: AgentGuideData = {
       content: [
         "Expressions — inline JavaScript inside any field of any node. Example: {{ $json.name.split(' ')[0] }} extracts the first name. Removes the need for a separate Set node for every tiny transformation",
         "Built-in time helpers: $now and $today use the Luxon library. For example {{ $now.minus({ days: 7 }).toISO() }} returns the date from a week ago in ISO — handy for APIs that require time ranges",
-        "Split In Batches — process an array of 1000 items in batches of 10, preventing memory crashes and helping you respect the rate limits of the API you're hammering",
+        "Split In Batches — process an array of 1,000 items in batches of 10, preventing memory crashes and helping you respect the rate limits of the API you're hammering",
         "Wait node — pause by seconds/minutes/hours, or until a specific date. Crucial for subtle timing (like 'send a reminder 3 days before the event')",
         "Error Workflow — a separate workflow that runs automatically when a primary workflow fails. Mine sends a WhatsApp alert to me via [Kami](/en/guide/kami) with the failure details",
         "Sub-workflow — one workflow calling another (via the Execute Workflow node). Enables code re-use: for example a 'send alert' workflow called from 10 other workflows",

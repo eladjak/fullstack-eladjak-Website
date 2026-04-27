@@ -57,7 +57,7 @@ export const ollamaGuideEn: AgentGuideData = {
     },
     {
       before: "Rate limits throttle batch processing",
-      after: "1000 classifications in a row, no limits",
+      after: "1,000 classifications in a row, no limits",
       icon: Zap,
     },
     {
@@ -154,7 +154,7 @@ export const ollamaGuideEn: AgentGuideData = {
         "RAM rule of thumb: you need about 1.2x the model size at standard compression (Q4). So Gemma 3 4B needs about 3.3GB, Llama 3.1 8B wants around 6GB, and Qwen 3 32B requires about 22GB",
       ],
       tips: [
-        "Set the OLLAMA_MODELS environment variable to point at a large drive — models can easily take up 50GB or more, and they don't belong on a small system disk",
+        "Set the OLLAMA_MODELS environment variable to point at a large drive — models can easily take up 50 GB or more, and they don't belong on a small system disk",
         "On Linux, the clean way to add configuration is via sudo systemctl edit ollama — this lets you add environment variables without breaking future upgrades",
         "In Docker it's mandatory to mount a volume at /root/.ollama — otherwise every time the container stops you lose all the models you downloaded and have to re-download them",
       ],
@@ -187,7 +187,7 @@ export const ollamaGuideEn: AgentGuideData = {
       tips: [
         "The recommended default quantization (smart model compression that shrinks the file without a material quality drop) is Q4_K_M. Q8_0 gives slightly higher quality but doubles the memory footprint — usually not worth it for day-to-day use",
         "The gap between llama3.1:latest (the default, Q4_K_M) and llama3.1:8b-instruct-q8_0 is about 3–5 percent in answer quality but roughly 2x the memory. So the compressed version almost always wins — download the larger variant only if you have plenty of VRAM and maximum quality is critical",
-        "Before downloading a heavy 30GB+ model, peek at its page on the official site (ollama.com/library/NAME) — you'll find comparison tables, up-to-date benchmarks, and the full range of quantization levels with size/quality details",
+        "Before downloading a heavy 30 GB+ model, peek at its page on the official site (ollama.com/library/NAME) — you'll find comparison tables, up-to-date benchmarks, and the full range of quantization levels with size/quality details",
         "Important 2026 update: the new models (Gemma 3, Qwen 3, DeepSeek-V3, Llama 3.3) all support 128k context tokens — so you can feed entire documents or large codebases into a single conversation",
       ],
       codeExample: {

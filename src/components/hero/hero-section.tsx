@@ -23,8 +23,10 @@ export default function HeroSection() {
           src="/images/hero-dev.jpg"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover opacity-15"
           priority
+          fetchPriority="high"
           aria-hidden="true"
         />
       </div>

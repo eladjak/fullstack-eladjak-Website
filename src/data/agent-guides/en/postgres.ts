@@ -139,14 +139,14 @@ export const postgresGuideEn: AgentGuideData = {
       content: [
         "Docker (development + small production) — by far the simplest. One compose stanza and you have a DB. Backup = copy a volume. Upgrade = swap a tag",
         "Homebrew/apt (local development only) — `brew install postgresql@16` or `apt install postgresql-16`. A service running in the background on your machine",
-        "Supabase (managed + UI) — Postgres + REST API + Auth + Storage. The free tier is generous (500MB, 2 projects). All my small projects live there",
-        "Neon (serverless Postgres) — sleeps when unused, wakes up instantly. Great for dev, less great for steady load. Free tier 0.5GB",
+        "Supabase (managed + UI) — Postgres + REST API + Auth + Storage. The free tier is generous (500 MB, 2 projects). All my small projects live there",
+        "Neon (serverless Postgres) — sleeps when unused, wakes up instantly. Great for dev, less great for steady load. Free tier 0.5 GB",
         "RDS / Cloud SQL (for businesses) — Amazon/Google manage it for you. Expensive but zero-maintenance. Worth it when data is critical and budget is available",
         "psql — the classic CLI client. After `apt install postgresql-client`, connect with `psql postgresql://user:pass@host:5432/db`",
       ],
       tips: [
         "In development, never expose port 5432 to the internet. Keep it internal to the Docker network and access it through an SSH tunnel",
-        "Free Supabase = great for early-stage. Once you cross 500MB, decide whether to stay or move to self-hosted",
+        "Free Supabase = great for early-stage. Once you cross 500 MB, decide whether to stay or move to self-hosted",
         "Nice GUIs: TablePlus (mac/windows, free for two connections), DBeaver (open source, heavier), pgAdmin (free, official)",
       ],
       codeExample: {
@@ -214,7 +214,7 @@ export const postgresGuideEn: AgentGuideData = {
       title: "Production: connection pooling, performance, security",
       subtitle: "What you need to know before going to the real world",
       description:
-        "The difference between Postgres in development and Postgres in production is mostly the number of concurrent connections, the size of the data, and the exposure to the internet. Each Postgres connection costs ~10MB of RAM — without pooling, 100 concurrent users = 1GB just for connections. PgBouncer solves it: it sits between the application and the DB, holding a few dozen real connections that serve thousands of 'logical' clients.",
+        "The difference between Postgres in development and Postgres in production is mostly the number of concurrent connections, the size of the data, and the exposure to the internet. Each Postgres connection costs ~10 MB of RAM — without pooling, 100 concurrent users = 1 GB just for connections. PgBouncer solves it: it sits between the application and the DB, holding a few dozen real connections that serve thousands of 'logical' clients.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       content: [
@@ -222,7 +222,7 @@ export const postgresGuideEn: AgentGuideData = {
         "EXPLAIN ANALYZE — the most important command for performance. Shows how Postgres planned and ran the query, where it spent time, and whether it used indexes",
         "Smart indexes: `CREATE INDEX CONCURRENTLY` (doesn't lock the table), partial indexes (only on rows that match a predicate), expression indexes (on a function's output)",
         "VACUUM and AUTOVACUUM — Postgres doesn't delete rows immediately; it marks them as 'dead' and reclaims later. If autovacuum doesn't run, performance degrades. Check `pg_stat_user_tables`",
-        "Memory tuning — `shared_buffers = 25% of RAM`, `effective_cache_size = 75% of RAM`, `work_mem = 16-64MB`. Postgres defaults are too conservative",
+        "Memory tuning — `shared_buffers = 25% of RAM`, `effective_cache_size = 75% of RAM`, `work_mem = 16-64 MB`. Postgres defaults are too conservative",
         "Security: SSL is mandatory (`ssl=on`), `pg_hba.conf` with `scram-sha-256`, never expose the DB directly to the internet — always behind a VPN/firewall",
         "Read replicas — Postgres ships with built-in async replication. Heavy read queries (analytics) on the replica, writes on the master",
       ],
@@ -246,7 +246,7 @@ export const postgresGuideEn: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [
-        "`pg_dump` — exports the DB to a SQL or pgsql binary file. Runs live (no locks), works for DBs up to tens of GBs. Restore: `pg_restore` or `psql < dump.sql`",
+        "`pg_dump` — exports the DB to a SQL or pgsql binary file. Runs live (no locks), works for DBs up to tens of GB. Restore: `pg_restore` or `psql < dump.sql`",
         "`pg_dumpall` — like pg_dump but for every DB in the instance, including users and permissions",
         "WAL archiving — Postgres writes every change to the WAL (Write-Ahead Log). With `archive_command` shipping them to S3, you can restore to any point in the past",
         "pgBackRest / Barman — tools that specialize in PITR. I personally use daily pg_dump + copy to S3 (Backblaze B2 — the cheapest)",
@@ -256,7 +256,7 @@ export const postgresGuideEn: AgentGuideData = {
       ],
       tips: [
         "Don't rely on a VPS snapshot alone — it's not a DB backup. It's a disk image, and there's a real chance the DB was mid-transaction when the snapshot was taken",
-        "Backblaze B2 — S3-compatible storage at $0.005/GB/month. Backing up 100GB will cost you 50 cents a month",
+        "Backblaze B2 — S3-compatible storage at $0.005/GB/month. Backing up 100 GB will cost you 50 cents a month",
         "Document the restore procedure. When you actually need to restore (3am, panic mode), you won't remember the commands. Write a clear runbook with exact commands",
       ],
       codeExample: {

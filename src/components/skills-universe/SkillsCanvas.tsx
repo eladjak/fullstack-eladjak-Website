@@ -2,7 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, OrbitControls, Stars } from '@react-three/drei';
+import {
+  Html,
+  Instance,
+  Instances,
+  OrbitControls,
+  Stars,
+} from '@react-three/drei';
+import type { PositionMesh } from '@react-three/drei';
 import type { Mesh } from 'three';
 import {
   CATEGORY_COLORS,
@@ -115,6 +122,143 @@ function SkillSphere({ skill, position, isSelected, ring, onSelect }: SkillSpher
   );
 }
 
+/**
+ * InstancedSkillRing — renders many spheres as a single InstancedMesh.
+ *
+ * Why: 313 outer-ring spheres, each as their own React component + useFrame,
+ * tanks performance on mid-range mobile (313 draw calls + 313 closures per
+ * frame). Drei's <Instances> collapses this into 1 draw call + 1 useFrame.
+ *
+ * Trade-off vs. individual SkillSphere:
+ *  - All instances share ONE material, so we can't bump emissiveIntensity
+ *    per-instance without a custom shader. We compensate by making the
+ *    hover scale (1.6×) the dominant visual cue, which matches the spec
+ *    and is what the eye notices first anyway.
+ *  - Color is per-instance via instanceColor (drei wires this up for us).
+ */
+interface InstancedSkillRingProps {
+  skills: SkillNode[];
+  positions: Array<[number, number, number]>;
+  selectedId: string | null;
+  onSelect: (skill: SkillNode) => void;
+}
+
+function InstancedSkillRing({
+  skills,
+  positions,
+  selectedId,
+  onSelect,
+}: InstancedSkillRingProps) {
+  // Stable refs into the InstancedMesh — one PositionMesh proxy per skill.
+  const instanceRefs = useRef<Array<PositionMesh | null>>([]);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  // Pre-compute base radius per skill (same formula as the previous
+  // extended-ring SkillSphere).
+  const baseScales = useMemo(
+    () => skills.map((s) => 0.06 + ((s.level ?? 2) - 1) * 0.01),
+    [skills],
+  );
+
+  // Single useFrame for the whole ring: lerp each instance's scale toward
+  // its target (1.6× when hovered or selected, 1× otherwise). We multiply
+  // the base radius by the lerped factor so the visual radius is correct.
+  useFrame((_, delta) => {
+    const lerp = Math.min(1, delta * 8);
+    for (let i = 0; i < skills.length; i++) {
+      const inst = instanceRefs.current[i];
+      if (!inst) continue;
+      const skill = skills[i]!;
+      const isHot = hoveredId === skill.id || selectedId === skill.id;
+      const target = (isHot ? 1.6 : 1) * baseScales[i]!;
+      const current = inst.scale.x;
+      const next = current + (target - current) * lerp;
+      inst.scale.set(next, next, next);
+    }
+  });
+
+  // Tooltip target: hovered first, falls back to selected.
+  const tooltipId = hoveredId ?? selectedId;
+  const tooltipIndex = tooltipId
+    ? skills.findIndex((s) => s.id === tooltipId)
+    : -1;
+  const tooltipSkill = tooltipIndex >= 0 ? skills[tooltipIndex] : null;
+  const tooltipPosition =
+    tooltipIndex >= 0 ? positions[tooltipIndex] : null;
+
+  return (
+    <>
+      <Instances limit={skills.length} frustumCulled={false}>
+        <sphereGeometry args={[1, 14, 14]} />
+        <meshStandardMaterial
+          roughness={0.45}
+          metalness={0.2}
+          emissiveIntensity={0.15}
+          transparent
+          opacity={0.65}
+          // emissive is read from instanceColor when vertexColors is on,
+          // but drei's <Instance color> sets the diffuse color attribute.
+          // We set emissive to a low neutral so the per-instance color
+          // dominates the look.
+        />
+        {skills.map((skill, i) => (
+          <Instance
+            key={skill.id}
+            // Drei's <Instance> ref forwards as `unknown`; in practice it's a
+            // PositionMesh (a THREE.Group with .scale/.position/.color). Cast
+            // here so we can drive scale from the parent useFrame above.
+            ref={(el: unknown) => {
+              instanceRefs.current[i] = (el as PositionMesh) ?? null;
+            }}
+            position={positions[i]!}
+            // Initial scale is the per-skill base; useFrame above will
+            // animate it toward the lerp target each frame.
+            scale={baseScales[i]!}
+            color={CATEGORY_COLORS[skill.category]}
+            onPointerOver={(e) => {
+              e.stopPropagation();
+              setHoveredId(skill.id);
+              if (typeof document !== 'undefined') {
+                document.body.style.cursor = 'pointer';
+              }
+            }}
+            onPointerOut={(e) => {
+              e.stopPropagation();
+              setHoveredId((prev) => (prev === skill.id ? null : prev));
+              if (typeof document !== 'undefined') {
+                document.body.style.cursor = 'default';
+              }
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(skill);
+            }}
+          />
+        ))}
+      </Instances>
+
+      {/* Single tooltip for whichever instance is hovered/selected. */}
+      {tooltipSkill && tooltipPosition && (
+        <Html
+          position={tooltipPosition}
+          center
+          distanceFactor={10}
+          style={{ pointerEvents: 'none' }}
+          zIndexRange={[100, 0]}
+        >
+          <div
+            dir="rtl"
+            className="rounded-md border border-white/20 bg-black/80 px-2 py-1 text-xs font-medium text-white shadow-lg backdrop-blur-sm"
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            {tooltipSkill.label}
+          </div>
+        </Html>
+      )}
+    </>
+  );
+}
+
 interface SceneProps {
   selectedId: string | null;
   onSelect: (skill: SkillNode) => void;
@@ -161,17 +305,14 @@ function Scene({ selectedId, onSelect, reducedMotion }: SceneProps) {
         />
       ))}
 
-      {/* Extended ring: generated skills */}
-      {GENERATED_SKILLS.map((skill, i) => (
-        <SkillSphere
-          key={skill.id}
-          skill={skill}
-          position={extendedPositions[i]!}
-          isSelected={selectedId === skill.id}
-          ring="extended"
-          onSelect={onSelect}
-        />
-      ))}
+      {/* Extended ring: 313 generated skills, instanced for perf.
+          One InstancedMesh = one draw call instead of 313. */}
+      <InstancedSkillRing
+        skills={GENERATED_SKILLS}
+        positions={extendedPositions}
+        selectedId={selectedId}
+        onSelect={onSelect}
+      />
 
       <OrbitControls
         enablePan={false}

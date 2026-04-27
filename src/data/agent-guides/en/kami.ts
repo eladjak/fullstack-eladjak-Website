@@ -35,7 +35,7 @@ export const kamiGuideEn: AgentGuideData = {
     { label: "Availability", value: "24/7" },
     { label: "Default language", value: "Hebrew" },
     { label: "Voice transcription", value: "~2s" },
-    { label: "Semantic memory", value: "1000+" },
+    { label: "Semantic memory", value: "1,000+" },
   ],
   paradigmTitle: "Why this changes the way we work with AI",
   paradigmSub:
@@ -48,7 +48,7 @@ export const kamiGuideEn: AgentGuideData = {
     },
     {
       before: "Forget what we talked about a week ago",
-      after: "Kami remembers 1000+ previous messages and connects related topics",
+      after: "Kami remembers 1,000+ previous messages and connects related topics",
       icon: Brain,
     },
     {
@@ -274,7 +274,7 @@ export const kamiGuideEn: AgentGuideData = {
       ],
       tips: [
         "The pattern that has paid off the most: 'mirror mode' — if you sent a voice note, Kami replies in voice; if you sent text, Kami replies in text. It creates a feeling of natural, frictionless communication",
-        "It is worth adding a /status command in WhatsApp — it returns a compact system status (uptime, message count, memory usage) without consuming any LLM tokens, so it costs nothing",
+        "Add a /status command in WhatsApp — it returns a compact system status (uptime, message count, memory usage) without consuming any LLM tokens, so it costs nothing",
       ],
     },
   ],

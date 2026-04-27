@@ -112,7 +112,7 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
       beginner:
         "Think about it like this: a house with an open door (port 443) needs guards, rules, locks. With Tunnel, there is no door at all — but you have an external representative (Cloudflare) who steps out of the house through a vent, receives guests, and forwards their messages inside through internal communication. Burglars can stand outside as long as they want — there's no door to break in.",
       content: [
-        "cloudflared — the daemon running on your server. A small binary (~50MB) whose only job is to hold an open connection to Cloudflare and forward traffic. Needs only a systemd service",
+        "cloudflared — the daemon running on your server. A small binary (~50 MB) whose only job is to hold an open connection to Cloudflare and forward traffic. Needs only a systemd service",
         "Tunnel — the connection itself, identified by UUID. You create it once and then point at it via DNS",
         "Ingress rules — define how every request that arrives via the tunnel is routed. For example: `hub.eladjak.com` → `http://localhost:3710`",
         "Automatic DNS CNAME — Cloudflare can create the DNS record for the tunnel automatically. You just declare in one command that `hub.example.com` belongs to tunnel X",

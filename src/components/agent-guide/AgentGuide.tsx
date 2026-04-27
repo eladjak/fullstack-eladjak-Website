@@ -364,8 +364,10 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               src={guide.heroBgImage}
               alt=""
               fill
+              sizes="100vw"
               className="object-cover opacity-20"
               priority
+              fetchPriority="high"
               aria-hidden="true"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />

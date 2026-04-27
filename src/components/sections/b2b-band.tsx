@@ -3,31 +3,22 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, Brain, Code2, GraduationCap, Building2 } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 /**
  * Subtle B2B-focused band aimed at organizations and dev teams.
  * Additive — sits as its own small section, doesn't replace the main CTA.
- * Hebrew-first; deliberately avoids fake stats ("100+ ארגונים" etc.).
+ * Content is i18n-driven; deliberately avoids fake stats ("100+ ארגונים" etc.).
  */
 export default function B2BBand() {
+  const t = useTranslations('b2bBand');
+
   const offerings = [
-    {
-      icon: Brain,
-      label: 'ייעוץ אסטרטגי',
-      description: 'מטריצת AI, ארכיטקטורה, סקירת קוד',
-    },
-    {
-      icon: Code2,
-      label: 'פיתוח מלא',
-      description: 'מ-PRD ועד deploy, איטרציות שבועיות',
-    },
-    {
-      icon: GraduationCap,
-      label: 'סדנאות AI',
-      description: 'workshop של יום לצוותי פיתוח',
-    },
-  ];
+    { icon: Brain, key: 0 },
+    { icon: Code2, key: 1 },
+    { icon: GraduationCap, key: 2 },
+  ] as const;
 
   return (
     <section
@@ -45,13 +36,13 @@ export default function B2BBand() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-accent mb-1">
-                    לארגונים וצוותי פיתוח
+                    {t('eyebrow')}
                   </p>
                   <h2
                     id="b2b-band-heading"
                     className="text-xl md:text-2xl font-bold font-heebo text-balance leading-tight"
                   >
-                    עובדים עם ארגונים שמעוניינים ב-AI
+                    {t('title')}
                   </h2>
                 </div>
               </div>
@@ -60,9 +51,10 @@ export default function B2BBand() {
               <ul className="grid gap-3 sm:grid-cols-3 flex-1 w-full">
                 {offerings.map((o, idx) => {
                   const Icon = o.icon;
+                  const label = t(`items.${o.key}.label`);
                   return (
                     <motion.li
-                      key={o.label}
+                      key={label}
                       initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, ease: 'easeOut', delay: idx * 0.05 }}
@@ -73,9 +65,9 @@ export default function B2BBand() {
                         <Icon className="h-4 w-4" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold leading-tight">{o.label}</p>
+                        <p className="text-sm font-semibold leading-tight">{label}</p>
                         <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">
-                          {o.description}
+                          {t(`items.${o.key}.description`)}
                         </p>
                       </div>
                     </motion.li>
@@ -88,7 +80,7 @@ export default function B2BBand() {
                 href="/methodology"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground/90 px-5 py-3 text-sm font-medium text-background hover:bg-foreground transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shrink-0 self-start lg:self-auto"
               >
-                בואו נדבר
+                {t('cta')}
                 <ArrowLeft className="h-4 w-4" />
               </Link>
             </div>

@@ -200,7 +200,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "In my setup, I have a detailed global CLAUDE.md with working rules for my agent network (see [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee)) and for the [Delegator](/en/guide/delegator) as the central entry point",
       ],
       tips: [
-        "The more detailed your CLAUDE.md, the better Claude understands you and the fewer repeat questions it asks. It's worth investing 15–30 minutes on it once",
+        "The more detailed your CLAUDE.md, the better Claude understands you and the fewer repeat questions it asks. Invest 15–30 minutes on it once",
         "Type /init at the start of a new project and Claude will auto-generate the initial file based on what it sees in the project",
         "Every time you correct Claude on the same mistake a second time — that's a signal the instruction belongs in CLAUDE.md",
       ],

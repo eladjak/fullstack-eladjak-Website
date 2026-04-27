@@ -145,7 +145,7 @@ export const boxGuideEn: AgentGuideData = {
         "SOURCE allowlist: only approved sources get through (for example elad-direct-whatsapp, box-ocr, elad-ios-shortcut). This matters because Box sits on an infrastructure with many agents ([Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Hermes](/en/guide/hermes)) generating traffic — we don't want another agent's report to accidentally register as an intake.",
         "Phantom filter: a mechanism that detects messages that look like agent chatter and rejects them. A second defensive layer above the allowlist.",
         "The reply sent back on WhatsApp: \"Got it — ~550kcal, 40g protein. Next step: finish your water by 11:00\" — short, concrete, and with a single next action so you aren't overwhelmed.",
-        "OCR extension: send a photo of a plate → Google Cloud Vision API extracts the text from the PDF/menu/package → it's fed to the language model as if you had typed it. This input is free up to 1000 images per month.",
+        "OCR extension: send a photo of a plate → Google Cloud Vision API extracts the text from the PDF/menu/package → it's fed to the language model as if you had typed it. This input is free up to 1,000 images per month.",
       ],
       codeExample: {
         label: "Sending from curl",
@@ -231,7 +231,7 @@ export const boxGuideEn: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [
-        "OCR integration: send a photo of a plate/menu/package → Google Cloud Vision API extracts the text → Box handles it like a regular intake. Free up to 1000 images per month. Handy at a restaurant when you don't have the energy to type.",
+        "OCR integration: send a photo of a plate/menu/package → Google Cloud Vision API extracts the text → Box handles it like a regular intake. Free up to 1,000 images per month. Handy at a restaurant when you don't have the energy to type.",
         "iOS Shortcut: build a one-button shortcut on the device (Shortcuts app) that opens a direct chat with Box in WhatsApp — shrinks the time from \"idea\" to \"message\" to 3 seconds. Works from the Home Screen and the Apple Watch.",
         "Webhook from Garmin/Fitbit: connect via [n8n](/en/guide/n8n) to your fitness service and Box receives weight/sleep/heart rate automatically every morning. This removes the need to remember to report.",
         "Shabbat awareness: on Israeli Shabbat and holidays Box goes quiet automatically — no reports, no reminders. This principle runs across every agent in my network (see [Kami](/en/guide/kami) and [Kaylee](/en/guide/kaylee), which behave the same way).",
@@ -260,7 +260,7 @@ export const boxGuideEn: AgentGuideData = {
     },
     {
       title: "Google Cloud Vision API",
-      description: "Image OCR for automatic intake — free up to 1000/month",
+      description: "Image OCR for automatic intake — free up to 1,000/month",
       href: "https://cloud.google.com/vision",
       icon: ExternalLink,
     },

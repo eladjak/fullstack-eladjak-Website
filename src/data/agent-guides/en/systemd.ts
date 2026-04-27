@@ -32,7 +32,7 @@ export const systemdGuideEn: AgentGuideData = {
   stats: [
     { label: "services I run", value: "13" },
     { label: "auto-restart", value: "yes" },
-    { label: "daily logs", value: "~500MB" },
+    { label: "daily logs", value: "~500 MB" },
     { label: "boot time", value: "<10s" },
   ],
   paradigmTitle: "Turn a script from 'I run it manually' into 'infrastructure'",
@@ -200,12 +200,12 @@ export const systemdGuideEn: AgentGuideData = {
         "`journalctl -u kami-agent -p err` — only error-or-worse messages. Priorities: emerg, alert, crit, err, warning, notice, info, debug",
         "`journalctl -u kami-agent --grep 'timeout'` — regex search inside the logs. `--grep` supports full regex",
         "`journalctl -u kami-agent -o json-pretty` — output in JSON with full metadata. Useful for processing with `jq`",
-        "`journalctl --disk-usage` — how much space logs take. `journalctl --vacuum-size=500M` shrinks to 500MB",
+        "`journalctl --disk-usage` — how much space logs take. `journalctl --vacuum-size=500M` shrinks to 500 MB",
         "`journalctl --list-boots` — list of boots. `-b -1` shows logs from the previous boot (useful for debugging crashes)",
       ],
       tips: [
         "Always add `--no-pager` in scripts — otherwise journalctl opens less and waits for Q",
-        "If the server is small on disk, add to `/etc/systemd/journald.conf`: `SystemMaxUse=500M` and `SystemMaxFileSize=50M`. Otherwise logs can eat the whole disk",
+        "If the server is small on disk, add to `/etc/systemd/journald.conf`: `SystemMaxUse=500M` and `SystemMaxFileSize=50M`. Otherwise logs can eat the whole disk.",
         "Logs from multiple units together: `journalctl -u kami -u kaylee -u box -f` — three agents in real time, in one stream",
       ],
       codeExample: {

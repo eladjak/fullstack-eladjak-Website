@@ -215,8 +215,8 @@ export default function GuideIndex() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {agentGuides.map((guide) => (
-            <GuideCard key={guide.slug} guide={guide} variant="agent" />
+          {agentGuides.map((guide, index) => (
+            <GuideCard key={guide.slug} guide={guide} variant="agent" eager={index < 3} />
           ))}
         </div>
       </section>
@@ -274,9 +274,11 @@ export default function GuideIndex() {
 function GuideCard({
   guide,
   variant,
+  eager = false,
 }: {
   guide: (typeof allGuides)[number];
   variant: "agent" | "infra";
+  eager?: boolean;
 }) {
   const href =
     guide.slug === "claude-code" ? "/claude-code" : `/guide/${guide.slug}`;
@@ -302,6 +304,7 @@ function GuideCard({
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             aria-hidden="true"
+            {...(eager ? { priority: true, fetchPriority: 'high' as const } : { loading: 'lazy' as const })}
           />
           <div
             aria-hidden="true"

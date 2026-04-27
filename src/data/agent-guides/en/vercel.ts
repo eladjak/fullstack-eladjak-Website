@@ -26,13 +26,13 @@ export const vercelGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-vercel-hero.jpg",
   tagline: "git push → live site. Global CDN, automatic SSL, preview deployments. Generous free tier.",
   heroDescription:
-    "Vercel is the most powerful platform in 2026 for deploying Next.js sites — no accident, it was built by the people who create Next.js itself. But it also supports React, Vue, Svelte, Astro, and static sites. Its concept is brilliantly simple: you connect a GitHub repo, and every push to main automatically builds and deploys to your domain — within 90 seconds. Every PR gets a preview deployment with a unique URL, so you can show clients versions before merge. Global CDN, free SSL, built-in analytics, and zero servers to maintain. For me (Elad), this site (fullstack-eladjak.co.il) has been on Vercel since 2023, alongside 5+ landing pages and other projects. The free tier is very generous (100GB bandwidth, unlimited builds, unlimited deploys) — enough for most personal projects and freelancers. The next tier (Pro $20/month) unlocks more advanced features (extended analytics, teams, password protection for previews). The big upside: you don't deal with a VPS, with nginx, with SSL, or with deploy scripts. You just write code — Vercel handles the rest. The downside: vendor lock and platform tie-in. But for pure frontend projects, the simplicity is worth it.",
+    "Vercel is the most powerful platform in 2026 for deploying Next.js sites — no accident, it was built by the people who create Next.js itself. But it also supports React, Vue, Svelte, Astro, and static sites. Its concept is brilliantly simple: you connect a GitHub repo, and every push to main automatically builds and deploys to your domain — within 90 seconds. Every PR gets a preview deployment with a unique URL, so you can show clients versions before merge. Global CDN, free SSL, built-in analytics, and zero servers to maintain. For me (Elad), this site (fullstack-eladjak.co.il) has been on Vercel since 2023, alongside 5+ landing pages and other projects. The free tier is very generous (100 GB bandwidth, unlimited builds, unlimited deploys) — enough for most personal projects and freelancers. The next tier (Pro $20/month) unlocks more advanced features (extended analytics, teams, password protection for previews). The big upside: you don't deal with a VPS, with nginx, with SSL, or with deploy scripts. You just write code — Vercel handles the rest. The downside: vendor lock and platform tie-in. But for pure frontend projects, the simplicity is worth it.",
   badgeText: "2026 · Next.js Deployment · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/vercel",
   stats: [
     { label: "projects I run", value: "5+" },
     { label: "deploy time", value: "~90s" },
-    { label: "free bandwidth", value: "100GB" },
+    { label: "free bandwidth", value: "100 GB" },
     { label: "uptime", value: "99.99%" },
   ],
   paradigmTitle: "Deploy without thinking about the server",
@@ -193,7 +193,7 @@ export const vercelGuideEn: AgentGuideData = {
       difficulty: "intermediate",
       content: [
         "Serverless Functions (default) — run on AWS Lambda. Support every Node.js API, can connect to a DB, full runtime. Cold start ~200-500ms",
-        "Edge Functions — run on Cloudflare Workers (V8 isolates). Very fast (cold start <50ms), in every global region. But limited: only Web APIs, no FS, code size up to 1MB",
+        "Edge Functions — run on Cloudflare Workers (V8 isolates). Very fast (cold start <50ms), in every global region. But limited: only Web APIs, no FS, code size up to 1 MB",
         "Edge Runtime — to choose: in a Next.js page/route file, `export const runtime = 'edge'`. Then it runs on edge",
         "Middleware — always runs on edge. Suitable for authentication, redirects, headers. Runs before every request",
         "When to use edge — simple, personalized requests (geolocation), redirects, A/B tests. Anything that doesn't need direct DB or heavy compute",
@@ -202,7 +202,7 @@ export const vercelGuideEn: AgentGuideData = {
       ],
       tips: [
         "If your site is mostly static content + a little API, edge runtime can give incomprehensibly low latency (10-30ms globally)",
-        "Edge functions are limited in memory (128MB) and runtime (30s). If your app needs more — stay on serverless",
+        "Edge functions are limited in memory (128 MB) and runtime (30s). If your app needs more — stay on serverless",
       ],
       codeExample: {
         label: "Next.js route with edge runtime for AI streaming",
@@ -219,8 +219,8 @@ export const vercelGuideEn: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
       content: [
-        "Hobby (free) — 100GB bandwidth/month, 100h serverless function execution, 6,000 build minutes, unlimited deploys. Non-commercial use",
-        "Pro ($20/month) — 1TB bandwidth, 1,000h functions, 24,000 build minutes, password-protected previews, advanced analytics. Most freelancers and businesses",
+        "Hobby (free) — 100 GB bandwidth/month, 100h serverless function execution, 6,000 build minutes, unlimited deploys. Non-commercial use",
+        "Pro ($20/month) — 1 TB bandwidth, 1,000h functions, 24,000 build minutes, password-protected previews, advanced analytics. Most freelancers and businesses",
         "Enterprise (custom) — SLA, multi-tenant management, audit logs. For large companies",
         "Bandwidth — if you exceed it, the charge is $0.40/GB. A viral site can get expensive",
         "Function execution — measured in GB-hours (memory × time). If you run ML or heavy compute, it adds up fast",
@@ -230,7 +230,7 @@ export const vercelGuideEn: AgentGuideData = {
       ],
       tips: [
         "Set a Spend Limit in account settings. Mine is fixed at $5 — if something blows up, I lose $5 max, not $500",
-        "Bandwidth = the big one. With my 5+ projects on Hobby I'm still under 50% of the 100GB. But a viral site can burn it all in a day",
+        "Bandwidth = the big one. With my 5+ projects on Hobby I'm still under 50% of the 100 GB. But a viral site can burn it all in a day",
         "If you're a business, invest in Pro — $20/month isn't expensive and you get more peace of mind (real analytics, password protection, organized billing)",
       ],
     },

@@ -61,8 +61,10 @@ export function ProfileAvatar({
           alt={alt}
           width={size}
           height={size}
+          sizes="160px"
           className="rounded-full object-cover"
           priority
+          fetchPriority="high"
         />
 
         {/* Glow effect */}
