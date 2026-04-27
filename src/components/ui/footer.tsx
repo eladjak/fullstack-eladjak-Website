@@ -5,6 +5,12 @@ import Link from 'next/link';
 import { SocialLink } from './social-link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
+import dynamic from 'next/dynamic';
+
+const AgentNetworkStatus = dynamic(
+  () => import('@/components/widgets/AgentNetworkStatus').then((m) => m.AgentNetworkStatus),
+  { ssr: false }
+);
 
 export default function Footer() {
   const tFooter = useTranslations('footer');
@@ -117,15 +123,20 @@ export default function Footer() {
             {tFooter('andCoffee')}
           </p>
 
-          {/* Back to top */}
-          <button
-            onClick={scrollToTop}
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp className="h-4 w-4" />
-            {tFooter('backToTop')}
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Live agent network status */}
+            <AgentNetworkStatus />
+
+            {/* Back to top */}
+            <button
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="h-4 w-4" />
+              {tFooter('backToTop')}
+            </button>
+          </div>
         </div>
       </div>
     </footer>

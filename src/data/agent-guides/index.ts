@@ -13,6 +13,14 @@ import { dockerGuide } from "./docker";
 import { ollamaGuide } from "./ollama";
 import { n8nGuide } from "./n8n";
 import { aiderGuide } from "./aider";
+import { postgresGuide } from "./postgres";
+import { nginxGuide } from "./nginx";
+import { cloudflareTunnelGuide } from "./cloudflare-tunnel";
+import { systemdGuide } from "./systemd";
+import { ufwGuide } from "./ufw";
+import { githubActionsGuide } from "./github-actions";
+import { redisStreamsGuide } from "./redis-streams";
+import { vercelGuide } from "./vercel";
 
 export const allGuides: AgentGuideData[] = [
   claudeCodeGuide,
@@ -29,6 +37,14 @@ export const allGuides: AgentGuideData[] = [
   ollamaGuide,
   n8nGuide,
   aiderGuide,
+  postgresGuide,
+  nginxGuide,
+  cloudflareTunnelGuide,
+  systemdGuide,
+  ufwGuide,
+  githubActionsGuide,
+  redisStreamsGuide,
+  vercelGuide,
 ];
 
 export const guideBySlug = new Map<string, AgentGuideData>(
@@ -50,4 +66,12 @@ export {
   ollamaGuide,
   n8nGuide,
   aiderGuide,
+  postgresGuide,
+  nginxGuide,
+  cloudflareTunnelGuide,
+  systemdGuide,
+  ufwGuide,
+  githubActionsGuide,
+  redisStreamsGuide,
+  vercelGuide,
 };

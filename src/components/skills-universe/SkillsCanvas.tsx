@@ -7,6 +7,7 @@ import type { Mesh } from 'three';
 import {
   CATEGORY_COLORS,
   CATEGORY_LABELS_HE,
+  GENERATED_SKILLS,
   SKILLS,
   type SkillNode,
 } from '@/data/skills-universe';
@@ -21,7 +22,7 @@ function fibonacciSphere(count: number, radius: number): Array<[number, number, 
   const phi = Math.PI * (Math.sqrt(5) - 1); // golden angle in radians
 
   for (let i = 0; i < count; i++) {
-    const y = 1 - (i / (count - 1)) * 2; // y goes from 1 to -1
+    const y = 1 - (i / Math.max(1, count - 1)) * 2; // y goes from 1 to -1
     const r = Math.sqrt(1 - y * y);
     const theta = phi * i;
     const x = Math.cos(theta) * r;
@@ -35,19 +36,27 @@ interface SkillSphereProps {
   skill: SkillNode;
   position: [number, number, number];
   isSelected: boolean;
+  ring: 'core' | 'extended';
   onSelect: (skill: SkillNode) => void;
 }
 
-function SkillSphere({ skill, position, isSelected, onSelect }: SkillSphereProps) {
+function SkillSphere({ skill, position, isSelected, ring, onSelect }: SkillSphereProps) {
   const meshRef = useRef<Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const baseColor = CATEGORY_COLORS[skill.category];
-  // Scale radius slightly with skill level (1-5 → 0.13-0.20)
-  const baseRadius = 0.13 + ((skill.level ?? 3) - 1) * 0.0175;
+
+  // Core ring: brighter & larger (0.10–0.16 radius).
+  // Extended ring: smaller & dimmer (0.06–0.10 radius).
+  const baseRadius =
+    ring === 'core'
+      ? 0.10 + ((skill.level ?? 3) - 1) * 0.015
+      : 0.06 + ((skill.level ?? 2) - 1) * 0.01;
+  const baseEmissive = ring === 'core' ? 0.25 : 0.15;
+  const baseOpacity = ring === 'core' ? 1 : 0.65;
 
   useFrame((_, delta) => {
     if (!meshRef.current) return;
-    const target = hovered || isSelected ? 1.5 : 1;
+    const target = hovered || isSelected ? 1.6 : 1;
     const current = meshRef.current.scale.x;
     const next = current + (target - current) * Math.min(1, delta * 8);
     meshRef.current.scale.set(next, next, next);
@@ -75,19 +84,21 @@ function SkillSphere({ skill, position, isSelected, onSelect }: SkillSphereProps
           onSelect(skill);
         }}
       >
-        <sphereGeometry args={[baseRadius, 24, 24]} />
+        <sphereGeometry args={[baseRadius, ring === 'core' ? 24 : 14, ring === 'core' ? 24 : 14]} />
         <meshStandardMaterial
           color={baseColor}
           emissive={baseColor}
-          emissiveIntensity={isSelected ? 0.7 : hovered ? 0.5 : 0.25}
-          roughness={0.4}
+          emissiveIntensity={isSelected ? 0.8 : hovered ? 0.55 : baseEmissive}
+          roughness={0.45}
           metalness={0.2}
+          transparent={baseOpacity < 1}
+          opacity={baseOpacity}
         />
       </mesh>
       {(hovered || isSelected) && (
         <Html
           center
-          distanceFactor={8}
+          distanceFactor={10}
           style={{ pointerEvents: 'none' }}
           zIndexRange={[100, 0]}
         >
@@ -111,30 +122,53 @@ interface SceneProps {
 }
 
 function Scene({ selectedId, onSelect, reducedMotion }: SceneProps) {
-  const positions = useMemo(() => fibonacciSphere(SKILLS.length, 4.2), []);
+  // Inner sphere: curated 107 skills (radius 5.3, brighter).
+  const corePositions = useMemo(
+    () => fibonacciSphere(SKILLS.length, 5.3),
+    [],
+  );
+  // Outer sphere: generated 300+ skills (radius 8, dimmer).
+  const extendedPositions = useMemo(
+    () => fibonacciSphere(GENERATED_SKILLS.length, 8),
+    [],
+  );
 
   return (
     <>
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={0.45} />
       <pointLight position={[10, 10, 10]} intensity={1.2} />
-      <pointLight position={[-10, -10, -5]} intensity={0.5} color="#A855F7" />
+      <pointLight position={[-10, -10, -5]} intensity={0.6} color="#A855F7" />
 
       <Stars
-        radius={60}
-        depth={40}
-        count={2500}
+        radius={70}
+        depth={45}
+        count={1500}
         factor={3}
         saturation={0}
         fade
-        speed={reducedMotion ? 0 : 0.5}
+        speed={reducedMotion ? 0 : 0.4}
       />
 
+      {/* Core ring: curated skills */}
       {SKILLS.map((skill, i) => (
         <SkillSphere
           key={skill.id}
           skill={skill}
-          position={positions[i]!}
+          position={corePositions[i]!}
           isSelected={selectedId === skill.id}
+          ring="core"
+          onSelect={onSelect}
+        />
+      ))}
+
+      {/* Extended ring: generated skills */}
+      {GENERATED_SKILLS.map((skill, i) => (
+        <SkillSphere
+          key={skill.id}
+          skill={skill}
+          position={extendedPositions[i]!}
+          isSelected={selectedId === skill.id}
+          ring="extended"
           onSelect={onSelect}
         />
       ))}
@@ -142,10 +176,10 @@ function Scene({ selectedId, onSelect, reducedMotion }: SceneProps) {
       <OrbitControls
         enablePan={false}
         enableZoom
-        minDistance={4}
-        maxDistance={16}
+        minDistance={6}
+        maxDistance={28}
         autoRotate={!reducedMotion}
-        autoRotateSpeed={0.4}
+        autoRotateSpeed={0.35}
         rotateSpeed={0.6}
       />
     </>
@@ -165,12 +199,14 @@ export default function SkillsCanvas() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
+  const isGenerated = selected ? selected.id.startsWith('gen:') : false;
+
   return (
     <div className="relative h-[70vh] min-h-[500px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 60 }}
+        camera={{ position: [0, 0, 14], fov: 60 }}
         dpr={[1, 2]}
-        gl={{ antialias: true, alpha: false }}
+        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       >
         <color attach="background" args={['#000000']} />
         <Scene
@@ -192,6 +228,7 @@ export default function SkillsCanvas() {
               <p className="text-xs text-white/60">
                 {CATEGORY_LABELS_HE[selected.category]}
                 {selected.level ? ` · רמה ${selected.level}/5` : ''}
+                {isGenerated ? ' · מהספרייה האישית' : ' · ליבה'}
               </p>
             </div>
             <button

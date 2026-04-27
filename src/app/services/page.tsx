@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Bot,
@@ -11,6 +12,9 @@ import {
   Phone,
   Mail,
   CheckCircle2,
+  Wrench,
+  Brain,
+  Building2,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -56,8 +60,73 @@ const serviceColors = [
   'from-green-500 to-emerald-600',
 ] as const;
 
+// Pillar grouping — additive layer over existing services.
+// Each existing service is mapped to one or more pillars (Implementation/Consulting/Training).
+// 'all' shows the original list as-is.
+type PillarId = 'all' | 'implementation' | 'consulting' | 'training';
+
+const servicePillars: Record<(typeof serviceKeys)[number], PillarId[]> = {
+  aiAutomation: ['implementation'],
+  fullstack: ['implementation'],
+  edtech: ['implementation'],
+  workshops: ['training', 'consulting'],
+  whatsappAutomation: ['implementation'],
+};
+
+const pillars: {
+  id: PillarId;
+  title: string;
+  shortLabel: string;
+  description: string;
+  icon: typeof Wrench;
+  color: string;
+}[] = [
+  {
+    id: 'all',
+    title: 'כל השירותים',
+    shortLabel: 'הכל',
+    description: 'תצוגה מלאה של חמשת השירותים',
+    icon: Bot,
+    color: 'from-primary to-accent',
+  },
+  {
+    id: 'implementation',
+    title: 'יישום · Implementation',
+    shortLabel: 'יישום',
+    description: 'בנייה בפועל — אתרים, אפליקציות, דאשבורדים, MVP, אינטגרציות AI ואוטומציה.',
+    icon: Wrench,
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    id: 'consulting',
+    title: 'ייעוץ · Consulting',
+    shortLabel: 'ייעוץ',
+    description:
+      'ארכיטקטורה, סקירת קוד, מטריצת AI לארגון, ליווי טכני לצוותי פיתוח. החל מ-300₪/שעה — בואו נדבר.',
+    icon: Brain,
+    color: 'from-violet-500 to-purple-600',
+  },
+  {
+    id: 'training',
+    title: 'הדרכה · Training',
+    shortLabel: 'הדרכה',
+    description:
+      'סדנאות AI לצוותי פיתוח, workshop של יום על Claude Code, הדרכת ארגונים. בואו נדבר.',
+    icon: GraduationCap,
+    color: 'from-amber-500 to-orange-500',
+  },
+];
+
 export default function ServicesPage() {
   const t = useTranslations('servicesPage');
+  const [activePillar, setActivePillar] = useState<PillarId>('all');
+
+  const visibleKeys = useMemo(() => {
+    if (activePillar === 'all') return serviceKeys;
+    return serviceKeys.filter((k) => servicePillars[k].includes(activePillar));
+  }, [activePillar]);
+
+  const activePillarMeta = pillars.find((p) => p.id === activePillar)!;
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -104,11 +173,80 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Services Grid */}
-        <section className="w-full py-16 md:py-24">
+        {/* Pillar selector — additive layer above the existing service cards */}
+        <section className="w-full pt-12 md:pt-16">
+          <div className="container px-4 md:px-6">
+            <ScrollAnimate>
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-6">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-accent/10 border border-accent/20 px-4 py-1.5 text-xs font-semibold text-accent uppercase tracking-wide">
+                    <Building2 className="h-3.5 w-3.5" />
+                    שלושה עמודי שירות
+                  </span>
+                  <h2 className="mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
+                    יישום · ייעוץ · הדרכה
+                  </h2>
+                  <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto text-pretty">
+                    אותם השירותים, מסודרים לפי סוג ההתקשרות. בחרו עמוד כדי לסנן —
+                    או השאירו "הכל" לרשימה המלאה.
+                  </p>
+                </div>
+
+                {/* Pillar tabs */}
+                <div
+                  role="tablist"
+                  aria-label="סינון שירותים לפי עמוד שירות"
+                  className="flex flex-wrap justify-center gap-2 mb-6"
+                >
+                  {pillars.map((p) => {
+                    const PillarIcon = p.icon;
+                    const isActive = activePillar === p.id;
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        onClick={() => setActivePillar(p.id)}
+                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                          isActive
+                            ? 'bg-primary text-primary-foreground shadow-md shadow-primary/25'
+                            : 'bg-card/60 border border-border/60 text-foreground/80 hover:border-primary/40 hover:bg-primary/5'
+                        }`}
+                      >
+                        <PillarIcon className="h-4 w-4" />
+                        {p.shortLabel}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Active pillar description */}
+                <motion.div
+                  key={activePillar}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  className="rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm p-5 md:p-6 text-center"
+                >
+                  <h3 className="text-lg font-semibold font-heebo mb-1">
+                    {activePillarMeta.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground text-pretty">
+                    {activePillarMeta.description}
+                  </p>
+                </motion.div>
+              </div>
+            </ScrollAnimate>
+          </div>
+        </section>
+
+        {/* Services Grid — original 5 cards, unchanged. Filtered by active pillar. */}
+        <section id="b2b" className="w-full py-12 md:py-16">
           <div className="container px-4 md:px-6">
             <div className="grid gap-8 md:gap-10">
-              {serviceKeys.map((key, index) => {
+              {visibleKeys.map((key) => {
+                const index = serviceKeys.indexOf(key);
                 const Icon = serviceIcons[index]!;
                 const gradient = serviceColors[index]!;
                 const isEven = index % 2 === 0;
@@ -172,6 +310,47 @@ export default function ServicesPage() {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* B2B-focused band — additive */}
+        <section className="w-full py-12 md:py-16">
+          <div className="container px-4 md:px-6">
+            <ScrollAnimate>
+              <div className="max-w-4xl mx-auto rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/[0.05] via-card/60 to-primary/[0.05] backdrop-blur-sm p-6 md:p-10">
+                <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start md:items-center">
+                  <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary text-white shadow-lg shrink-0">
+                    <Building2 className="h-7 w-7" />
+                  </div>
+                  <div className="flex-1 space-y-3">
+                    <h2 className="text-xl md:text-2xl font-bold font-heebo text-balance">
+                      לארגונים: דברו איתי על פרויקט מותאם
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed text-pretty">
+                      עובדים בארגון שצריך AI ייעודי, אינטגרציה מורכבת או סדנת
+                      הדרכה לצוות פיתוח? אני בונה חבילה מותאמת — שילוב של יישום,
+                      ייעוץ והדרכה לפי הצורך. הצעת מחיר מפורטת, חוזה ברור,
+                      תיעוד מלא. אין נעילה לטכנולוגיה אחת.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                      <Link
+                        href="/contact?type=b2b"
+                        className="inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 text-sm font-medium text-cta-foreground shadow-md hover:bg-cta/90 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        תיאום שיחה לארגון
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      <Link
+                        href="/methodology"
+                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-6 py-3 text-sm font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        איך אני עובד
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimate>
           </div>
         </section>
 

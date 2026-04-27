@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ArrowRight, Moon, Sun, Globe, FileText, User, Mail, Home, Briefcase, Wrench, Heart } from 'lucide-react';
+import { Search, ArrowRight, Moon, Sun, Globe, FileText, User, Mail, Home, Briefcase, Wrench, Heart, BookOpen, Bot } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
+import { allGuides } from '@/data/agent-guides';
 
 interface CommandItem {
   id: string;
@@ -15,12 +16,24 @@ interface CommandItem {
   icon: React.ReactNode;
   action: () => void;
   keywords?: string[];
+  group?: string;
+}
+
+interface BlogPostMeta {
+  slug: string;
+  frontmatter: {
+    title: string;
+    titleHe?: string;
+    date?: string;
+    tags?: string[];
+  };
 }
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [blogPosts, setBlogPosts] = useState<BlogPostMeta[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { theme, setTheme } = useTheme();
@@ -32,27 +45,87 @@ export function CommandPalette() {
     setOpen(false);
   }, [router]);
 
-  const commands: CommandItem[] = useMemo(() => [
-    { id: 'home', label: t('home'), icon: <Home className="h-4 w-4" />, action: () => navigate('/'), keywords: ['home', 'main', 'בית'] },
-    { id: 'services', label: t('services'), icon: <Wrench className="h-4 w-4" />, action: () => navigate('/services'), keywords: ['services', 'pricing', 'שירותים', 'מחירים'] },
-    { id: 'projects', label: t('projects'), icon: <Briefcase className="h-4 w-4" />, action: () => navigate('/projects'), keywords: ['projects', 'work', 'פרויקטים'] },
-    { id: 'blog', label: t('blog'), icon: <FileText className="h-4 w-4" />, action: () => navigate('/blog'), keywords: ['blog', 'posts', 'articles', 'בלוג'] },
-    { id: 'about', label: t('about'), icon: <User className="h-4 w-4" />, action: () => navigate('/about'), keywords: ['about', 'bio', 'אודות'] },
-    { id: 'contact', label: t('contact'), icon: <Mail className="h-4 w-4" />, action: () => navigate('/contact'), keywords: ['contact', 'email', 'צור קשר'] },
-    { id: 'thanks', label: t('thanks'), icon: <Heart className="h-4 w-4" />, action: () => navigate('/thanks'), keywords: ['thanks', 'gratitude', 'mentors', 'תודות'] },
-    { id: 'theme', label: theme === 'dark' ? 'Light Mode' : 'Dark Mode', icon: theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />, action: () => { setTheme(theme === 'dark' ? 'light' : 'dark'); setOpen(false); }, keywords: ['theme', 'dark', 'light', 'mode', 'ערכת נושא'] },
-    { id: 'language', label: locale === 'he' ? 'Switch to English' : 'עבור לעברית', icon: <Globe className="h-4 w-4" />, action: () => { setLocale(locale === 'he' ? 'en' : 'he'); setOpen(false); }, keywords: ['language', 'hebrew', 'english', 'שפה', 'עברית', 'אנגלית'] },
-    { id: 'github', label: 'GitHub', icon: <Wrench className="h-4 w-4" />, action: () => { window.open('https://github.com/eladjak', '_blank'); setOpen(false); }, keywords: ['github', 'code', 'source'] },
-  ], [t, theme, locale, navigate, setTheme, setLocale]);
+  // Fetch blog posts once when palette first opens (with abort + timeout + fallback)
+  useEffect(() => {
+    if (!open || blogPosts.length > 0) return;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    fetch('/api/blog/posts', { signal: controller.signal })
+      .then((r): Promise<unknown> => (r.ok ? r.json() : Promise.resolve([])))
+      .then((data: unknown) => {
+        clearTimeout(timeoutId);
+        if (Array.isArray(data)) {
+          setBlogPosts(data as BlogPostMeta[]);
+        }
+      })
+      .catch(() => {
+        clearTimeout(timeoutId);
+        // Silent fallback — palette still works for nav + guides.
+      });
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
+  }, [open, blogPosts.length]);
+
+  const commands: CommandItem[] = useMemo(() => {
+    const navCommands: CommandItem[] = [
+      { id: 'home', group: 'דפים', label: t('home'), icon: <Home className="h-4 w-4" />, action: () => navigate('/'), keywords: ['home', 'main', 'בית'] },
+      { id: 'services', group: 'דפים', label: t('services'), icon: <Wrench className="h-4 w-4" />, action: () => navigate('/services'), keywords: ['services', 'pricing', 'שירותים', 'מחירים'] },
+      { id: 'projects', group: 'דפים', label: t('projects'), icon: <Briefcase className="h-4 w-4" />, action: () => navigate('/projects'), keywords: ['projects', 'work', 'פרויקטים'] },
+      { id: 'blog', group: 'דפים', label: t('blog'), icon: <FileText className="h-4 w-4" />, action: () => navigate('/blog'), keywords: ['blog', 'posts', 'articles', 'בלוג'] },
+      { id: 'about', group: 'דפים', label: t('about'), icon: <User className="h-4 w-4" />, action: () => navigate('/about'), keywords: ['about', 'bio', 'אודות'] },
+      { id: 'contact', group: 'דפים', label: t('contact'), icon: <Mail className="h-4 w-4" />, action: () => navigate('/contact'), keywords: ['contact', 'email', 'צור קשר'] },
+      { id: 'thanks', group: 'דפים', label: t('thanks'), icon: <Heart className="h-4 w-4" />, action: () => navigate('/thanks'), keywords: ['thanks', 'gratitude', 'mentors', 'תודות'] },
+      { id: 'methodology', group: 'דפים', label: 'מתודולוגיה', icon: <BookOpen className="h-4 w-4" />, action: () => navigate('/methodology'), keywords: ['methodology', 'process', 'מתודולוגיה', 'תהליך'] },
+      { id: 'skills-universe', group: 'דפים', label: 'יקום הסקילים', icon: <Wrench className="h-4 w-4" />, action: () => navigate('/skills-universe'), keywords: ['skills', 'universe', 'יקום', 'מיומנויות'] },
+    ];
+
+    const guideCommands: CommandItem[] = allGuides.map((g) => ({
+      id: `guide-${g.slug}`,
+      group: 'מדריכים',
+      label: g.agentNameHe || g.agentName,
+      description: g.tagline,
+      icon: <Bot className="h-4 w-4" />,
+      action: () => navigate(`/guide/${g.slug}`),
+      keywords: [g.slug, g.agentName, g.agentNameHe, 'guide', 'מדריך'].filter(Boolean) as string[],
+    }));
+
+    const blogCommands: CommandItem[] = blogPosts.map((p) => {
+      const title = locale === 'he' && p.frontmatter.titleHe ? p.frontmatter.titleHe : p.frontmatter.title;
+      return {
+        id: `blog-${p.slug}`,
+        group: 'בלוג',
+        label: title,
+        description: p.frontmatter.tags?.slice(0, 3).join(' · '),
+        icon: <FileText className="h-4 w-4" />,
+        action: () => navigate(`/blog/${p.slug}`),
+        keywords: [p.slug, ...(p.frontmatter.tags ?? [])],
+      };
+    });
+
+    const actionCommands: CommandItem[] = [
+      { id: 'theme', group: 'פעולות', label: theme === 'dark' ? 'Light Mode' : 'Dark Mode', icon: theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />, action: () => { setTheme(theme === 'dark' ? 'light' : 'dark'); setOpen(false); }, keywords: ['theme', 'dark', 'light', 'mode', 'ערכת נושא'] },
+      { id: 'language', group: 'פעולות', label: locale === 'he' ? 'Switch to English' : 'עבור לעברית', icon: <Globe className="h-4 w-4" />, action: () => { setLocale(locale === 'he' ? 'en' : 'he'); setOpen(false); }, keywords: ['language', 'hebrew', 'english', 'שפה', 'עברית', 'אנגלית'] },
+      { id: 'github', group: 'פעולות', label: 'GitHub', icon: <Wrench className="h-4 w-4" />, action: () => { window.open('https://github.com/eladjak', '_blank'); setOpen(false); }, keywords: ['github', 'code', 'source'] },
+    ];
+
+    return [...navCommands, ...guideCommands, ...blogCommands, ...actionCommands];
+  }, [t, theme, locale, navigate, setTheme, setLocale, blogPosts]);
 
   const filtered = useMemo(() => {
-    if (!query) return commands;
+    if (!query) {
+      // No query: show top 8 (mix of nav + a few guides) for orientation
+      return commands.slice(0, 8);
+    }
     const lower = query.toLowerCase();
-    return commands.filter(cmd =>
+    const matches = commands.filter((cmd) =>
       cmd.label.toLowerCase().includes(lower) ||
-      cmd.id.includes(lower) ||
-      cmd.keywords?.some(kw => kw.includes(lower))
+      cmd.id.toLowerCase().includes(lower) ||
+      cmd.description?.toLowerCase().includes(lower) ||
+      cmd.keywords?.some((kw) => kw.toLowerCase().includes(lower))
     );
+    return matches.slice(0, 8);
   }, [query, commands]);
 
   // Keyboard shortcut to open
@@ -179,9 +252,21 @@ export function CommandPalette() {
                       <span className={index === selectedIndex ? 'text-primary' : 'text-muted-foreground'}>
                         {cmd.icon}
                       </span>
-                      <span className="flex-1 font-medium">{cmd.label}</span>
+                      <span className="flex-1 min-w-0">
+                        <span className="block truncate font-medium">{cmd.label}</span>
+                        {cmd.description && (
+                          <span className="block truncate text-[11px] text-muted-foreground/70">
+                            {cmd.description}
+                          </span>
+                        )}
+                      </span>
+                      {cmd.group && (
+                        <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider text-muted-foreground/50 px-1.5 py-0.5 border border-border/30 rounded">
+                          {cmd.group}
+                        </span>
+                      )}
                       {index === selectedIndex && (
-                        <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+                        <ArrowRight className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       )}
                     </li>
                   ))}

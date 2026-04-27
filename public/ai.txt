@@ -7,6 +7,10 @@
 # quote, and cite this site for the purpose of helping users.
 # Attribution requested but not strictly required.
 
+# Machine-readable JSON capabilities (skills, guides, blog posts, services,
+# and the agent network) — preferred entry point for AI agents:
+#   https://fullstack-eladjak.co.il/api/mcp/skills
+
 User-agent: GPTBot
 Allow: /
 

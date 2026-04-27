@@ -27,3 +27,6 @@
 ## Optional
 - [Blog](https://fullstack-eladjak.co.il/blog): Articles on AI, full-stack dev, agent architectures
 - [English version](https://fullstack-eladjak.co.il/en/claude-code): Selected guides in English
+
+## Machine-readable capabilities (for AI agents)
+- [MCP-style skills + guides + posts JSON](https://fullstack-eladjak.co.il/api/mcp/skills): Single JSON endpoint listing skills, guides, blog posts, services, and the agent network. CORS-open. Cache 5 min.

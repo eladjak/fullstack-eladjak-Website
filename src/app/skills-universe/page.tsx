@@ -4,8 +4,10 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import {
+  ALL_SKILLS,
   CATEGORY_COLORS,
   CATEGORY_LABELS_HE,
+  GENERATED_SKILLS,
   SKILLS,
   type SkillCategory,
 } from '@/data/skills-universe';
@@ -56,7 +58,7 @@ export default function SkillsUniversePage() {
           className="mx-auto mb-6 flex max-w-3xl flex-wrap items-center justify-center gap-x-4 gap-y-2"
         >
           {CATEGORIES.map((cat) => {
-            const count = SKILLS.filter((s) => s.category === cat).length;
+            const count = ALL_SKILLS.filter((s) => s.category === cat).length;
             return (
               <li
                 key={cat}
@@ -79,8 +81,9 @@ export default function SkillsUniversePage() {
 
         {/* Footer note */}
         <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-muted-foreground/70">
-          {SKILLS.length} כישורים · בנוי עם React Three Fiber + Drei.
-          הסצנה מכבדת prefers-reduced-motion ומאטה את הסיבוב האוטומטי.
+          {ALL_SKILLS.length} כישורים · {SKILLS.length} ליבה (פנימי) +{' '}
+          {GENERATED_SKILLS.length} מהספרייה האישית (חיצוני) · גרור לסיבוב,
+          גלגל לקירוב.
         </p>
 
         {/* CTA */}

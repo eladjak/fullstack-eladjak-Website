@@ -11,6 +11,7 @@ import ServicesPreviewSection from '@/components/sections/services-preview-secti
 import TechMarquee from '@/components/ui/tech-marquee';
 import StatsBar from '@/components/sections/stats-bar';
 import LatestPostsSection from '@/components/sections/latest-posts-section';
+import B2BBand from '@/components/sections/b2b-band';
 
 export default function HomePage() {
   useMetaTags({
@@ -46,6 +47,9 @@ export default function HomePage() {
 
         {/* Process / How I Work */}
         <ProcessSection />
+
+        {/* B2B-focused band — additive, sits above the main CTA */}
+        <B2BBand />
 
         {/* CTA Section */}
         <CTASection />
