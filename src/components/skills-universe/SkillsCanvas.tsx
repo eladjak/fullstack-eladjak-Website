@@ -263,9 +263,10 @@ interface SceneProps {
   selectedId: string | null;
   onSelect: (skill: SkillNode) => void;
   reducedMotion: boolean;
+  starCount: number;
 }
 
-function Scene({ selectedId, onSelect, reducedMotion }: SceneProps) {
+function Scene({ selectedId, onSelect, reducedMotion, starCount }: SceneProps) {
   // Inner sphere: curated 107 skills (radius 5.3, brighter).
   const corePositions = useMemo(
     () => fibonacciSphere(SKILLS.length, 5.3),
@@ -286,7 +287,7 @@ function Scene({ selectedId, onSelect, reducedMotion }: SceneProps) {
       <Stars
         radius={70}
         depth={45}
-        count={1500}
+        count={starCount}
         factor={3}
         saturation={0}
         fade
@@ -327,15 +328,53 @@ function Scene({ selectedId, onSelect, reducedMotion }: SceneProps) {
   );
 }
 
-export default function SkillsCanvas() {
-  const [selected, setSelected] = useState<SkillNode | null>(null);
+interface SkillsCanvasProps {
+  /**
+   * Optional controlled selection. When provided, the canvas treats selection
+   * as fully external — the parent owns state, can render an `aria-live`
+   * announcement and an accessible skills list outside the canvas.
+   * When omitted, the canvas falls back to its own internal state for
+   * backward compatibility with existing callers.
+   */
+  selected?: SkillNode | null;
+  onSelect?: (skill: SkillNode | null) => void;
+}
+
+export default function SkillsCanvas({
+  selected: controlledSelected,
+  onSelect: controlledOnSelect,
+}: SkillsCanvasProps = {}) {
+  const [internalSelected, setInternalSelected] = useState<SkillNode | null>(null);
+  const isControlled = controlledOnSelect !== undefined;
+  const selected = isControlled ? (controlledSelected ?? null) : internalSelected;
+  const setSelected = (s: SkillNode | null) => {
+    if (isControlled) {
+      controlledOnSelect?.(s);
+    } else {
+      setInternalSelected(s);
+    }
+  };
   const [reducedMotion, setReducedMotion] = useState(false);
+  // Mobile = ≤768px → fewer star particles (600 vs 1500) to keep frame
+  // budget healthy on mid-range phones. matchMedia listener picks up
+  // orientation/viewport changes without a reload.
+  const [isMobile, setIsMobile] = useState(false);
+  const starCount = isMobile ? 600 : 1500;
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
@@ -354,6 +393,7 @@ export default function SkillsCanvas() {
           selectedId={selected?.id ?? null}
           onSelect={setSelected}
           reducedMotion={reducedMotion}
+          starCount={starCount}
         />
       </Canvas>
 

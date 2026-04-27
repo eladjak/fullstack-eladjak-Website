@@ -51,3 +51,6 @@ screenshots/
 
 # compress-guide-logos.mjs idempotency markers
 *.png.compressed
+
+docs/lighthouse-*.json
+docs/extract-*.cjs

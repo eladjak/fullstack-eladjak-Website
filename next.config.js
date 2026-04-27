@@ -51,10 +51,15 @@ const config = {
         source: '/:path*',
         headers: [
           {
+            // CSP rationale (2026-04-27):
+            // - script-src removed 'unsafe-eval' (Next 16 production doesn't need it; Turbopack uses eval only in dev)
+            // - script-src kept 'unsafe-inline' for Next.js bootstrap scripts; future migration to nonce-based via middleware
+            // - style-src kept 'unsafe-inline' for runtime CSS-in-JS (Tailwind variants, framer-motion inline styles)
+            // - X-Frame-Options DENY mirrors frame-ancestors 'none' for legacy browsers
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "script-src 'self' 'unsafe-inline'",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
@@ -66,7 +71,7 @@ const config = {
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
+            value: 'DENY'
           },
           {
             key: 'X-Content-Type-Options',

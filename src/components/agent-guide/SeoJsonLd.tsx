@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { GUIDE_MODIFIED } from "@/lib/guide-modified-dates";
 import type { AgentGuideData } from "./types";
 
 const SITE_URL =
@@ -43,7 +44,10 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
   // date means the TechArticle has a real datePublished without misleading
   // "updated today" every build.
   const datePublished = "2026-01-15";
-  const dateModified = new Date().toISOString().split("T")[0];
+  // dateModified is computed at build time from `git log` per guide file
+  // (see scripts/compute-guide-dates.mjs). Falls back to today if not present.
+  const dateModified =
+    GUIDE_MODIFIED[guide.slug] ?? new Date().toISOString().split("T")[0];
 
   const headline = isEn
     ? `${guide.agentName} — The Complete Guide`

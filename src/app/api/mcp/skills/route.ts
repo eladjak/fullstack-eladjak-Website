@@ -66,13 +66,21 @@ const HUB_REVALIDATE_S = 60;
 
 type AgentStatusValue = 'ok' | 'down' | 'unknown';
 
+// Normalized error vocabulary — keep this list small and stable so consumers
+// can switch on it. Never leak raw error.message to the public response.
+type AgentNetworkError =
+  | 'timeout'
+  | 'upstream_5xx'
+  | 'upstream_unreachable'
+  | 'unknown';
+
 interface AgentNetworkHealth {
   total: number;
   healthy: number;
   statuses: Record<string, AgentStatusValue>;
   last_checked: string;
   hub_reachable: boolean;
-  error?: string;
+  error?: AgentNetworkError;
   note?: string;
 }
 
@@ -176,13 +184,18 @@ async function fetchAgentNetworkHealth(): Promise<AgentNetworkHealth> {
     clearTimeout(timeoutId);
 
     if (!res.ok) {
+      // Log full upstream context server-side; only ship a normalized code
+      // to the public response so we don't leak HTTP/header details.
+      console.error('[mcp] hub returned non-OK:', res.status, res.statusText);
+      const errorCode: AgentNetworkError =
+        res.status >= 500 ? 'upstream_5xx' : 'upstream_unreachable';
       return {
         total: 0,
         healthy: 0,
         statuses: {},
         last_checked: fetchedAt,
         hub_reachable: false,
-        error: `HTTP ${res.status}`,
+        error: errorCode,
       };
     }
 
@@ -190,21 +203,36 @@ async function fetchAgentNetworkHealth(): Promise<AgentNetworkHealth> {
     return parseHubHealth(json, fetchedAt);
   } catch (err) {
     clearTimeout(timeoutId);
+    // Log the real error (DNS, ECONNREFUSED, timeout, etc.) for ops
+    // visibility, but return a normalized code to the public so we don't
+    // leak internal network topology / DNS hostnames.
+    console.error('[mcp] hub fetch failed:', err);
     const isAbort =
       err instanceof Error &&
       (err.name === 'AbortError' || err.message.toLowerCase().includes('abort'));
+    const errorCode: AgentNetworkError = isAbort
+      ? 'timeout'
+      : err instanceof Error
+      ? 'upstream_unreachable'
+      : 'unknown';
     return {
       total: 0,
       healthy: 0,
       statuses: {},
       last_checked: fetchedAt,
       hub_reachable: false,
-      error: isAbort ? 'timeout' : err instanceof Error ? err.message : 'unknown',
+      error: errorCode,
     };
   }
 }
 
-export const dynamic = 'force-static';
+// Render dynamically so the live hub fetch happens per-request — otherwise
+// the build-time hub state is baked into the static artifact and a hub
+// outage at deploy time freezes "hub_reachable: false" for the cache TTL.
+// Cache-Control headers below give Edge a 5-minute fresh window plus a
+// 24h stale-while-revalidate, so this is still effectively cached for
+// most callers without baking failures.
+export const dynamic = 'force-dynamic';
 export const revalidate = 300;
 
 export async function GET() {

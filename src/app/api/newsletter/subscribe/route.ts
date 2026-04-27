@@ -42,11 +42,29 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
+// Resolve client IP from Vercel-trusted headers first, falling back through
+// the proxy chain. Validates the value looks IP-shaped + caps length to 45 chars
+// (max IPv6) so a malicious oversized X-Forwarded-For can't be used as a
+// rate-limit-bypass key.
+function getClientIp(request: Request): string {
+  const candidates = [
+    request.headers.get('x-vercel-forwarded-for'),
+    request.headers.get('x-real-ip'),
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+  ];
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+    const trimmed = candidate.trim();
+    if (trimmed.length > 0 && trimmed.length <= 45 && /^[0-9a-fA-F:.%]+$/.test(trimmed)) {
+      return trimmed;
+    }
+  }
+  return 'unknown';
+}
+
 export async function POST(request: Request) {
   try {
-    // Rate-limit by IP
-    const forwarded = request.headers.get('x-forwarded-for');
-    const ip = forwarded?.split(',')[0]?.trim() || 'unknown';
+    const ip = getClientIp(request);
 
     if (!checkRateLimit(ip)) {
       return NextResponse.json(

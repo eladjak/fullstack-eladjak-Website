@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useState } from 'react';
+import type { SkillNode } from '@/data/skills-universe';
 
 /**
  * SkillsLazyMount — perf-conscious wrapper around the heavy 3D <SkillsCanvas>.
@@ -32,11 +33,17 @@ const SkillsCanvas = dynamic(
   },
 );
 
-export default function SkillsLazyMount() {
+interface SkillsLazyMountProps {
+  /** Controlled selection — passed through to the canvas when active. */
+  selected?: SkillNode | null;
+  onSelect?: (skill: SkillNode | null) => void;
+}
+
+export default function SkillsLazyMount({ selected, onSelect }: SkillsLazyMountProps = {}) {
   const [active, setActive] = useState(false);
 
   if (active) {
-    return <SkillsCanvas />;
+    return <SkillsCanvas selected={selected} onSelect={onSelect} />;
   }
 
   return (

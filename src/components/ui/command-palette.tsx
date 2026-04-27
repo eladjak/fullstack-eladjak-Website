@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { track } from '@vercel/analytics/react';
+import FocusLock from 'react-focus-lock';
 import { useLocale } from '@/components/providers/locale-provider';
 import { allGuides } from '@/data/agent-guides';
 
@@ -233,7 +234,11 @@ export function CommandPalette() {
       {/* Overlay + Dialog */}
       <AnimatePresence>
         {open && (
-          <>
+          // FocusLock wraps the entire overlay+dialog block so Tab cycles inside
+          // the dialog only and can't escape to elements behind the overlay.
+          // returnFocus restores focus to whichever element was focused when the
+          // dialog opened (e.g. the nav search trigger or wherever cmd+K fired).
+          <FocusLock returnFocus>
             <motion.div
               className="fixed inset-0 bg-background/60 backdrop-blur-sm z-50"
               initial={{ opacity: 0 }}
@@ -326,7 +331,7 @@ export function CommandPalette() {
                 )}
               </div>
             </motion.div>
-          </>
+          </FocusLock>
         )}
       </AnimatePresence>
     </>
