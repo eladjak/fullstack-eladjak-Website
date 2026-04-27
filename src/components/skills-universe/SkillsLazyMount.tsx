@@ -60,16 +60,16 @@ export default function SkillsLazyMount() {
       {/* Centered CTA — explicit user action loads the canvas bundle. */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
         <p className="max-w-md text-pretty text-sm text-white/80 sm:text-base">
-          {/* Hebrew RTL-friendly copy. Keep it short — the button is the action. */}
-          ההדמיה התלת-ממדית טוענת ~150KB של three.js. לחץ כדי להפעיל.
+          הצצה תלת-ממדית למלוא הסטאק שאיתו אני בונה — 420 כישורים, פיזור פיבונאצ׳י,
+          סיבוב חופשי. לחיצה אחת ואתם בפנים.
         </p>
         <button
           type="button"
           onClick={() => setActive(true)}
           className="rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground shadow-2xl transition-transform duration-200 hover:scale-105 focus-visible:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          aria-label="טען את ההדמיה התלת-ממדית של יקום הכישורים"
+          aria-label="כנסו ליקום הכישורים — הדמיה תלת-ממדית של 420 כישורים"
         >
-          טען את היקום ⤳
+          כנסו ליקום הכישורים <span aria-hidden="true">⤳</span>
         </button>
       </div>
     </div>

@@ -10,11 +10,26 @@ const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX = 3;
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
+// Bounded map size to prevent memory DoS via spoofed IPs.
+const RATE_LIMIT_MAX_KEYS = 5_000;
+
 function checkRateLimit(ip: string): boolean {
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
 
   if (!entry || now > entry.resetAt) {
+    // Opportunistic cleanup of stale entries on every touch — replaces the leaky setInterval.
+    if (rateLimitMap.size > RATE_LIMIT_MAX_KEYS) {
+      for (const [key, e] of rateLimitMap) {
+        if (now > e.resetAt) rateLimitMap.delete(key);
+      }
+      // If still over cap after cleanup, drop oldest (FIFO via insertion order).
+      while (rateLimitMap.size >= RATE_LIMIT_MAX_KEYS) {
+        const oldest = rateLimitMap.keys().next().value;
+        if (oldest === undefined) break;
+        rateLimitMap.delete(oldest);
+      }
+    }
     rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
     return true;
   }
@@ -26,15 +41,6 @@ function checkRateLimit(ip: string): boolean {
   entry.count += 1;
   return true;
 }
-
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of rateLimitMap) {
-    if (now > entry.resetAt) {
-      rateLimitMap.delete(ip);
-    }
-  }
-}, RATE_LIMIT_WINDOW_MS);
 
 export async function POST(request: Request) {
   try {

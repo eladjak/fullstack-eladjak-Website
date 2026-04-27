@@ -247,6 +247,9 @@ export function CommandPalette() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.15 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="פנל פקודות וחיפוש"
             >
               <div className="rounded-xl border border-border/50 bg-card shadow-2xl overflow-hidden">
                 {/* Search Input */}

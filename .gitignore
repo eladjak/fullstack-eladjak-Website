@@ -48,3 +48,6 @@ yarn-error.log*
 *.png
 !public/projects/*.png
 screenshots/
+
+# compress-guide-logos.mjs idempotency markers
+*.png.compressed

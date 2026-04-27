@@ -8,7 +8,7 @@ import {
   Bug,
   Rocket,
   Heart,
-  ArrowLeft,
+  ArrowRight,
   CheckCircle2,
   Clock,
   Sparkles,
@@ -233,7 +233,7 @@ export default function MethodologyPage() {
                     className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     {tCta('ctaPrimary')}
-                    <ArrowLeft className="h-5 w-5" />
+                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
                   </Link>
                   <Link
                     href="/services"

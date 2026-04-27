@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Clock, Github, Linkedin, Globe, Send, MessageCircle, Briefcase } from 'lucide-react';
+import { Mail, MapPin, Clock, Github, Linkedin, Globe, Send, MessageCircle, Briefcase, Loader2 } from 'lucide-react';
 import { SocialLink } from '@/components/ui/social-link';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -496,7 +496,7 @@ function ContactPageInner() {
                       >
                         {isSubmitting ? (
                           <>
-                            <span className="animate-spin me-2">⏳</span>
+                            <Loader2 className="h-4 w-4 animate-spin me-2" aria-hidden="true" />
                             {t('form.sending')}
                           </>
                         ) : (

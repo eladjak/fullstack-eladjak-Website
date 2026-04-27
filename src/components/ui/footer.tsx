@@ -133,13 +133,21 @@ export default function Footer() {
             {/* Live agent network status */}
             <AgentNetworkStatus />
 
+            {/* Accessibility statement — IS 5568 requirement */}
+            <Link
+              href="/accessibility"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1"
+            >
+              הצהרת נגישות
+            </Link>
+
             {/* Back to top */}
             <button
               onClick={scrollToTop}
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1"
-              aria-label="Scroll to top"
+              aria-label="גלול למעלה"
             >
-              <ArrowUp className="h-4 w-4" />
+              <ArrowUp className="h-4 w-4" aria-hidden="true" />
               {tFooter('backToTop')}
             </button>
           </div>

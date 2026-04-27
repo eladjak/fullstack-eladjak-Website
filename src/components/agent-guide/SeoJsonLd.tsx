@@ -164,21 +164,18 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
       <Script
         id={`jsonld-article-${guide.slug}`}
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       <Script
         id={`jsonld-breadcrumb-${guide.slug}`}
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {howToJsonLd && (
         <Script
           id={`jsonld-howto-${guide.slug}`}
           type="application/ld+json"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
         />
       )}
     </>

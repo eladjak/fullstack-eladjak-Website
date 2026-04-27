@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, Brain, Code2, GraduationCap, Building2 } from 'lucide-react';
+import { ArrowRight, Brain, Code2, GraduationCap, Building2 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
@@ -81,7 +81,7 @@ export default function B2BBand() {
                 className="inline-flex items-center gap-2 rounded-full bg-foreground/90 px-5 py-3 text-sm font-medium text-background hover:bg-foreground transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shrink-0 self-start lg:self-auto"
               >
                 {t('cta')}
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
           </div>
