@@ -19,14 +19,14 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const githubActionsGuide: AgentGuideData = {
   slug: "github-actions",
   agentName: "GitHub Actions",
-  agentNameHe: "GitHub Actions — CI/CD שמובנה לתוך הריפו",
+  agentNameHe: "GitHub Actions — CI/CD מובנה לתוך הריפו",
   category: "infra",
   brandIconSlug: "github",
   brandIconColor: "2088FF",
   heroBgImage: "/images/guides/guide-github-actions-hero.jpg",
   tagline: "כל push מריץ tests, builds ו-deploys — בלי שרת CI נפרד, בחינם לפרויקטים פתוחים",
   heroDescription:
-    "GitHub Actions זו מערכת CI/CD (continuous integration / continuous deployment) שמובנית ישירות בתוך GitHub. CI/CD זה השם של אוטומציה שכל פעם שאתם דוחפים קוד, המערכת רצה בדיקות (tests), בונה את האפליקציה (build), ואם הכל תקין — פורסת אותה לייצור (deploy). פעם, להקים pipeline כזה דרש שרת CI נפרד (Jenkins, TeamCity), שעות הגדרה, ותחזוקה מתמשכת. עם GitHub Actions, זה קובץ YAML אחד בתוך הריפו (`.github/workflows/`) ו-GitHub עצמם מריצים את כל הפעולות על שרתים שלהם — בחינם לפרויקטים פתוחים, ועם 2,000 דקות חינמיות לחודש לפרויקטים פרטיים. אצלי (אלעד) GitHub Actions בונה את האתר הזה (Next.js) כל פעם שדוחפים ל-main, פורס אותו אוטומטית ל-Vercel, מריץ TypeScript checks, ובודק שאין secrets שיצאו בטעות לקוד. בנוסף יש לי actions שמתזמנים מטלות יומיות (cron triggers), פותחים PRs אוטומטית כשתלות מתעדכנת (Dependabot), וכל זה בלי שרת אחד שלי. זה הכלי שעושה את ההבדל בין 'אני מפתח לבד' ל-'יש לי תהליך מקצועי'.",
+    "GitHub Actions היא מערכת CI/CD (continuous integration / continuous deployment) המובנית ישירות בתוך GitHub. CI/CD הוא השם של אוטומציה: כל פעם שאתם דוחפים קוד, המערכת מריצה בדיקות (tests), בונה את האפליקציה (build), ואם הכול תקין — פורסת אותה לייצור (deploy). בעבר, להקים pipeline כזה דרש שרת CI נפרד (Jenkins, TeamCity), שעות הגדרה ותחזוקה מתמשכת. עם GitHub Actions, זה קובץ YAML אחד בתוך הריפו (`.github/workflows/`), ו-GitHub עצמם מריצים את כל הפעולות על שרתים שלהם — בחינם לפרויקטים פתוחים, ועם 2,000 דקות חינמיות בחודש לפרויקטים פרטיים. אצלי (אלעד) GitHub Actions בונה את האתר הזה (Next.js) בכל push ל-main, פורס אותו אוטומטית ל-Vercel, מריץ TypeScript checks, ובודק שאין secrets שיצאו בטעות לקוד. בנוסף, יש לי actions שמתזמנים מטלות יומיות (cron triggers), פותחים PRs אוטומטית כשתלות מתעדכנת (Dependabot) — וכל זה בלי שרת אחד שלי. זה הכלי שעושה את ההבדל בין 'אני מפתח לבד' לבין 'יש לי תהליך מקצועי'.",
   badgeText: "2026 · CI/CD · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/github-actions",
   stats: [
@@ -37,7 +37,7 @@ export const githubActionsGuide: AgentGuideData = {
   ],
   paradigmTitle: "CI/CD בלי שרת CI",
   paradigmSub:
-    "במקום להקים Jenkins, להגדיר agents, ולתחזק. הקובץ במשנה הוא ההגדרה. שאר העבודה — של GitHub.",
+    "במקום להקים Jenkins, להגדיר agents ולתחזק — הקובץ ב-repo הוא ההגדרה. שאר העבודה — של GitHub.",
   paradigmShifts: [
     {
       before: "Jenkins server, 2 שרתי build, תחזוקה",
@@ -50,7 +50,7 @@ export const githubActionsGuide: AgentGuideData = {
       icon: Rocket,
     },
     {
-      before: "תלויות מתיישנות, security alerts מתעלמים",
+      before: "תלויות מתיישנות, מתעלמים מ-security alerts",
       after: "Dependabot פותח PR, CI מריץ tests",
       icon: Shield,
     },
@@ -64,21 +64,21 @@ export const githubActionsGuide: AgentGuideData = {
     {
       title: "מפתחים שעובדים לבד",
       description:
-        "אתם הכי צריכים אוטומציה — אין מי שיבדוק קוד עליכם. CI שמריץ tests = network שלכם.",
+        "אתם הכי צריכים אוטומציה — אין מי שיבדוק את הקוד עליכם. CI שמריץ tests = רשת הביטחון שלכם.",
       icon: Rocket,
       color: "from-blue-500 to-cyan-500",
     },
     {
-      title: "צוותים קטנים שמתחזקים פתוחים",
+      title: "צוותים קטנים שמתחזקים פרויקטים פתוחים",
       description:
         "Open source על GitHub = Actions בחינם, ללא הגבלה. תוך כדי, מקבלים contributors שמרגישים בנוח לפתוח PRs כי יש tests אוטומטיים.",
       icon: Github,
       color: "from-emerald-500 to-teal-500",
     },
     {
-      title: "מי שעוד עושה deploy ידני",
+      title: "מי שעדיין עושה deploy ידני",
       description:
-        "אם אתם עדיין `git pull && pm2 restart`, זה הזמן. אוטומציה = פחות באגים בייצור.",
+        "אם אתם עדיין רצים `git pull && pm2 restart`, זה הזמן. אוטומציה = פחות באגים בייצור.",
       icon: Terminal,
       color: "from-violet-500 to-purple-500",
     },
@@ -105,32 +105,32 @@ export const githubActionsGuide: AgentGuideData = {
       title: "מה זה GitHub Actions: workflow, jobs, steps",
       subtitle: "המבנה ההיררכי שכל קובץ YAML מתאר",
       description:
-        "GitHub Actions בנוי משלוש רמות. Workflow = קובץ YAML אחד שמופעל על אירוע (push, PR, schedule, manual). Jobs = יחידות עבודה בתוך workflow שיכולות לרוץ במקביל או ברצף. Steps = פקודות בתוך job. כל job רץ על runner — מכונה וירטואלית חדשה לחלוטין שגיטהאב מספקים, עם Linux/Windows/macOS לבחירה. אחרי שה-workflow מסתיים, ה-runner נמחק — הכל clean slate בכל ריצה.",
+        "GitHub Actions בנוי משלוש רמות. Workflow = קובץ YAML אחד שמופעל על אירוע (push, PR, schedule, manual). Jobs = יחידות עבודה בתוך workflow שיכולות לרוץ במקביל או ברצף. Steps = פקודות בתוך job. כל job רץ על runner — מכונה וירטואלית חדשה לחלוטין ש-GitHub מספקים, עם Linux/Windows/macOS לבחירה. אחרי שה-workflow מסתיים, ה-runner נמחק — clean slate בכל ריצה.",
       color: "from-blue-600 to-cyan-500",
       difficulty: "beginner",
       beginner:
-        "תחשבו על workflow כמו על מתכון: 'כשהקמח מתאים' (event), 'תכין בצק' (job 1), 'תוסיף שוקולד' (step), 'תאפה' (job 2). כל הוראה כתובה. כל פעם שתפעילו את המתכון, תקבלו מיד מטבח חדש לחלוטין, ובסוף — תוצאה אחידה. זה בדיוק GitHub Actions.",
+        "תחשבו על workflow כמו על מתכון: 'כשהקמח מתאים' (event), 'הכן בצק' (job 1), 'הוסף שוקולד' (step), 'אפה' (job 2). כל הוראה כתובה. כל פעם שתפעילו את המתכון, תקבלו מטבח חדש לחלוטין, ובסוף — תוצאה אחידה. זה בדיוק GitHub Actions.",
       content: [
         "Workflow file — קובץ YAML ב-`.github/workflows/<name>.yml` בריפו שלכם. שם הקובץ = שם ה-workflow",
         "Trigger (`on:`) — מתי להריץ. `push`, `pull_request`, `schedule` (cron), `workflow_dispatch` (manual)",
         "Jobs — כל job רץ על runner נפרד. ברירת מחדל: במקביל. אפשר לציין `needs:` ליצירת תלויות",
-        "Steps — בתוך כל job, רשימה ממוספרת של פעולות. כל step יכול להיות `run:` (פקודת shell) או `uses:` (action שכתוב מראש)",
+        "Steps — בתוך כל job, רשימה ממוספרת של פעולות. כל step יכול להיות `run:` (פקודת shell) או `uses:` (action כתוב מראש)",
         "Actions — חבילות קוד מובנות מראש. `actions/checkout@v4` (להוריד את הקוד), `actions/setup-node@v4` (להתקין Node), ועוד אלפי actions ב-GitHub Marketplace",
-        "Runners — מכונות שמריצות את ה-jobs. ברירת מחדל: GitHub-hosted (חינם עד 2,000 דקות/חודש לprivate). אפשר גם self-hosted על השרת שלכם",
-        "Artifacts — קבצים שmove נשמרים בין jobs או נשמרים אחרי ה-workflow. שימושי ל-build outputs",
+        "Runners — מכונות שמריצות את ה-jobs. ברירת מחדל: GitHub-hosted (חינם עד 2,000 דקות בחודש ל-private). אפשר גם self-hosted על השרת שלכם",
+        "Artifacts — קבצים שנשמרים בין jobs או נשמרים אחרי ה-workflow. שימושי ל-build outputs",
       ],
       tips: [
-        "Actions Marketplace הוא זהב — לפני שאתם כותבים action משלכם, תחפשו. כמעט תמיד מישהו כבר עשה",
-        "תוודאו שאתם מקבעים גרסאות של actions: `actions/checkout@v4` ולא `actions/checkout@main`. אחרת ה-workflow שלכם יכול להישבר אם הם משחררים breaking change",
+        "Actions Marketplace הוא זהב — לפני שאתם כותבים action משלכם, חפשו. כמעט תמיד מישהו כבר עשה",
+        "ודאו שאתם מקבעים גרסאות של actions: `actions/checkout@v4` ולא `actions/checkout@main`. אחרת ה-workflow שלכם עלול להישבר אם הם משחררים breaking change",
       ],
     },
     {
       id: "first-workflow",
       icon: GitBranch,
       title: "workflow ראשון: TypeScript check על כל PR",
-      subtitle: "5 דקות מ-zero לCI אמיתי",
+      subtitle: "5 דקות מאפס ל-CI אמיתי",
       description:
-        "הדרך הכי טובה ללמוד היא לראות workflow פשוט שעושה משהו אמיתי. הדוגמה הזו מריצה `tsc --noEmit` ו-`eslint` על כל push ועל כל PR — כך שאף פעם לא ימזגו לref שלא עובר type-check.",
+        "הדרך הטובה ביותר ללמוד היא לראות workflow פשוט שעושה משהו אמיתי. הדוגמה הזו מריצה `tsc --noEmit` ו-`eslint` על כל push ועל כל PR — כך שאף פעם לא ימזגו ref שלא עובר type-check.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       content: [
@@ -138,12 +138,12 @@ export const githubActionsGuide: AgentGuideData = {
         "צרו קובץ: `.github/workflows/ci.yml`",
         "כתבו את ה-YAML (ראו דוגמה למטה)",
         "Commit + push: `git add .github && git commit -m 'add CI' && git push`",
-        "Open GitHub → Actions tab — תראו את ה-workflow רץ. סיום סביב דקה",
+        "פתחו ב-GitHub את ה-Actions tab — תראו את ה-workflow רץ. סיום בערך דקה",
         "מעכשיו, כל push מפעיל אותו אוטומטית. PRs יראו ✅ או ❌ ליד הסטטוס",
         "אפשר להוסיף branch protection ב-GitHub Settings: 'require status checks to pass before merging' — עכשיו אי אפשר למזג בלי CI ירוק",
       ],
       tips: [
-        "תתחילו פשוט — typecheck + lint זה 80% מהערך. tests מאוחר יותר, deploy אחרי שיש tests",
+        "התחילו פשוט — typecheck + lint נותנים 80% מהערך. tests מאוחר יותר, deploy אחרי שיש tests",
         "אם ה-CI נופל, GitHub שולחים אימייל אוטומטית. אפשר לכבות את זה בהגדרות חשבון GitHub אם זה מציק",
       ],
       codeExample: {
@@ -154,10 +154,10 @@ export const githubActionsGuide: AgentGuideData = {
     {
       id: "deploy-nextjs",
       icon: Rocket,
-      title: "Deploy של Next.js ל-Vercel אוטומטית",
-      subtitle: "דחיפה ל-main = פריסה לייצור תוך דקה וחצי",
+      title: "Deploy אוטומטי של Next.js ל-Vercel",
+      subtitle: "דחיפה ל-main = פריסה לייצור בתוך דקה וחצי",
       description:
-        "אחרי ש-CI עובד, השלב הבא הוא deploy אוטומטי. Vercel תומכים ב-GitHub integration שעושה deploy על כל push בלי workflow מיוחד — אבל אם אתם רוצים שליטה מלאה (deploy רק אחרי tests עוברים, ל-environment ספציפי, עם build args מותאמים), workflow YAML נותן את זה.",
+        "אחרי ש-CI עובד, השלב הבא הוא deploy אוטומטי. Vercel תומכים ב-GitHub integration שעושה deploy על כל push בלי workflow מיוחד — אבל אם אתם רוצים שליטה מלאה (deploy רק אחרי שה-tests עוברים, ל-environment ספציפי, עם build args מותאמים), workflow YAML נותן את זה.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       content: [
@@ -165,13 +165,13 @@ export const githubActionsGuide: AgentGuideData = {
         "אופציה B: workflow מותאם — שולטים מתי לעשות deploy. ה-workflow למטה מריץ tests קודם, ורק אם הם עוברים — שולח ל-Vercel",
         "Vercel Token — צריך טוקן API מ-Vercel (vercel.com/account/tokens). שמרו אותו ב-GitHub Secrets בשם `VERCEL_TOKEN`",
         "Vercel Org ID + Project ID — מ-`.vercel/project.json` אחרי `vercel link`. שמרו ב-secrets בשמות `VERCEL_ORG_ID` ו-`VERCEL_PROJECT_ID`",
-        "Preview vs Production — `vercel deploy` יוצר preview deployment עם URL ייחודי; `vercel deploy --prod` עושה deploy לדומיין הראשי",
+        "Preview מול Production — `vercel deploy` יוצר preview deployment עם URL ייחודי; `vercel deploy --prod` עושה deploy לדומיין הראשי",
         "Comments על PR — אפשר להוסיף `actions/github-script@v7` שיכתוב קומנט ב-PR עם ה-preview URL",
-        "Rollback — אם משהו לא טוב, ב-Vercel דשבורד אפשר לעשות rollback בלחיצה אחת ל-deployment קודם",
+        "Rollback — אם משהו לא טוב, בדשבורד של Vercel אפשר לעשות rollback בלחיצה אחת ל-deployment קודם",
       ],
       tips: [
-        "אצלי על האתר הזה (Next.js): tests + typecheck רצים ב-CI, ואחר כך אוטומטית Vercel עושה deploy. ב-90% מהמקרים, מ-push ל-live פחות מ-2 דקות",
-        "Vercel הם הקלים ביותר ל-Next.js, אבל אותו workflow עובד עם Cloudflare Pages, Netlify, ו-Railway — רק עם הקבוקים שלהם",
+        "אצלי באתר הזה (Next.js): tests + typecheck רצים ב-CI, ואחר כך Vercel עושה deploy אוטומטית. ב-90% מהמקרים, מ-push ל-live פחות משתי דקות",
+        "Vercel הוא הקל ביותר ל-Next.js, אבל אותו workflow עובד עם Cloudflare Pages, Netlify ו-Railway — רק עם ה-CLI שלהם",
       ],
       codeExample: {
         label: "deploy ל-Vercel רק אחרי tests עוברים",
@@ -184,21 +184,21 @@ export const githubActionsGuide: AgentGuideData = {
       title: "סודות ו-OIDC: לא לשים API keys בקוד",
       subtitle: "איך לתת ל-CI גישה ל-cloud בלי לשים שם credentials סטטיים",
       description:
-        "כל workflow שעושה deploy צריך גישה לאיזשהו cloud (Vercel, AWS, Cloudflare). הדרך הישנה היא טוקנים סטטיים שנשמרים ב-GitHub Secrets — זה עובד אבל לא אופטימלי (טוקן שדלף = גישה לחשבון). הדרך המודרנית היא OIDC (OpenID Connect): GitHub מנפיקים JWT ייחודי לכל workflow, ואתם מגדירים ב-cloud trust ש'אם ה-JWT הזה הגיע מהrepo X, branch Y, אתה יכול להניח שזה אני'.",
+        "כל workflow שעושה deploy צריך גישה ל-cloud כלשהו (Vercel, AWS, Cloudflare). הדרך הישנה היא טוקנים סטטיים שנשמרים ב-GitHub Secrets — זה עובד אבל לא אופטימלי (טוקן שדלף = גישה לחשבון). הדרך המודרנית היא OIDC (OpenID Connect): GitHub מנפיקים JWT ייחודי לכל workflow, ואתם מגדירים ב-cloud trust ש'אם ה-JWT הזה הגיע מ-repo X, branch Y, אתה יכול להניח שזה אני'.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
       content: [
         "GitHub Secrets — מקום שמור להגדרות רגישות. Settings → Secrets and variables → Actions. גישה רק מתוך workflows, לא נראה בלוגים",
-        "Repository secrets — לכל הריפו. Organization secrets — לכל הארגון. Environment secrets — רק ל-deployment ל-environment ספציפי",
-        "OIDC for AWS — במקום AWS access key, מגדירים IAM role עם trust policy שמקבל GitHub OIDC JWTs. Workflow יוצר token, AWS מאמתים אותו, נותנים credentials זמניים",
-        "OIDC for GCP — דומה. Workload Identity Federation. ב-GCP מגדירים pool שמקבל GitHub provider",
-        "OIDC for Cloudflare — Cloudflare תומכים ב-OIDC ל-deployments בעבודה",
+        "Repository secrets — לכל הריפו. Organization secrets — לכל הארגון. Environment secrets — רק ל-deployment לסביבה ספציפית",
+        "OIDC ל-AWS — במקום AWS access key, מגדירים IAM role עם trust policy שמקבל GitHub OIDC JWTs. Workflow יוצר token, AWS מאמת אותו, נותן credentials זמניים",
+        "OIDC ל-GCP — דומה. Workload Identity Federation. ב-GCP מגדירים pool שמקבל GitHub provider",
+        "OIDC ל-Cloudflare — Cloudflare תומכים ב-OIDC ל-deployments",
         "סודות שמיועדים לפיתוח — `.env.local` שלא ב-git. רק במכונה שלכם",
-        "תרשו את ה-actions שאתם משתמשים — Settings → Actions → 'Allow specific actions'. תוסיפו רק את אלה שאתם מכירים. מנע supply chain attacks",
+        "הרשו רק את ה-actions שאתם משתמשים בהם — Settings → Actions → 'Allow specific actions'. הוסיפו רק את אלה שאתם מכירים. מונע supply chain attacks",
       ],
       tips: [
-        "אצלי כל ה-secrets ב-GitHub Secrets, ולעולם לא ב-`.env` שלא בlocal. אם פעם אחת יוצא secret לקוד, הוא בהיסטוריה לנצח. סורקים אוטומטיים יבחינו תוך דקות",
-        "GitHub יש לו Secret Scanning שדוחה pushים שכוללים API keys מוכרים (AWS, OpenAI, Anthropic, ועוד). תוודאו שזה מופעל בריפו",
+        "אצלי כל ה-secrets ב-GitHub Secrets, ולעולם לא ב-`.env` שאינו local. אם פעם אחת יוצא secret לקוד, הוא בהיסטוריה לנצח. סורקים אוטומטיים יבחינו תוך דקות",
+        "ל-GitHub יש Secret Scanning שדוחה pushים שכוללים API keys מוכרים (AWS, OpenAI, Anthropic, ועוד). ודאו שזה מופעל בריפו",
       ],
       codeExample: {
         label: "OIDC ל-AWS — בלי access keys סטטיים",
@@ -216,17 +216,17 @@ export const githubActionsGuide: AgentGuideData = {
       difficulty: "advanced",
       content: [
         "Matrix builds — להריץ את אותו job עם שילובי משתנים שונים. למשל Node 18, 20, 22 + Linux, Windows, macOS = 9 ריצות במקביל. תופס בעיות תאימות מיד",
-        "Reusable workflows — workflow שאפשר לקרוא ל-`uses: org/repo/.github/workflows/x.yml@main`. מצוין כשיש 10 ריפוס שעושים אותם דברים",
+        "Reusable workflows — workflow שאפשר לקרוא לו ב-`uses: org/repo/.github/workflows/x.yml@main`. מצוין כשיש 10 ריפוז שעושים אותם דברים",
         "Composite actions — לקבץ כמה steps ל-action יחיד שאפשר לקרוא לו מ-workflows שונים. שמירה על DRY",
         "Cache — `actions/cache@v4` שומר תיקיות בין ריצות. למשל `node_modules` או `target/` של Rust. חוסך דקות בכל workflow",
-        "Concurrency — `concurrency: { group: deploy, cancel-in-progress: true }` — אם פוש חדש מגיע, מבטל את הקודם. מונע race conditions ב-deploy",
+        "Concurrency — `concurrency: { group: deploy, cancel-in-progress: true }` — אם push חדש מגיע, מבטל את הקודם. מונע race conditions ב-deploy",
         "Self-hosted runners — להריץ את ה-jobs על השרת שלכם במקום על GitHub. שימושי לעבודה כבדה, גישה לרשת פנימית, או בקרת עלות",
         "Issue/PR automation — actions שעונות אוטומטית על PRs ('thanks for the contribution!'), מתייגות issues, סוגרות issues ישנים",
       ],
       tips: [
-        "matrix exclude — אם יש שילוב שלא רוצים (Windows + Node 18), אפשר ב-`exclude` להוציא אותו",
-        "self-hosted runner על שרת VPS = workflow שיכול לדבר עם הסוכנים הפנימיים שלכם, לעשות deploy ל-Docker, וכו'. אבל שימו לב: ה-action runs על השרת שלכם, אז הקפידו ש-CI runs רק מ-PRs מאמינים",
-        "ה-actions/cache שלכם יכול לחסוך 40-60% מזמן ה-CI. תמיד תוודאו שהוא נטען לפני npm install",
+        "matrix exclude — אם יש שילוב שלא רוצים (Windows + Node 18), אפשר להוציא אותו ב-`exclude`",
+        "self-hosted runner על שרת VPS = workflow שיכול לדבר עם הסוכנים הפנימיים שלכם, לעשות deploy ל-Docker, וכו'. אבל שימו לב: ה-action רץ על השרת שלכם, אז הקפידו ש-CI ירוץ רק מ-PRs מאומנים",
+        "actions/cache יכול לחסוך 40-60% מזמן ה-CI. תמיד ודאו שהוא נטען לפני npm install",
       ],
     },
     {
@@ -239,17 +239,17 @@ export const githubActionsGuide: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
       content: [
-        "תמיד תקבעו `timeout-minutes` על job. ברירת מחדל היא 6 שעות — workflow תקוע יכול לאכול את כל הדקות החינמיות שלכם",
-        "תמיד תוסיפו `permissions:` ב-workflow level. ברירת מחדל הוא 'read all', אבל לעבודה ספציפית צריך פחות. עקרון least-privilege",
-        "השתמשו ב-`workflow_dispatch` להפעלה ידנית עם inputs. שימושי לdeploys לסביבות שונות בלי לדחוף קוד",
-        "לוגי GitHub Actions נמחקים אחרי 90 יום. אם משהו חשוב — שמרו artifacts או pushו ל-S3 בסוף",
-        "Composite action משלכם נוצר בריפו `org/composite-actions` עם `action.yml` בתיקייה. אחר כך כל הריפוס בארגון יכולים לקרוא לו",
-        "תוסיפו `if: failure()` ל-step אחרון שמודיע ל-Slack/Discord. ככה אתם יודעים מיד אם CI נופל",
-        "פתחו את GitHub Actions Tab לפעמים ותראו: 'most-run workflows'. תפתיעו את עצמכם בכמה דקות בזבזתם, ויש מה לשפר",
+        "תמיד קבעו `timeout-minutes` על job. ברירת המחדל היא 6 שעות — workflow תקוע יכול לאכול את כל הדקות החינמיות שלכם",
+        "תמיד הוסיפו `permissions:` ברמת ה-workflow. ברירת המחדל היא 'read all', אבל לעבודה ספציפית צריך פחות. עקרון least-privilege",
+        "השתמשו ב-`workflow_dispatch` להפעלה ידנית עם inputs. שימושי ל-deploys לסביבות שונות בלי לדחוף קוד",
+        "לוגי GitHub Actions נמחקים אחרי 90 יום. אם משהו חשוב — שמרו artifacts או דחפו ל-S3 בסוף",
+        "Composite action משלכם נוצר בריפו `org/composite-actions` עם `action.yml` בתיקייה. אחר כך כל הריפוז בארגון יכולים לקרוא לו",
+        "הוסיפו `if: failure()` ל-step אחרון שמודיע ל-Slack/Discord. כך אתם יודעים מיד אם CI נופל",
+        "פתחו לפעמים את ה-GitHub Actions Tab ותראו 'most-run workflows'. תופתעו בכמה דקות בזבזתם, ויש מה לשפר",
       ],
       tips: [
-        "תקראו את ה-billing page של GitHub פעם בחודש — `Settings → Billing → Plans and usage`. אם פתאום אתם משלמים על Actions, סימן שמשהו לא יעיל",
-        "Dependabot ו-Renovate הם actions בעצמם. תפעילו את אחד מהם בריפו - הוא יפתח PRs אוטומטית כשיש עדכוני security",
+        "קראו את ה-billing page של GitHub פעם בחודש — `Settings → Billing → Plans and usage`. אם פתאום אתם משלמים על Actions, סימן שמשהו לא יעיל",
+        "Dependabot ו-Renovate הם actions בעצמם. הפעילו את אחד מהם בריפו — הוא יפתח PRs אוטומטית כשיש עדכוני security",
       ],
     },
   ],
@@ -262,7 +262,7 @@ export const githubActionsGuide: AgentGuideData = {
     },
     {
       title: "GitHub Actions Marketplace",
-      description: "אלפי actions מוכנים. תחפשו לפני שאתם כותבים",
+      description: "אלפי actions מוכנים. חפשו לפני שאתם כותבים",
       href: "https://github.com/marketplace?type=actions",
       icon: Github,
     },
@@ -291,9 +291,9 @@ export const githubActionsGuide: AgentGuideData = {
       icon: BookOpen,
     },
   ],
-  ctaTitle: "צריכים help להגדיר CI/CD?",
+  ctaTitle: "צריכים עזרה להגדיר CI/CD?",
   ctaSub:
-    "קמת CI טוב חוסך שעות בשבוע ומונע באגים בייצור. אני יכול להגדיר את כל ה-pipeline שלכם בשעה.",
+    "הקמת CI טוב חוסכת שעות בשבוע ומונעת באגים בייצור. אני יכול להגדיר את כל ה-pipeline שלכם בשעה.",
   primaryCta: {
     label: "GitHub Actions Quickstart",
     href: "https://docs.github.com/en/actions/quickstart",
@@ -305,5 +305,5 @@ export const githubActionsGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "אצלי 12+ workflows רצים על הריפוס שלי: כל אתר עם CI מלא, deploy אוטומטי ל-Vercel, מטלות יומיות שמתזמנות עצמן, ו-Dependabot שעדכן דברים. הכל בחינם (פתוחים) או בתוך מסגרת ה-2,000 דקות החינמיות. המדריך הזה הוא תמצית של 3 שנות שימוש פעיל בכלי, על משהו ב-100 ריפוס שונים.",
+    "אצלי 12+ workflows רצים על הריפוז שלי: כל אתר עם CI מלא, deploy אוטומטי ל-Vercel, מטלות יומיות שמתזמנות את עצמן, ו-Dependabot שמעדכן תלויות. הכול בחינם (לפרויקטים פתוחים) או בתוך מסגרת ה-2,000 דקות החינמיות. המדריך הזה הוא תמצית של 3 שנות שימוש פעיל בכלי, על כ-100 ריפוז שונים.",
 };

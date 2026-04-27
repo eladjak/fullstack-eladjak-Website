@@ -24,9 +24,9 @@ export const redisStreamsGuide: AgentGuideData = {
   brandIconSlug: "redis",
   brandIconColor: "DC382D",
   heroBgImage: "/images/guides/guide-redis-streams-hero.jpg",
-  tagline: "message bus קל-משקל שמחבר 13 סוכנים בלי Kafka, RabbitMQ, או SQS",
+  tagline: "message bus קל-משקל שמחבר 13 סוכנים בלי Kafka, RabbitMQ או SQS",
   heroDescription:
-    "Redis Streams זו תכונה של Redis (החל מגרסה 5.0, 2018) שהופכת אותו ל-message broker קליל מאוד — תקשורת אסינכרונית בין שירותים, בלי הסיבוך של Kafka או RabbitMQ. Redis עצמו זה מאגר key-value בזיכרון שרץ במאות אלפי VPS ברחבי העולם — מהיר במיוחד (פעולות במיקרושנניות), פשוט להגדרה, וזולל מינימום משאבים. Streams הוסיפו לו את היכולת להחזיק תורים מתמשכים של הודעות עם consumer groups (קבוצות צרכנים שמתחלקות בעבודה), acknowledgments (אישור שהודעה טופלה), ו-replay (יכולת לחזור להודעות ישנות). אצלי (אלעד) Redis Streams זה ה'עצב המרכזי' של רשת ה-13 הסוכנים שלי על Hetzner: כשמסר WhatsApp מגיע ל-Kami, הוא לא מטפל בו לבד — הוא דוחף הודעה ל-stream, וצרכנים שונים (Box לתזונה, Adopter לתוכן, Hermes לזמנים) קוראים ומגיבים. אם סוכן אחד נופל, ההודעות מחכות ב-stream עד שהוא חוזר. אם רוצים סוכן חדש שמאזין לאותם events — מוסיפים אותו לcategoria consumer ב-30 שניות. מאז המעבר ל-Redis Streams (לפני שנתיים, Q2 2024), המערכת שלי הרבה יותר יציבה: כל סוכן עובד לבד, וההיגיון 'מי מקשיב למה' מנוהל ב-Redis במקום ב-API calls ישירים.",
+    "Redis Streams היא תכונה של Redis (החל מגרסה 5.0, 2018) שהופכת אותו ל-message broker קליל מאוד — תקשורת אסינכרונית בין שירותים, בלי הסיבוך של Kafka או RabbitMQ. Redis עצמו הוא מאגר key-value בזיכרון שרץ במאות אלפי VPS ברחבי העולם — מהיר במיוחד (פעולות במיקרו-שניות), פשוט להגדרה, וצורך מינימום משאבים. Streams הוסיפו לו את היכולת להחזיק תורים מתמשכים של הודעות עם consumer groups (קבוצות צרכנים שמתחלקות בעבודה), acknowledgments (אישור שהודעה טופלה), ו-replay (יכולת לחזור להודעות ישנות). אצלי (אלעד) Redis Streams הוא 'העצב המרכזי' של רשת 13 הסוכנים שלי על Hetzner: כשמסר WhatsApp מגיע ל-Kami, הוא לא מטפל בו לבד — הוא דוחף הודעה ל-stream, וצרכנים שונים (Box לתזונה, Adopter לתוכן, Hermes לזמנים) קוראים ומגיבים. אם סוכן אחד נופל, ההודעות מחכות ב-stream עד שהוא חוזר. אם רוצים סוכן חדש שמאזין לאותם events — מוסיפים אותו ל-consumer group ב-30 שניות. מאז המעבר ל-Redis Streams (לפני שנתיים, Q2 2024), המערכת שלי יציבה הרבה יותר: כל סוכן עובד לבד, וההיגיון 'מי מקשיב למה' מנוהל ב-Redis במקום ב-API calls ישירים.",
   badgeText: "2026 · Message Bus · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/redis-streams",
   stats: [
@@ -37,7 +37,7 @@ export const redisStreamsGuide: AgentGuideData = {
   ],
   paradigmTitle: "מ-API calls ישירים ל-event-driven",
   paradigmSub:
-    "כשKami מקבל הודעה, הוא לא מתקשר ל-Box. הוא דוחף ל-stream. כל מי שמעוניין — קורא.",
+    "כש-Kami מקבל הודעה, הוא לא מתקשר ל-Box. הוא דוחף ל-stream. כל מי שמעוניין — קורא.",
   paradigmShifts: [
     {
       before: "Kami → HTTP POST → Box (אם Box למעלה)",
@@ -62,30 +62,30 @@ export const redisStreamsGuide: AgentGuideData = {
   ],
   whoIsThisFor: [
     {
-      title: "מי שבונה רשת מיקרושירותים",
+      title: "מי שבונה רשת מיקרו-שירותים",
       description:
-        "כל פעם שיש לכם 'A צריך להודיע ל-B כשמשהו קורה', Redis Streams הוא הפתרון הפשוט ביותר.",
+        "בכל פעם שיש לכם 'A צריך להודיע ל-B כשמשהו קורה', Redis Streams הוא הפתרון הפשוט ביותר.",
       icon: Layers,
       color: "from-blue-500 to-cyan-500",
     },
     {
-      title: "צוותים שצמחו מעבר ל-API calls",
+      title: "צוותים שגדלו מעבר ל-API calls",
       description:
-        "ברגע שיש 5+ שירותים שצריכים לדבר זה עם זה, HTTP ישיר נהיה כאוס. message bus פותר את זה.",
+        "ברגע שיש 5+ שירותים שצריכים לדבר זה עם זה, HTTP ישיר הופך לכאוס. message bus פותר את זה.",
       icon: Network,
       color: "from-emerald-500 to-teal-500",
     },
     {
       title: "מי שצריך job queue פשוט",
       description:
-        "במקום BullMQ/Sidekiq, Redis Streams יכול להיות gantry קל — XADD = enqueue, consumer group = workers.",
+        "במקום BullMQ/Sidekiq, Redis Streams יכול לשמש כתור קל — XADD = enqueue, consumer group = workers.",
       icon: Activity,
       color: "from-violet-500 to-purple-500",
     },
     {
       title: "מי שלא רוצה לקפוץ ל-Kafka",
       description:
-        "Kafka נהדר לעומסים של מיליארדי הודעות. אבל לרוב הצרכים, Redis Streams עושה את אותה עבודה ב-1% מהסיבוך.",
+        "Kafka נהדר לעומסים של מיליארדי הודעות, אבל לרוב הצרכים, Redis Streams עושה את אותה עבודה באחוז אחד מהסיבוך.",
       icon: Server,
       color: "from-orange-500 to-amber-500",
     },
@@ -105,14 +105,14 @@ export const redisStreamsGuide: AgentGuideData = {
       title: "מה זה Redis Streams: append-only log",
       subtitle: "כמו Kafka, רק ב-Redis ובלי Zookeeper",
       description:
-        "Redis Stream הוא מבנה נתונים מסוג 'append-only log' — רשימה של הודעות שאפשר רק להוסיף לסוף, אף פעם לא לערוך באמצע. כל הודעה מקבלת ID ייחודי (timestamp בr millisecond + sequence), אפשר לקרוא טווח של הודעות, ואפשר 'לעקוב' (XREAD) על הוספות חדשות בזמן אמת. זה דומה במהותו ל-Kafka topic, אבל הרבה יותר פשוט להפעיל: Redis עצמו זה תהליך אחד, אין Zookeeper, אין partitions, אין broker cluster. אתם פשוט מריצים Redis ויש לכם Streams.",
+        "Redis Stream הוא מבנה נתונים מסוג 'append-only log' — רשימה של הודעות שאפשר רק להוסיף לסוף, אף פעם לא לערוך באמצע. כל הודעה מקבלת ID ייחודי (timestamp במילישנייה + sequence), אפשר לקרוא טווח של הודעות, ואפשר 'לעקוב' (XREAD) על הוספות חדשות בזמן אמת. זה דומה במהותו ל-Kafka topic, אבל הרבה יותר פשוט להפעיל: Redis עצמו הוא תהליך אחד, אין Zookeeper, אין partitions, אין broker cluster. אתם פשוט מריצים Redis ויש לכם Streams.",
       color: "from-blue-600 to-cyan-500",
       difficulty: "beginner",
       beginner:
-        "תחשבו על stream כמו על שרשרת הודעות בקבוצה: כל הודעה מתקבעת לסוף, ואי אפשר לערוך הודעות ישנות. אבל בניגוד ל-WhatsApp, פה כל הודעה מקבלת מספר רץ, אפשר לחפש לפי טווח, ואפשר 'להעדיף' לקרוא רק את ההודעות החדשות שעוד לא ראיתם.",
+        "תחשבו על stream כמו על שרשרת הודעות בקבוצה: כל הודעה מתווספת לסוף, ואי אפשר לערוך הודעות ישנות. אבל בניגוד ל-WhatsApp, כאן כל הודעה מקבלת מספר רץ, אפשר לחפש לפי טווח, ואפשר לבחור לקרוא רק את ההודעות החדשות שעוד לא ראיתם.",
       content: [
-        "Stream — נתון בודד ב-Redis. זוהה לפי מפתח רגיל. למשל `kami:incoming-messages`",
-        "Entry (הודעה) — כל הודעה ב-stream. מקבלת ID של `<timestamp>-<sequence>` (למשל `1730000000000-0`)",
+        "Stream — מבנה נתונים בודד ב-Redis. מזוהה לפי מפתח רגיל. למשל `kami:incoming-messages`",
+        "Entry (הודעה) — כל הודעה ב-stream. מקבלת ID בפורמט `<timestamp>-<sequence>` (למשל `1730000000000-0`)",
         "Fields — כל הודעה היא אוסף key-value. גמיש לחלוטין — אפשר להכניס כל מבנה",
         "XADD — הוספת הודעה חדשה. `XADD stream * key1 value1 key2 value2` — ה-`*` אומר 'תן לי ID אוטומטי'",
         "XREAD — קריאה. אפשר 'מ-ID X ואילך' או 'הודעות חדשות בלבד' (`$`)",
@@ -120,8 +120,8 @@ export const redisStreamsGuide: AgentGuideData = {
         "Streams לא נמחקים אוטומטית — צריך לטפל בגיל ההודעות (XTRIM, MAXLEN)",
       ],
       tips: [
-        "Redis 7+ הוא מומלץ — Streams עברו שיפור משמעותי. גרסה 6 ומטה לא מומלצת",
-        "Persistence — תוודאו שיש AOF או RDB persistence. אחרת אם Redis קורס, הStreams נעלמים. אצלי AOF every-second",
+        "מומלץ Redis 7+ — Streams עברו שיפור משמעותי. גרסה 6 ומטה לא מומלצת",
+        "Persistence — ודאו שיש AOF או RDB persistence. אחרת, אם Redis קורס, ה-Streams נעלמים. אצלי AOF every-second",
       ],
       codeExample: {
         label: "פעולות בסיסיות ב-redis-cli",
@@ -132,22 +132,22 @@ export const redisStreamsGuide: AgentGuideData = {
       id: "basics",
       icon: Terminal,
       title: "XADD ו-XREAD: שתי הפעולות הבסיסיות",
-      subtitle: "כל מה שצריך לפעולת מסיבה (pub/sub) פשוטה",
+      subtitle: "כל מה שצריך ל-pub/sub פשוט",
       description:
         "אם אתם רק רוצים pub/sub פשוט — סוכן A דוחף, סוכן B מקשיב — אתם צריכים רק את XADD ו-XREAD. בלי consumer groups, בלי acknowledgments. הקוד למטה הוא דוגמה ב-Python שמראה את שני הצדדים.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       content: [
         "XADD — שולח הודעה. הסוכן הדוחף לא צריך לדעת מי קורא. כל ההודעות נשמרות עד שתעשו XTRIM",
-        "XREAD ID `$` — קריאה של 'הודעות חדשות בלבד מהרגע הזה'. שימושי לconsumer חדש",
+        "XREAD ID `$` — קריאה של 'הודעות חדשות בלבד מהרגע הזה'. שימושי ל-consumer חדש",
         "XREAD BLOCK 0 — חכה לנצח עד שמגיעה הודעה. בלי polling — Redis מודיע מיד כשיש משהו",
         "XREAD COUNT N — מקסימום N הודעות בכל קריאה. שימושי לעיבוד באצוות (batches)",
         "מה ההבדל ל-PubSub הקלאסי של Redis? — Pub/Sub זורק הודעה ושוכח. אם הצרכן לא מחובר באותו רגע — הוא מפסיד. Streams שומרים עד שתמחקו",
         "MULTI/EXEC — אם אתם דוחפים כמה הודעות יחד, עטפו ב-MULTI/EXEC לאטומיות. או XADD בלולאה ב-pipeline",
       ],
       tips: [
-        "Python עם `redis-py` מספק API נוח. `redis.xadd()` ו-`redis.xread()` מטפלים בכל הסידור של ID-ים אוטומטית",
-        "אם אתם בNode.js — `ioredis` הוא הספרייה הסטנדרטית. ל-Go יש `go-redis`",
+        "Python עם `redis-py` מספק API נוח. `redis.xadd()` ו-`redis.xread()` מטפלים בכל הסידור של ה-ID-ים אוטומטית",
+        "אם אתם ב-Node.js — `ioredis` היא הספרייה הסטנדרטית. ל-Go יש `go-redis`",
       ],
       codeExample: {
         label: "publisher + subscriber ב-Python",
@@ -160,21 +160,21 @@ export const redisStreamsGuide: AgentGuideData = {
       title: "Consumer Groups: כשיש כמה צרכנים שמתחלקים בעבודה",
       subtitle: "כל הודעה מטופלת בדיוק על ידי consumer אחד בקבוצה",
       description:
-        "Consumer groups זה הפיצ'ר שעושה את Redis Streams ל-message broker רציני. במקום שכל הצרכנים יראו את כל ההודעות (כמו pub/sub), צרכנים בתוך אותה group מתחלקים בעבודה — כל הודעה מגיעה ל-consumer אחד בלבד בקבוצה. אם רוצים יתירות, מקימים כמה consumers; אם אחד נופל, השאר ממשיכים. בנוסף, יש מנגנון acknowledgment: צרכן מאשר 'טיפלתי בהודעה X', וRedis זוכר. אם הצרכן נופל לפני שאישר, ההודעה תיתפס שוב על ידי צרכן אחר.",
+        "Consumer groups הם הפיצ'ר שעושה את Redis Streams ל-message broker רציני. במקום שכל הצרכנים יראו את כל ההודעות (כמו pub/sub), צרכנים בתוך אותה group מתחלקים בעבודה — כל הודעה מגיעה ל-consumer אחד בלבד בקבוצה. אם רוצים יתירות, מקימים כמה consumers; אם אחד נופל, השאר ממשיכים. בנוסף, יש מנגנון acknowledgment: צרכן מאשר 'טיפלתי בהודעה X', ו-Redis זוכר. אם הצרכן נופל לפני שאישר, ההודעה תיתפס שוב על ידי צרכן אחר.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       content: [
         "XGROUP CREATE — יוצר consumer group. `XGROUP CREATE agent:tasks workers $` יוצר group בשם 'workers' שמתחיל מהודעות חדשות",
         "XREADGROUP — קריאה כחבר ב-group. `XREADGROUP GROUP workers consumer-1 COUNT 10 BLOCK 5000 STREAMS agent:tasks >` — מקבל הודעות לא-מטופלות",
-        "XACK — אישור טיפול. `XACK agent:tasks workers <message-id>` אומר ל-Redis 'תסיר אותו מה-pending list'",
+        "XACK — אישור טיפול. `XACK agent:tasks workers <message-id>` אומר ל-Redis 'הסר אותה מה-pending list'",
         "XPENDING — מציג הודעות שעדיין מחכות לאישור. שימושי לזיהוי consumer שתקוע",
-        "XCLAIM — לקיחת הודעה מconsumer אחר (אם הוא תקוע). 'אם הודעה X לא טופלה ב-30 שניות, אני לוקח אותה'",
-        "XAUTOCLAIM (Redis 6.2+) — אוטומטית לוקח הודעות שעברו זמן ולא טופלו. מנע קליעות ידניות",
-        "מספר ה-consumers בגroup לא מוגבל — אפשר לסקלל אופקית בלי הגדרה. הקבלה אוטומטית",
+        "XCLAIM — לקיחת הודעה מ-consumer אחר (אם הוא תקוע). 'אם הודעה X לא טופלה ב-30 שניות, אני לוקח אותה'",
+        "XAUTOCLAIM (Redis 6.2+) — לוקח אוטומטית הודעות שעבר זמן ולא טופלו. מונע קליעות ידניות",
+        "מספר ה-consumers ב-group לא מוגבל — אפשר לסקלל אופקית בלי הגדרה. ההקבלה אוטומטית",
       ],
       tips: [
-        "תמיד עשו XACK רק אחרי שעבודה הושלמה בהצלחה. אם נפלתם באמצע, ה-message יתפוס שוב — וזה מה שאתם רוצים",
-        "למימוש 'exactly once' (כל הודעה מטופלת בדיוק פעם אחת) — שמרו את msg_id בDB יחד עם תוצאת העבודה. אם אתם מקבלים שוב, תבדקו אם יש לכם כבר תוצאה",
+        "תמיד עשו XACK רק אחרי שהעבודה הושלמה בהצלחה. אם נפלתם באמצע, ה-message ייתפס שוב — וזה מה שאתם רוצים",
+        "למימוש 'exactly once' (כל הודעה מטופלת בדיוק פעם אחת) — שמרו את msg_id ב-DB יחד עם תוצאת העבודה. אם אתם מקבלים שוב, בדקו אם יש לכם כבר תוצאה",
       ],
       codeExample: {
         label: "consumer group ב-Python (רב-process worker)",
@@ -191,11 +191,11 @@ export const redisStreamsGuide: AgentGuideData = {
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
       content: [
-        "Fan-out — הודעה אחת מטופלת על ידי כמה צרכנים שונים. כל אחד עם group משלו. למשל: הודעת WhatsApp נשלחת ל-Box (תזונה), Adopter (תוכן), והDashboard (לוג). שלוש groups, שלוש קריאות עצמאיות לאותו stream",
+        "Fan-out — הודעה אחת מטופלת על ידי כמה צרכנים שונים. כל אחד עם group משלו. למשל: הודעת WhatsApp נשלחת ל-Box (תזונה), Adopter (תוכן) ול-Dashboard (לוג). שלוש groups, שלוש קריאות עצמאיות לאותו stream",
         "Work queue — הודעות מטופלות פעם אחת בלבד. consumer group יחיד עם כמה consumers. למשל: רשימת משימות עיבוד תמונות, 5 workers מתחלקים",
         "Event sourcing — שומרים כל אירוע ב-stream, ובונים state נוכחי על ידי קריאת ההיסטוריה מההתחלה. שימושי ל-audit trail מלא",
         "Saga / orchestration — workflow מורכב שעובר בין שירותים. כל שלב כותב ל-stream, השלב הבא מאזין",
-        "Dead letter queue — הודעות שנכשלו N פעמים עוברות לstream אחר. בעבד על ידי human או באופן ידני",
+        "Dead letter queue — הודעות שנכשלו N פעמים עוברות ל-stream אחר. עיבוד על ידי human או באופן ידני",
         "Backpressure — אם consumer לא מספיק לעבד, ה-stream גדל. אפשר לראות עם XLEN, ולחתוך עם XTRIM MAXLEN",
         "Sharding — אם stream אחד גדול מדי, חלקו אותו לכמה (`agent:tasks:shard-0`, `agent:tasks:shard-1`) לפי hash של user_id",
       ],
@@ -208,25 +208,25 @@ export const redisStreamsGuide: AgentGuideData = {
       id: "production",
       icon: Activity,
       title: "Production: גודל זיכרון, persistence, ניטור",
-      subtitle: "מה שצריך לדעת לפני שהrelease",
+      subtitle: "מה שצריך לדעת לפני release",
       description:
-        "Redis בייצור דורש 3 דברים: persistence (שלא יאבד דאטה אם Redis קורס), ניהול גודל (שhe-stream לא יבלע את כל הזיכרון), וניטור.",
+        "Redis בייצור דורש 3 דברים: persistence (שלא יאבד דאטה אם Redis קורס), ניהול גודל (שה-stream לא יבלע את כל הזיכרון), וניטור.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       content: [
         "Persistence — שני סוגים: AOF (append-only file, יותר בטוח) ו-RDB (snapshot כל N דקות). מומלץ AOF every-second כברירת מחדל",
-        "MAXLEN — תמיד תוסיפו `XADD ... MAXLEN ~ 10000` כדי לחתוך אוטומטית. ה-`~` אומר 'בערך', יותר יעיל",
-        "MINID — חתוך לפי גיל במקום מספר. `XADD ... MINID ~ 1730000000000` ימחק כל מה שלפני זמן זה",
-        "ניטור: XLEN — מספר ההודעות. אם זה גדל בלי הפסקה, אתם מצרכים יותר מהר ממה שהצרכן מסוגל",
-        "ניטור: XPENDING — הודעות שלא אישרו. אם המספר גדל, יש consumer שתקוע",
-        "redis-cli --bigkeys — מציג את ה-streams הכי גדולים. שימושי כדי לזהות מה תופס מקום",
+        "MAXLEN — תמיד הוסיפו `XADD ... MAXLEN ~ 10000` כדי לחתוך אוטומטית. ה-`~` אומר 'בערך', יעיל יותר",
+        "MINID — חתוך לפי גיל במקום מספר. `XADD ... MINID ~ 1730000000000` ימחק כל מה שלפני הזמן הזה",
+        "ניטור: XLEN — מספר ההודעות. אם זה גדל בלי הפסקה, אתם מייצרים מהר יותר ממה שהצרכן מסוגל",
+        "ניטור: XPENDING — הודעות שלא אושרו. אם המספר גדל, יש consumer שתקוע",
+        "redis-cli --bigkeys — מציג את ה-streams הגדולים ביותר. שימושי כדי לזהות מה תופס מקום",
         "INFO memory — מציג צריכת RAM. אם מתקרבים למקסימום, צריך לחתוך streams או להוסיף RAM",
         "Redis Sentinel — high-availability. לפרודקשן רציני, חייב",
         "Redis Cluster — להתפלגות אופקית. לרוב הצרכים, single instance מספיק",
       ],
       tips: [
-        "אצלי Redis רץ ב-Docker עם volume persistance ו-AOF. המהפכה: 100MB RAM משמשים את כל ה-13 הסוכנים, latency פחות מ-5ms",
-        "תמיד תוודאו שיש backup של ה-RDB/AOF. אם Redis קורס באמצע פעולה, ייתכן אבדן דאטה של שנייה אחרונה",
+        "אצלי Redis רץ ב-Docker עם volume persistence ו-AOF. השורה התחתונה: 100MB RAM משמשים את כל 13 הסוכנים, latency פחות מ-5ms",
+        "תמיד ודאו שיש backup של ה-RDB/AOF. אם Redis קורס באמצע פעולה, ייתכן אבדן דאטה של שנייה אחרונה",
       ],
       codeExample: {
         label: "production docker-compose עם persistence",
@@ -245,15 +245,15 @@ export const redisStreamsGuide: AgentGuideData = {
       content: [
         "Apache Kafka — אם יש לכם מיליארדי הודעות ביום, או צריך retention של חודשים. דורש Java, Zookeeper, partitions, brokers — overhead משמעותי. לרוב המקרים זה overkill",
         "RabbitMQ — message broker מסורתי. יותר אופציות routing מ-Redis (exchanges, bindings). פחות פופולרי ב-2026, אבל עדיין יציב",
-        "NATS — מתחרה ל-Redis Streams בקונספט. בקוד פתוח, בשפת Go, מאוד מהיר. JetStream שלהם דומה ל-Streams עם הבדלי ניואנסים",
+        "NATS — מתחרה ל-Redis Streams בקונספט. קוד פתוח, בשפת Go, מהיר מאוד. JetStream שלהם דומה ל-Streams עם הבדלי ניואנסים",
         "AWS SQS — managed queue. אין שרת לתחזק, משלמים לפי שימוש. אבל vendor lock ל-AWS, ויש latency גבוה יותר מ-Redis local",
-        "Cloudflare Queues — חדש (2024-2025). חינמי לעומסים קטנים, מצוין לCloudflare Workers. אבל פחות בוגר",
-        "Postgres LISTEN/NOTIFY — אם כבר יש לכם Postgres, זה אופציה pub/sub פשוטה. בלי persistence ובלי consumer groups, אבל אפס תלות נוספת",
-        "השוואה: לרשת סוכנים אישית/קטנה → Redis Streams. ל-enterprise עם דרישות compliance → Kafka או RabbitMQ. ל-serverless full-on → SQS או Cloudflare Queues",
+        "Cloudflare Queues — חדש (2024-2025). חינמי לעומסים קטנים, מצוין ל-Cloudflare Workers. אבל פחות בוגר",
+        "Postgres LISTEN/NOTIFY — אם כבר יש לכם Postgres, זו אופציית pub/sub פשוטה. בלי persistence ובלי consumer groups, אבל אפס תלות נוספת",
+        "השוואה: לרשת סוכנים אישית/קטנה → Redis Streams. ל-enterprise עם דרישות compliance → Kafka או RabbitMQ. ל-serverless מלא → SQS או Cloudflare Queues",
       ],
       tips: [
-        "אצלי בחרתי Redis Streams כי: כבר היה לי Redis לcache, צריכת RAM קטנה, ו-API פשוט. Kafka היה overkill לרשת של 13 סוכנים שמטפלים ב~50k הודעות ליום",
-        "אל תקפצו ל-Kafka רק 'כי זה הסטנדרט'. רוב המוצרים לא מגיעים ל-scale שמצדיק את הסיבוך. תתחילו פשוט ותתעלו רק כשאתם באמת צריכים",
+        "אצלי בחרתי Redis Streams כי: כבר היה לי Redis ל-cache, צריכת RAM קטנה, ו-API פשוט. Kafka היה overkill לרשת של 13 סוכנים שמטפלים ב-~50k הודעות ביום",
+        "אל תקפצו ל-Kafka רק 'כי זה הסטנדרט'. רוב המוצרים לא מגיעים ל-scale שמצדיק את הסיבוך. התחילו פשוט ועלו רק כשאתם באמת צריכים",
       ],
     },
   ],
@@ -266,19 +266,19 @@ export const redisStreamsGuide: AgentGuideData = {
     },
     {
       title: "Redis Streams Tutorial",
-      description: "המדריך הרשמי המבואי — קל להבנה",
+      description: "המדריך הרשמי למתחילים — קל להבנה",
       href: "https://redis.io/docs/data-types/streams-tutorial/",
       icon: BookOpen,
     },
     {
       title: "redis-py",
-      description: "הספרייה לPython הרשמית — תומכת מלאה ב-Streams",
+      description: "הספרייה הרשמית ל-Python — תומכת מלאה ב-Streams",
       href: "https://github.com/redis/redis-py",
       icon: Github,
     },
     {
       title: "ioredis",
-      description: "הספרייה לNode.js הסטנדרטית",
+      description: "הספרייה הסטנדרטית ל-Node.js",
       href: "https://github.com/luin/ioredis",
       icon: Github,
     },
@@ -309,5 +309,5 @@ export const redisStreamsGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "אצלי על Hetzner Redis Streams מחבר 13 סוכנים שמטפלים ב~50k הודעות ביום. צריכת RAM: ~100MB. latency ממוצע: פחות מ-5ms. עברתי ל-Streams לפני שנתיים אחרי שאמרי לעצמי 'Kafka עבר את הקיבולת שלי לסבול'. המעבר היה הצלחה — מאז המערכת הרבה יותר יציבה ופשוטה לתחזוקה.",
+    "אצלי על Hetzner, Redis Streams מחבר 13 סוכנים שמטפלים ב-~50k הודעות ביום. צריכת RAM: ~100MB. latency ממוצע: פחות מ-5ms. עברתי ל-Streams לפני שנתיים אחרי שהבנתי ש-Kafka עבר את הקיבולת שלי לסבול. המעבר היה הצלחה — מאז המערכת יציבה ופשוטה הרבה יותר לתחזוקה.",
 };
