@@ -30,27 +30,37 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 
+  // Wave-13: Resolve locale from cookies (next-intl). Default 'he' for Israeli site.
+  const { cookies } = await import('next/headers');
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('NEXT_LOCALE')?.value as 'he' | 'en') || 'he';
+
+  const title = locale === 'he' && post.frontmatter.titleHe ? post.frontmatter.titleHe : post.frontmatter.title;
+  const description = locale === 'he' && post.frontmatter.descriptionHe ? post.frontmatter.descriptionHe : post.frontmatter.description;
+  const blogLabel = locale === 'he' ? 'בלוג' : 'Blog';
+
   return {
-    title: `${post.frontmatter.title} | Blog`,
-    description: post.frontmatter.description,
+    title: `${title} | ${blogLabel}`,
+    description,
     alternates: {
       canonical: `${siteUrl}/blog/${slug}`,
     },
     openGraph: {
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
+      title,
+      description,
       type: 'article',
       publishedTime: post.frontmatter.date,
       authors: [post.frontmatter.author || "Elad Ya'akobovitch"],
       tags: post.frontmatter.tags,
+      locale: locale === 'he' ? 'he_IL' : 'en_US',
       images: post.frontmatter.featured_image
-        ? [{ url: post.frontmatter.featured_image, width: 1200, height: 630, alt: post.frontmatter.title }]
+        ? [{ url: post.frontmatter.featured_image, width: 1200, height: 630, alt: title }]
         : undefined,
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
+      title,
+      description,
       images: post.frontmatter.featured_image ? [post.frontmatter.featured_image] : undefined,
     },
   };
