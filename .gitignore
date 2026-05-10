@@ -47,6 +47,10 @@ yarn-error.log*
 .aider*
 *.png
 !public/projects/*.png
+!public/images/guide-logos/*.png
+!public/images/guides/*.png
+!public/images/blog/*.png
+!public/images/*.png
 screenshots/
 
 # compress-guide-logos.mjs idempotency markers
