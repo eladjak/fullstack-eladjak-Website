@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useLocale } from 'next-intl';
 
 interface MDXRendererProps {
   content: string;
@@ -8,13 +9,33 @@ interface MDXRendererProps {
 
 /**
  * Simple Markdown-to-HTML renderer for MDX blog content.
- * Handles headings, paragraphs, code blocks, inline code, bold, italic,
- * links, lists, blockquotes, horizontal rules, and images.
+ *
+ * Wave-12 (2026-05-10): Bilingual posts use a `---` separator between English (top)
+ * and Hebrew (bottom) sections. Pick the half matching the active locale instead of
+ * rendering both languages stacked. Falls back to full content if no separator found.
  */
 export function MDXRenderer({ content }: MDXRendererProps) {
-  const html = useMemo(() => markdownToHtml(content), [content]);
+  const locale = useLocale();
+  const html = useMemo(() => {
+    const sliced = sliceByLocale(content, locale);
+    return markdownToHtml(sliced);
+  }, [content, locale]);
 
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+/**
+ * Posts are authored as: English content, then a single `---` line, then Hebrew.
+ * Some posts have no Hebrew section yet — in that case we return the full content.
+ * If we're in `he` locale and a Hebrew section exists, return it; otherwise English.
+ */
+function sliceByLocale(content: string, locale: string): string {
+  const sections = content.split(/^---\s*$/m);
+  if (sections.length < 2) return content;
+  const english = sections[0]?.trim() ?? '';
+  const hebrew = sections.slice(1).join('\n---\n').trim();
+  if (locale === 'he' && hebrew.length > 50) return hebrew;
+  return english.length > 50 ? english : content;
 }
 
 function markdownToHtml(markdown: string): string {
