@@ -219,6 +219,7 @@ export default function FeaturedProjectsSection() {
                   </p>
 
                   {/* Technologies */}
+                  <h4 className="sr-only">טכנולוגיות</h4>
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.technologies.map((tech) => (
                       <span

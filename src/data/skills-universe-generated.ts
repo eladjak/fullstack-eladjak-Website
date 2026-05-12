@@ -45,6 +45,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:claude-design-workflow", label: `claude-design-workflow`, category: "frontend", description: `Use when creating marketing pages, pitch decks, one-pagers, slide presentations, or any static non-interactive design output. Routes to claude.ai/design with Elad's brand system pre-loaded. Triggers…` },
   { id: "gen:clickhouse-io", label: `clickhouse-io`, category: "backend", description: `ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.` },
   { id: "gen:client-budget-research", label: `client-budget-research`, category: "tools", description: `Pre-proposal client research framework. Before sending any quote, run this discovery to surface budget signals, willingness to invest, and ROI fit. Built from Alon (Eitan Events) lost-deal feedback 7…` },
+  { id: "gen:client-comms-guard", label: `client-comms-guard`, category: "tools", description: `Pre-send audit gate for client-facing emails, proposals, quotes, and follow-ups. AUTO-INVOKE before sending any email to a paying or prospective client. Loads ~/.claude/rules/client-engagement.md and…` },
   { id: "gen:client-deliverable-pack", label: `client-deliverable-pack`, category: "ai", description: `Build a polished client-facing document pack (PDF + PPTX + DOCX + Website) with Gemini-generated hero images, brand-aligned design, bullet-proof Hebrew RTL, and image-driven slides. INVOKE whenever p…` },
   { id: "gen:code-generation", label: `code-generation`, category: "tools", description: `Internal skill. Use cc10x-router for all development tasks.` },
   { id: "gen:omc-code-review", label: `code-review`, category: "tools", description: `Run a comprehensive code review` },
@@ -56,6 +57,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:config-manager", label: `config-manager`, category: "ai", description: `Manage Claude Code configuration and settings. View, backup, and modify Claude settings. Use when managing config, checking settings, or organizing Claude setup. Triggers on config, settings, prefere…` },
   { id: "gen:omc-configure-discord", label: `configure-discord`, category: "backend", description: `Configure Discord webhook/bot notifications via natural language` },
   { id: "gen:omc-configure-telegram", label: `configure-telegram`, category: "tools", description: `Configure Telegram bot notifications via natural language` },
+  { id: "gen:content-commander", label: `content-commander`, category: "tools", description: `Orchestrate content production end-to-end. Coordinates content-studio (generation), Postiz (multi-platform publishing), elad-voice (Hebrew voice + brand), and approval gates. Use when the user wants…` },
   { id: "gen:continuous-learning", label: `continuous-learning`, category: "ai", description: `Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.` },
   { id: "gen:continuous-learning-v2", label: `continuous-learning-v2`, category: "tools", description: `Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents.` },
   { id: "gen:convex-agents", label: `Convex Agents`, category: "backend", description: `Building AI agents with the Convex Agent component including thread management, tool integration, streaming responses, RAG patterns, and workflow orchestration` },
@@ -79,6 +81,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:creative-ai-process", label: `creative-ai-process`, category: "tools", description: `Structured creative workflow for AI-assisted content creation, design, and writing. Use when doing creative work, brainstorming, content creation, or design iteration to avoid rushing to solutions. E…` },
   { id: "gen:daily-summary", label: `daily-summary`, category: "tools", description: `Generate daily productivity summaries and reports. Use when you want to see what was accomplished today, generate end-of-day reports, or review session history. Triggers on daily summary, today summa…` },
   { id: "gen:database-patterns", label: `database-patterns`, category: "backend", description: `Database patterns and best practices` },
+  { id: "gen:deal-state", label: `deal-state`, category: "tools", description: `Track client deals through a state machine. Records quote, scope, silence intervals, walk-away deadlines. Generates nudges and walk-away signals. Use when - opening a new client conversation, recordi…` },
   { id: "gen:debug-helper", label: `debug-helper`, category: "tools", description: `You are a debugging expert skilled at diagnosing and resolving software issues.` },
   { id: "gen:debugging-patterns", label: `debugging-patterns`, category: "tools", description: `Internal skill. Use cc10x-router for all development tasks.` },
   { id: "gen:deep-work-methodology", label: `deep-work-methodology`, category: "ai", description: `Methodology for long deep-work sessions on Elad's agent network — multi-LLM consultation, Karpathy principles, contract-compliance, self-verification. Triggered by intensive architecture work, new ag…` },
@@ -86,6 +89,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:omc-deepsearch", label: `deepsearch`, category: "tools", description: `Thorough codebase search` },
   { id: "gen:design-lab", label: `design-lab`, category: "frontend", description: `Conduct design interviews, generate five distinct UI variations in a temporary design lab, collect feedback, and produce implementation plans. Use when the user wants to explore UI design options, re…` },
   { id: "gen:design-motion-principles", label: `design-motion-principles`, category: "frontend", description: `Expert motion and interaction design auditor based on Emil Kowalski, Jakub Krehel, and Jhey Tompkins' techniques. Use when reviewing UI animations, transitions, hover states, or any motion design wor…` },
+  { id: "gen:devops-coordinator", label: `devops-coordinator`, category: "devops", description: `Cross-repo drift detection, dependency audits, deploy approval gates for Elad's project fleet. Use when - auditing all VPS services, checking for outdated deps, planning a multi-repo change, before d…` },
   { id: "gen:dispatching-parallel-agents", label: `dispatching-parallel-agents`, category: "tools", description: `Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies` },
   { id: "gen:doc-writer", label: `doc-writer`, category: "tools", description: `You are a technical documentation specialist focused on clarity and completeness.` },
   { id: "gen:eigent-integration", label: `eigent-integration`, category: "ai", description: `Use when working with privacy-sensitive multi-agent workflows, local LLM deployment, or desktop automation. Triggers on local agents, privacy AI, multi-agent desktop, Eigent, CAMEL-AI.` },
@@ -101,6 +105,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:omc-external-context", label: `external-context`, category: "tools", description: `Invoke parallel document-specialist agents for external web searches and documentation lookup` },
   { id: "gen:fal-ai", label: `fal-ai`, category: "tools", description: `Generate images, videos, and audio with fal.ai serverless AI. Use when building AI image generation, video generation, image editing, or real-time AI features. Triggers on fal.ai, fal, AI image gener…` },
   { id: "gen:file-manager", label: `file-manager`, category: "tools", description: `You are a file system organization and management expert.` },
+  { id: "gen:financial-advisor", label: `financial-advisor`, category: "tools", description: `Personal-finance triage for Elad. Scores deals, tracks runway, flags overdue bills, runs cron summaries. Sensitive to active crisis context (May 2026 - parents gift ₪3K, pending Pepper/BL/Paamonim).…` },
   { id: "gen:finishing-a-development-branch", label: `finishing-a-development-branch`, category: "tools", description: `Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup` },
   { id: "gen:fixing-accessibility", label: `fixing-accessibility`, category: "tools", description: `Fix accessibility issues.` },
   { id: "gen:fixing-metadata", label: `fixing-metadata`, category: "tools", description: `Ship correct, complete metadata.` },
@@ -195,6 +200,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:security-checker", label: `security-checker`, category: "tools", description: `You are a security expert specializing in identifying vulnerabilities and security best practices.` },
   { id: "gen:security-patterns", label: `security-patterns`, category: "tools", description: `Security patterns and best practices` },
   { id: "gen:omc-security-review", label: `security-review`, category: "tools", description: `Run a comprehensive security review on code` },
+  { id: "gen:seedance-master-prompt", label: `seedance-master-prompt`, category: "tools", description: `יצירת פרומפטים סופר ארוכים, מפורטים ומלאי שכבות ל-Seedance 2.0 בפורמט Master Template — 14 סקשנים שכל אחד מהם מתמלא בקפידה (Input Control, Core Style, Subject + Performance, Camera, Environment, Ligh…` },
   { id: "gen:semantic-code-understanding", label: `semantic-code-understanding`, category: "tools", description: `Deep semantic code understanding using LSP and AST analysis for relationships, types, dependencies, and architectural patterns. Use when exploring complex codebases, analyzing dependencies, performin…` },
   { id: "gen:session-memory", label: `session-memory`, category: "tools", description: `Internal skill. Use cc10x-router for all development tasks.` },
   { id: "gen:session-tracker", label: `session-tracker`, category: "ai", description: `Track accomplishments and progress during Claude Code sessions. Use when you want to log achievements, see session history, or generate productivity reports. Triggers on track session, log progress,…` },
@@ -222,6 +228,7 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:token-optimizer", label: `token-optimizer`, category: "ai", description: `Find the ghost tokens. Audit Claude Code setup, see where 25-38% of your context goes, fix it. Use when context feels tight.` },
   { id: "gen:omc-trace", label: `trace`, category: "tools", description: `Show agent flow trace timeline and summary` },
   { id: "gen:typescript-patterns", label: `typescript-patterns`, category: "lang", description: `TypeScript patterns and best practices` },
+  { id: "gen:ui-orchestrator", label: `ui-orchestrator`, category: "ai", description: `Routes UI work to the right engine (Claude Design / Stitch MCP / Codex / Gemini / gpt-image-2) and loads project-specific brand tokens. Enforces brand-is-project-specific rule (Sprint 6.6 feedback).…` },
   { id: "gen:ui-skills", label: `ui-skills`, category: "frontend", description: `Opinionated constraints for building better interfaces with agents.` },
   { id: "gen:ui-ux-pro-max", label: `ui-ux-pro-max`, category: "frontend", description: `AI-powered design intelligence toolkit with searchable databases of UI styles, color palettes, font pairings, chart types, and UX guidelines. Use when building UI, choosing design styles, selecting t…` },
   { id: "gen:omc-ultrapilot", label: `ultrapilot`, category: "tools", description: `Parallel autopilot with file ownership partitioning` },
@@ -329,4 +336,4 @@ export const GENERATED_SKILLS: SkillNode[] = [
   { id: "gen:cmd-write-plan", label: `write-plan`, category: "tools", description: `Create detailed implementation plan with bite-sized tasks` },
 ];
 
-export const GENERATED_COUNT = 323;
+export const GENERATED_COUNT = 330;

@@ -196,6 +196,7 @@ export default function SkillsSection() {
                     </div>
 
                     {/* Tech Tags */}
+                    <h4 className="sr-only">טכנולוגיות בקטגוריה</h4>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {capability.techTags.map((tag) => (
                         <span
