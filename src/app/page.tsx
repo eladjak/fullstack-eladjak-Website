@@ -7,7 +7,7 @@ const OG_IMAGE = 'https://avatars.githubusercontent.com/u/108827199?v=4';
 export const metadata: Metadata = {
   title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
   description:
-    "מפתח Full-Stack שבונה ומפעיל רשת של 13 סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI לארגונים.",
+    "מפתח Full-Stack מגדל העמק שבונה ומפעיל רשת של 13 סוכני AI על VPS. אתרים, אפליקציות, ייעוץ AI, אוטומציה עסקית וסדנאות לארגונים ובתי ספר.",
   alternates: {
     canonical: `${SITE_URL}/`,
     languages: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
     description:
-      "מפתח Full-Stack שבונה ומפעיל רשת של 13 סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI לארגונים.",
+      "מפתח Full-Stack מגדל העמק שבונה ומפעיל רשת של 13 סוכני AI על VPS. אתרים, אפליקציות, ייעוץ AI, אוטומציה עסקית וסדנאות לארגונים ובתי ספר.",
     type: 'website',
     url: `${SITE_URL}/`,
     siteName: "אלעד יעקובוביץ' - תיק עבודות",

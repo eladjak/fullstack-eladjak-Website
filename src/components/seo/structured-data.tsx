@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import { headers } from 'next/headers';
 
 interface Person {
@@ -109,7 +108,7 @@ export async function StructuredData({ data }: StructuredDataProps) {
   const nonce = (await headers()).get('x-nonce') ?? undefined;
 
   return (
-    <Script
+    <script
       id={`structured-data-${typeId}`}
       type="application/ld+json"
       nonce={nonce}
@@ -252,6 +251,66 @@ export const structuredDataGenerators = {
           },
         },
       ],
+    },
+  }),
+
+  faqPage: (): Record<string, unknown> => ({
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'איזה שירותים אלעד יעקובוביץ\' מציע?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'פיתוח Full-Stack (Next.js / React / TypeScript), אינטגרציית AI ואוטומציה עסקית, בניית רשת סוכני AI, ייעוץ אסטרטגי וסדנאות AI לארגונים ובתי ספר.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'איפה אלעד נמצא ומאיפה הוא עובד?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'מגדל העמק, צפון ישראל. עובד עם לקוחות מכל הארץ ומחו"ל, פגישות מרחוק או פיזיות באזור הצפון.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'מה זה רשת 13 סוכני AI שאלעד מפעיל?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'מערכת מיקרו-שירותים אישית של 13 סוכנים אוטונומיים על VPS, שמטפלים בתקשורת, מחקר, יצירת תוכן, ניהול לקוחות, אוטומציה ועוד. אלעד בונה דומה ללקוחות.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'איך יוצרים קשר?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'WhatsApp: 052-542-7474 · Email: eladhiteclearning@gmail.com · או דרך טופס יצירת הקשר באתר.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'מה הטכנולוגיות העיקריות בהן אלעד עובד?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Next.js, React, TypeScript, Node.js, Python, PostgreSQL, Supabase, OpenAI API, Anthropic Claude, LangChain, Tailwind CSS, Vercel, Docker, VPS Linux.',
+        },
+      },
+    ],
+  }),
+
+  webPage: (datePublished: string, dateModified: string): Record<string, unknown> => ({
+    '@type': 'WebPage',
+    name: 'אלעד יעקובוביץ\' | מפתח Full-Stack ומומחה AI',
+    url: 'https://fullstack-eladjak.co.il/',
+    inLanguage: 'he-IL',
+    datePublished,
+    dateModified,
+    author: structuredDataGenerators.person('אלעד יעקובוביץ\''),
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: 'https://fullstack-eladjak.co.il/og-image.jpg',
     },
   }),
 };

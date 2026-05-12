@@ -40,8 +40,8 @@ export default function robots(): MetadataRoute.Robots {
       },
       ...AI_USER_AGENTS.map((userAgent) => ({
         userAgent,
-        allow: '/',
-        disallow: COMMON_DISALLOW,
+        allow: ['/'],
+        disallow: [] as string[],
       })),
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

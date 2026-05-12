@@ -21,13 +21,12 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-dev.jpg"
-          alt=""
+          alt="סביבת עבודה של מפתח Full-Stack — קוד, AI ואוטומציה"
           fill
           sizes="100vw"
           className="object-cover opacity-15"
           priority
           fetchPriority="high"
-          aria-hidden="true"
         />
       </div>
 

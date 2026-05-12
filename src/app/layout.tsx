@@ -119,6 +119,8 @@ export default async function RootLayout({
         <StructuredData data={structuredDataGenerators.website()} />
         <StructuredData data={structuredDataGenerators.person("אלעד יעקובוביץ'", SITE_URL, "מפתח Full-Stack ומומחה AI")} />
         <StructuredData data={structuredDataGenerators.localBusiness()} />
+        <StructuredData data={structuredDataGenerators.faqPage()} />
+        <StructuredData data={structuredDataGenerators.webPage('2026-01-15', new Date().toISOString().split('T')[0])} />
         {/* Preconnect to GitHub avatars CDN (used on every page) - saves 330-440ms LCP */}
         <link rel="preconnect" href="https://avatars.githubusercontent.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
