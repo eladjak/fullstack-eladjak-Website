@@ -119,14 +119,14 @@ export default function HeroSection() {
               className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-3.5 text-sm font-medium text-cta-foreground shadow-lg shadow-cta/25 transition-all duration-300 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {t('contactCta')}
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
             </Link>
             <Link
               href="/projects"
               className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-border bg-background/50 backdrop-blur-sm px-8 py-3.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-accent/10 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {t('viewProjects')}
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
             </Link>
             <a
               href="https://wa.me/972525427474?text=%D7%94%D7%99%D7%99%20%D7%90%D7%9C%D7%A2%D7%93%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%A9%D7%9C%D7%99"

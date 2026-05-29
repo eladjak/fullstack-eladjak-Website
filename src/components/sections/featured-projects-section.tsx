@@ -270,7 +270,7 @@ export default function FeaturedProjectsSection() {
               className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-3 text-sm font-medium text-primary hover:bg-primary/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {t('viewAll')}
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
             </Link>
           </div>
         </ScrollAnimate>

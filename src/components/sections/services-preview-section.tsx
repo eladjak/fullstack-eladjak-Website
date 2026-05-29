@@ -93,7 +93,7 @@ export default function ServicesPreviewSection() {
               className="inline-flex items-center gap-2 rounded-full border-2 border-primary/30 bg-background/50 backdrop-blur-sm px-6 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {tNav('services')}
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
             </Link>
           </div>
         </ScrollAnimate>

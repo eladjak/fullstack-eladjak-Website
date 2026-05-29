@@ -96,7 +96,7 @@ export default function CTASection() {
                 className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {t('getInTouch')}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-5 w-5 rtl:-scale-x-100" />
               </Link>
               {IS_EXTERNAL_BOOKING_URL ? (
                 <a

@@ -223,7 +223,7 @@ export default function Navigation() {
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
             >
-              <Menu className="h-6 w-6" />
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </motion.div>
         </div>
