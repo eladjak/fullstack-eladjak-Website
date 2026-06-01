@@ -250,10 +250,12 @@ export const hermesGuideEn: AgentGuideData = {
       title: "Integrating with your stack — Hermes is a Pattern, not a service",
       subtitle: "How to embed the approach inside your existing agents and services",
       description:
-        "Important note: there is no standalone container called 'hermes' running on its own (that was an earlier configuration that turned out to be cosmetic only). The Hermes pattern lives inside the agents and services themselves — as cron jobs, webhook handlers, or in-code modules. That's actually an advantage: an effective self-healing system doesn't have to be a central service — it can be distributed across every component.",
+        "Important note: the Hermes pattern (detect→diagnose→fix→verify→learn) lives inside the agents and services themselves — cron jobs, webhook handlers, or in-code modules — not one central service. That's an advantage: effective self-healing is distributed across every component. 2026 update: beyond the self-healing pattern it grew from, today in my network Hermes is also the network's studio/worker agent — the headless component that generates assets, analyzes data, and runs code on behalf of the orchestrator. Both sides coexist: the pattern that keeps the server alive, and the agent that produces work on top of it.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [
+        "Hermes as a studio agent (my network, 2026): a headless component that takes jobs from [Claude Code](/en/claude-code) (the orchestrator) and returns structured output — visual asset generation, data-science analysis, and delegating coding tasks to other coding agents. Runs on free Gemini, and chats on Telegram in text and voice (Gemini TTS).",
+        "Division of labor across the network: [Kami](/en/guide/kami) = human interface (WhatsApp), Claude Code = dev orchestration, Hermes = studio/worker, [Kaylee](/en/guide/kaylee) = reliability/infra + distribution. Each knows the others and delegates to the right one — the network's 'harmony map'.",
         "In my setup, the Hermes pattern is implemented inside [Kaylee](/en/guide/kaylee) (a self-heal cron that runs on her OpenClaw engine) and inside the [Delegator](/en/guide/delegator) (an auto-heal executor that detects failures in any endpoint)",
         "You can add this pattern to any agent in the network — [Kami](/en/guide/kami), [Box](/en/guide/box), [Adopter](/en/guide/adopter), [CrewAI](/en/guide/crewai) — with no architectural changes",
         "Health endpoints: a baseline requirement. Every service must expose a /health endpoint that returns JSON with {status, version, uptime}. Without it — there is no real verification",

@@ -249,10 +249,12 @@ export const hermesGuide: AgentGuideData = {
       title: "אינטגרציה עם הרשת שלכם — Hermes הוא Pattern, לא שירות",
       subtitle: "איך מטמיעים את הגישה בתוך הסוכנים והשירותים הקיימים",
       description:
-        "הערה חשובה: אין container בשם 'hermes' שרץ בפני עצמו (זה היה מצב קודם שהתברר כקוסמטי בלבד). ה-pattern של Hermes יושב בתוך הסוכנים והשירותים עצמם — בתור cron jobs, webhook handlers או כמודול בקוד. זה דווקא יתרון: מערכת self-healing אפקטיבית לא צריכה להיות שירות מרכזי, אלא יכולה להיות מפוזרת בתוך כל רכיב.",
+        "הערה חשובה: ה-pattern של Hermes (זיהוי→אבחון→תיקון→אימות→למידה) הוא דפוס שיושב בתוך הסוכנים והשירותים עצמם — cron jobs, webhook handlers או מודול בקוד — לא שירות מרכזי אחד. זה דווקא יתרון: self-healing אפקטיבי מפוזר בתוך כל רכיב. עדכון 2026: בנוסף לדפוס ה-self-healing שממנו צמח השם, היום ברשת שלי Hermes הוא גם סוכן-הסטודיו/העובד של הרשת — הרכיב חסר-הממשק שמייצר נכסים, מנתח נתונים ומריץ קוד מטעם המתזמר. שני הצדדים חיים יחד: הדפוס שמחזיק את השרת חי, והסוכן שמייצר עליו תוצרים.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [
+        "Hermes כסוכן-סטודיו (הרשת שלי, 2026): רכיב headless שמקבל משימות מ-[Claude Code](/claude-code) (המתזמר) ומחזיר תוצר מובנה — יצירת נכסים ויזואליים, ניתוחי-נתונים (data-science), והאצלת משימות-קוד לסוכני-קוד אחרים. רץ על Gemini חינמי, ומשוחח בטלגרם בטקסט ובקול (Gemini TTS).",
+        "חלוקת-עבודה ברשת: [Kami](/guide/kami) = ממשק-אנוש (וואטסאפ), Claude Code = תזמור-פיתוח, Hermes = סטודיו/עובד, [Kaylee](/guide/kaylee) = אמינות/תשתית + הפצה. כל אחד מכיר את כולם ומאציל למתאים — זו ה'מפת הרמוניה' של הרשת.",
         "אצלי (אלעד), ה-pattern של Hermes מיושם בתוך [Kaylee](/guide/kaylee) (self-heal cron שרץ על ה-OpenClaw engine שלה) ובתוך ה-[Delegator](/guide/delegator) (auto-heal executor שמזהה כשל באחד מה-endpoints)",
         "אפשר להוסיף לכל סוכן ברשת — [Kami](/guide/kami), [Box](/guide/box), [Adopter](/guide/adopter), [CrewAI](/guide/crewai) — את אותו pattern בלי שינויי ארכיטקטורה",
         "Health endpoints: תנאי סף. כל שירות חייב לחשוף /health שמחזיר JSON עם {status, version, uptime}. בלי זה — אין verification אמיתי",
