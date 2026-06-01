@@ -113,11 +113,16 @@ export function localizeMDXContent(content: string, locale: 'he' | 'en'): string
   if (parts.length < 2) {
     return content.replace(LOCALE_SPLIT, '').trim();
   }
+  // Deterministic: authored order is English first, Hebrew second (the delimiter is
+  // inserted before the Hebrew block). en=parts[0], he=parts[1]. Defensive guard:
+  // if the first part is actually more-Hebrew than the second, swap — so a future
+  // mis-ordered post still routes correctly without relying on a fragile ratio.
   const heRatio = (s: string) => (s.match(HEBREW_RE)?.length ?? 0) / Math.max(s.length, 1);
-  // Highest-Hebrew part is the Hebrew body; the rest (joined) is the non-Hebrew body.
-  const sorted = [...parts].sort((a, b) => heRatio(b) - heRatio(a));
-  const hePart = sorted[0];
-  const enPart = parts.filter(p => p !== hePart).join('\n\n');
+  let enPart = parts[0];
+  let hePart = parts.slice(1).join('\n\n');
+  if (heRatio(enPart) > heRatio(hePart)) {
+    [enPart, hePart] = [hePart, enPart];
+  }
   return locale === 'en' ? enPart : hePart;
 }
 
