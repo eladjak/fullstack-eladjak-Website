@@ -14,7 +14,7 @@ const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
 export const metadata: Metadata = {
   title: "מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
   description:
-    "14 מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: Claude Code, Kami (WhatsApp), Kaylee, CrewAI, Box, Hermes, Adopter, Dashboard, Qdrant (vector DB), Delegator (orchestration), Docker, Ollama (LLM מקומי), n8n (אוטומציה) ו-Aider. התקנה, קוד, וטיפים מייצור 24/7 — כתובים על ידי מפתח שמפעיל את הרשת הזו בפועל.",
+    `${allGuides.length} מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: Claude Code, Kami (WhatsApp), Kaylee, Hermes/גארדאקס, תזמור-רשת, Aider, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד, וטיפים מייצור 24/7 — כתובים על ידי מפתח שמפעיל את הרשת הזו בפועל.`,
   alternates: {
     canonical: GUIDE_INDEX_URL,
     languages: {
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     "fullstack-eladjak",
   ],
   openGraph: {
-    title: "14 מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
+    title: `${allGuides.length} מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'`,
     description:
       "רשת סוכני AI מלאה בעברית — Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד, וטיפים מייצור.",
     url: GUIDE_INDEX_URL,
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "14 מדריכי סוכני AI + תשתית בעברית",
+    title: `${allGuides.length} מדריכי סוכני AI + תשתית בעברית`,
     description:
       "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד — מדריכים מעשיים בעברית.",
     card: "summary_large_image",
@@ -101,7 +101,7 @@ export default async function GuideIndex() {
     url: GUIDE_INDEX_URL,
     name: "מדריכי סוכני AI + תשתית בעברית",
     description:
-      "14 מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: סוכנים (Claude Code, Kami, Kaylee, Box, Hermes, Delegator, Adopter, Dashboard, CrewAI) ותשתית (Qdrant, Docker, Ollama, n8n, Aider).",
+      `${allGuides.length} מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: סוכנים (Claude Code, Kami, Kaylee, Box, Hermes/גארדאקס, Delegator, תזמור-רשת, CrewAI) ותשתית (Qdrant, Docker, Ollama, n8n, Aider).`,
     inLanguage: "he-IL",
     isPartOf: {
       "@type": "WebSite",
@@ -116,7 +116,7 @@ export default async function GuideIndex() {
     },
     mainEntity: {
       "@type": "ItemList",
-      name: "14 מדריכי סוכני AI ותשתית",
+      name: `${allGuides.length} מדריכי סוכני AI ותשתית`,
       numberOfItems: allGuides.length,
       itemListOrder: "https://schema.org/ItemListOrderAscending",
       itemListElement: allGuides.map((guide, index) => {

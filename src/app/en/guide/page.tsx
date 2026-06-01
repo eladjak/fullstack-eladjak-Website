@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     absolute: "AI Agent + Infrastructure Guides | Elad Yaakobovitch",
   },
   description:
-    "14 practical guides covering a full AI agent network: Claude Code, Kami (WhatsApp agent), Kaylee (SRE), CrewAI, Box, Hermes, Adopter, Dashboard, Qdrant, Delegator, Docker, Ollama, n8n, and Aider. Installation, code, and production tips from a developer running this network 24/7.",
+    `${allGuidesEn.length} practical guides covering a full AI agent network: Claude Code, Kami (WhatsApp), Kaylee (SRE), Hermes/Gardax, Orchestration, Aider, Qdrant, Docker, Ollama, n8n and more. Installation, code, and production tips from a developer running this network 24/7.`,
   alternates: {
     canonical: GUIDE_INDEX_URL_EN,
     languages: {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     "fullstack-eladjak",
   ],
   openGraph: {
-    title: "14 AI Agent + Infrastructure Guides | Elad Yaakobovitch",
+    title: `${allGuidesEn.length} AI Agent + Infrastructure Guides | Elad Yaakobovitch`,
     description:
       "A complete AI agent network — Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n and more. Practical guides with installation, code, and production tips.",
     url: GUIDE_INDEX_URL_EN,
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "14 AI Agent + Infrastructure Guides",
+    title: `${allGuidesEn.length} AI Agent + Infrastructure Guides`,
     description:
       "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n and more — practical guides.",
     card: "summary_large_image",
