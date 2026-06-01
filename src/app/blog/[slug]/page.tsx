@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
-import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug } from '@/lib/mdx';
+import { cookies } from 'next/headers';
+import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug, localizeMDXContent } from '@/lib/mdx';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
 import { BlogPostBackLink, BlogPostFooter } from '@/components/blog/blog-post-nav';
 import { RelatedPosts } from '@/components/blog/related-posts';
@@ -75,6 +76,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // Locale-aware body: bilingual posts carry both languages; show only the active one.
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('NEXT_LOCALE')?.value as 'he' | 'en') || 'he';
+  const localizedContent = localizeMDXContent(post.content, locale);
+
   // Get related posts based on shared tags
   const allPosts = getAllMDXPosts();
   const relatedPosts = allPosts
@@ -132,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* MDX Content */}
         <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-          <MDXRenderer content={post.content} />
+          <MDXRenderer content={localizedContent} />
         </div>
 
         {/* Related Posts */}

@@ -91,6 +91,37 @@ export function getMDXPostBySlug(slug: string): MDXPost | null {
 }
 
 /**
+ * Delimiter separating the English body from the Hebrew body in bilingual posts.
+ * Authored order is English first, Hebrew second. Posts without the delimiter are
+ * single-language and returned unchanged (backward compatible).
+ */
+export const LOCALE_SPLIT = '<!--LOCALE-SPLIT-->';
+
+const HEBREW_RE = /[֐-׿]/g;
+
+/**
+ * Return only the active-locale portion of a (possibly bilingual) post body.
+ * A bilingual body contains LOCALE_SPLIT; we route each part by its Hebrew ratio
+ * (order-robust), strip the delimiter, and return the matching half. Single-language
+ * posts (no delimiter) are returned as-is.
+ */
+export function localizeMDXContent(content: string, locale: 'he' | 'en'): string {
+  if (!content.includes(LOCALE_SPLIT)) {
+    return content;
+  }
+  const parts = content.split(LOCALE_SPLIT).map(p => p.trim()).filter(Boolean);
+  if (parts.length < 2) {
+    return content.replace(LOCALE_SPLIT, '').trim();
+  }
+  const heRatio = (s: string) => (s.match(HEBREW_RE)?.length ?? 0) / Math.max(s.length, 1);
+  // Highest-Hebrew part is the Hebrew body; the rest (joined) is the non-Hebrew body.
+  const sorted = [...parts].sort((a, b) => heRatio(b) - heRatio(a));
+  const hePart = sorted[0];
+  const enPart = parts.filter(p => p !== hePart).join('\n\n');
+  return locale === 'en' ? enPart : hePart;
+}
+
+/**
  * Get all unique tags from MDX posts.
  */
 export function getAllMDXTags(): string[] {
