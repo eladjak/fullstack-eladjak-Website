@@ -39,6 +39,7 @@ const T = {
     whoIsThisFor: "למי זה מתאים?",
     hereHow: "הנה איך:",
     resources: "משאבים ולינקים",
+    relatedGuides: "מדריכים קשורים",
     liked: "אהבתם? שתפו:",
     copyLink: "העתיקו קישור",
     copyCode: "העתק קוד",
@@ -78,6 +79,7 @@ const T = {
     whoIsThisFor: "Who is this for?",
     hereHow: "Here's how:",
     resources: "Resources & links",
+    relatedGuides: "Related guides",
     liked: "Liked it? Share:",
     copyLink: "Copy link",
     copyCode: "Copy code",
@@ -163,6 +165,30 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
   const t = T[locale];
   const isRtl = locale === "he";
   const guidesList = locale === "en" ? allGuidesEn : allGuides;
+  // Related guides: derived from the cross-links already present in this guide's text.
+  const relatedGuides = (() => {
+    const text = [
+      guide.heroDescription,
+      guide.tagline,
+      ...guide.sections.flatMap((s) => [
+        s.description,
+        s.beginner ?? "",
+        ...(s.content ?? []),
+        ...(s.tips ?? []),
+      ]),
+    ].join(" ");
+    const slugs = new Set<string>();
+    const re = /\/(?:en\/)?guide\/([a-z0-9-]+)|\/claude-code\b/g;
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(text)) !== null) {
+      const slug = m[1] ?? "claude-code";
+      if (slug !== guide.slug) slugs.add(slug);
+    }
+    return Array.from(slugs)
+      .map((s) => guidesList.find((g) => g.slug === s))
+      .filter((g): g is AgentGuideData => Boolean(g))
+      .slice(0, 6);
+  })();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -819,6 +845,33 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
           })}
         </div>
       </section>
+
+      {/* RELATED GUIDES */}
+      {relatedGuides.length > 0 && (
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-4">
+          <h2 className="text-lg font-bold text-foreground mb-4 font-heebo">
+            {t.relatedGuides}
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {relatedGuides.map((g) => {
+              const base = isRtl ? "" : "/en";
+              const href =
+                g.slug === "claude-code"
+                  ? `${base}/claude-code`
+                  : `${base}/guide/${g.slug}`;
+              return (
+                <Link
+                  key={g.slug}
+                  href={href}
+                  className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-sm text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+                >
+                  {g.agentName}
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* RESOURCES */}
       <section className="bg-card/50 border-t border-border py-16">
