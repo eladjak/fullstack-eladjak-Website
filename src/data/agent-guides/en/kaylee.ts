@@ -261,6 +261,8 @@ export const kayleeGuideEn: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       content: [
+        "Current role (my network, 2026): Kaylee focused into a Chief Reliability Officer — predictive infra health and self-healing, backups, cron-master, and security/access auditing — plus a Telegram distribution operator (pushing content to communities + community moderation). The principle: 24/7 reliability leverage, not 'another creative hand'.",
+        "Division of labor (deliberate focus): content/asset generation and data-science moved to [Hermes](/en/guide/hermes) (studio/worker); ad-hoc development to [Claude Code](/en/claude-code). Kaylee keeps the environment stable and distributes — she doesn't dabble everywhere. Less turned out to be more for reliability.",
         "Hot-reloading SYSTEM_OVERRIDE.md — Kaylee re-reads the rules file on every incoming message, which means you can tweak her behavior on the fly without restarting the container",
         "Multi-VPS — you can run Kaylee instances on several servers in parallel and wire them together through the [Delegator](/en/guide/delegator) (the central API gateway), so each VPS is tended by a local Kaylee but all reports converge in one place",
         "Calendar-aware quiet hours — Kaylee understands Shabbat, holidays, and memorial days from the Jewish/Israeli calendar, and holds back routine messages during those windows (critical alerts still get through) so she doesn't disturb the rest",
