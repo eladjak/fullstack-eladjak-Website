@@ -129,6 +129,8 @@ export const orchestrationGuideEn: AgentGuideData = {
         "The first problem in a multi-agent network: each agent with its own memory, and nobody knows what the other did. The solution is a shared-knowledge hub — one append-only event log that every agent writes facts to, and every agent can read from. This is the network's SSOT (Single Source of Truth): the full history of what happened, who did what, and the result.",
       color: "from-cyan-600 to-blue-500",
       difficulty: "intermediate",
+      beginner:
+        "Picture a shared notebook hanging in the kitchen: every cook writes down what they did ('sauce is done', 'out of tomatoes'), and anyone can read it. Instead of each one keeping a note in their pocket nobody else sees — there's one place everyone writes to and reads from. That way no piece of information gets lost between the agents.",
       content: [
         "Structure: an append-only file (mine is events.jsonl) — each line is an event {ts, actor, type, payload}. Simple, backup-able, easy to search",
         "Scope by actor: every agent knows who wrote each fact — important for tracing and resolving collisions",
@@ -181,6 +183,8 @@ export const orchestrationGuideEn: AgentGuideData = {
         "When you have several agents, the critical question is 'who does what'. The network protocol is one canonical document every agent reads — a roster (who exists and their role), a delegation matrix (which task goes to which agent), and coordination channels. But the most important part is cultural: task-ownership discipline — an agent that receives a task takes end-to-end responsibility for it (understands start-middle-end, leads it, and reports the result), not just 'acknowledges receipt'.",
       color: "from-violet-600 to-purple-500",
       difficulty: "advanced",
+      beginner:
+        "It's like a charter pinned to the staff-room wall: who's responsible for what, and who to go to when you need something. The most important rule is simple — if you got a task, you see it through to the end and report the result, not just say 'got it' and vanish. Without it, you get tasks that 'everyone thought someone else was doing'.",
       content: [
         "Roster + roles: each agent with one clear domain of responsibility — no confusing overlaps",
         "Delegation matrix: a 'task-type → owning-agent' table. content creation→Hermes, infra monitoring→Kaylee, development→Claude Code, human interface→Kami",
@@ -203,6 +207,8 @@ export const orchestrationGuideEn: AgentGuideData = {
         "One model carries its own biases. For a big decision (architecture, an irreversible move, an ethical question) a second and third opinion are worth it — from different models, not just the same one. A council of models is a pattern where the orchestrator consults several peer models (mine are GPT, Grok and Gemini) and synthesizes — with one simple rule: if 2 of 3 agree it's a good direction, but you also read the dissenter (sometimes the dissenter is right).",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "Before a big decision — where to live, which job to take — you'd ask a few people you trust, not just one. A council of models is exactly that: you ask three different models, and if most agree — it's a good direction. But you also listen to the one who disagrees, because sometimes that's the one who saw what everyone else missed.",
       content: [
         "Two council types: external models (cross-model — validates biases) and internal sub-agents (same model, different lenses — fast, for code reviews)",
         "When to trigger: a decision affecting more than one system, a move that costs a day to undo, blind-spot risk, or an ethics/privacy question",
