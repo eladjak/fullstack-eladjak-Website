@@ -21,9 +21,11 @@ import { ufwGuideEn } from "./ufw";
 import { githubActionsGuideEn } from "./github-actions";
 import { redisStreamsGuideEn } from "./redis-streams";
 import { vercelGuideEn } from "./vercel";
+import { orchestrationGuideEn } from "./orchestration";
 
 export const allGuidesEn: AgentGuideData[] = [
   claudeCodeGuideEn,
+  orchestrationGuideEn,
   kamiGuideEn,
   kayleeGuideEn,
   crewaiGuideEn,

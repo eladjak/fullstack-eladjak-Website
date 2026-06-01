@@ -21,9 +21,11 @@ import { ufwGuide } from "./ufw";
 import { githubActionsGuide } from "./github-actions";
 import { redisStreamsGuide } from "./redis-streams";
 import { vercelGuide } from "./vercel";
+import { orchestrationGuide } from "./orchestration";
 
 export const allGuides: AgentGuideData[] = [
   claudeCodeGuide,
+  orchestrationGuide,
   kamiGuide,
   kayleeGuide,
   crewaiGuide,
@@ -53,6 +55,7 @@ export const guideBySlug = new Map<string, AgentGuideData>(
 
 export {
   claudeCodeGuide,
+  orchestrationGuide,
   kamiGuide,
   kayleeGuide,
   crewaiGuide,
