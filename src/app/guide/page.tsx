@@ -178,7 +178,7 @@ export default async function GuideIndex() {
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             <span className="text-xs font-semibold text-primary tracking-wide uppercase">
-              2026 · 14 מדריכים · סוכנים + תשתית
+              2026 · {allGuides.length} מדריכים · סוכנים + תשתית
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 font-heebo text-balance">
@@ -187,15 +187,15 @@ export default async function GuideIndex() {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            14 מדריכים בעברית לרשת סוכני AI מלאה + רכיבי תשתית. לא תיאוריה —
+            {allGuides.length} מדריכים בעברית לרשת סוכני AI מלאה + רכיבי תשתית. לא תיאוריה —
             התקנה מעשית, טיפים מתוך שימוש אמיתי, ודוגמאות קוד שעובדות.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
-              <Bot className="size-3.5 text-primary" /> 10 סוכנים
+              <Bot className="size-3.5 text-primary" /> {agentGuides.length} סוכנים
             </span>
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
-              <Server className="size-3.5 text-accent" /> 4 רכיבי תשתית
+              <Server className="size-3.5 text-accent" /> {infraGuides.length} רכיבי תשתית
             </span>
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
               <Zap className="size-3.5 text-amber-500" /> קוד פתוח
@@ -215,7 +215,7 @@ export default async function GuideIndex() {
               סוכני AI
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
-              10 סוכנים אוטונומיים שעובדים בעברית ומנהלים יחד משימות מגוונות
+              {agentGuides.length} סוכנים אוטונומיים שעובדים בעברית ומנהלים יחד משימות מגוונות
             </p>
           </div>
         </div>

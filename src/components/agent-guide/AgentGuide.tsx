@@ -41,6 +41,7 @@ const T = {
     resources: "משאבים ולינקים",
     liked: "אהבתם? שתפו:",
     copyLink: "העתיקו קישור",
+    copyCode: "העתק קוד",
     copied: "הועתק!",
     share: "שתפו",
     tipsFromExperience: "טיפים מהניסיון",
@@ -79,6 +80,7 @@ const T = {
     resources: "Resources & links",
     liked: "Liked it? Share:",
     copyLink: "Copy link",
+    copyCode: "Copy code",
     copied: "Copied!",
     share: "Share",
     tipsFromExperience: "Tips from experience",
@@ -163,6 +165,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
   const guidesList = locale === "en" ? allGuidesEn : allGuides;
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [showBeginner, setShowBeginner] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -763,6 +766,24 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                                   className="size-3 rounded-full bg-green-500/70"
                                   aria-hidden="true"
                                 />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (typeof navigator !== "undefined" && navigator.clipboard) {
+                                      navigator.clipboard.writeText(section.codeExample!.code);
+                                      setCopiedCode(section.id);
+                                      setTimeout(() => setCopiedCode(null), 1500);
+                                    }
+                                  }}
+                                  className="ms-auto inline-flex items-center gap-1 text-[11px] text-zinc-400 hover:text-zinc-100 transition-colors"
+                                  aria-label={copiedCode === section.id ? t.copied : t.copyCode}
+                                >
+                                  {copiedCode === section.id ? (
+                                    <Check className="size-3.5 text-green-400" aria-hidden="true" />
+                                  ) : (
+                                    <Copy className="size-3.5" aria-hidden="true" />
+                                  )}
+                                </button>
                               </div>
                               <pre
                                 className="p-4 text-xs text-zinc-300 overflow-x-auto leading-relaxed font-mono"

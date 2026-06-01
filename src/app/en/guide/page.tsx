@@ -100,7 +100,7 @@ export default function GuideIndexEn() {
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             <span className="text-xs font-semibold text-primary tracking-wide uppercase">
-              2026 · 14 Guides · Agents + Infrastructure
+              2026 · {allGuidesEn.length} Guides · Agents + Infrastructure
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
@@ -109,7 +109,7 @@ export default function GuideIndexEn() {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            14 practical guides covering a complete AI agent network + core
+            {allGuidesEn.length} practical guides covering a complete AI agent network + core
             infrastructure. Not theory — real installation steps, tips from
             daily use, and working code examples.
           </p>
@@ -124,10 +124,10 @@ export default function GuideIndexEn() {
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
-              <Bot className="size-3.5 text-primary" /> 10 agents
+              <Bot className="size-3.5 text-primary" /> {agentGuides.length} agents
             </span>
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
-              <Server className="size-3.5 text-accent" /> 4 infra components
+              <Server className="size-3.5 text-accent" /> {infraGuides.length} infra components
             </span>
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
               <Zap className="size-3.5 text-amber-500" /> open source
@@ -147,7 +147,7 @@ export default function GuideIndexEn() {
               AI Agents
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
-              10 autonomous agents working together across diverse tasks
+              {agentGuides.length} autonomous agents working together across diverse tasks
             </p>
           </div>
         </div>
