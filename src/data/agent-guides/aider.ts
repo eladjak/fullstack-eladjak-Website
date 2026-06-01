@@ -228,6 +228,8 @@ export const aiderGuide: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       content: [
+        "התפקיד ברשת שלי (2026): Aider פועל כ-'מנתח-קוד' (Code Surgeon) — מנוע-patch תחום מאחורי [Claude Code](/claude-code) (המתזמר) ו-Hermes/גארדאקס. אין צ'אט ישיר; פונים אליו רק דרכם, עם repo+קבצים+משימה מדויקת, והוא מחזיר git-diff/branch לסקירה. נישה ייחודית: עריכה כירורגית מבוססת-git שאף כלי אחר ברשת לא עושה.",
+        "שערי-בטיחות (מאושרי-מועצה 3/3): branch-only לעולם לא main · dry-run→אישור-פר-משימה · file-allowlist (אסור secrets/config/deploy) · תקרת-גודל-diff + rollback אוטומטי · לוגים גלויים ל-Claude/קיילי. הג'ובים שלו: ריפקטור-מכני, דחיפת-תלויות, lint/type-fixes, יצירת-טסטים, ו-'מימוש-שני' (diff חלופי להשוואה).",
         "Non-interactive mode: `aider --yes --message 'fix all lint errors' file.ts` — Aider יתחיל, יבצע את הבקשה ויצא בלי לשאול שום שאלת אישור. הדגל `--yes` אומר 'תענה כן לכל שאלה'. זה הבסיס לכל אוטומציה.",
         "Scripting: תוכלו לעטוף את Aider בסקריפט shell ולחבר אותו ל-git hooks (מנגנונים שרצים אוטומטית בנקודות מסוימות ב-git, למשל לפני כל commit). דוגמה: pre-commit hook שמריץ את Aider לתקן lint errors בקבצים ששיניתם לפני שמתחילים ב-commit.",
         "GitHub Actions: Aider רץ מעולה ב-runners של GitHub (שרתים זמניים שמריצים אוטומציה על כל push לפרויקט). דוגמה נפוצה — בכל פעם שנפתח Pull Request, Aider עובר על הקוד, מתקן בעיות lint ו-formatting ומוסיף commit מתוקן. המפתח ANTHROPIC_API_KEY נשמר כ-secret מוצפן ב-GitHub.",

@@ -228,6 +228,8 @@ export const aiderGuideEn: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       content: [
+        "Its role in my network (2026): Aider acts as a 'Code Surgeon' — a bounded patch engine behind [Claude Code](/en/claude-code) (the orchestrator) and Hermes/Gardax. No direct chat; you reach it only through them, with a repo+files+precise task, and it returns a git-diff/branch for review. Its unique niche: git-aware surgical edits no other tool in the network does.",
+        "Safety gates (council-approved 3/3): branch-only never main · dry-run→per-task approval · file allowlist (no secrets/config/deploy) · max-diff-size + auto-rollback · logs visible to Claude/Kaylee. Its jobs: mechanical refactors, dependency bumps, lint/type fixes, test generation, and a 'second-implementation' alternate diff for comparison.",
         "Non-interactive mode: `aider --yes --message 'fix all lint errors' file.ts` — Aider starts, performs the request, and exits with no approval prompts. The `--yes` flag means \"say yes to every question.\" That's the foundation of any automation.",
         "Scripting: you can wrap Aider in a shell script and hook it into git hooks (mechanisms that run automatically at specific points in git, e.g., before every commit). Example: a pre-commit hook that runs Aider to fix lint errors in the files you changed before the commit starts.",
         "GitHub Actions: Aider runs beautifully on GitHub runners (temporary servers that execute automation on every push to a project). A common example — every time a Pull Request is opened, Aider walks the code, fixes lint and formatting issues, and adds a fixup commit. The ANTHROPIC_API_KEY is stored as an encrypted GitHub secret.",
