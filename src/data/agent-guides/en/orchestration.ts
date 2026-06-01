@@ -27,6 +27,7 @@ export const orchestrationGuideEn: AgentGuideData = {
     "A single agent is a tool. A network of agents is a force — but only if they know how to work together. This guide is the 'glue' connecting the others: how [Kami](/en/guide/kami) (WhatsApp interface), [Claude Code](/en/claude-code) (dev orchestration), [Hermes](/en/guide/hermes) (studio/worker) and [Kaylee](/en/guide/kaylee) (reliability + distribution) share knowledge, delegate tasks to each other, and don't step on one another. The real problem in a multi-agent network isn't each agent's capability — it's coordination: who knows what, who owns what, and how important information reaches whoever needs to act on it. In my setup (Elad) this is solved with four simple components: a shared-knowledge hub (one source of truth), an attention inbox that prioritizes what needs handling, a network protocol that defines roles and delegation, and a council of models that validates big decisions. For you — the exact same pattern works for any team of agents, whether two or ten.",
   badgeText: "2026 · Multi-Agent Orchestration · practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/orchestration",
+  heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
   stats: [
     { label: "agents in network", value: "6+" },
     { label: "source of truth", value: "one" },

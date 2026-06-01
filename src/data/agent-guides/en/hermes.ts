@@ -23,11 +23,11 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const hermesGuideEn: AgentGuideData = {
   slug: "hermes",
   agentName: "Hermes",
-  agentNameHe: "Hermes — Self-Healing Services",
+  agentNameHe: "Hermes / Gardax — Studio, Worker & Self-Healing",
   logoImage: "/images/guide-logos/hermes-logo.png",
-  tagline: "Self-healing — failures shouldn't wake you up",
+  tagline: "Gardax — the network's worker agent: generates, analyzes, self-heals",
   heroDescription:
-    "Hermes is a self-healing infrastructure CLI written in Go (v0.8.0 in my stack). The philosophy: a whitelist of permitted actions + verification-after-fix + learning from recurring failures. A five-stage architecture: detect → diagnose → fix → verify → learn. It runs as a cron job or a webhook responder and persists history to SQLite/JSON. In my setup it performs autoheal for [Kami](/en/guide/kami) and for OpenClaw (the engine behind [Kaylee](/en/guide/kaylee)) — but for you, it's a pattern you can adopt with any CLI (or even bash scripts): the five stages fit any production system, not just AI agents.",
+    "In my network today, Hermes is Gardax — the comic-cast character alongside Kami, Kaylee, Box and Solis, and the network's studio/worker agent: it takes jobs from [Claude Code](/en/claude-code) (the orchestrator) and returns structured output — asset generation, data-science, and delegating coding tasks to other coding agents. It runs on free Gemini and chats on Telegram in text and voice. The name 'Hermes' stays because that's what it grew from — a self-healing infrastructure CLI written in Go (v0.8.0 in my stack). The philosophy: a whitelist of permitted actions + verification-after-fix + learning from recurring failures. A five-stage architecture: detect → diagnose → fix → verify → learn. It runs as a cron job or a webhook responder and persists history to SQLite/JSON. In my setup it performs autoheal for [Kami](/en/guide/kami) and for OpenClaw (the engine behind [Kaylee](/en/guide/kaylee)) — but for you, it's a pattern you can adopt with any CLI (or even bash scripts): the five stages fit any production system, not just AI agents.",
   badgeText: "2026 · Self-Healing Infrastructure · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/hermes",
   heroBgImage: "/images/guides/guide-hermes-hero.jpg",
