@@ -138,6 +138,36 @@ function renderWithLinks(text: string): React.ReactNode {
   });
 }
 
+// Dependency-free, character-preserving syntax highlighter for code snippets.
+// Tokenizes comments/strings/numbers/flags/keywords; everything else stays plain.
+function highlightCode(code: string): React.ReactNode {
+  const tokenRe =
+    /(#.*$|\/\/.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b\d+(?:\.\d+)?\b)|(--?[a-zA-Z][\w-]*)|\b(const|let|var|function|return|if|else|elif|for|while|import|from|export|default|async|await|def|class|try|except|catch|new|true|false|null|None|True|False)\b/gm;
+  const out: React.ReactNode[] = [];
+  let last = 0;
+  let key = 0;
+  let m: RegExpExecArray | null;
+  while ((m = tokenRe.exec(code)) !== null) {
+    if (m.index > last) out.push(code.slice(last, m.index));
+    const [full, comment, str, num, flag, kw] = m;
+    let cls = "";
+    if (comment) cls = "text-zinc-500 italic";
+    else if (str) cls = "text-emerald-400";
+    else if (num) cls = "text-amber-400";
+    else if (flag) cls = "text-sky-400";
+    else if (kw) cls = "text-violet-400";
+    out.push(
+      <span key={key++} className={cls}>
+        {full}
+      </span>,
+    );
+    last = m.index + full.length;
+    if (m.index === tokenRe.lastIndex) tokenRe.lastIndex++;
+  }
+  if (last < code.length) out.push(code.slice(last));
+  return out;
+}
+
 const difficultyColors: Record<
   Difficulty,
   { color: string; bg: string }
@@ -815,7 +845,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                                 className="p-4 text-xs text-zinc-300 overflow-x-auto leading-relaxed font-mono"
                                 dir="ltr"
                               >
-                                {section.codeExample.code}
+                                {highlightCode(section.codeExample.code)}
                               </pre>
                             </div>
                           </div>
