@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
-import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug } from '@/lib/mdx';
+import { cookies } from 'next/headers';
+import readingTime from 'reading-time';
+import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug, localizeMDXContent } from '@/lib/mdx';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
 import { BlogPostBackLink, BlogPostFooter } from '@/components/blog/blog-post-nav';
 import { RelatedPosts } from '@/components/blog/related-posts';
@@ -14,6 +16,10 @@ interface BlogPostPageProps {
     slug: string;
   }>;
 }
+
+// Body varies by NEXT_LOCALE cookie (bilingual posts) — render per-request, never
+// serve a cached wrong-language body. generateStaticParams still pre-lists slugs.
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const slugs = getAllMDXSlugs();
@@ -75,6 +81,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // Locale-aware body: bilingual posts carry both languages; show only the active one.
+  const cookieStore = await cookies();
+  const locale = (cookieStore.get('NEXT_LOCALE')?.value as 'he' | 'en') || 'he';
+  const localizedContent = localizeMDXContent(post.content, locale);
+  // Reading time on the active-locale half (post.readingTime counts the full bilingual body).
+  const localizedReadingTime = Math.ceil(readingTime(localizedContent).minutes);
+
   // Get related posts based on shared tags
   const allPosts = getAllMDXPosts();
   const relatedPosts = allPosts
@@ -113,7 +126,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <BlogPostLocalizedHeader
           frontmatter={post.frontmatter}
           shareUrl={`${siteUrl}/blog/${slug}`}
-          readingTime={post.readingTime}
+          readingTime={localizedReadingTime}
         />
 
         {/* Featured Image */}
@@ -132,7 +145,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* MDX Content */}
         <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-          <MDXRenderer content={post.content} />
+          <MDXRenderer content={localizedContent} />
         </div>
 
         {/* Related Posts */}

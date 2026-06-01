@@ -91,6 +91,42 @@ export function getMDXPostBySlug(slug: string): MDXPost | null {
 }
 
 /**
+ * Delimiter separating the English body from the Hebrew body in bilingual posts.
+ * Authored order is English first, Hebrew second. Posts without the delimiter are
+ * single-language and returned unchanged (backward compatible).
+ */
+export const LOCALE_SPLIT = '<!--LOCALE-SPLIT-->';
+
+const HEBREW_RE = /[֐-׿]/g;
+
+/**
+ * Return only the active-locale portion of a (possibly bilingual) post body.
+ * A bilingual body contains LOCALE_SPLIT; we route each part by its Hebrew ratio
+ * (order-robust), strip the delimiter, and return the matching half. Single-language
+ * posts (no delimiter) are returned as-is.
+ */
+export function localizeMDXContent(content: string, locale: 'he' | 'en'): string {
+  if (!content.includes(LOCALE_SPLIT)) {
+    return content;
+  }
+  const parts = content.split(LOCALE_SPLIT).map(p => p.trim()).filter(Boolean);
+  if (parts.length < 2) {
+    return content.replace(LOCALE_SPLIT, '').trim();
+  }
+  // Deterministic: authored order is English first, Hebrew second (the delimiter is
+  // inserted before the Hebrew block). en=parts[0], he=parts[1]. Defensive guard:
+  // if the first part is actually more-Hebrew than the second, swap — so a future
+  // mis-ordered post still routes correctly without relying on a fragile ratio.
+  const heRatio = (s: string) => (s.match(HEBREW_RE)?.length ?? 0) / Math.max(s.length, 1);
+  let enPart = parts[0];
+  let hePart = parts.slice(1).join('\n\n');
+  if (heRatio(enPart) > heRatio(hePart)) {
+    [enPart, hePart] = [hePart, enPart];
+  }
+  return locale === 'en' ? enPart : hePart;
+}
+
+/**
  * Get all unique tags from MDX posts.
  */
 export function getAllMDXTags(): string[] {
