@@ -22,6 +22,7 @@ import { githubActionsGuide } from "./github-actions";
 import { redisStreamsGuide } from "./redis-streams";
 import { vercelGuide } from "./vercel";
 import { orchestrationGuide } from "./orchestration";
+import { understandAnythingGuide } from "./understand-anything";
 
 export const allGuides: AgentGuideData[] = [
   claudeCodeGuide,
@@ -47,6 +48,7 @@ export const allGuides: AgentGuideData[] = [
   githubActionsGuide,
   redisStreamsGuide,
   vercelGuide,
+  understandAnythingGuide,
 ];
 
 export const guideBySlug = new Map<string, AgentGuideData>(
@@ -77,4 +79,5 @@ export {
   githubActionsGuide,
   redisStreamsGuide,
   vercelGuide,
+  understandAnythingGuide,
 };
