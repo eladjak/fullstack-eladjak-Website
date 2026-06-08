@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { GUIDE_MODIFIED } from "@/lib/guide-modified-dates";
 import type { AgentGuideData } from "./types";
 
@@ -23,7 +22,14 @@ interface SeoJsonLdProps {
  *    Overviews) can cite it correctly.
  *  - BreadcrumbList: Home → מדריכים (/guide) → guide slug, for rich results.
  *
- * No external deps; pure inline <script type="application/ld+json">.
+ * Rendered as plain inline `<script type="application/ld+json">` (NOT
+ * `next/script` `<Script>`). This component is rendered from the server
+ * component layout (`/guide/[slug]/layout.tsx`) so the JSON-LD lands in the
+ * INITIAL server-rendered HTML — visible to AI crawlers — instead of the
+ * React client payload (which is where `<Script>` inside a "use client"
+ * component would have placed it). See ~/.claude/rules/geo-aeo-protocol.md #1.
+ *
+ * No external deps. No hooks / client-only APIs → safe in a server component.
  */
 export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
   const isEn = locale === "en";
@@ -165,21 +171,21 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
 
   return (
     <>
-      <Script
-        id={`jsonld-article-${guide.slug}`}
+      <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD string
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <Script
-        id={`jsonld-breadcrumb-${guide.slug}`}
+      <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD string
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {howToJsonLd && (
-        <Script
-          id={`jsonld-howto-${guide.slug}`}
+        <script
           type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD string
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
         />
       )}
     </>
