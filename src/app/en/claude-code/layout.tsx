@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SeoJsonLd } from "@/components/agent-guide/SeoJsonLd";
+import { claudeCodeGuideEn } from "@/data/agent-guides/en/claude-code";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
@@ -74,5 +76,11 @@ export default function ClaudeCodeLayoutEn({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      {/* JSON-LD in initial server-rendered HTML (see geo-aeo-protocol.md #1). */}
+      <SeoJsonLd guide={claudeCodeGuideEn} locale="en" />
+      {children}
+    </>
+  );
 }

@@ -17,7 +17,6 @@ import {
 import type { AgentGuideData, Difficulty } from "./types";
 import { allGuides } from "@/data/agent-guides";
 import { allGuidesEn } from "@/data/agent-guides/en";
-import { SeoJsonLd } from "./SeoJsonLd";
 import { GuideVideo } from "./GuideVideo";
 
 type Locale = "he" | "en";
@@ -266,7 +265,6 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
       dir={isRtl ? "rtl" : "ltr"}
       lang={locale}
     >
-      <SeoJsonLd guide={guide} locale={locale} />
       {/* Sticky TOC + guide nav */}
       <div className="sticky top-16 z-30 py-2 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">

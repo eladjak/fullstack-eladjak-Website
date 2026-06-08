@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { guideBySlug, allGuides } from "@/data/agent-guides";
+import { SeoJsonLd } from "@/components/agent-guide/SeoJsonLd";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
@@ -72,6 +73,8 @@ export async function generateMetadata({
       canonical: guide.canonical,
       languages: {
         "he-IL": guide.canonical,
+        "en-US": `${SITE_URL}/en/guide/${guide.slug}`,
+        "x-default": guide.canonical,
       },
     },
     openGraph: {
@@ -114,10 +117,20 @@ export async function generateMetadata({
   };
 }
 
-export default function GuideLayout({
+export default async function GuideLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  return children;
+  params,
+}: LayoutProps) {
+  const { slug } = await params;
+  const guide = guideBySlug.get(slug);
+  return (
+    <>
+      {/* JSON-LD emitted from this SERVER layout so it lands in the initial
+          server-rendered HTML (visible to AI crawlers), not the React payload. */}
+      {guide && guide.slug !== "claude-code" && (
+        <SeoJsonLd guide={guide} locale="he" />
+      )}
+      {children}
+    </>
+  );
 }
