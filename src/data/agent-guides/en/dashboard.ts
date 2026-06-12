@@ -129,6 +129,8 @@ export const dashboardGuideEn: AgentGuideData = {
         "The Dashboard is split into 12 tabs — each focused on a single topic, and together they cover everything: the big picture, projects, agents, content creation, costs, and health. Some tabs load live data (real-time), some rely on a cache (pre-computed data to save time), and some connect to external services. The goal: critical information is always one click away, with no need to juggle dozens of browser tabs.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
+      beginner:
+        "A tab is just like the tabs in a folder in a drawer — one click and you move from one world to another without losing your place. In this Dashboard each tab focuses on one topic: one shows the projects, one the agents' health, one the costs, one for generating images, and so on. The idea is simple — everything that matters is always one click away, instead of you having to remember ten different sites and jump between them. For me (Elad) the tab I keep open most of the day is 'Mission Control', which centralizes the big picture.",
       content: [
         "Mission Control — the home tab and overall overview: today's KPIs (tasks completed, costs, messages), red flags for active incidents, and whatever needs my attention right now. This is the tab I keep open most of the time",
         "Kanban — all 39+ of my projects in a single view, grouped by stage (idea, active, maintenance, on-hold, archived). You can drag projects between columns with the mouse, and the change is saved immediately",
@@ -153,6 +155,8 @@ export const dashboardGuideEn: AgentGuideData = {
         "WebSocket is a technology that lets the server push updates to the browser the moment they happen — instead of the older approach where the browser had to keep asking 'anything new? anything new?' (a wasteful pattern known as polling). I run a dedicated WebSocket server on port 3457 that streams every live update: when a [Kami](/en/guide/kami) task changes state, when a server goes down, when a new message arrives — the Dashboard refreshes instantly without reloading the page. The result: what you see is always current.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "Here's the difference between a 'live' dashboard and a 'dead' one, in a simple image. Without WebSocket, the page is like a printed newspaper: to know what's new you have to buy a fresh copy (reload the page) over and over. With WebSocket, the page is like an open phone call: the moment something happens — a task finished, an agent went down, a message arrived — the server 'calls' and tells the browser immediately, and the screen updates by itself without you doing anything. That's what makes the dashboard feel alive and current instead of an old snapshot.",
       content: [
         "The moment you open the Dashboard, the browser automatically connects to ws://localhost:3457 and keeps the connection open as long as the tab is open — much like a phone call that stays on the line",
         "To make sure the connection doesn't go stale, the server sends a heartbeat every 30 seconds — a little 'hello? still here?' — and if the client doesn't respond, the connection is re-established",
@@ -175,6 +179,8 @@ export const dashboardGuideEn: AgentGuideData = {
         "The Dashboard also serves as a reverse proxy — a concept worth understanding. A proxy is simply a middleman: instead of your browser talking directly to a handful of services (each on its own port), it only talks to the Dashboard, which in turn forwards the request to the right service. Why is that useful? It hides internal ports from the outside world, unifies everything under one domain, handles CORS (browser security rules that restrict cross-domain requests), and lets you swap services behind the scenes without the client noticing. In my setup, the Dashboard proxies to three main services.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "A proxy is simply a 'middleman', and it's worth understanding why it's useful. Picture an office building with a single front desk at the entrance: a guest doesn't wander the corridors hunting for the right department by themselves — they go to the desk, and it directs them inside. The Dashboard does exactly that: instead of the browser talking to three different services at three addresses, it talks only to the Dashboard, which forwards each request to the right service behind the scenes. The benefit: one address to remember, internal ports hidden from the world, and easy to swap out a service without anyone noticing.",
       content: [
         "Any request hitting /api/panel-proxy/* is forwarded automatically to the agent-control-panel on port 5300 — the panel that manages local agents, their settings, and configuration",
         "Requests to /api/ollama-proxy/* go to [Ollama](/en/guide/ollama) on port 11434 — the platform for running local AI models (gemma3, qwen3, llama). That's how you chat with those models straight from the Dashboard",
@@ -193,6 +199,8 @@ export const dashboardGuideEn: AgentGuideData = {
         "This might be the single most important tab in my Dashboard. Kanban (Japanese for 'visual board') is a way to manage tasks or projects in columns by stage — exactly like Trello or Linear, except this one is mine, local, and free. I'm juggling 39+ active projects at any given time: client work, websites, AI agents, internal tools, and ideas that haven't shipped yet. Without a single place that aggregates all of them, I'd simply forget half of them. For you this could be a team task board, a client tracker, or even a reading list — the underlying structure is the same.",
       color: "from-pink-600 to-rose-500",
       difficulty: "intermediate",
+      beginner:
+        "Kanban is simply a board with columns, where each project is a sticky note that moves between stages — 'idea', 'in progress', 'done'. Like a whiteboard with colored sticky notes, just digital. Why does it matter so much? Because when you have many things open at once, your head can't hold them all, and you simply forget half of them. For me (Elad) this board centralizes 39 projects in one view, and that's what stops me from starting a tenth project when there are already nine open. For you it could be a team task tracker, a client manager, or even a reading list — the structure is identical.",
       content: [
         "The source of truth for everything is a plain JSON file called projects-registry.json — each project with its name, description, status, and metadata. Every edit is saved there, and the file is trivial to back up",
         "Projects are split across 5 columns by stage: ideas (not started), active (in progress), maintenance (shipped and being maintained), on-hold (paused), archived (historical)",
@@ -215,6 +223,8 @@ export const dashboardGuideEn: AgentGuideData = {
         "My design philosophy for the Dashboard is deliberate minimalism: two files only — server.js on the server, index.html on the client — no build step (no compilation phase), no hot-reload, no dependencies to update every week. That's an intentional choice: less sophistication = less friction. Want to add a feature? Thirty minutes and it's running. This is exactly the paradigm that saves you from stacking Datadog/Retool/Linear subscriptions: you control your tool. For a marketable, production-grade product I'd reach for Next.js 14 or 15 (14 is the current LTS) — but for a personal mission control? Simplicity wins.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section shows the single biggest advantage of building a simple tool yourself instead of renting a ready-made one. When the dashboard is just two files with no complicated layers, adding a new capability takes minutes: you write, save, refresh — and it already works. It's like the difference between cooking in your own kitchen, where you move every pot wherever it's convenient, and a restaurant where you're not allowed to touch anything. The tool 'understands' exactly your work, instead of you bending to fit a generic tool. This part is more technical, but the message is simple: when you control the tool — it grows with you.",
       content: [
         "Step 1 — add an endpoint (a URL the server responds to) in server.js: a plain if (req.url === '/api/newtab') check that returns the data you want to show (a service call, a file read, a computation — whatever fits)",
         "Step 2 — add an empty container (a div — a basic HTML element) in index.html with id='tab-newtab'. That's the stage your new tab will render on",
