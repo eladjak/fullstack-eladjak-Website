@@ -132,6 +132,8 @@ export const ufwGuideEn: AgentGuideData = {
         "Most of what you'll do with UFW boils down to five simple commands. Know them and you're set for 99% of cases.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "Don't let the word firewall scare you — in practice your day-to-day is five commands in plain English: 'show me what's allowed' (status), 'allow this' (allow), 'block this' (deny), 'delete this rule' (delete), and 'turn the guard on' (enable). That's it. Just heed one critical warning, and I (Elad) learned it the hard way: always allow SSH before you turn the wall on — otherwise you'll lock yourself out of the server and need an emergency console to get back in.",
       content: [
         "`ufw status` — shows current state + rule list. Add `verbose` to also see logging and default policies",
         "`ufw allow <port>` — adds a rule that allows. `ufw allow 22/tcp` or just `ufw allow ssh` (UFW knows service names)",
@@ -160,6 +162,8 @@ export const ufwGuideEn: AgentGuideData = {
         "After learning the basics, let's see what you'll actually do. Here are the most common setups on a production server.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "Now from theory to real life. Most servers in the world are one of two kinds: either a regular website server (you open three doors for it — SSH for management, and 80/443 for the site), or a server hiding behind a tunnel (you open only SSH for it, and everything else flows through an encrypted tunnel). For me (Elad) on Hetzner it's the second kind: three lines, and not a single internal service is exposed to the internet at all. The guiding idea is simple — every door you don't open is a door nobody can break in through.",
       content: [
         "VPS with a web app — `allow ssh + http + https`. The standard stack, suitable for most cases",
         "VPS with a Cloudflare Tunnel — `allow ssh only`. Everything else flows through the tunnel and no other ports need opening",
@@ -188,6 +192,8 @@ export const ufwGuideEn: AgentGuideData = {
         "After you have the basics, a few cases need special attention — mainly Docker (which bypasses UFW), IPv6 (default in 2026), and application profiles.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "There's one trap that 'catches' almost everyone who uses Docker, and it's worth knowing before you get burned: Docker can open ports on the server behind the firewall's back. Meaning you're sure UFW is blocking your database — and in reality Docker opened it to the world without telling anyone. The fix is simple (tell Docker 'only open inward, not outward'), but you have to know the problem exists. The rest of this section touches on things that come up when the basics aren't enough — IPv6, ready-made profiles, and more sophisticated rule management.",
       content: [
         "Application profiles — UFW knows the names of popular apps. `ufw app list` shows the available ones. `ufw allow OpenSSH` instead of `ufw allow 22/tcp`",
         "IPv6 — `/etc/default/ufw` has an `IPV6=yes` (default in 2026). Always check it's on, otherwise attackers can come in over IPv6 and UFW won't block",
@@ -215,6 +221,8 @@ export const ufwGuideEn: AgentGuideData = {
         "Most UFW problems are either 'I blocked something I needed' or 'I locked myself out after enable'. Here's the orderly diagnosis.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "Almost every firewall problem falls into one of two buckets: 'I accidentally blocked something I needed', or the classic — 'I locked myself out after turning the wall on'. The good news: both have an orderly fix. Most of them are solved by the emergency console every VPS provider gives you (a kind of screen that connects directly to the server without SSH), which is why my (Elad's) golden rule is to make sure you have access to it before you touch the firewall. That's the safety net that prevents a sleepless night.",
       content: [
         "'Lost SSH after enable' — if you have hosting with a web console (Hetzner, DigitalOcean), open it and run `ufw allow ssh` then `ufw reload`. If not — contact support",
         "'Added allow but still blocked' — check `ufw status numbered`. Maybe there's a deny rule earlier. In UFW, rules are checked in order",
@@ -238,6 +246,8 @@ export const ufwGuideEn: AgentGuideData = {
         "UFW is the obvious choice for Ubuntu/Debian, but there are other tools that suit different situations.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "UFW itself is essentially a 'friendly remote' for a powerful old tool called iptables — it doesn't replace it, just wraps it in plain language. In this section you'll meet the rest of the family: tools that suit other environments (like firewalld in the RedHat world) or other jobs. The important name among them is fail2ban — it isn't a firewall at all, but an extra guard that sits beside it, reads the logs, and anyone who keeps trying to guess your password again and again — it blocks automatically. The combination of UFW (blocks doors) together with fail2ban (blocks attackers) is the baseline defense every production server needs.",
       content: [
         "iptables — the classic tool. UFW wraps it. If you want full control (complex rules, NAT), use iptables directly. But the syntax is something else",
         "nftables — the modern successor to iptables. Built into the kernel since Ubuntu 22.04. UFW now uses it behind the scenes",

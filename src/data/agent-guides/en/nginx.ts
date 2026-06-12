@@ -138,6 +138,8 @@ export const nginxGuideEn: AgentGuideData = {
         "Reverse proxy is the technical name for nginx's classic role in 2026: stand in front of the internet, receive all requests, and route them to the right internal backend. 'Reverse' because unlike a regular proxy that 'hides' the client (like a VPN), a reverse proxy hides the servers — the client thinks it's talking to one server, but there are actually dozens behind it. On my setup, nginx receives requests for dozens of subdomains and routes each one to a different Docker container running on an internal port.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "This is the use most people install nginx for, and it's easy to grasp with an analogy: picture a big company's switchboard. You call one number, and the switchboard operator transfers you to the right department — without you ever knowing there are dozens of internal extensions behind it. nginx does exactly that for websites: a visitor hits one address, and nginx quietly hands them to the right internal service. For me (Elad) this is what lets dozens of different subdomains live on one server, each reaching a different container.",
       content: [
         "proxy_pass — the central command. `proxy_pass http://localhost:3001/` — takes the request and forwards it to the internal service",
         "proxy_set_header — passes information about the original client to the internal service (`X-Real-IP`, `X-Forwarded-For`, `X-Forwarded-Proto`). Important so the application knows who actually made the request",
@@ -165,6 +167,8 @@ export const nginxGuideEn: AgentGuideData = {
         "Let's Encrypt is a free Certificate Authority that issues SSL certs for any domain you own. The standard tool for issuing and renewing them is certbot. The flow: certbot requests a cert → Let's Encrypt asks you to prove ownership (creates a temporary file at a specific path on your server) → after verification, you receive a 90-day cert that auto-renews every 60 days. All of this runs in the background and you don't have to think about it.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "SSL is what produces the little green padlock you see next to the address in the browser — it encrypts everything passing between the visitor and the site, so nobody in the middle (a café, an ISP, a hacker) can read or alter it. Such a certificate used to cost money and be a headache to install; today, thanks to a free service called Let's Encrypt, it all happens automatically — you get a cert within a minute, and it even renews itself every two months without you touching it. There's no reason in 2026 to run a site without the padlock.",
       content: [
         "Install: `apt install certbot python3-certbot-nginx` (recommended — automatic nginx integration)",
         "Issue first cert: `certbot --nginx -d example.com -d www.example.com`. certbot edits your nginx config for you",
@@ -193,6 +197,8 @@ export const nginxGuideEn: AgentGuideData = {
         "After we've solved reverse proxy and SSL, nginx offers another layer of capabilities that can save real money and protect the application: rate limiting (capping requests per IP — prevents DDoS and bot abuse), caching (storing responses in memory — cuts DB calls), and load balancing (spreading traffic across multiple backends — both for throughput and failover).",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "Here nginx stops being just a 'routing clerk' and also becomes a guard and a money-saver. The three things in this section, in plain English: rate limiting is a bouncer who won't let the same person bang on the door a thousand times a second (protection from bots and floods). Caching is remembering an answer we already computed, instead of bothering the app to recompute it over and over for every visitor. And load balancing is splitting the load across several copies of the app, like opening more checkout lanes at the supermarket when the line gets long. Each one can save you a lot of money and grief in production.",
       content: [
         "Rate limiting — `limit_req_zone` defines a 'zone' of IPs with a ceiling. For example '10 requests per second per IP'. Then `limit_req zone=...` activates it on a specific location",
         "Connection limiting — `limit_conn_zone` caps the number of open connections per IP. Useful against slow-loris attacks",
@@ -221,6 +227,8 @@ export const nginxGuideEn: AgentGuideData = {
         "In 2026 there are three main reverse-proxy choices for a personal server: nginx (the veteran, the standard), Caddy (the new one, ridiculously simple), and Traefik (built for Docker). Each will work well — the question is how much complexity you're willing to pay for how much power. My early servers were all on nginx, and then I switched to Caddy and never looked back. But nginx remains the industry standard, and you'll meet it at clients.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "nginx is the veteran and the standard, but it isn't the only one — and there are cases where something else is simply more comfortable. Caddy, for instance, does the same job but in a single line of config and handles the green padlock by itself, with no extra step; Traefik 'sticks' automatically to whatever is running in Docker. My (Elad's) rule is simple: for a new personal project where you want simplicity — start with Caddy. But if you're building something headed for serious production or for clients — it's worth learning nginx, because that's the one you'll meet everywhere.",
       content: [
         "Caddy — the file is called Caddyfile, an extremely simple format. One line = automatic SSL from Let's Encrypt, no certbot, no setup. Excellent for side projects and personal projects",
         "Traefik — auto-connects to Docker labels. Add `traefik.http.routers.x.rule=Host('x.com')` to a container and Traefik routes to it automatically. Great for Docker-only setups",
@@ -248,6 +256,8 @@ export const nginxGuideEn: AgentGuideData = {
         "Most nginx problems are misconfiguration (forgotten slash, header that wasn't passed, wrong port), or DNS/firewall/SSL. nginx gives you excellent logs if you know where to look, plus a few simple tools that solve 90% of cases in minutes.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "When something in nginx isn't working, don't guess — look. Two tools solve almost everything. The first is `nginx -t`, a command that 'proofreads' your config and tells you if there's a typo before you apply it — like a spell-checker before you send a document. The second is the error.log file, the diary that tells you exactly what went wrong and why. Most failures are something small and silly (a forgotten slash, a wrong port), and these two tools expose it in minutes instead of hours of guessing.",
       content: [
         "`nginx -t` — checks the syntax of every config file. Always run before reload. If it doesn't pass, nginx keeps running with the old config",
         "`systemctl reload nginx` — hot reload. Zero downtime, only if `nginx -t` passed. If something is broken — `systemctl status nginx` shows where",
