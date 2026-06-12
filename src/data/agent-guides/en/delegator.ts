@@ -129,6 +129,8 @@ export const delegatorGuideEn: AgentGuideData = {
         "An endpoint is a specific server address that answers a specific request. For example POST /email/send to send an email, or GET /calendar/check to check a schedule. Delegator hosts 100+ of them, grouped by responsibility. It's not just middleware (a pass-through layer that forwards requests to another service) — there's real business logic in here too, like a gate that checks whether publishing is allowed right now, or a router that picks which LLM to call based on cost.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
+      beginner:
+        "An endpoint is simply an address that knows how to do one thing — like the phone number of a specific department in a company. One sends an email, one checks the calendar, one publishes a post. For me (Elad) Delegator has over a hundred of these, grouped by area: publishing, AI, Google, monitoring. But the important point is that it isn't just a 'pipe' that forwards requests onward — inside each address there's real logic too, like a guard that checks whether publishing is allowed right now, or a mechanism that picks the cheapest AI suited to the task.",
       content: [
         "Publishing & distribution: `/postiz/post` (post to social networks via Postiz), `/campaign-email` (marketing email campaign), `/social-post` (general publishing), `/sms/send` (SMS via Twilio), `/content-studio/publish` (publish content studio output)",
         "AI pipelines: `/research` (research a topic via Perplexity or Gemini), `/landing-page` (generate a full landing page), `/pipeline/full` (the full chain from idea to publish), `/content-studio/generate` (content generation)",
@@ -148,6 +150,8 @@ export const delegatorGuideEn: AgentGuideData = {
         "The Gateway pattern is a software architecture principle where, instead of every component in the network talking directly to external services, they all route through a single central gateway. The payoff: anything you want to check or enforce across the whole network — you add it once in the gateway, and the change applies to everyone automatically. Want to add a log line for every request? One line. Want to rate-limit how many requests per minute each agent can send? One line.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
+      beginner:
+        "Picture a building where all the mail passes through a single sorting room at the entrance. The payoff is huge: if you suddenly want to inspect every letter, or limit how many letters each department sends per day — you just change one thing in the sorting room, and it applies to everyone at once. That's exactly the Gateway idea: instead of each agent talking directly to the world, they all go through one gate. So adding logging, rate limiting, or an automatic retry when something fails — is a change in one place, not ten.",
       content: [
         "Central auth: today it's simple API-key auth; down the road you can add JWT (JSON Web Token — a standard for issuing signed access tokens with an expiry) in a middleware layer (code that runs before every endpoint)",
         "Rate limiting: a uniform cap per user type. Agents don't need to coordinate among themselves how many requests have been sent — the gateway knows",
@@ -193,6 +197,8 @@ export const delegatorGuideEn: AgentGuideData = {
         "LLM calls (language models like Claude, Gemini, GPT) are the biggest line item in an autonomous agent network, and without tracking it can explode into an imaginary bill at the end of the month. I added a mechanism to the Delegator that records every LLM call that goes through it: which tier was used, which model, which agent asked, how many tokens went in, how many came out, and how long it took. Later you can slice the data and see, say, 'Kami consumed 40% of this month's LLM budget'.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "Every time an agent 'thinks', it's really sending a question to an AI model, and that costs money — a little each time, but it adds up. Without tracking, you might find a scary bill at the end of the month without even knowing where it came from. So Delegator counts every such call: who asked, which model answered, and how much it cost. For me (Elad) this is what lets me see at a glance that 'one agent ate 40% of the monthly budget', and catch immediately if something is running in a loop and burning money. My rule: add cost tracking on day one, before there's even anything to measure.",
       content: [
         "The internal function `_log_llm_call(tier, model, requester, tokens_in, tokens_out, latency)` runs after every successful call — without hurting the agent's response time",
         "Data is written in JSONL format (one JSON line per event) to `/opt/ai-factory/data/costs/llm-calls.jsonl`. A simple format that's easy to slice with `grep`, with pandas, or with any other tool",
@@ -213,6 +219,8 @@ export const delegatorGuideEn: AgentGuideData = {
         "Instead of every agent deciding on its own which LLM to call (and when to fall back to a different model if it fails), the Delegator exposes a single endpoint called `/llm/route`. The agent sends its prompt along with a system prompt and a token limit, and the Delegator decides for itself: try the cheapest model first (free), fall back to the next one if it fails, and so on until something works. The response also includes which tier and which model actually answered, so the agent knows.",
       color: "from-pink-600 to-rose-500",
       difficulty: "advanced",
+      beginner:
+        "This may be the cleverest idea in Delegator, and it's easy to grasp: when an agent needs AI 'thinking', it doesn't pick which model to call. Instead it asks Delegator, which tries the cheapest one first (completely free), and only if it fails or is overloaded — moves to the next, and so on until something answers. Like water always flowing to the cheapest path. For me (Elad) the result is that most of the work is done for free, and the expensive model (Claude) only kicks in as a lifeboat in emergencies — which is why it costs me roughly just $2-5 a month.",
       content: [
         "Tier 1 — Ollama Local: if [Ollama](/en/guide/ollama) (a local model runtime) is running on the same server with the qwen3:4b model loaded — the call is completely free and the fastest. Requires 8GB+ RAM and preferably a GPU",
         "Tier 2 — Gemini 2.5 Flash: Google AI Studio's free tier (~15 RPM and a generous daily token allowance). Excellent quality for most tasks, including Hebrew. Gemini 2.5 Pro is available as a paid upgrade",
@@ -234,6 +242,8 @@ export const delegatorGuideEn: AgentGuideData = {
         "This isn't a theoretical guide — everything here was forged from failures I hit along the way. These are the lessons from running the Delegator in maintenance for half a year.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section isn't theory — every tip here was born from a mistake I made along the way. If I had to distill it into one sentence for a non-technical reader, it's this: build things that recover on their own. The server is configured so that if it crashes for any reason, it comes back up within five seconds without me touching it; every version is saved before a change so you can roll back in a second; and everything is exposed to the world through a secure tunnel without opening any dangerous door on the server. These are the small things that turn a system that 'works' into one you can trust at night.",
       content: [
         "Not using a framework is an advantage — but it means you build the middleware yourself: logging, CORS (cross-origin browser permissions), auth. It takes a day, but afterwards you're in full control",
         "Exposure to the internet via cloudflared tunnel (a free Cloudflare service) — no need to open firewall ports, no need for a static IP, and no exposure of the home server to network scans",
