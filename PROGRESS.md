@@ -1,5 +1,19 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-06-13 — SSR homepage below-fold + blog index + a11y/GEO (Shabbat deep-iteration, non-guide lane)
+
+**Context:** ran in an isolated worktree `~/projects/portfolio-website-polish` (branch `shabbat/non-guide-polish` off `main`) to stay fully clear of a concurrent guides agent on `guides/deepen-beginner-accessibility`. Touched ONLY non-guide surfaces.
+
+**Shipped to prod (commit `9142416`, merged to main, Vercel prod `wdgk8n2mj` Ready, aliased fullstack-eladjak.co.il):**
+- **Homepage below-fold SSR** — the 7 sections were `dynamic(..., { ssr:false })` → invisible to AI/SEO crawlers (the HIGH gap open since the 5-lens review 29.5). Now plain SSR imports (still `"use client"`, hydrate on client, but real content in initial HTML). Removed the `SectionSkeleton`.
+- **Blog index + homepage latest-posts → server-rendered data** — replaced client `fetch('/api/blog/posts')` (spinner-first, empty HTML) with server-side `getAllMDXPosts()` passed as plain serializable props. `app/blog/page.tsx` is now a Server Component; new `components/blog/blog-index-client.tsx` holds only tag/locale filter state. Homepage `page.tsx` fetches top-3 server-side. `/api/blog/posts` kept (command-palette still consumes it).
+- **a11y/GEO fix (caught by geo-scan regression)** — once SSR'd, 7 decorative section images with `alt=""` became crawler-visible and dropped image-alt 8→0 (score 100→92). Added descriptive Hebrew alt + removed `aria-hidden` on all 7 → back to 8/8. Also: blog card title `h3→h2` (heading pyramid), filter buttons `aria-pressed`, cards animate on `whileInView` not all-on-mount.
+- **Asset** — captured a real live screenshot for `crypto-tracker` (was a missing image → gradient fallback; 1 of 15 projects).
+
+**Verification (all gates, safe-live-refactor):** `next build` 83 static pages (Vercel Linux preview `fkqkplp9i` + prod both Ready — proves RSC serialization safe, props are plain objects not LucideIcon refs) · `tsc` 0 new errors (only the known SkillsCanvas three.js Windows artifact) · SSR HTML grep-confirmed (3 home post-cards + 13 blog cards + `id=services` + 2× FAQPage) · agent-browser: home full-page render + blog tag-filter click works · adversarial 3-lens review (behavior-preservation / RSC-correctness / GEO) — CLEAR · **live prod geo-scan 100/100** (image-alt 8/8, FAQPage schema↔content preserved, external links in main 6→20).
+
+**Next (non-guide):** /thanks page still has 1 `alt=""` (thanks-page-client.tsx:192, not GEO-critical). Optional: blog `[slug]` page SSR audit.
+
 ## Status: active
 ## Last Updated: 2026-04-27
 
