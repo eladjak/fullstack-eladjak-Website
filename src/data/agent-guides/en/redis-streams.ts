@@ -137,6 +137,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "If you only want simple pub/sub — agent A pushes, agent B listens — you only need XADD and XREAD. No consumer groups, no acknowledgments. The Python code below shows both sides.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "The whole mechanism boils down to two operations, and that's the beauty of it. One that drops a message in the mailbox (XADD), and one that checks whether something new arrived (XREAD). That's it. If one agent wants to tell another agent something — the first 'leaves a note' without knowing who'll read it, and the second comes at its own pace and collects the notes it hasn't seen yet. Without the two needing to run at the same moment, and without one waiting on the other. The code below shows exactly both sides.",
       content: [
         "XADD — sends a message. The pushing agent doesn't need to know who's reading. All messages are kept until you XTRIM",
         "XREAD ID `$` — read 'only new messages from this moment'. Useful for a fresh consumer",
@@ -163,6 +165,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Consumer groups are the feature that makes Redis Streams a serious message broker. Instead of every consumer seeing every message (like pub/sub), consumers in the same group share the work — each message reaches exactly one consumer in the group. For redundancy, you spin up multiple consumers; if one falls over, the rest keep going. Plus there's the acknowledgment mechanism: a consumer says 'I handled message X', and Redis remembers. If the consumer dies before acking, the message is re-claimed by another consumer.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "Picture a bank counter with one queue and several tellers. Without coordination, every teller would call the same customer — chaos. With a consumer group, each customer (message) is handled by exactly one teller, and if a teller steps away mid-task — an unhandled customer goes back to the queue and another teller takes them. This is exactly what turns Redis Streams from a 'broadcast to everyone' mechanism into a serious work-distribution one, with an orderly acknowledgment for every completed task. Without it, two workers would do the same job twice.",
       content: [
         "XGROUP CREATE — creates a consumer group. `XGROUP CREATE agent:tasks workers $` creates a 'workers' group starting from new messages",
         "XREADGROUP — read as a member of a group. `XREADGROUP GROUP workers consumer-1 COUNT 10 BLOCK 5000 STREAMS agent:tasks >` — receives un-handled messages",
@@ -190,6 +194,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Once you know the basics, there are several common patterns that help architect things.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "A pattern is just a ready-made recipe — a known way to arrange the parts that already works for a lot of people, so you don't have to invent it from scratch. For example: 'fan-out' is like a mailing list — one message reaches several parties at once. 'Work queue' is like a queue at an office — one message, and whoever's free takes it. For me (Elad) these two recipes together are basically the entire backbone of the agent network: every agent leaves events, and every agent listens for its own.",
       content: [
         "Fan-out — one message handled by multiple different consumers. Each with its own group. For example: a WhatsApp message goes to Box (nutrition), Adopter (content), and the Dashboard (logging). Three groups, three independent reads of the same stream",
         "Work queue — messages handled exactly once. Single consumer group with multiple consumers. For example: image-processing tasks, 5 workers sharing the load",
@@ -213,6 +219,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Redis in production needs three things: persistence (so you don't lose data when Redis crashes), size management (so the stream doesn't eat all memory), and monitoring.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "Redis keeps everything in memory, which is what makes it fast — but also what makes it dangerous. Memory gets wiped when the machine powers off, so without the right config all your messages vanish if the server crashes. The three things in this section are the insurance: saving to disk (so no data is lost), capping size (so the stream doesn't swallow all the memory), and monitoring (so you know something is stuck before it blows up). For me (Elad), all 13 agents get by on under 100 MB of memory thanks to these settings.",
       content: [
         "Persistence — two types: AOF (append-only file, safer) and RDB (snapshot every N minutes). Recommended default: AOF every-second",
         "MAXLEN — always add `XADD ... MAXLEN ~ 10000` to auto-trim. The `~` means 'approximately', more efficient",
@@ -242,6 +250,8 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Redis Streams is lightweight, but not for every case. Here's a comparison to other solutions.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "Redis Streams is the motorcycle: light, nimble, starts instantly. But if you need to move a truckload of cargo, a motorcycle won't help — and that's where alternatives like Kafka come in, heavier and more complex but built for huge loads. The rule I (Elad) follow is simple: start with the light tool, and switch to the heavy one only when you genuinely feel the light one isn't enough. Most products in the world never reach the volume that justifies Kafka — and paying its complexity cost up front is a waste.",
       content: [
         "Apache Kafka — if you have billions of messages per day, or need months of retention. Requires Java, Zookeeper, partitions, brokers — significant overhead. For most cases it's overkill",
         "RabbitMQ — the traditional message broker. More routing options than Redis (exchanges, bindings). Less popular in 2026, but still solid",

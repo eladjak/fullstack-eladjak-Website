@@ -136,6 +136,8 @@ export const postgresGuideEn: AgentGuideData = {
         "Installing Postgres can get complicated the old-school way (apt-get + manual config + permissions). The modern path: docker-compose for development, and in production either the same Docker setup or a managed service (Supabase, Neon, RDS) that handles backups, replication and security updates for you. For me, Postgres runs as a container in docker-compose on the same server as the rest of the agents because the data volume is small and the cost is essentially zero.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "Think of it like choosing where to live. You can build a house from scratch yourself (apt-get + manual config) — full control, but every bit of upkeep is on you. You can rent a furnished apartment (Docker) — move in within a minute, everything already wired up. Or you can book a hotel with room service (Supabase, Neon) — someone else cleans, backs up, and patches for you, and you just use it. For beginners I (Elad) recommend Docker for development and Supabase when you want to go live fast without maintaining a server.",
       content: [
         "Docker (development + small production) — by far the simplest. One compose stanza and you have a DB. Backup = copy a volume. Upgrade = swap a tag",
         "Homebrew/apt (local development only) — `brew install postgresql@16` or `apt install postgresql-16`. A service running in the background on your machine",
@@ -163,6 +165,8 @@ export const postgresGuideEn: AgentGuideData = {
         "A schema is the structure of your DB — what tables exist, what columns each one has, and how they relate. A good schema design up front saves headaches for the whole life of the project. The golden rule: start simple (don't over-normalize early), but use strong types from day one (never store dates as text — always timestamptz; never store money as float — always numeric).",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "A schema is essentially the architectural blueprint of the building before you pour the concrete. You can throw up walls wherever you feel like and discover later there's no room for the staircase — or plan it right up front and save yourself the demolition. The rule I (Elad) follow: don't over-normalize early (don't split everything into ten tables before you need to), but do use the right data types from day one — a date stored as a date, money stored as an exact decimal, not as text. Fixing that later is a headache; getting it right at the start is free.",
       content: [
         "Important types: `uuid` (keys), `timestamptz` (always with timezone), `numeric(precision, scale)` (money), `text` (not varchar — no benefit), `jsonb` (not json), `boolean`",
         "Primary keys — default to `uuid`. Better than `serial` because it doesn't leak order/quantity and lets you merge across DBs",
@@ -190,6 +194,8 @@ export const postgresGuideEn: AgentGuideData = {
         "One of the magical things about Postgres is its extension system: the ability to add whole new capabilities with one command (`CREATE EXTENSION ...`). That turns Postgres from 'a database' into 'a platform' — the same DB that holds your agent state can also do semantic search, store time series, or query by geographic coordinates.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "Extensions are like apps you install on your phone. A basic phone can call and text — but the moment you install an app it suddenly knows how to navigate, edit photos, and manage money. In Postgres it's the same idea: one command (`CREATE EXTENSION`) and that same database suddenly knows how to search by meaning (pgvector), hold time-series data (TimescaleDB), or find customers by their location on a map (PostGIS). For me (Elad) that means I don't need five separate services — it all lives in one place.",
       content: [
         "pgvector — store embeddings (vectors) and search by similarity. An alternative to [Qdrant](/en/guide/qdrant) for small-to-medium loads. HNSW index support since 0.5+",
         "TimescaleDB — turns Postgres into a time-series DB. Great for metrics, IoT, stock prices. Auto-partitions months/days into internal tables",
@@ -217,6 +223,8 @@ export const postgresGuideEn: AgentGuideData = {
         "The difference between Postgres in development and Postgres in production is mostly the number of concurrent connections, the size of the data, and the exposure to the internet. Each Postgres connection costs ~10 MB of RAM — without pooling, 100 concurrent users = 1 GB just for connections. PgBouncer solves it: it sits between the application and the DB, holding a few dozen real connections that serve thousands of 'logical' clients.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "Picture a restaurant. In development you have one table and one diner — easy. In production a hundred people suddenly want to eat at once, and if you assign each one a dedicated waiter you'll go broke on payroll. The solution is one waiter who cleverly serves several tables — which is exactly what PgBouncer does: it holds a handful of real connections and shares them across thousands of users. Everything else in this section (smart indexes, memory tuning, security) is the stuff nobody thinks about in development and everybody learns in production — usually the hard way. Worth reading before, not after.",
       content: [
         "PgBouncer — the classic connection pooler. Runs as a separate service (port 6432); the application connects to it instead of Postgres directly. 'transaction' mode allows excellent connection sharing",
         "EXPLAIN ANALYZE — the most important command for performance. Shows how Postgres planned and ran the query, where it spent time, and whether it used indexes",
@@ -245,6 +253,8 @@ export const postgresGuideEn: AgentGuideData = {
         "A backup you haven't verified by restoring — does not exist. That is the iron rule of the DB world. Postgres offers two main approaches: `pg_dump` (logical backup, easy to move between versions) and PITR (Point-in-Time Recovery, a physical backup that lets you go back to any specific moment in the past). For small projects daily pg_dump is enough; the moment you have real customers — PITR + replica.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "A backup is like insurance — boring to pay for, right up until the day the house burns down. The difference here is a cruel trap: a backup you've never tried to restore from effectively doesn't exist, because you usually discover it's corrupt at exactly the moment you need it. So the rule I (Elad) follow isn't just 'back up' but 'check once a month that the restore actually works.' In this section you'll meet the two approaches — one simple and everyday (pg_dump) and one advanced that lets you rewind to a specific minute in the past (PITR) — and when each one fits.",
       content: [
         "`pg_dump` — exports the DB to a SQL or pgsql binary file. Runs live (no locks), works for DBs up to tens of GB. Restore: `pg_restore` or `psql < dump.sql`",
         "`pg_dumpall` — like pg_dump but for every DB in the instance, including users and permissions",
