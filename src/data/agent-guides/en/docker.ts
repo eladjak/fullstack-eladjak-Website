@@ -250,6 +250,8 @@ export const dockerGuideEn: AgentGuideData = {
         "Most of the problems you will hit with Docker are not bugs in Docker itself — they are misconfigured volumes, networks, or environment variables. The good news: there is an ordered sequence of checks that resolves roughly 80% of cases within a few minutes. After years of working with Docker, I've settled into a routine that always starts from the same command and only moves on if it has to.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "When a container won't come up, don't guess — look. Almost always the problem isn't a bug in Docker itself but a small misconfiguration, and almost always the container's log tells you exactly what went wrong. For me (Elad) there's a fixed diagnostic routine that always starts from the same command — 'show me what the container says about itself' — and only moves on if it has to. It's like a doctor taking a temperature before deciding on treatment. This section is essentially that order: what to check first, what next, until you find the culprit.",
       content: [
         "`docker compose logs -f <service>` — streams the service's live output (stdout + stderr). The `-f` (follow) says 'keep showing every new line as it arrives'. Always the first tool",
         "`docker inspect <container>` — returns every setting of the container as JSON: network config, mounted volumes, environment variables. Perfect when you suspect the configuration isn't what you thought it was",
