@@ -14,6 +14,8 @@ type QuestionKey =
   | 'availability'
   | 'process'
   | 'aiExpertise'
+  | 'aiNetwork'
+  | 'location'
   | 'hebrew'
   | 'contact'
   | 'timeline'
@@ -31,9 +33,11 @@ const FOLLOW_UPS: Record<QuestionKey, QuestionKey[]> = {
   services: ['pricing', 'technologies', 'availability'],
   pricing: ['services', 'timeline', 'contact'],
   technologies: ['aiExpertise', 'hebrew', 'services'],
-  availability: ['contact', 'process', 'timeline'],
+  availability: ['location', 'contact', 'timeline'],
   process: ['timeline', 'support', 'contact'],
-  aiExpertise: ['technologies', 'services', 'contact'],
+  aiExpertise: ['aiNetwork', 'technologies', 'contact'],
+  aiNetwork: ['aiExpertise', 'services', 'contact'],
+  location: ['availability', 'contact', 'services'],
   hebrew: ['technologies', 'services', 'contact'],
   contact: ['availability', 'pricing', 'process'],
   timeline: ['process', 'pricing', 'contact'],
@@ -42,14 +46,49 @@ const FOLLOW_UPS: Record<QuestionKey, QuestionKey[]> = {
 
 const INITIAL_QUESTIONS: QuestionKey[] = [
   'services',
-  'aiExpertise',
+  'aiNetwork',
   'availability',
   'hebrew',
 ];
 
+// Every question, in reading order — used by the server-rendered static
+// fallback so the full FAQ content is present in the initial HTML (GEO/SEO).
+const ALL_QUESTIONS: QuestionKey[] = [
+  'services',
+  'aiNetwork',
+  'aiExpertise',
+  'technologies',
+  'hebrew',
+  'pricing',
+  'timeline',
+  'process',
+  'support',
+  'availability',
+  'location',
+  'contact',
+];
+
+// Real external profiles — visible citation links inside the static FAQ block.
+const EXTERNAL_LINKS: { href: string; label: string }[] = [
+  { href: 'https://github.com/eladjak', label: 'GitHub' },
+  { href: 'https://linkedin.com/in/eladjak', label: 'LinkedIn' },
+  { href: 'https://www.eladjak.com', label: 'eladjak.com' },
+  { href: 'https://hitechkids.eladjak.com', label: 'HiTechKids' },
+  { href: 'https://wa.me/972525427474', label: 'WhatsApp' },
+];
+
 // ─── Typing Indicator ────────────────────────────────────────────────────────
 
-function TypingDots() {
+function TypingDots({ reduced }: { reduced: boolean }) {
+  if (reduced) {
+    return (
+      <div className="flex items-center gap-1 px-1 py-0.5" aria-hidden="true">
+        {[0, 1, 2].map((i) => (
+          <span key={i} className="block h-2 w-2 rounded-full bg-primary/70" />
+        ))}
+      </div>
+    );
+  }
   return (
     <div className="flex items-center gap-1 px-1 py-0.5" aria-hidden="true">
       {[0, 1, 2].map((i) => (
@@ -304,7 +343,7 @@ export function ChatFAQ() {
                       <Bot className="h-3.5 w-3.5 text-white" />
                     </div>
                     <div className="rounded-2xl rounded-ss-sm rtl:rounded-ss-2xl rtl:rounded-se-sm bg-white/10 border border-white/10 px-4 py-3">
-                      <TypingDots />
+                      <TypingDots reduced={!!prefersReducedMotion} />
                     </div>
                   </motion.div>
                 )}
@@ -349,6 +388,44 @@ export function ChatFAQ() {
               </AnimatePresence>
             </div>
           </div>
+
+          {/* Server-rendered static FAQ fallback — the full Q&A content lives
+              in the initial HTML so search engines and AI crawlers can read it
+              even without running the chat. The chat above is the progressive
+              enhancement; this <details> block is the canonical text. */}
+          <details className="mt-6 rounded-xl border border-border/50 bg-card/40 px-5 py-4">
+            <summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded">
+              {t('staticListLabel')}
+            </summary>
+            <dl className="mt-4 space-y-5">
+              {ALL_QUESTIONS.map((key) => (
+                <div key={key}>
+                  <dt className="text-sm font-semibold text-foreground">
+                    {t(`questions.${key}`)}
+                  </dt>
+                  <dd className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {t(`answers.${key}`)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-6 border-t border-border/40 pt-4 text-sm text-muted-foreground">
+              {t('moreLinksLabel')}{' '}
+              {EXTERNAL_LINKS.map((link, i) => (
+                <span key={link.href}>
+                  {i > 0 && ' · '}
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
+                  >
+                    {link.label}
+                  </a>
+                </span>
+              ))}
+            </p>
+          </details>
         </div>
       </div>
 
