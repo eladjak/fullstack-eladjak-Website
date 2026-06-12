@@ -133,6 +133,8 @@ export const vercelGuideEn: AgentGuideData = {
         "Getting started with Vercel is among the fastest in the world. If you have a Next.js project that works locally, you're 5 minutes from your first deploy.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "This is the part that makes people fall in love with Vercel. Imagine that every time you save a document in Google Docs, someone automatically prints it, binds it nicely, and puts it on a shelf in a store the whole world can walk into — without you doing anything. That's how Vercel works with sites: you connect it to GitHub once, and from then on every change you save in the code becomes a live site within about a minute, with a real address and a security padlock. No server, no SSH, none of the headache there used to be.",
       content: [
         "1. Create an account at vercel.com — easy with GitHub login",
         "2. New Project → Import Git Repository — choose your repo",
@@ -162,6 +164,8 @@ export const vercelGuideEn: AgentGuideData = {
         "After your first deploy, there's a whole layer of features that make daily work much better.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "The two worth understanding here, even if you're not a programmer, are 'preview' and 'rollback'. Preview is like seeing a sneak peek of a cake before you serve it to your guests — every change gets its own temporary address you can send to a client for sign-off before it goes to the real site. Rollback is the rewind button — if you accidentally pushed something broken, one click returns the site to the previous version that worked, in seconds. These two safety nets are what let you work without fear.",
       content: [
         "Preview Deployments — every PR gets a unique URL. You can send to a client, CEO, design team for approval before merge",
         "Branch Protection — you can wire Vercel deploys as a status check in GitHub. Doesn't merge if the build fails",
@@ -191,6 +195,8 @@ export const vercelGuideEn: AgentGuideData = {
         "Vercel supports two types of functions. The distinction matters — it affects latency, cold starts, and capabilities.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "Don't let the term 'function' scare you — it's just a small piece of code that runs in the cloud only when needed, without you keeping a server powered on all the time. Vercel has two kinds, and the difference is like a local bike courier versus a big logistics hub. 'Edge' is the nimble courier who sits close to you and answers almost instantly — great for light, fast things. 'Serverless' is the big hub that can do heavy work (connect to a database, complex computation), but takes a moment longer to wake up. This section helps you decide when each one fits.",
       content: [
         "Serverless Functions (default) — run on AWS Lambda. Support every Node.js API, can connect to a DB, full runtime. Cold start ~200-500ms",
         "Edge Functions — run on Cloudflare Workers (V8 isolates). Very fast (cold start <50ms), in every global region. But limited: only Web APIs, no FS, code size up to 1 MB",
@@ -218,6 +224,8 @@ export const vercelGuideEn: AgentGuideData = {
         "Vercel is generous with the free tier, but there are limits. It's important to know what's included and what isn't — otherwise you'll be surprised by a bill.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "The good news: for a personal project, a blog, or a portfolio — Vercel is free, and generously so. The news worth knowing up front: the free tier is generous but not infinite, and if your site suddenly explodes with traffic or does a lot of heavy work, you may start paying — sometimes without noticing. So it's worth understanding in advance what's included and what isn't, to avoid a surprise on the bill. For me (Elad), most of my personal sites have sat comfortably in the free tier for years.",
       content: [
         "Hobby (free) — 100 GB bandwidth/month, 100h serverless function execution, 6,000 build minutes, unlimited deploys. Non-commercial use",
         "Pro ($20/month) — 1 TB bandwidth, 1,000h functions, 24,000 build minutes, password-protected previews, advanced analytics. Most freelancers and businesses",
@@ -243,6 +251,8 @@ export const vercelGuideEn: AgentGuideData = {
         "Vercel is the best for Next.js, but not the only choice. Quick comparison.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "Vercel is excellent, especially if you built the site in Next.js (the framework the company itself created), but it isn't the only player. Cloudflare Pages, for instance, gives you unlimited bandwidth for free — worth gold for a site that pulls a lot of traffic. Netlify and Railway are other players, each with its own flavor. My (Elad's) rule is simple: for a Next.js site — Vercel. For a static site that might get hammered with visitors — Cloudflare. You don't have to marry any of them; switching is relatively easy.",
       content: [
         "Cloudflare Pages — generous free tier (500 builds/month, unlimited bandwidth!), Workers/D1 in the same ecosystem. Less seamless Next.js support than Vercel, but excellent for static sites and Workers",
         "Netlify — the longtime rival. Very similar to Vercel, maybe a touch slower. Free tier 100GB bandwidth (like Vercel)",
