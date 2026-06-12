@@ -133,6 +133,8 @@ export const githubActionsGuideEn: AgentGuideData = {
         "The best way to learn is to see a simple workflow that does something real. The example below runs `tsc --noEmit` and `eslint` on every push and every PR — so nothing ever merges to main that doesn't pass type-check.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "The best way to grasp the idea is through a small but real example. Imagine that every time you hand in homework, a robotic checker goes over it automatically and flags any mistake — before the teacher even sees it. That's exactly what the workflow here does: on every change to the code, it checks by itself that there are no errors, and only code that passes is allowed to merge. For me (Elad) that means I sleep easy — you can't accidentally 'break' the site, because the automatic guard catches it first.",
       content: [
         "Create a folder: `mkdir -p .github/workflows`",
         "Create a file: `.github/workflows/ci.yml`",
@@ -160,6 +162,8 @@ export const githubActionsGuideEn: AgentGuideData = {
         "Once CI is working, the next step is automatic deploy. Vercel supports a GitHub integration that deploys on every push without a special workflow — but if you want full control (deploy only after tests pass, to a specific environment, with custom build args), a YAML workflow gives you that.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "Until now the guard only checked that the code was sound. Now it also puts it live for you. Think of it like an assembly line: you put raw material in at one end (saved a change), and it comes out the other end as a finished product on the shelf (a live site) — without you touching anything in between. The beauty is you can chain a condition: 'only go live if the tests passed'. So a broken change simply stops along the way and never reaches users. For me (Elad), from the moment I save to the site being live is usually under two minutes.",
       content: [
         "Option A: Vercel GitHub integration (the easy one) — just connect the repo to a Vercel project, and it starts working automatically. No workflow needed",
         "Option B: a custom workflow — you control when to deploy. The workflow below runs tests first, and only if they pass — sends to Vercel",
@@ -187,6 +191,8 @@ export const githubActionsGuideEn: AgentGuideData = {
         "Every workflow that does a deploy needs access to some cloud (Vercel, AWS, Cloudflare). The old way is static tokens stored in GitHub Secrets — it works but isn't ideal (a leaked token = full account access). The modern way is OIDC (OpenID Connect): GitHub issues a unique JWT per workflow run, and you configure trust in the cloud that 'if this JWT came from repo X, branch Y, you can assume it's me'.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "A secret is any kind of key that grants access to expensive things — a cloud key, a database password, a token for a paid service. The iron rule, and I (Elad) don't compromise on it: such a secret must never be written inside the code. Code gets published, kept in history forever, and automated scanners find exposed keys within minutes and abuse them. Instead you keep them in an encrypted vault GitHub provides, and the workflow pulls them out only when it needs them — without them ever appearing in the code or the logs.",
       content: [
         "GitHub Secrets — secure storage for sensitive settings. Settings → Secrets and variables → Actions. Accessible only inside workflows, never shown in logs",
         "Repository secrets — for the whole repo. Organization secrets — for the whole org. Environment secrets — only for deploys to a specific environment",
@@ -214,6 +220,8 @@ export const githubActionsGuideEn: AgentGuideData = {
         "Once you have a basic working workflow, here are the features that level you up.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "This whole section is about working smarter, not harder. The prettiest example is 'matrix' — instead of testing your code once, you test it simultaneously across several versions and several operating systems, like tasting a dish in several kitchens at once to make sure it comes out right in all of them. That way you immediately catch a problem that only shows up on Windows or only in an old version. These are the features that separate 'a workflow that works' from 'a professional workflow'.",
       content: [
         "Matrix builds — run the same job with different variable combinations. For example Node 18, 20, 22 + Linux, Windows, macOS = 9 parallel runs. Catches compatibility issues immediately",
         "Reusable workflows — a workflow you can call with `uses: org/repo/.github/workflows/x.yml@main`. Excellent when 10 repos do the same things",
@@ -238,6 +246,8 @@ export const githubActionsGuideEn: AgentGuideData = {
         "After three years of using GitHub Actions, here are the things I wish I knew at the start.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "This section is simply a collection of 'I wish someone had told me this on day one'. Most of them touch on two things that are easy to forget when you're starting out: don't waste (put a time limit on every job, so a glitch doesn't burn through all your free minutes), and don't get breached (give each workflow only the permissions it actually needs, no more). These aren't complicated things — just the kind you usually learn after getting burned once. So take them up front.",
       content: [
         "Always set `timeout-minutes` on a job. Default is 6 hours — a stuck workflow can eat all your free minutes",
         "Always add `permissions:` at the workflow level. Default is 'read all', but specific work needs less. Principle of least privilege",

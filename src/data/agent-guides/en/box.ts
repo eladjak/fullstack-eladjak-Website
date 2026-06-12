@@ -161,6 +161,8 @@ export const boxGuideEn: AgentGuideData = {
         "State is Box's short-term memory — one file holding the current context: which phase you're in, what the goal is, which protocol is active. Every interaction starts by reading this state, and only then does Box respond. That's the difference between \"an assistant that replies to a message\" and \"a coach that remembers the journey.\"",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
+      beginner:
+        "State is simply Box's 'memory' — a single file that holds everything it currently knows about you: what phase you're in, what your goal is, which plan is active. Every time you talk to it, it reads this memory first and only then replies — and that's exactly the difference between 'an assistant reacting to a single message' and 'a coach who remembers your whole journey'. The nice part is that it's a simple, readable file, not a black box: you can always open it and see exactly what Box remembers about you.",
       content: [
         "Location: /opt/coach-data/state.json — a single, simple JSON file. You can open it in a text editor, read it, and edit it by hand. Fully transparent — no black box.",
         "Core fields: phase (intake/active/maintenance), protocol (keto/if/deficit), weight_start, weight_target, fast_start_hour. A minimal schema keeps the state easy to understand and maintain.",
@@ -208,6 +210,8 @@ export const boxGuideEn: AgentGuideData = {
         "Coaching is where Box moves from \"journal\" to \"coach.\" After enough data is collected (usually two weeks), the model starts identifying personal patterns and suggesting precise interventions — tailored to you, not generic advice from a book. The tone: asks and suggests, never commands, never judges.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "This is where Box moves from 'a journal that records what you ate' to 'a coach that tells you what to do now'. After it gets to know you for about two weeks, it starts spotting personal patterns — like 'you tend to eat more on Wednesday evenings' — and gives precise suggestions tailored to you, not generic advice from a book. And most importantly: its tone asks and suggests, it doesn't command or judge. For me (Elad) that's the difference between an app that logs and a real coach who knows me and knows when to push and when to give rest.",
       content: [
         "Weekly trend analysis: Box runs a CrewAI crew that reads the week's intakes, identifies an overall direction (progress/plateau/regression), and produces one or two insights. It isn't a busy chart — it's a short, data-backed sentence.",
         "Personal pattern detection: \"You tend to eat more on Wednesday evenings\" — Box finds this from empirical observation, not a pre-set rule. It works because intakes are retained in full for 90 days in [Qdrant](/en/guide/qdrant).",
@@ -230,6 +234,8 @@ export const boxGuideEn: AgentGuideData = {
         "This section is for people who want to extend Box beyond basic use. Every capability here adds a real layer of convenience — reduces friction, adds automation, or opens up new use cases. You don't have to implement them all — each one stands on its own.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section is for those who already like Box and want to turn it from something nice into a system that works for them effortlessly. Each capability here removes friction — for instance, instead of typing what you ate, you just photograph the plate and it figures it out; or your fitness device automatically sends your weight and sleep every morning, without you having to remember to report. You don't have to implement everything — each capability stands on its own, take what speaks to you. This part is more technical, but the goal is simple: less work for you, more benefit.",
       content: [
         "OCR integration: send a photo of a plate/menu/package → Google Cloud Vision API extracts the text → Box handles it like a regular intake. Free up to 1,000 images per month. Handy at a restaurant when you don't have the energy to type.",
         "iOS Shortcut: build a one-button shortcut on the device (Shortcuts app) that opens a direct chat with Box in WhatsApp — shrinks the time from \"idea\" to \"message\" to 3 seconds. Works from the Home Screen and the Apple Watch.",

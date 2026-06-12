@@ -238,6 +238,8 @@ export const understandAnythingGuideEn: AgentGuideData = {
         "This part is the small details that make the difference between 'I ran it once and it was expensive' and 'I run it when I need to, fast and cheap'. Most of the cost isn't in scanning the code (which is fast and nearly free), but in the stage where the AI reads and understands — so all the tips revolve around one thing: only let the AI analyze what really matters.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This whole section boils down to one simple piece of advice: let the AI read only what it actually needs, not everything. Imagine you're paying a lawyer by the hour — you wouldn't have them read the company's entire archive to answer one small question. Same here: the initial scan is fast and nearly free, so it's always worth running it first, seeing how big the thing is, and only then deciding which narrow part to let the AI dig into. For me (Elad) that's the difference between 'I ran it once and it was expensive' and 'I run it when I need to, fast and cheap'.",
       content: [
         "The biggest saving is running only on the relevant part: you can tell the tool to skip folders you don't care about (like tests or auto-generated files) and keep only the core",
         "The scan stage runs in seconds at almost no cost — you can always run it first, see how many files come in, and only then decide whether to pay for the AI stage",

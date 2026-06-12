@@ -137,6 +137,8 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
         "Installing Cloudflare Tunnel is among the fastest setups in DevOps. You need: a domain managed by Cloudflare (moving nameservers takes ~24h, but it's free), a Cloudflare account (free), and a VPS with sudo access. Everything is done via CLI, and after the first activation `systemd` handles auto-start.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "What surprises people is how fast it is — from idea to a live domain in about five minutes. The steps look like a lot because I wrote them out in detail, but in practice it's like assembling an IKEA piece of furniture: each step is one small, clear action. You install the software, log in to your account, create a tunnel, point a domain at it — and that's it, you have a live site without opening a single door on the server. For you that means even a server sitting at home behind the router, with no public address, can serve a site to the whole world.",
       content: [
         "1. Install cloudflared — add Cloudflare's apt repo: `curl -L https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null` (see official docs for the latest commands)",
         "2. Authenticate with Cloudflare — `cloudflared tunnel login`. Opens a browser (or shows a URL to copy) where you pick which domain the tunnel can manage",
@@ -165,6 +167,8 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
         "config.yml is the file that defines the tunnel's behavior. You can route by hostname (like domains in nginx), by path, or by both. For me, a single tunnel serves 10+ different domains, each one going to a different Docker container.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "The config file is essentially the tunnel's routing list — a notice board that says 'whoever's looking for this address, send them to that room'. Thanks to it, a single tunnel can serve dozens of different domains, each leading to a different service on the server. For me (Elad) one tunnel serves more than 10 domains, each reaching a different container — all defined in one short text file. The only rule worth remembering: always end with a 'if nothing matched — return 404' rule, so no undefined opening is left.",
       content: [
         "ingress — an array of rules. Each rule is checked in order; the first that matches wins. Always end with a catch-all `service: http_status:404`",
         "hostname — matches by domain. Supports wildcards: `*.example.com` catches every subdomain",
@@ -193,6 +197,8 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
         "Cloudflare Access is the Tunnel extension that turns it into a zero-trust gateway. Instead of your application handling login, Cloudflare itself requires the user to identify (via Google, GitHub, enterprise SSO, or an email one-time-pin) — and only if they pass does the request reach your service. The free tier includes 50 users, which makes it perfect for private dashboards, admin panels, or dev tools you want to be reachable from anywhere but only by you.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "Here comes a feature worth its weight in gold: Cloudflare can require a visitor to prove who they are — before the request even reaches your site. Picture a guard at the building entrance who checks ID before letting you into the elevator. For me (Elad) the private dashboard of the agent network is protected this way: only one email (mine) is allowed in, and everyone else is stopped at the door. The beauty is you don't need to build a login system in the app — Cloudflare does all the work, for free, up to 50 users. Perfect for private tools you want to reach from anywhere but only you.",
       content: [
         "Application — in the Zero Trust dashboard, you create an 'application' representing the domain/path. For example `dashboard.example.com`",
         "Policies — rules for who's allowed. 'Allow if email ends with @company.com', 'Allow if user is in GitHub org X', 'Require MFA'",
@@ -217,6 +223,8 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
         "Cloudflare Tunnel is powerful any time you need to expose something internal to the world. Here are the most common uses I've seen with myself and with clients.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "So far we talked about how it works; here you see why it's useful in real life. The thread running through all the examples is simple: any time you have something 'internal' you want to show the world without opening a dangerous door. Exposing a home media server without touching the router; showing a client a site running on your own machine in one click; receiving alerts from an external system while you develop. For me (Elad) it's even what connects the whole agent network to the internet. One tool — many uses.",
       content: [
         "Home server — expose Plex, Home Assistant, Nextcloud from home to the internet. No port forwarding on the router, no DDNS",
         "VPS with a domain — expose an app on a VPS without a static IP or SSL. The domain points at Cloudflare, which forwards through the tunnel",
@@ -241,6 +249,8 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
         "Cloudflare Tunnel isn't alone in the market, but it has the most generous free tier and the easiest setup for a VPS that serves web. Here's a comparison to the popular alternatives.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "Cloudflare Tunnel isn't the only one doing this magic, and it's worth knowing its peers because each has a better role in a different situation. ngrok is great for quick tests during development; Tailscale is excellent for connecting several of your own private machines (laptop, home server) without exposing anything to the world at all. My (Elad's) rule is simple: for publicly exposing a site on a server — Cloudflare Tunnel. For an office with several machines that need to talk to each other — Tailscale. And one important warning: don't rely on a single free service for life — always have an escape plan if it goes down.",
       content: [
         "ngrok — the veteran alternative. Free tier limited to a changing URL and 1 connection. Excellent for dev and short-lived webhooks; for production you have to pay",
         "Tailscale — VPN mesh. Excellent for connecting private machines (lab, home computer, VPS), but doesn't expose to the wide world — requires both sides to be in the tailnet",

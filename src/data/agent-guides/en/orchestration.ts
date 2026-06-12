@@ -231,6 +231,8 @@ export const orchestrationGuideEn: AgentGuideData = {
         "All the components connect nicely in a real case study: the content factory. An idea comes in, gets processed for every platform in one consistent voice, is saved in a classified bank, and distributed to all channels — all coordinated through the four components above. It illustrates why good orchestration turns a pile of capabilities into a production line.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
+      beginner:
+        "All the ideas so far come together in one living example: the 'content factory'. Picture a bakery. An idea for a cake comes in at one end; from there it passes through stations — mix the dough, bake, decorate differently for each customer — and out comes a variety of pastries, all from that single idea. Here it's exactly the same: one idea automatically becomes a version tailored to each platform (a short Facebook post, a Twitter thread, a blog article), gets saved, and is distributed to all of them. For me (Elad) this is what turns 'I have an idea' into 'the idea got published in ten places' without me doing each step by hand.",
       content: [
         "Source: an idea (from [Hermes](/en/guide/hermes), from the orchestrator, or from trend-spotting in the inbox) — not a raw news digest, but a worthy angle",
         "Factory: a generation layer (free Gemini) applies one consistent voice and produces a per-platform variant — TL;DR-first, no AI-tells",
@@ -252,6 +254,8 @@ export const orchestrationGuideEn: AgentGuideData = {
         "The most important thing to understand: you don't build the whole orchestration layer on day one. Start with two agents and one coordination component, and add the rest only when the pain appears. Each component solves a specific pain — don't adopt a component before you've felt the problem it solves.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "The most common mistake is trying to build the entire coordination system on day one. Don't. Just as you wouldn't buy an industrial kitchen to make one sandwich — start small and add a component only when you genuinely feel the pain it solves. For me (Elad) it started with two agents and one shared place they write to, and only as the mess grew did I add another coordination layer. The golden rule: every component here was born from a real problem — don't adopt one before you've felt the problem it's meant to solve.",
       content: [
         "Step 1 — two agents + the knowledge hub: the moment there are two, they need a shared place to write/read. That's the first component",
         "Step 2 — inbox: when you start missing important info inside the sea, add a prioritized work queue above the hub",

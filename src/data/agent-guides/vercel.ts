@@ -133,6 +133,8 @@ export const vercelGuide: AgentGuideData = {
         "ההתחלה ב-Vercel היא מהמהירות בעולם. אם יש לכם פרויקט Next.js שעובד מקומית, אתם 5 דקות מה-deploy הראשון.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "זה החלק שגורם לאנשים להתאהב ב-Vercel. דמיינו שכל פעם שאתם שומרים מסמך ב-Google Docs, מישהו אוטומטית מדפיס אותו, כורך אותו יפה ושם אותו על מדף בחנות שכל העולם יכול להיכנס אליה — בלי שתעשו כלום. ככה Vercel עובד עם אתרים: אתם מחברים אותו פעם אחת ל-GitHub, ומכאן כל שינוי שאתם שומרים בקוד הופך תוך כדקה לאתר חי באוויר, עם כתובת אמיתית ומנעול אבטחה. בלי שרת, בלי SSH, בלי כל הכאב ראש שהיה פעם.",
       content: [
         "1. צרו חשבון ב-vercel.com — אפשר עם GitHub login",
         "2. New Project → Import Git Repository — בחרו את הריפו שלכם",
@@ -162,6 +164,8 @@ export const vercelGuide: AgentGuideData = {
         "אחרי ה-deploy הראשון, יש שכבה שלמה של פיצ'רים שעושים את העבודה היומית טובה הרבה יותר.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "השניים שכדאי להבין כאן, גם אם אתם לא מתכנתים, הם 'preview' ו-'rollback'. preview זה כמו לראות תצוגה מקדימה של עוגה לפני שמגישים אותה לאורחים — כל שינוי מקבל כתובת זמנית משלו, שאפשר לשלוח ללקוח לאישור לפני שזה עולה לאתר האמיתי. rollback זה כפתור החזרה בזמן — אם בטעות העליתם משהו שבור, לחיצה אחת מחזירה את האתר לגרסה הקודמת שעבדה, תוך שניות. שתי הרשתות האלה הן מה שמאפשר לעבוד בלי פחד.",
       content: [
         "Preview Deployments — כל PR מקבל URL ייחודי. אפשר לשלוח ללקוח, למנכ\"ל או לצוות עיצוב לאישור לפני merge",
         "Branch Protection — יכולת לחבר את Vercel deploys כ-status check ב-GitHub. לא ממזגים אם ה-build נופל",
@@ -191,6 +195,8 @@ export const vercelGuide: AgentGuideData = {
         "Vercel תומכת בשני סוגי functions. ההבחנה ביניהם חשובה — היא משפיעה על latency, cold starts ויכולות.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "אל תיבהלו מהמונח 'function' — מדובר פשוט בחתיכת קוד קטנה שרצה בענן רק כשצריך אותה, בלי שתחזיקו שרת דולק כל הזמן. ל-Vercel יש שני סוגים, וההבדל הוא כמו בין שליח אופניים מקומי לבין מרכז לוגיסטי גדול. 'Edge' זה השליח הזריז שיושב קרוב אליכם ועונה כמעט מיד — מצוין לדברים קלים ומהירים. 'Serverless' זה המרכז הגדול שיכול לעשות עבודה כבדה (להתחבר לבסיס נתונים, חישובים מורכבים), אבל לוקח לו רגע יותר להתעורר. הסעיף הזה עוזר להחליט מתי כל אחד מהם מתאים.",
       content: [
         "Serverless Functions (default) — רצות על AWS Lambda. תומכות בכל Node.js APIs, יכולות להתחבר ל-DB, סביבת ריצה מלאה. cold start ~200-500ms",
         "Edge Functions — רצות על Cloudflare Workers (V8 isolates). מהירות מאוד (cold start <50ms), בכל אזור גלובלי. אבל מוגבלות: רק Web APIs, אין FS, גודל קוד עד 1MB",
@@ -218,6 +224,8 @@ export const vercelGuide: AgentGuideData = {
         "Vercel נדיבים ב-tier החינמי, אבל יש מגבלות. חשוב לדעת מה כלול ומה לא — אחרת תופתעו בחיוב.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "החדשות הטובות: לפרויקט אישי, בלוג או תיק עבודות — Vercel בחינם, ובגדול. החדשות שכדאי להכיר מראש: הרובד החינמי נדיב אבל לא אינסופי, ואם האתר שלכם פתאום מתפוצץ בתנועה או עושה הרבה עבודה כבדה, אתם עלולים להתחיל לשלם — לפעמים בלי לשים לב. לכן שווה להבין מראש מה כלול ומה לא, כדי לא להיות מופתעים בחיוב. אצלי (אלעד) רוב האתרים האישיים יושבים בנוחות ברובד החינמי כבר שנים.",
       content: [
         "Hobby (חינם) — 100GB bandwidth בחודש, 100h serverless function execution, 6,000 build minutes, deploys ללא הגבלה. שימוש לא-מסחרי",
         "Pro ($20/חודש) — 1TB bandwidth, 1,000h functions, 24,000 build minutes, password-protected previews, advanced analytics. רוב הפרילנסרים והעסקים",
@@ -243,6 +251,8 @@ export const vercelGuide: AgentGuideData = {
         "Vercel הוא הכי טוב ל-Next.js, אבל לא היחיד. הנה השוואה מהירה.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "Vercel הוא מצוין, במיוחד אם בניתם את האתר ב-Next.js (ה-framework שהחברה עצמה יצרה), אבל הוא לא היחיד בשוק. Cloudflare Pages, למשל, נותן רוחב פס בלי הגבלה בחינם — שווה זהב לאתר שמושך הרבה תנועה. Netlify ו-Railway הם שחקנים נוספים, כל אחד עם הטעם שלו. הכלל שלי (אלעד) פשוט: לאתר Next.js — Vercel. לאתר סטטי שעלול לחטוף הרבה גולשים — Cloudflare. לא חייבים להתחתן עם אף אחד מהם; המעבר קל יחסית.",
       content: [
         "Cloudflare Pages — חינמי נדיב (500 builds בחודש, unlimited bandwidth!), workers/D1 בעלות. תמיכה ב-Next.js פחות חלקה מ-Vercel, אבל מצוינת לאתרים סטטיים ול-Workers",
         "Netlify — היריב הוותיק. דומה מאוד ל-Vercel, אולי קצת פחות מהיר. ה-tier החינמי 100GB bandwidth (כמו Vercel)",

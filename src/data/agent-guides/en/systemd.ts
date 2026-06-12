@@ -132,6 +132,8 @@ export const systemdGuideEn: AgentGuideData = {
         "A service unit is a simple INI file describing how to run your service. Three main sections: [Unit] (description and dependencies), [Service] (how to run — command, user, restart policy), and [Install] (where in the boot order to enable). Each of my 13 agents is defined in such a file under `/etc/systemd/system/`.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "A service unit is essentially an 'ID card' for a piece of software you want to always be running — a short file that tells the server: this is my name, this is the command that starts me, and if I fall over — bring me back immediately. Without it, if you start a program by hand and the server reboots overnight — it just doesn't come back. With it, the server keeps it alive 24/7. For me (Elad), each of the 13 agents is one such file of about 20 lines — and that's all it takes to keep them running nonstop.",
       content: [
         "[Unit] Description — a short English description shown in `systemctl status`",
         "[Unit] After — dependencies. For example `After=network.target postgresql.service` says 'wait for the network and Postgres to come up before you start'",
@@ -162,6 +164,8 @@ export const systemdGuideEn: AgentGuideData = {
         "systemctl is the CLI for managing systemd. Most of what you do is very simple commands you'll repeat dozens of times a day. Here's the set that covers 95% of the time.",
       color: "from-purple-600 to-violet-500",
       difficulty: "beginner",
+      beginner:
+        "If a service unit is the ID card, systemctl is the remote you use to turn things on and off. Four commands cover almost everything: start (power on), stop (power off), restart (off and on), and status (how are you doing?). The most useful of them is actually status — it's the first command you run when something isn't working, and it tells you both whether the service is alive and shows its latest log lines. Like taking someone's temperature before deciding what to do.",
       content: [
         "`systemctl start <service>` — one-shot start. The service comes up but won't return after a reboot",
         "`systemctl enable <service>` — marks 'auto-start at every boot'. Doesn't start now",
@@ -192,6 +196,8 @@ export const systemdGuideEn: AgentGuideData = {
         "journalctl is the tool for reading logs systemd collects. Anything your services write to stdout or stderr goes there automatically, with rich metadata (precise timestamp, PID, unit, user). You can search by any of them, filter by time range, follow in real time — all in one tool.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "A log is the software's diary — everything it 'said' to itself while running: what succeeded, what failed, when. When something breaks, that diary is the best evidence you have. The beauty of journalctl is that it gathers the diaries of every service into one place and lets you search them like Google — 'show me just the errors from the last hour', 'follow what's happening right now in real time'. Instead of chasing ten scattered files, you query it all from one spot.",
       content: [
         "`journalctl -u kami-agent` — every log for that service from the start. Long, but comprehensive",
         "`journalctl -u kami-agent -f` — follow, in real time. The first tool for debugging an active service",
@@ -222,6 +228,8 @@ export const systemdGuideEn: AgentGuideData = {
         "systemd-timers is the modern replacement for cron. Instead of one file with archaic syntax (`* * * * *`), each scheduled job is two files: `myjob.service` (what to do) and `myjob.timer` (when). Advantages over cron: full history (`journalctl -u myjob.timer`), restart on failure, advanced features like 'run weekly at 2am only if the server was up then'.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "A timer is an alarm clock for the server — you tell it 'do this thing every night at 3' and it makes sure that happens. This used to be done with a veteran tool called cron, which systemd-timers came to replace. The big advantage: if the server happened to be off at exactly the hour the job was supposed to run, a timer 'wakes up' and runs it the moment it's back on its feet — whereas cron just silently skips it without telling you. Plus a full history is kept, so you can always check whether last night's backup actually ran.",
       content: [
         "OnCalendar — schedule by time. Clearer syntax than cron: `OnCalendar=daily`, `OnCalendar=*-*-* 03:00:00`, `OnCalendar=Mon..Fri 09:00`",
         "OnBootSec — how long after boot to run. `OnBootSec=5min` = 5 minutes after the server came up",
@@ -249,6 +257,8 @@ export const systemdGuideEn: AgentGuideData = {
         "One of systemd's modern features is the ability to isolate services without Docker — through kernel mechanisms (namespaces, cgroups, capabilities). If your project doesn't strictly need containerization (you don't need to build an image to share with others), systemd can give you 80% of Docker's isolation in a few lines.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "Here systemd does something surprising: it can put each service in 'a room of its own'. Give it a memory ceiling it isn't allowed to cross, block it from touching files that don't belong to it, and make sure that even if it has a security hole — the damage stays locked in that room and doesn't spread across the whole server. A lot of people think you need Docker for that kind of isolation, but for simple projects systemd gives you roughly 80% of it in a few lines — no image to build, no extra layer.",
       content: [
         "MemoryMax / MemoryHigh — memory ceiling. If the service exceeds it, the OOM-killer kills it (and systemd restarts it)",
         "CPUQuota — max CPU percentage. `CPUQuota=50%` = at most half a core",

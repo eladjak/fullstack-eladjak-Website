@@ -306,6 +306,8 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "A workflow is an ordered sequence of steps you run again and again. When the right workflow is defined up front, the task moves faster, with higher quality, and without skipping important steps. Here are five workflows I use daily — all battle-tested on real projects.",
       color: "from-indigo-600 to-blue-500",
       difficulty: "intermediate",
+      beginner:
+        "A workflow is simply a 'fixed recipe' — a sequence of steps you repeat because it's been proven to work. Just as a cook has a set order of operations that ensures the dish comes out right every time, the same applies here: when you define the right process up front, the work comes out faster and higher quality, and you don't skip important steps (like checking security before going live). This section presents five recipes I (Elad) use every day. For beginners my advice: pick one, make it a habit, and only then add more.",
       content: [
         "TDD (Test-Driven Development) — write the test before the code → run (red, because there's no implementation yet) → write the code → run (green, now it works) → refactor. A discipline that guarantees your code works and you can trust it",
         "Automated security scan — run the /security-review command to scan for vulnerabilities before every deployment. Claude checks for SQL Injection, XSS, exposed secrets, and more",
@@ -327,6 +329,8 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "Once you've been working with Claude Code for a while, there's an extra layer of advanced capabilities that takes productivity to another level. The tips here come from power users and unlock abilities that many people don't even know exist.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "These are the tricks that separate someone who just 'uses the tool' from someone who 'gets the most out of it'. Most of them are surprisingly simple — for example, there's a single word you add to a request to make Claude stop and think deeply before answering, great for complex tasks. There's no need to apply everything on day one; take one trick that speaks to you, try it, and come back to the rest when you feel ready. This section is more advanced, but every line in it was born from real work and is worth the time.",
       content: [
         "ultrathink — a magic word. Add it to your prompt and Claude switches into Extended Thinking mode — ideal for complex tasks and planning",
         "/compact — compresses the context window in long conversations. Saves tokens and lets you continue a session without opening a new one",

@@ -264,6 +264,8 @@ export const kamiGuideEn: AgentGuideData = {
         "These are the small things I (Elad) have learned after six months of using Kami every single day — the details that separate a generic bot from a personal agent that genuinely works for you. Each of them either fixed a bug for me or unlocked a meaningful capability, and they are all worth the time it takes to understand them.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section is a collection of 'the small details that make the difference' — things I (Elad) only learned after six months of using Kami every day. Each one fixed some headache or added a real capability: from how to give every family member their own personal assistant with a different personality, to how to back up the conversation history so it doesn't vanish. This part is more technical, but you don't need to apply all of it on day one — take what's relevant to you, and come back to the rest as you grow into it.",
       content: [
         "WhatsApp Business vs Personal — Kami works perfectly with a regular personal number; Green API does not require a business profile or Meta verification",
         "Rate limits — the Green API free tier caps at 1,000 messages per month; the Pro plan starts at $39/month with no cap, which is cost-effective for heavy use",

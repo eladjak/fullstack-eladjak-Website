@@ -133,6 +133,8 @@ export const githubActionsGuide: AgentGuideData = {
         "הדרך הטובה ביותר ללמוד היא לראות workflow פשוט שעושה משהו אמיתי. הדוגמה הזו מריצה `tsc --noEmit` ו-`eslint` על כל push ועל כל PR — כך שאף פעם לא ימזגו ref שלא עובר type-check.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
+      beginner:
+        "הדרך הכי טובה להבין את הרעיון היא דרך דוגמה קטנה אבל אמיתית. נדמיין שכל פעם שאתם מוסרים שיעורי בית, בודק רובוטי עובר עליהם אוטומטית ומסמן אם יש טעות — עוד לפני שהמורה רואה אותם. זה בדיוק מה שה-workflow כאן עושה: בכל שינוי בקוד, הוא בודק לבד שאין שגיאות, ורק קוד שעובר את הבדיקה רשאי להתמזג. אצלי (אלעד) זה אומר שאני ישן בשקט — אי אפשר בטעות 'לשבור' את האתר, כי השומר האוטומטי תופס את זה קודם.",
       content: [
         "צרו תיקייה: `mkdir -p .github/workflows`",
         "צרו קובץ: `.github/workflows/ci.yml`",
@@ -160,6 +162,8 @@ export const githubActionsGuide: AgentGuideData = {
         "אחרי ש-CI עובד, השלב הבא הוא deploy אוטומטי. Vercel תומכים ב-GitHub integration שעושה deploy על כל push בלי workflow מיוחד — אבל אם אתם רוצים שליטה מלאה (deploy רק אחרי שה-tests עוברים, ל-environment ספציפי, עם build args מותאמים), workflow YAML נותן את זה.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "עד עכשיו השומר רק בדק שהקוד תקין. עכשיו הוא גם מעלה אותו לאוויר בשבילכם. תחשבו על זה כמו פס ייצור: שמתם חומר גלם בקצה אחד (שמרתם שינוי), והוא יוצא בקצה השני כמוצר מוגמר על המדף (אתר חי) — בלי שתיגעו בשום דבר באמצע. היופי הוא שאפשר לשרשר תנאי: 'תעלה לאוויר רק אם הבדיקות עברו'. כך שינוי שבור פשוט נעצר בדרך ולא מגיע למשתמשים. אצלי (אלעד) מרגע שאני שומר ועד שהאתר באוויר עוברות בדרך כלל פחות משתי דקות.",
       content: [
         "אופציה A: Vercel GitHub integration (הקלה) — פשוט מחברים את הריפו לפרויקט ב-Vercel, וזה מתחיל לעבוד אוטומטית. אין צורך ב-workflow כלל",
         "אופציה B: workflow מותאם — שולטים מתי לעשות deploy. ה-workflow למטה מריץ tests קודם, ורק אם הם עוברים — שולח ל-Vercel",
@@ -187,6 +191,8 @@ export const githubActionsGuide: AgentGuideData = {
         "כל workflow שעושה deploy צריך גישה ל-cloud כלשהו (Vercel, AWS, Cloudflare). הדרך הישנה היא טוקנים סטטיים שנשמרים ב-GitHub Secrets — זה עובד אבל לא אופטימלי (טוקן שדלף = גישה לחשבון). הדרך המודרנית היא OIDC (OpenID Connect): GitHub מנפיקים JWT ייחודי לכל workflow, ואתם מגדירים ב-cloud trust ש'אם ה-JWT הזה הגיע מ-repo X, branch Y, אתה יכול להניח שזה אני'.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "סוד (secret) זה כל מין מפתח שנותן גישה לדברים יקרים — מפתח ל-cloud, סיסמה לבסיס נתונים, טוקן לשירות בתשלום. הכלל הברזל, ואני (אלעד) לא מתפשר עליו: סוד כזה אסור לכתוב בתוך הקוד בשום אופן. קוד מתפרסם, נשמר בהיסטוריה לנצח, וסורקים אוטומטיים מוצאים מפתחות חשופים תוך דקות ומנצלים אותם. במקום זה שומרים אותם בכספת מוצפנת ש-GitHub מספק, וה-workflow שולף אותם משם רק כשהוא צריך — בלי שהם נראים אף פעם בקוד או בלוגים.",
       content: [
         "GitHub Secrets — מקום שמור להגדרות רגישות. Settings → Secrets and variables → Actions. גישה רק מתוך workflows, לא נראה בלוגים",
         "Repository secrets — לכל הריפו. Organization secrets — לכל הארגון. Environment secrets — רק ל-deployment לסביבה ספציפית",
@@ -214,6 +220,8 @@ export const githubActionsGuide: AgentGuideData = {
         "אחרי שיש workflow בסיסי שעובד, הנה הפיצ'רים שיעלו אתכם רמה.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "כל הסעיף הזה הוא על לעבוד חכם יותר, לא קשה יותר. הדוגמה היפה ביותר היא 'matrix' — במקום לבדוק את הקוד שלכם פעם אחת, בודקים אותו בו-זמנית על כמה גרסאות וכמה מערכות הפעלה שונות, כמו לטעום מנה בכמה מטבחים בבת אחת כדי לוודא שהיא יוצאת טוב בכולם. כך תופסים מיד בעיה שמופיעה רק על Windows או רק בגרסה ישנה. אלה הפיצ'רים שמפרידים בין 'workflow שעובד' ל'workflow מקצועי'.",
       content: [
         "Matrix builds — להריץ את אותו job עם שילובי משתנים שונים. למשל Node 18, 20, 22 + Linux, Windows, macOS = 9 ריצות במקביל. תופס בעיות תאימות מיד",
         "Reusable workflows — workflow שאפשר לקרוא לו ב-`uses: org/repo/.github/workflows/x.yml@main`. מצוין כשיש 10 ריפוז שעושים אותם דברים",
@@ -235,9 +243,11 @@ export const githubActionsGuide: AgentGuideData = {
       title: "טיפים מהשטח",
       subtitle: "מה למדתי בשלוש שנים של GitHub Actions",
       description:
-        "אחרי שלוש שנים של שימוש בGitHub Actions, אלה הדברים שאני הייתי רוצה לדעת בהתחלה.",
+        "אחרי שלוש שנים של שימוש ב-GitHub Actions, אלה הדברים שאני הייתי רוצה לדעת בהתחלה.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "הסעיף הזה הוא פשוט אוסף של 'הלוואי שמישהו היה אומר לי את זה ביום הראשון'. רובם נוגעים בשני דברים שקל לשכוח כשמתחילים: לא לבזבז (לשים גבול זמן לכל משימה, כדי שתקלה לא תשרוף את כל הדקות החינמיות שלכם), ולא להיפרץ (לתת לכל workflow רק את ההרשאות שהוא באמת צריך, לא יותר). אלה לא דברים מסובכים — רק כאלה שלומדים בדרך כלל אחרי שנכווים פעם אחת. אז קחו אותם מראש.",
       content: [
         "תמיד קבעו `timeout-minutes` על job. ברירת המחדל היא 6 שעות — workflow תקוע יכול לאכול את כל הדקות החינמיות שלכם",
         "תמיד הוסיפו `permissions:` ברמת ה-workflow. ברירת המחדל היא 'read all', אבל לעבודה ספציפית צריך פחות. עקרון least-privilege",

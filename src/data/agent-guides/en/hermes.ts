@@ -136,6 +136,8 @@ export const hermesGuideEn: AgentGuideData = {
         "The beauty of the Hermes pattern is that each stage is a short, independently testable function — which is exactly why you can start with a minimal version (an hour's work) and grow it incrementally. This is the canonical SRE approach at Google: a self-healing system is built from small, safe steps, not as one giant monolith.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
+      beginner:
+        "The whole idea is a simple five-step loop, exactly like a doctor: check whether something's wrong (detection), figure out what the problem is (diagnosis), give a treatment (repair), verify the patient is actually healthy (verification), and remember what worked so next time is faster (learning). The beauty is that each step is a small piece you can test on its own, so you can start with a humble hour-of-work version and grow gradually. For me (Elad) this is what a system that fixes itself looks like — without me having to get up in the middle of the night.",
       content: [
         "Stage 1 — Detection: a [cron](/en/guide/dashboard) job runs every 5 minutes, iterates the service list, and runs a simple healthcheck (docker inspect, curl /health, systemctl is-active). If something is not green — jump to the next stage",
         "Stage 2 — Diagnosis: take tail -100 of the relevant log and send it to [Claude](/en/claude-code) or Gemini with a short prompt: 'this is the log of a service that crashed. What's the root cause? What would you recommend fixing?' — the answer comes back classified (OOM, port conflict, network, config) so the next stage knows which action to pick",
@@ -183,6 +185,8 @@ export const hermesGuideEn: AgentGuideData = {
         "The most common mistake junior SRE teams make: 'I ran a restart, it returned 0, it's probably fine.' It isn't. Verification is the ability to prove that after the fix the service is genuinely alive, genuinely responsive, and genuinely doing what it's supposed to do. That's the difference between a Hermes that works and a script that runs at night and lulls you into feeling everything's fine — until morning reveals that the API was returning 500 all night long.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "This may be the most important part, and most people underrate it. The classic mistake: 'I restarted the service, the command ran, so it must be fine.' Not necessarily. Verification is the difference between 'the command ran' and 'the patient is actually healthy'. Like a doctor who doesn't settle for prescribing medicine but comes back to check the fever really dropped. For me (Elad) I invest more code in verification than in the fix itself — because that's exactly what decides whether I sleep soundly or discover in the morning that the site returned errors all night while 'everything looked green'.",
       content: [
         "The health endpoint must return 200 + JSON in the expected shape (not just status=ok — also required fields like version, uptime)",
         "Response time under a reasonable threshold (a service answering in 5 seconds instead of 200ms is 'unhealthy' even if it came back)",
@@ -209,6 +213,8 @@ export const hermesGuideEn: AgentGuideData = {
         "Without memory, Hermes is a collection of scripts running in a loop. With memory — it becomes something that learns from your network. Every successful fix is stored as an embedding in [Qdrant](/en/guide/qdrant), and the next time a similar failure appears, a 40ms semantic search surfaces the action that worked before. That's the difference between a static system and one that gets smarter with every incident.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "advanced",
+      beginner:
+        "Without memory, Hermes is a technician who shows up from scratch each time and doesn't remember solving the exact same issue last week. With memory, it becomes a veteran technician who says 'ah, I know this one — try this first'. Every successful fix is stored, and the next time a similar symptom appears, a quick 'by meaning' search finds the solution that worked before and tries it first. The result for me (Elad): after half a year, the share of fixes that succeed on the first try jumped from 60% to 85% — without changing a line of code, just because the system remembers.",
       content: [
         "A collection named healing_history in [Qdrant](/en/guide/qdrant) (cosine distance, 768 dimensions using gemini-embedding-001)",
         "Record fields: {ts, service, symptom_embedding, action_taken, success, duration_ms}",
@@ -231,6 +237,8 @@ export const hermesGuideEn: AgentGuideData = {
         "Escalation is a last resort — the moment Hermes throws its hands up and says 'I can't do this, please help.' The whole point of Hermes is to cut alerts down to 10% of cases — reserved only for the new and interesting. If Hermes sends too many alerts, that's a sign the whitelist or memory isn't good enough, not a sign that 'the tool is noisy.' PagerDuty's starter plan runs $21/user/month (modern alternatives like BetterStack, Grafana OnCall or Squadcast come in cheaper still); Hermes costs $0 and saves your sleep on top.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
+      beginner:
+        "Escalation is the moment Hermes throws up its hands and says 'I can't manage on my own, please help.' And that's the whole beauty: the entire goal is for that moment to happen as rarely as possible. Picture a good night guard — he doesn't call you about every noise, only when something truly happened that he can't handle. If Hermes wakes you a lot, it's not 'the tool being noisy' — it's a sign you need to teach it to handle more cases on its own. For me (Elad) it wakes me once or twice a week, always about something I've genuinely never seen before. And it replaces an alerting service that costs tens of dollars a month — for free.",
       content: [
         "3 failed attempts — every whitelist action was tried, nothing brought the service back (this is the most common escalation trigger)",
         "Service DOWN > 10 minutes — even if 3 attempts haven't been exhausted; 10 minutes of downtime is already worth a human's eyes",
@@ -253,6 +261,8 @@ export const hermesGuideEn: AgentGuideData = {
         "Important note: the Hermes pattern (detect→diagnose→fix→verify→learn) lives inside the agents and services themselves — cron jobs, webhook handlers, or in-code modules — not one central service. That's an advantage: effective self-healing is distributed across every component. 2026 update: beyond the self-healing pattern it grew from, today in my network Hermes is also the network's studio/worker agent — the headless component that generates assets, analyzes data, and runs code on behalf of the orchestrator. Both sides coexist: the pattern that keeps the server alive, and the agent that produces work on top of it.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "An important point to grasp: Hermes isn't 'one piece of software' you install, but an approach — a way of thinking you can plant inside every agent and service you already have. Like a healthy habit you can teach every team member, not a separate department. For me (Elad) the same self-healing approach lives inside [Kaylee](/en/guide/kaylee) and inside the [Delegator](/en/guide/delegator), without changing their architecture. This section is more technical, but the idea is simple: any component that can check itself, fix itself, and learn from its mistakes — is a component you can rely on.",
       content: [
         "Hermes as a studio agent (my network, 2026): a headless component that takes jobs from [Claude Code](/en/claude-code) (the orchestrator) and returns structured output — visual asset generation, data-science analysis, and delegating coding tasks to other coding agents. Runs on free Gemini, and chats on Telegram in text and voice (Gemini TTS).",
         "Division of labor across the network: [Kami](/en/guide/kami) = human interface (WhatsApp), Claude Code = dev orchestration, Hermes = studio/worker, [Kaylee](/en/guide/kaylee) = reliability/infra + distribution. Each knows the others and delegates to the right one — the network's 'harmony map'.",

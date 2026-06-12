@@ -137,6 +137,8 @@ export const redisStreamsGuide: AgentGuideData = {
         "אם אתם רק רוצים pub/sub פשוט — סוכן A דוחף, סוכן B מקשיב — אתם צריכים רק את XADD ו-XREAD. בלי consumer groups, בלי acknowledgments. הקוד למטה הוא דוגמה ב-Python שמראה את שני הצדדים.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "כל המנגנון מסתכם בשתי פעולות, וזה כל היופי. אחת ששמה הודעה בתיבת הדואר (XADD), ואחת שבודקת אם הגיע משהו חדש (XREAD). זהו. אם סוכן אחד רוצה להגיד משהו לסוכן אחר — הראשון 'משאיר פתק' בלי לדעת מי יקרא אותו, והשני בא בקצב שלו ואוסף את הפתקים שעוד לא ראה. בלי שהשניים צריכים לרוץ באותו רגע, ובלי שאחד מחכה לשני. הקוד למטה מראה בדיוק את שני הצדדים.",
       content: [
         "XADD — שולח הודעה. הסוכן הדוחף לא צריך לדעת מי קורא. כל ההודעות נשמרות עד שתעשו XTRIM",
         "XREAD ID `$` — קריאה של 'הודעות חדשות בלבד מהרגע הזה'. שימושי ל-consumer חדש",
@@ -163,6 +165,8 @@ export const redisStreamsGuide: AgentGuideData = {
         "Consumer groups הם הפיצ'ר שעושה את Redis Streams ל-message broker רציני. במקום שכל הצרכנים יראו את כל ההודעות (כמו pub/sub), צרכנים בתוך אותה group מתחלקים בעבודה — כל הודעה מגיעה ל-consumer אחד בלבד בקבוצה. אם רוצים יתירות, מקימים כמה consumers; אם אחד נופל, השאר ממשיכים. בנוסף, יש מנגנון acknowledgment: צרכן מאשר 'טיפלתי בהודעה X', ו-Redis זוכר. אם הצרכן נופל לפני שאישר, ההודעה תיתפס שוב על ידי צרכן אחר.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "דמיינו דלפק בבנק עם תור אחד וכמה פקידים. בלי ניהול, כל פקיד היה קורא לאותו לקוח — בלגן. עם consumer group, כל לקוח (הודעה) מטופל בדיוק על ידי פקיד אחד, ואם פקיד קם לשירותים באמצע — לקוח שלא טופל חוזר לתור ופקיד אחר לוקח אותו. זה בדיוק מה שהופך את Redis Streams ממנגנון 'תכריז לכולם' למנגנון רציני של חלוקת עבודה, עם אישור מסודר על כל משימה שהושלמה. בלי זה, שני workers היו עושים את אותה עבודה פעמיים.",
       content: [
         "XGROUP CREATE — יוצר consumer group. `XGROUP CREATE agent:tasks workers $` יוצר group בשם 'workers' שמתחיל מהודעות חדשות",
         "XREADGROUP — קריאה כחבר ב-group. `XREADGROUP GROUP workers consumer-1 COUNT 10 BLOCK 5000 STREAMS agent:tasks >` — מקבל הודעות לא-מטופלות",
@@ -190,6 +194,8 @@ export const redisStreamsGuide: AgentGuideData = {
         "אחרי שמכירים את הבסיס, יש כמה patterns מקובלים שעוזרים לתכנן את הארכיטקטורה.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
+      beginner:
+        "Pattern זה פשוט מתכון מוכן — דרך ידועה לסדר את החלקים שכבר עובדת אצל הרבה אנשים, אז אתם לא צריכים להמציא אותה מחדש. למשל: 'fan-out' זה כמו רשימת תפוצה — הודעה אחת מגיעה לכמה גורמים בו-זמנית. 'work queue' זה כמו תור במשרד — הודעה אחת, ומי שפנוי לוקח אותה. אצלי (אלעד) שני המתכונים האלה ביחד הם בעצם כל עמוד השדרה של רשת הסוכנים: כל סוכן משאיר אירועים, וכל סוכן מקשיב לעצמו.",
       content: [
         "Fan-out — הודעה אחת מטופלת על ידי כמה צרכנים שונים. כל אחד עם group משלו. למשל: הודעת WhatsApp נשלחת ל-Box (תזונה), Adopter (תוכן) ול-Dashboard (לוג). שלוש groups, שלוש קריאות עצמאיות לאותו stream",
         "Work queue — הודעות מטופלות פעם אחת בלבד. consumer group יחיד עם כמה consumers. למשל: רשימת משימות עיבוד תמונות, 5 workers מתחלקים",
@@ -213,6 +219,8 @@ export const redisStreamsGuide: AgentGuideData = {
         "Redis בייצור דורש 3 דברים: persistence (שלא יאבד דאטה אם Redis קורס), ניהול גודל (שה-stream לא יבלע את כל הזיכרון), וניטור.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "Redis מחזיק את הכול בזיכרון, וזה מה שעושה אותו מהיר — אבל גם מה שמסוכן בו. זיכרון נמחק כשמכבים את המחשב, אז בלי הגדרה נכונה כל ההודעות נעלמות אם השרת קורס. שלושת הדברים בסעיף הזה הם הביטוח: שמירה לדיסק (שלא יאבד דאטה), הגבלת גודל (שה-stream לא יבלע את כל הזיכרון), וניטור (שתדעו שמשהו נתקע לפני שזה מתפוצץ). אצלי (אלעד) כל 13 הסוכנים מסתדרים עם פחות מ-100MB זיכרון בזכות ההגדרות האלה.",
       content: [
         "Persistence — שני סוגים: AOF (append-only file, יותר בטוח) ו-RDB (snapshot כל N דקות). מומלץ AOF every-second כברירת מחדל",
         "MAXLEN — תמיד הוסיפו `XADD ... MAXLEN ~ 10000` כדי לחתוך אוטומטית. ה-`~` אומר 'בערך', יעיל יותר",
@@ -242,6 +250,8 @@ export const redisStreamsGuide: AgentGuideData = {
         "Redis Streams זה lightweight, אבל לא מתאים לכל מקרה. הנה השוואה לפתרונות אחרים.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
+      beginner:
+        "Redis Streams זה האופנוע: קל, זריז, מתניע מיד. אבל אם אתם צריכים להזיז משאית של סחורה, אופנוע לא יעזור — ואז נכנסות אלטרנטיבות כמו Kafka, שהן כבדות ומסובכות יותר אבל בנויות לעומסים ענקיים. הכלל שלי (אלעד) פשוט: תתחילו עם הכלי הקל, ותעברו לכבד רק כשאתם באמת מרגישים שהקל לא מספיק. רוב המוצרים בעולם לעולם לא מגיעים לנפח שמצדיק את Kafka — ולשלם את מחיר הסיבוך שלו מראש זה בזבוז.",
       content: [
         "Apache Kafka — אם יש לכם מיליארדי הודעות ביום, או צריך retention של חודשים. דורש Java, Zookeeper, partitions, brokers — overhead משמעותי. לרוב המקרים זה overkill",
         "RabbitMQ — message broker מסורתי. יותר אופציות routing מ-Redis (exchanges, bindings). פחות פופולרי ב-2026, אבל עדיין יציב",
