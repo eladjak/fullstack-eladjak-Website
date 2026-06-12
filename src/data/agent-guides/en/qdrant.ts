@@ -213,6 +213,8 @@ export const qdrantGuideEn: AgentGuideData = {
         "To make the concepts feel concrete, here are 6 real use cases for collections I run in production every day across the agent network. Each solves a different problem, and together they form the network's collective memory system.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "So far we talked about how Qdrant works; here you see why it's worth it, through living examples. Each item below is a 'memory drawer' of my (Elad's) network: one remembers what I talked about on WhatsApp with [Kami](/en/guide/kami), one remembers which failures have already been fixed, one remembers which new tools were found. The common thread: all of these are memory you search 'by meaning', not by an exact word — and that's what turns a collection of agents into a network that remembers and learns, instead of a system that forgets everything each morning.",
       content: [
         "kami_memory — stores [Kami](/en/guide/kami)'s most recent WhatsApp messages. Before replying to me, Kami searches this collection to see whether we've already talked about something similar, so conversations flow and don't repeat themselves",
         "agents_registry — a live registry of every agent in the network with a description of what each one does. When I ask something like 'what does [Hermes](/en/guide/hermes) do?' I get a full description in under a second",
@@ -235,6 +237,8 @@ export const qdrantGuideEn: AgentGuideData = {
         "This section is the small details that make the difference between 'I have Qdrant' and 'my Qdrant flies, saves money, and lasts for years.' These are the things I learned over a year of running it in production, with a whole agent network leaning on this memory every second.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section is the small details that make the difference between 'I have Qdrant' and 'my Qdrant runs fast, saves money, and lasts for years.' If I had to distill it into one thing for a non-technical reader, it's this: back up your memory. Just as you wouldn't leave a family photo album without a copy, you must never leave the system's memory without a backup — because if it's wiped, everything the system 'learned' is gone. For me (Elad) there's an automatic backup every night. The rest of the section is more technical, but that's the lesson you mustn't skip.",
       content: [
         "Payload indexing — if you filter heavily on a specific JSON field (say 'year' or 'user_id'), define a dedicated index on it in Qdrant. This speeds filtering up by orders of magnitude and cuts scan time",
         "Snapshot backup — GET /collections/<name>/snapshots creates a full compressed backup of a collection in a single file. In my setup it runs on a nightly cron via [Docker](/en/guide/docker) and gets uploaded to external storage",
