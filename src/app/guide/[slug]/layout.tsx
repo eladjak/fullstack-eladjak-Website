@@ -11,6 +11,23 @@ interface LayoutProps {
 }
 
 /**
+ * Clamp a meta description into the 120-160 char SEO/GEO range. If the source
+ * is longer than the max it is cut on the last word boundary before the limit
+ * and an ellipsis is appended; shorter strings are returned untouched.
+ */
+function clampMeta(raw: string, max = 158): string {
+  const text = raw.replace(/\s+/g, " ").trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  const base = (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).replace(
+    /[\s.,;:]+$/,
+    "",
+  );
+  return `${base}…`;
+}
+
+/**
  * Pre-generate params for all guides so each /guide/[slug] route has static
  * metadata resolved at build time (better for Google + AI engine indexing).
  */
@@ -38,10 +55,9 @@ export async function generateMetadata({
     /\[([^\]]+)\]\([^)]+\)/g,
     "$1",
   );
-  const description = `${cleanTagline}. ${cleanHero.slice(0, 140)}`.slice(
-    0,
-    300,
-  );
+  // Clamp meta description to the SEO/GEO sweet spot (120-160 chars). Prefer
+  // tagline + start of hero, then trim on a word boundary so it stays readable.
+  const description = clampMeta(`${cleanTagline}. ${cleanHero}`);
 
   const ogImageUrl = guide.heroBgImage
     ? guide.heroBgImage.startsWith("http")

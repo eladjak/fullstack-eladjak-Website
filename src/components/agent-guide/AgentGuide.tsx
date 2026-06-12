@@ -384,12 +384,11 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                               {logoSrc ? (
                                 <Image
                                   src={logoSrc}
-                                  alt=""
+                                  alt={`${g.agentName} logo`}
                                   width={24}
                                   height={24}
                                   className="shrink-0 rounded-md"
                                   unoptimized={unopt}
-                                  aria-hidden="true"
                                 />
                               ) : (
                                 <span
@@ -419,13 +418,12 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
           <div className="absolute inset-0 z-0">
             <Image
               src={guide.heroBgImage}
-              alt=""
+              alt={`רקע דקורטיבי למדריך ${guide.agentNameHe}`}
               fill
               sizes="100vw"
               className="object-cover opacity-20"
               priority
               fetchPriority="high"
-              aria-hidden="true"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
           </div>
