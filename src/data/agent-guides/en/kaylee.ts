@@ -164,6 +164,8 @@ export const kayleeGuideEn: AgentGuideData = {
         "Kaylee's toolbox is a curated set of 50+ prebuilt operations she can execute on the server — exactly the kind of commands a human sysadmin reaches for daily. The idea is not that she invents new commands, but that she picks from a well-defined allowlist (the formal term for a list of permitted operations) and fires the right one at the right moment. In my setup every action she runs is logged automatically, so I can rewind and see exactly what she did and when.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
+      beginner:
+        "For Kaylee to look after the server, she needs a 'toolbox' — just like a technician who shows up with a bag holding a screwdriver, a hammer, and a voltage meter. Her tools are the commands a human server admin uses: 'show me what's running now', 'read me the log', 'restart this service'. The important point: she doesn't invent new tools, she picks from a pre-approved list — and every action she takes is logged, so I (Elad) can always rewind and see exactly what she did and when.",
       content: [
         "bash — run Linux shell commands (shell access, meaning access to the system's command interpreter). Restricted to approved actions only — for example she's forbidden from running rm -rf / (a recursive wipe of the entire disk)",
         "docker — full container control: ps (who's running), logs (tail output), restart, inspect (technical metadata), stats (CPU and memory), exec (run a command inside a container). See the [Docker guide](/en/guide/docker)",
@@ -238,6 +240,8 @@ export const kayleeGuideEn: AgentGuideData = {
         "Safety is why an autonomous DevOps agent with full [Docker](/en/guide/docker) access is a double-edged sword: the exact capability that lets her fix anything by herself also lets her destroy everything, accidentally or maliciously, if the wrong person takes control of her. In my setup Kaylee sits behind a whole stack of dos-and-don'ts defined in an allowlist (list of permitted actions), and every action is written to an immutable audit trail (tamper-evident action log). For you this section is non-negotiable before you let her anywhere near a production server.",
       color: "from-red-600 to-rose-500",
       difficulty: "advanced",
+      beginner:
+        "Great power demands clear boundaries — and that's exactly the point here. The same ability that lets Kaylee fix everything by herself also lets her destroy everything by accident if we don't put up a fence. Imagine handing keys to a new assistant: you give them a key to the door and the storeroom, not to the safe and the bank account. For me (Elad) Kaylee has an explicit list of 'these are the things you must never touch' — deleting critical files, installing things without approval — and every action she takes is written to a log that can't be altered. This chapter is mandatory before you put an agent like this on a real server.",
       content: [
         "Forbidden: running rm -rf (recursive file deletion) against critical paths — root /, the config directory /etc, the kernel boot directory /boot, or the home directories of other users",
         "Forbidden: running docker system prune -af (a command that wipes all unused images and volumes, including active ones) — only prune -f without --all is allowed, to prevent data loss",
@@ -260,6 +264,8 @@ export const kayleeGuideEn: AgentGuideData = {
         "This section is the pile of nuances that separates 'I have a DevOps bot' from 'Kaylee is a genuine teammate'. These are things I (Elad) learned after four months of daily use on a real production server — tricks that multiplied her reliability, cut my model costs, and gave me tighter control over how she operates. For you, each one will save weeks of trial and error.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section is a collection of 'the small details' that separate 'I have a bot managing the server' from 'Kaylee is a genuine teammate'. These are things I (Elad) only learned after four months of daily use on a real server — each one boosted her reliability, saved me money, or gave me tighter control. There's no need to apply everything on day one; take what's relevant to you and come back to the rest as you grow into it. This part is more technical, but every line in it will save you weeks of trial and error.",
       content: [
         "Current role (my network, 2026): Kaylee focused into a Chief Reliability Officer — predictive infra health and self-healing, backups, cron-master, and security/access auditing — plus a Telegram distribution operator (pushing content to communities + community moderation). The principle: 24/7 reliability leverage, not 'another creative hand'.",
         "Division of labor (deliberate focus): content/asset generation and data-science moved to [Hermes](/en/guide/hermes) (studio/worker); ad-hoc development to [Claude Code](/en/claude-code). Kaylee keeps the environment stable and distributes — she doesn't dabble everywhere. Less turned out to be more for reliability.",
