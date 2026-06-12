@@ -5,6 +5,10 @@ import HeroSection from '@/components/hero/hero-section';
 import StatsBar from '@/components/sections/stats-bar';
 import TechMarquee from '@/components/ui/tech-marquee';
 import SkillsSection from '@/components/sections/skills-section';
+// ChatFAQ is intentionally a static import (SSR'd, NOT lazy): the homepage
+// carries the site-wide FAQPage JSON-LD, so the matching visible FAQ content
+// (static Q&A fallback inside ChatFAQ) must exist in the initial HTML.
+import { ChatFAQ } from '@/components/ui/chat-faq';
 
 // Loading placeholder used for all below-fold sections.
 // Animates only opacity (no width/height/top/left) per design rules.
@@ -75,6 +79,8 @@ export default function HomePageClient() {
         <ProcessSection />
 
         <B2BBand />
+
+        <ChatFAQ />
 
         <CTASection />
       </main>

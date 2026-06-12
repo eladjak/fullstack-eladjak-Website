@@ -795,6 +795,8 @@
     "chatHeader": "Ask Me",
     "typingLabel": "Typing...",
     "suggestedLabel": "Suggested questions:",
+    "staticListLabel": "Prefer reading? All questions and answers in one list",
+    "moreLinksLabel": "More of me online:",
     "questions": {
       "services": "What services do you offer?",
       "pricing": "What are your pricing ranges?",
@@ -802,6 +804,8 @@
       "availability": "Are you currently available for new projects?",
       "process": "What does your development process look like?",
       "aiExpertise": "Tell me about your AI expertise",
+      "aiNetwork": "What is the 13-agent AI network you run?",
+      "location": "Where are you located and where do you work from?",
       "hebrew": "Do you support Hebrew and RTL development?",
       "contact": "How can I get in touch with you?",
       "timeline": "How long does a typical project take?",
@@ -814,6 +818,8 @@
       "availability": "Yes, I'm currently available for new projects! I typically take on 1–2 projects at a time to ensure quality and responsiveness. Response time is usually within a few hours. The best way to check is to reach out directly via WhatsApp or email.",
       "process": "My process has four phases: Discover (understanding your goals and users), Plan (architecture and tech stack decisions), Build with regular check-ins, and Launch with support. I use agile iterations with demos so you always know what's happening. Clear communication at every step.",
       "aiExpertise": "I've built AI-powered systems across several domains: voice conversation apps using Whisper and ElevenLabs, Hebrew NLP with RAG pipelines, children's story generation with content filtering, multi-agent automation systems, and Claude Code integrations. I also maintain the /claude-code and /guide pages — 14 hands-on guides covering agents and infrastructure for developers learning AI tooling.",
+      "aiNetwork": "It's a personal micro-services system of 13 autonomous AI agents running on a VPS — they handle communication, research, content creation, client management, and day-to-day automation, talking to each other through a central bridge. It's both my lab and my proof of work: I build similar systems for clients, tailored to their business.",
+      "location": "I work from Migdal HaEmek in northern Israel, with clients across the country and abroad. Most work happens remotely over video calls, and in-person meetings are possible in the northern region.",
       "hebrew": "Absolutely — Hebrew and RTL are a core specialty. I build bilingual (HE/EN) applications with proper RTL layout, logical CSS properties, and full i18n support using next-intl. I have deep experience with Hebrew typography, keyboard layouts, and the nuances of right-to-left UI development.",
       "contact": "You can reach me on WhatsApp at 052-542-7474 (fastest response), by email at eladhiteclearning@gmail.com, or via the contact form on this site. I usually respond within a few hours during business days.",
       "timeline": "Timeline depends on scope. A landing page or simple tool: 1–2 weeks. A full web application with backend and database: 4–8 weeks. Complex AI systems or large platforms: 2–4 months. I'll give you a realistic estimate upfront — no surprises.",
@@ -823,15 +829,17 @@
       "services": ["pricing", "technologies", "availability"],
       "pricing": ["services", "timeline", "contact"],
       "technologies": ["aiExpertise", "hebrew", "services"],
-      "availability": ["contact", "process", "timeline"],
+      "availability": ["location", "contact", "timeline"],
       "process": ["timeline", "support", "contact"],
-      "aiExpertise": ["technologies", "services", "contact"],
+      "aiExpertise": ["aiNetwork", "technologies", "contact"],
+      "aiNetwork": ["aiExpertise", "services", "contact"],
+      "location": ["availability", "contact", "services"],
       "hebrew": ["technologies", "services", "contact"],
       "contact": ["availability", "pricing", "process"],
       "timeline": ["process", "pricing", "contact"],
       "support": ["pricing", "contact", "process"]
     },
-    "initialQuestions": ["services", "aiExpertise", "availability", "hebrew"]
+    "initialQuestions": ["services", "aiNetwork", "availability", "hebrew"]
   },
   "latestPosts": {
     "title": "From the Blog",
