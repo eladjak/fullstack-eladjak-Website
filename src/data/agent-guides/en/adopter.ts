@@ -131,6 +131,8 @@ export const adopterGuideEn: AgentGuideData = {
         "This flow is a pipeline — a sequence of stages that every post passes through, one after another, until it either lands in long-term memory or is discarded. Each stage is simple on its own; the magic is in the chain. Let's walk through it end to end.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
+      beginner:
+        "Picture a sorting conveyor in a factory: at one end a flood of 'raw material' comes in (all the posts from the channels), and along the way there are a few stations, each checking something — is this junk? have we seen it already? is it actually interesting? — until at the other end only what survived every filter comes out and enters your memory. Each station is simple on its own, and the magic is in the chain between them. For me (Elad) this conveyor runs by itself every hour, without me touching anything — and that's what turns 'following 20 channels' from an impossible chore into a few clean insights in the morning.",
       content: [
         "Step 1 — cron (the operating system's scheduler) runs the tg-public-ingest.py script at the top of every hour. That is the only trigger: no button, no human in the loop",
         "Step 2 — a Telethon client (a Python library that connects to Telegram through the official MTProto protocol — not the limited Bot API, but the full user-grade connection) pulls the 50 most recent messages from each listed channel",
@@ -154,6 +156,8 @@ export const adopterGuideEn: AgentGuideData = {
         "The classifier is the beating heart of Adopter. It is the written instruction that Gemini Flash receives for every post. Classification is the technical term for automatically sorting content into predefined buckets — the same way email services sort your inbox into primary, social, or promotions. This prompt is dynamic — it improves over time because you are teaching it what counts as a miss and what counts as a hit.",
       color: "from-violet-600 to-purple-500",
       difficulty: "advanced",
+      beginner:
+        "The classifier is essentially Adopter's 'personal taste' — the part that decides, for each post, whether it's worth your attention or not. Like training a new assistant: at first it guesses by general rules, but the more you tell it 'I liked this, not that' — the more it learns your taste and improves. My (Elad's) secret: half an hour of tagging 20 posts up front ('this is great', 'this is boring') is worth months of accuracy. Without those personal examples, the classifier stays generic and misses exactly the nuances that matter to you.",
       content: [
         "The base prompt is paired with a handful of your personal examples — 5 to 10 posts you marked 'this is excellent' and 5 you marked 'not interesting'. That is the difference between a generic classifier and one that knows your taste",
         "Structured JSON output: category, confidence between 0 and 1, a one-line reason, and tags — so you can filter by topic later on",
@@ -201,6 +205,8 @@ export const adopterGuideEn: AgentGuideData = {
         "Dedup (short for deduplication) is arguably Adopter's best-kept secret. In a world where 20 Telegram channels cover the same news cycle, any new tool will show up in 6 different places within two hours. Without this step you would see the same insight six times. With it, you see it once — and it is linked to every source that mentioned it.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
+      beginner:
+        "Dedup is simply 'duplicate detection'. In a world where twenty Telegram channels follow the same news, every new tool gets posted in six places within two hours — and without this filter you'd receive the same item six times. The clever part is that Adopter doesn't spot duplicates by exact words but by meaning: even if two people wrote the same thing in completely different phrasing, it understands it's the same story and keeps it once — with a link to every source that mentioned it. That's what lets you follow tons of channels without drowning in repeats.",
       content: [
         "Before every adoption — Adopter builds an embedding of the post with Google's gemini-embedding-001. An embedding is a translation of text into a 3072-dimensional vector (truncatable to 768/1536 via Matryoshka) that captures meaning. Two posts that say the same thing with different words end up with similar vectors",
         "The search runs against the telegram_news collection in [Qdrant](/en/guide/qdrant) with a threshold of 0.9 — i.e. 90% similarity and above counts as 'the same story'",
@@ -224,6 +230,8 @@ export const adopterGuideEn: AgentGuideData = {
         "After three months of 24/7 operation, more than 45,000 scanned posts, and hundreds of tiny adjustments to the prompt and thresholds — these are the things I wish I had known before I started. Every line here is worth hours of trial and error.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
+      beginner:
+        "This section isn't theory — every line here was born from three months of continuous operation and more than 45,000 posts that passed through the system. If I had to distill it into one piece of advice for a non-technical reader, it's this: start small and grow slowly. For me (Elad) I started with just three channels and added one every couple of days, and after each addition I checked that content quality didn't drop. Someone who starts with twenty channels at once can't tell which one is 'polluting' the system with junk. The rest of the section is more technical, but that's the most valuable lesson in it.",
       content: [
         "Use MTProto (Telegram's user-level protocol, via Telethon) — not the Bot API. The Bot API is limited to channels the bot is a member of; MTProto grants access to any public channel, but it does require a one-time phone number plus OTP login",
         "Persistent sessions — never log in from scratch on every run, or Telegram will block you for suspicious behaviour. Save the session string once and reuse it",
