@@ -412,7 +412,10 @@ html {
 
 .logo-anim__ch {
   display: inline-block;
-  animation: logo-enter 350ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* "backwards" (not "both"): a filled finished animation would keep
+     transform:translateY(0) applied at animation-priority forever and
+     block the hover lift below. */
+  animation: logo-enter 350ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   animation-delay: calc(var(--i) * 45ms); /* last letter ends ≈575ms */
   transition: transform 120ms ease-out;
   transition-delay: calc(var(--i) * 15ms); /* hover wave ends ≈195ms */
