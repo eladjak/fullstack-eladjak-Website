@@ -204,6 +204,8 @@ export const ollamaGuideEn: AgentGuideData = {
         "The API is how software talks to Ollama from code. The default is port 11434 (the number the service listens on locally), and the API supports a range of paths: /api/generate for simple text generation, /api/chat for conversations with history, /api/embeddings to turn text into numbers, and /v1/chat/completions — a path that's fully compatible with OpenAI's API. That last one is the magic — any software that already knows how to talk to ChatGPT can switch to Ollama without changing almost anything.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "An API is simply how other software 'talks' to Ollama from code, without a human typing. And the big magic here: Ollama's API is built to be identical to ChatGPT's. Why does that matter so much? Because it means any software that already works with ChatGPT can switch to a local, free model by changing a single line — like swapping the supplier without re-plumbing the whole house. For you that means you can build an app against ChatGPT, and later move it to run for free on your own machine without rewriting everything.",
       content: [
         "Streaming (a response that unfolds word-by-word like in ChatGPT): add 'stream': true to the request body and you get the output as a continuous stream of tokens (the small units of text the model produces)",
         "Transparent OpenAI swap: change the API URL to http://localhost:11434/v1, provide a dummy API key (any string identifier) — and it works immediately with LangChain, LlamaIndex, Vercel AI SDK, and any other client",
@@ -231,6 +233,8 @@ export const ollamaGuideEn: AgentGuideData = {
         "Performance is the first question every Ollama newcomer asks: how fast will this be on my machine? The answer depends on three main factors — the size of the model (how 'smart' it is), your hardware (CPU alone, or a GPU that accelerates the compute), and the quantization level (compression). Here are the typical numbers in 2026, so you know what to expect up front — and how to improve things if the numbers don't satisfy you.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "advanced",
+      beginner:
+        "The first question everyone asks is 'how fast will this run on my machine?', and the honest answer is: it depends. Just like a car — it goes faster with a strong engine and less weight. Here the 'engine' is the graphics card (GPU) in your computer, and the 'weight' is the size of the model. A small model on a strong machine flies; a giant model on a regular machine crawls. The simple rule: start with a small model and only scale up if your computer handles it comfortably. This section gives realistic numbers for each kind of machine, so you know what to expect up front instead of being disappointed.",
       content: [
         "A MacBook with an M3 Pro chip and 36GB of RAM runs Gemma 3 at 2B at around fifty tokens per second (units of generated text in real time). Qwen 2.5 at 7B lands around twenty, while Llama 3.3 at 70B with Q4 quantization crawls at about four tokens per second",
         "NVIDIA 4090 (top-tier GPU with 24GB of VRAM — dedicated GPU memory) + Qwen 2.5 at 14B = about sixty tokens per second. To run a 70B model you'd need a card with 32GB of VRAM or more",
@@ -254,6 +258,8 @@ export const ollamaGuideEn: AgentGuideData = {
         "Integration is the point where Ollama goes from being a nice local tool to becoming a beating part of a larger system. In my agent network, Ollama plays the role of a safety net (fallback — a backup plan) as well as a background worker for routine tasks that don't justify paying the cloud. Thanks to the OpenAI-compatible endpoint, every model in the network can swap from Claude or Gemini to Ollama with just a URL change. This is especially useful for classification tasks inside [Adopter](/en/guide/adopter) and for triaging intakes in [Box](/en/guide/box).",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "Here Ollama stops being a nice local toy and becomes a working part of a real system. For me (Elad) it plays two roles: a safety net (if the cloud model is overloaded or costs money, the task gracefully falls back to the free local one), and a quiet background worker for simple tasks not worth paying the cloud for — like sorting posts or tagging data. Since its API is identical to ChatGPT's, any agent in the network can switch to it with just a URL change. The idea: keep the expensive models for tasks that genuinely need them, and let everything else run for free.",
       content: [
         "LangChain and LlamaIndex (popular libraries for building AI apps): OllamaLLM(model='qwen2.5', base_url='http://localhost:11434') — transparent swap in one line",
         "[CrewAI](/en/guide/crewai): Agent(llm=LLM(model='ollama/qwen2.5:7b')) — native built-in support, no adapters or wrappers",
