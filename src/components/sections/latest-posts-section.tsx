@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -9,7 +8,7 @@ import { useLocale } from '@/components/providers/locale-provider';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { TagBadge } from '@/components/ui/tag-badge';
 
-interface MDXPostSerialized {
+export interface MDXPostSerialized {
   slug: string;
   frontmatter: {
     title: string;
@@ -21,6 +20,15 @@ interface MDXPostSerialized {
     featured_image?: string;
   };
   readingTime: number;
+}
+
+interface LatestPostsSectionProps {
+  /**
+   * Top blog posts, fetched server-side and passed down as plain serializable
+   * objects. Rendering from props (instead of a client `fetch`) means the cards
+   * exist in the initial SSR HTML — visible to AI/SEO crawlers, no spinner.
+   */
+  posts: MDXPostSerialized[];
 }
 
 function formatDate(dateStr: string, locale: string): string {
@@ -37,25 +45,12 @@ function truncate(text: string, maxLength = 120): string {
   return `${text.slice(0, maxLength).trimEnd()}…`;
 }
 
-export default function LatestPostsSection() {
+export default function LatestPostsSection({ posts }: LatestPostsSectionProps) {
   const t = useTranslations('latestPosts');
   const { locale, direction } = useLocale();
-  const [posts, setPosts] = useState<MDXPostSerialized[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch('/api/blog/posts')
-      .then(res => res.json())
-      .then((data: MDXPostSerialized[]) => {
-        // Already sorted newest-first by the API; take top 3
-        setPosts(data.slice(0, 3));
-      })
-      .catch(() => setPosts([]))
-      .finally(() => setLoading(false));
-  }, []);
-
-  // Don't render the section at all while loading or if no posts
-  if (loading || posts.length === 0) return null;
+  // Don't render the section at all if there are no posts.
+  if (posts.length === 0) return null;
 
   const ArrowIcon = direction === 'rtl' ? ArrowLeft : ArrowRight;
 

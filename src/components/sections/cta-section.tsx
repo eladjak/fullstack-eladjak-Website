@@ -20,11 +20,10 @@ export default function CTASection() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/section-cta.jpg"
-          alt=""
+          alt="רקע מופשט בגוון המותג המזמין ליצירת קשר ולתחילת פרויקט"
           fill
           className="object-cover opacity-[0.06]"
           loading="lazy"
-          aria-hidden="true"
         />
       </div>
       {/* Background effects */}
@@ -37,11 +36,10 @@ export default function CTASection() {
             <div className="relative w-56 h-36 md:w-72 md:h-48 rounded-2xl overflow-hidden border border-border/30 shadow-lg shadow-primary/10">
               <Image
                 src="/images/illustration-cta.jpg"
-                alt=""
+                alt="איור המזמין להתחיל פרויקט פיתוח או ייעוץ AI משותף"
                 fill
                 className="object-cover"
                 loading="lazy"
-                aria-hidden="true"
               />
             </div>
             <div className="text-center">

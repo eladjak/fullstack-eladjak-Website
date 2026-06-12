@@ -25,11 +25,10 @@ export default function ServicesPreviewSection() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/section-services.jpg"
-          alt=""
+          alt="רקע מופשט המייצג שירותי פיתוח Full-Stack ופתרונות AI"
           fill
           className="object-cover opacity-[0.06]"
           loading="lazy"
-          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
       </div>
@@ -39,11 +38,10 @@ export default function ServicesPreviewSection() {
             <div className="relative w-48 h-32 md:w-64 md:h-44 rounded-2xl overflow-hidden shrink-0 border border-border/30 shadow-lg shadow-primary/5">
               <Image
                 src="/images/illustration-services.jpg"
-                alt=""
+                alt="איור של שירותי הפיתוח והייעוץ — אתרים, אפליקציות, אוטומציה ו-AI"
                 fill
                 className="object-cover"
                 loading="lazy"
-                aria-hidden="true"
               />
             </div>
             <div className="text-center md:text-start flex-1">

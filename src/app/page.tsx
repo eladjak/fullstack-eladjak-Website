@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import HomePageClient from '@/components/sections/home-page-client';
+import { getAllMDXPosts } from '@/lib/mdx';
+import type { MDXPostSerialized } from '@/components/sections/latest-posts-section';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 const OG_IMAGE = 'https://avatars.githubusercontent.com/u/108827199?v=4';
@@ -42,5 +44,25 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <HomePageClient />;
+  // Fetch the latest posts server-side so the "Latest Posts" cards render into
+  // the initial HTML (SSR) instead of via a client `fetch` (spinner + empty
+  // HTML, invisible to crawlers). Pass only plain serializable fields across
+  // the server→client boundary.
+  const latestPosts: MDXPostSerialized[] = getAllMDXPosts()
+    .slice(0, 3)
+    .map(({ slug, frontmatter, readingTime }) => ({
+      slug,
+      frontmatter: {
+        title: frontmatter.title,
+        titleHe: frontmatter.titleHe,
+        date: frontmatter.date,
+        description: frontmatter.description,
+        descriptionHe: frontmatter.descriptionHe,
+        tags: frontmatter.tags ?? [],
+        featured_image: frontmatter.featured_image,
+      },
+      readingTime,
+    }));
+
+  return <HomePageClient latestPosts={latestPosts} />;
 }

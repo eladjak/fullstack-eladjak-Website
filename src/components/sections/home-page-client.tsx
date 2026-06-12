@@ -1,60 +1,35 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import HeroSection from '@/components/hero/hero-section';
 import StatsBar from '@/components/sections/stats-bar';
 import TechMarquee from '@/components/ui/tech-marquee';
 import SkillsSection from '@/components/sections/skills-section';
+import ServicesPreviewSection from '@/components/sections/services-preview-section';
+import FeaturedProjectsSection from '@/components/sections/featured-projects-section';
+import LatestPostsSection, {
+  type MDXPostSerialized,
+} from '@/components/sections/latest-posts-section';
+import RecommendationsSection from '@/components/sections/recommendations-section';
+import ProcessSection from '@/components/sections/process-section';
+import B2BBand from '@/components/sections/b2b-band';
+import CTASection from '@/components/sections/cta-section';
 // ChatFAQ is intentionally a static import (SSR'd, NOT lazy): the homepage
 // carries the site-wide FAQPage JSON-LD, so the matching visible FAQ content
 // (static Q&A fallback inside ChatFAQ) must exist in the initial HTML.
 import { ChatFAQ } from '@/components/ui/chat-faq';
 
-// Loading placeholder used for all below-fold sections.
-// Animates only opacity (no width/height/top/left) per design rules.
-const SectionSkeleton = () => (
-  <div className="h-96 animate-pulse bg-muted/10" aria-hidden="true" />
-);
+interface HomePageClientProps {
+  /** Latest blog posts, fetched server-side in the page (SSR'd into HTML). */
+  latestPosts: MDXPostSerialized[];
+}
 
-// Below-fold sections — lazy-loaded to keep the initial JS bundle small.
-// `ssr: false` defers both server-render cost and client hydration until
-// the chunk is fetched, which is fine for content below the fold.
-const ServicesPreviewSection = dynamic(
-  () => import('@/components/sections/services-preview-section'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
+// Below-fold sections were previously `dynamic(..., { ssr: false })`, which kept
+// them out of the server-rendered HTML — invisible to AI/SEO crawlers. They are
+// now plain imports so they render server-side. They are still `"use client"`
+// components (for Framer Motion / hooks), so they hydrate on the client, but the
+// initial HTML now contains their real content.
 
-const FeaturedProjectsSection = dynamic(
-  () => import('@/components/sections/featured-projects-section'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
-
-const LatestPostsSection = dynamic(
-  () => import('@/components/sections/latest-posts-section'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
-
-const RecommendationsSection = dynamic(
-  () => import('@/components/sections/recommendations-section'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
-
-const ProcessSection = dynamic(
-  () => import('@/components/sections/process-section'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
-
-const B2BBand = dynamic(
-  () => import('@/components/sections/b2b-band'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
-
-const CTASection = dynamic(
-  () => import('@/components/sections/cta-section'),
-  { ssr: false, loading: () => <SectionSkeleton /> },
-);
-
-export default function HomePageClient() {
+export default function HomePageClient({ latestPosts }: HomePageClientProps) {
   return (
     <div className="flex min-h-dvh flex-col">
       <main className="flex-1">
@@ -72,7 +47,7 @@ export default function HomePageClient() {
 
         <FeaturedProjectsSection />
 
-        <LatestPostsSection />
+        <LatestPostsSection posts={latestPosts} />
 
         <RecommendationsSection />
 

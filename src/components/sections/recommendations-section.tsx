@@ -47,11 +47,10 @@ export default function RecommendationsSection() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/section-testimonials.jpg"
-          alt=""
+          alt="רקע מופשט המייצג המלצות וחוות דעת של לקוחות ושותפים"
           fill
           className="object-cover opacity-[0.06]"
           loading="lazy"
-          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background/95" />
       </div>
