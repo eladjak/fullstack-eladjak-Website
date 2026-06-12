@@ -167,6 +167,8 @@ export const n8nGuideEn: AgentGuideData = {
         "Even though n8n ships with 500+ built-in nodes (and hundreds more community nodes), the truth is that across all my workflows — 25 of them in production — roughly 20 core nodes recur and solve 90% of the work. Knowing these tools deeply is the difference between building a workflow in half an hour versus a full day of frustration.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
+      beginner:
+        "If n8n is an assembly line, then a node is one station on the line — each does one simple thing: one receives an email, one sends a message, one checks a condition. Connect a few stations into a line and you've got a whole automation without writing a line of code. True, there are hundreds of these stations, but don't panic — in practice about 20 of them solve most of the work. For you that means you can wire up 'when a client email arrives → save it to a sheet → ping me on Telegram' in a few minutes, by dragging a mouse.",
       content: [
         "Triggers (entry points): Webhook (receives HTTP requests), Cron (on a schedule — 'every day at 09:00'), Manual (run by hand for testing), Gmail Trigger (new incoming email), Telegram Trigger (new bot message), RSS (new post in a feed), IMAP (generic mail server)",
         "HTTP Request — the most important node of them all: sends to external APIs via POST/GET/PUT, supports every auth type (Bearer, Basic, OAuth2, API Key), auto-retries on failures, and has built-in pagination",
@@ -193,6 +195,8 @@ export const n8nGuideEn: AgentGuideData = {
         "This is where n8n's real power on my stack kicks in: it isn't just running by itself — it conducts an orchestra of AI agents. Through HTTP Request nodes, a single workflow can call [Kami](/en/guide/kami) to send a WhatsApp message, [CrewAI](/en/guide/crewai) to generate a Hebrew blog post, and the [Delegator](/en/guide/delegator) to orchestrate a full email campaign — all in one visual flow, with no new backend.",
       color: "from-indigo-600 to-blue-500",
       difficulty: "advanced",
+      beginner:
+        "Here n8n stops being just 'the thing that shuffles papers' and becomes the conductor of an orchestra. Instead of each action running alone, a single visual flow can tell [Kami](/en/guide/kami) to send a WhatsApp, [CrewAI](/en/guide/crewai) to write a Hebrew post, and the [Delegator](/en/guide/delegator) to fire off a full email campaign — all in one chain, without writing any new server. For me (Elad) this is what connects all the agents: n8n is the connecting thread that tells each one when it's their turn, and passes one's output as the next one's input.",
       content: [
         "Sending WhatsApp via [Kami](/en/guide/kami): HTTP Request with POST to hub.eladjak.com/kami/whatsapp and body { to, text } — Kami hides all the Green API and Meta API complexity behind the scenes",
         "Generating content via [CrewAI](/en/guide/crewai): POST to /crews/blog_he/run and then poll /crews/runs/{id} every 10 seconds until the status is completed. The result comes back as JSON ready to publish",
@@ -220,6 +224,8 @@ export const n8nGuideEn: AgentGuideData = {
         "Once workflows get serious (more than 10 nodes, failure handling, loops over large lists), the basics stop being enough — and that's where n8n's advanced capabilities come in. Inline JavaScript expressions, loops over batches, sub-workflows for code re-use, and error branches that handle failures gracefully. These are the tools that turn n8n from 'open-source Zapier' into a serious automation conductor.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
+      beginner:
+        "Once your automations start getting serious — lots of stations, failure handling, looping over long lists — the basic tools stop being enough, and that's where the advanced stuff comes in. Most of it touches two simple needs: processing data on the fly (pulling just the first name out of a full name, say), and not falling over when something goes wrong. The most valuable tool here is an 'error workflow' — a separate automation that pops up on its own when the main one fails, and sends me an alert. For me (Elad) that's the difference between catching a problem immediately and learning about it from an angry client.",
       content: [
         "Expressions — inline JavaScript inside any field of any node. Example: {{ $json.name.split(' ')[0] }} extracts the first name. Removes the need for a separate Set node for every tiny transformation",
         "Built-in time helpers: $now and $today use the Luxon library. For example {{ $now.minus({ days: 7 }).toISO() }} returns the date from a week ago in ISO — handy for APIs that require time ranges",
@@ -244,6 +250,8 @@ export const n8nGuideEn: AgentGuideData = {
         "Once workflows start running critical business processes (invoices, customer reminders, content publishing), n8n stops being a 'nice-to-have' and becomes critical infrastructure. An hour of downtime = customers don't get messages, campaigns don't launch, money leaks away. Here's the checklist to tick off before you get there.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
+      beginner:
+        "There's a moment when n8n stops being a 'nice toy' and becomes critical infrastructure — when its automations are sending invoices, customer reminders, and posts. At that point, an hour of downtime already costs real money: customers don't get messages, campaigns don't go out. This section is the insurance list before you get there — regular backups (so no automation vanishes), monitoring (so you hear about a failure before your customers do), and security. These aren't complicated things, just ones better sorted in advance than after a night where no email went out and nobody knew.",
       content: [
         "Backups — an automated daily pg_dump of the database uploaded to S3 or Backblaze (cheaper), plus a weekly JSON export of workflows. Full restore is possible within minutes",
         "Monitoring — Uptime Kuma hits n8n's /healthz every minute. When it goes down, an immediate alert fires to Telegram or WhatsApp via [Kami](/en/guide/kami) — you find out about an outage before an angry customer does",
