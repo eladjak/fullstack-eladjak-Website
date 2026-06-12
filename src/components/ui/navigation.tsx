@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './theme-toggle';
+import AnimatedLogo from './animated-logo';
 import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
 import dynamic from 'next/dynamic';
@@ -145,10 +146,10 @@ export default function Navigation() {
             {/* Logo - always visible, always at end (left in RTL) */}
             <Link
               href="/"
-              className="text-xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm order-2 md:order-first"
+              className="text-xl font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm order-2 md:order-first"
               aria-label="EY.dev - Home"
             >
-              EY.dev
+              <AnimatedLogo />
             </Link>
 
             {/* Desktop Navigation */}
@@ -259,10 +260,11 @@ export default function Navigation() {
               <div className="flex items-center justify-between h-16 px-4 border-b border-border/30 shrink-0">
                 <Link
                   href="/"
-                  className="text-lg font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
+                  className="text-lg font-bold"
+                  aria-label="EY.dev - Home"
                   onClick={() => setIsOpen(false)}
                 >
-                  EY.dev
+                  <AnimatedLogo />
                 </Link>
                 <button
                   onClick={() => setIsOpen(false)}
