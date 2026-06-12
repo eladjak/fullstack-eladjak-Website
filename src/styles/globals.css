@@ -408,6 +408,10 @@ html {
 .logo-anim {
   display: inline-block;
   white-space: nowrap;
+  /* Per-letter inline-block spans are isolated bidi units: in the RTL (Hebrew)
+     page they'd be laid out right-to-left and "EY.dev" would render "ved.YE".
+     Force LTR layout for this Latin wordmark regardless of page direction. */
+  direction: ltr;
 }
 
 .logo-anim__ch {
