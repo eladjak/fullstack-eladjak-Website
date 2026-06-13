@@ -367,16 +367,17 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12">
         <ScrollAnimate>
-          <div className="text-center mb-12">
+          <header className="text-center mb-12">
             <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
               {t('subtitle')}
             </p>
-          </div>
+            <h4 className="sr-only">{t('subtitle')}</h4>
+          </header>
         </ScrollAnimate>
 
         {/* Search box */}
@@ -509,6 +510,7 @@ export default function ProjectsPage() {
         </ScrollAnimate>
 
         {/* Projects grid */}
+        <section aria-label={t('title')}>
         <LayoutGroup>
           <motion.div
             key={`${activeCategory}-${selectedTechs.join(',')}`}
@@ -642,6 +644,7 @@ export default function ProjectsPage() {
             </AnimatePresence>
           </motion.div>
         </LayoutGroup>
+        </section>
 
         {/* Empty state when filters return nothing */}
         {filteredProjects.length === 0 && (
@@ -659,7 +662,7 @@ export default function ProjectsPage() {
             </button>
           </motion.div>
         )}
-      </div>
+      </main>
 
       {/* Live Preview Modal */}
       {previewProject?.live_url && (
