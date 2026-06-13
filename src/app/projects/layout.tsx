@@ -3,7 +3,7 @@ import { type Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'פרויקטים',
   description:
-    '14+ פרויקטי Full-Stack ו-AI בפרודקשן — מאפליקציות ווב ועד רשתות סוכנים אוטונומיים. React, Next.js, TypeScript, Supabase.',
+    '20+ פרויקטי Full-Stack ו-AI בפרודקשן — מאפליקציות ווב ועד רשתות סוכנים אוטונומיים. React, Next.js, TypeScript, Supabase.',
   keywords: [
     'פרויקטי Full-Stack',
     'פרויקטי AI',
@@ -20,13 +20,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: "פרויקטים | אלעד יעקובוביץ'",
     description:
-      '14+ פרויקטי Full-Stack ו-AI deployed בפרודקשן — React, Next.js, TypeScript, Supabase.',
+      '20+ פרויקטי Full-Stack ו-AI deployed בפרודקשן — React, Next.js, TypeScript, Supabase.',
     url: 'https://fullstack-eladjak.co.il/projects',
+    images: [
+      {
+        url: 'https://fullstack-eladjak.co.il/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: "פרויקטים — אלעד יעקובוביץ'",
+      },
+    ],
   },
   twitter: {
+    card: 'summary_large_image',
     title: "פרויקטים | אלעד יעקובוביץ'",
     description:
-      '14+ פרויקטי Full-Stack ו-AI deployed בפרודקשן — React, Next.js, TypeScript, Supabase.',
+      '20+ פרויקטי Full-Stack ו-AI deployed בפרודקשן — React, Next.js, TypeScript, Supabase.',
+    images: ['https://fullstack-eladjak.co.il/og-image.jpg'],
   },
 };
 

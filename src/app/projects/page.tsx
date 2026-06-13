@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
-import { Github, ExternalLink, Eye } from 'lucide-react';
+import { Github, ExternalLink, Eye, Search, X, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
@@ -67,9 +67,98 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['Next.js 15', 'React 19', 'Supabase', 'Zustand', 'next-intl', 'Vitest'],
     github_url: 'https://github.com/eladjak/ninja-keyboard',
+    live_url: 'https://ninja-keyboard-nine.vercel.app',
     gradient: 'from-red-500/20 to-orange-500/20',
     icon: 'Ninja',
-    image: '/projects/ninja-keyboard.jpg',
+    image: '/projects/ninja-keyboard-live.png',
+  },
+  {
+    id: 'gamespark',
+    messageKey: 'gamespark',
+    category: 'ai',
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Canvas'],
+    github_url: 'https://github.com/eladjak/gamespark-ai-kids',
+    live_url: 'https://gamespark-ai-kids.vercel.app',
+    gradient: 'from-cyan-500/20 to-emerald-500/20',
+    icon: 'GameSpark',
+    image: '/projects/gamespark.png',
+  },
+  {
+    id: 'orgBrain',
+    messageKey: 'orgBrain',
+    category: 'ai',
+    technologies: ['Next.js', 'TypeScript', 'Markdown', 'Git', 'Claude API'],
+    github_url: 'https://github.com/eladjak/org-brain',
+    live_url: 'https://org-brain-demo.vercel.app',
+    gradient: 'from-pink-500/20 to-rose-600/20',
+    icon: 'OrgBrain',
+    image: '/projects/org-brain.png',
+  },
+  {
+    id: 'pdfEmpire',
+    messageKey: 'pdfEmpire',
+    category: 'web',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'RTL'],
+    github_url: 'https://github.com/eladjak/pdf-empire',
+    live_url: 'https://pdf-empire-storefront.vercel.app',
+    gradient: 'from-teal-500/20 to-emerald-600/20',
+    icon: 'PDF Empire',
+    image: '/projects/pdf-empire.png',
+  },
+  {
+    id: 'pollr',
+    messageKey: 'pollr',
+    category: 'web',
+    technologies: ['Next.js', 'TypeScript', 'Supabase', 'Recharts', 'Tailwind CSS'],
+    github_url: 'https://github.com/eladjak/pollr',
+    live_url: 'https://pollr.co.il',
+    gradient: 'from-blue-500/20 to-indigo-600/20',
+    icon: 'Pollr',
+    image: '/projects/pollr.png',
+  },
+  {
+    id: 'mens-circle',
+    messageKey: 'mensCircle',
+    category: 'web',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'RTL', 'WhatsApp'],
+    github_url: 'https://github.com/eladjak/mens-circle',
+    live_url: 'https://circle.eladjak.com',
+    gradient: 'from-amber-600/20 to-yellow-700/20',
+    icon: 'Circle',
+    image: '/projects/mens-circle.png',
+  },
+  {
+    id: 'hitechkids',
+    messageKey: 'hitechkids',
+    category: 'web',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'RTL'],
+    github_url: 'https://github.com/eladjak/hitechkids',
+    live_url: 'https://hitechkids.eladjak.com',
+    gradient: 'from-fuchsia-500/20 to-purple-600/20',
+    icon: 'HiTechKids',
+    image: '/projects/hitechkids.png',
+  },
+  {
+    id: 'eladscore',
+    messageKey: 'eladscore',
+    category: 'web',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    github_url: 'https://github.com/eladjak/elad-score',
+    live_url: 'https://eladscore.com',
+    gradient: 'from-yellow-600/20 to-amber-700/20',
+    icon: 'Elad Score',
+    image: '/projects/eladscore.png',
+  },
+  {
+    id: 'date-kirva',
+    messageKey: 'dateKirva',
+    category: 'web',
+    technologies: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'RTL'],
+    github_url: 'https://github.com/eladjak/date-kirva',
+    live_url: 'https://date-kirva.vercel.app',
+    gradient: 'from-rose-500/20 to-pink-600/20',
+    icon: 'DateKirva',
+    image: '/projects/date-kirva.png',
   },
   {
     id: 'voice-chat',
@@ -87,7 +176,7 @@ const allProjects: StaticProject[] = [
     category: 'web',
     technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Responsive Design'],
     github_url: 'https://github.com/eladjak/omanut-hakesher-website',
-    live_url: 'https://omanut-hakesher-website.vercel.app',
+    live_url: 'https://ohlove.co.il',
     gradient: 'from-amber-500/20 to-orange-500/20',
     icon: 'Omanut',
     image: '/projects/omanut-screenshot.png',
@@ -213,6 +302,11 @@ export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [previewProject, setPreviewProject] = useState<StaticProject | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [techExpanded, setTechExpanded] = useState(false);
+
+  // Number of tech pills shown before "show more" toggle.
+  const TECH_COLLAPSED_COUNT = 8;
 
   const categories: { key: Category; label: string }[] = [
     { key: 'all', label: t('allCategories') },
@@ -240,25 +334,79 @@ export default function ProjectsPage() {
     );
   };
 
+  const visibleTechs = techExpanded ? allTechs : allTechs.slice(0, TECH_COLLAPSED_COUNT);
+
   const filteredProjects = useMemo(() => {
     let result = activeCategory === 'all' ? allProjects : allProjects.filter((p) => p.category === activeCategory);
     if (selectedTechs.length > 0) {
       result = result.filter((p) => selectedTechs.every((tech) => p.technologies.includes(tech)));
     }
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      result = result.filter((p) => {
+        const haystack = [
+          t(`projects.${p.messageKey}.title`),
+          t(`projects.${p.messageKey}.description`),
+          p.technologies.join(' '),
+        ]
+          .join(' ')
+          .toLowerCase();
+        return haystack.includes(q);
+      });
+    }
     return result;
-  }, [activeCategory, selectedTechs]);
+  }, [activeCategory, selectedTechs, searchQuery, t]);
+
+  const hasActiveFilters = activeCategory !== 'all' || selectedTechs.length > 0 || searchQuery.trim() !== '';
+
+  const clearAll = () => {
+    setActiveCategory('all');
+    setSelectedTechs([]);
+    setSearchQuery('');
+  };
 
   return (
     <>
-      <div className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12">
         <ScrollAnimate>
-          <div className="text-center mb-12">
+          <header className="text-center mb-12">
             <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
               {t('subtitle')}
             </p>
+            <h4 className="sr-only">{t('subtitle')}</h4>
+          </header>
+        </ScrollAnimate>
+
+        {/* Search box */}
+        <ScrollAnimate delay={0.05}>
+          <div className="mx-auto mb-6 max-w-md">
+            <div className="relative">
+              <Search
+                className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
+                aria-hidden="true"
+              />
+              <input
+                type="search"
+                inputMode="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={t('search.placeholder')}
+                aria-label={t('search.label')}
+                className="w-full rounded-full border border-white/10 bg-white/5 ps-10 pe-10 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:border-purple-500/50"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  aria-label={t('search.clear')}
+                  className="absolute end-2.5 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                >
+                  <X className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+              )}
+            </div>
           </div>
         </ScrollAnimate>
 
@@ -307,7 +455,7 @@ export default function ProjectsPage() {
                 {t('techFilter.all')}
               </button>
 
-              {allTechs.map((tech) => {
+              {visibleTechs.map((tech) => {
                 const active = selectedTechs.includes(tech);
                 return (
                   <button
@@ -324,25 +472,45 @@ export default function ProjectsPage() {
                   </button>
                 );
               })}
+
+              {/* Show more / less tech pills */}
+              {allTechs.length > TECH_COLLAPSED_COUNT && (
+                <button
+                  onClick={() => setTechExpanded((v) => !v)}
+                  aria-expanded={techExpanded}
+                  className="inline-flex items-center gap-1 rounded-full px-3.5 py-1 text-xs font-medium border border-dashed border-white/15 bg-transparent text-white/50 hover:text-white/80 hover:border-white/30 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                >
+                  {techExpanded
+                    ? t('techFilter.showLess')
+                    : t('techFilter.showMore', { count: allTechs.length - TECH_COLLAPSED_COUNT })}
+                  <ChevronDown
+                    className={`h-3 w-3 transition-transform duration-200 ${techExpanded ? 'rotate-180' : ''}`}
+                    aria-hidden="true"
+                  />
+                </button>
+              )}
             </div>
 
-            {/* Active filter summary */}
-            {selectedTechs.length > 0 && (
-              <p className="text-center text-xs text-white/40 mt-2">
-                {filteredProjects.length} / {allProjects.length} projects
-                {' · '}
-                <button
-                  onClick={() => setSelectedTechs([])}
-                  className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors"
-                >
-                  clear
-                </button>
-              </p>
-            )}
+            {/* Always-visible result count + clear */}
+            <p className="text-center text-xs text-white/40 mt-3" aria-live="polite">
+              {t('resultCount', { shown: filteredProjects.length, total: allProjects.length })}
+              {hasActiveFilters && (
+                <>
+                  {' · '}
+                  <button
+                    onClick={clearAll}
+                    className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors"
+                  >
+                    {t('clearFilters')}
+                  </button>
+                </>
+              )}
+            </p>
           </div>
         </ScrollAnimate>
 
         {/* Projects grid */}
+        <section aria-label={t('title')}>
         <LayoutGroup>
           <motion.div
             key={`${activeCategory}-${selectedTechs.join(',')}`}
@@ -367,6 +535,10 @@ export default function ProjectsPage() {
                     <div
                       className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
                     >
+                      {/* Category badge */}
+                      <span className="absolute top-2 start-2 z-10 rounded-full bg-black/55 backdrop-blur-sm px-2.5 py-0.5 text-[10px] font-medium text-white/90 ring-1 ring-white/10">
+                        {t(`categories.${project.category}`)}
+                      </span>
                       {project.image ? (
                         <Image
                           src={project.image}
@@ -472,6 +644,7 @@ export default function ProjectsPage() {
             </AnimatePresence>
           </motion.div>
         </LayoutGroup>
+        </section>
 
         {/* Empty state when filters return nothing */}
         {filteredProjects.length === 0 && (
@@ -480,16 +653,16 @@ export default function ProjectsPage() {
             animate={{ opacity: 1 }}
             className="text-center py-24 text-muted-foreground"
           >
-            <p className="text-lg mb-3">No projects match the selected filters.</p>
+            <p className="text-lg mb-3">{t('empty.title')}</p>
             <button
-              onClick={() => { setActiveCategory('all'); setSelectedTechs([]); }}
-              className="text-sm text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors"
+              onClick={clearAll}
+              className="text-sm text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded"
             >
-              Clear all filters
+              {t('empty.clear')}
             </button>
           </motion.div>
         )}
-      </div>
+      </main>
 
       {/* Live Preview Modal */}
       {previewProject?.live_url && (

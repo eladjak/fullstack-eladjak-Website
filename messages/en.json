@@ -398,9 +398,22 @@
     "code": "Source Code",
     "liveDemo": "Live Demo",
     "livePreview": "Live Preview",
+    "search": {
+      "placeholder": "Search projects, tech, keywords…",
+      "label": "Search projects",
+      "clear": "Clear search"
+    },
+    "resultCount": "{shown} of {total} projects",
+    "clearFilters": "clear filters",
+    "empty": {
+      "title": "No projects match the selected filters.",
+      "clear": "Clear all filters"
+    },
     "techFilter": {
       "all": "All Tech",
-      "label": "Filter by technology"
+      "label": "Filter by technology",
+      "showMore": "+{count} more",
+      "showLess": "Show less"
     },
     "preview": {
       "openInTab": "Open in new tab",
@@ -474,6 +487,38 @@
       "cryptoTracker": {
         "title": "Crypto Tracker",
         "description": "Real-time cryptocurrency tracking application using the CoinGecko API. Features live price charts, dynamic coin comparison, and responsive Bootstrap UI with AJAX-powered data updates."
+      },
+      "gamespark": {
+        "title": "GameSpark AI Kids",
+        "description": "A Hebrew game studio where kids build real, playable games instead of just consuming them. Five game modes powered by a single playable engine, with an interface designed for ages 6-16 and full RTL support."
+      },
+      "orgBrain": {
+        "title": "Organizational Brain",
+        "description": "A knowledge-base platform that turns the knowledge living in people's heads into a version-controlled asset. Built on a Markdown + Git hub-and-spoke architecture so every project gets fast onboarding, training, and a maintained history."
+      },
+      "pdfEmpire": {
+        "title": "PDF Empire",
+        "description": "A storefront for practical Hebrew PDF guides — built for real-world tasks, not fluff. Clean RTL shopping experience with category browsing and instant digital delivery."
+      },
+      "pollr": {
+        "title": "Pollr",
+        "description": "A polls and election-survey platform for measuring public opinion. Create surveys, collect responses, and read the results through live charts and a clean Hebrew dashboard."
+      },
+      "mensCircle": {
+        "title": "Men's Circle",
+        "description": "A landing site for a men's personal-development group — a journey into the heart of masculinity. Warm, atmospheric design with Hebrew RTL content and direct WhatsApp contact."
+      },
+      "hitechkids": {
+        "title": "HiTechKids",
+        "description": "A summer tech camp where kids learn AI, coding, and Python through hands-on projects with tools like ChatGPT. Playful, colorful landing site with registration and Hebrew RTL throughout."
+      },
+      "eladscore": {
+        "title": "Elad Score",
+        "description": "A portfolio site for a theatre and film composer. Cinematic dark-and-gold design that showcases original scores and lets directors hear the work and get in touch."
+      },
+      "dateKirva": {
+        "title": "Zman Shelanu (Date Kirva)",
+        "description": "A relationship app that helps couples carve out intentional time together. Shared activities, journaling, and progress tracking wrapped in a warm Hebrew RTL interface."
       }
     }
   },
