@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { guideBySlugEn, allGuidesEn } from "@/data/agent-guides/en";
 import { guideBySlug } from "@/data/agent-guides";
 import { SeoJsonLd } from "@/components/agent-guide/SeoJsonLd";
+import { GuideSeoContent } from "@/components/agent-guide/GuideSeoContent";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
@@ -139,6 +140,12 @@ export default async function GuideLayoutEn({
           server-rendered HTML (visible to AI crawlers), not the React payload. */}
       {guide && guide.slug !== "claude-code" && (
         <SeoJsonLd guide={guide} locale="en" />
+      )}
+      {/* Server-rendered SEO/GEO content fallback (sr-only) — supplies <h1>,
+          semantic tags, <h4> depth and external citation links in the initial
+          HTML, which the "use client" guide UI cannot. */}
+      {guide && guide.slug !== "claude-code" && (
+        <GuideSeoContent guide={guide} locale="en" />
       )}
       {children}
     </>

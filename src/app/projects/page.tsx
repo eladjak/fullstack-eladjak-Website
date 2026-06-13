@@ -20,7 +20,7 @@ interface StaticProject {
   messageKey: string;
   category: Category;
   technologies: string[];
-  github_url: string;
+  github_url?: string;
   live_url?: string;
   gradient: string;
   icon: string;
@@ -88,7 +88,6 @@ const allProjects: StaticProject[] = [
     messageKey: 'orgBrain',
     category: 'ai',
     technologies: ['Next.js', 'TypeScript', 'Markdown', 'Git', 'Claude API'],
-    github_url: 'https://github.com/eladjak/org-brain',
     live_url: 'https://org-brain-demo.vercel.app',
     gradient: 'from-pink-500/20 to-rose-600/20',
     icon: 'OrgBrain',
@@ -99,7 +98,6 @@ const allProjects: StaticProject[] = [
     messageKey: 'pdfEmpire',
     category: 'web',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'RTL'],
-    github_url: 'https://github.com/eladjak/pdf-empire',
     live_url: 'https://pdf-empire-storefront.vercel.app',
     gradient: 'from-teal-500/20 to-emerald-600/20',
     icon: 'PDF Empire',
@@ -110,7 +108,6 @@ const allProjects: StaticProject[] = [
     messageKey: 'pollr',
     category: 'web',
     technologies: ['Next.js', 'TypeScript', 'Supabase', 'Recharts', 'Tailwind CSS'],
-    github_url: 'https://github.com/eladjak/pollr',
     live_url: 'https://pollr.co.il',
     gradient: 'from-blue-500/20 to-indigo-600/20',
     icon: 'Pollr',
@@ -143,7 +140,6 @@ const allProjects: StaticProject[] = [
     messageKey: 'eladscore',
     category: 'web',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    github_url: 'https://github.com/eladjak/elad-score',
     live_url: 'https://eladscore.com',
     gradient: 'from-yellow-600/20 to-amber-700/20',
     icon: 'Elad Score',
@@ -154,7 +150,6 @@ const allProjects: StaticProject[] = [
     messageKey: 'dateKirva',
     category: 'web',
     technologies: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'RTL'],
-    github_url: 'https://github.com/eladjak/date-kirva',
     live_url: 'https://date-kirva.vercel.app',
     gradient: 'from-rose-500/20 to-pink-600/20',
     icon: 'DateKirva',
@@ -604,16 +599,18 @@ export default function ProjectsPage() {
 
                       {/* Links */}
                       <div className="flex items-center gap-4 pt-2 border-t border-border/50">
-                        <a
-                          href={project.github_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                          aria-label={`צפייה בקוד המקור של ${t(`projects.${project.messageKey}.title`)}`}
-                        >
-                          <Github className="h-4 w-4" aria-hidden="true" />
-                          <span>{t('code')}</span>
-                        </a>
+                        {project.github_url && (
+                          <a
+                            href={project.github_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                            aria-label={`צפייה בקוד המקור של ${t(`projects.${project.messageKey}.title`)}`}
+                          >
+                            <Github className="h-4 w-4" aria-hidden="true" />
+                            <span>{t('code')}</span>
+                          </a>
+                        )}
                         {project.live_url && (
                           <>
                             <a
