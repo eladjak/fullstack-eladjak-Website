@@ -26,7 +26,7 @@ export const sailacoGuideEn: AgentGuideData = {
     "The sales pipeline is the most worn-out, tedious work in a small business: finding leads, checking who's already been contacted, writing the first outreach. Sailaco is the agent that takes that work off your hands. He is male (he/his), chats on Telegram via @Sales_elad_bot and in the 'Rebels' group, and does three things: rotates between cities in Israel (rotation — never gets stuck in one city), finds new businesses with no website (with dedup — never repeats one already found), and drafts an outreach message for each lead. Once a day he sends a lead digest of what he found. But here's the critical part: sending itself is blocked behind a Firewall — Sailaco prepares everything, but an outreach goes out only after human approval with one click. For me (Elad) that's the difference between a 'dangerous spam bot' and a sales assistant you can trust. For you — it's the pattern for any responsible sales automation: the agent does all the worn-out work, the human keeps control of first contact with the client.",
   badgeText: "2026 · Sales / BD Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/sailaco",
-  heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
+  heroBgImage: "/images/guides/guide-sailaco-hero.jpg",
   stats: [
     { label: "Coverage", value: "Israeli cities" },
     { label: "Lead digest", value: "Daily" },

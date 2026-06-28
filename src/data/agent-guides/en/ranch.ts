@@ -26,7 +26,7 @@ export const ranchGuideEn: AgentGuideData = {
     "Most 'content agents' wait for you to ask them to write. Ranch does the opposite: he takes the initiative. He is male (he/his), chats on Telegram via @eladcontent_bot and in the 'Rebels' group, and does three things that turn a pile of conversations into a content factory: proactive idea mining (goes over conversation memory and finds worthy content ideas already said but never written), per-channel repurposing (takes one idea and turns it into N versions, each tailored to its channel, in Elad's voice and amlak-first — a TL;DR at the top), and scheduled publishing. But publishing itself is blocked behind a Firewall — Ranch prepares and proposes, but a post goes out only after human approval. Mind the division of labor: Ranch writes the copy; [Hermes](/en/guide/hermes) supplies him the media and illustrations. For me (Elad) Ranch is the difference between 'I have tons of ideas that vanish' and 'my ideas automatically become content on every channel'. For you — it's the pattern that turns every conversation into a content source, without losing your personal voice and without publishing anything you didn't approve.",
   badgeText: "2026 · Content Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/ranch",
-  heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
+  heroBgImage: "/images/guides/guide-ranch-hero.jpg",
   stats: [
     { label: "Idea mining", value: "Proactive" },
     { label: "Repurposing", value: "Per-channel" },
