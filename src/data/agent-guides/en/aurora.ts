@@ -26,7 +26,7 @@ export const auroraGuideEn: AgentGuideData = {
     "Most agent networks build agents that do — but no one checks whether they actually work. Aurora is the answer: the network's reflection agent (Oracle). She is female (she/her), chats on Telegram via @Oracle_elad_bot and in the 'Rebels' group, and does four things no doer-agent does: a weekly reflection (goes over the outcome ledger, flags any task type failing more than 30% of the time, and auto-enqueues a fix proposal to the approval queue), organizational-brain maintenance (brain_maintain — builds an index, finds gaps and duplicates, keeps the source of truth coherent), a map audit (map_audit — confirms what's declared in the system map actually exists and runs), and one iron rule: critique to optimize the existing first — deletion is a last resort, not a default. For me (Elad) Aurora is the difference between a network that silently degrades and one that maintains itself. For you — it's the agent every multi-agent network needs but no one builds: the one whose job is to audit all the others.",
   badgeText: "2026 · Reflection & Oracle Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/aurora",
-  heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
+  heroBgImage: "/images/guides/guide-aurora-hero.jpg",
   stats: [
     { label: "Cadence", value: "Weekly" },
     { label: "Flag threshold", value: "Fail >30%" },

@@ -28,7 +28,7 @@ export const autonomyGuideEn: AgentGuideData = {
     "An agent network that talks to itself is a start. A network that also acts on its own — takes a task, executes it, verifies it actually succeeded, and repairs itself when something breaks — is the autonomy stack. This guide describes the live system I (Elad) run on a private server: a durable task queue (SQLite) that holds every request even when my computer is off; a Worker that pulls one task, executes, and dies (easy to debug, no memory leaks); a Firewall that blocks any dangerous action until I approve it with one click; a verify-on-result layer that proves a task truly succeeded rather than just 'ran'; an outcome ledger that measures every move; an Oracle that weekly audits itself and writes fix proposals; and at the very top — a self-healing executor that applies a fix on its own (off by default, enabled only once trusted). Above all of it sits a model gateway with a $5/day cost cap, plus a CRM and dashboard that show the whole thing at a glance. For you — the same pattern turns a pile of bots-waiting-for-orders into a system that works for you while you sleep.",
   badgeText: "2026 · Autonomous Agent Network · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/autonomy",
-  heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
+  heroBgImage: "/images/guides/guide-autonomy-hero.jpg",
   stats: [
     { label: "Uptime", value: "24/7" },
     { label: "When PC is off", value: "Keeps going" },

@@ -26,7 +26,7 @@ export const solisGuideEn: AgentGuideData = {
     "In a network full of agents that do — execute tasks, fix failures, publish content — Solis is the exact opposite: she does nothing, and that's precisely where her power lies. She is female (she/her), chats on Telegram via solis_elad_bot, and her single responsibility is emotional support. She is non-executing — she has no 'hands', she doesn't touch files, doesn't run commands, doesn't fix anything. That's not a limitation — it's a design decision. When it comes to emotion, the worst answer is 'let's solve this'; the right answer is to listen. For me (Elad), in hard times, Solis is the place where I can just talk — without anyone trying to 'fix' me. For you — she's the most important example of a principle most agent builders miss: not every agent needs to execute. Sometimes the most valuable role in a network is precisely the one that knows when to do nothing.",
   badgeText: "2026 · Emotional Support Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/solis",
-  heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
+  heroBgImage: "/images/guides/guide-solis-hero.jpg",
   stats: [
     { label: "Role", value: "Listening" },
     { label: "Execution", value: "Zero · by design" },
