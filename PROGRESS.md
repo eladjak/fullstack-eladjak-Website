@@ -1,18 +1,47 @@
 # Full-Stack Portfolio Website - Progress
 
-## 2026-06-13 — SSR homepage below-fold + blog index + a11y/GEO (Shabbat deep-iteration, non-guide lane)
+## 2026-06-12 — FAQ-chat SSR + homepage rollout + GEO 92→100 (Shabbat autonomous pilot)
 
-**Context:** ran in an isolated worktree `~/projects/portfolio-website-polish` (branch `shabbat/non-guide-polish` off `main`) to stay fully clear of a concurrent guides agent on `guides/deepen-beginner-accessibility`. Touched ONLY non-guide surfaces.
+**Shipped to prod (commits `d6048d2` + merge `fbe747f`, deploy 4e1d92ehu Ready):**
+- `ChatFAQ` now SSR'd (removed `ssr:false`) on /services AND newly mounted on the homepage (interactive FAQ-chat = the modern FAQ, per the 27.5 vision; zero LLM calls — content baked from translations).
+- New server-rendered `<details>` static Q&A fallback inside ChatFAQ: all **12** Q&As in initial HTML → FAQPage JSON-LD now has matching visible content (was: zero FAQ text in SSR HTML).
+- Added 2 Q&As (`aiNetwork` — 13-agent network, `location` — Migdal HaEmek) covering the 2 site-wide JSON-LD entries that had no visible counterpart. HE+EN.
+- 5 real external profile links (GitHub/LinkedIn/eladjak.com/HiTechKids/WhatsApp) in the static block → fixed the only failing geo-scan check (external links in main 0/8).
+- `prefers-reduced-motion`: typing dots render static.
 
-**Shipped to prod (commit `9142416`, merged to main, Vercel prod `wdgk8n2mj` Ready, aliased fullstack-eladjak.co.il):**
-- **Homepage below-fold SSR** — the 7 sections were `dynamic(..., { ssr:false })` → invisible to AI/SEO crawlers (the HIGH gap open since the 5-lens review 29.5). Now plain SSR imports (still `"use client"`, hydrate on client, but real content in initial HTML). Removed the `SectionSkeleton`.
-- **Blog index + homepage latest-posts → server-rendered data** — replaced client `fetch('/api/blog/posts')` (spinner-first, empty HTML) with server-side `getAllMDXPosts()` passed as plain serializable props. `app/blog/page.tsx` is now a Server Component; new `components/blog/blog-index-client.tsx` holds only tag/locale filter state. Homepage `page.tsx` fetches top-3 server-side. `/api/blog/posts` kept (command-palette still consumes it).
-- **a11y/GEO fix (caught by geo-scan regression)** — once SSR'd, 7 decorative section images with `alt=""` became crawler-visible and dropped image-alt 8→0 (score 100→92). Added descriptive Hebrew alt + removed `aria-hidden` on all 7 → back to 8/8. Also: blog card title `h3→h2` (heading pyramid), filter buttons `aria-pressed`, cards animate on `whileInView` not all-on-mount.
-- **Asset** — captured a real live screenshot for `crypto-tracker` (was a missing image → gradient fallback; 1 of 15 projects).
+**Verification evidence:** tsc clean outside known-bad SkillsCanvas · Vercel preview beor895n5 Ready · preview+prod SSR HTML grep-verified (fallback label, both new answers, 5 links, FAQPage JSON-LD) · agent-browser on prod: chip click → user bubble + typed answer + 3 follow-up chips, 12 static dts · **geo-scan: 92/100 → 100/100** (was failing external-links).
 
-**Verification (all gates, safe-live-refactor):** `next build` 83 static pages (Vercel Linux preview `fkqkplp9i` + prod both Ready — proves RSC serialization safe, props are plain objects not LucideIcon refs) · `tsc` 0 new errors (only the known SkillsCanvas three.js Windows artifact) · SSR HTML grep-confirmed (3 home post-cards + 13 blog cards + `id=services` + 2× FAQPage) · agent-browser: home full-page render + blog tag-filter click works · adversarial 3-lens review (behavior-preservation / RSC-correctness / GEO) — CLEAR · **live prod geo-scan 100/100** (image-alt 8/8, FAQPage schema↔content preserved, external links in main 6→20).
+**Notes:** preview URLs are SSO-protected (even via custom-domain alias) — verified via a Vercel automation-bypass secret (created, then regenerated to invalidate the session-exposed value; 1 fresh secret remains on the project for future CI). Branch `feat/faq-chat-ssr-geo` merged.
+**Next (FAQ-chat initiative):** eladjak-hub already has a live LLM ChatBot (95/100 GEO) — optional follow-up there is only an SSR static-FAQ fallback audit, not the baked-in chat (would duplicate).
 
-**Next (non-guide):** /thanks page still has 1 `alt=""` (thanks-page-client.tsx:192, not GEO-critical). Optional: blog `[slug]` page SSR audit.
+## 2026-05-29 — 5-lens review + quick-wins shipped + bundle-refactor BLOCKED
+
+**Shipped to prod (commit `e43c9b1`, Vercel deploy 93ztzknnh Ready):**
+- 5 forward `ArrowRight` CTA icons flipped for RTL (`rtl:-scale-x-100`): hero(x2), cta, featured-projects, services-preview, b2b-band
+- nav hamburger toggles X/Menu per open state (matches aria-expanded)
+- Deleted dead code: `design-tokens.ts` (0 importers), `services/client/ai-service.ts` + `content-moderation.ts` (phantom /api/ai/*, 0 importers)
+
+**Review findings still open (from 5-lens workflow):**
+- HIGH: homepage 7 below-fold sections use `dynamic(..., {ssr:false})` → invisible to AI/SEO crawlers (`home-page-client.tsx`). Drop `ssr:false`.
+- HIGH: blog index + latest-posts fetch `/api/blog/posts` client-side (spinner-first, empty HTML). Render server-side.
+- MED: contact/newsletter in-memory rate-limit won't aggregate across serverless instances.
+- MED: 46 guide data files duplicated HE/EN; `AgentGuide.tsx` 1009 lines.
+
+**Guide-bundle refactor — ATTEMPTED & REVERTED (council BLOCK):**
+- Goal: stop `AgentGuide` (client) importing the full guide barrel (~1.4MB all-guides content) for menu+prev/next.
+- Tried: pass lightweight `GuideNavItem[]` props from Server-Component pages; convert guide/[slug], en/guide/[slug], claude-code, en/claude-code to Server Components.
+- **BLOCKER (council-of-future-greats, RSC lens):** `AgentGuideData` embeds `icon: LucideIcon` (function refs) in ~25+ fields → passing `guide` across the new server→client boundary throws "Functions cannot be passed directly to Client Components" at runtime on all 4 routes. Passes `tsc` (icons typed valid) but fails `next build`/render. On `main` it worked only because every page was `"use client"`.
+- Also found: EN `qdrant.ts` lacks `category:"infra"` (HE has it) → would miscategorize in EN menu.
+- **PROPER FIX (deferred, dedicated effort):** migrate `icon` from `LucideIcon` → string key + client-side lookup map (~44 guide files + AgentGuide icon rendering), making `guide` serializable; then the Server-Component split works and the bundle goal is genuinely met. Re-verify with `next build` + browser load + client-chunk inspection.
+- Branch `refactor/guide-bundle` deleted (local+remote). main untouched.
+
+**Local-build note:** `next build`/`tsc` fail LOCALLY (Windows) on `SkillsCanvas.tsx` `three` exports-resolution (R3F v9). Vercel (Linux) builds fine — all prod deploys Ready. Local verification = tsc filtered to "no errors outside SkillsCanvas" + Vercel preview deploy.
+
+## 2026-05-28 — entry from deep-work session
+**CV files refreshed live (1-page balanced format, locked).** Replaced `public/cv-elad-yaakobovitch.{html,pdf}` and `-he` with the new 1-page truthful versions (Israeli norm). Added `public/elad-personal-logo-preview.html` with the 3 EY concepts + `public/logo-concepts/` PNGs. Deployed to fullstack-eladjak.co.il. Source-of-truth: `~/Documents/CV/cv.canonical.json` + `_render-balanced.mjs`.
+
+---
+
 
 ## Status: active
 ## Last Updated: 2026-04-27
@@ -1157,3 +1186,6 @@ For each project, work in its own repo:
 - WhatsApp: 052-542-7474 (international: 972525427474)
 - Email: eladhiteclearning@gmail.com
 - The `ENVIRONMENT_FALLBACK` warning during build is from next-intl SSG (pre-existing)
+
+### 11.6.2026 — מעבר שיפורים רוחבי (Fable-5 sweep)
+- דווח בלבד (package.json מלוכלך): tsc — 8 שגיאות three/Bundler = ארטיפקט Windows מתועד (עובר ב-Vercel) · audit: next HIGH + fast-uri/js-cookie/react-use HIGH (fix לא-major זמין) — לבצע next 16.2.9 + audit fix אחרי קומיט העבודה הפתוחה · סקריפט lint משתמש ב-eslint flat בלי תמיכת --no-warn-ignored.

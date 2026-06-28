@@ -248,7 +248,7 @@ export default async function GuideIndex() {
               </div>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">
                 כלי הליבה שאני בונה איתם את השרת האישי שלי. כל אחד מהם רץ אצלי
-                על Hetzner VPS ומשרת את 13 הסוכנים.
+                על Contabo VPS ומשרת את 9 הסוכנים.
               </p>
             </div>
           </div>

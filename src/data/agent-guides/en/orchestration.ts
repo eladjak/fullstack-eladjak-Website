@@ -29,7 +29,7 @@ export const orchestrationGuideEn: AgentGuideData = {
   canonical: "https://fullstack-eladjak.co.il/en/guide/orchestration",
   heroBgImage: "/images/guides/guide-orchestration-hero.jpg",
   stats: [
-    { label: "agents in network", value: "6+" },
+    { label: "agents in network", value: "9" },
     { label: "source of truth", value: "one" },
     { label: "coordination", value: "async" },
     { label: "decision validation", value: "3 models" },
@@ -261,6 +261,7 @@ export const orchestrationGuideEn: AgentGuideData = {
         "Step 2 — inbox: when you start missing important info inside the sea, add a prioritized work queue above the hub",
         "Step 3 — network protocol: when duplications or orphaned tasks appear, write an explicit ownership matrix",
         "Step 4 — council: when a big decision comes up and you fear bias, add multi-model validation",
+        "Next step — autonomy: once coordination works, the layer above it is the [autonomy stack](/en/guide/autonomy) — a durable task queue, a Firewall with one-click approval, and verify-on-result — which makes the network not just coordinate but also act on its own, safely",
         "Infrastructure: the [Delegator](/en/guide/delegator) (central API gateway) is one entry point to the network; [Docker](/en/guide/docker)+[systemd](/en/guide/systemd) run the agents; the [Dashboard](/en/guide/dashboard) shows live network state",
         "Model-agnostic: each agent on the model that fits it — free Gemini for support/triage, a strong model for complex work. Coordination stays identical",
       ],
@@ -302,6 +303,12 @@ export const orchestrationGuideEn: AgentGuideData = {
       icon: ExternalLink,
     },
     {
+      title: "The Autonomy Stack guide",
+      description: "The next step — a network that doesn't just coordinate but runs itself, safely",
+      href: "/en/guide/autonomy",
+      icon: BookOpen,
+    },
+    {
       title: "Consultation — agent networks",
       description: "Want to build a coordinated network of your own?",
       href: "/en/contact",
@@ -322,5 +329,5 @@ export const orchestrationGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "I built a network of 6+ agents working together 24/7. The big lesson: each agent's capability was the easy part — coordinating them is what turned them into a force. This guide is based on what worked (and on duplications and orphaned tasks I learned from the hard way).",
+    "I built a network of 9 agents working together 24/7. The big lesson: each agent's capability was the easy part — coordinating them is what turned them into a force. This guide is based on what worked (and on duplications and orphaned tasks I learned from the hard way).",
 };

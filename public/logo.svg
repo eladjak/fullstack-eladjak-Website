@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Elad Yaakobovitch — EY Monogram, color version.
+     Geometric E+Y interlock with amber spark. Purple gradient. Transparent bg.
+     Designed for: web, print color, social avatars. Square (1:1). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" aria-label="Elad Yaakobovitch — EY monogram">
+  <defs>
+    <linearGradient id="ey-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- E + Y interlocked monogram -->
+  <g>
+    <!-- E pillar -->
+    <rect x="40" y="56" width="26" height="144" rx="3" fill="url(#ey-grad)"/>
+    <!-- E top arm -->
+    <rect x="40" y="56" width="92" height="24" rx="3" fill="url(#ey-grad)"/>
+    <!-- E mid arm (slightly shorter) -->
+    <rect x="40" y="116" width="68" height="22" rx="3" fill="url(#ey-grad)"/>
+    <!-- E bottom arm -->
+    <rect x="40" y="176" width="92" height="24" rx="3" fill="url(#ey-grad)"/>
+
+    <!-- Y left diagonal (sharing space with E top arm via overlap) -->
+    <path d="M132 56 L172 132 L172 200 L146 200 L146 132 L106 56 Z"
+          fill="url(#ey-grad)" fill-rule="evenodd"/>
+    <!-- Y right diagonal -->
+    <path d="M216 56 L172 132 L146 132 L190 56 Z"
+          fill="url(#ey-grad)"/>
+  </g>
+
+  <!-- Amber spark in upper right -->
+  <g transform="translate(208,48)">
+    <path d="M0 -16 L4 -4 L16 0 L4 4 L0 16 L-4 4 L-16 0 L-4 -4 Z" fill="#F59E0B"/>
+  </g>
+</svg>

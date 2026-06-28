@@ -22,16 +22,26 @@ import { githubActionsGuide } from "./github-actions";
 import { redisStreamsGuide } from "./redis-streams";
 import { vercelGuide } from "./vercel";
 import { orchestrationGuide } from "./orchestration";
+import { autonomyGuide } from "./autonomy";
+import { auroraGuide } from "./aurora";
+import { sailacoGuide } from "./sailaco";
+import { ranchGuide } from "./ranch";
+import { solisGuide } from "./solis";
 import { understandAnythingGuide } from "./understand-anything";
 
 export const allGuides: AgentGuideData[] = [
   claudeCodeGuide,
   orchestrationGuide,
+  autonomyGuide,
+  auroraGuide,
   kamiGuide,
   kayleeGuide,
   crewaiGuide,
   boxGuide,
   hermesGuide,
+  ranchGuide,
+  sailacoGuide,
+  solisGuide,
   qdrantGuide,
   delegatorGuide,
   adopterGuide,
@@ -58,11 +68,16 @@ export const guideBySlug = new Map<string, AgentGuideData>(
 export {
   claudeCodeGuide,
   orchestrationGuide,
+  autonomyGuide,
+  auroraGuide,
   kamiGuide,
   kayleeGuide,
   crewaiGuide,
   boxGuide,
   hermesGuide,
+  ranchGuide,
+  sailacoGuide,
+  solisGuide,
   qdrantGuide,
   delegatorGuide,
   adopterGuide,

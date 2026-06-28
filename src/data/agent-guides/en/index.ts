@@ -22,16 +22,26 @@ import { githubActionsGuideEn } from "./github-actions";
 import { redisStreamsGuideEn } from "./redis-streams";
 import { vercelGuideEn } from "./vercel";
 import { orchestrationGuideEn } from "./orchestration";
+import { autonomyGuideEn } from "./autonomy";
+import { auroraGuideEn } from "./aurora";
+import { sailacoGuideEn } from "./sailaco";
+import { ranchGuideEn } from "./ranch";
+import { solisGuideEn } from "./solis";
 import { understandAnythingGuideEn } from "./understand-anything";
 
 export const allGuidesEn: AgentGuideData[] = [
   claudeCodeGuideEn,
   orchestrationGuideEn,
+  autonomyGuideEn,
+  auroraGuideEn,
   kamiGuideEn,
   kayleeGuideEn,
   crewaiGuideEn,
   boxGuideEn,
   hermesGuideEn,
+  ranchGuideEn,
+  sailacoGuideEn,
+  solisGuideEn,
   qdrantGuideEn,
   delegatorGuideEn,
   adopterGuideEn,
