@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Bot, User } from 'lucide-react';
+import { Bot, SendHorizontal, User } from 'lucide-react';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -147,6 +147,7 @@ export function ChatFAQ() {
   const [suggested, setSuggested] = useState<QuestionKey[]>(INITIAL_QUESTIONS);
   const [isTyping, setIsTyping] = useState(false);
   const [answeredKeys, setAnsweredKeys] = useState<Set<QuestionKey>>(new Set());
+  const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const liveRef = useRef<HTMLDivElement>(null);
 
@@ -201,6 +202,61 @@ export function ChatFAQ() {
         liveRef.current.textContent = answerText;
       }
     }, delay);
+  };
+
+  // Free-text question → the real grounded bot at /api/chat-faq (Gemini,
+  // server-side key, rate-limited). Chip questions stay instant/baked above —
+  // zero cost; free text is the live AI demo.
+  const handleFreeTextSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const question = input.trim();
+    if (!question || isTyping) return;
+
+    const userMsg: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      text: question,
+    };
+    const history = [...messages, userMsg]
+      .slice(-12)
+      .map((m) => ({ role: m.role, content: m.text }));
+
+    setMessages((prev) => [...prev, userMsg]);
+    setInput('');
+    setSuggested([]);
+    setIsTyping(true);
+
+    let answerText = t('apiError');
+    try {
+      const res = await fetch('/api/chat-faq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+      const data = (await res
+        .json()
+        .catch((): null => null)) as { content?: unknown } | null;
+      if (data && typeof data.content === 'string' && data.content) {
+        answerText = data.content;
+      }
+    } catch {
+      // network failure — keep the apiError fallback text
+    }
+
+    const assistantMsg: ChatMessage = {
+      id: `assistant-${Date.now()}`,
+      role: 'assistant',
+      text: answerText,
+    };
+    setMessages((prev) => [...prev, assistantMsg]);
+    setIsTyping(false);
+
+    const remaining = INITIAL_QUESTIONS.filter((k) => !answeredKeys.has(k));
+    setSuggested(remaining.slice(0, 3));
+
+    if (liveRef.current) {
+      liveRef.current.textContent = answerText;
+    }
   };
 
   const isEmpty = messages.length === 0;
@@ -387,6 +443,39 @@ export function ChatFAQ() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Free-text input — a REAL grounded AI bot (Gemini via /api/chat-faq).
+                This is a live demo of the chatbots Elad builds for clients. */}
+            <form
+              onSubmit={handleFreeTextSubmit}
+              className="flex items-center gap-2 border-t border-white/10 bg-white/5 px-4 py-3"
+            >
+              <label htmlFor="chat-faq-input" className="sr-only">
+                {t('inputLabel')}
+              </label>
+              <input
+                id="chat-faq-input"
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder={t('inputPlaceholder')}
+                maxLength={500}
+                disabled={isTyping}
+                autoComplete="off"
+                className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={isTyping || input.trim().length === 0}
+                aria-label={t('sendLabel')}
+                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 text-white shadow-md shadow-violet-500/20 transition-transform duration-150 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-40"
+              >
+                <SendHorizontal
+                  className="h-4 w-4 rtl:-scale-x-100"
+                  aria-hidden="true"
+                />
+              </button>
+            </form>
           </div>
 
           {/* Server-rendered static FAQ fallback — the full Q&A content lives
