@@ -23,6 +23,7 @@ import { ScrollAnimate } from '@/components/ui/scroll-animate';
 // SSR'd (no `ssr: false`) so the FAQ content — including the static Q&A
 // fallback inside ChatFAQ — is present in the initial HTML for GEO/SEO.
 import { ChatFAQ } from '@/components/ui/chat-faq';
+import { QuoteBuilder } from '@/components/ui/quote-builder';
 
 const WHATSAPP_URL =
   'https://wa.me/972525427474?text=%D7%94%D7%99%D7%99%20%D7%90%D7%9C%D7%A2%D7%93%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%D7%9D%20%D7%A9%D7%9C%D7%9A';
@@ -310,6 +311,10 @@ export default function ServicesPage() {
             </ScrollAnimate>
           </div>
         </section>
+
+        {/* Interactive quote builder — the visitor assembles a project and gets
+            an honest estimate range + prefilled WhatsApp CTA (interaction > information) */}
+        <QuoteBuilder />
 
         {/* FAQ Chat Section */}
         <ChatFAQ />
