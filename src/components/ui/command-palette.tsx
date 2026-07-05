@@ -77,7 +77,7 @@ export function CommandPalette() {
     if (!open || blogPosts.length > 0) return;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
-    fetch('/api/blog/posts', { signal: controller.signal })
+    fetch('/api/blog/posts/', { signal: controller.signal })
       .then((r): Promise<unknown> => (r.ok ? r.json() : Promise.resolve([])))
       .then((data: unknown) => {
         clearTimeout(timeoutId);

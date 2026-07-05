@@ -228,7 +228,9 @@ export function ChatFAQ() {
 
     let answerText = t('apiError');
     try {
-      const res = await fetch('/api/chat-faq', {
+      // Trailing slash matches next.config `trailingSlash: true` — without it
+      // the POST hits a 308 redirect (extra hop + body-drop risk on some clients).
+      const res = await fetch('/api/chat-faq/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history }),

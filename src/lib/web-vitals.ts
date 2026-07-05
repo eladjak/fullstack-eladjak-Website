@@ -49,7 +49,7 @@ function sendToAnalytics(metric: Metric) {
   if (navigator.sendBeacon) {
     navigator.sendBeacon('/api/analytics/web-vitals', body);
   } else {
-    fetch('/api/analytics/web-vitals', {
+    fetch('/api/analytics/web-vitals/', {
       body,
       method: 'POST',
       keepalive: true,
