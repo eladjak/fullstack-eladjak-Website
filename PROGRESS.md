@@ -1,5 +1,14 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-07-06 — Real grounded knowledge bot LIVE in production (prod-push run)
+
+**Merged `feat/real-knowledge-chat` → main (FF, commits `4386720` `e18c6ef` `9c8aac9`) and deployed to prod.**
+- New server route `/api/chat-faq` (route.ts): free-text Gemini answers grounded in the site's real FAQ/knowledge (RAG-lite over `messages/he.json`), server-side `GEMINI_API_KEY` (never in browser), rate-limit 12/min, 500-char input cap, 12s timeout, gemini-3.5-flash + thinkingBudget:0. The existing baked FAQ chat UI now talks to a real LLM.
+- Also included: 'Build Me a Quote' interactive estimator (`quote-builder.tsx`); trailing-slash on all client fetches (kills 308 hop under trailingSlash:true).
+
+**Verification (live prod):** tsc 0 · `next build` green (route in manifest) · deploy Ready, aliased `https://fullstack-eladjak.co.il` · **POST `/api/chat-faq/` → HTTP 200 with real grounded Hebrew answers** (tested a pricing/delivery question + an out-of-FAQ React/Vue question — both answered contextually and steered to Elad's WhatsApp/contact, proving live LLM not baked). `GEMINI_API_KEY` confirmed present in Vercel Production.
+- Safety: backup branch `backup/main-pre-prod-push-20260706`; pre-existing scratch files (CV/logo/PROGRESS drafts) were stashed for a clean merge then restored.
+
 ## 2026-06-12 — FAQ-chat SSR + homepage rollout + GEO 92→100 (Shabbat autonomous pilot)
 
 **Shipped to prod (commits `d6048d2` + merge `fbe747f`, deploy 4e1d92ehu Ready):**
