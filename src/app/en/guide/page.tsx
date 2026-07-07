@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Sparkles, Bot, Server, Zap } from "lucide-react";
+import { ChevronRight, Sparkles, Bot, Server, Zap, Workflow } from "lucide-react";
 import { allGuidesEn } from "@/data/agent-guides/en";
 
 const SITE_URL =
@@ -82,6 +82,7 @@ export default function GuideIndexEn() {
   const agentGuides = allGuidesEn.filter(
     (g) => (g.category ?? "agent") === "agent",
   );
+  const patternGuides = allGuidesEn.filter((g) => g.category === "pattern");
   const infraGuides = allGuidesEn.filter((g) => g.category === "infra");
 
   return (
@@ -127,6 +128,9 @@ export default function GuideIndexEn() {
               <Bot className="size-3.5 text-primary" /> {agentGuides.length} agents
             </span>
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
+              <Workflow className="size-3.5 text-violet-500" /> {patternGuides.length} working patterns
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
               <Server className="size-3.5 text-accent" /> {infraGuides.length} infra components
             </span>
             <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
@@ -154,6 +158,28 @@ export default function GuideIndexEn() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {agentGuides.map((guide) => (
             <GuideCard key={guide.slug} guide={guide} variant="agent" />
+          ))}
+        </div>
+      </section>
+
+      {/* Patterns */}
+      <section id="patterns" className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+        <div className="mb-8 flex items-center gap-3">
+          <div className="size-10 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center shrink-0">
+            <Workflow className="size-5 text-white" />
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+              Working Patterns
+            </h2>
+            <p className="text-sm text-muted-foreground mt-0.5">
+              {patternGuides.length} patterns and mental models that turn a pile of agents into one system — orchestration, autonomy, verification, and reporting
+            </p>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {patternGuides.map((guide) => (
+            <GuideCard key={guide.slug} guide={guide} variant="pattern" />
           ))}
         </div>
       </section>
@@ -203,7 +229,7 @@ function GuideCard({
   variant,
 }: {
   guide: (typeof allGuidesEn)[number];
-  variant: "agent" | "infra";
+  variant: "agent" | "infra" | "pattern";
 }) {
   const href =
     guide.slug === "claude-code" ? "/en/claude-code" : `/en/guide/${guide.slug}`;
@@ -270,6 +296,11 @@ function GuideCard({
           {variant === "infra" && (
             <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 whitespace-nowrap shrink-0 mt-1">
               Infrastructure
+            </span>
+          )}
+          {variant === "pattern" && (
+            <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 whitespace-nowrap shrink-0 mt-1">
+              Pattern
             </span>
           )}
         </div>

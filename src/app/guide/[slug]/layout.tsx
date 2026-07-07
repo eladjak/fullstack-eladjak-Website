@@ -82,7 +82,11 @@ export async function generateMetadata({
       "agent network",
       "מדריך AI בעברית",
       "Claude Code עברית",
-      guide.category === "infra" ? "תשתית AI" : "סוכן אוטונומי",
+      guide.category === "infra"
+        ? "תשתית AI"
+        : guide.category === "pattern"
+          ? "דפוסי רשת-סוכנים"
+          : "סוכן אוטונומי",
       "אלעד יעקובוביץ'",
       "fullstack-eladjak",
     ],
@@ -120,7 +124,12 @@ export async function generateMetadata({
       creator: "@eladjak",
     },
     authors: [{ name: "אלעד יעקובוביץ'", url: SITE_URL }],
-    category: guide.category === "infra" ? "Infrastructure" : "AI Agents",
+    category:
+      guide.category === "infra"
+        ? "Infrastructure"
+        : guide.category === "pattern"
+          ? "Agent Patterns"
+          : "AI Agents",
     robots: {
       index: true,
       follow: true,

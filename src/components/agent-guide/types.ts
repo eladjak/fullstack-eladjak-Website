@@ -46,7 +46,7 @@ export interface TocItem {
   label: string;
 }
 
-export type GuideCategory = "agent" | "infra";
+export type GuideCategory = "agent" | "infra" | "pattern";
 
 export interface AgentGuideData {
   slug: string;

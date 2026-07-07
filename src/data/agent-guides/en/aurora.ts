@@ -6,6 +6,7 @@ import {
   Sparkles,
   Wrench,
   Map as MapIcon,
+  Workflow,
   Github,
   ExternalLink,
   BookOpen,
@@ -19,7 +20,7 @@ export const auroraGuideEn: AgentGuideData = {
   slug: "aurora",
   agentName: "Aurora",
   agentNameHe: "Aurora (Oracle) — the network's reflection agent",
-  category: "agent",
+  category: "pattern",
   tagline:
     "The agent that weekly audits the network, finds what isn't working, and proposes a fix — before something crashes",
   heroDescription:
@@ -94,6 +95,7 @@ export const auroraGuideEn: AgentGuideData = {
     { id: "fix-proposal", label: "Fix proposal" },
     { id: "brain", label: "Brain maintenance" },
     { id: "map-audit", label: "Map audit" },
+    { id: "orchestrator-brain", label: "Orchestrator brain" },
     { id: "advanced", label: "Advanced" },
   ],
   sections: [
@@ -111,7 +113,7 @@ export const auroraGuideEn: AgentGuideData = {
       content: [
         "Aurora is female (she/her) — an Oracle figure in the network, alongside Kami, Kaylee, Box, Solis and Ranch",
         "Channel: Telegram @Oracle_elad_bot + the 'Rebels' group (she's one of 3 agents with an active bot in the group)",
-        "Four responsibilities: weekly_review (weekly reflection), reflection, brain_maintain (organizational-brain maintenance), map_audit",
+        "Five responsibilities: weekly_review (weekly reflection), reflection, brain_maintain (organizational-brain maintenance), map_audit, and the orchestrator brain — a recognize-route-execute-verify layer for every new request",
         "Two sources of truth: the outcome ledger (observed truth) and the system map (declared truth) — the gap between them is the raw material of the critique",
         "The iron rule: critique to OPTIMIZE existing first — deletion is a last resort, not a default",
         "Aurora is part of the [autonomy stack](/en/guide/autonomy): she's the 'first tier' of self-healing — detects and proposes, and the human approves",
@@ -222,6 +224,34 @@ export const auroraGuideEn: AgentGuideData = {
       ],
     },
     {
+      id: "orchestrator-brain",
+      icon: Workflow,
+      title: "The orchestrator brain — from an agent that audits to one that routes and executes",
+      subtitle: "A live layer that takes any new request: recognize → route → execute → verify the artifact",
+      description:
+        "Aurora's newest evolution: on top of her audit role sits an orchestrator brain — a live layer that can accept a completely new request, even one the network has never seen, at a single entry point (POST /ask). Instead of answering 'I don't know that task type', the brain runs a four-step loop: recognition (what is actually being asked), routing (which live executor in the network fits — [Hermes](/en/guide/hermes) for building and content, a code specialist for code analysis, a research executor for web research), execution, and finally — a verified-artifact gate: the brain checks the artifact truly exists and isn't empty before reporting 'done'. A failed executor, a file that was never created, or an empty artifact — all are marked as not verified. 'Verified' is not 'ran'.",
+      color: "from-violet-600 to-fuchsia-500",
+      difficulty: "advanced",
+      beginner:
+        "Think of an excellent office manager. You can hand her any request — even one she's never received before — and she knows exactly what to do: she understands what's being asked, passes it to the right professional, and when they finish — she doesn't tell you 'I passed it along'. She checks the deliverable is truly ready and correct, and only then comes back to you with 'here, done'. The orchestrator brain is exactly that: it turns Aurora from an agent that only checks others into an agent you can bring anything to — and she'll make sure it gets done, and see with her own eyes that a real artifact exists before she reports success.",
+      content: [
+        "One entry point (POST /ask): a single address that accepts any request — including tasks the network never declared in advance. This is the network's 'do anything' layer",
+        "Step 1 — recognition (recognize): the brain classifies the request — a visual artifact? research? code analysis? a question? — before anyone starts working",
+        "Step 2 — routing (route): the request is routed to the fitting live executor: [Hermes](/en/guide/hermes) for building/data/content, a code specialist for code analysis, a research executor for sourced web research",
+        "Step 3 — execution (execute): the chosen executor works and returns a tangible artifact — a file, a report, an analysis — not just 'handled'",
+        "Step 4 — the verified-artifact gate: the brain checks the artifact exists, the file was written, and it isn't empty. Any failure on any of these → the request is reported as not verified",
+        "The mutual complement: the [output guardian](/en/guide/output-guardian) checks scheduled jobs after the fact; the brain's verification gate checks every live request in real time — together they close both directions of 'ran but produced nothing'",
+      ],
+      tips: [
+        "A 'bring me anything' layer is what turns a collection of specialists into one system you can talk to. But it earns trust only because of the verification gate — without it, it's just a router reporting imaginary successes",
+        "Build the verification gate before you grow the executor list. A router that can spot an empty artifact with two executors beats a blind router with ten",
+      ],
+      codeExample: {
+        label: "The orchestrator brain — recognize, route, execute, verify",
+        code: "# POST /ask — a new request the network never saw before\nintent   = recognize(request)      # what is being asked?\nexecutor = route(intent)           # which executor fits?\nartifact = executor.run(request)   # execute\nverified = artifact_exists(artifact) and not is_empty(artifact)\nreport(artifact, verified=verified)  # 'verified' only if a real artifact exists",
+      },
+    },
+    {
       id: "advanced",
       icon: Sparkles,
       title: "Integration — how to adopt a reflection agent yourself",
@@ -237,6 +267,7 @@ export const auroraGuideEn: AgentGuideData = {
         "Step 2 — fix proposals: as reporting matures, add root-cause diagnosis + a fix_proposal enqueued to the approval queue",
         "Step 3 — brain maintenance: as documentation/memory grows, add brain_maintain (index, duplicates, gaps)",
         "Step 4 — map audit: as the network grows, add map_audit to find 'declared-but-not-wired' components",
+        "Step 5 — the orchestrator brain: once several live executors exist, add the recognize-route-execute-verify layer (POST /ask) — and make sure the verified-artifact gate ships with it, not after it",
         "Infra: Aurora is a component in the [autonomy stack](/en/guide/autonomy), reads from the [outcome ledger](/en/guide/autonomy) and the system map, and reports via [Kami](/en/guide/kami)/Telegram",
         "Meta-rule: critique to optimize first — deletion last. An auditor-agent that's quick to delete breaks more than it fixes",
       ],

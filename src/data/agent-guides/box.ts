@@ -47,6 +47,7 @@ export const boxGuide: AgentGuideData = {
   agentName: "Box",
 
   agentNameHe: "מאמן בריאות בוואטסאפ",
+  category: "agent",
 
   logoImage: "/images/guide-logos/box-logo.png",
 

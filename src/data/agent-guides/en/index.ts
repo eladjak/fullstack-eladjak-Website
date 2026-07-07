@@ -23,6 +23,9 @@ import { redisStreamsGuideEn } from "./redis-streams";
 import { vercelGuideEn } from "./vercel";
 import { orchestrationGuideEn } from "./orchestration";
 import { autonomyGuideEn } from "./autonomy";
+import { ceoLoopGuideEn } from "./ceo-loop";
+import { outputGuardianGuideEn } from "./output-guardian";
+import { capabilityLadderGuideEn } from "./capability-ladder";
 import { auroraGuideEn } from "./aurora";
 import { sailacoGuideEn } from "./sailaco";
 import { ranchGuideEn } from "./ranch";
@@ -33,6 +36,9 @@ export const allGuidesEn: AgentGuideData[] = [
   claudeCodeGuideEn,
   orchestrationGuideEn,
   autonomyGuideEn,
+  ceoLoopGuideEn,
+  outputGuardianGuideEn,
+  capabilityLadderGuideEn,
   auroraGuideEn,
   kamiGuideEn,
   kayleeGuideEn,

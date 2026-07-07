@@ -23,6 +23,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
   slug: "claude-code",
   agentName: "Claude Code",
   agentNameHe: "Claude Code",
+  category: "agent",
   logoImage: "/images/guide-logos/claude-code-logo.png",
   tagline: "Not just another AI tool — an entire team of specialists working for you",
   heroDescription:

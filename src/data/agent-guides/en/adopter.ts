@@ -22,6 +22,7 @@ export const adopterGuideEn: AgentGuideData = {
   slug: "adopter",
   agentName: "Adopter",
   agentNameHe: "Adopter — Autonomous Content Filter",
+  category: "agent",
   logoImage: "/images/guide-logos/adopter-logo.png",
   tagline: "Instead of reading 500 posts a day — an agent that filters",
   heroDescription:

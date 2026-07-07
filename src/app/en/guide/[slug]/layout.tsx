@@ -76,7 +76,11 @@ export async function generateMetadata({
       "AI agent network",
       "Claude Code",
       "MCP",
-      guide.category === "infra" ? "AI infrastructure" : "autonomous agent",
+      guide.category === "infra"
+        ? "AI infrastructure"
+        : guide.category === "pattern"
+          ? "agent network patterns"
+          : "autonomous agent",
       "Elad Yaakobovitch",
       "fullstack-eladjak",
     ],
@@ -114,7 +118,12 @@ export async function generateMetadata({
       creator: "@eladjak",
     },
     authors: [{ name: "Elad Yaakobovitch", url: SITE_URL }],
-    category: guide.category === "infra" ? "Infrastructure" : "AI Agents",
+    category:
+      guide.category === "infra"
+        ? "Infrastructure"
+        : guide.category === "pattern"
+          ? "Agent Patterns"
+          : "AI Agents",
     robots: {
       index: true,
       follow: true,

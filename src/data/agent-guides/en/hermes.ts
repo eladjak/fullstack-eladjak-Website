@@ -24,6 +24,7 @@ export const hermesGuideEn: AgentGuideData = {
   slug: "hermes",
   agentName: "Hermes",
   agentNameHe: "Hermes / Gardax — the network's worker agent",
+  category: "agent",
   logoImage: "/images/guide-logos/hermes-logo.png",
   tagline: "Gardax — the network's worker agent: research, scraping, media & data-science",
   heroDescription:

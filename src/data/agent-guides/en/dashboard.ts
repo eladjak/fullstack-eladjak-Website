@@ -3,6 +3,7 @@ import {
   Monitor,
   Gauge,
   Kanban,
+  DoorOpen,
   Github,
   ExternalLink,
   BookOpen,
@@ -22,6 +23,7 @@ export const dashboardGuideEn: AgentGuideData = {
   slug: "dashboard",
   agentName: "Dashboard",
   agentNameHe: "Dashboard — Mission Control for Your Network",
+  category: "agent",
   logoImage: "/images/guide-logos/dashboard-logo.png",
   tagline: "One UI, 12 tabs, every agent at a glance",
   heroDescription:
@@ -96,6 +98,7 @@ export const dashboardGuideEn: AgentGuideData = {
     { id: "tabs", label: "The 12 tabs" },
     { id: "ws", label: "WebSocket" },
     { id: "proxy", label: "Proxy" },
+    { id: "front-door", label: "One front door" },
     { id: "kanban", label: "Kanban" },
     { id: "advanced", label: "Advanced" },
   ],
@@ -189,6 +192,34 @@ export const dashboardGuideEn: AgentGuideData = {
         "The Dashboard automatically injects CORS headers — which is what lets the browser call these services through it without hitting security errors. You don't have to touch any of it",
         "If a service is down, the proxy doesn't spit back a scary 500 error — it returns a clean JSON payload like {ok:false, error:'service offline'}, so the UI can show a friendly message instead of crashing",
       ],
+    },
+    {
+      id: "front-door",
+      icon: DoorOpen,
+      title: "One front door — consolidating every dashboard into a single address",
+      subtitle: "A mega-dashboard with a tile strip, and password-free entry via magic links",
+      description:
+        "As the network grows, it sprouts more and more small screens: a health dashboard, a cost dashboard, a CRM, a content board. Each at its own address — and after a month nobody remembers all of them, so nobody opens them. The solution is consolidation into one front door: a mega-dashboard — a single address from which you reach everything else. At the top of the page sits a tile strip: every sub-dashboard is represented by a tile with a name and live status, and a click opens it. And entry itself happens without a password — via magic-link tokens: a signed, short-lived, single-use link that opens the dashboard with you already logged in. One address to remember, zero login friction — and that's what makes a dashboard actually get used.",
+      color: "from-cyan-600 to-sky-500",
+      difficulty: "intermediate",
+      beginner:
+        "Imagine you own ten shops scattered across ten different streets — you'd probably visit only one or two. Now imagine a mall: one main entrance, and right inside a directory board showing all the shops and what's happening in each. The one front door for dashboards is exactly that mall: instead of remembering five different addresses, you remember one. And the key? Instead of a password — a 'magic link': you tap a link you got on WhatsApp, and you're in, already logged in. Such a link works only once and only for a short time — like a one-time verification code — so the convenience doesn't come at the expense of security.",
+      content: [
+        "The problem this solves: dashboard sprawl is a silent killer of visibility — every new screen lowers the odds anyone visits all of them. Consolidating into one address restores the habit",
+        "The tile strip: a row of tiles at the top of the mega-dashboard, one tile per sub-dashboard — name, live status (green/red), and a click that opens it. One glance and you already know where to dig deeper",
+        "Magic-link tokens: the link carries a signed token that is short-lived and single-use — the server verifies the signature, opens a logged-in session, and marks the token as spent",
+        "Where the link comes from: send [Kami](/en/guide/kami) the word 'dashboard' on WhatsApp, or tap the link attached to the [CEO Loop](/en/guide/ceo-loop) morning briefing",
+        "Security: the dashboards sit behind a [Cloudflare Tunnel](/en/guide/cloudflare-tunnel) — no port open to the internet, and the single-use link is the only entry layer",
+        "The guiding principle: one address to remember + zero passwords = a dashboard that actually gets opened every day, not one that 'exists but nobody visits'",
+      ],
+      tips: [
+        "If you need to remember more than one address to see what's happening in your system — consolidate. Every extra address is one more reason not to log in",
+        "Never send a permanent dashboard link in messages. A short-lived single-use magic link gives the same convenience — without whoever gets hold of the message gaining permanent access",
+      ],
+      codeExample: {
+        label: "Verifying a magic link at the door",
+        code: "# /enter?token=...\nclaims = verify_signed(token)      # is the signature valid?\nif claims and not expired(claims) and not used(claims):\n    mark_used(claims)              # single-use — won't work again\n    session.login(claims.user)     # logged in — no password\nelse:\n    deny()                         # expired / spent / forged",
+      },
     },
     {
       id: "kanban",

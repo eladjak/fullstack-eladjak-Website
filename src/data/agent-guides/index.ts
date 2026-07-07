@@ -23,6 +23,9 @@ import { redisStreamsGuide } from "./redis-streams";
 import { vercelGuide } from "./vercel";
 import { orchestrationGuide } from "./orchestration";
 import { autonomyGuide } from "./autonomy";
+import { ceoLoopGuide } from "./ceo-loop";
+import { outputGuardianGuide } from "./output-guardian";
+import { capabilityLadderGuide } from "./capability-ladder";
 import { auroraGuide } from "./aurora";
 import { sailacoGuide } from "./sailaco";
 import { ranchGuide } from "./ranch";
@@ -33,6 +36,9 @@ export const allGuides: AgentGuideData[] = [
   claudeCodeGuide,
   orchestrationGuide,
   autonomyGuide,
+  ceoLoopGuide,
+  outputGuardianGuide,
+  capabilityLadderGuide,
   auroraGuide,
   kamiGuide,
   kayleeGuide,
@@ -69,6 +75,9 @@ export {
   claudeCodeGuide,
   orchestrationGuide,
   autonomyGuide,
+  ceoLoopGuide,
+  outputGuardianGuide,
+  capabilityLadderGuide,
   auroraGuide,
   kamiGuide,
   kayleeGuide,

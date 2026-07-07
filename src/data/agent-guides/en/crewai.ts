@@ -22,6 +22,7 @@ export const crewaiGuideEn: AgentGuideData = {
   slug: "crewai",
   agentName: "CrewAI",
   agentNameHe: "CrewAI — Multi-Agent Teams",
+  category: "agent",
   logoImage: "/images/guide-logos/crewai-logo.png",
   tagline: "Instead of a single agent, a team of specialists working together",
   heroDescription:

@@ -110,7 +110,12 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
           "agent network",
           "בינה מלאכותית",
         ].join(", "),
-    articleSection: guide.category === "infra" ? "Infrastructure" : "AI Agents",
+    articleSection:
+      guide.category === "infra"
+        ? "Infrastructure"
+        : guide.category === "pattern"
+          ? "Agent Patterns"
+          : "AI Agents",
     proficiencyLevel: "Beginner to Advanced",
   };
 

@@ -14,6 +14,7 @@ import {
   Mail,
   Send,
   Users,
+  PackageCheck,
 } from "lucide-react";
 import type { AgentGuideData } from "@/components/agent-guide/types";
 
@@ -21,7 +22,7 @@ export const autonomyGuideEn: AgentGuideData = {
   slug: "autonomy",
   agentName: "Autonomy Stack",
   agentNameHe: "The Autonomy Stack — a network that runs itself",
-  category: "agent",
+  category: "pattern",
   tagline:
     "How to make an agent network operate on its own 24/7 — safely, with human approval for every risky move",
   heroDescription:
@@ -95,6 +96,7 @@ export const autonomyGuideEn: AgentGuideData = {
     { id: "queue", label: "Queue + Worker" },
     { id: "firewall", label: "Firewall" },
     { id: "verify", label: "Verify result" },
+    { id: "output-guardian", label: "Output guardian" },
     { id: "ledger", label: "Outcome ledger" },
     { id: "selfheal", label: "Self-healing" },
     { id: "gateway", label: "Gateway + cost" },
@@ -168,6 +170,8 @@ export const autonomyGuideEn: AgentGuideData = {
         "Safe actions for me: summarize, classify, status report, scan, monitor — none have an irreversible external consequence",
         "Blocked actions for me: sending an email/message out, publishing content, a sales move, deletion — anything visible in the world",
         "A risky move → enters the approval queue → Elad gets an alert (WhatsApp/Telegram) → approves/rejects with one click in the dashboard or via the bot",
+        "The auto-safe execution lane: a step classified as safe isn't just allowed — it's executed automatically, with a quota of up to three executions a day, and every artifact is tagged with an 'auto_safe' provenance mark — so it's always clear what ran on its own and what passed human approval",
+        "The human wrapper around all of this is the [CEO Loop](/en/guide/ceo-loop): one morning briefing that gathers all pending moves into approve/reject buttons — instead of a separate alert for every move",
         "Additional controls: pause/resume (pause a component), force_run (run manually), mute (silence alerts) — all visible in the [dashboard](/en/guide/dashboard)",
         "The bridge link: only the approval path crosses the Firewall — the rest of the network cannot bypass it",
       ],
@@ -202,6 +206,33 @@ export const autonomyGuideEn: AgentGuideData = {
         "Design the verification before the execution, not after. 'How will I know it succeeded?' is the first design question of every task type — if it has no objective answer, the task isn't ready for automation",
         "A silent verify failure is the worst of all. Better a task fails loudly and returns to the queue than 'succeeds' on paper and leaves you with hidden damage",
       ],
+    },
+    {
+      id: "output-guardian",
+      icon: PackageCheck,
+      title: "The output guardian — 'ran' is not 'produced'",
+      subtitle: "A watchdog layer that checks every scheduled job actually produced an artifact",
+      description:
+        "Verify-on-result checks a single task the moment it runs. But there is a sneakier failure: a scheduled job that runs every day, finishes without an error — and produces nothing. The log is green, the system looks 'healthy', and in reality no file was written and no record was created. The output guardian is a separate watchdog layer that closes exactly that hole: it walks over every scheduled job and checks not 'did the process run?' but 'was a real artifact produced?' — a file that exists, a record that was written, a report that was sent. If a job 'ran successfully' but the artifact is missing — an alert goes out. It has a full guide of its own: [the output guardian](/en/guide/output-guardian).",
+      color: "from-teal-600 to-emerald-500",
+      difficulty: "advanced",
+      beginner:
+        "Imagine a bakery whose oven switches on every morning at 05:00 sharp, runs for two hours, and switches off — all according to plan. Except someone forgot to put dough in it. From the outside everything looks perfect: the oven worked, electricity was consumed, no fault anywhere. But there is no bread. The output guardian is the worker who doesn't check the oven — he checks the shelves: is there bread or not? In an agent network this is the difference between 'the process finished without an error' and 'something real was created in the world'. Two completely different things — and the gap between them is where silent failures hide.",
+      content: [
+        "The core distinction: exit code 0 ('the process didn't crash') is no evidence an artifact was produced. The output guardian checks the artifact itself — a file, a record, a report",
+        "Every scheduled job gets an artifact check: which file should have been updated, which record should have been created, and within what time window",
+        "The failure it catches is the most dangerous one in an autonomous system: a job reporting 'ok' for days in a row while producing nothing — because nobody looks at a 'green' job",
+        "When a gap is found ('ran but produced nothing'), a direct alert goes to the owner — not another log line, but a message that reaches the phone via [Kami](/en/guide/kami)",
+        "The [CEO Loop](/en/guide/ceo-loop) briefing leans on this layer: when it reports 'done', it's after the output guardian confirmed a real artifact stands behind the report",
+      ],
+      tips: [
+        "Three levels of truth, weakest to strongest: 'ran' → 'succeeded' → 'produced an artifact'. A reliable system needs all three — each level catches failures the previous one misses",
+        "Start with the jobs where discovering too late that nothing was produced hurts most: backups, daily reports, scheduled scans. A backup job that 'ran' for half a year without backing anything up is the classic nightmare",
+      ],
+      codeExample: {
+        label: "Output guardian — the check that closes the hole",
+        code: "# runs after every scheduled job\nran = job.exit_code == 0         # the process didn't crash\nproduced = artifact_exists(job)   # but was a real artifact produced?\nif ran and not produced:\n    alert('job ok but artifact missing')  # silent failure — caught",
+      },
     },
     {
       id: "ledger",
@@ -293,6 +324,7 @@ export const autonomyGuideEn: AgentGuideData = {
         "Step 2 — Firewall: the moment the agent can perform an action with external consequence, block-by-default and add one-click approval",
         "Step 3 — verification + ledger: when you start trusting automatic execution, add verify-on-result and measurement — 'succeeded' is proven, not assumed",
         "Step 4 — Oracle + healing: as the system grows, add weekly self-critique, and gradually fix-execution per fault type",
+        "Step 5 — the human wrapper: once the stack works, wrap it in the [CEO Loop](/en/guide/ceo-loop) — one morning briefing with one-click approval, instead of living inside the dashboard",
         "Infra: runs on [Docker](/en/guide/docker)+[systemd](/en/guide/systemd), behind a [Cloudflare Tunnel](/en/guide/cloudflare-tunnel), with [Qdrant](/en/guide/qdrant) for memory and [Postgres](/en/guide/postgres)/SQLite for the queue",
         "Human interface: Elad controls everything from the phone — approvals, pauses, and summaries — via [Kami](/en/guide/kami) (WhatsApp) and Telegram bots",
       ],
@@ -316,9 +348,9 @@ export const autonomyGuideEn: AgentGuideData = {
       icon: BookOpen,
     },
     {
-      title: "The Delegator guide",
-      description: "The central API gateway — a single entry point to the network",
-      href: "/en/guide/delegator",
+      title: "The Output Guardian guide",
+      description: "The layer that checks 'ran' really means 'produced' — the full guide",
+      href: "/en/guide/output-guardian",
       icon: ExternalLink,
     },
     {

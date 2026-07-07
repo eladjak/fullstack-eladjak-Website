@@ -1,5 +1,15 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-07-07 — Guides upgrade rollout (branch `feat/guide-ceo-loop`, PREVIEW only)
+
+**Full guides upgrade per the approved audit — 4 guides updated, 2 new guides, new "pattern" category, 6 Gemini images. NOT merged to main; preview deploy only.**
+- **Updated (HE+EN):** `autonomy` (new output-guardian section + auto-safe lane bullet [max 3/day, provenance auto_safe] + CEO Loop named as human wrapper) · `aurora` (new orchestrator-brain section: recognize→route→execute→verify, POST /ask, verified-artifact gate) · `kami` (per-chat memory Map by chatId + persisted per-chat files, channel visibility, anti-spam guard, 'דשבורד' text command) · `dashboard` (new one-front-door section: megadashboard tile strip + magic-link tokens + one address).
+- **New guides (HE+EN, registered in both indexes, sitemap auto):** `output-guardian` ("ran ≠ produced", 3 truth levels, check types, real examples) · `capability-ladder` (5 rungs: routing→memory→tools→verify→model+fallback, honest ceiling: Claude-level OPERATION on scoped jobs, not raw IQ).
+- **Category normalization:** `GuideCategory` extended with `"pattern"`. 9 untagged guides got explicit `"agent"` (box, claude-code, crewai, dashboard, kami, kaylee, adopter, delegator, hermes; en/qdrant got "infra"). 6 conceptual guides retagged `"pattern"` (orchestration, autonomy, ceo-loop, aurora, output-guardian, capability-ladder). Third "דפוסי-עבודה"/"Working Patterns" section added to /guide + /en/guide landing pages; JSON-LD + metadata category handle "pattern".
+- **Images (Gemini nano-banana):** logos (PNG 512px) + heroes (JPG 1600w) for ceo-loop, output-guardian, capability-ladder — dark navy, no text, verified visually.
+- **Gates:** `npx tsc --noEmit` exit 0 · `npm run build` exit 0 (100 static pages) · zero Hebrew in en/*.ts · zero self-links · proofread greps clean.
+- **Next:** Elad reviews preview → merge to main + `vercel --prod`.
+
 ## 2026-07-06 — Real grounded knowledge bot LIVE in production (prod-push run)
 
 **Merged `feat/real-knowledge-chat` → main (FF, commits `4386720` `e18c6ef` `9c8aac9`) and deployed to prod.**

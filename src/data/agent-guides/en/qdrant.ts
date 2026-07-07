@@ -22,6 +22,7 @@ export const qdrantGuideEn: AgentGuideData = {
   slug: "qdrant",
   agentName: "Qdrant",
   agentNameHe: "Qdrant — Semantic Memory for Agents",
+  category: "infra",
   logoImage: "/images/guide-logos/qdrant-logo.png",
   tagline: "The foundation for remembering by meaning, not by keywords",
   heroDescription:

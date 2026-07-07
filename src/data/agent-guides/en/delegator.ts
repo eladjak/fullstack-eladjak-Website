@@ -22,6 +22,7 @@ export const delegatorGuideEn: AgentGuideData = {
   slug: "delegator",
   agentName: "Delegator",
   agentNameHe: "Delegator — Central API Gateway",
+  category: "agent",
   logoImage: "/images/guide-logos/delegator-logo.png",
   tagline: "One gateway, 100+ endpoints, the whole network behind it",
   heroDescription: "Delegator is a plain-Python HTTP router (stdlib, no FastAPI) that runs on port 3900 on my VPS. It centralizes 100+ endpoints: email (Resend — free tier 100/day, then pay-per-use), SMS (Twilio — pay-per-message), calendar (Hebcal free + Google Calendar), Drive, research (Perplexity Pro API + Gemini), content-studio, landing-pages, campaigns, pipeline orchestration, and auto-routing. Auth is handled today with a simple API key (JWT-ready in middleware), and everything is logged to [Qdrant](/en/guide/qdrant). For me it fronts all 10 agents behind a single gateway — for you it can replace Zapier (free tier 100 tasks/month, Starter ~$29/mo, Professional ~$73/mo in 2026) or Make, and serve as an API gateway for any multi-agent architecture, without scattering credentials across five different .env files.",

@@ -24,6 +24,7 @@ export const kayleeGuideEn: AgentGuideData = {
   slug: "kaylee",
   agentName: "Kaylee",
   agentNameHe: "Kaylee — Autonomous Infrastructure Agent",
+  category: "agent",
   logoImage: "/images/guide-logos/kaylee-logo.png",
   tagline: "Who watches your server at 3 AM? An AI agent that never sleeps",
   heroDescription:

@@ -24,6 +24,7 @@ export const boxGuideEn: AgentGuideData = {
   slug: "box",
   agentName: "Box",
   agentNameHe: "Box — WhatsApp Health Coach",
+  category: "agent",
   logoImage: "/images/guide-logos/box-logo.png",
   tagline: "A health app people actually use — because it lives in WhatsApp",
   heroDescription:
