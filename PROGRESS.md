@@ -1,5 +1,14 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-07-07 — Guides TRUTH-FIX shipped to PROD (branch `fix/guides-truth` → main, commit `13f1058`)
+
+**All factual inaccuracies from the truth-audit fixed across 27 guides (HE+EN, 60 files, both languages for every fix). Merged to main + deployed `--prod` (Ready), verified live.**
+- **P0 global:** Hetzner CPX11/4.75€ story → Contabo (16 vCPU/62GB), framed as "started on Hetzner, today on Contabo"; generic provider examples kept.
+- **P1 rewrites:** `docker` (hybrid: ~27 containers on ~10 compose stacks + ~45 systemd, Traefik+CF-Tunnel edge) · `adopter` (public t.me/s scraper, 4 channels, pseudo-embeddings, deleted MTProto/Telethon/500-posts, "pipeline being repaired" disclosed) · `nginx` (personal claims → past-tense/client work; real edge CF-Tunnel+Traefik; site on Vercel) · `postgres` (backs n8n/analytics; agent state = Qdrant/JSONL/SQLite; deleted "2M rows").
+- **P2:** `box` (no CrewAI/Vision-OCR/encrypted-SQLite//coach/phase; Telegram interface; framed around live check-ins v2) · `ollama` (layer exists in code, NOT installed on server, runs on PC workstation; deleted 500/day) · `ufw` (iptables+Tailscale+fail2ban reality, UFW teaching kept).
+- **P3:** kaylee (docker.sock removed→hardening story, :3500 webhook, cron attribution) · kami (Gemini-first STT, Sonnet 4.5, bridge=HTTP API) · systemd (deleted 4→1.5 score claim, 13→~45) · ceo-loop (magic-link=static token disclosed; WhatsApp+Telegram approve links) · output-guardian (Shabbat+cooldown) · aurora (bot count) · n8n (25→4, yt_to_blog_he) · cloudflare-tunnel (3 open ports, no nginx) · vercel (Edge Functions on Vercel Edge) · claude-code (OMC→code-yeongyu link, 17→22 MCP) · hermes (creative_visual/data_analysis) · ranch (state machine=direction) · crewai (as-needed, memory "being repaired") · dashboard (no Shuffle.js, proxy list, not always-on) · redis-streams (~5k/day, 17 groups, ~10MB, no Q2-2024) · aider (Gemini, aider-assist path, write-gate closed by design) · github-actions (CI only, Vercel Git-integration deploys) · delegator (Contabo, ~7,000 lines) · qdrant (17 collections/~9k points, API key NOT default) · understand-anything (Egonex-AI, 2 projects) · solis (3 responsibility areas) · sailaco/orchestration (soft alignments). Fixed 3 pre-existing self-links.
+- **Gates:** tsc 0 · build ✓ · zero Hebrew in en/*.ts · no self-links. **Live verified:** /guide/ollama (workstation fact) · /guide/docker (10× Contabo, 0× 4.75€) · /en/guide/adopter ("currently four", 0× MTProto hero) — all 200.
+
 ## 2026-07-07 — Guides upgrade rollout (branch `feat/guide-ceo-loop`, PREVIEW only)
 
 **Full guides upgrade per the approved audit — 4 guides updated, 2 new guides, new "pattern" category, 6 Gemini images. NOT merged to main; preview deploy only.**
