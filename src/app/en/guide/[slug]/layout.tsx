@@ -18,7 +18,15 @@ interface LayoutProps {
  * and an ellipsis is appended; shorter strings are returned untouched.
  */
 function clampMeta(raw: string, max = 158): string {
-  const text = raw.replace(/\s+/g, " ").trim();
+  // Normalize ASCII quotes to typographic ones: React HTML-escapes ' and "
+  // inside attribute values (&#x27; / &quot;), which inflates the SERIALIZED
+  // meta-description length past the 120-160 GEO budget even when the visible
+  // text is in range. Typographic quotes are emitted as-is (1 char each).
+  const text = raw
+    .replace(/\s+/g, " ")
+    .replace(/'/g, "’")
+    .replace(/"/g, "”")
+    .trim();
   if (text.length <= max) return text;
   const cut = text.slice(0, max - 1);
   const lastSpace = cut.lastIndexOf(" ");

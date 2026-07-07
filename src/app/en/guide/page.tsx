@@ -14,8 +14,9 @@ export const metadata: Metadata = {
   title: {
     absolute: "AI Agent + Infrastructure Guides | Elad Yaakobovitch",
   },
+  // NOTE: keep 120-160 chars (GEO/AEO meta budget — see rules/geo-aeo-protocol.md).
   description:
-    `${allGuidesEn.length} practical guides covering a full AI agent network: Claude Code, Kami (WhatsApp), Kaylee (SRE), Hermes/Gardax, Orchestration, Aider, Qdrant, Docker, Ollama, n8n and more. Installation, code, and production tips from a developer running this network 24/7.`,
+    `${allGuidesEn.length} practical guides for a full AI agent network: Claude Code, Kami, Kaylee, Qdrant, Docker, Ollama, n8n and more. Installation, code and production tips.`,
   alternates: {
     canonical: GUIDE_INDEX_URL_EN,
     languages: {
@@ -206,6 +207,12 @@ export default function GuideIndexEn() {
           ))}
         </div>
 
+        {/* sr-only <h4> — heading-pyramid depth signal for GEO/AEO scanners
+            (see rules/geo-aeo-protocol.md: "H4 used somewhere, even sr-only"). */}
+        <h4 className="sr-only">
+          All guides: agents, working patterns and infrastructure — free, with code
+        </h4>
+
         <div className="mt-16 text-center">
           <p className="text-muted-foreground mb-4">
             Need help deploying something similar? I run this exact
@@ -249,11 +256,10 @@ function GuideCard({
         <div className="relative h-32 sm:h-36 overflow-hidden">
           <Image
             src={heroImage}
-            alt=""
+            alt={`${guide.agentName} guide illustration`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            aria-hidden="true"
           />
           <div
             aria-hidden="true"

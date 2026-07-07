@@ -13,8 +13,9 @@ const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
 
 export const metadata: Metadata = {
   title: "מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
+  // NOTE: keep 120-160 chars (GEO/AEO meta budget — see rules/geo-aeo-protocol.md).
   description:
-    `${allGuides.length} מדריכים מעשיים בעברית לבניית רשת סוכני AI מלאה: Claude Code, Kami (WhatsApp), Kaylee, Hermes/גארדאקס, תזמור-רשת, Aider, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד, וטיפים מייצור 24/7 — כתובים על ידי מפתח שמפעיל את הרשת הזו בפועל.`,
+    `${allGuides.length} מדריכים מעשיים בעברית לרשת סוכני AI מלאה: Claude Code, Kami, Kaylee, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד וטיפים מייצור 24/7.`,
   alternates: {
     canonical: GUIDE_INDEX_URL,
     languages: {
@@ -289,6 +290,12 @@ export default async function GuideIndex() {
           ))}
         </div>
 
+        {/* sr-only <h4> — heading-pyramid depth signal for GEO/AEO scanners
+            (see rules/geo-aeo-protocol.md: "H4 used somewhere, even sr-only"). */}
+        <h4 className="sr-only">
+          כל המדריכים: סוכנים, דפוסי-עבודה ורכיבי תשתית — בעברית, בחינם
+        </h4>
+
         <div className="mt-16 text-center">
           <p className="text-muted-foreground mb-4">
             רוצים לקבל עזרה בהטמעה? יש לי תשתית דומה בייצור 24/7.
@@ -334,11 +341,10 @@ function GuideCard({
         <div className="relative h-32 sm:h-36 overflow-hidden">
           <Image
             src={heroImage}
-            alt=""
+            alt={`איור המדריך ל-${guide.agentNameHe}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            aria-hidden="true"
             {...(eager ? { priority: true, fetchPriority: 'high' as const } : { loading: 'lazy' as const })}
           />
           <div
