@@ -58,6 +58,7 @@ const T = {
     switchLangHref: (slug: string) =>
       slug === "claude-code" ? "/en/claude-code" : `/en/guide/${slug}`,
     agentsHeading: "סוכני AI",
+    patternsHeading: "דפוסי-עבודה",
     infraHeading: "תשתית ורכיבי בסיס",
     difficulty: {
       beginner: "למתחילים",
@@ -98,6 +99,7 @@ const T = {
     switchLangHref: (slug: string) =>
       slug === "claude-code" ? "/claude-code" : `/guide/${slug}`,
     agentsHeading: "AI Agents",
+    patternsHeading: "Working Patterns",
     infraHeading: "Infrastructure",
     difficulty: {
       beginner: "Beginner",
@@ -347,13 +349,17 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 className="mt-2 bg-background/95 backdrop-blur-md border border-border/50 rounded-2xl p-4 shadow-lg"
                 role="menu"
               >
-                {(["agent", "infra"] as const).map((cat) => {
+                {(["agent", "pattern", "infra"] as const).map((cat) => {
                   const items = allGuides.filter(
                     (g) => (g.category ?? "agent") === cat
                   );
                   if (!items.length) return null;
                   const heading =
-                    cat === "agent" ? t.agentsHeading : t.infraHeading;
+                    cat === "agent"
+                      ? t.agentsHeading
+                      : cat === "pattern"
+                        ? t.patternsHeading
+                        : t.infraHeading;
                   return (
                     <div key={cat} className="mb-3 last:mb-0">
                       <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 px-1">
