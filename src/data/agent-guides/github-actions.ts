@@ -26,11 +26,11 @@ export const githubActionsGuide: AgentGuideData = {
   heroBgImage: "/images/guides/guide-github-actions-hero.jpg",
   tagline: "כל push מריץ tests, builds ו-deploys — בלי שרת CI נפרד, בחינם לפרויקטים פתוחים",
   heroDescription:
-    "GitHub Actions היא מערכת CI/CD (continuous integration / continuous deployment) המובנית ישירות בתוך GitHub. CI/CD הוא השם של אוטומציה: כל פעם שאתם דוחפים קוד, המערכת מריצה בדיקות (tests), בונה את האפליקציה (build), ואם הכול תקין — פורסת אותה לייצור (deploy). בעבר, להקים pipeline כזה דרש שרת CI נפרד (Jenkins, TeamCity), שעות הגדרה ותחזוקה מתמשכת. עם GitHub Actions, זה קובץ YAML אחד בתוך הריפו (`.github/workflows/`), ו-GitHub עצמם מריצים את כל הפעולות על שרתים שלהם — בחינם לפרויקטים פתוחים, ועם 2,000 דקות חינמיות בחודש לפרויקטים פרטיים. אצלי (אלעד) GitHub Actions בונה את האתר הזה (Next.js) בכל push ל-main, פורס אותו אוטומטית ל-Vercel, מריץ TypeScript checks, ובודק שאין secrets שיצאו בטעות לקוד. בנוסף, יש לי actions שמתזמנים מטלות יומיות (cron triggers), פותחים PRs אוטומטית כשתלות מתעדכנת (Dependabot) — וכל זה בלי שרת אחד שלי. זה הכלי שעושה את ההבדל בין 'אני מפתח לבד' לבין 'יש לי תהליך מקצועי'.",
+    "GitHub Actions היא מערכת CI/CD (continuous integration / continuous deployment) המובנית ישירות בתוך GitHub. CI/CD הוא השם של אוטומציה: כל פעם שאתם דוחפים קוד, המערכת מריצה בדיקות (tests), בונה את האפליקציה (build), ואם הכול תקין — פורסת אותה לייצור (deploy). בעבר, להקים pipeline כזה דרש שרת CI נפרד (Jenkins, TeamCity), שעות הגדרה ותחזוקה מתמשכת. עם GitHub Actions, זה קובץ YAML אחד בתוך הריפו (`.github/workflows/`), ו-GitHub עצמם מריצים את כל הפעולות על שרתים שלהם — בחינם לפרויקטים פתוחים, ועם 2,000 דקות חינמיות בחודש לפרויקטים פרטיים. אצלי (אלעד) GitHub Actions משמש כשומר-הסף של האתר הזה: בכל push הוא מריץ CI — בדיקות TypeScript ו-build מלא — ורק קוד שעובר אותן ראוי להתמזג. את הפריסה עצמה עושה דווקא [Vercel](/guide/vercel), דרך ה-Git integration שלו (חיבור ישיר לריפו שפורס אוטומטית כל שינוי) — חלוקת עבודה נקייה: Actions בודק, Vercel פורס. וכל זה בלי שרת אחד שלי. זה הכלי שעושה את ההבדל בין 'אני מפתח לבד' לבין 'יש לי תהליך מקצועי'.",
   badgeText: "2026 · CI/CD · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/github-actions",
   stats: [
-    { label: "workflows אצלי", value: "12+" },
+    { label: "תפקיד אצלי", value: "CI" },
     { label: "דקות חינם / חודש", value: "2,000" },
     { label: "deploy time אתר", value: "~90s" },
     { label: "עלות לפתוח", value: "0" },
@@ -174,7 +174,7 @@ export const githubActionsGuide: AgentGuideData = {
         "Rollback — אם משהו לא טוב, בדשבורד של Vercel אפשר לעשות rollback בלחיצה אחת ל-deployment קודם",
       ],
       tips: [
-        "אצלי באתר הזה (Next.js): tests + typecheck רצים ב-CI, ואחר כך Vercel עושה deploy אוטומטית. ב-90% מהמקרים, מ-push ל-live פחות משתי דקות",
+        "אצלי באתר הזה (Next.js): typecheck + build רצים ב-CI, ואת ה-deploy עושה Vercel אוטומטית דרך ה-Git integration (אופציה A). ב-90% מהמקרים, מ-push ל-live פחות משתי דקות",
         "Vercel הוא הקל ביותר ל-Next.js, אבל אותו workflow עובד עם Cloudflare Pages, Netlify ו-Railway — רק עם ה-CLI שלהם",
       ],
       codeExample: {
@@ -315,5 +315,5 @@ export const githubActionsGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "אצלי 12+ workflows רצים על הריפוז שלי: כל אתר עם CI מלא, deploy אוטומטי ל-Vercel, מטלות יומיות שמתזמנות את עצמן, ו-Dependabot שמעדכן תלויות. הכול בחינם (לפרויקטים פתוחים) או בתוך מסגרת ה-2,000 דקות החינמיות. המדריך הזה הוא תמצית של 3 שנות שימוש פעיל בכלי, על כ-100 ריפוז שונים.",
+    "אצלי GitHub Actions מריץ CI על הריפוז שלי — typecheck ו-build בכל push — בעוד שאת הפריסה עושה Vercel דרך ה-Git integration שלו. הכול בחינם (לפרויקטים פתוחים) או בתוך מסגרת ה-2,000 דקות החינמיות. המדריך הזה הוא תמצית של 3 שנות שימוש פעיל בכלי, על עשרות ריפוז שונים.",
 };

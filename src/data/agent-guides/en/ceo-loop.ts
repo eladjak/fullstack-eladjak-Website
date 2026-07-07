@@ -23,7 +23,7 @@ export const ceoLoopGuideEn: AgentGuideData = {
   tagline:
     "A single 07:00 message that sums up what the network did overnight — and what's waiting for your one-tap decision",
   heroDescription:
-    "The CEO Loop is how an AI agent network talks to you the way a good chief-of-staff talks to a CEO: not a hundred alerts a day, but one summary, at one time, with clear decisions waiting for you. Instead of logging into a dashboard and digging through logs, at 07:00 a single WhatsApp message arrives through [Kami](/en/guide/kami): what the network executed while you slept, what succeeded, and what needs your call. Every move that requires approval (send a client a proposal, publish a post, release a payment) arrives with two buttons — approve or reject — so you decide straight from the message, without opening anything. And whoever does want to go deeper gets a one-time 'magic link' that opens the dashboard already logged in, no password. For me (Elad), this is the one message I have to read each morning — it condenses everything the network did into a single 30-second picture. For you, it's the difference between a system that bombards you with notifications and one that respects your time and surfaces only what genuinely needs a human. The loop sits on top of the [autonomy stack](/en/guide/autonomy) and uses its approval gate — it's simply the human wrapper that makes that stack pleasant to live with.",
+    "The CEO Loop is how an AI agent network talks to you the way a good chief-of-staff talks to a CEO: not a hundred alerts a day, but one summary, at one time, with clear decisions waiting for you. Instead of logging into a dashboard and digging through logs, at 07:00 a single WhatsApp message arrives through [Kami](/en/guide/kami): what the network executed while you slept, what succeeded, and what needs your call. Every move that requires approval (send a client a proposal, publish a post, release a payment) arrives with approve/reject links — on WhatsApp and Telegram — so you decide straight from the message, without opening anything. And whoever does want to go deeper gets a 'magic link' that opens the dashboard already logged in, no password. For me (Elad), this is the one message I have to read each morning — it condenses everything the network did into a single 30-second picture. For you, it's the difference between a system that bombards you with notifications and one that respects your time and surfaces only what genuinely needs a human. The loop sits on top of the [autonomy stack](/en/guide/autonomy) and uses its approval gate — it's simply the human wrapper that makes that stack pleasant to live with.",
   badgeText: "2026 · Proactive CEO Briefing · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/ceo-loop",
   heroBgImage: "/images/guides/guide-ceo-loop-hero.jpg",
@@ -45,12 +45,12 @@ export const ceoLoopGuideEn: AgentGuideData = {
     },
     {
       before: "To approve a move you open a dashboard, log in, and hunt for where it is",
-      after: "Approve or reject straight from the message — two buttons, one tap",
+      after: "Approve or reject straight from the message — one tap, on WhatsApp or Telegram",
       icon: MousePointerClick,
     },
     {
       before: "'Log in to check' — another password, more friction, another reason not to open it",
-      after: "A one-time magic link opens the dashboard with you already logged in",
+      after: "A magic link opens the dashboard with you already logged in",
       icon: LayoutDashboard,
     },
     {
@@ -152,16 +152,16 @@ export const ceoLoopGuideEn: AgentGuideData = {
       id: "one-tap",
       icon: MousePointerClick,
       title: "One-tap approval — decide from within the message",
-      subtitle: "Every risky move arrives with two buttons: approve or reject",
+      subtitle: "Every risky move arrives with two options: approve or reject",
       description:
-        "The part that turns the brief from a report into a working tool is the approval buttons. Every move classified 'risky' by the approval gate of the [autonomy stack](/en/guide/autonomy) — send a client a proposal, publish content, release a payment — is not executed on its own. It waits in a queue, and is attached to the brief as two WhatsApp buttons. Tapping 'approve' releases it for execution; tapping 'reject' cancels it. You decide straight from the message, on your phone, without opening any additional screen. This is autonomy-with-a-brake: the system does everything on its own — except the irreversible moves, which wait for you.",
+        "The part that turns the brief from a report into a working tool is one-tap approval. Every move classified 'risky' by the approval gate of the [autonomy stack](/en/guide/autonomy) — send a client a proposal, publish content, release a payment — is not executed on its own. It waits in a queue, and is attached to the brief as approve/reject links on WhatsApp and Telegram. Tapping 'approve' releases it for execution; tapping 'reject' cancels it. You decide straight from the message, on your phone, without opening any additional screen. This is autonomy-with-a-brake: the system does everything on its own — except the irreversible moves, which wait for you.",
       color: "from-rose-600 to-red-500",
       difficulty: "intermediate",
       beginner:
         "Picture a personal assistant who texts you: 'I prepared the proposal for the client, ready to send — shall I send it?' and you reply 'yes' or 'no' in a single message. That's the whole idea. Instead of the system sending things on your behalf without asking (scary), or making you log into some screen to approve (annoying) — it simply puts two buttons in the message. One tap and it happens, another tap and it's cancelled. That way you keep control over everything that matters, effortlessly.",
       content: [
         "The source: every move tagged 'needs-approval' by the Firewall of the [autonomy stack](/en/guide/autonomy) enters an approvals queue",
-        "The display: pending moves are attached to the brief as WhatsApp buttons — a short headline + 'approve' / 'reject'",
+        "The display: pending moves are attached to the brief as approve/reject links on WhatsApp and Telegram — a short headline + 'approve' / 'reject'",
         "The approval: tapping 'approve' releases the move for execution through [Kami](/en/guide/kami); tapping 'reject' cancels and records the reason",
         "Off-brief: an urgent move doesn't wait for morning — it's sent the moment it's created; the brief only bundles what wasn't burning",
         "Transparency: every approve/reject is written to the ledger — so there's always a record of who decided what and when",
@@ -179,22 +179,22 @@ export const ceoLoopGuideEn: AgentGuideData = {
       id: "magic-link",
       icon: LayoutDashboard,
       title: "The magic link — dashboard without a password",
-      subtitle: "For those who want to go deeper: a one-time link that opens the dashboard already logged in",
+      subtitle: "For those who want to go deeper: a link that opens the dashboard already logged in",
       description:
-        "Sometimes a headline isn't enough and you want the full picture. Instead of sending 'log into the dashboard' (another password, more friction), the brief includes a magic link: a one-time URL with an embedded token, valid for a short window. Tapping it opens the [dashboard](/en/guide/dashboard) with you already logged in — without typing anything. It's the same 'passwordless sign-in' (magic link) principle many sites already use: convenience without giving up security, because the link expires and is used only once.",
+        "Sometimes a headline isn't enough and you want the full picture. Instead of sending 'log into the dashboard' (another password, more friction), the brief includes a magic link: a URL with an embedded token — tapping it opens the [dashboard](/en/guide/dashboard) with you already logged in, without typing anything. It's the same 'passwordless sign-in' (magic link) principle many sites already use. Full disclosure: in the classic version the token is one-time and short-lived; in my current setup the simpler version runs — a fixed token in the URL — a deliberate trade-off for a personal dashboard sitting behind the network's other protection layers, with the rotating-token upgrade as the next step.",
       color: "from-violet-600 to-fuchsia-500",
       difficulty: "intermediate",
       beginner:
-        "You know how a site emails you a 'log in' button, you tap it, and suddenly you're in without typing a password? That's a 'magic link.' The network's brief does exactly that: if you want to see more than the headlines, there's one link in the message you tap — and you're already inside the dashboard, logged in, seeing everything. No password to remember, no login screen. And it's safe, because the link works only once and only for a short time — just like a one-time verification code.",
+        "You know how a site emails you a 'log in' button, you tap it, and suddenly you're in without typing a password? That's a 'magic link.' The network's brief does exactly that: if you want to see more than the headlines, there's one link in the message you tap — and you're already inside the dashboard, logged in, seeing everything. No password to remember, no login screen. In the full version the link works only once and only for a short time — just like a one-time verification code; in my current setup a simpler variant runs, with a fixed link, which fits a personal dashboard.",
       content: [
-        "The mechanism: the link holds a signed token that is valid for a short time and for one-time use",
+        "The mechanism (the recommended version): the link holds a signed token that is valid for a short time and for one-time use",
         "The flow: tap → the server verifies the token → opens a logged-in session → redirects to the [dashboard](/en/guide/dashboard)",
-        "Security: the link expires quickly, cannot be reused, and is bound to the device/user — so convenience doesn't come at the cost of safety",
+        "Security: in the recommended version the link expires quickly and cannot be reused. In my current setup the token is fixed — a deliberate trade-off for a personal dashboard, with additional protection layers behind it",
         "The infrastructure: the dashboard runs behind a [Cloudflare Tunnel](/en/guide/cloudflare-tunnel) — no port open to the internet, entry always through a protected layer",
         "The experience: from a WhatsApp message to a full dashboard in one tap — zero friction, and that's what actually makes you open it",
       ],
       tips: [
-        "A short-lived one-time token is the right standard. Don't send a permanent dashboard link in a message — anyone who obtains the message would gain permanent access",
+        "A short-lived one-time token is the right standard for any shared environment. If your messages could reach the wrong eyes — don't compromise on a fixed link: anyone who obtains the message would gain permanent access",
         "The magic link is what makes the report get read. Password friction at entry means you simply don't open it; remove it, and suddenly the dashboard is actually used",
       ],
     },

@@ -116,8 +116,8 @@ export const kamiGuideEn: AgentGuideData = {
         "Think of Kami as a friend who has all the knowledge of ChatGPT, but belongs to you alone, lives inside WhatsApp, and actually remembers what you told him yesterday and last week. You type a message or record a quick voice note on your way to work, and he answers — just like a friend who is always available. The real magic is that there is no extra app to open: he lives inside the app that is already open on your phone all day.",
       content: [
         "A service running on a VPS 24/7 that listens to WhatsApp via a Green API webhook (a webhook is a 'doorbell' — an incoming call from an external server whenever something happens, in our case a new message)",
-        "Every incoming message passes through [Claude Sonnet](/en/claude-code) 4.6 with a custom system prompt (the system prompt is the background instructions that tell the model who it is and how to behave — in my setup it is defined as Elad's personal assistant)",
-        "Voice notes are transcribed automatically by OpenAI Whisper (whisper-1) — a top-tier STT (Speech-to-Text, turning spoken audio into written text) service that performs excellently in Hebrew; for higher accuracy you can swap in whisper-large-v3 via Groq",
+        "Every incoming message passes through [Claude Sonnet](/en/claude-code) 4.5 with a custom system prompt (the system prompt is the background instructions that tell the model who it is and how to behave — in my setup it is defined as Elad's personal assistant)",
+        "Voice notes are transcribed automatically (STT — Speech-to-Text, turning spoken audio into written text): the primary engine in my setup is Google's Gemini (free and accurate in Hebrew), with an automatic fallback to Whisper via Groq or OpenAI when needed",
         "Replies go out as text or as voice through Gemini TTS (Text-to-Speech, turning text back into spoken audio) using the Charon voice — a clear, natural male voice that Google offers for free",
         "Long-term memory is stored in [Qdrant](/en/guide/qdrant) — a semantic database that lets you retrieve past messages by meaning rather than by exact keywords",
       ],
@@ -158,16 +158,16 @@ export const kamiGuideEn: AgentGuideData = {
       id: "voice",
       icon: Mic,
       title: "Voice: hearing and speaking",
-      subtitle: "Whisper transcription → Claude → Gemini TTS",
+      subtitle: "Gemini transcription → Claude → Gemini TTS",
       description:
         "This is the feature that has already become the number-one reason people adopt Kami — being able to talk to it out loud throughout the day. You record a regular WhatsApp voice note (just like you would to any friend), Kami listens, understands, and replies back in voice — which turns it into a real assistant for moments when you are driving, walking, or have your hands full.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       beginner:
-        "When you record a voice note for Kami, it sends the audio to OpenAI Whisper — an STT (Speech-to-Text, spoken audio to written text) service that works exceptionally well in Hebrew. The transcribed text is passed to [Claude](/en/claude-code), which thinks it through and writes a response. The reply goes to Gemini TTS (Text-to-Speech, written text to spoken audio), which produces a Hebrew audio file, and that file is sent back to you on WhatsApp — the whole round trip takes roughly 4 to 5 seconds.",
+        "When you record a voice note for Kami, it sends the audio for transcription (STT — Speech-to-Text, spoken audio to written text). The primary engine in my setup is Google's Gemini — free and exceptionally good in Hebrew — with an automatic fallback to Whisper via Groq and OpenAI if Gemini is unavailable. The transcribed text is passed to [Claude](/en/claude-code), which thinks it through and writes a response. The reply goes to Gemini TTS (Text-to-Speech, written text to spoken audio), which produces a Hebrew audio file, and that file is sent back to you on WhatsApp — the whole round trip takes roughly 4 to 5 seconds.",
       content: [
         "Incoming voice note → Green API delivers a URL to the .oga file (WhatsApp's native audio format)",
-        "Kami downloads the file → sends it to OpenAI Whisper with the language set to Hebrew (model=whisper-1, language=he)",
+        "Kami downloads the file → sends it to Gemini for transcription with the language set to Hebrew (and if Gemini is unavailable — falls back automatically to Whisper via Groq or OpenAI)",
         "Within 2 to 3 seconds the transcribed text comes back — precise Hebrew, including punctuation and proper diacritics",
         "[Claude Sonnet](/en/claude-code) receives the text along with the conversation context, drafts a Hebrew reply, and hands it to Gemini TTS",
         "Gemini TTS (configured with voice=Charon, a clear male voice) returns an MP3 file → Kami uploads it back to WhatsApp",
@@ -237,20 +237,20 @@ export const kamiGuideEn: AgentGuideData = {
       id: "bridge",
       icon: Users,
       title: "Bridge to other agents",
-      subtitle: "Kami talks to Claude Code and Kaylee via messages.jsonl",
+      subtitle: "Kami talks to Claude Code and Kaylee via a central API",
       description:
-        "Kami is not a lone agent — it is part of a network of agents that talk to each other. The bridge between them is implemented as a bridge file called messages.jsonl (a plain text file where each line is a single JSON message — a simple, resilient format that every programming language can read and write). This lets Kami forward requests to [Claude Code](/en/claude-code) on my machine, or to [Kaylee](/en/guide/kaylee) on the VPS, and route the replies back.",
+        "Kami is not a lone agent — it is part of a network of agents that talk to each other. The bridge between them is implemented today as a central HTTP API — a small network service every agent posts messages to and pulls its pending messages from (in early versions it was a shared file called messages.jsonl; the API replaced it as the network grew). This lets Kami forward requests to [Claude Code](/en/claude-code) on my machine, or to [Kaylee](/en/guide/kaylee) on the server, and route the replies back.",
       color: "from-cyan-600 to-blue-500",
       difficulty: "advanced",
       beginner:
         "Think of it as a private WhatsApp group just for the agents. You tell Kami 'check whether the server is up', it forwards the request to [Kaylee](/en/guide/kaylee) (the infrastructure agent in charge of every server), Kaylee runs the check and replies, and Kami brings the answer back to you on WhatsApp — all without you needing to know which agent does what behind the scenes.",
       content: [
-        "The bridge itself is a JSON Lines file at ~/.claude/kami-bridge/messages.jsonl — a plain format with one message per line",
+        "The bridge itself is a central HTTP API — an agent posts a message with a POST request and pulls the messages waiting for it with a GET request. Simple, resilient, and every programming language can talk to it",
         "Every message carries these fields: {ts (timestamp), from (sender), to (recipient), content (payload), status (pending/handled), type (request/response)}",
-        "Kami polls the file roughly every 10 seconds — spotting new messages addressed to it and processing them",
+        "Kami checks the bridge at a steady cadence — spotting new messages addressed to it and processing them",
         "Kami can send messages to two recipients: claude-code (that is me on my machine) or kylie (that is [Kaylee](/en/guide/kaylee))",
-        "[Claude Code](/en/claude-code) running on my Windows box reads the same file and responds whenever it sees messages directed to it",
-        "[Kaylee](/en/guide/kaylee) on the VPS does not use the file — it listens on a dedicated HTTP endpoint (a network address that accepts incoming requests)",
+        "[Claude Code](/en/claude-code) running on my Windows box connects to the same bridge and responds whenever it sees messages directed to it",
+        "[Kaylee](/en/guide/kaylee) receives her messages through her own dedicated webhook (a network address that accepts incoming requests)",
         "Channel visibility: every message another agent in the network sends you through Kami's channel is also written into his conversation memory — so if you ask him 'what did you send me this morning?', he actually knows, even when the message was produced by another agent",
       ],
       tips: [
@@ -276,7 +276,7 @@ export const kamiGuideEn: AgentGuideData = {
         "WhatsApp Business vs Personal — Kami works perfectly with a regular personal number; Green API does not require a business profile or Meta verification",
         "Rate limits — the Green API free tier caps at 1,000 messages per month; the Pro plan starts at $39/month with no cap, which is cost-effective for heavy use",
         "Multi-user — you can add additional users in code and offer a personal agent to every family member, each with their own system prompt (dad gets one, mom another, the kids a third)",
-        "Backup — messages.jsonl grows quickly; set up a weekly rotation that uploads to AWS S3 or Hetzner Object Storage (cheap archival storage for files)",
+        "Backup — the conversation log grows quickly; set up a weekly rotation that uploads to AWS S3 or Hetzner Object Storage (cheap archival storage for files)",
         "The 'dashboard' text command — send Kami the word 'dashboard' on WhatsApp, and you get back a one-time link that opens the [dashboard](/en/guide/dashboard) with you already signed in — no password and no login screen",
         "Monitoring — a tool called Uptime Kuma pings Kami's health endpoint (a URL that returns 'I'm alive') and fires an alert the moment the service goes down",
         "A/B testing for system prompts — duplicate system-prompt.ts into several variants and switch between them with an environment variable (ENV var — external configuration the program reads at startup), to see which personality resonates best",
@@ -290,7 +290,7 @@ export const kamiGuideEn: AgentGuideData = {
   resources: [
     {
       title: "GitHub — elad-personal-agent",
-      description: "Kami's full source code — TypeScript + Bun + Claude + Whisper + Gemini TTS",
+      description: "Kami's full source code — TypeScript + Bun + Claude + Gemini (STT and TTS)",
       href: "https://github.com/eladjak/elad-personal-agent",
       icon: Github,
     },
@@ -308,7 +308,7 @@ export const kamiGuideEn: AgentGuideData = {
     },
     {
       title: "OpenAI Whisper API",
-      description: "Accurate Hebrew voice transcription",
+      description: "Accurate Hebrew voice transcription — Kami's fallback engine",
       href: "https://platform.openai.com/docs/guides/speech-to-text",
       icon: ExternalLink,
     },

@@ -113,13 +113,13 @@ export const dashboardGuideEn: AgentGuideData = {
       color: "from-blue-600 to-indigo-500",
       difficulty: "beginner",
       beginner:
-        "Think of a car dashboard — without the speedometer, engine temp, and fuel gauge you're driving blind. This dashboard is exactly that, but for your agent network and AI stack: a single web page that stays open all day in your browser and shows, at a glance, what [Kami](/en/guide/kami) is doing right now, how [Kaylee](/en/guide/kaylee) feels, how much money is burning on AI calls today, which projects are active, and where something is broken. Instead of jumping between five websites and a dozen tabs — everything lives on one screen.",
+        "Think of a car dashboard — without the speedometer, engine temp, and fuel gauge you're driving blind. This dashboard is exactly that, but for your agent network and AI stack: a single web page you open in the browser whenever you need it, showing at a glance what [Kami](/en/guide/kami) is doing right now, how [Kaylee](/en/guide/kaylee) feels, how much money is burning on AI calls today, which projects are active, and where something is broken. Instead of jumping between five websites and a dozen tabs — everything lives on one screen.",
       content: [
         "The server runs on port 3456 (a port is a numeric address services use to talk on a machine) for regular HTTP traffic, and on port 3457 for WebSocket — a technology that lets the server push updates to the browser the moment something happens, without the browser having to ask again and again",
         "All the code lives in one file: ~/.claude/dashboard/server.js, about 3,000 readable lines. This isn't a monster project — you can read the whole thing in an hour and understand it end to end",
-        "A small start-dashboard.vbs file makes sure the Dashboard launches automatically whenever the machine boots, so it's always there without me starting it manually",
+        "A small start-dashboard.vbs file can make the Dashboard launch automatically whenever the machine boots. These days I bring it up when I need it — a helper tool, not a service that must run at all times",
         "The UI itself (what you see in the browser) is a plain index.html with vanilla JavaScript — no React, no Vue, no build step. Change a line, refresh the page, and you see the result instantly",
-        "The Dashboard also acts as a proxy (a middleman) that routes requests to three other services: the agent-control-panel on port 5300, [Ollama](/en/guide/ollama) (for running AI models locally) on port 11434, and the Hub running on the cloud server at hub.eladjak.com. Everything ends up under one URL",
+        "The Dashboard also acts as a proxy (a middleman) that routes requests to other services: the agent-control-panel on port 5300, and the local [Ollama](/en/guide/ollama) (when it's running on the machine) — everything ends up under one URL",
         "Data sources: local JSON files (projects-registry.json, which tracks 39 projects; the Kanban file; and so on), live calls to the [Delegator](/en/guide/delegator), and queries into [Qdrant](/en/guide/qdrant) for the agents' semantic memory",
       ],
     },
@@ -235,7 +235,7 @@ export const dashboardGuideEn: AgentGuideData = {
       content: [
         "The source of truth for everything is a plain JSON file called projects-registry.json — each project with its name, description, status, and metadata. Every edit is saved there, and the file is trivial to back up",
         "Projects are split across 5 columns by stage: ideas (not started), active (in progress), maintenance (shipped and being maintained), on-hold (paused), archived (historical)",
-        "You can drag a project card between columns with the mouse — movement is handled by the Shuffle.js library, and the change is saved both locally in the browser (localStorage) and pushed to the server so the registry stays in sync",
+        "You can drag a project card between columns with the mouse — movement is handled with plain JavaScript (the browser's built-in drag-and-drop), and the change is saved both locally in the browser (localStorage) and pushed to the server so the registry stays in sync",
         "Every card shows the essentials: project name, a short description, the tech stack (React, Next.js, etc.), when I last touched it, and a link to the deploy if it's live",
         "You can filter: by technology (show me only the Next.js projects), by status, or by age (what haven't I touched in a month?). This is the cleanup key — it surfaces the projects you've abandoned and forces a decision: close or revive",
         "Each card carries quick actions: open directly in VS Code (the editor), open the deploy URL in a new tab, and copy the folder path — so in seconds I can be working on any project",
@@ -284,9 +284,9 @@ export const dashboardGuideEn: AgentGuideData = {
       icon: ExternalLink,
     },
     {
-      title: "Shuffle.js",
-      description: "For Kanban drag-and-drop",
-      href: "https://vestride.github.io/Shuffle/",
+      title: "MDN — Drag and Drop API",
+      description: "The browser's built-in API behind the Kanban drag-and-drop",
+      href: "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API",
       icon: ExternalLink,
     },
     {

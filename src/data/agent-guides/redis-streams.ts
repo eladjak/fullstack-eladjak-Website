@@ -24,16 +24,16 @@ export const redisStreamsGuide: AgentGuideData = {
   brandIconSlug: "redis",
   brandIconColor: "DC382D",
   heroBgImage: "/images/guides/guide-redis-streams-hero.jpg",
-  tagline: "message bus קל-משקל שמחבר 13 סוכנים בלי Kafka, RabbitMQ או SQS",
+  tagline: "message bus קל-משקל שמחבר רשת סוכנים שלמה בלי Kafka, RabbitMQ או SQS",
   heroDescription:
-    "Redis Streams היא תכונה של Redis (החל מגרסה 5.0, 2018) שהופכת אותו ל-message broker קליל מאוד — תקשורת אסינכרונית בין שירותים, בלי הסיבוך של Kafka או RabbitMQ. Redis עצמו הוא מאגר key-value בזיכרון שרץ במאות אלפי VPS ברחבי העולם — מהיר במיוחד (פעולות במיקרו-שניות), פשוט להגדרה, וצורך מינימום משאבים. Streams הוסיפו לו את היכולת להחזיק תורים מתמשכים של הודעות עם consumer groups (קבוצות צרכנים שמתחלקות בעבודה), acknowledgments (אישור שהודעה טופלה), ו-replay (יכולת לחזור להודעות ישנות). אצלי (אלעד) Redis Streams הוא 'העצב המרכזי' של רשת 13 הסוכנים שלי על Hetzner: כשמסר WhatsApp מגיע ל-Kami, הוא לא מטפל בו לבד — הוא דוחף הודעה ל-stream, וצרכנים שונים (Box לתזונה, Adopter לתוכן, Hermes לזמנים) קוראים ומגיבים. אם סוכן אחד נופל, ההודעות מחכות ב-stream עד שהוא חוזר. אם רוצים סוכן חדש שמאזין לאותם events — מוסיפים אותו ל-consumer group ב-30 שניות. מאז המעבר ל-Redis Streams (לפני שנתיים, Q2 2024), המערכת שלי יציבה הרבה יותר: כל סוכן עובד לבד, וההיגיון 'מי מקשיב למה' מנוהל ב-Redis במקום ב-API calls ישירים.",
+    "Redis Streams היא תכונה של Redis (החל מגרסה 5.0, 2018) שהופכת אותו ל-message broker קליל מאוד — תקשורת אסינכרונית בין שירותים, בלי הסיבוך של Kafka או RabbitMQ. Redis עצמו הוא מאגר key-value בזיכרון שרץ במאות אלפי VPS ברחבי העולם — מהיר במיוחד (פעולות במיקרו-שניות), פשוט להגדרה, וצורך מינימום משאבים. Streams הוסיפו לו את היכולת להחזיק תורים מתמשכים של הודעות עם consumer groups (קבוצות צרכנים שמתחלקות בעבודה), acknowledgments (אישור שהודעה טופלה), ו-replay (יכולת לחזור להודעות ישנות). אצלי (אלעד) Redis Streams הוא 'העצב המרכזי' של רשת הסוכנים שלי על שרת ה-Contabo: כשמסר WhatsApp מגיע ל-Kami, הוא לא מטפל בו לבד — הוא דוחף הודעה ל-stream, וצרכנים שונים (Box לבריאות, Adopter לתוכן, Hermes למשימות) קוראים ומגיבים. אם סוכן אחד נופל, ההודעות מחכות ב-stream עד שהוא חוזר. אם רוצים סוכן חדש שמאזין לאותם events — מוסיפים אותו ל-consumer group ב-30 שניות. מאז שהרשת עברה ל-Redis Streams, המערכת שלי יציבה הרבה יותר: כל סוכן עובד לבד, וההיגיון 'מי מקשיב למה' מנוהל ב-Redis במקום ב-API calls ישירים.",
   badgeText: "2026 · Message Bus · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/redis-streams",
   stats: [
-    { label: "consumer groups אצלי", value: "8" },
-    { label: "הודעות / יום", value: "~50k" },
+    { label: "consumer groups אצלי", value: "17" },
+    { label: "הודעות / יום", value: "~5k" },
     { label: "latency", value: "<5ms" },
-    { label: "RAM", value: "~100MB" },
+    { label: "RAM", value: "~10MB" },
   ],
   paradigmTitle: "מ-API calls ישירים ל-event-driven",
   paradigmSub:
@@ -220,7 +220,7 @@ export const redisStreamsGuide: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       beginner:
-        "Redis מחזיק את הכול בזיכרון, וזה מה שעושה אותו מהיר — אבל גם מה שמסוכן בו. זיכרון נמחק כשמכבים את המחשב, אז בלי הגדרה נכונה כל ההודעות נעלמות אם השרת קורס. שלושת הדברים בסעיף הזה הם הביטוח: שמירה לדיסק (שלא יאבד דאטה), הגבלת גודל (שה-stream לא יבלע את כל הזיכרון), וניטור (שתדעו שמשהו נתקע לפני שזה מתפוצץ). אצלי (אלעד) כל 13 הסוכנים מסתדרים עם פחות מ-100MB זיכרון בזכות ההגדרות האלה.",
+        "Redis מחזיק את הכול בזיכרון, וזה מה שעושה אותו מהיר — אבל גם מה שמסוכן בו. זיכרון נמחק כשמכבים את המחשב, אז בלי הגדרה נכונה כל ההודעות נעלמות אם השרת קורס. שלושת הדברים בסעיף הזה הם הביטוח: שמירה לדיסק (שלא יאבד דאטה), הגבלת גודל (שה-stream לא יבלע את כל הזיכרון), וניטור (שתדעו שמשהו נתקע לפני שזה מתפוצץ). אצלי (אלעד) כל הרשת מסתדרת עם כ-10MB זיכרון בלבד בזכות ההגדרות האלה.",
       content: [
         "Persistence — שני סוגים: AOF (append-only file, יותר בטוח) ו-RDB (snapshot כל N דקות). מומלץ AOF every-second כברירת מחדל",
         "MAXLEN — תמיד הוסיפו `XADD ... MAXLEN ~ 10000` כדי לחתוך אוטומטית. ה-`~` אומר 'בערך', יעיל יותר",
@@ -233,7 +233,7 @@ export const redisStreamsGuide: AgentGuideData = {
         "Redis Cluster — להתפלגות אופקית. לרוב הצרכים, single instance מספיק",
       ],
       tips: [
-        "אצלי Redis רץ ב-Docker עם volume persistence ו-AOF. השורה התחתונה: 100MB RAM משמשים את כל 13 הסוכנים, latency פחות מ-5ms",
+        "אצלי Redis רץ ב-Docker עם volume persistence ו-AOF. השורה התחתונה: כ-10MB RAM משמשים את כל הרשת, latency פחות מ-5ms",
         "תמיד ודאו שיש backup של ה-RDB/AOF. אם Redis קורס באמצע פעולה, ייתכן אבדן דאטה של שנייה אחרונה",
       ],
       codeExample: {
@@ -262,7 +262,7 @@ export const redisStreamsGuide: AgentGuideData = {
         "השוואה: לרשת סוכנים אישית/קטנה → Redis Streams. ל-enterprise עם דרישות compliance → Kafka או RabbitMQ. ל-serverless מלא → SQS או Cloudflare Queues",
       ],
       tips: [
-        "אצלי בחרתי Redis Streams כי: כבר היה לי Redis ל-cache, צריכת RAM קטנה, ו-API פשוט. Kafka היה overkill לרשת של 13 סוכנים שמטפלים ב-~50k הודעות ביום",
+        "אצלי בחרתי Redis Streams כי: כבר היה לי Redis ל-cache, צריכת RAM קטנה, ו-API פשוט. Kafka היה overkill לרשת סוכנים שמטפלת בכ-5,000 הודעות ביום",
         "אל תקפצו ל-Kafka רק 'כי זה הסטנדרט'. רוב המוצרים לא מגיעים ל-scale שמצדיק את הסיבוך. התחילו פשוט ועלו רק כשאתם באמת צריכים",
       ],
     },
@@ -307,7 +307,7 @@ export const redisStreamsGuide: AgentGuideData = {
   ],
   ctaTitle: "צריכים ארכיטקטורת message bus?",
   ctaSub:
-    "אצלי 13 סוכנים מתואמים דרך Redis Streams בלי Kafka, בלי overhead. אני יכול לעזור לכם לתכנן את שלכם.",
+    "אצלי רשת סוכנים שלמה מתואמת דרך Redis Streams בלי Kafka, בלי overhead. אני יכול לעזור לכם לתכנן את שלכם.",
   primaryCta: {
     label: "Redis Streams Quick Start",
     href: "https://redis.io/docs/data-types/streams-tutorial/",
@@ -319,5 +319,5 @@ export const redisStreamsGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "אצלי על Hetzner, Redis Streams מחבר 13 סוכנים שמטפלים ב-~50k הודעות ביום. צריכת RAM: ~100MB. latency ממוצע: פחות מ-5ms. עברתי ל-Streams לפני שנתיים אחרי שהבנתי ש-Kafka עבר את הקיבולת שלי לסבול. המעבר היה הצלחה — מאז המערכת יציבה ופשוטה הרבה יותר לתחזוקה.",
+    "אצלי על שרת ה-Contabo, Redis Streams מחבר את רשת הסוכנים עם 17 consumer groups שמטפלים בכ-5,000 הודעות ביום. צריכת RAM: כ-10MB. latency ממוצע: פחות מ-5ms. בחרתי ב-Streams כי Kafka היה סיבוך מיותר בקנה-מידה כזה — ומאז המערכת יציבה ופשוטה הרבה יותר לתחזוקה.",
 };

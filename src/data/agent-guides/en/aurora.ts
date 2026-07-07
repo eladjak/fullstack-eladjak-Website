@@ -112,7 +112,7 @@ export const auroraGuideEn: AgentGuideData = {
         "Think of a good internal auditor in an organization. They're not the one producing the product — they're the one who goes over every department once a week and asks 'what works? what's stuck? what can be improved?'. Aurora is exactly that for the agent network: she doesn't do tasks herself, she checks whether everyone else is doing theirs properly. And importantly — she audits with a 'let's improve what we have' mindset, not 'let's delete'. Just like a good auditor whose goal is to help the organization improve, not to fire people.",
       content: [
         "Aurora is female (she/her) — an Oracle figure in the network, alongside Kami, Kaylee, Box, Solis and Ranch",
-        "Channel: Telegram @Oracle_elad_bot + the 'Rebels' group (she's one of 3 agents with an active bot in the group)",
+        "Channel: Telegram @Oracle_elad_bot + the 'Rebels' group (one of several agents in the network with an active bot in the group)",
         "Five responsibilities: weekly_review (weekly reflection), reflection, brain_maintain (organizational-brain maintenance), map_audit, and the orchestrator brain — a recognize-route-execute-verify layer for every new request",
         "Two sources of truth: the outcome ledger (observed truth) and the system map (declared truth) — the gap between them is the raw material of the critique",
         "The iron rule: critique to OPTIMIZE existing first — deletion is a last resort, not a default",

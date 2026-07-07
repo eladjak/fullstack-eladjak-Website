@@ -27,11 +27,11 @@ export const nginxGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-nginx-hero.jpg",
   tagline: "reverse proxy, SSL termination, and load balancing — everything that sits in front of your application",
   heroDescription:
-    "Nginx (pronounced 'engine-x') is an open-source web server and reverse proxy that as of 2026 runs roughly a third of all websites in the world, and that is no accident. It is exceptionally fast (handles 10,000 concurrent connections on a small server), uses very little RAM (typically 50 MB), and is rock-solid stable — for me (Elad), the same nginx process runs for months on end without ever needing a restart. Its classic role is 'reverse proxy': a server that sits at the edge of your VPS, receives every request from the internet, and decides which internal service to route each one to. On my Hetzner VPS, nginx receives every request hitting `fullstack-eladjak.co.il`, `hub.eladjak.com`, and a dozen subdomains — and routes each one to the right Docker container among 13 agents running on internal ports 3700-3900. It also handles SSL/HTTPS (the certificates themselves are free from Let's Encrypt), compresses responses, and serves static files faster than any application server. Popular alternatives (Caddy, Traefik) are easier to configure, but nginx remains the standard because it is everywhere and the documentation is enormous. If you build a serious server — get to know it.",
+    "Nginx (pronounced 'engine-x') is an open-source web server and reverse proxy that as of 2026 runs roughly a third of all websites in the world, and that is no accident. It is exceptionally fast (handles 10,000 concurrent connections on a small server), uses very little RAM (typically 50 MB), and is rock-solid stable — a single nginx process can run for months on end without ever needing a restart. Its classic role is 'reverse proxy': a server that sits at the edge of your VPS, receives every request from the internet, and decides which internal service to route each one to. For me (Elad), nginx served me faithfully on the first servers I set up — receiving requests for dozens of subdomains and routing each one to the right internal service; today the edge of my agent network is built on [Cloudflare Tunnel](/en/guide/cloudflare-tunnel) and Traefik instead, and this very site runs on [Vercel](/en/guide/vercel) without touching a server at all. Beyond routing, nginx handles SSL/HTTPS (the certificates themselves are free from Let's Encrypt), compresses responses, and serves static files faster than any application server. Popular alternatives (Caddy, Traefik) are easier to configure, but nginx remains the standard because it is everywhere, the documentation is enormous — and you will meet it at almost every client. If you build a serious server — get to know it.",
   badgeText: "2026 · Reverse Proxy · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/nginx",
   stats: [
-    { label: "subdomains I run", value: "10+" },
+    { label: "share of world's websites", value: "~33%" },
     { label: "concurrent connections", value: "10k+" },
     { label: "RAM footprint", value: "~50 MB" },
     { label: "nginx uptime", value: "99.99%" },
@@ -135,7 +135,7 @@ export const nginxGuideEn: AgentGuideData = {
       title: "Reverse Proxy: the heart of modern usage",
       subtitle: "How to route traffic to dozens of internal services",
       description:
-        "Reverse proxy is the technical name for nginx's classic role in 2026: stand in front of the internet, receive all requests, and route them to the right internal backend. 'Reverse' because unlike a regular proxy that 'hides' the client (like a VPN), a reverse proxy hides the servers — the client thinks it's talking to one server, but there are actually dozens behind it. On my setup, nginx receives requests for dozens of subdomains and routes each one to a different Docker container running on an internal port.",
+        "Reverse proxy is the technical name for nginx's classic role in 2026: stand in front of the internet, receive all requests, and route them to the right internal backend. 'Reverse' because unlike a regular proxy that 'hides' the client (like a VPN), a reverse proxy hides the servers — the client thinks it's talking to one server, but there are actually dozens behind it. On the servers I ran in the past, nginx received requests for dozens of subdomains and routed each one to a different Docker container running on an internal port.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
@@ -151,7 +151,7 @@ export const nginxGuideEn: AgentGuideData = {
       tips: [
         "Always include the trailing slash in proxy_pass: `proxy_pass http://x:3001/` (with /) is different from `proxy_pass http://x:3001` (without). The difference is how the path is forwarded. Read the docs once and pin it",
         "For large file uploads add `client_max_body_size 100M;` inside the server block. The default 1M is too small for most cases",
-        "For me, every per-service config lives in `/etc/nginx/sites-available/<service>.conf` — easy to edit, easy to diff in git, easy to enable/disable individually",
+        "A recommended layout: every per-service config lives in `/etc/nginx/sites-available/<service>.conf` — easy to edit, easy to diff in git, easy to enable/disable individually",
       ],
       codeExample: {
         label: "Full reverse proxy to a Dockerized agent",
@@ -224,7 +224,7 @@ export const nginxGuideEn: AgentGuideData = {
       title: "Caddy, Traefik, and when to pick which",
       subtitle: "nginx is the standard, but not always the right choice",
       description:
-        "In 2026 there are three main reverse-proxy choices for a personal server: nginx (the veteran, the standard), Caddy (the new one, ridiculously simple), and Traefik (built for Docker). Each will work well — the question is how much complexity you're willing to pay for how much power. My early servers were all on nginx, and then I switched to Caddy and never looked back. But nginx remains the industry standard, and you'll meet it at clients.",
+        "In 2026 there are three main reverse-proxy choices for a personal server: nginx (the veteran, the standard), Caddy (the new one, ridiculously simple), and Traefik (built for Docker). Each will work well — the question is how much complexity you're willing to pay for how much power. My early servers were all on nginx; today my edge is built on Traefik together with [Cloudflare Tunnel](/en/guide/cloudflare-tunnel). But nginx remains the industry standard, and you'll meet it at clients.",
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
       beginner:
@@ -239,7 +239,7 @@ export const nginxGuideEn: AgentGuideData = {
       ],
       tips: [
         "Starting a new project in 2026 and want simple? — start with Caddy. Building something that will reach serious production or clients? — learn nginx",
-        "My move from nginx to Caddy cut 70% of the config code. Instead of 50 lines of nginx config per service — 3 lines of Caddyfile",
+        "Moving from nginx to Caddy can cut about 70% of the config code. Instead of 50 lines of nginx config per service — 3 lines of Caddyfile",
         "Cloudflare Tunnel + Caddy/nginx on the server is a winning combo — DDoS protection, CDN, and SSL from Cloudflare, while still keeping full control of routing on the server",
       ],
       codeExample: {
@@ -326,5 +326,5 @@ export const nginxGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "On my Hetzner VPS, nginx routes 10+ subdomains to 13 different containers, handles SSL from Let's Encrypt, and runs for years on end without maintenance. I've moved a few personal projects to Caddy, but nginx remains the standard I recommend for any project working with clients. This guide is built on years of setups and patches.",
+    "On the first servers I set up, nginx routed dozens of subdomains to internal containers, handled SSL from Let's Encrypt, and ran for months on end without maintenance. Today the edge of my agent network is built on Cloudflare Tunnel and Traefik, and this site runs on Vercel — but nginx remains the standard I recommend learning, because you will meet it at almost every client. This guide is built on years of setups and patches.",
 };

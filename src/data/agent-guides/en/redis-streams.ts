@@ -24,16 +24,16 @@ export const redisStreamsGuideEn: AgentGuideData = {
   brandIconSlug: "redis",
   brandIconColor: "DC382D",
   heroBgImage: "/images/guides/guide-redis-streams-hero.jpg",
-  tagline: "lightweight message bus connecting 13 agents without Kafka, RabbitMQ, or SQS",
+  tagline: "lightweight message bus connecting an entire agent network without Kafka, RabbitMQ, or SQS",
   heroDescription:
-    "Redis Streams is a Redis feature (since version 5.0, 2018) that turns it into a lightweight message broker — async communication between services, without the complexity of Kafka or RabbitMQ. Redis itself is an in-memory key-value store running on hundreds of thousands of VPSes around the world — extremely fast (microsecond operations), easy to set up, and minimal resource usage. Streams added to it the ability to hold persistent message queues with consumer groups (groups of consumers that share work), acknowledgments (confirming a message was handled), and replay (the ability to go back to old messages). For me (Elad), Redis Streams is the 'central nervous system' of my 13-agent network on Hetzner: when a WhatsApp message hits Kami, it doesn't process it alone — it pushes a message to a stream, and various consumers (Box for nutrition, Adopter for content, Hermes for scheduling) read and react. If one agent goes down, messages wait in the stream until it returns. If we want a new agent listening to those events — we add it to a consumer group in 30 seconds. Since moving to Redis Streams (two years ago, Q2 2024), my system has been much more stable: each agent works independently, and the 'who listens to what' logic is managed in Redis instead of through direct API calls.",
+    "Redis Streams is a Redis feature (since version 5.0, 2018) that turns it into a lightweight message broker — async communication between services, without the complexity of Kafka or RabbitMQ. Redis itself is an in-memory key-value store running on hundreds of thousands of VPSes around the world — extremely fast (microsecond operations), easy to set up, and minimal resource usage. Streams added to it the ability to hold persistent message queues with consumer groups (groups of consumers that share work), acknowledgments (confirming a message was handled), and replay (the ability to go back to old messages). For me (Elad), Redis Streams is the 'central nervous system' of my agent network on the Contabo server: when a WhatsApp message hits Kami, it doesn't process it alone — it pushes a message to a stream, and various consumers (Box for health, Adopter for content, Hermes for tasks) read and react. If one agent goes down, messages wait in the stream until it returns. If we want a new agent listening to those events — we add it to a consumer group in 30 seconds. Since the network moved to Redis Streams, my system has been much more stable: each agent works independently, and the 'who listens to what' logic is managed in Redis instead of through direct API calls.",
   badgeText: "2026 · Message Bus · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/redis-streams",
   stats: [
-    { label: "consumer groups I run", value: "8" },
-    { label: "messages / day", value: "~50k" },
+    { label: "consumer groups I run", value: "17" },
+    { label: "messages / day", value: "~5k" },
     { label: "latency", value: "<5ms" },
-    { label: "RAM", value: "~100 MB" },
+    { label: "RAM", value: "~10 MB" },
   ],
   paradigmTitle: "From direct API calls to event-driven",
   paradigmSub:
@@ -220,7 +220,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       beginner:
-        "Redis keeps everything in memory, which is what makes it fast — but also what makes it dangerous. Memory gets wiped when the machine powers off, so without the right config all your messages vanish if the server crashes. The three things in this section are the insurance: saving to disk (so no data is lost), capping size (so the stream doesn't swallow all the memory), and monitoring (so you know something is stuck before it blows up). For me (Elad), all 13 agents get by on under 100 MB of memory thanks to these settings.",
+        "Redis keeps everything in memory, which is what makes it fast — but also what makes it dangerous. Memory gets wiped when the machine powers off, so without the right config all your messages vanish if the server crashes. The three things in this section are the insurance: saving to disk (so no data is lost), capping size (so the stream doesn't swallow all the memory), and monitoring (so you know something is stuck before it blows up). For me (Elad), the whole network gets by on about 10 MB of memory thanks to these settings.",
       content: [
         "Persistence — two types: AOF (append-only file, safer) and RDB (snapshot every N minutes). Recommended default: AOF every-second",
         "MAXLEN — always add `XADD ... MAXLEN ~ 10000` to auto-trim. The `~` means 'approximately', more efficient",
@@ -233,7 +233,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Redis Cluster — horizontal sharding. For most needs, single instance is enough",
       ],
       tips: [
-        "My Redis runs in Docker with volume persistence and AOF. The reveal: 100 MB RAM serves all 13 agents, latency under 5ms",
+        "My Redis runs in Docker with volume persistence and AOF. The reveal: about 10 MB of RAM serves the whole network, latency under 5ms",
         "Always make sure you have backups of the RDB/AOF. If Redis crashes mid-operation, you may lose the last second of data",
       ],
       codeExample: {
@@ -262,7 +262,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
         "Comparison: for personal/small agent network → Redis Streams. For enterprise with compliance needs → Kafka or RabbitMQ. For full-on serverless → SQS or Cloudflare Queues",
       ],
       tips: [
-        "I picked Redis Streams because: I already had Redis for cache, RAM is small, and the API is simple. Kafka would have been overkill for a 13-agent network handling ~50k messages/day",
+        "I picked Redis Streams because: I already had Redis for cache, RAM is small, and the API is simple. Kafka would have been overkill for an agent network handling ~5,000 messages/day",
         "Don't jump to Kafka just because 'it's the standard'. Most products never reach a scale that justifies the complexity. Start simple and only level up when you actually need to",
       ],
     },
@@ -307,7 +307,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Need a message bus architecture?",
   ctaSub:
-    "I have 13 agents coordinated through Redis Streams without Kafka, without overhead. I can help you design yours.",
+    "I have an entire agent network coordinated through Redis Streams without Kafka, without overhead. I can help you design yours.",
   primaryCta: {
     label: "Redis Streams Quick Start",
     href: "https://redis.io/docs/data-types/streams-tutorial/",
@@ -319,5 +319,5 @@ export const redisStreamsGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "On my Hetzner, Redis Streams connects 13 agents handling ~50k messages a day. RAM use: ~100 MB. Average latency: under 5ms. I moved to Streams two years ago after deciding Kafka had exceeded my tolerance for ops complexity. The migration was a success — the system has been much more stable and easier to maintain ever since.",
+    "On my Contabo server, Redis Streams connects the agent network with 17 consumer groups handling ~5,000 messages a day. RAM use: ~10 MB. Average latency: under 5ms. I chose Streams because Kafka was needless complexity at this scale — and the system has been much more stable and easier to maintain ever since.",
 };

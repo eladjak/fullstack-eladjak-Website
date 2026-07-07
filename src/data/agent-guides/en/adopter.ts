@@ -24,18 +24,18 @@ export const adopterGuideEn: AgentGuideData = {
   agentNameHe: "Adopter — Autonomous Content Filter",
   category: "agent",
   logoImage: "/images/guide-logos/adopter-logo.png",
-  tagline: "Instead of reading 500 posts a day — an agent that filters",
+  tagline: "Instead of scrolling channels all day — an agent that filters",
   heroDescription:
-    "Adopter is a Python service plus cron that listens to Telegram channels through Telethon (a Python client that speaks MTProto — the full Telegram user protocol, not the restricted Bot API), sends each post to Gemini 2.5 Flash with a classification schema (novelty × signal × actionability × risk), and stores only the top-K items in a [Qdrant](/en/guide/qdrant) collection called `network_memory`. A circuit breaker caps it at 5 adoptions per day. For me it filters 500 posts a day down to 3-5 findings — for you it can point at RSS feeds, Discord channels, Reddit or Twitter forums, mailing lists, or any content firehose that needs a smart filter.",
+    "Adopter is an autonomous AI agent that serves as my personal research assistant that never sleeps. Its mission is simple but critical in 2026: filter the daily flood of new AI, tech, and business content and decide what deserves my time and what is noise. Here is how it works in practice: Adopter follows a curated set of professional Telegram channels (currently four in my setup) in the simplest possible way — reading the public web page Telegram publishes for every open channel (no bot, no account, no login) — and sends each post to [Gemini 2.5 Flash](https://ai.google.dev) (Google's fast AI model with a generous free tier) for a quick review against four critical questions: 'how new is it?', 'how accurate?', 'can I act on it?', and 'is there risk here?'. Only posts that clear all four questions with a high score get stored in [Qdrant](/en/guide/qdrant) (the network's smart memory store); the rest are dropped. Full disclosure: after a recent server migration, part of Adopter's pipeline is being rebuilt on my side — but the principles in this guide are exactly what it is built on. For you, it can point at any other content source: RSS feeds, Discord channels, Reddit forums, Twitter, mailing lists — any content firehose that needs a smart AI-based filter.",
   badgeText: "2026 · Autonomous Content Adoption · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/adopter",
   heroBgImage: "/images/guides/guide-adopter-hero.jpg",
   videoUrl: "/videos/guides/adopter.mp4",
   stats: [
-    { label: "channels monitored", value: "20+" },
-    { label: "posts per day", value: "500+" },
-    { label: "adoptions per day", value: "3-5" },
+    { label: "channels monitored", value: "4" },
+    { label: "filter questions per post", value: "4" },
     { label: "circuit breaker", value: "5/day" },
+    { label: "classification cost", value: "$0 (free Gemini)" },
   ],
   paradigmTitle: "Autonomous filtering instead of FOMO",
   paradigmSub:
@@ -108,13 +108,13 @@ export const adopterGuideEn: AgentGuideData = {
       subtitle:
         "An automatic service that reads on your behalf, filters, and surfaces only what is truly worth your time",
       description:
-        "Adopter is an autonomous agent — a piece of software that runs in the background with no hand-holding — that I put in charge of the most tiring task in 2026 tech: tracking dozens of Telegram broadcast channels run by practitioners and deciding, for me, what is worth an hour and what is noise. It is written in Python, triggered by cron (the operating system's job scheduler — essentially a clock that fires it on the hour, every hour), sends every post to Gemini Flash (Google's fast, free LLM) which grades it across four criteria, and stores only the best items inside a [Qdrant](/en/guide/qdrant) collection — a semantic database that remembers by meaning rather than by keyword.",
+        "Adopter is an autonomous agent — a piece of software that runs in the background with no hand-holding — that I put in charge of the most tiring task in 2026 tech: tracking professional Telegram broadcast channels run by practitioners and deciding, for me, what is worth an hour and what is noise. It is written in Python, triggered by cron (the operating system's job scheduler — essentially a clock that fires it on the hour, every hour), sends every post to Gemini Flash (Google's fast, free LLM) which grades it across four criteria, and stores only the best items inside a [Qdrant](/en/guide/qdrant) collection — a semantic database that remembers by meaning rather than by keyword.",
       color: "from-orange-600 to-amber-500",
       difficulty: "beginner",
       beginner:
-        "Think of it this way: instead of a personal news editor sitting in an office reading the paper for you, you get a robot that never sleeps, never tires, and never forgets — one that follows 20 sources in parallel, checks every post against four smart questions ('is it new? is it strong? can I act on it? how risky is it?'), and at the end of the day hands you 3-5 gems instead of 500 posts. In my case it has been running for three months and saves me 4-5 hours of scrolling a day. For you it can replace the compulsive habit of refreshing social feeds.",
+        "Think of it this way: instead of a personal news editor sitting in an office reading the paper for you, you get a robot that never sleeps, never tires, and never forgets — one that follows several sources in parallel, checks every post against four smart questions ('is it new? is it strong? can I act on it? how risky is it?'), and at the end of the day hands you a few gems instead of a flood of posts. In my case it runs on four curated channels, and right now — after a server migration — I am rebuilding part of its pipeline. For you it can replace the compulsive habit of refreshing social feeds.",
       content: [
-        "Input: roughly 20 public Telegram channels across AI, developer tooling, news and research — you pick which channels to read",
+        "Input: curated public Telegram channels across AI, developer tooling, news and research (currently four in my setup) — you pick which channels to read",
         "Process: every hour cron runs a scan → sends the posts to Gemini 2.5 Flash for classification (Google AI Studio's free tier — roughly 15 RPM plus a generous daily token allowance) → decides to adopt or skip",
         "Output: records stored in a collection called network_memory (a virtual folder inside [Qdrant](/en/guide/qdrant)) tagged category=adopted-content to keep them separate from other content",
         "Rate limiting: at most 5 adoptions per day via a circuit breaker (a 'breaker' mechanism that prevents flooding — the name is borrowed from electrical engineering)",
@@ -133,12 +133,12 @@ export const adopterGuideEn: AgentGuideData = {
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       beginner:
-        "Picture a sorting conveyor in a factory: at one end a flood of 'raw material' comes in (all the posts from the channels), and along the way there are a few stations, each checking something — is this junk? have we seen it already? is it actually interesting? — until at the other end only what survived every filter comes out and enters your memory. Each station is simple on its own, and the magic is in the chain between them. For me (Elad) this conveyor runs by itself every hour, without me touching anything — and that's what turns 'following 20 channels' from an impossible chore into a few clean insights in the morning.",
+        "Picture a sorting conveyor in a factory: at one end a flood of 'raw material' comes in (all the posts from the channels), and along the way there are a few stations, each checking something — is this junk? have we seen it already? is it actually interesting? — until at the other end only what survived every filter comes out and enters your memory. Each station is simple on its own, and the magic is in the chain between them. For me (Elad) this conveyor is scheduled to run by itself, without me touching anything — and that's what turns 'following several channels in parallel' from a tiring chore into a few clean insights in the morning.",
       content: [
         "Step 1 — cron (the operating system's scheduler) runs the tg-public-ingest.py script at the top of every hour. That is the only trigger: no button, no human in the loop",
-        "Step 2 — a Telethon client (a Python library that connects to Telegram through the official MTProto protocol — not the limited Bot API, but the full user-grade connection) pulls the 50 most recent messages from each listed channel",
+        "Step 2 — the script reads the public web page of each listed channel (Telegram publishes an official page for every open channel, reachable from any browser at t.me/s/channel-name) and pulls the most recent messages from it — no bot, no account, no login",
         "Step 3 — a fast pre-filter throws out obvious junk: media-only posts without text, posts that are just a shortened link with no context, or posts shorter than 50 characters",
-        "Step 4 — semantic dedup: we generate an embedding (a 3072-dim vector from Google's gemini-embedding-001 model that captures meaning — see the [Qdrant guide](/en/guide/qdrant) for the full explanation) and check whether a similar post already exists. Similarity above 90% means we skip it",
+        "Step 4 — duplicate detection: the system builds a vector 'fingerprint' for each post (in my current setup a pseudo-embedding — a vector computed locally from the text itself, with no external model call; see the [Qdrant guide](/en/guide/qdrant) for an explanation of vectors) and checks whether a similar post already exists. High similarity means we skip it",
         "Step 5 — the classifier: Gemini Flash receives the post and returns JSON with a category ({valuable, maybe, noise}) and a confidence score between 0 and 1",
         "Step 6 — decision: if the result is valuable with confidence above 0.8 → adopt. Otherwise → skip. The decision is POSTed to the [Delegator](/en/guide/delegator) (the central API gateway of the agent network), which writes the full record into network_memory with a link back to the source",
       ],
@@ -203,43 +203,43 @@ export const adopterGuideEn: AgentGuideData = {
       subtitle:
         "A semantic search before every adoption — so information never duplicates itself",
       description:
-        "Dedup (short for deduplication) is arguably Adopter's best-kept secret. In a world where 20 Telegram channels cover the same news cycle, any new tool will show up in 6 different places within two hours. Without this step you would see the same insight six times. With it, you see it once — and it is linked to every source that mentioned it.",
+        "Dedup (short for deduplication) is arguably Adopter's best-kept secret. In a world where many Telegram channels cover the same news cycle, any new tool will show up in 6 different places within two hours. Without this step you would see the same insight six times. With it, you see it once — and it is linked to every source that mentioned it.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
         "Dedup is simply 'duplicate detection'. In a world where twenty Telegram channels follow the same news, every new tool gets posted in six places within two hours — and without this filter you'd receive the same item six times. The clever part is that Adopter doesn't spot duplicates by exact words but by meaning: even if two people wrote the same thing in completely different phrasing, it understands it's the same story and keeps it once — with a link to every source that mentioned it. That's what lets you follow tons of channels without drowning in repeats.",
       content: [
-        "Before every adoption — Adopter builds an embedding of the post with Google's gemini-embedding-001. An embedding is a translation of text into a 3072-dimensional vector (truncatable to 768/1536 via Matryoshka) that captures meaning. Two posts that say the same thing with different words end up with similar vectors",
-        "The search runs against the telegram_news collection in [Qdrant](/en/guide/qdrant) with a threshold of 0.9 — i.e. 90% similarity and above counts as 'the same story'",
-        "If a match comes back with score ≥ 0.9, we skip immediately. The post never reaches the classifier — saving the model call cost too",
-        "Posts flagged as duplicates are still stored in telegram_news (they just are not promoted to an adoption) — so the database keeps every source for later",
+        "Before every adoption — Adopter builds a vector 'fingerprint' of the post. In my current setup this is a pseudo-embedding (a vector computed locally from the text, with no external model call — fast and free); an upgraded version can swap in a real embedding model such as gemini-embedding-001, which captures deeper meaning. Two posts that say the same thing end up with similar fingerprints",
+        "The search runs against a dedicated collection in [Qdrant](/en/guide/qdrant) with a high similarity threshold — a match above it counts as 'the same story'",
+        "If a match comes back above the threshold, we skip immediately. The post never reaches the classifier — saving the model call cost too",
+        "Posts flagged as duplicates are still stored in the source collection (they just are not promoted to an adoption) — so the database keeps every source for later",
         "Second safety layer: URL-hash dedup (if two posts point to the exact same link, they are automatically duplicates). This catches cases where the text was rephrased but the source is identical",
         "Special handling for near-duplicates (similarity 0.8-0.9): instead of skipping, Adopter adopts the post but keeps a reference to the original — so you can retroactively see the entire thread of discussion around a topic",
       ],
       tips: [
-        "This is what lets Adopter cover 20 channels without drowning you in repeats — most of the time 2-3 channels quote the same primary source within hours",
+        "This is what lets Adopter grow to more and more channels without drowning you in repeats — most of the time 2-3 channels quote the same primary source within hours",
         "If you are building something similar for Hebrew text, use an embedding model that supports Hebrew (such as gemini-embedding-001) — English-centric models miss duplicates that are phrased differently",
       ],
     },
     {
       id: "advanced",
       icon: Lightbulb,
-      title: "Advanced tips — lessons from three months of continuous operation",
+      title: "Advanced tips — lessons from real-world operation",
       subtitle:
         "The nuances that separate a demo project from a system that lives for the long haul",
       description:
-        "After three months of 24/7 operation, more than 45,000 scanned posts, and hundreds of tiny adjustments to the prompt and thresholds — these are the things I wish I had known before I started. Every line here is worth hours of trial and error.",
+        "After a stretch of continuous operation, plenty of tiny adjustments to the prompt and thresholds — and a server migration that forced me to rebuild part of the pipeline — these are the things I wish I had known before I started. Every line here is worth hours of trial and error.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       beginner:
-        "This section isn't theory — every line here was born from three months of continuous operation and more than 45,000 posts that passed through the system. If I had to distill it into one piece of advice for a non-technical reader, it's this: start small and grow slowly. For me (Elad) I started with just three channels and added one every couple of days, and after each addition I checked that content quality didn't drop. Someone who starts with twenty channels at once can't tell which one is 'polluting' the system with junk. The rest of the section is more technical, but that's the most valuable lesson in it.",
+        "This section isn't theory — every line here was born from real operation over time, mistakes included. If I had to distill it into one piece of advice for a non-technical reader, it's this: start small and grow slowly. For me (Elad) I started with just three channels and added one every couple of days, and after each addition I checked that content quality didn't drop. Someone who starts with twenty channels at once can't tell which one is 'polluting' the system with junk. The rest of the section is more technical, but that's the most valuable lesson in it.",
       content: [
-        "Use MTProto (Telegram's user-level protocol, via Telethon) — not the Bot API. The Bot API is limited to channels the bot is a member of; MTProto grants access to any public channel, but it does require a one-time phone number plus OTP login",
-        "Persistent sessions — never log in from scratch on every run, or Telegram will block you for suspicious behaviour. Save the session string once and reuse it",
-        "Telegram rate limits — 30 requests per minute is a safe ceiling. Cross it and you get a FloodWaitError that locks you out for hours. A tiny sleep between calls is cheap insurance",
-        "Gemini cost: classifying 500 posts a day costs zero — the Flash free tier is enough for personal use. Only at 1,000+ posts a day should you consider upgrading to the paid tier",
+        "There are two ways to read Telegram channels: the simple way — scraping the public page (t.me/s/), which works for any open channel with no account at all; and the deep way — the MTProto protocol via libraries like Telethon, which grants full access (private channels included) but requires a phone-number login and is fragile against blocks. I ultimately chose the simple way — less power, far less breakage",
+        "If you do choose MTProto — persist the session and never log in from scratch on every run, or Telegram will block you for suspicious behaviour",
+        "Rate limits — whether scraping or using the API, don't bombard Telegram with requests. A tiny sleep between calls is cheap insurance; crossing the line gets you temporarily blocked",
+        "Gemini cost: classification at a personal scale costs zero — the Flash free tier is more than enough. Only at thousands of posts a day should you consider upgrading to the paid tier",
         "My [Dashboard](/en/guide/dashboard) exposes a dedicated URL: /network/memory/html?agent=adopter&category=adopted-content — a visual view of everything adopted, sorted by date with free-text search",
-        "Downstream use: the [CrewAI](/en/guide/crewai) crews pull from adopted-content and turn it into secondary content — summaries, social posts, and replies that flow into [Kami](/en/guide/kami) and out to my WhatsApp",
+        "Downstream use: in the full design, the [CrewAI](/en/guide/crewai) crews pull from adopted-content and turn it into secondary content — summaries, social posts, and replies that flow into [Kami](/en/guide/kami) and out to my WhatsApp. Part of that wiring is currently being repaired after the server migration",
       ],
       tips: [
         "My approach: I started with 3 channels and added one every couple of days. After each addition I watched the signal for a day or two to make sure it did not drop. If you start with 20 channels at once, you cannot tell which channel is polluting the mix",
@@ -250,7 +250,7 @@ export const adopterGuideEn: AgentGuideData = {
   resources: [
     {
       title: "Telethon (MTProto)",
-      description: "The Python Telegram client it is built on",
+      description: "A Python library for full Telegram access — the advanced option",
       href: "https://docs.telethon.dev",
       icon: ExternalLink,
     },
@@ -299,5 +299,5 @@ export const adopterGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Adopter has been running on my servers for 3 months — 20 Telegram channels, roughly 500 posts scanned per day, 3-5 adoptions per day on average. It has surfaced over 30 new tools I would never have found on my own. This guide is based on real tuning of the classifier.",
+    "Adopter runs on four curated Telegram channels in my setup, with a Gemini classifier and a circuit breaker capped at 5 adoptions per day. After a server migration I am rebuilding part of its pipeline — and this guide is based on the real tuning of the classifier, mistakes included.",
 };

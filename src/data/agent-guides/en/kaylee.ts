@@ -110,7 +110,7 @@ export const kayleeGuideEn: AgentGuideData = {
       title: "What is Kaylee? Meet your DevOps agent",
       subtitle: "OpenClaw running on Docker, reasoning with Gemini, chatting over Telegram",
       description:
-        "Kaylee is an autonomous AI agent with real hands on the server: she can run commands, check service status, edit configuration files, restart containers, and tail logs — exactly like a human sysadmin would. The engine underneath is [OpenClaw](/en/guide/kaylee), a relatively new agent platform built on top of the Claude Agent SDK that lets you wire any LLM into a Linux tool surface and let it work on its own.",
+        "Kaylee is an autonomous AI agent with real hands on the server: she can run commands, check service status, edit configuration files, restart containers, and tail logs — exactly like a human sysadmin would. The engine underneath is [OpenClaw](https://github.com/openclaw/agent), a relatively new agent platform built on top of the Claude Agent SDK that lets you wire any LLM into a Linux tool surface and let it work on its own.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       beginner:
@@ -119,7 +119,7 @@ export const kayleeGuideEn: AgentGuideData = {
         "The engine: [OpenClaw](https://github.com/openclaw/agent) — an agent platform built on the Claude Agent SDK (the same kit that powers [Claude Code](/en/claude-code))",
         "The brain: [Gemini 2.5 Flash](https://ai.google.dev) by default — fully free up to several thousand requests per day. Swap it for any model you like (Claude Sonnet, GPT-4, a local Ollama — all via one config line)",
         "System access: shell (bash), Docker CLI, systemd, file read/write — everything gated through an allowlist so she can't escalate her own privileges",
-        "User interface: a Telegram bot (mine is @kylie_elad_bot) — you just message her and get a reply. A webhook is also exposed on port 18789 so other agents in the network can reach her",
+        "User interface: a Telegram bot (mine is @kylie_elad_bot) — you just message her and get a reply. She also has a dedicated webhook (port 3500 in my setup) through which other agents in the network send her messages",
         "Network chatter: she receives messages from the [Delegator](/en/guide/delegator) (the central API gateway) and from [Kami](/en/guide/kami) (when he relays a WhatsApp request from me), forming a loop of agents that help each other",
         "Long-term memory: every action is logged into [Qdrant](/en/guide/qdrant) with metadata — what was asked, what she did, what the outcome was. After a month you have a searchable history of everything that ever happened",
       ],
@@ -149,10 +149,10 @@ export const kayleeGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Kaylee's docker-compose",
-        code: 'services:\n  openclaw:\n    image: openclaw/agent:latest\n    volumes:\n      - /opt/openclaw/data:/home/node/.openclaw\n      - /var/run/docker.sock:/var/run/docker.sock\n    environment:\n      - GEMINI_API_KEY=${GEMINI_API_KEY}\n      - TELEGRAM_BOT_TOKEN=${TG_TOKEN}\n    ports: ["18789:3000"]\n    restart: unless-stopped',
+        code: 'services:\n  openclaw:\n    image: openclaw/agent:latest\n    volumes:\n      - /opt/openclaw/data:/home/node/.openclaw\n    environment:\n      - GEMINI_API_KEY=${GEMINI_API_KEY}\n      - TELEGRAM_BOT_TOKEN=${TG_TOKEN}\n    ports: ["18789:3000"]\n    restart: unless-stopped',
       },
       tips: [
-        "The line that mounts /var/run/docker.sock (the Docker socket — effectively the remote control for [Docker](/en/guide/docker) on the host) into Kaylee's container gives her full authority over every other container on the box. That's extremely powerful and extremely dangerous, which is why you must configure a strict Telegram allowlist that defines exactly who is allowed to send her instructions",
+        "A true security story: in early versions I mounted /var/run/docker.sock (the Docker socket — effectively the remote control for [Docker](/en/guide/docker) on the host) into Kaylee's container, which gave her full authority over every other container on the box. Powerful — but dangerous: a compromised agent with docker.sock equals a takeover of the whole server. I eventually removed that mount deliberately as part of a security hardening pass. The lesson: give an agent only the power it truly needs, and configure a strict Telegram allowlist that defines exactly who is allowed to send it instructions",
         "Keep her state in its own folder (I use /opt/openclaw/data). That way, even if you bump the container image later, her memory and history stay intact",
       ],
     },
@@ -187,15 +187,15 @@ export const kayleeGuideEn: AgentGuideData = {
       title: "Scheduled monitoring — heartbeat + health + cleanup",
       subtitle: "Three layers of background surveillance",
       description:
-        "Scheduled monitoring is a set of jobs Kaylee runs on a fixed cadence in the background — without anyone having to ask. On Linux this happens via cron (the veteran scheduling system). In my setup three such layers run in parallel, each responsible for a different kind of check. Together they turn her from 'someone who answers when asked' into an agent that proactively looks after the server.",
+        "Scheduled monitoring is a set of jobs that run on a fixed cadence in the background — without anyone having to ask. On Linux this happens via cron (the veteran scheduling system). In my setup these jobs run at the network level — they are not part of Kaylee herself, but independent scripts that Kaylee is one consumer of: when something falls over, she is the one who gets the alert and can investigate and act. That combination turns her from 'someone who answers when asked' into an agent that proactively looks after the server.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       beginner:
         "Picture a security guard on three patrol loops: a short one every five minutes that confirms everyone's in their rooms, a medium loop every ten minutes that checks what's broken and fixes it, and a daily loop that covers general cleanliness. Each loop catches different problems — together they make sure nothing slips through the cracks.",
       content: [
-        "heartbeat cron every 5 minutes — runs a health check against all ten agents in the network and writes the result to the agent_status collection in [Qdrant](/en/guide/qdrant). That's what lets the [Dashboard](/en/guide/dashboard) show a live view of the entire network",
-        "self-heal cron every 10 minutes — if Kaylee sees that a service has fallen over, she automatically attempts to bring it back (up to three tries) before escalating to a human",
-        "auto-kaylee-reports cron every 5 minutes — sweeps journalctl (the systemd log system) for anomalies, summarizes them, and posts short alerts to the [Dashboard](/en/guide/dashboard)",
+        "heartbeat cron every 5 minutes — runs a health check against the agents in the network and writes the result to the agent_status collection in [Qdrant](/en/guide/qdrant). That's what lets the [Dashboard](/en/guide/dashboard) show a live view of the entire network",
+        "self-heal cron every 10 minutes — an independent script that detects a fallen service and automatically attempts to bring it back (up to three tries) before escalating — to Kaylee or to a human",
+        "automatic monitoring reports — a sweep of journalctl (the systemd log system) for anomalies, summarizing them and posting short alerts to the [Dashboard](/en/guide/dashboard)",
         "08:00 morning report — a daily health summary: disk usage, RAM usage, CPU load, and how many containers are healthy. Delivered straight to the user's Telegram",
         "22:00 evening cleanup — runs /tmp tidying (the temporary file folder), docker prune (removing unused images), and log rotation (swapping full log files for fresh ones)",
       ],

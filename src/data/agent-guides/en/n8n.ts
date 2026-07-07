@@ -28,7 +28,7 @@ export const n8nGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/n8n-logo.png",
   tagline: "Open-source Zapier — 500+ built-in integrations, self-hosted, unlimited executions",
   heroDescription:
-    "n8n is an open-source workflow automation platform (TypeScript/Node) built by n8n GmbH — a mature German company that raised a Series B — with a visual drag-and-drop interface for building pipelines from 500+ built-in integrations (Slack, Gmail, Postgres, Webhooks, HTTP, OpenAI, AI Agent, Vector Store nodes like [Qdrant](/en/guide/qdrant)/Pinecone/Supabase Vector, LangChain, and more). It runs on [Docker](/en/guide/docker) with PostgreSQL behind it. On my stack, n8n handles business cron jobs (invoicing, content publishing, agent heartbeats) and replaces three separate SaaS products that used to cost ~$80/month. On yours, n8n can be the glue of the entire stack — CRM automation, marketing ops, internal system integrations, or a full replacement for Zapier (Starter $29/mo for 750 tasks, Professional $73/mo for 2,000, Team $103/user/mo) and Make (Core $10.59/mo, Pro $18.82/mo, Teams $34.12/mo).",
+    "n8n is an open-source workflow automation platform (TypeScript/Node) built by n8n GmbH — a mature German company that raised a Series B — with a visual drag-and-drop interface for building pipelines from 500+ built-in integrations (Slack, Gmail, Postgres, Webhooks, HTTP, OpenAI, AI Agent, Vector Store nodes like [Qdrant](/en/guide/qdrant)/Pinecone/Supabase Vector, LangChain, and more). It runs on [Docker](/en/guide/docker) with PostgreSQL behind it. On my stack, n8n currently runs 4 focused business workflows (among them turning YouTube videos into Hebrew blog posts and tracking agent performance) that save me hours every week. On yours, n8n can be the glue of the entire stack — CRM automation, marketing ops, internal system integrations, or a full replacement for Zapier (Starter $29/mo for 750 tasks, Professional $73/mo for 2,000, Team $103/user/mo) and Make (Core $10.59/mo, Pro $18.82/mo, Teams $34.12/mo).",
   badgeText: "2026 · Workflow Automation · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/n8n",
   heroBgImage: "/images/guides/guide-n8n-hero.jpg",
@@ -37,7 +37,7 @@ export const n8nGuideEn: AgentGuideData = {
     { label: "built-in nodes", value: "500+" },
     { label: "executions", value: "unlimited" },
     { label: "self-host cost", value: "$0" },
-    { label: "my integrations", value: "25" },
+    { label: "my workflows", value: "4" },
   ],
   paradigmTitle: "Why not Zapier?",
   paradigmSub:
@@ -109,7 +109,7 @@ export const n8nGuideEn: AgentGuideData = {
       title: "n8n — the technical view",
       subtitle: "Workflow engine + visual interface + 500+ built-in connectors",
       description:
-        "n8n is an open-source visual automation platform built by n8n GmbH (a mature German company that raised a Series B) — think of it as 'open-source Zapier' that you run yourself on a server, with no cap on how many automations fire each month. Under the hood it has three layers: (1) an execution engine written in Node.js that runs the automations (each one is called a 'workflow' in n8n), (2) a database (PostgreSQL or SQLite) that stores the workflows and execution history, and (3) a polished visual editor in the browser where you drag boxes around and connect them with lines. On my setup n8n is the smart assembly line of the network — about 25 workflows that wire [Kami](/en/guide/kami), [CrewAI](/en/guide/crewai), and [Qdrant](/en/guide/qdrant) together with external services like Gmail, Slack, and WhatsApp.",
+        "n8n is an open-source visual automation platform built by n8n GmbH (a mature German company that raised a Series B) — think of it as 'open-source Zapier' that you run yourself on a server, with no cap on how many automations fire each month. Under the hood it has three layers: (1) an execution engine written in Node.js that runs the automations (each one is called a 'workflow' in n8n), (2) a database (PostgreSQL or SQLite) that stores the workflows and execution history, and (3) a polished visual editor in the browser where you drag boxes around and connect them with lines. On my setup n8n is the smart assembly line of the network — currently 4 focused workflows that wire [Kami](/en/guide/kami), [CrewAI](/en/guide/crewai), and [Qdrant](/en/guide/qdrant) together with external services.",
       color: "from-pink-600 to-rose-500",
       difficulty: "beginner",
       beginner:
@@ -139,7 +139,7 @@ export const n8nGuideEn: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
-        "On my setup n8n runs on the main Hetzner VPS alongside the rest of the agent network. On yours, even a small VPS — Hetzner (CX11 at ~€4.15/month or CPX11 at ~€4.75/month), DigitalOcean (Droplet from $4/month), or Contabo (from ~€4.50/month, with much beefier specs at the same price) — is enough to run n8n + Postgres. The compose.yml is under 30 lines, the command to bring everything up is docker compose up -d, and Caddy takes care of a free HTTPS certificate automatically from Let's Encrypt. Within half an hour you have a professional automation platform, and the savings vs. Zapier Starter ($29/month) pay off in the very first week.",
+        "On my setup n8n runs on the main server (Contabo) alongside the rest of the agent network. On yours, even a small VPS — Hetzner (CX11 at ~€4.15/month or CPX11 at ~€4.75/month), DigitalOcean (Droplet from $4/month), or Contabo (from ~€4.50/month, with much beefier specs at the same price) — is enough to run n8n + Postgres. The compose.yml is under 30 lines, the command to bring everything up is docker compose up -d, and Caddy takes care of a free HTTPS certificate automatically from Let's Encrypt. Within half an hour you have a professional automation platform, and the savings vs. Zapier Starter ($29/month) pay off in the very first week.",
       content: [
         "Official image: n8nio/n8n — the stable release is built on Node.js 20 and ships with all 500+ built-in nodes (including AI Agent, Vector Store, LangChain) by default — nothing extra to install",
         "PostgreSQL is recommended over SQLite once you have more than 5 active workflows — SQLite stumbles on concurrent executions, Postgres handles it easily",
@@ -164,7 +164,7 @@ export const n8nGuideEn: AgentGuideData = {
       title: "Key nodes and triggers",
       subtitle: "20 nodes that solve 90% of the tasks",
       description:
-        "Even though n8n ships with 500+ built-in nodes (and hundreds more community nodes), the truth is that across all my workflows — 25 of them in production — roughly 20 core nodes recur and solve 90% of the work. Knowing these tools deeply is the difference between building a workflow in half an hour versus a full day of frustration.",
+        "Even though n8n ships with 500+ built-in nodes (and hundreds more community nodes), the truth is that across all the workflows I've built, roughly 20 core nodes recur and solve 90% of the work. Knowing these tools deeply is the difference between building a workflow in half an hour versus a full day of frustration.",
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       beginner:
@@ -199,7 +199,7 @@ export const n8nGuideEn: AgentGuideData = {
         "Here n8n stops being just 'the thing that shuffles papers' and becomes the conductor of an orchestra. Instead of each action running alone, a single visual flow can tell [Kami](/en/guide/kami) to send a WhatsApp, [CrewAI](/en/guide/crewai) to write a Hebrew post, and the [Delegator](/en/guide/delegator) to fire off a full email campaign — all in one chain, without writing any new server. For me (Elad) this is what connects all the agents: n8n is the connecting thread that tells each one when it's their turn, and passes one's output as the next one's input.",
       content: [
         "Sending WhatsApp via [Kami](/en/guide/kami): HTTP Request with POST to hub.eladjak.com/kami/whatsapp and body { to, text } — Kami hides all the Green API and Meta API complexity behind the scenes",
-        "Generating content via [CrewAI](/en/guide/crewai): POST to /crews/blog_he/run and then poll /crews/runs/{id} every 10 seconds until the status is completed. The result comes back as JSON ready to publish",
+        "Generating content via [CrewAI](/en/guide/crewai): POST to /crews/yt_to_blog_he/run and then poll /crews/runs/{id} every 10 seconds until the status is completed. The result comes back as JSON ready to publish",
         "Email campaigns via the [Delegator](/en/guide/delegator): POST to /campaign-email — the Delegator handles Resend rate limits, watches credits, and automatically pauses on Shabbat or holidays via the Israeli calendar gate",
         "Sending SMS: POST to the Delegator's /sms/send (Twilio behind it) — arrives as a regular SMS within seconds, good for verifications and urgent alerts",
         "Semantic search in [Qdrant](/en/guide/qdrant): HTTP Request to /collections/kami_memory/points/search with an embedding of the question — lets you gather relevant context before calling an LLM",

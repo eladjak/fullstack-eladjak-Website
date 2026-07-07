@@ -30,20 +30,20 @@ export const dockerGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/docker-logo.png",
   tagline: "containers, docker-compose, and the architecture that lets an entire agent network live on a single VPS",
   heroDescription:
-    "Docker is one of the most important technologies to emerge from the software world in the last decade, and it is what allows most of today's cloud services and AI agents to run the way they do. At its core, Docker solves a simple but painful problem: every software service needs a specific environment to run (a particular language version, specific libraries, network settings), and when you try to install several services on the same machine they collide — and what worked yesterday stops working tomorrow. Docker solves this by packaging each service into its own isolated 'box' (a container), which holds everything the service needs — so it runs exactly the same on every machine, in every environment. Docker's extension called docker-compose lets you define many boxes together in a single file, spin them all up with one command, and manage the network between them — much like a conductor with an orchestra. For me (Elad), the entire agent network featured on this site (ten different services such as [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Qdrant](/en/guide/qdrant), and [Delegator](/en/guide/delegator)) runs on a single docker-compose deployment on a Hetzner CPX11 (~€4.75/month, 2 vCPU · 2GB RAM). For you, Docker can be the foundation of any project: from a local dev environment, through a CI/CD pipeline, all the way to a full production service in the cloud. Once you understand docker-compose, most of what the other guides show becomes something you can build yourself.",
+    "Docker is one of the most important technologies to emerge from the software world in the last decade, and it is what allows most of today's cloud services and AI agents to run the way they do. At its core, Docker solves a simple but painful problem: every software service needs a specific environment to run (a particular language version, specific libraries, network settings), and when you try to install several services on the same machine they collide — and what worked yesterday stops working tomorrow. Docker solves this by packaging each service into its own isolated 'box' (a container), which holds everything the service needs — so it runs exactly the same on every machine, in every environment. Docker's extension called docker-compose lets you define many boxes together in a single file, spin them all up with one command, and manage the network between them — much like a conductor with an orchestra. For me (Elad), the agent network featured on this site (services such as [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Qdrant](/en/guide/qdrant), and [Delegator](/en/guide/delegator)) started on a small Hetzner server and today runs on a powerful Contabo server (16 vCPU · 62GB RAM) in a hybrid architecture: about 27 containers split across roughly 10 separate docker-compose files — one per domain — alongside about 45 systemd services that run directly on the host, with Traefik and Cloudflare Tunnel at the edge routing traffic inward. For you, Docker can be the foundation of any project: from a local dev environment, through a CI/CD pipeline, all the way to a full production service in the cloud. Once you understand docker-compose, most of what the other guides show becomes something you can build yourself.",
   badgeText: "2026 · Containers & Compose · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/docker",
   heroBgImage: "/images/guides/guide-docker-hero.jpg",
   videoUrl: "/videos/guides/docker.mp4",
   stats: [
-    { label: "containers I run", value: "14" },
+    { label: "containers I run", value: "~27" },
+    { label: "compose stacks", value: "~10" },
+    { label: "systemd services alongside", value: "~45" },
     { label: "uptime", value: "99.7%" },
-    { label: "base server cost", value: "~€4.75/month" },
-    { label: "compose files", value: "1" },
   ],
   paradigmTitle: "Why Docker is the foundation of the whole network",
   paradigmSub:
-    "Without containers, running 10 different services on one server is a dependency nightmare. With docker-compose, it is a single YAML file.",
+    "Without containers, running dozens of different services on one server is a dependency nightmare. With docker-compose, it is a handful of tidy YAML files.",
   paradigmShifts: [
     {
       before: "Installing Python 3.10 + 3.11 + 3.12 on the same server",
@@ -111,7 +111,7 @@ export const dockerGuideEn: AgentGuideData = {
       title: "What is Docker? The practical picture",
       subtitle: "One container = one service, atomic and isolated",
       description:
-        "Docker is a container runtime — a sort of meta-operating-system that lets you take any software process together with everything it needs (a language version, libraries, config files) and pack it all into a single, sealed little box called a container. That container runs exactly the same on my Hetzner server, on your laptop, and inside a GitHub Actions job — because it carries everything it needs with it. Behind the scenes Docker uses Linux mechanisms (namespaces and cgroups) that provide kernel-level isolation, so it feels like a virtual machine — but is much lighter and faster.",
+        "Docker is a container runtime — a sort of meta-operating-system that lets you take any software process together with everything it needs (a language version, libraries, config files) and pack it all into a single, sealed little box called a container. That container runs exactly the same on my Contabo server, on your laptop, and inside a GitHub Actions job — because it carries everything it needs with it. Behind the scenes Docker uses Linux mechanisms (namespaces and cgroups) that provide kernel-level isolation, so it feels like a virtual machine — but is much lighter and faster.",
       color: "from-blue-600 to-cyan-500",
       difficulty: "beginner",
       beginner:
@@ -142,7 +142,7 @@ export const dockerGuideEn: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
-        "My compose.yml holds the entire agent network: [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Qdrant](/en/guide/qdrant), [Delegator](/en/guide/delegator), [Hermes](/en/guide/hermes), and more. Instead of 10 separate commands, it's a single file. Change a setting and run `docker compose up -d` — only what actually changed is updated, everything else keeps running uninterrupted. That developer experience makes it possible to build serious systems without the operational headache.",
+        "My network is split into several compose files — one per domain: [Qdrant](/en/guide/qdrant) and memory, [n8n](/en/guide/n8n) and automations, [Kaylee](/en/guide/kaylee), monitoring, and more (other agents, like [Kami](/en/guide/kami), actually run as systemd services — every tool has its right place). Instead of dozens of separate commands, it's one file per domain. Change a setting and run `docker compose up -d` — only what actually changed is updated, everything else keeps running uninterrupted. That developer experience makes it possible to build serious systems without the operational headache.",
       content: [
         "services — the heart of the file. Each service is defined with its image (or an instruction to build one from a Dockerfile), exposed ports (`ports`), environment variables (`environment`), mounted folders (`volumes`), and who must come up before it (`depends_on`)",
         "networks — the default creates a shared private network automatically. The result: every container can reach its siblings just by using the service name, as if it were a real domain name",
@@ -180,7 +180,7 @@ export const dockerGuideEn: AgentGuideData = {
         "External networks — a way to connect several compose files to the same shared network. Useful when you have a separate monitoring stack or want services in one file to talk to services in another",
       ],
       tips: [
-        "Don't expose ports casually — expose only what truly needs to be reachable from outside. In my setup, only the [Delegator](/en/guide/delegator) (which acts as the reverse proxy — the front-facing server that receives all traffic and routes it internally) and nginx are exposed to the world",
+        "Don't expose ports casually — expose only what truly needs to be reachable from outside. In my setup, no agent is exposed to the internet directly: Traefik sits at the edge as the reverse proxy (the front-facing server that receives all traffic and routes it internally), and traffic reaches it through [Cloudflare Tunnel](/en/guide/cloudflare-tunnel)",
         "For network debugging — `docker exec -it <name> ping <other-service>` checks whether service A can see service B. It's the first step whenever something won't connect",
         "Caddy or Traefik as a reverse proxy saves a lot of pain — they hook into Docker labels and generate HTTPS certificates automatically from Let's Encrypt, without touching nginx by hand",
       ],
@@ -202,7 +202,7 @@ export const dockerGuideEn: AgentGuideData = {
         "tmpfs — RAM-only storage. Wiped on every restart, but extremely fast. Useful for temporary cache that doesn't need to be remembered",
         "Backup strategy — the magic command: `docker run --rm -v vol:/data -v $(pwd):/b alpine tar czf /b/vol.tar.gz /data`. It spins up a temporary container, creates a compressed archive of the volume, and deletes itself. One line, a complete backup",
         "Permissions — important to know: without matching user IDs (UID), files the container creates in a bind mount will show up on the host owned by root. Plan for this up front so you don't get stuck later",
-        "In my setup, every bind mount lives under `/opt/ai-factory/data/` — a consistent layout that is easy to back up and migrate between servers in a single move",
+        "In my setup, every bind mount lives under `/opt/` in a dedicated folder per service — a consistent layout that is easy to back up and migrate between servers in a single move",
       ],
       tips: [
         "Use `:ro` (read-only) whenever a container only needs to read, not write — it protects against accidental overwrites",
@@ -320,5 +320,5 @@ export const dockerGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "My entire agent network (10 services, 14 containers, Qdrant holding thousands of vectors) runs in a single docker-compose on a Hetzner CPX11 VPS for about €4.75/month. This guide is built on the experience of rebuilding that network three times over two years, including a migration from ARM to x86 and a recovery after a disk crash.",
+    "My agent network runs today in a hybrid architecture on a Contabo server: about 27 containers across roughly 10 docker-compose files, alongside about 45 systemd services, with Traefik and Cloudflare Tunnel at the edge. It started on a small Hetzner server and has been rebuilt several times along the way — including a full server migration. This guide is built on that experience.",
 };

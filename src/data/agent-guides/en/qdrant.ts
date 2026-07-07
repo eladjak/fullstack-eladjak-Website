@@ -26,14 +26,14 @@ export const qdrantGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/qdrant-logo.png",
   tagline: "The foundation for remembering by meaning, not by keywords",
   heroDescription:
-    "Qdrant is an open-source vector database written in Rust (v1.14+ as of late 2025), running inside a Docker container with both HTTP (6333) and gRPC (6334) APIs. Its capabilities: storing embeddings (up to 4096 dimensions per dense vector, plus sparse vectors for hybrid search), HNSW indexing, scalar and product quantization, semantic search, rich filters, arbitrary JSON payloads, sharding and replication. In my setup there are 10 collections ([kami_memory](/en/guide/kami), [box_coach](/en/guide/box), [network_memory](/en/guide/adopter) and more) holding thousands of vectors. In your product, Qdrant can serve as memory for a chatbot, power semantic search over a document corpus, drive a recommendation engine, or deduplicate content by meaning — anywhere you need to 'remember meaning' rather than just keywords.",
+    "Qdrant is an open-source vector database written in Rust (v1.14+ as of late 2025), running inside a Docker container with both HTTP (6333) and gRPC (6334) APIs. Its capabilities: storing embeddings (up to 4096 dimensions per dense vector, plus sparse vectors for hybrid search), HNSW indexing, scalar and product quantization, semantic search, rich filters, arbitrary JSON payloads, sharding and replication. In my setup there are 17 collections ([kami_memory](/en/guide/kami), [box_coach](/en/guide/box), [network_memory](/en/guide/adopter) and more) holding about 9,000 vectors. In your product, Qdrant can serve as memory for a chatbot, power semantic search over a document corpus, drive a recommendation engine, or deduplicate content by meaning — anywhere you need to 'remember meaning' rather than just keywords.",
   badgeText: "2026 · Vector Memory · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/qdrant",
   heroBgImage: "/images/guides/guide-qdrant-hero.jpg",
   videoUrl: "/videos/guides/qdrant.mp4",
   stats: [
-    { label: "my collections", value: "10" },
-    { label: "total embeddings", value: "10k+" },
+    { label: "my collections", value: "17" },
+    { label: "total embeddings", value: "~9k" },
     { label: "search latency", value: "<50ms" },
     { label: "cost", value: "free" },
   ],
@@ -135,7 +135,7 @@ export const qdrantGuideEn: AgentGuideData = {
       title: "Embeddings — how text becomes numbers",
       subtitle: "Sentence → 768 numbers → a location in space",
       description:
-        "An embedding is a numeric fingerprint of a sentence, a paragraph, or even an image — a sequence of several hundred numbers (usually 768 or 1536) that encode the *meaning* of the content inside a 'map of meanings'. Before [Qdrant](/en/guide/qdrant) can help us find anything, the text has to be turned into such an embedding, and that job is done by dedicated models (such as Google's gemini-embedding-001, or OpenAI's text-embedding-3). In my setup, every message that reaches [Kami](/en/guide/kami) first passes through Gemini, which converts it into a fingerprint, and only then is it stored in Qdrant.",
+        "An embedding is a numeric fingerprint of a sentence, a paragraph, or even an image — a sequence of several hundred numbers (usually 768 or 1536) that encode the *meaning* of the content inside a 'map of meanings'. Before Qdrant can help us find anything, the text has to be turned into such an embedding, and that job is done by dedicated models (such as Google's gemini-embedding-001, or OpenAI's text-embedding-3). In my setup, every message that reaches [Kami](/en/guide/kami) first passes through Gemini, which converts it into a fingerprint, and only then is it stored in Qdrant.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
       beginner:
@@ -250,7 +250,7 @@ export const qdrantGuideEn: AgentGuideData = {
       ],
       tips: [
         "Don't store the full original text inside the payload if it's long — store only an ID that points to the full record in another database (Postgres, a file). A large payload hurts search speed",
-        "Security is critical: recent Qdrant versions require an API key by default. Never expose port 6333 to the open internet without an API key and a firewall — that's the equivalent of leaving your Postgres naked on the network",
+        "Security is critical: Qdrant does not ship with an API key enabled by default — you have to set one yourself (the QDRANT__SERVICE__API_KEY environment variable). Never expose port 6333 to the open internet without an API key and a firewall — that's the equivalent of leaving your Postgres naked on the network",
       ],
     },
   ],
@@ -306,5 +306,5 @@ export const qdrantGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Qdrant is the vector database every agent in my network uses for semantic memory. 10 collections in production, thousands of vectors, zero cost. This guide lays out the patterns that have worked for me: how to pick dimensions, when to re-index, how to manage payload, and how to integrate with open-source embedding models — so you can build semantic memory for your own agent in about an hour.",
+    "Qdrant is the vector database every agent in my network uses for semantic memory. 17 collections in production, about 9,000 vectors, zero cost. This guide lays out the patterns that have worked for me: how to pick dimensions, when to re-index, how to manage payload, and how to integrate with open-source embedding models — so you can build semantic memory for your own agent in about an hour.",
 };

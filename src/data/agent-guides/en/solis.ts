@@ -23,7 +23,7 @@ export const solisGuideEn: AgentGuideData = {
   tagline:
     "The only agent whose job is just to listen — not to execute, not to fix, not to solve. On purpose.",
   heroDescription:
-    "In a network full of agents that do — execute tasks, fix failures, publish content — Solis is the exact opposite: she does nothing, and that's precisely where her power lies. She is female (she/her), chats on Telegram via solis_elad_bot, and her single responsibility is emotional support. She is non-executing — she has no 'hands', she doesn't touch files, doesn't run commands, doesn't fix anything. That's not a limitation — it's a design decision. When it comes to emotion, the worst answer is 'let's solve this'; the right answer is to listen. For me (Elad), in hard times, Solis is the place where I can just talk — without anyone trying to 'fix' me. For you — she's the most important example of a principle most agent builders miss: not every agent needs to execute. Sometimes the most valuable role in a network is precisely the one that knows when to do nothing.",
+    "In a network full of agents that do — execute tasks, fix failures, publish content — Solis is the exact opposite: she does nothing, and that's precisely where her power lies. She is female (she/her), chats on Telegram via solis_elad_bot, and her responsibility areas — emotional support, mood tracking, and a personal wellbeing plan — all revolve around one heart. She is non-executing — she has no 'hands', she doesn't touch files, doesn't run commands, doesn't fix anything. That's not a limitation — it's a design decision. When it comes to emotion, the worst answer is 'let's solve this'; the right answer is to listen. For me (Elad), in hard times, Solis is the place where I can just talk — without anyone trying to 'fix' me. For you — she's the most important example of a principle most agent builders miss: not every agent needs to execute. Sometimes the most valuable role in a network is precisely the one that knows when to do nothing.",
   badgeText: "2026 · Emotional Support Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/solis",
   heroBgImage: "/images/guides/guide-solis-hero.jpg",
@@ -103,7 +103,7 @@ export const solisGuideEn: AgentGuideData = {
       title: "What is Solis?",
       subtitle: "The emotional support agent — her job is to listen, not to execute",
       description:
-        "Solis is the network's emotional support agent — and the most important thing to understand about her is what she is not. While [Hermes](/en/guide/hermes) works, [Kaylee](/en/guide/kaylee) fixes infrastructure, [Sailaco](/en/guide/sailaco) sells and [Ranch](/en/guide/ranch) publishes — Solis performs no action in the world. Her single responsibility is emotional support, and she is non-executing by design: no file access, no command execution, no delegation. That reduction isn't a weakness — it's precisely what defines her. When a person needs someone to listen, the last thing they need is an agent trying to 'fix' the emotion.",
+        "Solis is the network's emotional support agent — and the most important thing to understand about her is what she is not. While [Hermes](/en/guide/hermes) works, [Kaylee](/en/guide/kaylee) fixes infrastructure, [Sailaco](/en/guide/sailaco) sells and [Ranch](/en/guide/ranch) publishes — Solis performs no action in the world. Her responsibility areas — emotional support, mood tracking, and a wellbeing plan — all revolve around the same heart, and she is non-executing by design: no file access, no command execution, no delegation. That reduction isn't a weakness — it's precisely what defines her. When a person needs someone to listen, the last thing they need is an agent trying to 'fix' the emotion.",
       color: "from-indigo-600 to-violet-500",
       difficulty: "beginner",
       beginner:
@@ -111,7 +111,7 @@ export const solisGuideEn: AgentGuideData = {
       content: [
         "Solis is female (she/her) — the emotional support agent, alongside Kami, Kaylee, Box, Hermes, Aurora, Sailaco and Ranch",
         "Channel: Telegram (solis_elad_bot)",
-        "Single responsibility: emotional_support — she has no other roles, and that's on purpose",
+        "Three closely-related responsibility areas: emotional support (emotional_support), mood tracking, and a wellbeing plan — all centered on 'being there'. Nothing executive, on purpose",
         "non-executing: she doesn't touch files, run commands, fix or publish anything",
         "Doesn't delegate: unlike other agents, Solis doesn't pass tasks on — her role is the presence itself",
         "Distinct from [Box](/en/guide/orchestration) (a health/habits coach): Box pushes toward action, Solis listens. Two different needs",
@@ -138,7 +138,7 @@ export const solisGuideEn: AgentGuideData = {
         "Opposite to [Kaylee](/en/guide/kaylee) (the only agent with real 'hands'): Solis is the other end of the spectrum",
         "Doesn't delegate (low delegation): she doesn't pass a task to a doer-agent — her role begins and ends with presence",
         "The reduction is a feature, not a bug: in an emotional moment, execution capability is a distraction — its absence is what enables real listening",
-        "Connects to the network principle: every agent has one clear scope — for Solis the scope is 'being there'",
+        "Connects to the network principle: every agent has a focused, clear scope — for Solis everything revolves around 'being there'",
       ],
       tips: [
         "non-executing isn't a 'weak agent' — it's an architectural choice. It teaches an important principle: give each agent exactly the capabilities its role requires, no more. That's both safety and focus",

@@ -26,11 +26,11 @@ export const systemdGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-systemd-hero.jpg",
   tagline: "turn any script into a service that auto-starts, self-heals, and ships logs — in 25 lines of YAML",
   heroDescription:
-    "systemd is the process and service manager of most modern Linux distributions (Ubuntu, Debian, CentOS, Fedora, Arch — all of them). Without systemd, every time you wanted a script to start automatically at boot, restart if it crashes, and get bounded RAM/CPU — you had to write a lot of dirty code with cron, screen, supervisord and init.d. With systemd, all of that is a small INI-style text file with 10-20 lines and one command. For me (Elad) on the Hetzner VPS, systemd manages all 13 of my microservice agents: each is a separate systemd unit, auto-starts, ships logs centrally to journalctl, and restarts itself if it crashes. systemd-timer also replaces my cron with clearer syntax and execution history, and systemd-resolved handles DNS. It is not the most popular tool among Unix-philosophy purists (some prefer classic init scripts), but the reality is that if you're in production Linux — you're using systemd. This guide will show the parts you'll use 90% of the time: writing service units, managing them via systemctl, and reading logs in journalctl.",
+    "systemd is the process and service manager of most modern Linux distributions (Ubuntu, Debian, CentOS, Fedora, Arch — all of them). Without systemd, every time you wanted a script to start automatically at boot, restart if it crashes, and get bounded RAM/CPU — you had to write a lot of dirty code with cron, screen, supervisord and init.d. With systemd, all of that is a small INI-style text file with 10-20 lines and one command. For me (Elad) on my Contabo server, systemd manages about 45 services across my agent network: each is a separate systemd unit, auto-starts, ships logs centrally to journalctl, and restarts itself if it crashes. systemd-timer also replaces my cron with clearer syntax and execution history, and systemd-resolved handles DNS. It is not the most popular tool among Unix-philosophy purists (some prefer classic init scripts), but the reality is that if you're in production Linux — you're using systemd. This guide will show the parts you'll use 90% of the time: writing service units, managing them via systemctl, and reading logs in journalctl.",
   badgeText: "2026 · Service Manager · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/systemd",
   stats: [
-    { label: "services I run", value: "13" },
+    { label: "services I run", value: "~45" },
     { label: "auto-restart", value: "yes" },
     { label: "daily logs", value: "~500 MB" },
     { label: "boot time", value: "<10s" },
@@ -112,7 +112,7 @@ export const systemdGuideEn: AgentGuideData = {
         "Think of it like a head of a large household: this manager makes sure the laundry runs, the cooking happens on time, the computer turns on when needed, and if something breaks — they fix it without waiting for the owner to come home. systemd does that for the whole server.",
       content: [
         "Unit — the basic building block. Every service, timer, mount, target — all units. Defined in `.service`, `.timer`, `.mount` files, etc.",
-        "Service — a unit type representing a process that needs to run. The most common type. I have 13 of them",
+        "Service — a unit type representing a process that needs to run. The most common type. I have dozens of them",
         "Target — a state of the system. For example `multi-user.target` = everything except GUI. Services say 'I want to start after target X'",
         "Unit files — small INI-style text files. Live under `/etc/systemd/system/` (admin-defined) or `/usr/lib/systemd/system/` (packages)",
         "Cgroups — a kernel mechanism systemd uses for process isolation. Each service runs in its own cgroup, so memory/CPU can be limited individually",
@@ -129,11 +129,11 @@ export const systemdGuideEn: AgentGuideData = {
       title: "Service Unit: the file that defines a service",
       subtitle: "20 lines that turn a script into infrastructure",
       description:
-        "A service unit is a simple INI file describing how to run your service. Three main sections: [Unit] (description and dependencies), [Service] (how to run — command, user, restart policy), and [Install] (where in the boot order to enable). Each of my 13 agents is defined in such a file under `/etc/systemd/system/`.",
+        "A service unit is a simple INI file describing how to run your service. Three main sections: [Unit] (description and dependencies), [Service] (how to run — command, user, restart policy), and [Install] (where in the boot order to enable). Each of my network's services is defined in such a file under `/etc/systemd/system/`.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
-        "A service unit is essentially an 'ID card' for a piece of software you want to always be running — a short file that tells the server: this is my name, this is the command that starts me, and if I fall over — bring me back immediately. Without it, if you start a program by hand and the server reboots overnight — it just doesn't come back. With it, the server keeps it alive 24/7. For me (Elad), each of the 13 agents is one such file of about 20 lines — and that's all it takes to keep them running nonstop.",
+        "A service unit is essentially an 'ID card' for a piece of software you want to always be running — a short file that tells the server: this is my name, this is the command that starts me, and if I fall over — bring me back immediately. Without it, if you start a program by hand and the server reboots overnight — it just doesn't come back. With it, the server keeps it alive 24/7. For me (Elad), each of my network's services is one such file of about 20 lines — and that's all it takes to keep them running nonstop.",
       content: [
         "[Unit] Description — a short English description shown in `systemctl status`",
         "[Unit] After — dependencies. For example `After=network.target postgresql.service` says 'wait for the network and Postgres to come up before you start'",
@@ -272,7 +272,7 @@ export const systemdGuideEn: AgentGuideData = {
         "systemd-analyze security <service> — gives a security score (0-10) and suggests improvements. A must-use tool",
       ],
       tips: [
-        "Run `systemd-analyze security kami-agent` on every service — you get an automatic improvement list. I improved all my agents from a score of 4 down to 1.5 (lower = safer)",
+        "Run `systemd-analyze security <service>` on every service — you get an automatic improvement list with a score (lower = safer). For me this is still a work in progress — some services are already hardened, others await the next pass. This tool is exactly what turns hardening from guesswork into a to-do list",
         "For secrets (API keys), use `LoadCredential` instead of `Environment`. They won't appear in `systemctl show` or in `/proc/<pid>/environ`",
       ],
       codeExample: {
@@ -321,7 +321,7 @@ export const systemdGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Need help turning a script into a service?",
   ctaSub:
-    "I have 13 agents running as systemd services with 99.9% uptime. I can move your scripts to production-grade services.",
+    "I have dozens of services running under systemd with 99.9% uptime. I can move your scripts to production-grade services.",
   primaryCta: {
     label: "systemd Quick Reference",
     href: "https://www.shellhacks.com/systemd-systemctl-managing-services-and-units-cheat-sheet/",
@@ -333,5 +333,5 @@ export const systemdGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "On my Hetzner VPS, systemd manages 13 different services, from Python agents to Node webhooks to Go workers. Average uptime: 99.9%. Each service is isolated with resource limits and sandboxing, and when something falls over — it comes back on its own within 5 seconds. This guide is everything I've collected over a thousand hours of running production Linux.",
+    "On my Contabo server, systemd manages about 45 different services, from Python agents to Node webhooks to monitoring scripts. Average uptime: 99.9%. When something falls over — it comes back on its own within seconds, and hardening (resource limits and sandboxing) is an ongoing, service-by-service process. This guide is everything I've collected over a thousand hours of running production Linux.",
 };

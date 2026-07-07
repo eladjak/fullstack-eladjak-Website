@@ -111,7 +111,7 @@ export const sailacoGuide: AgentGuideData = {
       content: [
         "סיילאקו הוא זכר (הוא/שלו) — סוכן ה-Sales/BD של הרשת, לצד קאמי, קיילי, הרמס, אורורה וראנץ'",
         "ערוץ: Telegram @Sales_elad_bot + קבוצת 'המורדים' (בוט עצמאי, sailaco-telegram.service)",
-        "שלושה תחומי-אחריות: sales_pipeline (ניהול הצינור), lead_intake (קליטת-לידים), outreach_draft (כתיבת-פנייה)",
+        "שלושה תחומי-אחריות: ניהול צינור-המכירות (sales pipeline), קליטת-לידים (lead intake) וכתיבת-פניות (outreach) — השמות המדויקים ברישום הפנימי משתנים עם הזמן, החלוקה הזו היא העיקר",
         "מתמקד בעסקים ללא אתר — הלקוח הטבעי של בונה-אתרים/סוכנות-דיגיטל",
         "תלוי ב-[Kaylee](/guide/kaylee) (תשתית) וב-[Hermes](/guide/hermes) (מחקר/תוכן) — חלוקת-עבודה לפי פרוטוקול-הרשת",
         "השליחה היא endpoint ב-[שכבת-האוטונומיה](/guide/autonomy) (autonomy:sales_pipeline) וחסומה ב-Firewall",

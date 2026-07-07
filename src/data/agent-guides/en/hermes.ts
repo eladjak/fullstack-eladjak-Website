@@ -110,7 +110,7 @@ export const hermesGuideEn: AgentGuideData = {
       title: "What is Hermes? The network's worker agent",
       subtitle: "A headless component that takes a work task from the orchestrator, executes, and returns structured output",
       description:
-        "Hermes is the network's worker agent — the interface-less component that does the 'heavy lifting' on behalf of the orchestrator. It doesn't talk to Elad directly like [Kami](/en/guide/kami); it takes a structured task from [Claude Code](/en/claude-code) and returns clean output. Its responsibilities: research, scraping data (scrape), generating media and visual assets (media_gen), data-science analysis (data_science), running cron, and delegating coding tasks to other coding agents (codex_exec). It runs on free Gemini and chats on Telegram in text and voice via @elad_hermes_bot. A historical note: the name 'Hermes' grew from a self-healing (autoheal) infrastructure pattern, and the guide below still details that pattern's five stages because it remains an important foundational idea — but today the network's live self-healing lives in the [autonomy stack](/en/guide/autonomy) (remediation.py + Aurora's fix proposals), not in Hermes. Hermes itself is first and foremost the worker agent.",
+        "Hermes is the network's worker agent — the interface-less component that does the 'heavy lifting' on behalf of the orchestrator. It doesn't talk to Elad directly like [Kami](/en/guide/kami); it takes a structured task from [Claude Code](/en/claude-code) and returns clean output. Its responsibilities: research, scraping data (scrape), generating media and visual assets (creative_visual), data analysis (data_analysis), running cron, and delegating coding tasks to other coding agents (codex_exec). It runs on free Gemini and chats on Telegram in text and voice via @elad_hermes_bot. A historical note: the name 'Hermes' grew from a self-healing (autoheal) infrastructure pattern, and the guide below still details that pattern's five stages because it remains an important foundational idea — but today the network's live self-healing lives in the [autonomy stack](/en/guide/autonomy) (remediation.py + Aurora's fix proposals), not in Hermes. Hermes itself is first and foremost the worker agent.",
       color: "from-cyan-600 to-blue-500",
       difficulty: "beginner",
       beginner:
@@ -118,8 +118,8 @@ export const hermesGuideEn: AgentGuideData = {
       content: [
         "Research — gathering and summarizing information on a topic on behalf of the orchestrator; returns a structured summary, not a 'raw search'",
         "Scraping (scrape) — pulling information from web sources (pages, listings, public data) and returning it tidy",
-        "Media & assets (media_gen) — generating illustrations, images and visual assets (via Gemini/nano-banana). Important: Hermes supplies the media; the copy that accompanies it is written by [Ranch](/en/guide/ranch)",
-        "Data-science (data_science) — processing and analyzing data, computations, and insights written to the [knowledge hub](/en/guide/orchestration) or the inbox",
+        "Media & assets (creative_visual) — generating illustrations, images and visual assets (via Gemini/nano-banana). Important: Hermes supplies the media; the copy that accompanies it is written by [Ranch](/en/guide/ranch)",
+        "Data analysis (data_analysis) — processing and analyzing data, computations, and insights written to the [knowledge hub](/en/guide/orchestration) or the inbox",
         "cron + codex_exec — running scheduled tasks, and delegating coding tasks to other coding agents (codex/opencode) when a programmer's 'hands' are needed",
         "Channel: Telegram @elad_hermes_bot (text+voice via Gemini TTS) + the model gateway; runs on free Gemini",
       ],

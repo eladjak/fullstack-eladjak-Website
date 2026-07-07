@@ -183,7 +183,7 @@ export const outputGuardianGuideEn: AgentGuideData = {
       title: "Alerts — straight to the phone, without flooding",
       subtitle: "A real alert when there's a gap, complete silence when there isn't",
       description:
-        "An output guardian that floods you with alerts will be ignored within a week — and then it's worthless. So the alerting side matters as much as the checking side: an alert goes out only for a real gap ('ran but produced nothing'), it reaches the owner's phone directly via [Kami](/en/guide/kami), and it respects quiet hours and a cooldown period — the same fault won't nag you again every hour. Gaps are also recorded to a central attention inbox, so the [CEO Loop](/en/guide/ceo-loop) briefing can gather them in the morning.",
+        "An output guardian that floods you with alerts will be ignored within a week — and then it's worthless. So the alerting side matters as much as the checking side: an alert goes out only for a real gap ('ran but produced nothing'), it reaches the owner's phone directly via [Kami](/en/guide/kami), and it respects Shabbat and holidays plus a cooldown period — the same fault won't nag you again every hour. Gaps are also recorded to a central attention inbox, so the [CEO Loop](/en/guide/ceo-loop) briefing can gather them in the morning.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
       beginner:
@@ -191,7 +191,7 @@ export const outputGuardianGuideEn: AgentGuideData = {
       content: [
         "The alert channel: a direct message to the phone via [Kami](/en/guide/kami) — not an email that gets buried and not a log line. An artifact gap is exactly the kind of thing that justifies a message",
         "Cooldown: after alerting about a specific job, the guardian won't alert about it again for several hours — giving you time to handle it without repeated nagging",
-        "Quiet hours: a gap discovered in the middle of the night waits for morning (unless marked critical) — because a 3 AM alert about a daily report changes nothing",
+        "Shabbat awareness: on Shabbat and holidays the guardian stays silent — gaps are recorded and wait for Saturday night. A principle that runs through every agent in my network",
         "Attention inbox: every gap is also recorded to a central list of 'things that need attention' — so even if you missed a message, the gap doesn't vanish",
         "The briefing link: the [CEO Loop](/en/guide/ceo-loop) gathers open gaps into the morning briefing — 'two jobs ran without producing an artifact' — and you decide what to do",
       ],

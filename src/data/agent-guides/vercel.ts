@@ -199,7 +199,7 @@ export const vercelGuide: AgentGuideData = {
         "אל תיבהלו מהמונח 'function' — מדובר פשוט בחתיכת קוד קטנה שרצה בענן רק כשצריך אותה, בלי שתחזיקו שרת דולק כל הזמן. ל-Vercel יש שני סוגים, וההבדל הוא כמו בין שליח אופניים מקומי לבין מרכז לוגיסטי גדול. 'Edge' זה השליח הזריז שיושב קרוב אליכם ועונה כמעט מיד — מצוין לדברים קלים ומהירים. 'Serverless' זה המרכז הגדול שיכול לעשות עבודה כבדה (להתחבר לבסיס נתונים, חישובים מורכבים), אבל לוקח לו רגע יותר להתעורר. הסעיף הזה עוזר להחליט מתי כל אחד מהם מתאים.",
       content: [
         "Serverless Functions (default) — רצות על AWS Lambda. תומכות בכל Node.js APIs, יכולות להתחבר ל-DB, סביבת ריצה מלאה. cold start ~200-500ms",
-        "Edge Functions — רצות על Cloudflare Workers (V8 isolates). מהירות מאוד (cold start <50ms), בכל אזור גלובלי. אבל מוגבלות: רק Web APIs, אין FS, גודל קוד עד 1MB",
+        "Edge Functions — רצות על תשתית ה-Edge של Vercel עצמה (V8 isolates — סביבת ריצה קלילה, כמו זו של הדפדפן). מהירות מאוד (cold start <50ms), בכל אזור גלובלי. אבל מוגבלות: רק Web APIs, אין FS, גודל קוד עד 1MB",
         "Edge Runtime — בקובץ Next.js page/route, `export const runtime = 'edge'`. ואז הוא רץ על edge",
         "Middleware — תמיד רץ על edge. מתאים ל-authentication, redirects, headers. רץ לפני כל בקשה",
         "מתי edge — בקשות פשוטות, מותאמות אישית (geolocation), redirects, A/B tests. כל מה שלא דורש DB ישיר או חישוב כבד",
@@ -263,7 +263,7 @@ export const vercelGuide: AgentGuideData = {
         "השוואה: ל-Next.js → Vercel. לאתרים סטטיים → Cloudflare Pages. ל-full-stack → Railway. לשליטה מלאה → VPS",
       ],
       tips: [
-        "אצלי השילוב הטוב ביותר: Vercel לאתרי frontend (כולל האתר הזה), VPS על Hetzner ל-13 הסוכנים שצריכים backend בייצור 24/7",
+        "אצלי השילוב הטוב ביותר: Vercel לאתרי frontend (כולל האתר הזה), ושרת Contabo לסוכנים שצריכים backend בייצור 24/7",
         "אם אתם בנויים ב-Next.js עם API routes שעושים הרבה — שקלו לפרק לאתר נפרד (Vercel) + backend נפרד (Railway/VPS). יותר מורכב, אבל יותר שליטה על עלויות",
       ],
     },

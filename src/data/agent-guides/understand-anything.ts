@@ -23,13 +23,13 @@ export const understandAnythingGuide: AgentGuideData = {
   logoImage: "/images/guide-logos/understand-anything-logo.png",
   tagline: "ה-AI סוף סוף מכיר את כל הקוד שלכם — לא רק את מה שהראיתם לו",
   heroDescription:
-    "Understand-Anything זה כלי חינמי בקוד פתוח (מבית המפתח Lum1104) שמצייר לכם מפה של פרויקט תוכנה שלם — אילו קבצים יש בו, מה כל אחד עושה, ומי מחובר למי. הנה הבעיה שהוא בא לפתור: עוזר AI יודע לכתוב קוד נהדר, אבל הוא לא מכיר את הפרויקט שלכם. בכל שיחה הוא מתחיל מאפס, רואה רק את מה שהראיתם לו, ולא יודע ששינוי קטן בקובץ אחד עלול לשבור עוד חמישה. המפה הזאת נותנת לו (ולכם) תמונה מלאה לפני שנוגעים בכלום. והכי יפה — הכל רץ על ה-AI שכבר יש לכם בתוך [Claude Code](/claude-code), בלי מפתח חיצוני ובלי לשלם על שירות נוסף. אני (אלעד) משתמש בו כדי להבין איך מערכת בנויה לפני שאני נכנס לתקן בה משהו. אצלכם הוא יעזור להיכנס מהר לפרויקט חדש, או להבין קוד ישן שכבר אף אחד לא זוכר.",
+    "Understand-Anything זה כלי חינמי בקוד פתוח (מבית Egonex-AI) שמצייר לכם מפה של פרויקט תוכנה שלם — אילו קבצים יש בו, מה כל אחד עושה, ומי מחובר למי. הנה הבעיה שהוא בא לפתור: עוזר AI יודע לכתוב קוד נהדר, אבל הוא לא מכיר את הפרויקט שלכם. בכל שיחה הוא מתחיל מאפס, רואה רק את מה שהראיתם לו, ולא יודע ששינוי קטן בקובץ אחד עלול לשבור עוד חמישה. המפה הזאת נותנת לו (ולכם) תמונה מלאה לפני שנוגעים בכלום. והכי יפה — הכל רץ על ה-AI שכבר יש לכם בתוך [Claude Code](/claude-code), בלי מפתח חיצוני ובלי לשלם על שירות נוסף. אני (אלעד) משתמש בו כדי להבין איך מערכת בנויה לפני שאני נכנס לתקן בה משהו. אצלכם הוא יעזור להיכנס מהר לפרויקט חדש, או להבין קוד ישן שכבר אף אחד לא זוכר.",
   badgeText: "2026 · Code Intelligence · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/understand-anything",
   heroBgImage: "/images/guides/guide-understand-anything-hero.jpg",
   stats: [
     { label: "מפתח API נדרש", value: "0" },
-    { label: "פרויקטים שמופו אצלי", value: "3+" },
+    { label: "פרויקטים שמופו אצלי", value: "2" },
     { label: "עלות", value: "חינם" },
     { label: "פלאגין ל-", value: "Claude Code" },
   ],
@@ -122,7 +122,7 @@ export const understandAnythingGuide: AgentGuideData = {
       ],
       codeExample: {
         label: "התקנה והרצה ראשונה",
-        code: "# מוסיפים את החנות ומתקינים את התוסף\n/plugin marketplace add Lum1104/Understand-Anything\n/plugin install understand-anything\n\n# מריצים על תיקייה אחת כדי לחסוך עלות\n/understand src/stores --language he\n\n# התוצאה: קובץ מפה בתוך הפרויקט\n# <project>/.understand-anything/knowledge-graph.json",
+        code: "# מוסיפים את החנות ומתקינים את התוסף\n/plugin marketplace add Egonex-AI/Understand-Anything\n/plugin install understand-anything\n\n# מריצים על תיקייה אחת כדי לחסוך עלות\n/understand src/stores --language he\n\n# התוצאה: קובץ מפה בתוך הפרויקט\n# <project>/.understand-anything/knowledge-graph.json",
       },
     },
     {
@@ -257,8 +257,8 @@ export const understandAnythingGuide: AgentGuideData = {
   resources: [
     {
       title: "Understand-Anything GitHub",
-      description: "הקוד הפתוח של הכלי (Lum1104)",
-      href: "https://github.com/Lum1104/Understand-Anything",
+      description: "הקוד הפתוח של הכלי (Egonex-AI)",
+      href: "https://github.com/Egonex-AI/Understand-Anything",
       icon: Github,
     },
     {
@@ -297,7 +297,7 @@ export const understandAnythingGuide: AgentGuideData = {
     "Understand-Anything חינמי, רץ על ה-AI שכבר יש לכם, וממפה כל פרויקט בדקות.",
   primaryCta: {
     label: "ל-GitHub של הכלי",
-    href: "https://github.com/Lum1104/Understand-Anything",
+    href: "https://github.com/Egonex-AI/Understand-Anything",
     icon: Package,
   },
   secondaryCta: {

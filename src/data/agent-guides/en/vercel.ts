@@ -199,7 +199,7 @@ export const vercelGuideEn: AgentGuideData = {
         "Don't let the term 'function' scare you — it's just a small piece of code that runs in the cloud only when needed, without you keeping a server powered on all the time. Vercel has two kinds, and the difference is like a local bike courier versus a big logistics hub. 'Edge' is the nimble courier who sits close to you and answers almost instantly — great for light, fast things. 'Serverless' is the big hub that can do heavy work (connect to a database, complex computation), but takes a moment longer to wake up. This section helps you decide when each one fits.",
       content: [
         "Serverless Functions (default) — run on AWS Lambda. Support every Node.js API, can connect to a DB, full runtime. Cold start ~200-500ms",
-        "Edge Functions — run on Cloudflare Workers (V8 isolates). Very fast (cold start <50ms), in every global region. But limited: only Web APIs, no FS, code size up to 1 MB",
+        "Edge Functions — run on Vercel's own Edge infrastructure (V8 isolates — a lightweight runtime, like the browser's). Very fast (cold start <50ms), in every global region. But limited: only Web APIs, no FS, code size up to 1 MB",
         "Edge Runtime — to choose: in a Next.js page/route file, `export const runtime = 'edge'`. Then it runs on edge",
         "Middleware — always runs on edge. Suitable for authentication, redirects, headers. Runs before every request",
         "When to use edge — simple, personalized requests (geolocation), redirects, A/B tests. Anything that doesn't need direct DB or heavy compute",
@@ -263,7 +263,7 @@ export const vercelGuideEn: AgentGuideData = {
         "Comparison: for Next.js → Vercel. For static sites → Cloudflare Pages. For full-stack → Railway. For full control → VPS",
       ],
       tips: [
-        "My best mix: Vercel for frontend sites (including this one), VPS on Hetzner for the 13 agents that need 24/7 backend in production",
+        "My best mix: Vercel for frontend sites (including this one), and a Contabo server for the agents that need 24/7 backend in production",
         "If you build with Next.js with API routes that do a lot — consider whether to split into separate frontend (Vercel) + separate backend (Railway/VPS). More complex, but better cost control",
       ],
     },

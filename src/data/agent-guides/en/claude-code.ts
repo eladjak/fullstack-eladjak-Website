@@ -27,14 +27,14 @@ export const claudeCodeGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/claude-code-logo.png",
   tagline: "Not just another AI tool — an entire team of specialists working for you",
   heroDescription:
-    "Claude Code is the real 2025–2026 breakthrough in software development: instead of treating AI as a side assistant that writes snippets for you in ChatGPT, Claude Code brings the most advanced AI in the world directly into your terminal and working environment — with the ability to edit files, run commands, manage git, test sites in a browser, and execute complex tasks completely on its own. It's built by Anthropic (creators of the Claude model — the direct competitor to OpenAI's ChatGPT, and widely considered the most advanced model in the world for coding today). The Claude Code CLI integrates with every leading development environment (VS Code, Cursor, JetBrains, plus a Mac/Windows desktop app), offers access to the three current 2026 models — Opus 4.7 (the strongest, with a one-million-token context window), Sonnet 4.6 (the balanced default — 400K tokens, with 1M in beta for some users), and Haiku 4.5 (fast and cost-efficient) — and supports a massive open ecosystem of extensions: Skills (ready-made capabilities that teach Claude to perform specific tasks), MCP Servers (connectors to external services), Sub-Agents and Managed Agents (a virtual team of specialists working in parallel, including background tasks), Hooks (automations that fire before or after any action), and more. What I've put together and share in this guide — my full working environment with 350+ professional Skills, 32 specialized agents, and 17 MCP servers — represents hundreds of hours of research, experimentation, and expensive mistakes I've already made on your behalf. Everything is open source, completely free, continuously updated, and ready to install on your machine with a single command. Whether you're a seasoned developer looking for a dramatic productivity jump, an entrepreneur who wants to build an MVP in a single night, or simply curious about the technology reshaping the world of work — Claude Code is the entry point, and this guide (together with the repositories linked below) is the shortest route in.",
+    "Claude Code is the real 2025–2026 breakthrough in software development: instead of treating AI as a side assistant that writes snippets for you in ChatGPT, Claude Code brings the most advanced AI in the world directly into your terminal and working environment — with the ability to edit files, run commands, manage git, test sites in a browser, and execute complex tasks completely on its own. It's built by Anthropic (creators of the Claude model — the direct competitor to OpenAI's ChatGPT, and widely considered the most advanced model in the world for coding today). The Claude Code CLI integrates with every leading development environment (VS Code, Cursor, JetBrains, plus a Mac/Windows desktop app), offers access to the three current 2026 models — Opus 4.7 (the strongest, with a one-million-token context window), Sonnet 4.6 (the balanced default — 400K tokens, with 1M in beta for some users), and Haiku 4.5 (fast and cost-efficient) — and supports a massive open ecosystem of extensions: Skills (ready-made capabilities that teach Claude to perform specific tasks), MCP Servers (connectors to external services), Sub-Agents and Managed Agents (a virtual team of specialists working in parallel, including background tasks), Hooks (automations that fire before or after any action), and more. What I've put together and share in this guide — my full working environment with 350+ professional Skills, 32 specialized agents, and 22 MCP servers — represents hundreds of hours of research, experimentation, and expensive mistakes I've already made on your behalf. Everything is open source, completely free, continuously updated, and ready to install on your machine with a single command. Whether you're a seasoned developer looking for a dramatic productivity jump, an entrepreneur who wants to build an MVP in a single night, or simply curious about the technology reshaping the world of work — Claude Code is the entry point, and this guide (together with the repositories linked below) is the shortest route in.",
   badgeText: "2026 · Updated · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/claude-code",
   heroBgImage: "/images/guides/guide-claude-code-hero.jpg",
   videoUrl: "/videos/guides/claude-code.mp4",
   stats: [
     { label: "Skills", value: "350+" },
-    { label: "MCP connectors", value: "17" },
+    { label: "MCP connectors", value: "22" },
     { label: "Agents", value: "32" },
     { label: "LSP speed", value: "900x" },
   ],
@@ -216,7 +216,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
       title: "MCP — the bridge to the outside world",
       subtitle: "The open standard that opens Claude to an infinite toolkit",
       description:
-        "MCP (short for Model Context Protocol) is an open standard Anthropic released in 2024 that lets Claude connect to external tools in a structured way: GitHub repositories, design systems, databases, browser automation, WhatsApp gateways, and more. The closest analogy: just as USB-C is a single standard that connects any device to any computer, MCP is a single standard that connects any service to any AI model. My setup has 17 MCP servers wired in; you can start with three or four of the essentials.",
+        "MCP (short for Model Context Protocol) is an open standard Anthropic released in 2024 that lets Claude connect to external tools in a structured way: GitHub repositories, design systems, databases, browser automation, WhatsApp gateways, and more. The closest analogy: just as USB-C is a single standard that connects any device to any computer, MCP is a single standard that connects any service to any AI model. My setup has 22 MCP servers wired in; you can start with three or four of the essentials.",
       color: "from-cyan-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
@@ -227,7 +227,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "Google's Stitch — AI-driven UI design with direct export to HTML/Tailwind — a must-have before writing any new interface",
         "Playwright — automated browsing, form filling, screenshots, and E2E (end-to-end) testing",
         "GitHub MCP — manage Pull Requests, Issues, and Repositories directly from a Claude conversation",
-        "All configuration lives in a single file: ~/.claude/.mcp.json — copy mine and you're off with 17 ready-to-go servers",
+        "All configuration lives in a single file: ~/.claude/.mcp.json — copy mine and you're off with 22 ready-to-go servers",
         "Other MCP servers worth knowing: [n8n](/en/guide/n8n) for automations, [Qdrant](/en/guide/qdrant) as a vector database, and DeepWiki for querying public GitHub repositories",
       ],
       tips: [
@@ -358,7 +358,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
   resources: [
     {
       title: "⭐ Ultimate AI Dev Environment — my full setup (free!)",
-      description: "The ultimate development environment I built and share for free: 350+ Skills, 17 MCP servers, 32 specialized agents. Download it, install it, and make your Claude Code as sharp and organized as mine.",
+      description: "The ultimate development environment I built and share for free: 350+ Skills, 22 MCP servers, 32 specialized agents. Download it, install it, and make your Claude Code as sharp and organized as mine.",
       href: "https://github.com/eladjak/ultimate-ai-dev-environment",
       icon: Rocket,
     },
@@ -389,7 +389,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
     {
       title: "oh-my-claudecode (OMC)",
       description: "A multi-agent system with 32 specialized agents — a turnkey alternative",
-      href: "https://github.com/transcendr/oh-my-claudecode",
+      href: "https://github.com/code-yeongyu/oh-my-claudecode",
       icon: Users,
     },
   ],

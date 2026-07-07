@@ -26,12 +26,12 @@ export const postgresGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-postgres-hero.jpg",
   tagline: "the relational database that holds your agent network state in production",
   heroDescription:
-    "PostgreSQL (Postgres for short) is the most mature, most stable, most 'boringly reliable' open-source relational database — and that is exactly why it is the right pick for almost any project that needs to remember things in production. Unlike SQLite (perfect for development and local tools — a single file on disk), Postgres runs as a separate service that handles dozens of concurrent connections, complex transactions, and large data volumes without breaking a sweat. For me (Elad), Postgres on Hetzner VPS holds the state of all my agents: who talked to whom, what actions were decided, the status of every task, and who paid which invoice. In 2026 Postgres is no longer just a 'database' — with extensions like pgvector (semantic search, an alternative to [Qdrant](/en/guide/qdrant) for smaller workloads), TimescaleDB (time series), and PostGIS (maps and geography), it becomes a full platform. When you build a new product my recommendation is simple: start with SQLite, switch to Postgres the moment you have a second user. Even if you eventually move to DynamoDB or Firebase, the years you invest in learning Postgres will pay off in every project you ever touch.",
+    "PostgreSQL (Postgres for short) is the most mature, most stable, most 'boringly reliable' open-source relational database — and that is exactly why it is the right pick for almost any project that needs to remember things in production. Unlike SQLite (perfect for development and local tools — a single file on disk), Postgres runs as a separate service that handles dozens of concurrent connections, complex transactions, and large data volumes without breaking a sweat. For me (Elad), Postgres on my server backs specific applications — such as [n8n](/en/guide/n8n) (the automation engine) and my analytics system — while the agents' own memory actually lives elsewhere: Qdrant for semantic memory, and simple files (JSONL and SQLite) for day-to-day state. Every kind of data gets the home that fits it. In 2026 Postgres is no longer just a 'database' — with extensions like pgvector (semantic search, an alternative to [Qdrant](/en/guide/qdrant) for smaller workloads), TimescaleDB (time series), and PostGIS (maps and geography), it becomes a full platform. When you build a new product my recommendation is simple: start with SQLite, switch to Postgres the moment you have a second user. Even if you eventually move to DynamoDB or Firebase, the years you invest in learning Postgres will pay off in every project you ever touch.",
   badgeText: "2026 · Relational DB · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/postgres",
   stats: [
     { label: "version", value: "16+" },
-    { label: "rows in production", value: "2M+" },
+    { label: "years of active development", value: "30+" },
     { label: "uptime", value: "99.9%" },
     { label: "cost", value: "free" },
   ],
@@ -191,7 +191,7 @@ export const postgresGuideEn: AgentGuideData = {
       title: "Extensions: pgvector, TimescaleDB, PostGIS",
       subtitle: "What turns Postgres from a DB into a platform",
       description:
-        "One of the magical things about Postgres is its extension system: the ability to add whole new capabilities with one command (`CREATE EXTENSION ...`). That turns Postgres from 'a database' into 'a platform' — the same DB that holds your agent state can also do semantic search, store time series, or query by geographic coordinates.",
+        "One of the magical things about Postgres is its extension system: the ability to add whole new capabilities with one command (`CREATE EXTENSION ...`). That turns Postgres from 'a database' into 'a platform' — the same DB that holds your application data can also do semantic search, store time series, or query by geographic coordinates.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
       beginner:
@@ -235,7 +235,7 @@ export const postgresGuideEn: AgentGuideData = {
         "Read replicas — Postgres ships with built-in async replication. Heavy read queries (analytics) on the replica, writes on the master",
       ],
       tips: [
-        "My Postgres runs in Docker behind UFW that blocks 5432 to the outside world. Access is only via SSH tunnel from my machine, or via the internal Docker network",
+        "My Postgres runs in Docker behind a firewall (iptables) that blocks port 5432 to the outside world. Access is only via SSH tunnel from my machine, or via the internal Docker network",
         "Enable `pg_stat_statements` — an extension that tracks which queries are slow and most frequently called. The first step in any optimization",
         "Security updates — Postgres ships minor releases every quarter. Apply them within a month (16.1 → 16.2 → 16.3) — they're fully backwards compatible",
       ],
@@ -327,5 +327,5 @@ export const postgresGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "I've been working with Postgres since 2014, and in every serious project I've launched it sits at the center: from customer CRMs, to agent systems, to large web apps. On my Hetzner VPS, Postgres 16 runs in Docker holding 2M+ rows and answers daily queries in under 10ms. This guide is the distilled version of what I've learned the hard way.",
+    "I've been working with Postgres since 2014, and in every serious project I've launched it sits at the center: from customer CRMs, to automation systems, to large web apps. Today it backs specific applications on my server — such as n8n and my analytics — while agent memory lives in Qdrant and simple files. This guide is the distilled version of what I've learned the hard way.",
 };

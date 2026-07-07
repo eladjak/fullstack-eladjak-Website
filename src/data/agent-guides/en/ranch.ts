@@ -162,7 +162,7 @@ export const ranchGuideEn: AgentGuideData = {
         "amlak-first on every text channel: a short, punchy TL;DR at the top (critical for an Israeli audience that bounces off a wall of text)",
         "Reels/Shorts are not the article: a short video extracts the single strongest hook → 'full version on the site' — entertainment, not learning",
         "Integrated media: Ranch requests illustrations/images from [Hermes](/en/guide/hermes); he writes the copy, Hermes supplies the visuals",
-        "A state machine per variant: draft→noted→approved→banked→scheduled→published — one idea approval cascades to all versions",
+        "A state machine per variant (the working direction): draft→noted→approved→banked→scheduled→published — one idea approval cascades to all versions. In my setup this is still a working principle being implemented, not a fully automated engine yet",
       ],
       tips: [
         "Internalize: 'the article is the source, not the product'. The moment you stop thinking 'one post' and start thinking 'one idea → N channels', output multiplies",
@@ -242,7 +242,7 @@ export const ranchGuideEn: AgentGuideData = {
       ],
       tips: [
         "The signal you're ready for a content agent: you have more ideas than you can write up, and they vanish. That's the moment to delegate the mining and repurposing",
-        "Keep the state machine (draft→...→published) visible. That's what turns a 'pile of drafts' into a 'factory' — every status is a trigger for the next action, not just a label",
+        "Aim for a visible state machine (draft→...→published). That's what turns a 'pile of drafts' into a 'factory' — every status is a trigger for the next action, not just a label. Even if you start managing it by hand, the transparency alone is worth gold",
       ],
     },
   ],

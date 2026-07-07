@@ -113,8 +113,8 @@ export const delegatorGuideEn: AgentGuideData = {
       beginner:
         "Picture the switchboard of a large office building. Instead of every employee memorizing the phone number of the bank, the post office, the electricity company, and all the clients — there's one operator who knows them all. The employee picks up the phone, says 'connect me to the bank' — and she wires it through. That's exactly how the Delegator works. The agents don't need to manage the contact details themselves (what we call credentials — passwords and access keys for external services); they just send a simple request to the Delegator and it takes care of the rest. That way, if you swap out the API key for an email service — you change it in one place, not across 10 different agents.",
       content: [
-        "Runs on port 3900 on the VPS (my virtual server, inside Hetzner) — internal only. External visitors reach it at hub.eladjak.com through a cloudflared tunnel (a free Cloudflare service that connects a home server to the internet without opening firewall ports)",
-        "The code lives at `/opt/ai-factory/scripts/delegator.py` — a single Python file, roughly 5,000 lines. No dependency hell, no million libraries. Just stdlib (Python's standard library) and a handful of basic networking libraries",
+        "Runs on port 3900 on the server (my Contabo machine) — internal only. External visitors reach it at hub.eladjak.com through a cloudflared tunnel (a free Cloudflare service that connects a home server to the internet without opening firewall ports)",
+        "The code lives at `/opt/ai-factory/scripts/delegator.py` — a single Python file, roughly 7,000 lines. No dependency hell, no million libraries. Just stdlib (Python's standard library) and a handful of basic networking libraries",
         "Over 100 endpoints (endpoints — addresses you can hit, like /email/send or /calendar/check). Each endpoint handles a specific job",
         "Centralized secrets management — API keys for Resend (email — free tier 100/day, then pay-per-volume), Twilio (SMS — pay-per-message), Google OAuth, Anthropic (Claude Sonnet 4.6 / Opus 4.7 / Haiku 4.5), OpenAI, Gemini, Perplexity (Pro API for research), fal.ai (image/video generation) — all live in the server's environment variables, never in code and never in Git",
         "Public HTML dashboards running on the same server: `/launcher` (agent menu), `/hub` (network status), `/costs/llm` (LLM spend), `/calendar/publishing-status` (what's allowed to publish right now)",
@@ -310,5 +310,5 @@ export const delegatorGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "The Delegator has been with me for 6 months, ~5,000 lines of code, 100+ endpoints. The first version was 200 lines. It grew with need — every feature that showed up in a handful of agents ended up passing through it. This guide is based on that growth.",
+    "The Delegator has been with me for many months, ~7,000 lines of code, 100+ endpoints. The first version was 200 lines. It grew with need — every feature that showed up in a handful of agents ended up passing through it. This guide is based on that growth.",
 };

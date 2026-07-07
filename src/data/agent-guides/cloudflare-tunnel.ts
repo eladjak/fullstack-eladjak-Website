@@ -27,11 +27,11 @@ export const cloudflareTunnelGuide: AgentGuideData = {
   heroBgImage: "/images/guides/guide-cloudflare-tunnel-hero.jpg",
   tagline: "המנהרה שה-VPS שלכם פותח אל Cloudflare — ומקבל דומיין ציבורי בלי שום פורט פתוח",
   heroDescription:
-    "Cloudflare Tunnel (היה ידוע בעבר כ-Argo Tunnel, היום פשוט 'Tunnel') הוא שירות חינמי לחלוטין של Cloudflare שפותר את אחת הבעיות הגדולות של VPS אישי: איך חושפים שירות לעולם בלי לפתוח פורטים, בלי לדאוג ל-DDoS, ובלי לקנות IP סטטי. הרעיון גאוני בפשטות שלו — במקום שהאינטרנט יתחבר לשרת שלכם, השרת שלכם יוצא ויוצר 'מנהרה' אל Cloudflare. כל הבקשות לדומיין שלכם מגיעות ל-Cloudflare (שיש להם רשת CDN של 300+ datacenters), ו-Cloudflare מעביר אותן דרך המנהרה לשרת. התוצאה: פורט 443 על השרת שלכם נשאר סגור הרמטית, אבל המשתמשים מקבלים אתר תקין עם HTTPS, CDN ו-DDoS protection — בחינם. אצלי (אלעד) הדומיין `hub.eladjak.com` מצביע ב-DNS על Cloudflare, ודמון בשם `cloudflared` שרץ על ה-VPS שלי ב-Hetzner מנהל את המנהרה. כל בקשה ל-`hub.eladjak.com` עוברת דרך Cloudflare, נכנסת דרך המנהרה, ומגיעה ל-nginx פנימי על פורט 80 — בלי שאף פורט בכלל פתוח על השרת לעולם החיצוני. זה שינוי פרדיגמה: עברתם מ'איך לאבטח פורט פתוח' ל'אין פורט פתוח'.",
+    "Cloudflare Tunnel (היה ידוע בעבר כ-Argo Tunnel, היום פשוט 'Tunnel') הוא שירות חינמי לחלוטין של Cloudflare שפותר את אחת הבעיות הגדולות של VPS אישי: איך חושפים שירות לעולם בלי לפתוח פורטים, בלי לדאוג ל-DDoS, ובלי לקנות IP סטטי. הרעיון גאוני בפשטות שלו — במקום שהאינטרנט יתחבר לשרת שלכם, השרת שלכם יוצא ויוצר 'מנהרה' אל Cloudflare. כל הבקשות לדומיין שלכם מגיעות ל-Cloudflare (שיש להם רשת CDN של 300+ datacenters), ו-Cloudflare מעביר אותן דרך המנהרה לשרת. התוצאה: פורט 443 על השרת שלכם נשאר סגור הרמטית, אבל המשתמשים מקבלים אתר תקין עם HTTPS, CDN ו-DDoS protection — בחינם. אצלי (אלעד) הדומיין `hub.eladjak.com` מצביע ב-DNS על Cloudflare, ודמון בשם `cloudflared` שרץ על שרת ה-Contabo שלי מנהל את המנהרה. כל בקשה ל-`hub.eladjak.com` עוברת דרך Cloudflare, נכנסת דרך המנהרה, ומגיעה ל-Traefik פנימי שמנתב אותה לשירות הנכון. בפועל פתוחים אצלי רק שלושה פורטים (22 ל-SSH ו-80/443) — וכל השירותים הפנימיים לא חשופים לאינטרנט בכלל, הם נגישים רק דרך המנהרה. זה שינוי פרדיגמה: עברתם מ'איך לאבטח עשרות פורטים פתוחים' ל'כמעט שום דבר לא פתוח'.",
   badgeText: "2026 · Zero-Trust Networking · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/cloudflare-tunnel",
   stats: [
-    { label: "פורטים פתוחים בשרת", value: "0" },
+    { label: "פורטים פתוחים אצלי", value: "3 (22/80/443)" },
     { label: "עלות", value: "חינם" },
     { label: "datacenters CF", value: "300+" },
     { label: "התקנה", value: "5 דקות" },
@@ -120,7 +120,7 @@ export const cloudflareTunnelGuide: AgentGuideData = {
         "תעבורה דו-כיוונית: בקשת לקוח מגיעה ל-Cloudflare → דרך המנהרה לשרת → חוזרת לאותו ערוץ. CF טוענים שזה מהיר יותר מ-direct ברוב המקרים בזכות הרשת שלהם",
       ],
       tips: [
-        "אצלי באמת אין שום פורט פתוח לעולם חוץ מ-22 (SSH, רק עם key) — וזה כולל את הדומיינים שמשרתים את האתר. הכול דרך Tunnel",
+        "אצלי פתוחים רק 22 (SSH, רק עם key) ו-80/443 — אף שירות פנימי לא חשוף ישירות לאינטרנט. הכול עובר דרך Tunnel ו-Traefik",
         "ה-tier החינמי של Cloudflare נדיב באופן יוצא דופן — אין הגבלת bandwidth, אין הגבלת מנהרות, אין הגבלת DNS records. אחת מההצעות הטובות בענן",
       ],
       codeExample: {
@@ -306,7 +306,7 @@ export const cloudflareTunnelGuide: AgentGuideData = {
   ],
   ctaTitle: "רוצים להעביר את השרת לטאנל?",
   ctaSub:
-    "אצלי אין שום פורט פתוח חוץ מ-22, וכל הדומיינים עובדים. אני יכול להעביר את השרת שלכם ל-Tunnel בתוך 30 דקות.",
+    "אצלי פתוחים רק 22/80/443, אף שירות פנימי לא חשוף, וכל הדומיינים עובדים. אני יכול להעביר את השרת שלכם ל-Tunnel בתוך 30 דקות.",
   primaryCta: {
     label: "Tunnel Quickstart",
     href: "https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/",
@@ -318,5 +318,5 @@ export const cloudflareTunnelGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "כל הדומיינים שלי (fullstack-eladjak.co.il, hub.eladjak.com, ועוד) עוברים דרך Cloudflare Tunnel, ושום פורט חוץ מ-SSH לא פתוח על ה-Hetzner. עברתי ל-setup הזה בתחילת 2025 ולא חזרתי. המדריך הזה מבוסס על ההגדרה הפעילה אצלי + עזרה ל-3 לקוחות לעבור גם הם.",
+    "הדומיינים של רשת הסוכנים שלי (hub.eladjak.com ועוד) עוברים דרך Cloudflare Tunnel, ורק שלושה פורטים (SSH ו-80/443) פתוחים על שרת ה-Contabo — אף שירות פנימי לא חשוף. התחלתי את ה-setup הזה עוד על שרת Hetzner קטן ולא חזרתי אחורה. המדריך הזה מבוסס על ההגדרה הפעילה אצלי + עזרה ל-3 לקוחות לעבור גם הם.",
 };

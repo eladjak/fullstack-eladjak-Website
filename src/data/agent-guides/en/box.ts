@@ -23,12 +23,12 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const boxGuideEn: AgentGuideData = {
   slug: "box",
   agentName: "Box",
-  agentNameHe: "Box — WhatsApp Health Coach",
+  agentNameHe: "Box — Telegram Health Coach",
   category: "agent",
   logoImage: "/images/guide-logos/box-logo.png",
-  tagline: "A health app people actually use — because it lives in WhatsApp",
+  tagline: "A health app people actually use — because it lives in Telegram",
   heroDescription:
-    "A personal coaching agent built on [Claude Code](/en/claude-code) + [CrewAI](/en/guide/crewai), with long-term memory in [Qdrant](/en/guide/qdrant), image OCR through Google Cloud Vision API, and an auto-generated ICS calendar feed. Interface: WhatsApp via the [Delegator](/en/guide/delegator). State is stored as a single JSON file plus an encrypted SQLite database. In my own setup it accompanies a personal weight-loss and strength program, but this is a coach-agent pattern — not a diet plan. You can adapt it to sleep, running, habit change, learning an instrument, money management, or any measurable personal goal the user sets for themselves.",
+    "Box is a personal coaching agent built on [Claude Code](/en/claude-code), with long-term memory in [Qdrant](/en/guide/qdrant) and an auto-generated ICS calendar feed. The interface: Telegram — a chat that is already open on your phone, no new app to install. State is stored in simple files (JSON and JSONL) you can open and read — zero black boxes. The version live in my setup today focuses on proactive check-ins: Box reaches out to me on Telegram, asks a short question ('what did you eat? how did you sleep?'), and stores the answer — and later in the guide you will also meet the full coach-agent pattern it is built on. In my own setup it accompanies a personal weight-loss and strength program, but this is a coach-agent pattern — not a diet plan. You can adapt it to sleep, running, habit change, learning an instrument, money management, or any measurable personal goal the user sets for themselves.",
   badgeText: "2026 · Health Coach AI · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/box",
   heroBgImage: "/images/guides/guide-box-hero.jpg",
@@ -36,12 +36,12 @@ export const boxGuideEn: AgentGuideData = {
   stats: [
     { label: "Meal intake time", value: "<5s" },
     { label: "Meal memory", value: "90 days" },
-    { label: "Image OCR", value: "live" },
+    { label: "Interface", value: "Telegram" },
     { label: "16:8 windows", value: "ICS" },
   ],
   paradigmTitle: "A health app people actually use",
   paradigmSub:
-    "Because it lives where you already are — WhatsApp. No login, no buttons, no app updates.",
+    "Because it lives where you already are — chat (Telegram in my setup). No login, no buttons, no app updates.",
   paradigmShifts: [
     {
       before: "Open a nutrition app, search for the product, enter quantities, save...",
@@ -68,7 +68,7 @@ export const boxGuideEn: AgentGuideData = {
     {
       title: "People who tried health apps and gave up",
       description:
-        "Box only requires WhatsApp. No UI, no abandonment. Easy to use dozens of times a day.",
+        "Box only requires a chat app (Telegram or WhatsApp). No UI, no abandonment. Easy to use dozens of times a day.",
       icon: Heart,
       color: "from-emerald-500 to-teal-500",
     },
@@ -107,16 +107,17 @@ export const boxGuideEn: AgentGuideData = {
       id: "what-is",
       icon: Dumbbell,
       title: "What is Box?",
-      subtitle: "An autonomous personal coach — intake through WhatsApp",
+      subtitle: "An autonomous personal coach — check-ins and intake through Telegram",
       description:
-        "Box is a personal coach that lives in your pocket — an AI agent that receives WhatsApp messages (text or image), understands what you said in plain language, remembers it long-term, and replies with the next step. It isn't a new app you have to download and learn; it's a WhatsApp conversation, exactly like chatting with a friend who also tracks, calculates, and never judges.",
+        "Box is a personal coach that lives in your pocket — an AI agent that talks with you on Telegram, understands what you said in plain language, remembers it long-term, and replies with the next step. It isn't a new app you have to download and learn; it's a chat conversation, exactly like chatting with a friend who also tracks, calculates, and never judges.",
       color: "from-rose-600 to-pink-500",
       difficulty: "beginner",
       beginner:
-        "Think of it as a digital journal with a brain. You write \"I ate a burrito\" in WhatsApp — Box understands it's a meal, estimates calories and protein, stores it in an internal record, and at the end of the week sends you a short summary. No app, no signup, no buttons. In my own ([Elad](/en/contact)) setup it accompanies a weight-loss and strength program, but in your setup it can track sleep, running, study habits, or any other goal.",
+        "Think of it as a digital journal with a brain. You write \"I ate a burrito\" in Telegram — Box understands it's a meal, estimates calories and protein, stores it in an internal record, and at the end of the week sends you a short summary. No app, no signup, no buttons. In my own ([Elad](/en/contact)) setup it accompanies a weight-loss and strength program, but in your setup it can track sleep, running, study habits, or any other goal.",
       content: [
-        "Box is a simple endpoint on the [Delegator](/en/guide/delegator) (port 3900) — the central API layer every agent in the network speaks through. In other words, Box isn't a separate server but a capability that plugs into an existing stack.",
-        "Communication: POST /coach/intake with simple JSON ({text, source}) → parsing with Gemini 2.5 Flash (Google's free model, which handles Hebrew beautifully) → write to intake.jsonl (a plain text file where each line is one event).",
+        "What is live in my setup today — proactive check-ins (version 2): Box reaches out to me on Telegram at set times with a short question ('what did you eat? how did you sleep?'), gets a free-form answer, and stores it. Simple, consistent — and that is what actually builds a streak over time.",
+        "In the full pattern, Box is an endpoint on the [Delegator](/en/guide/delegator) — the central API layer every agent in the network speaks through. In other words, Box isn't a separate server but a capability that plugs into an existing stack.",
+        "Communication (in the full pattern): an intake endpoint accepting simple JSON ({text, source}) → parsing with Gemini 2.5 Flash (Google's free model, which handles Hebrew beautifully) → write to intake.jsonl (a plain text file where each line is one event).",
         "The response you get back: {ok, summary, next_step, calories_estimate, macros} — meaning \"got it, here's the summary, and here's what to do next.\"",
         "state.json — Box's brain. A single JSON file holding the entire context: phase (intake/active/maintenance), weight goal, protocol (keto/16:8/calorie deficit), window start time. It's loaded on every interaction so Box never forgets who you are.",
         "Calendar feed: the /box/calendar.ics endpoint — ICS is the standard calendar format (the one Google Calendar and Apple Calendar read). Box generates a live file with 7 days of eating windows ahead, and you subscribe to it once from your phone.",
@@ -125,7 +126,7 @@ export const boxGuideEn: AgentGuideData = {
       ],
       tips: [
         "The name \"Box\" is English for boxing/fist — the constant fight toward a goal. Spelled \"Box\", not \"Boks\", on purpose.",
-        "Box is built on [Claude Code](/en/claude-code) + [CrewAI](/en/guide/crewai) — the agent's logic layer. It isn't one monolithic server but a composition of open components, so each part is easy to swap independently.",
+        "Box is built on [Claude Code](/en/claude-code) for logic and Gemini for fast parsing. It isn't one monolithic server but a composition of open components, so each part is easy to swap independently.",
       ],
     },
     {
@@ -142,15 +143,15 @@ export const boxGuideEn: AgentGuideData = {
       content: [
         "Automatic classification: every incoming message is categorized into one of five types — meal, symptom, weight, activity, fasting (window). The LLM does this transparently, without you having to choose.",
         "Internal format stored: {ts, text, type, classified, macros?, notes?} — timestamp, the original text, the type, what the AI understood, and any notes. Nothing is lost — both the raw text and its interpretation are kept.",
-        "Storage: /opt/coach-data/progress-logs/intake.jsonl — a JSONL file (each line is a separate JSON record). It's durable, easy to back up, and easy to export to another system.",
-        "SOURCE allowlist: only approved sources get through (for example elad-direct-whatsapp, box-ocr, elad-ios-shortcut). This matters because Box sits on an infrastructure with many agents ([Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Hermes](/en/guide/hermes)) generating traffic — we don't want another agent's report to accidentally register as an intake.",
+        "Storage: an intake.jsonl file in a dedicated data folder on the server — a JSONL file (each line is a separate JSON record). It's durable, easy to back up, and easy to export to another system.",
+        "SOURCE allowlist: only approved sources get through (for example elad-direct, ios-shortcut). This matters because Box sits on an infrastructure with many agents ([Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Hermes](/en/guide/hermes)) generating traffic — we don't want another agent's report to accidentally register as an intake.",
         "Phantom filter: a mechanism that detects messages that look like agent chatter and rejects them. A second defensive layer above the allowlist.",
-        "The reply sent back on WhatsApp: \"Got it — ~550kcal, 40g protein. Next step: finish your water by 11:00\" — short, concrete, and with a single next action so you aren't overwhelmed.",
-        "OCR extension: send a photo of a plate → Google Cloud Vision API extracts the text from the PDF/menu/package → it's fed to the language model as if you had typed it. This input is free up to 1,000 images per month.",
+        "The reply sent back in chat: \"Got it — ~550kcal, 40g protein. Next step: finish your water by 11:00\" — short, concrete, and with a single next action so you aren't overwhelmed.",
+        "A possible extension — OCR: send a photo of a plate/menu/package → an OCR service (e.g. Google Cloud Vision, free up to 1,000 images per month) extracts the text → it's fed to the language model as if you had typed it. Not wired up in my setup yet, but a natural addition to the pattern.",
       ],
       codeExample: {
-        label: "Sending from curl",
-        code: 'curl -X POST https://hub.eladjak.com/coach/intake \\\n  -H \'content-type: application/json\' \\\n  -d \'{"text":"Lunch — tuna salad with avocado","source":"elad-direct"}\'',
+        label: "Sending from curl (the pattern's API shape)",
+        code: 'curl -X POST https://your-server.example.com/coach/intake \\\n  -H \'content-type: application/json\' \\\n  -d \'{"text":"Lunch — tuna salad with avocado","source":"elad-direct"}\'',
       },
     },
     {
@@ -165,16 +166,16 @@ export const boxGuideEn: AgentGuideData = {
       beginner:
         "State is simply Box's 'memory' — a single file that holds everything it currently knows about you: what phase you're in, what your goal is, which plan is active. Every time you talk to it, it reads this memory first and only then replies — and that's exactly the difference between 'an assistant reacting to a single message' and 'a coach who remembers your whole journey'. The nice part is that it's a simple, readable file, not a black box: you can always open it and see exactly what Box remembers about you.",
       content: [
-        "Location: /opt/coach-data/state.json — a single, simple JSON file. You can open it in a text editor, read it, and edit it by hand. Fully transparent — no black box.",
+        "Location: a state.json file in Box's data folder on the server — a single, simple JSON file. You can open it in a text editor, read it, and edit it by hand. Fully transparent — no black box.",
         "Core fields: phase (intake/active/maintenance), protocol (keto/if/deficit), weight_start, weight_target, fast_start_hour. A minimal schema keeps the state easy to understand and maintain.",
         "Automatic updates: every weight intake updates progress; every protocol change is reflected immediately. No need to remember to \"save\" — the state is live.",
         "phase=intake: the initial data-collection stage. Box doesn't suggest steps yet — it's just learning your patterns. Typical length: one or two weeks. This is also the first-use phase, where Box focuses on observation rather than intervention.",
         "phase=active: the working phase. There's a protocol, there's a goal, Box reminds you about windows, calculates macros, and gives daily next steps.",
         "phase=maintenance: after you reach the goal. Box shifts to maintenance mode — fewer instructions, more monitoring, and alerts only when there's a significant deviation.",
-        "SQLite compatibility: beyond state.json there's also an encrypted SQLite database for long-term history (all intakes, weights, symptoms). Semantic memory sits in [Qdrant](/en/guide/qdrant) — there you can search \"what worked last month?\" and get an answer based on conceptual similarity rather than just time.",
+        "Long-term history: every intake is kept in intake.jsonl — an append-only file (lines are only ever added, never deleted) that is easy to back up and export. Semantic memory sits in [Qdrant](/en/guide/qdrant) — there you can search \"what worked last month?\" and get an answer based on conceptual similarity rather than just time.",
       ],
       tips: [
-        'Manual phase change: POST /coach/phase with {phase:"active"} — handy when you want to start a new stage right away. You can also message Box on WhatsApp "let\'s switch to active starting tomorrow morning" and it will pick up the intent and update the state itself.',
+        'Changing phases: message Box in chat — "let\'s switch to active starting tomorrow morning" — and it picks up the intent and updates the state itself. No technical commands needed.',
         "Backup: because the state is a single file, a simple cron job can back it up (see [Docker](/en/guide/docker) for volume-mount examples). Losing state = losing memory — it's worth backing up daily.",
       ],
     },
@@ -188,9 +189,9 @@ export const boxGuideEn: AgentGuideData = {
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       beginner:
-        "Think of it as \"subscribing to a calendar channel.\" You hand Google Calendar one Box URL and it syncs automatically every few minutes. The windows — when you can eat and when you fast — show up on your phone, laptop, and any device signed into the same Google account. If I change the start time via WhatsApp, the calendar updates within a few minutes — you don't have to touch anything.",
+        "Think of it as \"subscribing to a calendar channel.\" You hand Google Calendar one Box URL and it syncs automatically every few minutes. The windows — when you can eat and when you fast — show up on your phone, laptop, and any device signed into the same Google account. If I change the start time in chat with Box, the calendar updates within a few minutes — you don't have to touch anything.",
       content: [
-        "The endpoint: GET https://hub.eladjak.com/box/calendar.ics — returns text in VCALENDAR format (the standard text format for calendars). You can open it in a browser, see how it looks, and download it.",
+        "The endpoint: GET /box/calendar.ics on the server — returns text in VCALENDAR format (the standard text format for calendars). You can open it in a browser, see how it looks, and download it.",
         "What's in the events: each event is a \"16:8 eating window\" — it begins at fast_start_hour + 16 hours of fasting, and lasts 8 hours for eating. The times are set dynamically from Box's state.",
         "7 events ahead on every call — when the calendar syncs again tomorrow, there will be 7 new ones. There's no \"end\" to the calendar; it keeps producing the next one continuously.",
         "How to add it in Google: Calendar → Other calendars → From URL → paste the URL. In Apple Calendar: File → New Calendar Subscription. It's a one-time action.",
@@ -214,16 +215,16 @@ export const boxGuideEn: AgentGuideData = {
       beginner:
         "This is where Box moves from 'a journal that records what you ate' to 'a coach that tells you what to do now'. After it gets to know you for about two weeks, it starts spotting personal patterns — like 'you tend to eat more on Wednesday evenings' — and gives precise suggestions tailored to you, not generic advice from a book. And most importantly: its tone asks and suggests, it doesn't command or judge. For me (Elad) that's the difference between an app that logs and a real coach who knows me and knows when to push and when to give rest.",
       content: [
-        "Weekly trend analysis: Box runs a CrewAI crew that reads the week's intakes, identifies an overall direction (progress/plateau/regression), and produces one or two insights. It isn't a busy chart — it's a short, data-backed sentence.",
+        "Weekly trend analysis: Box runs an analysis that reads the week's intakes, identifies an overall direction (progress/plateau/regression), and produces one or two insights. It isn't a busy chart — it's a short, data-backed sentence.",
         "Personal pattern detection: \"You tend to eat more on Wednesday evenings\" — Box finds this from empirical observation, not a pre-set rule. It works because intakes are retained in full for 90 days in [Qdrant](/en/guide/qdrant).",
         "Proactive suggestions: after a heavy meal — \"a 20-minute walk will help digestion.\" Box doesn't wait for you to ask — it initiates. But gently, typically one suggestion per day, to avoid overwhelming you.",
-        "Weekly WhatsApp report: every Friday Box sends a summary: \"This week — positive movement toward the goal, 12 of 14 windows completed, protein steady.\" Short, factual, no grade or judgment.",
+        "Weekly chat report: at the end of the week Box sends a summary: \"This week — positive movement toward the goal, 12 of 14 windows completed, protein steady.\" Short, factual, no grade or judgment.",
         "Habit stacking: a technique from Atomic Habits — you identify an existing strong habit and attach a new one to it. Box automatically finds strong habits and suggests a stack: \"after your morning coffee — that's a good moment for vitamin D.\"",
         "The tone: asks, suggests, logs — never judges. \"You had 2400 calories today — a little over the target. Want us to adjust dinner?\" instead of \"you went over the target!\"",
       ],
       tips: [
         "This program isn't a diet plan — it's a coach-agent template. In your own setup you can apply it to any measurable goal: sleep (bedtime + how you woke up), running (km + how it felt), habit change (count + triggers), music practice (minutes + progress), or budgeting.",
-        "Box uses [Claude Code](/en/claude-code) for complex logic and Gemini Flash for fast parsing. See the [CrewAI guide](/en/guide/crewai) to understand how agent crews collaborate on this kind of analysis.",
+        "Box uses [Claude Code](/en/claude-code) for complex logic and Gemini Flash for fast parsing. If you want to extend it to multi-agent analysis, see the [CrewAI guide](/en/guide/crewai) — it explains how agent crews collaborate on this kind of analysis.",
       ],
     },
     {
@@ -238,8 +239,8 @@ export const boxGuideEn: AgentGuideData = {
       beginner:
         "This section is for those who already like Box and want to turn it from something nice into a system that works for them effortlessly. Each capability here removes friction — for instance, instead of typing what you ate, you just photograph the plate and it figures it out; or your fitness device automatically sends your weight and sleep every morning, without you having to remember to report. You don't have to implement everything — each capability stands on its own, take what speaks to you. This part is more technical, but the goal is simple: less work for you, more benefit.",
       content: [
-        "OCR integration: send a photo of a plate/menu/package → Google Cloud Vision API extracts the text → Box handles it like a regular intake. Free up to 1,000 images per month. Handy at a restaurant when you don't have the energy to type.",
-        "iOS Shortcut: build a one-button shortcut on the device (Shortcuts app) that opens a direct chat with Box in WhatsApp — shrinks the time from \"idea\" to \"message\" to 3 seconds. Works from the Home Screen and the Apple Watch.",
+        "OCR integration (an extension idea): send a photo of a plate/menu/package → a service like Google Cloud Vision extracts the text → Box handles it like a regular intake. Free up to 1,000 images per month. Handy at a restaurant when you don't have the energy to type. Not wired up in my setup yet.",
+        "iOS Shortcut: build a one-button shortcut on the device (Shortcuts app) that opens a direct chat with Box in Telegram — shrinks the time from \"idea\" to \"message\" to 3 seconds. Works from the Home Screen and the Apple Watch.",
         "Webhook from Garmin/Fitbit: connect via [n8n](/en/guide/n8n) to your fitness service and Box receives weight/sleep/heart rate automatically every morning. This removes the need to remember to report.",
         "Shabbat awareness: on Israeli Shabbat and holidays Box goes quiet automatically — no reports, no reminders. This principle runs across every agent in my network (see [Kami](/en/guide/kami) and [Kaylee](/en/guide/kaylee), which behave the same way).",
         "Multi-user: state is keyed by user_id, so you can run one Box for multiple people (coaches, dietitians, therapists). Each client gets their own state, privacy is preserved, and you maintain a single codebase.",
@@ -273,7 +274,7 @@ export const boxGuideEn: AgentGuideData = {
     },
     {
       title: "Kami guide",
-      description: "Box connects to Kami through WhatsApp intakes",
+      description: "Box lives in the same agent network as Kami — a coach alongside a personal assistant",
       href: "/en/guide/kami",
       icon: BookOpen,
     },
@@ -290,7 +291,7 @@ export const boxGuideEn: AgentGuideData = {
       icon: BookOpen,
     },
   ],
-  ctaTitle: "Ready for a personal coach in WhatsApp?",
+  ctaTitle: "Ready for a personal coach in your chat app?",
   ctaSub:
     "The code is open, the APIs are free, and time to first intake — 10 minutes.",
   primaryCta: {
@@ -304,5 +305,5 @@ export const boxGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Box is built as a coach-agent pattern for any personal goal: health, habit change, sleep, learning, finance. The real value is that the interface is WhatsApp — the place the user already lives, with no new app to abandon after a week. This guide presents the architecture and pattern so you can adapt it to any coaching use case in your organization or personal life.",
+    "Box is built as a coach-agent pattern for any personal goal: health, habit change, sleep, learning, finance. The version live in my setup today focuses on proactive check-ins in Telegram — the chat where I already live, with no new app to abandon after a week. This guide presents the architecture and pattern so you can adapt it to any coaching use case in your organization or personal life.",
 };

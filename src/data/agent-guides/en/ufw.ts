@@ -26,7 +26,7 @@ export const ufwGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-ufw-hero.jpg",
   tagline: "Uncomplicated Firewall — three commands between an exposed server and a hardened one",
   heroDescription:
-    "UFW (short for Uncomplicated Firewall) is a command-line tool for Ubuntu that wraps Linux's iptables in clear, simple syntax. iptables itself is the standard Linux firewall tool since the early 2000s — extremely powerful, but punishingly complex (commands with 6 parameters, chains and tables and policies). UFW takes all that power and exposes it through an interface you can learn in 5 minutes: 'allow SSH', 'block everything else', 'enable'. That is exactly what most personal-VPS users need. For me (Elad) on Hetzner, UFW is the first line of defense: it blocks everything except SSH (22), HTTP (80, for Let's Encrypt), and HTTPS (443). All 13 agents running on internal ports 3700-3900 are not reachable from the internet at all — UFW simply ignores requests to them. It complements Cloudflare Tunnel perfectly: if something in the Tunnel breaks and a port suddenly opens — UFW still blocks. Two layers of defense instead of one. This guide will show you the 5 commands you'll use 100% of the time and the common configurations every production VPS needs.",
+    "UFW (short for Uncomplicated Firewall) is a command-line tool for Ubuntu that wraps Linux's iptables in clear, simple syntax. iptables itself is the standard Linux firewall tool since the early 2000s — extremely powerful, but punishingly complex (commands with 6 parameters, chains and tables and policies). UFW takes all that power and exposes it through an interface you can learn in 5 minutes: 'allow SSH', 'block everything else', 'enable'. That is exactly what most personal-VPS users need. For me (Elad) the principle is alive, just with slightly different tools: on my Contabo server the firewall is built directly on iptables (the tool underneath UFW) — only three ports are open (SSH 22, HTTP 80, and HTTPS 443), management access goes through Tailscale (an encrypted private network between my machines), and fail2ban automatically bans addresses that try to break in. All the agents running on internal ports are not reachable from the internet at all, and it complements [Cloudflare Tunnel](/en/guide/cloudflare-tunnel) perfectly — two layers of defense instead of one. UFW is the friendliest way to reach exactly the same result, which is why this guide teaches it: the 5 commands you'll use 100% of the time and the common configurations every production VPS needs.",
   badgeText: "2026 · Linux Firewall · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/ufw",
   stats: [
@@ -163,18 +163,18 @@ export const ufwGuideEn: AgentGuideData = {
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       beginner:
-        "Now from theory to real life. Most servers in the world are one of two kinds: either a regular website server (you open three doors for it — SSH for management, and 80/443 for the site), or a server hiding behind a tunnel (you open only SSH for it, and everything else flows through an encrypted tunnel). For me (Elad) on Hetzner it's the second kind: three lines, and not a single internal service is exposed to the internet at all. The guiding idea is simple — every door you don't open is a door nobody can break in through.",
+        "Now from theory to real life. Most servers in the world are one of two kinds: either a regular website server (you open three doors for it — SSH for management, and 80/443 for the site), or a server hiding behind a tunnel (you open only SSH for it, and everything else flows through an encrypted tunnel). For me (Elad) it's the first kind, in its strict version: three doors only (implemented directly in iptables on my server), and not a single internal service is exposed to the internet at all. The guiding idea is simple — every door you don't open is a door nobody can break in through.",
       content: [
         "VPS with a web app — `allow ssh + http + https`. The standard stack, suitable for most cases",
         "VPS with a Cloudflare Tunnel — `allow ssh only`. Everything else flows through the tunnel and no other ports need opening",
         "External Postgres — `ufw allow from 1.2.3.4 to any port 5432`. Opens the port only to a specific IP",
         "SSH on a non-standard port — `ufw allow 2222/tcp`. In `/etc/ssh/sshd_config` change `Port 2222`. Filters 99% of bots",
         "rate limiting on SSH — `ufw limit ssh`. UFW automatically blocks an IP that tries to connect 6 times in 30 seconds. Excellent brute-force defense",
-        "Internal app — don't open its port at all. Put it behind nginx on 80/443. My 13 agents on ports 3700-3900 are not exposed at all",
+        "Internal app — don't open its port at all. Put it behind a reverse proxy on 80/443. My agents on internal ports are not exposed at all",
         "Webhook receiver with whitelist — if you know the calling service comes from a specific range, `ufw allow from <range> to any port <port>`",
       ],
       tips: [
-        "On my Hetzner: `allow ssh limit + allow 80 + allow 443`. Nothing else. All agents are internal",
+        "On my server today this is implemented directly in iptables: only 22, 80, and 443 are open. Nothing else. All agents are internal",
         "If you're behind a company VPN (Tailscale, WireGuard), you can tell UFW to allow only from the VPN: `ufw allow in on tailscale0`. Then even SSH is only open through the VPN",
         "Add `ufw allow from 10.0.0.0/8` to allow everything from a private network. Useful in multi-server setups",
       ],
@@ -315,5 +315,5 @@ export const ufwGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "On my Hetzner UFW allows only 3 ports (SSH limit, 80, 443) — and that's one of the things that lets me sleep at night. There's also fail2ban that automatically bans any IP that tries SSH brute-force more than 3 times. A simple combo, a 5-minute fix, zero breaches since 2023.",
+    "On my Contabo server today the firewall is built directly on iptables — only 3 ports open (SSH, 80, 443), management access through Tailscale, and fail2ban automatically banning any IP that tries SSH brute-force. That's one of the things that lets me sleep at night — and UFW is the simplest way to reach exactly the same result. A simple combo, a 5-minute fix.",
 };

@@ -27,11 +27,11 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-cloudflare-tunnel-hero.jpg",
   tagline: "the tunnel your VPS opens to Cloudflare — and gets a public domain without a single open port",
   heroDescription:
-    "Cloudflare Tunnel (formerly known as Argo Tunnel, today simply 'Tunnel') is a fully free Cloudflare service that solves one of the biggest problems of a personal VPS: how to expose a service to the world without opening any ports, without worrying about DDoS, and without buying a static IP. The idea is brilliantly simple — instead of the internet connecting to your server, your server reaches out and creates a 'tunnel' to Cloudflare. All requests for your domain hit Cloudflare (which has a CDN of 300+ datacenters), and Cloudflare passes them through the tunnel to your server. The result: port 443 on your server stays hermetically sealed, but users get a working site with HTTPS, CDN, and DDoS protection — for free. For me (Elad), the domain `hub.eladjak.com` points in DNS to Cloudflare, and a small daemon called `cloudflared` running on my Hetzner VPS manages the tunnel. Every request to `hub.eladjak.com` goes through Cloudflare, enters via the tunnel, and reaches an internal nginx on port 80 — without any port being open on the server to the outside world. It is a paradigm shift: you've moved from 'how do I secure an open port' to 'there is no open port'.",
+    "Cloudflare Tunnel (formerly known as Argo Tunnel, today simply 'Tunnel') is a fully free Cloudflare service that solves one of the biggest problems of a personal VPS: how to expose a service to the world without opening any ports, without worrying about DDoS, and without buying a static IP. The idea is brilliantly simple — instead of the internet connecting to your server, your server reaches out and creates a 'tunnel' to Cloudflare. All requests for your domain hit Cloudflare (which has a CDN of 300+ datacenters), and Cloudflare passes them through the tunnel to your server. The result: port 443 on your server stays hermetically sealed, but users get a working site with HTTPS, CDN, and DDoS protection — for free. For me (Elad), the domain `hub.eladjak.com` points in DNS to Cloudflare, and a small daemon called `cloudflared` running on my Contabo server manages the tunnel. Every request to `hub.eladjak.com` goes through Cloudflare, enters via the tunnel, and reaches an internal Traefik that routes it to the right service. In practice only three ports are open on my server (22 for SSH plus 80/443) — and none of the internal services are exposed to the internet at all; they are reachable only through the tunnel. It is a paradigm shift: you've moved from 'how do I secure dozens of open ports' to 'almost nothing is open'.",
   badgeText: "2026 · Zero-Trust Networking · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/cloudflare-tunnel",
   stats: [
-    { label: "open ports on the server", value: "0" },
+    { label: "open ports in my setup", value: "3 (22/80/443)" },
     { label: "cost", value: "free" },
     { label: "CF datacenters", value: "300+" },
     { label: "install time", value: "5 min" },
@@ -120,7 +120,7 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
         "Doubled-up traffic: client request hits Cloudflare → through the tunnel to the server → returned via the same channel. CF claim it's actually faster than direct in most cases thanks to their network",
       ],
       tips: [
-        "I literally have no port open to the world except 22 (SSH, key-only) — and that includes the domains serving the site. Everything goes through the Tunnel",
+        "In my setup only 22 (SSH, key-only) and 80/443 are open — none of the internal services are exposed directly to the internet. Everything goes through the Tunnel and Traefik",
         "Cloudflare's free tier is absurdly generous — no bandwidth limit, no tunnel limit, no DNS records limit. One of the best offers in cloud",
       ],
       codeExample: {
@@ -306,7 +306,7 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Want to move your server to a tunnel?",
   ctaSub:
-    "I have no port open except 22, and every domain works. I can move your server to a Tunnel in 30 minutes.",
+    "I only have 22/80/443 open, no internal service is exposed, and every domain works. I can move your server to a Tunnel in 30 minutes.",
   primaryCta: {
     label: "Tunnel Quickstart",
     href: "https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/",
@@ -318,5 +318,5 @@ export const cloudflareTunnelGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "All my domains (fullstack-eladjak.co.il, hub.eladjak.com, and others) go through Cloudflare Tunnel, and no port besides SSH is open on Hetzner. I made the switch in early 2025 and never went back. This guide is built on my live config plus helping 3 clients migrate.",
+    "My agent network's domains (hub.eladjak.com and others) go through Cloudflare Tunnel, and only three ports (SSH plus 80/443) are open on my Contabo server — no internal service is exposed. I started this setup back on a small Hetzner server and never went back. This guide is built on my live config plus helping 3 clients migrate.",
 };

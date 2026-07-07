@@ -179,11 +179,11 @@ export const crewaiGuideEn: AgentGuideData = {
       title: "3 real crews in production",
       subtitle: "Education pipeline, marketing team, YT → blog",
       description:
-        "Theory is great — but here is how it looks in the wild. These are three crews I run daily on my VPS, producing real content. Each one is a role split that mirrors a human team — someone researches, someone shapes the message, someone writes in fluent Hebrew. You can clone the skeleton and adapt it to your domain: a legal advisory crew, a customer support crew, a data analysis crew — same principles, different roles.",
+        "Theory is great — but here is how it looks in the wild. These are three crews I run on my server as needed, producing real content. Each one is a role split that mirrors a human team — someone researches, someone shapes the message, someone writes in fluent Hebrew. You can clone the skeleton and adapt it to your domain: a legal advisory crew, a customer support crew, a data analysis crew — same principles, different roles.",
       color: "from-amber-600 to-orange-500",
       difficulty: "intermediate",
       beginner:
-        "The theory is nice, but let's see what it actually looks like. The three crews here run for me (Elad) every day and produce real content, and they're all built on the same simple principle: division of labor like in a human team. Instead of asking one AI to 'write me an article' (and getting something mediocre), here there's a 'researcher' who gathers information, a 'designer' who decides the structure, and a 'writer' who polishes the wording — each doing only what it's best at. For you, you can take the same idea and adapt it to any field: a customer-support crew, a data-analysis crew, a consulting crew — same principles, different roles.",
+        "The theory is nice, but let's see what it actually looks like. The three crews here run for me (Elad) as needed and produce real content, and they're all built on the same simple principle: division of labor like in a human team. Instead of asking one AI to 'write me an article' (and getting something mediocre), here there's a 'researcher' who gathers information, a 'designer' who decides the structure, and a 'writer' who polishes the wording — each doing only what it's best at. For you, you can take the same idea and adapt it to any field: a customer-support crew, a data-analysis crew, a consulting crew — same principles, different roles.",
       content: [
         "education_pipeline — three agents: a Researcher (scans theweb), a Curriculum Designer (builds the lesson structure), and a Hebrew Writer (writes in clear Hebrew). Output: a full 800–1200 word lesson, ready to publish.",
         "marketing_team — Audience Analyst (profiles the target audience) → Positioning Strategist (picks the angle) → Hebrew Copywriter (writes the copy). Output: three headlines, a subline, a social post, and an email subject line. A miniature marketing department inside a single crew.",
@@ -235,7 +235,7 @@ export const crewaiGuideEn: AgentGuideData = {
       content: [
         "Process.hierarchical adds a manager agent — an agent that never performs tasks itself but routes them to team members. Like a conductor who does not play an instrument but decides who gets the solo.",
         "It shines when you have many agents (5+) and any given task could be handled by several of them — the manager decides who fits best at that moment.",
-        "Memory — crews can retain state across kickoffs: long-term (persistent knowledge), entity (memory about specific entities), and contextual (context from the current run). My memory is backed by [Qdrant](/en/guide/qdrant).",
+        "Memory — crews can retain state across kickoffs: long-term (persistent knowledge), entity (memory about specific entities), and contextual (context from the current run). My memory is backed by [Qdrant](/en/guide/qdrant) — a connection currently being repaired after the server migration.",
         "Tools customization — plain Python functions with the @tool decorator become callables for your agents. That is how you wire a crew into the [Delegator](/en/guide/delegator), [n8n](/en/guide/n8n), or any private API.",
         "Async execution — Task(async_execution=True) lets independent tasks run in parallel. Perfect when your researcher and analyst do not depend on each other and you do not want one waiting on the other.",
         "Callbacks — on_task_start, on_task_complete, and on_crew_complete are hooks for monitoring, logging, and streaming status to your [Dashboard](/en/guide/dashboard) in real time.",
@@ -286,7 +286,7 @@ export const crewaiGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Ready to build your own crew?",
   ctaSub:
-    "Plain Python, a free Gemini key, and a full walkthrough of three crews I use every day.",
+    "Plain Python, a free Gemini key, and a full walkthrough of three real crews from my network.",
   primaryCta: {
     label: "CrewAI on GitHub",
     href: "https://github.com/crewAIInc/crewAI",

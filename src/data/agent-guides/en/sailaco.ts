@@ -111,7 +111,7 @@ export const sailacoGuideEn: AgentGuideData = {
       content: [
         "Sailaco is male (he/his) — the network's Sales/BD agent, alongside Kami, Kaylee, Hermes, Aurora and Ranch",
         "Channel: Telegram @Sales_elad_bot + the 'Rebels' group (a standalone bot, sailaco-telegram.service)",
-        "Three responsibilities: sales_pipeline (managing the pipeline), lead_intake (lead intake), outreach_draft (writing outreach)",
+        "Three responsibility areas: managing the sales pipeline, lead intake, and writing outreach — the exact names in the internal registry shift over time; the division of labor is what matters",
         "Focuses on businesses without a website — the natural client of a site-builder/digital agency",
         "Depends on [Kaylee](/en/guide/kaylee) (infra) and [Hermes](/en/guide/hermes) (research/content) — division of labor per the network protocol",
         "Sending is an endpoint in the [autonomy stack](/en/guide/autonomy) (autonomy:sales_pipeline) and blocked by the Firewall",

@@ -26,11 +26,11 @@ export const githubActionsGuideEn: AgentGuideData = {
   heroBgImage: "/images/guides/guide-github-actions-hero.jpg",
   tagline: "every push runs tests, builds and deploys — without a separate CI server, free for open source",
   heroDescription:
-    "GitHub Actions is a CI/CD (continuous integration / continuous deployment) system built directly into GitHub. CI/CD is the name for the automation that, every time you push code, runs tests, builds the application, and if everything is green — deploys it to production. Once upon a time, building such a pipeline required a separate CI server (Jenkins, TeamCity), hours of setup, and ongoing maintenance. With GitHub Actions, it's a single YAML file inside the repo (`.github/workflows/`) and GitHub itself runs everything on their servers — free for open source projects, and with 2,000 free minutes per month for private projects. For me (Elad), GitHub Actions builds this site (Next.js) every time something is pushed to main, deploys it automatically to Vercel, runs TypeScript checks, and verifies that no secrets accidentally leaked into the code. I also have actions that run daily tasks (cron triggers), open PRs automatically when dependencies are out of date (Dependabot) — all without a single server of mine. It's the tool that makes the difference between 'I'm just hacking alone' and 'I have a professional process'.",
+    "GitHub Actions is a CI/CD (continuous integration / continuous deployment) system built directly into GitHub. CI/CD is the name for the automation that, every time you push code, runs tests, builds the application, and if everything is green — deploys it to production. Once upon a time, building such a pipeline required a separate CI server (Jenkins, TeamCity), hours of setup, and ongoing maintenance. With GitHub Actions, it's a single YAML file inside the repo (`.github/workflows/`) and GitHub itself runs everything on their servers — free for open source projects, and with 2,000 free minutes per month for private projects. For me (Elad), GitHub Actions is this site's gatekeeper: on every push it runs CI — TypeScript checks and a full build — and only code that passes deserves to merge. The deploy itself is handled by [Vercel](/en/guide/vercel), through its Git integration (a direct repo connection that deploys every change automatically) — a clean division of labor: Actions verifies, Vercel ships. All without a single server of mine. It's the tool that makes the difference between 'I'm just hacking alone' and 'I have a professional process'.",
   badgeText: "2026 · CI/CD · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/github-actions",
   stats: [
-    { label: "workflows I run", value: "12+" },
+    { label: "my role for it", value: "CI" },
     { label: "free minutes / month", value: "2,000" },
     { label: "site deploy time", value: "~90s" },
     { label: "OSS cost", value: "0" },
@@ -174,7 +174,7 @@ export const githubActionsGuideEn: AgentGuideData = {
         "Rollback — if something is broken, in the Vercel dashboard you can roll back to a previous deployment with one click",
       ],
       tips: [
-        "On this site (Next.js): tests + typecheck run in CI, and then Vercel deploys automatically. In 90% of cases, push-to-live is under 2 minutes",
+        "On this site (Next.js): typecheck + build run in CI, and the deploy is handled by Vercel automatically via its Git integration (option A). In 90% of cases, push-to-live is under 2 minutes",
         "Vercel is the easiest for Next.js, but the same workflow works with Cloudflare Pages, Netlify, and Railway — just with their respective CLIs",
       ],
       codeExample: {
@@ -315,5 +315,5 @@ export const githubActionsGuideEn: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "I have 12+ workflows running across my repos: every site has full CI, automatic deploy to Vercel, daily tasks that schedule themselves, and Dependabot keeping things up to date. Everything in the free tier (open source) or within the 2,000 free minutes. This guide is the distilled version of 3 years of active use across roughly 100 different repos.",
+    "In my setup GitHub Actions runs CI across my repos — typecheck and build on every push — while Vercel handles the deploys through its Git integration. Everything in the free tier (open source) or within the 2,000 free minutes. This guide is the distilled version of 3 years of active use across dozens of different repos.",
 };

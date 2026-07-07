@@ -31,8 +31,8 @@ export const qdrantGuide: AgentGuideData = {
   heroBgImage: "/images/guides/guide-qdrant-hero.jpg",
   videoUrl: "/videos/guides/qdrant.mp4",
   stats: [
-    { label: "collections אצלי", value: "10" },
-    { label: "embeddings total", value: "10k+" },
+    { label: "collections אצלי", value: "17" },
+    { label: "embeddings total", value: "~9k" },
     { label: "חיפוש", value: "<50ms" },
     { label: "עלות", value: "חינם" },
   ],
@@ -134,7 +134,7 @@ export const qdrantGuide: AgentGuideData = {
       title: "Embeddings — איך טקסט נהפך למספרים",
       subtitle: "משפט → 768 מספרים → מיקום בחלל",
       description:
-        "Embedding היא טביעת אצבע מספרית של משפט, של פסקה או אפילו של תמונה — סדרה של מאות מספרים (בדרך כלל 768 או 1536) שמייצגים את ה*משמעות* של התוכן בתוך 'מפה של משמעויות'. לפני ש-[Qdrant](/guide/qdrant) יכול לעזור לנו למצוא משהו, צריך להפוך את הטקסט ל-embedding כזה, והעבודה הזו נעשית על ידי מודלים ייעודיים (כמו gemini-embedding-001 של גוגל, או text-embedding-3 של OpenAI). אצלי (אלעד) כל שיחה שנכנסת ל-[Kami](/guide/kami) עוברת קודם דרך Gemini שממיר אותה לטביעת אצבע כזו, ורק אחר כך היא נשמרת ב-Qdrant.",
+        "Embedding היא טביעת אצבע מספרית של משפט, של פסקה או אפילו של תמונה — סדרה של מאות מספרים (בדרך כלל 768 או 1536) שמייצגים את ה*משמעות* של התוכן בתוך 'מפה של משמעויות'. לפני ש-Qdrant יכול לעזור לנו למצוא משהו, צריך להפוך את הטקסט ל-embedding כזה, והעבודה הזו נעשית על ידי מודלים ייעודיים (כמו gemini-embedding-001 של גוגל, או text-embedding-3 של OpenAI). אצלי (אלעד) כל שיחה שנכנסת ל-[Kami](/guide/kami) עוברת קודם דרך Gemini שממיר אותה לטביעת אצבע כזו, ורק אחר כך היא נשמרת ב-Qdrant.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
       beginner:
@@ -162,7 +162,7 @@ export const qdrantGuide: AgentGuideData = {
       title: "Collections — המבנה של הנתונים",
       subtitle: "כל collection = 'table' עם מימד קבוע",
       description:
-        "Collection היא סוג של 'ספריית משמעויות' עצמאית בתוך Qdrant — אוסף של וקטורים שכולם חיים באותה מפה (כלומר, נוצרו על ידי אותו מודל embedding עם אותו מספר מימדים). כל נקודה בתוך ה-collection מורכבת מ-id (מזהה ייחודי), מה-vector עצמו (טביעת האצבע המספרית) ומ-payload (חבילת מטא-דאטה ב-JSON — למשל שם משתמש, תאריך או תגיות לסינון). אצלי (אלעד) יש 10 collections כאלו ברשת — אחד לכל מטרה נפרדת.",
+        "Collection היא סוג של 'ספריית משמעויות' עצמאית בתוך Qdrant — אוסף של וקטורים שכולם חיים באותה מפה (כלומר, נוצרו על ידי אותו מודל embedding עם אותו מספר מימדים). כל נקודה בתוך ה-collection מורכבת מ-id (מזהה ייחודי), מה-vector עצמו (טביעת האצבע המספרית) ומ-payload (חבילת מטא-דאטה ב-JSON — למשל שם משתמש, תאריך או תגיות לסינון). אצלי (אלעד) יש 17 collections כאלו ברשת — אחד לכל מטרה נפרדת.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       beginner:
@@ -249,7 +249,7 @@ export const qdrantGuide: AgentGuideData = {
       ],
       tips: [
         "אל תשמרו את הטקסט המקורי השלם בתוך ה-payload אם הוא ארוך — שמרו רק ID שמצביע על הנתון המלא במסד נתונים אחר (Postgres, קובץ). Payload גדול פוגע במהירות החיפוש",
-        "אבטחה קריטית: החל מהגרסאות האחרונות, Qdrant דורש API key כברירת מחדל. אף פעם אל תחשפו את port 6333 לאינטרנט הפתוח בלי API key ובלי חומת אש — זה כמו להשאיר את ה-Postgres שלכם עירום ברשת",
+        "אבטחה קריטית: Qdrant לא מגיע עם API key מופעל כברירת מחדל — צריך להגדיר אותו בעצמכם (משתנה הסביבה QDRANT__SERVICE__API_KEY). אף פעם אל תחשפו את port 6333 לאינטרנט הפתוח בלי API key ובלי חומת אש — זה כמו להשאיר את ה-Postgres שלכם עירום ברשת",
       ],
     },
   ],
@@ -305,5 +305,5 @@ export const qdrantGuide: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Qdrant הוא ה-vector database שבו משתמשים כל הסוכנים ברשת לזיכרון סמנטי. 10 collections בייצור, אלפי וקטורים, עלות אפסית. המדריך מציג את הדפוסים המוצלחים: איך לבחור dimensions, מתי לעשות re-index, איך לנהל payload ואיך להשתלב עם embedding models בקוד פתוח — כדי שתוכלו לבנות זיכרון סמנטי לסוכן משלכם בשעה אחת.",
+    "Qdrant הוא ה-vector database שבו משתמשים כל הסוכנים ברשת לזיכרון סמנטי. 17 collections בייצור, כ-9,000 וקטורים, עלות אפסית. המדריך מציג את הדפוסים המוצלחים: איך לבחור dimensions, מתי לעשות re-index, איך לנהל payload ואיך להשתלב עם embedding models בקוד פתוח — כדי שתוכלו לבנות זיכרון סמנטי לסוכן משלכם בשעה אחת.",
 };

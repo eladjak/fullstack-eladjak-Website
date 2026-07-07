@@ -23,13 +23,13 @@ export const understandAnythingGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/understand-anything-logo.png",
   tagline: "Your AI finally knows your whole codebase — not just what you showed it",
   heroDescription:
-    "Understand-Anything is a free, open-source tool (from developer Lum1104) that draws you a map of a whole software project — which files it has, what each one does, and who's connected to whom. Here's the problem it solves: an AI assistant writes great code, but it doesn't know your project. Every conversation it starts from scratch, sees only what you showed it, and has no idea that a small change in one file might break five others. This map gives it (and you) the full picture before you touch anything. And the best part — it all runs on the AI you already have inside [Claude Code](/en/claude-code), with no external key and no extra service to pay for. I (Elad) use it to understand how a system is built before I go in to change something. For you, it's great for getting up to speed fast on a new project, or making sense of old code nobody remembers anymore.",
+    "Understand-Anything is a free, open-source tool (from Egonex-AI) that draws you a map of a whole software project — which files it has, what each one does, and who's connected to whom. Here's the problem it solves: an AI assistant writes great code, but it doesn't know your project. Every conversation it starts from scratch, sees only what you showed it, and has no idea that a small change in one file might break five others. This map gives it (and you) the full picture before you touch anything. And the best part — it all runs on the AI you already have inside [Claude Code](/en/claude-code), with no external key and no extra service to pay for. I (Elad) use it to understand how a system is built before I go in to change something. For you, it's great for getting up to speed fast on a new project, or making sense of old code nobody remembers anymore.",
   badgeText: "2026 · Code Intelligence · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/understand-anything",
   heroBgImage: "/images/guides/guide-understand-anything-hero.jpg",
   stats: [
     { label: "API keys required", value: "0" },
-    { label: "projects I mapped", value: "3+" },
+    { label: "projects I mapped", value: "2" },
     { label: "cost", value: "free" },
     { label: "plugin for", value: "Claude Code" },
   ],
@@ -122,7 +122,7 @@ export const understandAnythingGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Install and first run",
-        code: "# Add the store and install the plugin\n/plugin marketplace add Lum1104/Understand-Anything\n/plugin install understand-anything\n\n# Run on a single folder to keep cost down\n/understand src/stores\n\n# Result: a map file inside the project\n# <project>/.understand-anything/knowledge-graph.json",
+        code: "# Add the store and install the plugin\n/plugin marketplace add Egonex-AI/Understand-Anything\n/plugin install understand-anything\n\n# Run on a single folder to keep cost down\n/understand src/stores\n\n# Result: a map file inside the project\n# <project>/.understand-anything/knowledge-graph.json",
       },
     },
     {
@@ -257,8 +257,8 @@ export const understandAnythingGuideEn: AgentGuideData = {
   resources: [
     {
       title: "Understand-Anything GitHub",
-      description: "The tool's open source (Lum1104)",
-      href: "https://github.com/Lum1104/Understand-Anything",
+      description: "The tool's open source (Egonex-AI)",
+      href: "https://github.com/Egonex-AI/Understand-Anything",
       icon: Github,
     },
     {
@@ -297,7 +297,7 @@ export const understandAnythingGuideEn: AgentGuideData = {
     "Understand-Anything is free, runs on the model you already have, and maps any project in minutes.",
   primaryCta: {
     label: "To the tool's GitHub",
-    href: "https://github.com/Lum1104/Understand-Anything",
+    href: "https://github.com/Egonex-AI/Understand-Anything",
     icon: Package,
   },
   secondaryCta: {

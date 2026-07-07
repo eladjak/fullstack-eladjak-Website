@@ -26,11 +26,11 @@ export const systemdGuide: AgentGuideData = {
   heroBgImage: "/images/guides/guide-systemd-hero.jpg",
   tagline: "איך להפוך כל סקריפט לשירות שעולה אוטומטית, מתחזק את עצמו ומפיק לוגים — ב-25 שורות INI",
   heroDescription:
-    "systemd הוא מנהל התהליכים והשירותים של רוב הפצות לינוקס המודרניות (Ubuntu, Debian, CentOS, Fedora, Arch — כולן). בלי systemd, כל פעם שאתם רוצים להריץ סקריפט שיעלה אוטומטית בכל boot, יקום מחדש אם נפל, ויקבל הגבלות זיכרון/CPU — הייתם צריכים לכתוב הרבה קוד מלוכלך עם cron, screen, supervisord ו-init.d. עם systemd, כל זה הופך לקובץ טקסט קטן בסגנון INI של 10-20 שורות, ופקודה אחת. אצלי (אלעד) על ה-Hetzner VPS, systemd מנהל את כל 13 סוכני המיקרו-שירותים שלי: כל אחד הוא systemd unit נפרד, מתחיל אוטומטית, מתעד לוגים מרכזיים ב-journalctl, ומתחיל מחדש לבד אם הוא קורס. בנוסף, systemd-timer מחליף לי את cron עם סינטקס ברור יותר והיסטוריית הפעלות, ו-systemd-resolved מטפל ב-DNS. הוא לא הכלי הפופולרי ביותר בקרב חובבי 'Unix פילוסופיה' (יש מי שאוהב init scripts קלאסיים), אבל המציאות היא שאם אתם בעולם לינוקס בייצור — אתם משתמשים ב-systemd. המדריך הזה יראה לכם את החלק שבו תשתמשו ב-90% מהזמן: יצירת service units, ניהול דרך systemctl, וקריאת לוגים ב-journalctl.",
+    "systemd הוא מנהל התהליכים והשירותים של רוב הפצות לינוקס המודרניות (Ubuntu, Debian, CentOS, Fedora, Arch — כולן). בלי systemd, כל פעם שאתם רוצים להריץ סקריפט שיעלה אוטומטית בכל boot, יקום מחדש אם נפל, ויקבל הגבלות זיכרון/CPU — הייתם צריכים לכתוב הרבה קוד מלוכלך עם cron, screen, supervisord ו-init.d. עם systemd, כל זה הופך לקובץ טקסט קטן בסגנון INI של 10-20 שורות, ופקודה אחת. אצלי (אלעד) על שרת ה-Contabo, systemd מנהל כ-45 שירותים ברשת הסוכנים שלי: כל אחד הוא systemd unit נפרד, מתחיל אוטומטית, מתעד לוגים מרכזיים ב-journalctl, ומתחיל מחדש לבד אם הוא קורס. בנוסף, systemd-timer מחליף לי את cron עם סינטקס ברור יותר והיסטוריית הפעלות, ו-systemd-resolved מטפל ב-DNS. הוא לא הכלי הפופולרי ביותר בקרב חובבי 'Unix פילוסופיה' (יש מי שאוהב init scripts קלאסיים), אבל המציאות היא שאם אתם בעולם לינוקס בייצור — אתם משתמשים ב-systemd. המדריך הזה יראה לכם את החלק שבו תשתמשו ב-90% מהזמן: יצירת service units, ניהול דרך systemctl, וקריאת לוגים ב-journalctl.",
   badgeText: "2026 · Service Manager · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/systemd",
   stats: [
-    { label: "שירותים אצלי", value: "13" },
+    { label: "שירותים אצלי", value: "~45" },
     { label: "auto-restart", value: "כן" },
     { label: "logs (יומי)", value: "~500MB" },
     { label: "boot time", value: "<10s" },
@@ -112,7 +112,7 @@ export const systemdGuide: AgentGuideData = {
         "תחשבו על זה כמו על ראש משק בית גדול: האחראי הזה דואג שהמכבסה תרוץ, שהבישול ייעשה בזמן, שהמחשב יידלק כשצריך, ואם משהו מתקלקל — הוא מתקן ולא מחכה שהבעלים יחזור הביתה. systemd עושה את זה לכל השרת.",
       content: [
         "Unit — היחידה הבסיסית. כל שירות, timer, mount, target — הכול unit. מוגדר בקובץ `.service`, `.timer`, `.mount` וכו'",
-        "Service — סוג של unit שמייצג תהליך שצריך לרוץ. הסוג הנפוץ ביותר. אצלי יש 13 כאלה",
+        "Service — סוג של unit שמייצג תהליך שצריך לרוץ. הסוג הנפוץ ביותר. אצלי יש עשרות כאלה",
         "Target — מצב של המערכת. לדוגמה `multi-user.target` = הכול למעט GUI. שירותים אומרים 'אני רוצה להתחיל אחרי target X'",
         "Unit files — קבצי טקסט קטנים בסגנון INI. נמצאים ב-`/etc/systemd/system/` (אדמין) או `/usr/lib/systemd/system/` (חבילות)",
         "Cgroups — מנגנון של הליבה ש-systemd משתמש בו לבידוד תהליכים. כל service רץ ב-cgroup משלו, כך שאפשר להגביל זיכרון/CPU בנפרד",
@@ -129,11 +129,11 @@ export const systemdGuide: AgentGuideData = {
       title: "Service Unit: הקובץ שמגדיר שירות",
       subtitle: "20 שורות שהופכות סקריפט לתשתית",
       description:
-        "Service unit הוא קובץ INI פשוט שמתאר איך להריץ את השירות שלכם. שלוש סקציות עיקריות: [Unit] (תיאור ותלויות), [Service] (איך להריץ — פקודה, משתמש, restart policy), ו-[Install] (איפה ב-boot order להפעיל). אצלי כל אחד מ-13 הסוכנים מוגדר בקובץ כזה ב-`/etc/systemd/system/`.",
+        "Service unit הוא קובץ INI פשוט שמתאר איך להריץ את השירות שלכם. שלוש סקציות עיקריות: [Unit] (תיאור ותלויות), [Service] (איך להריץ — פקודה, משתמש, restart policy), ו-[Install] (איפה ב-boot order להפעיל). אצלי כל אחד מהשירותים ברשת מוגדר בקובץ כזה ב-`/etc/systemd/system/`.",
       color: "from-emerald-600 to-teal-500",
       difficulty: "intermediate",
       beginner:
-        "Service unit זה בעצם 'תעודת זהות' של תוכנה שאתם רוצים שתרוץ תמיד — קובץ קצר שאומר לשרת: זה השם שלי, זאת הפקודה שמפעילה אותי, ואם אני נופל — תקים אותי מיד. בלי זה, אם תפעילו תוכנה ידנית והשרת יתאתחל בלילה — היא פשוט לא תחזור. עם זה, השרת מתחזק אותה לבד 24/7. אצלי (אלעד) כל אחד מ-13 הסוכנים הוא קובץ כזה של בערך 20 שורות — וזה כל מה שצריך כדי שהם ירוצו בלי הפסקה.",
+        "Service unit זה בעצם 'תעודת זהות' של תוכנה שאתם רוצים שתרוץ תמיד — קובץ קצר שאומר לשרת: זה השם שלי, זאת הפקודה שמפעילה אותי, ואם אני נופל — תקים אותי מיד. בלי זה, אם תפעילו תוכנה ידנית והשרת יתאתחל בלילה — היא פשוט לא תחזור. עם זה, השרת מתחזק אותה לבד 24/7. אצלי (אלעד) כל אחד מהשירותים ברשת הוא קובץ כזה של בערך 20 שורות — וזה כל מה שצריך כדי שהם ירוצו בלי הפסקה.",
       content: [
         "[Unit] Description — תיאור קצר באנגלית שמופיע ב-`systemctl status`",
         "[Unit] After — תלויות. למשל `After=network.target postgresql.service` אומר 'חכה שהרשת ו-Postgres יעלו לפני שאתה מתחיל'",
@@ -272,7 +272,7 @@ export const systemdGuide: AgentGuideData = {
         "systemd-analyze security <service> — נותן ציון אבטחה (0-10) ומציע שיפורים. כלי חובה",
       ],
       tips: [
-        "הריצו `systemd-analyze security kami-agent` על כל שירות — תקבלו רשימת שיפורים אוטומטית. אצלי שיפרתי את כל הסוכנים מציון 4 ל-1.5 (נמוך יותר = בטוח יותר)",
+        "הריצו `systemd-analyze security <service>` על כל שירות — תקבלו רשימת שיפורים אוטומטית עם ציון (נמוך יותר = בטוח יותר). אצלי זה עדיין תהליך בעבודה — חלק מהשירותים כבר מוקשחים וחלק ממתינים לסבב הבא. הכלי הזה הוא בדיוק מה שהופך את ההקשחה מניחוש לרשימת מטלות",
         "לסודות (API keys), השתמשו ב-`LoadCredential` במקום ב-`Environment`. כך הם לא מופיעים ב-`systemctl show` או ב-`/proc/<pid>/environ`",
       ],
       codeExample: {
@@ -321,7 +321,7 @@ export const systemdGuide: AgentGuideData = {
   ],
   ctaTitle: "צריכים עזרה להפוך סקריפט לשירות?",
   ctaSub:
-    "אצלי 13 סוכנים רצים כ-systemd services עם uptime של 99.9%. אני יכול להעביר את הסקריפטים שלכם ל-services של ייצור.",
+    "אצלי עשרות שירותים רצים כ-systemd services עם uptime של 99.9%. אני יכול להעביר את הסקריפטים שלכם ל-services של ייצור.",
   primaryCta: {
     label: "systemd Quick Reference",
     href: "https://www.shellhacks.com/systemd-systemctl-managing-services-and-units-cheat-sheet/",
@@ -333,5 +333,5 @@ export const systemdGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "אצלי על Hetzner VPS, systemd מנהל 13 שירותים שונים — מ-Python agents, דרך Node webhooks ועד Go workers. uptime ממוצע: 99.9%. כל אחד מהשירותים מבודד עם resource limits ו-sandboxing, וכשמשהו נופל — הוא קם לבד בתוך 5 שניות. המדריך הזה הוא כל מה שצברתי באלף שעות של ניהול ייצור על Linux.",
+    "אצלי על שרת Contabo, systemd מנהל כ-45 שירותים שונים — מ-Python agents, דרך Node webhooks ועד תסריטי ניטור. uptime ממוצע: 99.9%. כשמשהו נופל — הוא קם לבד בתוך שניות, וההקשחה (resource limits ו-sandboxing) היא תהליך מתמשך שירות-אחר-שירות. המדריך הזה הוא כל מה שצברתי באלף שעות של ניהול ייצור על Linux.",
 };
