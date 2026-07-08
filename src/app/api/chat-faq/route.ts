@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
 import heMessages from '../../../../messages/he.json';
 
 // Real knowledge-bot endpoint for the portfolio "שאלו אותי כל דבר" chat.
@@ -76,6 +77,79 @@ function rateLimited(ip: string): boolean {
 
 const FALLBACK_CONTACT =
   'הבוט לא זמין כרגע — כתבו לי ישירות בוואטסאפ 052-542-7474 או דרך טופס יצירת הקשר ואשמח לענות.';
+
+// ─── Lead signal: email Elad the conversation on ENGAGED turns ──────────────
+// The chat is a live demo of the lead-gen bots Elad sells; until now it captured
+// nothing. On a signal-worthy turn (2+ user messages OR an intent keyword) we
+// email Elad the transcript — reusing the SAME Resend setup as /api/contact
+// (from portfolio@eladjak.com → CONTACT_EMAIL). Fully non-blocking: it never
+// awaits inside the response path and never affects the user's answer.
+// Privacy: the bot is instructed not to echo personal details, and the IP is
+// coarsened (first two octets only). No new dependency, env var, or infra.
+const LEAD_EMAIL = process.env.CONTACT_EMAIL || 'elad@hiteclearning.co.il';
+const INTENT_RE =
+  /(מחיר|כמה עולה|לתמחר|הצעת מחיר|פנוי|זמין|לשכור|להעסיק|פרויקט|לתאם|פגישה|נדבר|price|cost|hire|available|quote|project|budget)/i;
+const LEAD_WINDOW_MS = 30 * 60 * 1000; // at most one lead email per IP per ~session
+const leadNotified = new Map<string, number>();
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function coarseIp(ip: string): string {
+  const p = ip.split('.');
+  return p.length === 4 ? `${p[0]}.${p[1]}.x.x` : 'unknown';
+}
+
+function alreadyNotified(ip: string): boolean {
+  const now = Date.now();
+  const last = leadNotified.get(ip);
+  if (last && now - last < LEAD_WINDOW_MS) return true;
+  leadNotified.set(ip, now);
+  return false;
+}
+
+function buildLeadHtml(
+  turns: { role: string; content: string }[],
+  answer: string,
+  ip: string,
+): string {
+  const rows = [...turns, { role: 'assistant', content: answer }]
+    .map((t) => {
+      const who = t.role === 'user' ? 'מבקר' : 'הבוט';
+      const color = t.role === 'user' ? '#1e293b' : '#2563eb';
+      return `<p style="margin:0 0 10px;font-size:15px;line-height:1.6"><b style="color:${color}">${who}:</b> ${escapeHtml(t.content)}</p>`;
+    })
+    .join('');
+  return `<!DOCTYPE html><html dir="rtl" lang="he"><body style="font-family:Arial,'Segoe UI',sans-serif;background:#f1f5f9;padding:24px;margin:0"><div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;padding:28px;box-shadow:0 4px 6px rgba(0,0,0,0.07)"><h2 style="margin:0 0 4px;color:#2563eb;font-size:20px">שיחת צ'אט חדשה באתר הפורטפוליו</h2><p style="margin:0 0 18px;color:#64748b;font-size:13px">מישהו שוחח עם הבוט ב-fullstack-eladjak.co.il — סימן להתעניינות. אזור: ${escapeHtml(coarseIp(ip))}</p>${rows}</div></body></html>`;
+}
+
+async function logConversation(
+  turns: { role: string; content: string }[],
+  answer: string,
+  ip: string,
+): Promise<void> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return;
+  const userTurns = turns.filter((t) => t.role === 'user');
+  const engaged =
+    userTurns.length >= 2 || userTurns.some((t) => INTENT_RE.test(t.content));
+  if (!engaged) return;
+  if (alreadyNotified(ip)) return;
+  const firstQ = (userTurns[0]?.content || 'שיחה').slice(0, 60);
+  const resend = new Resend(key);
+  await resend.emails.send({
+    from: 'Portfolio Bot <portfolio@eladjak.com>',
+    to: [LEAD_EMAIL],
+    subject: `שיחת צ'אט חדשה באתר — ${firstQ}`,
+    html: buildLeadHtml(turns, answer, ip),
+  });
+}
 
 // ─── Handler ─────────────────────────────────────────────────────────────────
 
@@ -156,6 +230,8 @@ export async function POST(req: Request) {
     const content =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
       'סליחה, לא הצלחתי להבין. אפשר לנסות לנסח אחרת?';
+    // Fire-and-forget lead signal — never awaited, never affects the response.
+    void logConversation(recent, content, clientIp(req)).catch(() => {});
     return NextResponse.json({ content });
   } catch {
     return NextResponse.json({ content: FALLBACK_CONTACT }, { status: 500 });
