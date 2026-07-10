@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { GitBranch, Code2, Briefcase, BookOpen, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { AGENT_COUNT } from '@/data/site-facts';
 
 interface StatItem {
   icon: React.ReactNode;
@@ -50,7 +51,7 @@ export default function StatsBar() {
     { icon: <Briefcase className="h-5 w-5" />, value: 26, suffix: '+', labelKey: 'projects' },
     { icon: <GitBranch className="h-5 w-5" />, value: 50, suffix: '+', labelKey: 'repos' },
     { icon: <Code2 className="h-5 w-5" />, value: 1000, suffix: '+', labelKey: 'commits' },
-    { icon: <BookOpen className="h-5 w-5" />, value: 3, suffix: '', labelKey: 'agents' },
+    { icon: <BookOpen className="h-5 w-5" />, value: AGENT_COUNT, suffix: '', labelKey: 'agents' },
     { icon: <Zap className="h-5 w-5" />, value: 4, suffix: '+', labelKey: 'yearsExp' },
   ];
 

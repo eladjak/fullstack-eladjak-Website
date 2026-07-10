@@ -12,6 +12,8 @@ published: true
 
 # Building a Multi-Agent AI Network: From Concept to Production
 
+> **Update (July 2026):** this post describes the original 3-agent architecture from March 2026, and is kept as-is as a snapshot of that stage. The network has since grown to 12 agents and migrated from the two Hetzner instances to a single Contabo server (16 vCPU / 62GB), with an orchestrator brain and an output guardian on top. The up-to-date architecture is documented in the [agent guides](/guide).
+
 Most AI agent tutorials stop at a single agent in a Jupyter notebook. This post is about what happens *after* that - deploying a coordinated network of agents that run continuously, talk to each other, and handle real work autonomously. This is a technical account of what I built, why I made the architecture decisions I did, and what surprised me along the way.
 
 ## Why Multi-Agent Instead of One Big Agent
@@ -47,7 +49,6 @@ The network has three agents:
 ┌─────────────────────┐  ┌────────────────────────┐
 │   Kami (WhatsApp)   │  │  Kaylee (Autonomous)   │
 │  Hetzner VPS #1     │  │  Hetzner VPS #2        │
-│  37.27.31.1         │  │  37.27.26.173           │
 │  - Green API        │  │  - Scheduled tasks     │
 │  - Message handler  │  │  - Deployments         │
 │  - Request relay    │  │  - Monitoring          │
@@ -251,6 +252,8 @@ The honest summary: multi-agent AI is powerful but not magic. The gains come fro
 <!--LOCALE-SPLIT-->
 
 ## גרסה בעברית: בניית רשת סוכני AI מהרעיון לפרודקשן
+
+> **עדכון (יולי 2026):** הפוסט מתאר את ארכיטקטורת 3 הסוכנים המקורית ממרץ 2026, ונשמר כתיעוד של אותו שלב. מאז הרשת גדלה ל-12 סוכנים ועברה משני שרתי Hetzner לשרת Contabo אחד (62GB), עם מוח-תזמור ושומר-תוצר מעליה. הארכיטקטורה העדכנית מתועדת ב[מדריכי הסוכנים](/guide).
 
 ### למה ריבוי סוכנים ולא סוכן אחד גדול?
 

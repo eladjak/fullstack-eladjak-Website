@@ -202,11 +202,11 @@ export const SKILLS: SkillNode[] = [
     description: "DNS, Tunnels, Workers — תשתית ה-edge.",
   },
   {
-    id: "hetzner",
-    label: "Hetzner VPS",
+    id: "contabo",
+    label: "Contabo VPS",
     category: "devops",
     level: 4,
-    description: "ה-VPS המרכזי שמריץ את כל רשת הסוכנים.",
+    description: "ה-VPS המרכזי (62GB RAM) שמריץ את כל רשת הסוכנים — התחיל על Hetzner.",
   },
   {
     id: "github-actions",

@@ -9,7 +9,7 @@ const outputDir = join(__dirname, '..', 'public', 'projects');
 const projects = [
   { id: 'ninja-keyboard-live', url: 'https://ninja-keyboard-nine.vercel.app' },
   { id: 'gamespark', url: 'https://gamespark-ai-kids.vercel.app' },
-  { id: 'pdf-empire', url: 'https://pdf-empire-storefront.vercel.app' },
+  { id: 'pdf-empire', url: 'https://pdf.eladjak.com' },
   { id: 'org-brain', url: 'https://org-brain-demo.vercel.app' },
   { id: 'pollr', url: 'https://pollr.co.il' },
   { id: 'eladscore', url: 'https://eladscore.com' },

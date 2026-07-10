@@ -12,7 +12,7 @@ interface StaticProject {
   id: string;
   messageKey: string;
   technologies: string[];
-  github_url: string;
+  github_url?: string;
   live_url?: string;
   gradient: string;
   icon: string;
@@ -81,8 +81,7 @@ const staticProjects: StaticProject[] = [
   {
     id: 'zehutai',
     messageKey: 'zehutai',
-    technologies: ['Python', 'NLP', 'RAG', 'CI/CD', 'pytest'],
-    github_url: 'https://github.com/eladjak/ZehutAI',
+    technologies: ['Next.js', 'Payload CMS', 'PostgreSQL', 'next-intl', 'RBAC'],
     gradient: 'from-sky-500/20 to-blue-600/20',
     icon: 'Zehut',
     image: '/projects/zehutai.jpg',
@@ -163,9 +162,11 @@ export default function FeaturedProjectsSection() {
                       ))}
                     </div>
                     <div className="flex items-center gap-3">
-                      <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-                        <Github className="h-4 w-4" /> {t('code')}
-                      </a>
+                      {project.github_url && (
+                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                          <Github className="h-4 w-4" /> {t('code')}
+                        </a>
+                      )}
                       {project.live_url && (
                         <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
                           <ExternalLink className="h-4 w-4" /> {t('liveDemo')}
@@ -233,16 +234,18 @@ export default function FeaturedProjectsSection() {
 
                   {/* Links */}
                   <div className="flex items-center gap-4 pt-2 border-t border-border/50">
-                    <a
-                      href={project.github_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                      aria-label={`View source code for ${project.icon}`}
-                    >
-                      <Github className="h-4 w-4" aria-hidden="true" />
-                      <span>{t('code')}</span>
-                    </a>
+                    {project.github_url && (
+                      <a
+                        href={project.github_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                        aria-label={`View source code for ${project.icon}`}
+                      >
+                        <Github className="h-4 w-4" aria-hidden="true" />
+                        <span>{t('code')}</span>
+                      </a>
+                    )}
                     {project.live_url && (
                       <a
                         href={project.live_url}
