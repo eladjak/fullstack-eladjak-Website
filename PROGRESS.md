@@ -1,5 +1,19 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-07-10 — Site-wide agent-facts sync shipped to PROD (branch `feat/site-facts-refresh` → main, merge `da5b1c9`)
+
+**Fixed the self-contradiction found in the 2026-07-10 staleness audit: 5 different agent counts (3/9/10/13 vs the truth-audited 12) + dead Hetzner presented as the network's core server. Preview verified → merged → prod Ready → live spot-checked.**
+- **New `src/data/site-facts.ts`** — canonical `AGENT_COUNT = 12` (matches the /guide agent list), imported by: home meta ×3 (`page.tsx`), stats bar (was **3**), JSON-LD FAQ (was 9), `/claude-code` meta (was 10), chat-faq bot system prompt (was 13). JSON messages can't import TS — grep both `messages/*.json` when the number changes.
+- **About (he+en):** 3-agent story → real fleet (קאמי, קיילי, בוקס, גארדאקס, ראנץ', סוליס + אורקל, מוח-תזמור, שומר-תוצר, שכבת-אוטונומיה); clear split from the 32 OMC sub-agents; DevOps Hetzner→Contabo.
+- **FAQ (he+en, cascades to the lead-capture bot):** 13→12 agents on Contabo with named fleet; "14 guides"→32.
+- **skills-universe:** dead "Hetzner VPS — the central VPS" node → "Contabo VPS (62GB) — התחיל על Hetzner".
+- **Projects:** PDF Empire → `pdf.eladjak.com` + Sumit (was stale Vercel storefront + Stripe) + premium products in description · Zehut card: old NLP repo → current platform work (Next.js + Payload CMS + translations RBAC + campaign system) · **new Triplus B2B ops-engine card** (21 stages / 213 sub-steps, ERP adapter — no client-internal links) · pollr +next-intl.
+- **Blog flagship post (20.3):** dated-artifact update note added (he+en, points to /guide) + dead VPS IPs removed from the architecture diagram.
+- **llms.txt:** 13-agent/VPS → 12-agent/Contabo + full 32-guide list with taglines matched to the real guide data (was 14).
+- **Behavior fix:** `featured-projects-section` `github_url` now optional + guarded (Zehut has no public repo).
+- **Gates:** tsc 0 · `next build` ✓ · preview deploy success + string spot-checks · prod deploy success · live 200s on / /about /projects /claude-code /guide /blog/building-ai-agent-network /llms.txt /skills-universe · zero stale strings (grep sweep) · JSON-LD 5-schema bundle intact.
+- **Untouched by design:** all 32 guides (truth-audited 7.7) + /guide index.
+
 ## 2026-07-07 — Guides TRUTH-FIX shipped to PROD (branch `fix/guides-truth` → main, commit `13f1058`)
 
 **All factual inaccuracies from the truth-audit fixed across 27 guides (HE+EN, 60 files, both languages for every fix). Merged to main + deployed `--prod` (Ready), verified live.**
