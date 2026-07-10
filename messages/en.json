@@ -83,8 +83,8 @@
         "description": "Converts HTML content into professional PowerPoint presentations instantly. Smart slide detection, 5 themes, and full Hebrew RTL support make presentation creation effortless."
       },
       "zehutai": {
-        "title": "ZehutAI - Hebrew NLP",
-        "description": "Enterprise-grade natural language processing for Hebrew text analysis. RAG-powered insights help businesses understand sentiment and extract intelligence from Hebrew content."
+        "title": "Zehut - Party Platform & Campaign",
+        "description": "A multilingual platform for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system, and a separate campaign-management system for field teams."
       },
       "teamMeetings": {
         "title": "Team Meetings Manager",
@@ -289,7 +289,7 @@
         "present": {
           "year": "2024–Present",
           "title": "Independent Developer & AI Engineer",
-          "description": "26+ deployed projects: EdTech, AI agents, finance, and creative tools. Built an AI agent network running 24/7 — Claude Code, Kami (WhatsApp bot), and Kaylee (autonomous worker)."
+          "description": "26+ deployed projects: EdTech, AI agents, finance, and creative tools. A network of 12 AI agents running 24/7 on a Contabo server — including Kami (WhatsApp), Kaylee (autonomous maintenance), Box (personal coach), Gardax (monitoring), and Ranch (content)."
         }
       }
     },
@@ -297,10 +297,10 @@
       "title": "Experience & Expertise",
       "intro": "Since 2024, I've built and deployed 26+ projects:",
       "haderech": "<strong>HaDerech</strong> — An interactive learning platform with course systems, community forums, and practice simulators. Built with Next.js, TypeScript, Supabase, and AI integrations.",
-      "cms": "<strong>AI Agent Network</strong> — A 3-agent system (Claude Code + Kami WhatsApp bot + Kaylee autonomous worker) running 24/7. Multi-agent coordination with 32 specialized sub-agents.",
+      "cms": "<strong>AI Agent Network</strong> — A 12-agent network running 24/7 on a Contabo server: Kami (WhatsApp), Kaylee (autonomous server maintenance), Box (personal coach), Gardax (monitoring), Ranch (content), and Solis — alongside an Oracle task router, an orchestrator brain that executes and verifies, and an output guardian that checks every job actually produced its artifact. Separately, inside Claude Code: multi-agent coordination with 32 specialized sub-agents (oh-my-claudecode).",
       "edutech": "<strong>Financial Manager</strong> — CLI + React Dashboard with Green Invoice API integration for business financial management.",
       "tools": "<strong>oh-my-claudecode</strong> — Multi-agent orchestration framework with 32 specialized agents and 350+ custom skills.",
-      "expertise": "Technical skills: <strong>React, Next.js, TypeScript, Node.js, Python, Supabase, Convex, MongoDB</strong>. AI/ML: <strong>Claude API, multi-agent orchestration, LLM integration, prompt engineering, MCP servers</strong>. DevOps: Git, GitHub Actions, Vercel, Hetzner VPS, Docker.",
+      "expertise": "Technical skills: <strong>React, Next.js, TypeScript, Node.js, Python, Supabase, Convex, MongoDB</strong>. AI/ML: <strong>Claude API, multi-agent orchestration, LLM integration, prompt engineering, MCP servers</strong>. DevOps: Git, GitHub Actions, Vercel, Contabo VPS, Docker.",
       "beyond": "With 12 years of entrepreneurship and combat military service, I bring maturity, systems thinking, and the ability to prioritize business outcomes — not just technical excellence."
     },
     "unique": {
@@ -469,8 +469,8 @@
         "description": "Enables natural voice conversations with AI that feel as intuitive as talking to a colleague. Push-to-talk and continuous modes adapt to different use cases, from quick queries to extended brainstorming sessions."
       },
       "zehutai": {
-        "title": "ZehutAI - Hebrew NLP",
-        "description": "Brings enterprise-grade natural language processing to Hebrew text analysis. RAG-powered insights help businesses understand customer sentiment and extract actionable intelligence from Hebrew content."
+        "title": "Zehut - Party Platform & Campaign",
+        "description": "A multilingual platform for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system, and a separate campaign-management system for field teams."
       },
       "vacationVibe": {
         "title": "VacationVibe - Vacation Manager",
@@ -498,7 +498,11 @@
       },
       "pdfEmpire": {
         "title": "PDF Empire",
-        "description": "A storefront for practical Hebrew PDF guides — built for real-world tasks, not fluff. Clean RTL shopping experience with category browsing and instant digital delivery."
+        "description": "A storefront for practical Hebrew PDF guides — built for real-world tasks, not fluff. Secure Sumit checkout, two extended premium guides, and instant branded email delivery."
+      },
+      "triplus": {
+        "title": "Triplus - B2B Operations Engine",
+        "description": "An operations system for a solar-industry business client: a process engine of 21 stages and 213 sub-steps with payment and document gates, an ERP adapter, a gap report, and a Hebrew status board for the team."
       },
       "pollr": {
         "title": "Pollr",
@@ -746,7 +750,7 @@
       {
         "title": "Launch & Support",
         "subtitle": "Deploy, monitoring, and 30 days of included support.",
-        "paragraph": "Launch day. I handle the full deployment — Vercel, Railway, a Hetzner VPS, or your internal cloud. I set up monitoring (Sentry for errors, Plausible/PostHog for analytics if relevant), confirm DNS, SSL, and the rest of the infrastructure are working, and run a final smoke test in production. After launch, you get 30 days of included support — every bug, every question, every small fix is handled at no extra charge. This is when the project really moves from \"code\" to \"a live system\".",
+        "paragraph": "Launch day. I handle the full deployment — Vercel, Railway, a VPS (Contabo/Hetzner), or your internal cloud. I set up monitoring (Sentry for errors, Plausible/PostHog for analytics if relevant), confirm DNS, SSL, and the rest of the infrastructure are working, and run a final smoke test in production. After launch, you get 30 days of included support — every bug, every question, every small fix is handled at no extra charge. This is when the project really moves from \"code\" to \"a live system\".",
         "duration": "1–3 days",
         "deliverables": [
           "Production deploy (Vercel/Railway/VPS)",
@@ -853,7 +857,7 @@
       "availability": "Are you currently available for new projects?",
       "process": "What does your development process look like?",
       "aiExpertise": "Tell me about your AI expertise",
-      "aiNetwork": "What is the 13-agent AI network you run?",
+      "aiNetwork": "What is the 12-agent AI network you run?",
       "location": "Where are you located and where do you work from?",
       "hebrew": "Do you support Hebrew and RTL development?",
       "contact": "How can I get in touch with you?",
@@ -866,8 +870,8 @@
       "technologies": "My core stack is Node.js, Next.js, React, and TypeScript for the backend and frontend. I use PostgreSQL and Supabase for databases, Prisma as an ORM, and Framer Motion for UI animations. For AI, I work with the Claude API, OpenAI, Whisper, ElevenLabs, and multi-agent systems with MCP.",
       "availability": "Yes, I'm currently available for new projects! I typically take on 1–2 projects at a time to ensure quality and responsiveness. Response time is usually within a few hours. The best way to check is to reach out directly via WhatsApp or email.",
       "process": "My process has four phases: Discover (understanding your goals and users), Plan (architecture and tech stack decisions), Build with regular check-ins, and Launch with support. I use agile iterations with demos so you always know what's happening. Clear communication at every step.",
-      "aiExpertise": "I've built AI-powered systems across several domains: voice conversation apps using Whisper and ElevenLabs, Hebrew NLP with RAG pipelines, children's story generation with content filtering, multi-agent automation systems, and Claude Code integrations. I also maintain the /claude-code and /guide pages — 14 hands-on guides covering agents and infrastructure for developers learning AI tooling.",
-      "aiNetwork": "It's a personal micro-services system of 13 autonomous AI agents running on a VPS — they handle communication, research, content creation, client management, and day-to-day automation, talking to each other through a central bridge. It's both my lab and my proof of work: I build similar systems for clients, tailored to their business.",
+      "aiExpertise": "I've built AI-powered systems across several domains: voice conversation apps using Whisper and ElevenLabs, Hebrew NLP with RAG pipelines, children's story generation with content filtering, multi-agent automation systems, and Claude Code integrations. I also maintain the /claude-code and /guide pages — 32 hands-on guides covering agents and infrastructure for developers learning AI tooling.",
+      "aiNetwork": "It's a personal micro-services system of 12 autonomous AI agents running on a Contabo server — including Kami (WhatsApp), Kaylee (server maintenance), Box (personal coach), Gardax (monitoring), Ranch (content), and Solis. They handle communication, research, content creation, client management, and day-to-day automation, talking to each other through a central bridge, with an output guardian verifying every job actually produced its result. It's both my lab and my proof of work: I build similar systems for clients, tailored to their business.",
       "location": "I work from Migdal HaEmek in northern Israel, with clients across the country and abroad. Most work happens remotely over video calls, and in-person meetings are possible in the northern region.",
       "hebrew": "Absolutely — Hebrew and RTL are a core specialty. I build bilingual (HE/EN) applications with proper RTL layout, logical CSS properties, and full i18n support using next-intl. I have deep experience with Hebrew typography, keyboard layouts, and the nuances of right-to-left UI development.",
       "contact": "You can reach me on WhatsApp at 052-542-7474 (fastest response), by email at eladhiteclearning@gmail.com, or via the contact form on this site. I usually respond within a few hours during business days.",

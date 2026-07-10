@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import HomePageClient from '@/components/sections/home-page-client';
 import { getAllMDXPosts } from '@/lib/mdx';
 import type { MDXPostSerialized } from '@/components/sections/latest-posts-section';
+import { AGENT_COUNT } from '@/data/site-facts';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 const OG_IMAGE = 'https://avatars.githubusercontent.com/u/108827199?v=4';
 
 export const metadata: Metadata = {
   title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
-  description:
-    "מפתח Full-Stack מגדל העמק שבונה ומפעיל רשת של 13 סוכני AI על VPS. אתרים, אפליקציות, ייעוץ AI, אוטומציה עסקית וסדנאות לארגונים ובתי ספר.",
+  description: `מפתח Full-Stack מגדל העמק שבונה ומפעיל רשת של ${AGENT_COUNT} סוכני AI על שרת Contabo. אתרים, אפליקציות, ייעוץ AI, אוטומציה עסקית וסדנאות לארגונים ובתי ספר.`,
   alternates: {
     canonical: `${SITE_URL}/`,
     languages: {
@@ -19,8 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
-    description:
-      "מפתח Full-Stack מגדל העמק שבונה ומפעיל רשת של 13 סוכני AI על VPS. אתרים, אפליקציות, ייעוץ AI, אוטומציה עסקית וסדנאות לארגונים ובתי ספר.",
+    description: `מפתח Full-Stack מגדל העמק שבונה ומפעיל רשת של ${AGENT_COUNT} סוכני AI על שרת Contabo. אתרים, אפליקציות, ייעוץ AI, אוטומציה עסקית וסדנאות לארגונים ובתי ספר.`,
     type: 'website',
     url: `${SITE_URL}/`,
     siteName: "אלעד יעקובוביץ' - תיק עבודות",
@@ -37,8 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
-    description:
-      "מפתח Full-Stack שבונה ומפעיל רשת של 13 סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI.",
+    description: `מפתח Full-Stack שבונה ומפעיל רשת של ${AGENT_COUNT} סוכני AI. אתרים, אפליקציות, ייעוץ אסטרטגי, וסדנאות AI.`,
     images: [OG_IMAGE],
   },
 };

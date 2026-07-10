@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import heMessages from '../../../../messages/he.json';
+import { AGENT_COUNT } from '@/data/site-facts';
 
 // Real knowledge-bot endpoint for the portfolio "שאלו אותי כל דבר" chat.
 // Pattern proven on hitechkids (2026-05-27) + zehut: server-side ONLY (the Gemini
@@ -33,7 +34,7 @@ function buildKnowledgeBase(): string {
 
 const KNOWLEDGE_BASE = buildKnowledgeBase();
 
-const SYSTEM_PROMPT = `אתה העוזר החכם באתר הפורטפוליו של אלעד יעקובוביץ' (fullstack-eladjak.co.il) — מפתח Full-Stack ומומחה AI ממגדל העמק, עם דגש על צד שרת (Node.js, Next.js, React, PostgreSQL), 26+ אפליקציות בפרודקשן, ורשת של 13 סוכני AI שהוא מפעיל על שרת פרטי.
+const SYSTEM_PROMPT = `אתה העוזר החכם באתר הפורטפוליו של אלעד יעקובוביץ' (fullstack-eladjak.co.il) — מפתח Full-Stack ומומחה AI ממגדל העמק, עם דגש על צד שרת (Node.js, Next.js, React, PostgreSQL), 26+ אפליקציות בפרודקשן, ורשת של ${AGENT_COUNT} סוכני AI שהוא מפעיל על שרת Contabo פרטי.
 
 בסיס הידע שלך (מקור האמת היחיד — אל תמציא מעבר לו):
 

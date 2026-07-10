@@ -1,6 +1,7 @@
 import { type Metadata } from 'next';
 import { SeoJsonLd } from '@/components/agent-guide/SeoJsonLd';
 import { claudeCodeGuide } from '@/data/agent-guides/claude-code';
+import { AGENT_COUNT } from '@/data/site-facts';
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
@@ -9,8 +10,7 @@ const OG_IMAGE = `${SITE_URL}/images/guides/guide-claude-code-hero.jpg`;
 
 export const metadata: Metadata = {
   title: "המדריך המלא ל-Claude Code | אלעד יעקובוביץ'",
-  description:
-    'מדריך מעשי בעברית ל-Claude Code של Anthropic — התקנה, CLAUDE.md, MCP, Skills, סוכנים מקבילים, hooks, והטיפים המתקדמים שמפעילים רשת של 10 סוכני AI בייצור. כתוב על ידי מפתח שמשתמש בו יומיומית.',
+  description: `מדריך מעשי בעברית ל-Claude Code של Anthropic — התקנה, CLAUDE.md, MCP, Skills, סוכנים מקבילים, hooks, והטיפים המתקדמים שמפעילים רשת של ${AGENT_COUNT} סוכני AI בייצור. כתוב על ידי מפתח שמשתמש בו יומיומית.`,
   keywords: [
     'Claude Code',
     'Claude Code עברית',
