@@ -19,6 +19,8 @@ interface StaticProject {
   image?: string;
 }
 
+// LINK-AUDIT (2026-07-13): every live_url + github_url below HEAD-checked live → 200
+// to a real page. zehutai (NDA) has no link by design (non-clickable, no dead anchor).
 const staticProjects: StaticProject[] = [
   {
     id: 'haderech',
@@ -45,6 +47,8 @@ const staticProjects: StaticProject[] = [
     messageKey: 'eyAiKids',
     technologies: ['React', 'TypeScript', 'AI/ML', 'Tailwind CSS', 'Node.js'],
     github_url: 'https://github.com/eladjak/ey.ai-kids-playground',
+    // Live product of the AI-kids work; verified 200 (2026-07-13).
+    live_url: 'https://sipurai.ai',
     gradient: 'from-emerald-500/20 to-teal-500/20',
     icon: 'EY.AI',
     image: '/projects/ey-ai-kids-screenshot.png',
@@ -54,7 +58,9 @@ const staticProjects: StaticProject[] = [
     messageKey: 'omanut',
     technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Responsive Design'],
     github_url: 'https://github.com/eladjak/omanut-hakesher-website',
-    live_url: 'https://omanut-hakesher-website.vercel.app',
+    // Canonical live domain (ohlove.co.il, verified 200 2026-07-13) — matches the
+    // projects page; the older *.vercel.app alias is retired to avoid two links.
+    live_url: 'https://ohlove.co.il',
     gradient: 'from-amber-500/20 to-orange-500/20',
     icon: 'Omanut',
     image: '/projects/omanut-screenshot.png',

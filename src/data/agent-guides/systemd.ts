@@ -324,7 +324,7 @@ export const systemdGuide: AgentGuideData = {
     "אצלי עשרות שירותים רצים כ-systemd services עם uptime של 99.9%. אני יכול להעביר את הסקריפטים שלכם ל-services של ייצור.",
   primaryCta: {
     label: "systemd Quick Reference",
-    href: "https://www.shellhacks.com/systemd-systemctl-managing-services-and-units-cheat-sheet/",
+    href: "https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal",
     icon: BookOpen,
   },
   secondaryCta: {

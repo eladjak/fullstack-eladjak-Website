@@ -289,9 +289,9 @@ export const kamiGuide: AgentGuideData = {
   ],
   resources: [
     {
-      title: "GitHub — elad-personal-agent",
-      description: "הקוד המלא של קאמי — TypeScript + Bun + Claude + Gemini (תמלול ודיבור)",
-      href: "https://github.com/eladjak/elad-personal-agent",
+      title: "GitHub — הפרויקטים של אלעד",
+      description: "המאגרים הציבוריים שלי — קוד סוכני-AI, סקילים ותשתית (מאגר-קאמי עצמו פרטי)",
+      href: "https://github.com/eladjak",
       icon: Github,
     },
     {
@@ -330,7 +330,7 @@ export const kamiGuide: AgentGuideData = {
     "הקוד פתוח, ה-API-ים זולים או חינמיים, והזמן עד לשיחה קולית ראשונה — 15 דקות.",
   primaryCta: {
     label: "בנו קאמי משלכם",
-    href: "https://github.com/eladjak/elad-personal-agent",
+    href: "https://github.com/eladjak",
     icon: Github,
   },
   secondaryCta: {

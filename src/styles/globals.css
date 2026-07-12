@@ -464,7 +464,11 @@ a:focus-visible .logo-anim__ch {
 }
 
 .cj-leg {
-  will-change: opacity;
+  /* opacity = the cross-dissolve; transform = the continuous breathing-zone drift
+     the engine applies so the camera never fully stops between scenes. */
+  will-change: opacity, transform;
+  transform-origin: center 45%;
+  backface-visibility: hidden;
 }
 
 .cj-still,

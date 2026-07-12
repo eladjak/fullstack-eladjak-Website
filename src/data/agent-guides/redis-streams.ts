@@ -271,13 +271,13 @@ export const redisStreamsGuide: AgentGuideData = {
     {
       title: "Redis Streams Documentation",
       description: "התיעוד הרשמי — מקיף, עם דוגמאות לכל פעולה",
-      href: "https://redis.io/docs/data-types/streams/",
+      href: "https://redis.io/docs/latest/develop/data-types/streams/",
       icon: BookOpen,
     },
     {
       title: "Redis Streams Tutorial",
       description: "המדריך הרשמי למתחילים — קל להבנה",
-      href: "https://redis.io/docs/data-types/streams-tutorial/",
+      href: "https://redis.io/docs/latest/develop/data-types/streams-tutorial/",
       icon: BookOpen,
     },
     {
@@ -310,7 +310,7 @@ export const redisStreamsGuide: AgentGuideData = {
     "אצלי רשת סוכנים שלמה מתואמת דרך Redis Streams בלי Kafka, בלי overhead. אני יכול לעזור לכם לתכנן את שלכם.",
   primaryCta: {
     label: "Redis Streams Quick Start",
-    href: "https://redis.io/docs/data-types/streams-tutorial/",
+    href: "https://redis.io/docs/latest/develop/data-types/streams-tutorial/",
     icon: BookOpen,
   },
   secondaryCta: {

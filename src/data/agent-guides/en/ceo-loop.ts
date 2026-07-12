@@ -165,14 +165,16 @@ export const ceoLoopGuideEn: AgentGuideData = {
         "The approval: tapping 'approve' releases the move for execution through [Kami](/en/guide/kami); tapping 'reject' cancels and records the reason",
         "Off-brief: an urgent move doesn't wait for morning — it's sent the moment it's created; the brief only bundles what wasn't burning",
         "Transparency: every approve/reject is written to the ledger — so there's always a record of who decided what and when",
+        "Update (July 2026) — deterministic approval: the brief writes an ordered list of pending decisions (each with a number), and a plain-text reply like '2 approve' / '3 reject' / 'next' / 'skip' is intercepted deterministically and becomes a real decision in the queue immediately — without letting an LLM 'interpret' an approval command. An approval command must be certain, not a guess",
       ],
       tips: [
         "One-tap approval must be fast and available from the phone. If the process is clunky, you'll be tempted to approve everything without reading — which defeats the entire point of a safety gate",
         "Phrase the approval headline so you can decide from it alone. 'Send David Cohen a proposal for $4,000?' is far better than 'Approve task #482'",
+        "Don't leave parsing the approval command to a language model. 'approve/reject/next/skip + number' must be parsed deterministically from the text — an unreliable LLM path is exactly the root that caused missed approvals for me, until I replaced it with a fixed parser",
       ],
       codeExample: {
-        label: "Handling a button tap",
-        code: "# WhatsApp webhook when a button is tapped\nif action == 'approve':\n    approvals.release(task_id)   # released for execution\nelif action == 'reject':\n    approvals.cancel(task_id, reason='user_rejected')\nledger.record(task_id, decision=action)  # audit trail",
+        label: "Deterministic approval — from a tap or from text, no LLM",
+        code: "# 1) button tap (webhook)  2) text reply '2 approve' / 'next'\n# both paths are parsed deterministically — never through a language model\nm = re.match(r'^\\s*(\\d+)?\\s*(approve|reject|next|skip)\\b', reply, re.I)\nif m:\n    idx, verb = m.group(1), m.group(2).lower()\n    decision = {'approve':'approve','next':'approve','reject':'reject','skip':'skip'}[verb]\n    queue.decide(pending[int(idx)-1] if idx else pending[0], decision)\n    ledger.record(decision)  # audit trail — not a guess",
       },
     },
     {

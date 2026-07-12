@@ -99,6 +99,7 @@ export const capabilityLadderGuideEn: AgentGuideData = {
     { id: "rung-verify", label: "Rung 4: Verification" },
     { id: "rung-model", label: "Rung 5: Model+fallback" },
     { id: "ceiling", label: "The honest ceiling" },
+    { id: "living-system", label: "The living network today" },
   ],
   sections: [
     {
@@ -264,6 +265,29 @@ export const capabilityLadderGuideEn: AgentGuideData = {
       tips: [
         "Phrase the promise (to yourself and to clients) in operational terms, not intelligence terms: 'the system will execute and verify X, Y, Z reliably' — not 'the system is smart'",
         "Use the ceiling as a prioritization tool: any task below the ceiling (defined, measurable) is a candidate for full automation; whatever is above it — keep for a human+strong-model combination",
+      ],
+    },
+    {
+      id: "living-system",
+      icon: Layers,
+      title: "From theory to the living network — where the ladder stands today",
+      subtitle: "Four layers that went live (July 2026) turned the ladder from an idea into infrastructure",
+      description:
+        "So far the ladder as a thinking model. Now what it looks like in practice on my network, after an upgrade wave that moved four layers from 'idea' to 'running in production': each one is exactly one of the ladder's rungs — except now it has a single shared home for the whole fleet. Routing lives in [Aurora's](/en/guide/aurora) orchestrator brain; memory moved into one 'memory kernel' that serves every agent instead of each one inventing its own; verification became a correctness layer inside the [output guardian](/en/guide/output-guardian); and model selection + fallback are centralized in a single network-wide LLM gateway. The difference from the previous version isn't conceptual but architectural: instead of every service holding its own copy of each layer, there is now one source of truth per rung — and that is precisely what turns a ladder on paper into a system that lasts.",
+      color: "from-teal-600 to-cyan-500",
+      difficulty: "advanced",
+      beginner:
+        "Imagine an apartment building where every flat dug its own water well, installed a generator, and hired a guard. It works — but it's wasteful, inconsistent, and hard to maintain. Now imagine the building moved to shared infrastructure: one water main, one power supply, one guard for the whole building. The exact same services — but managed from one place, cheaper and more reliable. That's what happened to my network: every rung of the ladder got shared 'building infrastructure' instead of a per-agent copy. The ladder stayed the same ladder — it's just built right now.",
+      content: [
+        "One LLM gateway for the whole fleet (the model+fallback rung): every model call on the network passes through a single gateway with a free-first ladder (a fast, cheap model for most tasks, a strong model only when needed) and an automatic fallback chain — instead of every service holding its own model-selection code",
+        "One memory kernel (the memory rung): a shared memory envelope per agent+chat, with a nightly distill — so memory is one managed asset rather than a pile of copies; and it fails silently (a memory failure never drops the answer)",
+        "A correctness layer in the [output guardian](/en/guide/output-guardian) (the verify rung): an advisor pass over scheduled jobs — it caught a real finding on its very first run; only legal status transitions are allowed, and a failure triggers a rework loop",
+        "Deterministic approvals (the human link above the gateway): the morning brief of the [CEO loop](/en/guide/ceo-loop) writes a list of pending decisions, and a 'number approve/reject' reply is intercepted deterministically — without letting an LLM 'interpret' an approval command",
+        "The lesson that moves the ladder from paper to infrastructure: don't rebuild each rung inside every agent. Build each rung once, as a shared service — reuse before duplication. That's what turns a network of agents into one organism rather than a pile of bots",
+      ],
+      tips: [
+        "When a rung repeats across more than two agents — that's the signal to extract it into a shared service. One model gateway, one memory kernel, one output guardian: less code, fewer bugs, one point of control",
+        "After centralizing a rung — delete the old copies. A shared layer running alongside five old copies is worse than either version alone (exactly like duplication in memory)",
       ],
     },
   ],

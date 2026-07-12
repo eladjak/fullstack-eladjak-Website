@@ -241,10 +241,12 @@ export const auroraGuideEn: AgentGuideData = {
         "Step 3 — execution (execute): the chosen executor works and returns a tangible artifact — a file, a report, an analysis — not just 'handled'",
         "Step 4 — the verified-artifact gate: the brain checks the artifact exists, the file was written, and it isn't empty. Any failure on any of these → the request is reported as not verified",
         "The mutual complement: the [output guardian](/en/guide/output-guardian) checks scheduled jobs after the fact; the brain's verification gate checks every live request in real time — together they close both directions of 'ran but produced nothing'",
+        "Update (July 2026): the brain no longer stands alone. It leans on shared infrastructure that went live — one LLM gateway for the whole fleet (executors call the model through a single gateway with a free-first ladder and automatic fallback) and a shared memory kernel that hands each executor the relevant context; so the brain routes into a centralized system, not a pile of services each inventing its own model and memory",
       ],
       tips: [
         "A 'bring me anything' layer is what turns a collection of specialists into one system you can talk to. But it earns trust only because of the verification gate — without it, it's just a router reporting imaginary successes",
         "Build the verification gate before you grow the executor list. A router that can spot an empty artifact with two executors beats a blind router with ten",
+        "When routing matures — extract the model and the memory into one shared service for all executors (a single LLM gateway + a memory kernel), instead of a per-executor copy. Reuse before duplication is what lets the network grow without falling apart",
       ],
       codeExample: {
         label: "The orchestrator brain — recognize, route, execute, verify",

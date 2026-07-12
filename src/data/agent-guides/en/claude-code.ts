@@ -388,8 +388,8 @@ export const claudeCodeGuideEn: AgentGuideData = {
     },
     {
       title: "oh-my-claudecode (OMC)",
-      description: "A multi-agent system with 32 specialized agents — a turnkey alternative",
-      href: "https://github.com/code-yeongyu/oh-my-claudecode",
+      description: "A multi-agent system with 32 specialized agents — a turnkey alternative (code-yeongyu's projects)",
+      href: "https://github.com/code-yeongyu",
       icon: Users,
     },
   ],

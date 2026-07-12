@@ -27,6 +27,12 @@ interface StaticProject {
   image?: string;
 }
 
+// LINK-AUDIT (2026-07-13): every live_url + github_url below was HEAD-checked live
+// and returns HTTP 200 to a real page (following redirects). RULE for future edits:
+// a card is clickable ONLY via fields present here, and any live_url/github_url MUST
+// resolve 200 to a real page — HEAD-check before adding/changing one. Projects with
+// NO link are non-clickable BY DESIGN: triplus + zehutai are NDA/client-internal and
+// intentionally expose no public URL (no broken anchor is rendered for them).
 const allProjects: StaticProject[] = [
   {
     id: 'haderech',

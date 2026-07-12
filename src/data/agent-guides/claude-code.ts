@@ -388,8 +388,8 @@ export const claudeCodeGuide: AgentGuideData = {
     },
     {
       title: "oh-my-claudecode (OMC)",
-      description: "מערכת multi-agent עם 32 סוכנים מתמחים — אלטרנטיבה מוכנה",
-      href: "https://github.com/code-yeongyu/oh-my-claudecode",
+      description: "מערכת multi-agent עם 32 סוכנים מתמחים — אלטרנטיבה מוכנה (הפרויקטים של code-yeongyu)",
+      href: "https://github.com/code-yeongyu",
       icon: Users,
     },
   ],

@@ -289,9 +289,9 @@ export const kamiGuideEn: AgentGuideData = {
   ],
   resources: [
     {
-      title: "GitHub — elad-personal-agent",
-      description: "Kami's full source code — TypeScript + Bun + Claude + Gemini (STT and TTS)",
-      href: "https://github.com/eladjak/elad-personal-agent",
+      title: "GitHub — Elad's projects",
+      description: "My public repos — AI-agent code, skills and infrastructure (the Kami repo itself is private)",
+      href: "https://github.com/eladjak",
       icon: Github,
     },
     {
@@ -330,7 +330,7 @@ export const kamiGuideEn: AgentGuideData = {
     "The code is open source, the APIs are cheap or free, and the time from zero to your first voice conversation is about 15 minutes.",
   primaryCta: {
     label: "Build your own Kami",
-    href: "https://github.com/eladjak/elad-personal-agent",
+    href: "https://github.com/eladjak",
     icon: Github,
   },
   secondaryCta: {

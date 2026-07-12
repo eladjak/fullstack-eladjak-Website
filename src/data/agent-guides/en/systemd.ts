@@ -324,7 +324,7 @@ export const systemdGuideEn: AgentGuideData = {
     "I have dozens of services running under systemd with 99.9% uptime. I can move your scripts to production-grade services.",
   primaryCta: {
     label: "systemd Quick Reference",
-    href: "https://www.shellhacks.com/systemd-systemctl-managing-services-and-units-cheat-sheet/",
+    href: "https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal",
     icon: BookOpen,
   },
   secondaryCta: {

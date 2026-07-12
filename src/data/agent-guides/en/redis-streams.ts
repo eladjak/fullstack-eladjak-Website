@@ -271,13 +271,13 @@ export const redisStreamsGuideEn: AgentGuideData = {
     {
       title: "Redis Streams Documentation",
       description: "The official docs — comprehensive, with examples for every operation",
-      href: "https://redis.io/docs/data-types/streams/",
+      href: "https://redis.io/docs/latest/develop/data-types/streams/",
       icon: BookOpen,
     },
     {
       title: "Redis Streams Tutorial",
       description: "The official intro guide — easy to follow",
-      href: "https://redis.io/docs/data-types/streams-tutorial/",
+      href: "https://redis.io/docs/latest/develop/data-types/streams-tutorial/",
       icon: BookOpen,
     },
     {
@@ -310,7 +310,7 @@ export const redisStreamsGuideEn: AgentGuideData = {
     "I have an entire agent network coordinated through Redis Streams without Kafka, without overhead. I can help you design yours.",
   primaryCta: {
     label: "Redis Streams Quick Start",
-    href: "https://redis.io/docs/data-types/streams-tutorial/",
+    href: "https://redis.io/docs/latest/develop/data-types/streams-tutorial/",
     icon: BookOpen,
   },
   secondaryCta: {

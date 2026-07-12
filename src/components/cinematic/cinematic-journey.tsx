@@ -57,10 +57,13 @@ export const CINEMATIC_SCENES: Scene[] = [
   { id: 'gate', clip: `${BASE}/scene6.mp4`, clipMobile: `${BASE}/scene6-m.mp4`, still: `${BASE}/scene6.webp` },
 ];
 
-// Fraction of each anchor SEGMENT over which the outgoing leg dissolves into the
-// incoming one. Larger = the swap happens over a longer, calmer stretch of the
-// breathing zone (the camera glides between scenes rather than snapping).
-const CROSSFADE = 0.32;
+// Half-width (in flight-units, where 1 unit = one anchor→anchor leg) of the
+// cross-dissolve centred on every seam. The outgoing leg fades out and the
+// incoming leg fades in over the window [anchor - OVERLAP, anchor + OVERLAP], so
+// the swap straddles the seam symmetrically and the two clips are frame-continuous
+// through it — no hard cut, no double-bright flash. 0.5 = the fade spans the whole
+// half-leg on each side (very gentle); smaller = a tighter, snappier dissolve.
+const OVERLAP = 0.42;
 
 interface LegState {
   scene: Scene;
@@ -99,10 +102,12 @@ export default function CinematicJourney() {
     );
 
     const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
-    const smooth = (x: number) => {
-      const c = clamp(x);
-      return c * c * (3 - 2 * c);
-    };
+    // A soft, C1-continuous fade curve for the seam cross-dissolve. Unlike a hard
+    // smoothstep applied per-segment (which forces the camera to a full stop at
+    // every anchor → the "settle then jump" feel), we drive the flight with a
+    // single continuous position and only shape OPACITY with this cosine ease, so
+    // brightness never pops but the motion keeps gliding through the seam.
+    const cosFade = (x: number) => 0.5 - 0.5 * Math.cos(clamp(x) * Math.PI);
 
     // ── Anchor map ───────────────────────────────────────────────────────────
     // Instead of slicing the page into N EQUAL scroll bands (which drifts the
@@ -172,8 +177,9 @@ export default function CinematicJourney() {
       v.setAttribute('muted', '');
       v.setAttribute('playsinline', '');
       v.addEventListener('loadedmetadata', () => {
+        // Mark ready; the rAF loop picks it up next frame and seeks to the eased
+        // target — no explicit render call needed (the loop is always running).
         leg.ready = true;
-        read();
       });
       // Only reveal the video (hide the poster) once a real frame paints — iOS
       // keeps a seeked-but-never-played muted video blank otherwise.
@@ -201,116 +207,176 @@ export default function CinematicJourney() {
       leg.video = v;
     }
 
-    // Global scroll → per-leg time, ANCHOR-DRIVEN. `p` is the whole-page scroll
-    // fraction. We find which anchor segment [sceneAt[seg], sceneAt[seg+1]] `p`
-    // falls in, and `frac` = how far through that segment. Scene `seg` holds its
-    // frame at the segment start; as `frac` runs 0→1 the camera flies FORWARD out
-    // of scene seg and INTO scene seg+1 (both currentTimes advance, crossfading
-    // over a breathing dwell) — so alignment follows the real DOM, and there is a
-    // quiet drift between captions.
-    let ticking = false;
-    function read() {
-      const doc = document.documentElement;
-      const max = (doc.scrollHeight - window.innerHeight) || 1;
-      const p = clamp((window.scrollY || window.pageYOffset) / max); // 0..1 whole page
+    // ── Global eased scroll — the SINGLE source of truth ─────────────────────
+    // `pRaw` is the raw whole-page scroll fraction (0..1), updated on every scroll
+    // event. `pEased` is a critically-damped follower of it, advanced once per
+    // frame in raf(). EVERYTHING downstream — flight position, per-leg time,
+    // opacity crossfade, captions, audio — reads `pEased`, so the whole scene
+    // moves as ONE eased quantity. This is the core of the "glide, don't jump"
+    // fix: a jerky wheel/trackpad flick no longer maps 1:1 onto the visuals; it
+    // decays smoothly into the flight. (Previously only per-leg currentTime was
+    // damped while opacity + captions + segment selection read raw scroll, so the
+    // three desynced and popped at seams.)
+    let pRaw = 0;
+    let pEased = 0;
+    let primed = false; // snap pEased to pRaw on first read so we don't animate in
 
-      // Locate the active anchor segment.
+    function readScroll() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight || 1;
+      pRaw = clamp((window.scrollY || window.pageYOffset) / max);
+    }
+
+    // Map an eased whole-page fraction to a CONTINUOUS flight position in [0, N-1].
+    // We locate the anchor segment `p` sits in and add the within-segment fraction,
+    // giving a single monotonic scalar `flight` that increases smoothly with scroll
+    // and has NO discontinuity as it crosses an anchor.
+    function flightFromP(p: number) {
       let seg = 0;
       while (seg < N - 2 && p >= sceneAt[seg + 1]!) seg++;
       const a = sceneAt[seg]!;
       const b = sceneAt[seg + 1]!;
-      const frac = clamp((p - a) / Math.max(b - a, 1e-4)); // 0..1 within segment
-      // Continuous flight position across all legs (0..N-1).
-      const flight = seg + frac;
-      // Active scene = whichever anchor centre we're nearest — this is what the
-      // caption + audio should reflect.
+      const frac = clamp((p - a) / Math.max(b - a, 1e-4));
+      return seg + frac; // 0 .. N-1, continuous
+    }
+
+    // Render one frame from the current eased scroll. Pure function of `pEased`:
+    // no reads of live scroll here, so the visuals can never race ahead of the
+    // damped value (which is what caused the pops).
+    let lastActive = -1;
+    function render() {
+      const flight = flightFromP(pEased); // continuous 0..N-1
       const active = clamp(Math.round(flight), 0, N - 1);
 
-      // Ease-in-out the crossfade so the swap between legs feels like a camera
-      // move settling, not a linear wipe.
-      const mix = smooth(frac);
-
+      // ── Per-leg time + zIndex + lazy-load + Ken-Burns (NOT opacity) ──────────
+      // Opacity is owned entirely by the seam-dissolve block below, so exactly two
+      // legs ever share a transition and their opacities sum to 1.
       for (let i = 0; i < N; i++) {
         const leg = legs[i]!;
 
-        // Each leg's own time-fraction. During its own held moment it sits near
-        // the end of its forward push (so it reads as "arrived"); while flying
-        // toward it, it eases 0→1. Leg i is the OUTGOING leg of segment i and the
-        // INCOMING leg of segment i-1.
-        let local: number;
-        if (i < seg) local = 1; // already flown past
-        else if (i > seg + 1) local = 0; // not yet reached
-        else if (i === seg) local = mix; // outgoing: 0 (held) → 1 (flying out)
-        else local = mix; // i === seg+1, incoming: 0 (arriving) → 1
-        leg.target = clamp(local);
-
-        // Opacity: the outgoing leg (seg) fades 1→0 across the breathing zone,
-        // the incoming leg (seg+1) fades 0→1. Everyone else is hidden. A little
-        // overlap keeps the dissolve smooth (no hard cut, no double-bright).
-        let op = 0;
-        if (i === seg) op = 1 - smooth((frac - (1 - CROSSFADE)) / CROSSFADE);
-        else if (i === seg + 1) op = smooth((frac - (1 - CROSSFADE * 2)) / CROSSFADE);
-        if (i === seg && frac < 1 - CROSSFADE) op = 1;
-        leg.el.style.opacity = String(clamp(op));
+        // Per-leg time: MONOTONE, never rewinds at a seam. Leg i plays its forward
+        // push as the flight travels from anchor (i-1) to anchor i, i.e.
+        // target = clamp(flight - (i-1)). Once the flight is at/past anchor i, leg
+        // i HOLDS at 1 (arrived) — it is not reset to 0 when it later becomes the
+        // "outgoing" leg of the next seam. Legs ahead sit at 0 (not yet reached).
+        // This removes the currentTime snap-back that made the camera visibly
+        // reverse/reset at every scene boundary — the #1 source of the "jump".
+        leg.target = clamp(flight - (i - 1));
         leg.el.style.zIndex = i === active ? '2' : '1';
 
-        // Lazy-load clips for the active segment and its immediate neighbours.
-        if (i >= seg - 1 && i <= seg + 2) loadClip(leg);
+        if (i >= active - 2 && i <= active + 2) loadClip(leg);
 
-        // Poster Ken-Burns drift until the clip paints (keeps it alive, not flat).
         if (!leg.ready && !reduce) {
-          const sc = 1.04 + leg.target * 0.1;
+          // Ken-Burns drift on the still: scale tracks the eased leg time so the
+          // poster keeps drifting smoothly (no snap) until the clip paints.
+          const sc = 1.04 + clamp(leg.cur) * 0.1;
           const stillImg = leg.el.querySelector<HTMLElement>('.cj-still');
           if (stillImg) stillImg.style.transform = `scale(${sc.toFixed(3)})`;
         }
       }
 
-      // ── Per-caption fade ──────────────────────────────────────────────────
-      // Each caption is readable only while ITS band is near viewport centre, and
-      // fully faded during the breathing gaps between scenes → never two on
-      // screen at once. Driven by the caption band's own position, independent of
-      // the flight, so alignment is exact.
+      // ── Seam cross-dissolve (owns ALL leg opacity) ───────────────────────────
+      // Only the two legs adjacent to the current flight position are ever visible;
+      // everything else is 0. `base` = floor(flight), `within` = 0..1 across the
+      // leg base→base+1. The dissolve runs over the LAST `OVERLAP` fraction of each
+      // leg (from within = 1-OVERLAP up to the anchor at within = 1): before it the
+      // base leg is solid (the scene "dwells"), inside it we cosine-blend base→next
+      // so by the time the flight reaches the next anchor the next leg is fully
+      // shown. It is continuous across the seam: at within→1⁻ f→1 (next leg solid),
+      // and the instant `base` advances, within→0⁺ with f→0 on the new pair, and
+      // the new base IS that same next leg still at full opacity. Opacities are
+      // `1-f` and `f` so they always sum to 1 → the frame never darkens (no black
+      // flash) and never double-brightens; cosFade is C1-continuous so brightness
+      // has no velocity discontinuity through the transition.
+      for (let i = 0; i < N; i++) legs[i]!.el.style.opacity = '0';
+      const base = clamp(Math.floor(flight), 0, N - 1);
+      const nextLeg = clamp(base + 1, 0, N - 1);
+      const within = flight - base; // 0..1 across leg base→base+1
+      const seamStart = 1 - OVERLAP; // start dissolving toward the next leg here
+      const f = within <= seamStart ? 0 : cosFade((within - seamStart) / OVERLAP);
+      legs[base]!.el.style.opacity = String(clamp(1 - f));
+      legs[nextLeg]!.el.style.opacity = String(clamp(f));
+
+      // ── Continuous camera drift through the breathing zones ─────────────────
+      // The scrubbed clip naturally holds on its last frame during a scene's dwell
+      // (it has "arrived"). To avoid that reading as a frozen snap, we add a subtle,
+      // ALWAYS-MOVING parallax on the visible leg elements themselves: a slow push
+      // in (scale) + vertical drift that tracks the continuous flight position. This
+      // is transform-only (no layout), so the camera keeps gliding gently even while
+      // the video frame is held, and there is never a hard stop between scenes.
+      if (!reduce) {
+        const driftBase = (within - 0.5) * 14; // px, −7..+7 across the leg
+        const driftNext = (within - 0.5 - 1) * 14;
+        const scaleBase = 1.015 + within * 0.03; // 1.015 → 1.045 push-in
+        const scaleNext = 1.015 + (within - 1) * 0.03;
+        legs[base]!.el.style.transform = `translate3d(0, ${driftBase.toFixed(2)}px, 0) scale(${scaleBase.toFixed(3)})`;
+        legs[nextLeg]!.el.style.transform = `translate3d(0, ${driftNext.toFixed(2)}px, 0) scale(${scaleNext.toFixed(3)})`;
+      }
+
+      // ── Per-caption fade (driven by eased flight, not raw scroll) ────────────
+      // Each caption is readable only while ITS band is near viewport centre and
+      // fully faded in the breathing gaps → never two captions on screen at once.
+      // We still measure the band's live position (so alignment is exact to the
+      // DOM) but smooth the resulting value so it can't flicker on a jerky wheel.
       const vhalf = window.innerHeight / 2;
       captionEls.forEach((cap, id) => {
-        const band = cap.parentElement; // the .cj-caption-band with min-height
+        const band = cap.parentElement;
         if (!band) return;
         const r = band.getBoundingClientRect();
         const bandCenter = r.top + r.height / 2;
-        // Distance of the band centre from the viewport centre, normalised by a
-        // "reveal window" (half the viewport). 0 = perfectly centred → full copy.
-        const d = Math.abs(bandCenter - vhalf) / (window.innerHeight * 0.62);
-        const v = reduce ? 1 : clamp(1 - d);
+        const dist = Math.abs(bandCenter - vhalf) / (window.innerHeight * 0.62);
+        const targetV = reduce ? 1 : clamp(1 - dist);
+        const prev = parseFloat(cap.dataset.capv || String(targetV));
+        // One-pole smoothing so the copy fades in/out like a slow reveal, never a
+        // stutter tied to individual scroll deltas.
+        const v = reduce ? 1 : prev + (targetV - prev) * 0.22;
+        cap.dataset.capv = v.toFixed(3);
         cap.style.setProperty('--cj-cap', v.toFixed(3));
         void id;
       });
 
-      // AUDIO HOOK: dispatch on active-scene change so the Web-Audio bed can
-      // crossfade/duck stems per scene without touching this engine. `frac` and
-      // `seg` are also handed over for finer per-segment ducking if wanted.
+      // AUDIO HOOK: same contract as before — dispatch on active-scene change only.
       if (active !== lastActive) {
         lastActive = active;
         root.dispatchEvent(
           new CustomEvent('cj:scene', {
-            detail: { index: active, id: CINEMATIC_SCENES[active]!.id, seg, frac },
+            detail: {
+              index: active,
+              id: CINEMATIC_SCENES[active]!.id,
+              seg: base,
+              frac: within,
+            },
           }),
         );
       }
-
-      ticking = false;
     }
 
-    let lastActive = -1;
-
-    // rAF loop: ease each leg's currentTime toward its scroll target. Never queue
-    // a seek while the decoder is still seeking (stops fast-flick pileups on phones).
+    // rAF loop: (1) advance the eased scroll toward the raw target, (2) render one
+    // frame from it, (3) ease each leg's currentTime toward its (monotone) target
+    // and commit the seek. All motion flows from `pEased`, so nothing can jump.
     function raf() {
-      const eps = isMobile() ? 0.02 : 0.008;
+      readScroll();
+      if (!primed) {
+        pEased = pRaw;
+        primed = true;
+      }
+      // Critically-damped follow. On desktop a gentler factor = a longer, smoother
+      // glide; on touch a touch faster so it still feels responsive to a flick.
+      const follow = reduce ? 1 : isMobile() ? 0.14 : 0.1;
+      pEased += (pRaw - pEased) * follow;
+      // Snap when essentially arrived so we don't idle-seek forever.
+      if (Math.abs(pRaw - pEased) < 1e-4) pEased = pRaw;
+
+      render();
+
+      const eps = isMobile() ? 0.02 : 0.006;
       for (let i = 0; i < N; i++) {
         const leg = legs[i]!;
         const v = leg.video;
+        // Ease the poster/still even before the clip is ready (used for Ken-Burns).
+        leg.cur += (leg.target - leg.cur) * (reduce ? 1 : 0.22);
         if (!leg.ready || !v) continue;
         if (v.seeking) continue;
-        leg.cur += (leg.target - leg.cur) * (reduce ? 1 : 0.18);
         const dur = v.duration || 1;
         const t = clamp(leg.cur, 0, 0.999) * dur;
         if (Math.abs(v.currentTime - t) > eps) {
@@ -348,28 +414,23 @@ export default function CinematicJourney() {
       legs.forEach((l) => l.video && primeVideo(l.video));
     }
 
-    // Reduced motion: paint the first poster, hold every caption fully visible,
-    // and stop. No video, no scrub, no drift.
+    // Reduced motion: paint the first poster, hold every caption fully visible
+    // (the CSS media query forces --cj-cap:1), and stop. No video, no scrub, no
+    // drift, no rAF loop.
     if (reduce) {
       measureAnchors();
       legs[0]!.el.style.opacity = '1';
-      read();
       return () => {
         /* nothing spun up */
       };
     }
 
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(read);
-      }
-    };
-    // Ignore URL-bar-only height changes on touch (they'd yank the scrub).
+    // The rAF loop samples scroll itself and renders every frame, so we no longer
+    // need a scroll handler to trigger renders — we just remeasure anchors when
+    // the layout could have changed (resize / orientation / late content).
     let laidOutW = window.innerWidth;
     const remeasure = () => {
       measureAnchors();
-      read();
     };
     const onResize = () => {
       if (coarse && window.innerWidth === laidOutW) return;
@@ -377,7 +438,6 @@ export default function CinematicJourney() {
       remeasure();
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
     window.addEventListener('orientationchange', remeasure);
     window.addEventListener('pointerdown', onFirstGesture, { once: true, passive: true });
@@ -385,20 +445,22 @@ export default function CinematicJourney() {
     window.addEventListener('load', remeasure);
 
     // Anchor positions depend on the full page having laid out (images, fonts,
-    // below-fold sections). Measure now, again on the next frame, and once more
-    // after web-fonts settle + all lazy sections mount. A ResizeObserver on the
-    // document keeps `sceneAt` correct if content height changes later.
+    // below-fold sections). Measure now, again shortly after, and once more after
+    // web-fonts settle + all lazy sections mount. A ResizeObserver on the document
+    // keeps `sceneAt` correct if content height changes later.
     measureAnchors();
     const ro = new ResizeObserver(() => remeasure());
     ro.observe(document.documentElement);
     const t1 = window.setTimeout(remeasure, 250);
     const t2 = window.setTimeout(remeasure, 1200);
 
+    // Prime the eased scroll to the current position so we don't animate in from 0.
+    readScroll();
+    pEased = pRaw;
+    primed = true;
     let rafId = requestAnimationFrame(raf);
-    read();
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
       window.removeEventListener('orientationchange', remeasure);
       window.removeEventListener('load', remeasure);
