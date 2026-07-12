@@ -297,15 +297,16 @@ export const autonomyGuideEn: AgentGuideData = {
       beginner:
         "Think of a smart electricity meter for the home. It knows how much each appliance draws, and if you approach the budget cap — it shuts off the non-essential things first. The model gateway is exactly that for the agent network: every time an agent 'thinks' (calls AI), it costs a little money. The gateway routes to free models first, measures everything, and if the day got too expensive — it slows down. That way the system can work all day without a surprise on the bill.",
       content: [
-        "One chokepoint: all agents and loops call the LLM through the gateway — no direct call bypasses measurement",
+        "One chokepoint: all agents and loops call the LLM through the gateway — no direct call bypasses measurement. A July 2026 upgrade made this a single network-wide LiteLLM gateway, so every agent shares routing, measurement, and caps through one layer",
         "Free models first: [Gemini](/en/guide/ollama) free for triage/content/summary, a local model via [Ollama](/en/guide/ollama) for simple tasks, a strong model only for complex work",
-        "A daily cost cap ($5) — spanning the whole network. Approaching it? Automatic downgrade or rejection of non-critical actions",
+        "A daily cost cap ($5 per model) — spanning the whole network. Approaching it? Automatic downgrade or rejection of non-critical actions",
         "Per-call measurement enters the [outcome ledger](#ledger) — so 'what it cost' is part of every move, not an end-of-month guess",
         "The gateway is also a resilience layer: if a model provider goes down, it auto-fallbacks to an alternative — the network doesn't stop",
       ],
       tips: [
         "A hard daily cost cap is the single most important safety net for an autonomous system. Without it, a bug in one loop can burn a month's budget in a single night — I've seen it happen",
         "'Free first' isn't stinginess but architecture. Most tasks (classify, summarize, triage) are solved perfectly by a free model — save the expensive model only for where it's truly needed",
+        "Living system — updated July 2026: I replaced the per-model gateway with a unified network-wide LiteLLM gateway (routing + measurement in one place), added a shared memory kernel for agent memory, a correctness layer that verifies each result is trustworthy, and deterministic approvals for every risky move. Four layers that turned 'verify-on-result' and the 'safety gate' from ideas into hard mechanisms",
       ],
     },
     {

@@ -300,5 +300,5 @@ export const outputGuardianGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "I built the output guardian after realizing the most dangerous failure in an autonomous system isn't the one that takes a service down — it's the one that leaves it 'green' while it produces nothing. The big lesson: 'ran', 'succeeded' and 'produced' are three different levels of truth, and a system you can trust needs all three. Since the guardian has been running, 'all good' for me is a verified fact — not a hope.",
+    "I built the output guardian after realizing the most dangerous failure in an autonomous system isn't the one that takes a service down — it's the one that leaves it 'green' while it produces nothing. The big lesson: 'ran', 'succeeded' and 'produced' are three different levels of truth, and a system you can trust needs all three. Since the guardian has been running, 'all good' for me is a verified fact — not a hope. July 2026 update: this idea hardened into a permanent correctness layer across the network, alongside a unified model gateway (LiteLLM), a shared memory kernel, and deterministic approvals for risky moves.",
 };

@@ -419,10 +419,14 @@ export const GENERATED_SKILLS: SkillNode[] = [
     })
     .join('\n');
 
+  // ISO date (day precision) of this sync — surfaced on the skills-universe page
+  // as a "last synced" freshness signal. Regenerated on every scan.
+  const syncedAt = new Date().toISOString().slice(0, 10);
   const footer = `
 ];
 
 export const GENERATED_COUNT = ${filtered.length};
+export const GENERATED_SYNCED_AT = ${JSON.stringify(syncedAt)};
 `;
 
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });

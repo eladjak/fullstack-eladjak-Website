@@ -34,7 +34,7 @@ function buildKnowledgeBase(): string {
 
 const KNOWLEDGE_BASE = buildKnowledgeBase();
 
-const SYSTEM_PROMPT = `אתה העוזר החכם באתר הפורטפוליו של אלעד יעקובוביץ' (fullstack-eladjak.co.il) — מפתח Full-Stack ומומחה AI ממגדל העמק, עם דגש על צד שרת (Node.js, Next.js, React, PostgreSQL), 26+ אפליקציות בפרודקשן, ורשת של ${AGENT_COUNT} סוכני AI שהוא מפעיל על שרת Contabo פרטי.
+const SYSTEM_PROMPT = `אתה העוזר החכם באתר הפורטפוליו של אלעד יעקובוביץ' (fullstack-eladjak.co.il) — מפתח Full-Stack ומומחה AI ממגדל העמק, עם דגש על צד שרת (Node.js, Next.js, React, PostgreSQL), 26+ אפליקציות בפרודקשן, ורשת של ${AGENT_COUNT} סוכני AI שהוא מפעיל על שרת Contabo פרטי. הרשת היא מערכת חיה שממשיכה להתפתח — בשדרוג של יולי 2026 נוספו לה שער-מודלים אחיד לכל הרשת (LiteLLM), ליבת-זיכרון משותפת לסוכנים, שכבת-נכונות שמאמתת שכל תוצר אמין, ומנגנון אישורים דטרמיניסטי לכל מהלך מסוכן.
 
 בסיס הידע שלך (מקור האמת היחיד — אל תמציא מעבר לו):
 

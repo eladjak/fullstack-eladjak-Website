@@ -13,6 +13,21 @@ import {
   type SkillCategory,
   type SkillNode,
 } from '@/data/skills-universe';
+import { GENERATED_SYNCED_AT } from '@/data/skills-universe-generated';
+
+// "Last synced" freshness label — the generated skills list is a scan of Elad's
+// real ~/.claude/skills + commands library, refreshed on every prebuild.
+const SYNCED_LABEL = (() => {
+  try {
+    return new Date(GENERATED_SYNCED_AT).toLocaleDateString('he-IL', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return GENERATED_SYNCED_AT;
+  }
+})();
 
 const CATEGORIES: SkillCategory[] = [
   'frontend',
@@ -61,6 +76,13 @@ export default function SkillsUniversePage() {
           </p>
           <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground/80">
             גרור לסיבוב · גלגל לקירוב · לחיצה על כדור = פרטים
+          </p>
+          <p className="mx-auto mt-3 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-muted-foreground">
+            <span className="font-semibold tabular-nums text-foreground">
+              {ALL_SKILLS.length}+ מיומנויות ופקודות
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>סונכרן לאחרונה: {SYNCED_LABEL}</span>
           </p>
         </header>
 

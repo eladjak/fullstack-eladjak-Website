@@ -41,6 +41,11 @@ export function proxy(request: NextRequest) {
     // pass for styles — out of scope for this XSS-hardening migration.
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https: blob:",
+    // media-src governs <audio>/<video> playback. The cinematic hero ships a
+    // same-origin ambient audio bed under /public/audio, so 'self' is enough
+    // (without this directive media falls back to default-src, but declaring it
+    // explicitly documents intent and guards future CDN/blob: media additions).
+    "media-src 'self' blob:",
     "font-src 'self' data:",
     "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openai.com https://api.github.com https://api.resend.com https://hub.eladjak.com",
     "frame-ancestors 'none'",

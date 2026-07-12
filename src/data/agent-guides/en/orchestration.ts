@@ -142,6 +142,7 @@ export const orchestrationGuideEn: AgentGuideData = {
       tips: [
         "Don't turn the hub into a giant database with a rigid schema. A simple event log (JSONL) wins — easy to back up, read, and hand-fix in an emergency",
         "Separate 'knowledge' from 'work queue' from day one. Mixing them causes critical info to rot inside the sea of history",
+        "Living system — updated July 2026: on top of this hub I added a shared memory kernel for all agents, so consistent memory flows between them through one layer — alongside a network-wide model gateway (LiteLLM), a correctness layer for results, and deterministic approvals for risky moves",
       ],
       codeExample: {
         label: "An event in the hub",

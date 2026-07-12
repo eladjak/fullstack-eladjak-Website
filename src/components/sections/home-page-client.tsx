@@ -1,6 +1,7 @@
 'use client';
 
 import HeroSection from '@/components/hero/hero-section';
+import CinematicLazyMount from '@/components/sections/cinematic-lazy-mount';
 import StatsBar from '@/components/sections/stats-bar';
 import TechMarquee from '@/components/ui/tech-marquee';
 import SkillsSection from '@/components/sections/skills-section';
@@ -33,8 +34,12 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
   return (
     <div className="flex min-h-dvh flex-col">
       <main className="flex-1">
-        {/* Above-fold: SSR'd for LCP + SEO. */}
+        {/* Above-fold: SSR'd for LCP + SEO. The hero text (h1/h2/p/CTA) stays
+            eager-SSR; the cinematic layer below is a decorative, aria-hidden,
+            client-only (ssr:false) band inserted between Hero and StatsBar. */}
         <HeroSection />
+
+        <CinematicLazyMount />
 
         <StatsBar />
 

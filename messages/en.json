@@ -21,7 +21,18 @@
     "title": "Building Node.js backends, REST APIs & PostgreSQL systems — 26+ apps in production",
     "description": "From idea to production — I build robust server-side systems, REST APIs, and AI-powered solutions. AI tooling as a force multiplier. Israel.",
     "viewProjects": "View My Work",
-    "contactCta": "Let's Talk"
+    "contactCta": "Let's Talk",
+    "cinematic": {
+      "beat1": "It started with one developer.",
+      "beat2": "who built a fleet of 12 AI agents.",
+      "beat3": "running 24/7 on a private server — a living system.",
+      "beat4": "One developer. A whole fleet.",
+      "healthLive": "the network is live right now",
+      "healthUnavailable": "network status unavailable",
+      "soundOn": "Turn on ambient sound",
+      "soundOff": "Mute ambient sound",
+      "regionLabel": "Cinematic intro: one developer commanding a live AI-agent network"
+    }
   },
   "skills": {
     "title": "What I Can Build For You",
@@ -84,7 +95,7 @@
       },
       "zehutai": {
         "title": "Zehut - Party Platform & Campaign",
-        "description": "A multilingual platform for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system, and a separate campaign-management system for field teams."
+        "description": "A multilingual platform in 12 languages for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system (i18n across 12 languages), and a separate campaign-management system for field teams."
       },
       "teamMeetings": {
         "title": "Team Meetings Manager",
@@ -470,7 +481,7 @@
       },
       "zehutai": {
         "title": "Zehut - Party Platform & Campaign",
-        "description": "A multilingual platform for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system, and a separate campaign-management system for field teams."
+        "description": "A multilingual platform in 12 languages for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system (i18n across 12 languages), and a separate campaign-management system for field teams."
       },
       "vacationVibe": {
         "title": "VacationVibe - Vacation Manager",
@@ -523,6 +534,26 @@
       "dateKirva": {
         "title": "Zman Shelanu (Date Kirva)",
         "description": "A relationship app that helps couples carve out intentional time together. Shared activities, journaling, and progress tracking wrapped in a warm Hebrew RTL interface."
+      },
+      "musicShowcase": {
+        "title": "Music — Site with a Live Knowledge Bot",
+        "description": "A showcase site for a music teacher with a live Gemini-powered knowledge bot that answers visitors about lessons, availability, and pricing. Try it yourself: talk to the knowledge bot for a live demo of exactly the system I build for clients."
+      },
+      "eventsShowcase": {
+        "title": "Event Production — Site with a Live Knowledge Bot",
+        "description": "A showcase site for an event-production business with a live Gemini-powered knowledge bot that chats with visitors about services and details. Try it yourself: talk to the knowledge bot — the same kind of sales-and-support bot I embed for business clients."
+      },
+      "puppetryShowcase": {
+        "title": "Puppetry Theatre — Site with a Live Knowledge Bot",
+        "description": "A showcase site for a puppetry theatre and kids' shows, with a live Gemini-powered knowledge bot answering about performances, bookings, and age ranges. Try it yourself: talk to the knowledge bot and see grounded chat working on a real site."
+      },
+      "drummingShowcase": {
+        "title": "Drum Circles — Site with a Live Knowledge Bot",
+        "description": "A showcase site for drum-circle workshops with a live Gemini-powered knowledge bot that answers visitors about sessions and scheduling. Try it yourself: talk to the knowledge bot — a live demo of the product I sell, not just a project card."
+      },
+      "workshopsShowcase": {
+        "title": "Workshops — Site with a Live Knowledge Bot",
+        "description": "A showcase site for workshops and talks, with a live Gemini-powered knowledge bot answering about topics, format, and scheduling. Try it yourself: talk to the knowledge bot and feel how a smart on-site chat replaces a static contact form."
       }
     }
   },
@@ -871,7 +902,7 @@
       "availability": "Yes, I'm currently available for new projects! I typically take on 1–2 projects at a time to ensure quality and responsiveness. Response time is usually within a few hours. The best way to check is to reach out directly via WhatsApp or email.",
       "process": "My process has four phases: Discover (understanding your goals and users), Plan (architecture and tech stack decisions), Build with regular check-ins, and Launch with support. I use agile iterations with demos so you always know what's happening. Clear communication at every step.",
       "aiExpertise": "I've built AI-powered systems across several domains: voice conversation apps using Whisper and ElevenLabs, Hebrew NLP with RAG pipelines, children's story generation with content filtering, multi-agent automation systems, and Claude Code integrations. I also maintain the /claude-code and /guide pages — 32 hands-on guides covering agents and infrastructure for developers learning AI tooling.",
-      "aiNetwork": "It's a personal micro-services system of 12 autonomous AI agents running on a Contabo server — including Kami (WhatsApp), Kaylee (server maintenance), Box (personal coach), Gardax (monitoring), Ranch (content), and Solis. They handle communication, research, content creation, client management, and day-to-day automation, talking to each other through a central bridge, with an output guardian verifying every job actually produced its result. It's both my lab and my proof of work: I build similar systems for clients, tailored to their business.",
+      "aiNetwork": "It's a personal micro-services system of 12 autonomous AI agents running on a Contabo server — including Kami (WhatsApp), Kaylee (server maintenance), Box (personal coach), Gardax (monitoring), Ranch (content), and Solis. They handle communication, research, content creation, client management, and day-to-day automation, talking to each other through a central bridge, with an output guardian verifying every job actually produced its result. Alongside them run reliability agents: an autonomy-worker that executes the autonomous tasks, and a gemini-leak-guard that keeps secrets from leaking. It's a living system that keeps evolving: a July 2026 upgrade added a network-wide model gateway (LiteLLM), a shared memory kernel for agent memory, a correctness layer that checks each result is trustworthy, and deterministic approvals for every risky action. It's both my lab and my proof of work: I build similar systems for clients, tailored to their business.",
       "location": "I work from Migdal HaEmek in northern Israel, with clients across the country and abroad. Most work happens remotely over video calls, and in-person meetings are possible in the northern region.",
       "hebrew": "Absolutely — Hebrew and RTL are a core specialty. I build bilingual (HE/EN) applications with proper RTL layout, logical CSS properties, and full i18n support using next-intl. I have deep experience with Hebrew typography, keyboard layouts, and the nuances of right-to-left UI development.",
       "contact": "You can reach me on WhatsApp at 052-542-7474 (fastest response), by email at eladhiteclearning@gmail.com, or via the contact form on this site. I usually respond within a few hours during business days.",
