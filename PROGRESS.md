@@ -1,5 +1,29 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-07-12 — Phase B: Cinematic hero + site-wide completeness (branch `feat/cinematic-hero`, PREVIEW only — HELD for Elad's promote)
+
+**Preview:** https://eladjak-website-j6nlq16jf-eladjaks-projects.vercel.app · commit `006c1ce` · **NOT merged to main / NOT promoted to prod.**
+
+**Part 1 — content completeness (safe data edits):**
+- **5 live showcase-site project cards** added (`music/events/bubot/drumming/workshops.eladjak.com`) framed as clickable Gemini knowledge-bot demos ("נסה בעצמך: דבר עם בוט-הידע"), HE+EN (`projects/page.tsx` + `messages/*.json`). eladscore already existed → 6 live bots surfaced.
+- **Living System (Jul 2026):** the 4-layer fleet upgrade (LiteLLM network-wide gateway · memory-kernel · correctness layer · deterministic approvals) now reflected in the `aiNetwork` FAQ (HE+EN), the `chat-faq` system prompt (so the live bot speaks to today's architecture), and the `autonomy`/`orchestration`/`output-guardian` pattern guides (HE+EN, additive "מערכת חיה — עודכן יולי 2026" notes).
+- **Low-completeness:** Zehut → "i18n across 12 languages" explicit (both `zehutai` blocks, HE+EN) · `gemini-leak-guard` + `autonomy-worker` named in the network FAQ · skills-universe headline `{ALL_SKILLS.length}+ מיומנויות ופקודות` + a "סונכרן לאחרונה" date (new `GENERATED_SYNCED_AT` emitted by `scripts/generate-skills.mjs`; regen bumped generated 377→391).
+- **StatsBar:** agent count glyph `BookOpen` → `Network`.
+
+**Part 1 — CI + tooling:**
+- **New `check:facts` gate** (`scripts/check-facts.mjs`, npm script `check:facts`): fails the build on a non-canonical integer before `agent`/`סוכנ` outside `site-facts.ts` (ALLOWED = 12 canonical, 32 guides, 2–5 examples). Negative-tested: catches a stale `13`. Closes the count-drift the Jul-10 audit half-fixed.
+- **Fixed broken `npm run check`:** `next lint` is removed in Next 16 → `check` = `check:facts && eslint . -c eslintrc.cjs --no-eslintrc --ext .ts,.tsx && tsc --noEmit`. (`lint`/`lint:fix` repointed at the correctly-named config too.)
+
+**Part 2 — cinematic hero (decorative, aria-hidden, safe-live):**
+- `gsap` + `@gsap/react`. **`NetworkCanvas.tsx`** forks the SkillsCanvas R3F engine into the 12-agent fleet: named nodes (`src/data/agent-network.ts`) → operator core, with live `hub.eladjak.com/health` pulses (degrades to "לא זמין", never fakes).
+- **`cinematic-scroll-section.tsx`:** pinned GSAP ScrollTrigger, 4 beats (node → 12-agent network → living system w/ health → operator). `registerPlugin` client-only (inside `useGSAP`); `gsap.matchMedia` reduce branch = static frame, no pin/scrub, audio off; `useGSAP` auto-cleanup (no leaked triggers across `PageTransition`).
+- **`cinematic-lazy-mount.tsx`:** `dynamic(ssr:false)` + poster (mirrors `SkillsLazyMount`) → GSAP/R3F stays off the SSR/LCP/crawler path. Injected between `<HeroSection/>` and `<StatsBar/>` (client→client, no RSC boundary). Hero `<h1>/<h2>/<p>/CTA` stay eager-SSR; **single H1 preserved.**
+- **Sound:** mute-by-default toggle (`aria-pressed`/`aria-label`, OUTSIDE the aria-hidden stage), same-origin ambient hum + one soft SFX at beat 2 (`/public/audio/*.wav`, synthesized), never autoplays; `media-src 'self' blob:` added to `proxy.ts` CSP.
+
+**Gates:** `npm run check` (check:facts + eslint + tsc) exit 0 · `next build` exit 0 (100/100 static) · **Vercel preview Ready** · preview verified: 200, CSP has `media-src`, **1 H1**, 10 JSON-LD in SSR, FAQPage schema + `<details>` fallback in SSR, hero text in SSR, cinematic NOT in SSR, LiteLLM living-system text in SSR FAQ, `/en`→200, 5 showcase URLs on `/projects`, canvas mounts + WebGL OK + **audio not autoplaying**. Screenshots in `Documents/reports/portfolio-phase-b-2026-07-12/` (01 hero, 02–04 beats, 07 preview, phone-cinematic-390x844.png).
+
+**HELD for Elad:** merge `feat/cinematic-hero` → main + `vercel --prod`. Reduced-motion static-frame branch is code-verified (agent-browser v0.26 can't emulate `prefers-reduced-motion`); worth a manual toggle-check before prod.
+
 ## 2026-07-10 — Site-wide agent-facts sync shipped to PROD (branch `feat/site-facts-refresh` → main, merge `da5b1c9`)
 
 **Fixed the self-contradiction found in the 2026-07-10 staleness audit: 5 different agent counts (3/9/10/13 vs the truth-audited 12) + dead Hetzner presented as the network's core server. Preview verified → merged → prod Ready → live spot-checked.**
