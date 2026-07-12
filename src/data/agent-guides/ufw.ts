@@ -170,7 +170,7 @@ export const ufwGuide: AgentGuideData = {
         "Postgres חיצוני שצריך לחבר אליו לקוח BI — `ufw allow from 1.2.3.4 to any port 5432`. פותח את הפורט רק ל-IP ספציפי",
         "SSH על פורט לא סטנדרטי — `ufw allow 2222/tcp`. ב-`/etc/ssh/sshd_config` שנו ל-`Port 2222`. מסנן 99% מהבוטים",
         "rate limiting על SSH — `ufw limit ssh`. UFW חוסם אוטומטית IP שמנסה להתחבר 6 פעמים ב-30 שניות. הגנה מצוינת מ-brute force",
-        "אפליקציה פנימית — אל תפתחו את הפורט שלה בכלל. שימו אותה מאחורי nginx על פורט 80/443. אצלי כל 13 הסוכנים על פורטים 3700-3900 לא חשופים בכלל",
+        "אפליקציה פנימית — אל תפתחו את הפורט שלה בכלל. שימו אותה מאחורי nginx על פורט 80/443. אצלי כל 12 הסוכנים על פורטים 3700-3900 לא חשופים בכלל",
         "Webhook receiver עם whitelist — אם יודעים שהשירות שמתקשר אליכם מכתובת מסוימת, `ufw allow from <range> to any port <port>`",
       ],
       tips: [

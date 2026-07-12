@@ -3,7 +3,7 @@ import { type Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'אודות',
   description:
-    "מפתח Full-Stack ומהנדס AI עם 26+ פרויקטים בפרודקשן. TypeScript, React, Next.js, Claude API. 4+ שנות ניסיון. מגדל העמק, ישראל.",
+    "מפתח Full-Stack ומהנדס AI עם 26+ פרויקטים בפרודקשן. TypeScript, React, Next.js, Claude API. בפיתוח מאז 2022. מגדל העמק, ישראל.",
   keywords: [
     'אודות אלעד',
     'מפתח Full-Stack',

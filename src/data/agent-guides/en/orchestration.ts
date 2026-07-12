@@ -329,5 +329,5 @@ export const orchestrationGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "I built a network of 9 agents working together 24/7. The big lesson: each agent's capability was the easy part — coordinating them is what turned them into a force. This guide is based on what worked (and on duplications and orphaned tasks I learned from the hard way).",
+    "I built a network of 12 agents working together 24/7. The big lesson: each agent's capability was the easy part — coordinating them is what turned them into a force. This guide is based on what worked (and on duplications and orphaned tasks I learned from the hard way).",
 };

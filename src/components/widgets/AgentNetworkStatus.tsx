@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
+import { AGENT_COUNT } from '@/data/site-facts';
 
 type Status = 'green' | 'yellow' | 'red' | 'unknown';
 
@@ -16,7 +17,7 @@ interface HealthData {
 const HUB_URL = 'https://hub.eladjak.com/health';
 const POLL_MS = 60_000;
 const TIMEOUT_MS = 5_000;
-const ASSUMED_TOTAL = 13;
+const ASSUMED_TOTAL = AGENT_COUNT;
 
 async function fetchHealth(): Promise<HealthData> {
   const controller = new AbortController();

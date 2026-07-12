@@ -45,6 +45,19 @@ const config = {
     return config;
   },
   // Removed output: "export" to enable full Next.js features (API routes, ISR, etc.)
+  // The English section (src/app/en/) has no index page.tsx, but layout.tsx +
+  // page.tsx advertise `/en` as the canonical English hreflang alternate. Without
+  // this redirect, `/en` 404s and Google/AI drop the bidirectional hreflang signal.
+  // Point it at the flagship English page so the advertised alternate resolves.
+  async redirects() {
+    return [
+      {
+        source: '/en',
+        destination: '/en/claude-code',
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {

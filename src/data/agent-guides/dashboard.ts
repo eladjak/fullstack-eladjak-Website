@@ -138,7 +138,7 @@ export const dashboardGuide: AgentGuideData = {
         "Kanban — כל 39+ הפרויקטים שלי במבט אחד, מסודרים לפי שלבים (רעיון, פעיל, תחזוקה, מוקפא, ארכיון). אפשר לגרור פרויקט בין עמודות עם העכבר (drag-and-drop), והשינוי נשמר מיד",
         "Image Gen — יצירת תמונות מהירה: גם דרך Stable Diffusion Turbo (מודל שרץ מקומי על כרטיס המסך) וגם דרך Gemini של Google (חינמי ומעולה). שימושי לפוסטים, תמונות לאתרים ואיורים",
         "Broadcast — שליחת הודעה אחת לכמה סוכנים בבת אחת: למשל 'לכולם — שימו לב ששינינו את ה-API', בלי לפתוח שיחה עם כל אחד בנפרד",
-        "Network — מציג את הבריאות של כל 10 הסוכנים ברשת ([Kami](/guide/kami), [Kaylee](/guide/kaylee), [Hermes](/guide/hermes), [Box](/guide/box), [CrewAI](/guide/crewai), [Adopter](/guide/adopter) ועוד). מופיע רמזור ירוק/צהוב/אדום לכל סוכן, עם latency ותאריך ה-heartbeat האחרון",
+        "Network — מציג את הבריאות של כל 12 הסוכנים ברשת ([Kami](/guide/kami), [Kaylee](/guide/kaylee), [Hermes](/guide/hermes), [Box](/guide/box), [CrewAI](/guide/crewai), [Adopter](/guide/adopter) ועוד). מופיע רמזור ירוק/צהוב/אדום לכל סוכן, עם latency ותאריך ה-heartbeat האחרון",
         "Claude Chat — ממשק צ'אט מקומי לשיחה עם [Claude](/claude-code), כולל שמירת היסטוריית שיחות. שימושי כשלא רוצים לפתוח את האפליקציה הרשמית",
         "Qwen Chat — צ'אט עם מודלי AI שרצים מקומית במחשב (gemma3 של גוגל, qwen3 של עליבאבא) דרך [Ollama](/guide/ollama). הכל חינמי וללא אינטרנט — הפרטיות שלכם נשמרת",
         "Brain — ממשק חיפוש מעל ה-Second Brain: מאגר הידע האישי שלי ([Qdrant](/guide/qdrant) + מסמכים). שואלים שאלה בשפה חופשית ומקבלים תשובה לפי משמעות, לא לפי מילים",

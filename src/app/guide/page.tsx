@@ -92,8 +92,9 @@ export default async function GuideIndex() {
   // <script> below satisfies our nonce-based CSP without 'unsafe-inline'.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
-  // JSON-LD: CollectionPage wrapping an ItemList of all 14 guides as
-  // LearningResource entries. This helps AI search engines (ChatGPT,
+  // JSON-LD: CollectionPage wrapping an ItemList of all guides (currently 32)
+  // as LearningResource entries — count is derived live from allGuides.length,
+  // so the output never drifts. This helps AI search engines (ChatGPT,
   // Perplexity, Claude, Gemini) and Google AI Overviews understand the
   // index page as a curated collection of educational Hebrew resources.
   const collectionJsonLd = {
@@ -278,7 +279,7 @@ export default async function GuideIndex() {
               </div>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">
                 כלי הליבה שאני בונה איתם את השרת האישי שלי. כל אחד מהם רץ אצלי
-                על Contabo VPS ומשרת את 9 הסוכנים.
+                על Contabo VPS ומשרת את {agentGuides.length} הסוכנים.
               </p>
             </div>
           </div>

@@ -11,10 +11,26 @@
 // constants — when AGENT_COUNT changes, grep both files for the old number.
 
 /**
- * Canonical size of Elad's production AI agent network.
- * Matches the truth-audited agent list in /guide (2026-07):
- * Claude Code, Kami, Kaylee, Box, Gardax (Hermes), Ranch, Solis, CrewAI,
- * Delegator, Adopter, Dashboard, Sailaco.
+ * Canonical count used across the site's copy for "the agent network".
+ *
+ * This is the number of agent-category GUIDES documented in /guide (2026-07),
+ * NOT a literal headcount of the running fleet — the two overlap but are not
+ * identical, so keep the distinction clear:
+ *
+ *   • 12 agents documented in /guide (the curated catalog this number tracks):
+ *     Claude Code, Kami, Kaylee, Box, Gardax (Hermes), Ranch, Solis, CrewAI,
+ *     Delegator, Adopter, Dashboard, Sailaco.
+ *     (Claude Code / CrewAI / Delegator / Adopter / Dashboard are the
+ *     frameworks, routers and UI layer that the fleet is built on, so they
+ *     live in the guide catalog even though they aren't autonomous agents.)
+ *
+ *   • The real production fleet on Contabo is the autonomous set —
+ *     Kami, Kaylee, Hermes/Gardax, Ranch, Box, Solis, plus the infra-layer
+ *     agents Oracle/orchestrator-brain, output-guardian, gemini-leak-guard
+ *     and autonomy-worker (each described in the relevant /guide entry).
+ *
+ * The "12" is what the marketing copy, FAQ, JSON-LD and llms.txt all cite,
+ * so it stays the single source of truth for that figure.
  */
 export const AGENT_COUNT = 12;
 
