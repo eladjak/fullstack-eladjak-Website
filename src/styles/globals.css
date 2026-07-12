@@ -452,3 +452,130 @@ a:focus-visible .logo-anim__ch {
     transform: none;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Cinematic Journey — the full-page scroll-scrubbed camera-flight backdrop.
+   The layer is position:fixed at z-0 behind the whole page; real content sits
+   on top. See src/components/cinematic/cinematic-journey.tsx.
+   ─────────────────────────────────────────────────────────────────────────── */
+.cj-root {
+  /* Deep cosmic base so any gap between poster load and video paint is on-brand. */
+  background: #05060a;
+}
+
+.cj-leg {
+  will-change: opacity;
+}
+
+.cj-still,
+.cj-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.cj-still {
+  will-change: transform;
+  transition: opacity 0.4s ease-out;
+}
+
+/* Reveal the scrubbed video only once it has painted a frame; hide the poster. */
+.cj-leg.cj-has-clip .cj-still {
+  opacity: 0;
+}
+
+.cj-video {
+  z-index: 1;
+}
+
+/* Legibility scrim: a soft top+bottom darkening and a centre-clear vignette so
+   overlaid headings/cards stay readable over any bright frame, without killing
+   the cinematic feel. Tuned darker at the vertical edges where copy lives. */
+.cj-scrim {
+  z-index: 3;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(5, 6, 10, 0.72) 0%,
+      rgba(5, 6, 10, 0.28) 18%,
+      rgba(5, 6, 10, 0.28) 62%,
+      rgba(5, 6, 10, 0.78) 100%
+    ),
+    radial-gradient(120% 80% at 50% 42%, transparent 42%, rgba(5, 6, 10, 0.5) 100%);
+}
+
+/* The real page content that rides on top of the fixed backdrop. */
+.cj-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Home page scoped "show-the-flight-through" treatment ──────────────────
+   The home page is a dark cosmic context: its base is transparent so the fixed
+   flight backdrop shows through, and the opaque section fills are softened to
+   translucent dark so the camera stays visible between the "glass" cards. This
+   is scoped to `.home-cinematic` only — every other page/theme is untouched. */
+.home-cinematic {
+  background: transparent !important;
+  color-scheme: dark;
+}
+
+/* Neutralise the fully-opaque `from-background … to-background` gradient
+   overlays (services / process / cta backdrops) so they no longer paint a solid
+   wall over the flight. They become a soft dark veil that still keeps text
+   readable but lets the cosmos glow through. */
+.home-cinematic [class*='from-background'],
+.home-cinematic [class*='via-background'],
+.home-cinematic [class*='to-background'] {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(5, 6, 10, 0.55),
+    rgba(5, 6, 10, 0.35),
+    rgba(5, 6, 10, 0.55)
+  ) !important;
+}
+
+/* Section root fills → translucent, so the flight shows behind them. Cards
+   (bg-card/60 backdrop-blur) are intentionally kept — they're the readable
+   "glass" over the cinematic and look great. */
+.home-cinematic .bg-muted\/20,
+.home-cinematic .bg-background {
+  background-color: transparent !important;
+}
+
+/* Give the section borders a faint light edge that reads over the dark flight. */
+.home-cinematic .border-border\/20,
+.home-cinematic .border-y {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Hero: let scene 1 (the approach through space) show BEHIND the hero text. The
+   hero keeps its own dark gradient wash for LCP + legibility, but its opaque
+   photo layer and the heavy `bg-background/60` veil are dropped so the cosmos
+   glows through around the H1. The H1/subhead/CTA remain the eager-SSR LCP. */
+.home-cinematic #hero {
+  background: transparent !important;
+}
+.home-cinematic #hero > .absolute.inset-0.z-0 {
+  /* the hero-dev.jpg photo layer — hide it so the flight is the hero bg */
+  opacity: 0 !important;
+}
+/* the animated primary/accent gradient wash — drop it so the cosmos shows */
+.home-cinematic #hero > .animate-gradient {
+  background: none !important;
+  opacity: 0 !important;
+}
+.home-cinematic #hero > .bg-background\/60 {
+  /* the flat dark veil — soften to a light readability wash over the flight */
+  background-color: rgba(5, 6, 10, 0.34) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cj-still {
+    transform: none !important;
+    transition: none;
+  }
+}
