@@ -42,21 +42,35 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
       <CinematicJourneyMount />
 
       <main className="cj-page flex-1">
-        {/* SCENE 1–2 — Approach → the operator's core. Hero flies in over it. */}
+        {/* SCENE 1 — Approach. Hero is the flight anchor: scene 1's held frame is
+            centred while the Hero is centred, so the H1 rests over "one point of
+            light". Anchor is an invisible marker; the real H1/LCP is untouched. */}
         {/* Above-fold: SSR'd for LCP + SEO. */}
+        <div data-cj-anchor="approach" aria-hidden className="pointer-events-none absolute" />
         <HeroSection />
 
+        {/* SCENE 2 — the operator's core. StatsBar is where the flight settles into
+            scene 2; the anchor centres scene 2's frame on the stats. */}
+        <div data-cj-anchor="core" aria-hidden className="pointer-events-none h-0" />
         <StatsBar />
 
         <TechMarquee />
 
+        {/* Breathing zone — a quiet stretch: the camera keeps drifting, captions are
+            faded out, before scene 3 arrives. */}
+        <div className="cj-breath" aria-hidden />
+
         {/* SCENE 3 — the fleet as a constellation-city. */}
         <CinematicSceneCaption scene="fleet" />
+
+        <div className="cj-breath" aria-hidden />
 
         <SkillsSection />
 
         {/* SCENE 4 — districts of light = the projects/showcase. */}
         <CinematicSceneCaption scene="projects" />
+
+        <div className="cj-breath" aria-hidden />
 
         {/* Below-fold: dynamically imported — defers JS until needed. */}
         <ServicesPreviewSection />
@@ -65,8 +79,12 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
 
         <LatestPostsSection posts={latestPosts} />
 
+        <div className="cj-breath" aria-hidden />
+
         {/* SCENE 5 — the resonant hall = trust / recommendations. */}
         <CinematicSceneCaption scene="trust" />
+
+        <div className="cj-breath" aria-hidden />
 
         <RecommendationsSection />
 
@@ -75,6 +93,8 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
         <B2BBand />
 
         <ChatFAQ />
+
+        <div className="cj-breath" aria-hidden />
 
         {/* SCENE 6 — the gate = contact / CTA. */}
         <CinematicSceneCaption scene="gate" />

@@ -72,11 +72,18 @@ export default function CinematicSceneCaption({ scene }: { scene: keyof typeof C
   if (!c) return null;
 
   return (
+    // `data-cj-anchor` marks this as a flight anchor: the engine lines the scene's
+    // held frame to the moment THIS band is centred in the viewport, so the caption
+    // always rests on ITS scene (fixes the "trust caption over the towers" drift).
+    // `data-cj-caption` is the inner card the engine fades in/out on its OWN
+    // viewport proximity, so two captions are never on screen at once and there is
+    // a quiet breathing gap between them.
     <div
       data-scene={scene}
-      className="relative z-[1] flex min-h-[70dvh] w-full items-center justify-center px-6 py-24"
+      data-cj-anchor={scene}
+      className="cj-caption-band relative z-[1] flex min-h-[92dvh] w-full items-center justify-center px-6 py-24"
     >
-      <div className="mx-auto max-w-2xl rounded-3xl border border-white/10 bg-black/30 px-8 py-10 text-center backdrop-blur-md">
+      <div className="cj-caption mx-auto max-w-2xl rounded-3xl border border-white/10 bg-black/30 px-8 py-10 text-center backdrop-blur-md">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-primary">
           {c.eyebrow[lang]}
         </p>

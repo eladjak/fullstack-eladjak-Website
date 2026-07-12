@@ -29,6 +29,15 @@ const CinematicJourney = dynamic(() => import('./cinematic-journey'), {
   ),
 });
 
+// The audio layer (mute toggle + Web-Audio bed) is also client-only: it must
+// never touch SSR HTML, and it can only create an AudioContext in the browser.
+const CinematicAudio = dynamic(() => import('./cinematic-audio'), { ssr: false });
+
 export default function CinematicJourneyMount() {
-  return <CinematicJourney />;
+  return (
+    <>
+      <CinematicJourney />
+      <CinematicAudio />
+    </>
+  );
 }

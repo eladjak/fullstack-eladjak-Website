@@ -57,8 +57,10 @@ export const CINEMATIC_SCENES: Scene[] = [
   { id: 'gate', clip: `${BASE}/scene6.mp4`, clipMobile: `${BASE}/scene6-m.mp4`, still: `${BASE}/scene6.webp` },
 ];
 
-// Fraction of the seam-band over which two neighbouring legs cross-dissolve.
-const CROSSFADE = 0.14;
+// Fraction of each anchor SEGMENT over which the outgoing leg dissolves into the
+// incoming one. Larger = the swap happens over a longer, calmer stretch of the
+// breathing zone (the camera glides between scenes rather than snapping).
+const CROSSFADE = 0.32;
 
 interface LegState {
   scene: Scene;
@@ -101,6 +103,54 @@ export default function CinematicJourney() {
       const c = clamp(x);
       return c * c * (3 - 2 * c);
     };
+
+    // ── Anchor map ───────────────────────────────────────────────────────────
+    // Instead of slicing the page into N EQUAL scroll bands (which drifts the
+    // caption off its scene because DOM sections are unequal heights), we anchor
+    // each scene to the real DOM element that carries data-cj-anchor="<sceneId>".
+    // `sceneAt[i]` = the whole-page scroll fraction at which anchor i is centred
+    // in the viewport. Scene i is FULLY shown at sceneAt[i]; the stretch between
+    // sceneAt[i] and sceneAt[i+1] is the breathing zone where leg i crossfades
+    // into leg i+1 and the camera keeps drifting.
+    const captionEls = new Map<string, HTMLElement>();
+    let sceneAt: number[] = [];
+
+    function measureAnchors() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight || 1;
+      const vh = window.innerHeight;
+      const next: number[] = [];
+      for (let i = 0; i < N; i++) {
+        const id = CINEMATIC_SCENES[i]!.id;
+        const anchor = root.ownerDocument?.querySelector<HTMLElement>(
+          `[data-cj-anchor="${id}"]`,
+        );
+        if (anchor) {
+          const rect = anchor.getBoundingClientRect();
+          const centerY = rect.top + window.scrollY + rect.height / 2;
+          next[i] = clamp((centerY - vh / 2) / max);
+        } else {
+          // Fallback to the uniform position if an anchor is missing.
+          next[i] = N > 1 ? i / (N - 1) : 0;
+        }
+        // Cache the caption card for per-caption fade.
+        const cap = root.ownerDocument?.querySelector<HTMLElement>(
+          `[data-cj-anchor="${id}"] .cj-caption`,
+        );
+        if (cap) captionEls.set(id, cap);
+      }
+      // Enforce a strictly-increasing, well-separated sequence so the flight
+      // always advances forward even if two anchors measure very close.
+      const minGap = 0.02;
+      for (let i = 1; i < N; i++) {
+        if (next[i]! <= next[i - 1]! + minGap) next[i] = next[i - 1]! + minGap;
+      }
+      // First anchor pins to 0, last pins to 1 so the whole clip range is used.
+      next[0] = 0;
+      next[N - 1] = 1;
+      for (let i = 1; i < N - 1; i++) next[i] = clamp(next[i]!);
+      sceneAt = next;
+    }
 
     // Under reduced motion we never load a video — the first poster stays put.
     //
@@ -151,53 +201,98 @@ export default function CinematicJourney() {
       leg.video = v;
     }
 
-    // Global scroll → per-leg time. The document is divided into N equal bands
-    // by scroll fraction; band i scrubs leg i from 0→1. A crossfade at each seam
-    // dissolves leg i's tail into leg i+1's head.
+    // Global scroll → per-leg time, ANCHOR-DRIVEN. `p` is the whole-page scroll
+    // fraction. We find which anchor segment [sceneAt[seg], sceneAt[seg+1]] `p`
+    // falls in, and `frac` = how far through that segment. Scene `seg` holds its
+    // frame at the segment start; as `frac` runs 0→1 the camera flies FORWARD out
+    // of scene seg and INTO scene seg+1 (both currentTimes advance, crossfading
+    // over a breathing dwell) — so alignment follows the real DOM, and there is a
+    // quiet drift between captions.
     let ticking = false;
     function read() {
       const doc = document.documentElement;
       const max = (doc.scrollHeight - window.innerHeight) || 1;
       const p = clamp((window.scrollY || window.pageYOffset) / max); // 0..1 whole page
-      const bandF = p * N; // 0..N
-      const active = clamp(Math.floor(bandF), 0, N - 1);
+
+      // Locate the active anchor segment.
+      let seg = 0;
+      while (seg < N - 2 && p >= sceneAt[seg + 1]!) seg++;
+      const a = sceneAt[seg]!;
+      const b = sceneAt[seg + 1]!;
+      const frac = clamp((p - a) / Math.max(b - a, 1e-4)); // 0..1 within segment
+      // Continuous flight position across all legs (0..N-1).
+      const flight = seg + frac;
+      // Active scene = whichever anchor centre we're nearest — this is what the
+      // caption + audio should reflect.
+      const active = clamp(Math.round(flight), 0, N - 1);
+
+      // Ease-in-out the crossfade so the swap between legs feels like a camera
+      // move settling, not a linear wipe.
+      const mix = smooth(frac);
 
       for (let i = 0; i < N; i++) {
         const leg = legs[i]!;
-        const local = clamp(bandF - i, 0, 1); // this leg's own 0..1 time
-        leg.target = local;
 
-        // Opacity: full while this band is active; cross-dissolve into the next
-        // over the last CROSSFADE of the band and out of the previous over the
-        // first CROSSFADE. Everything else 0.
+        // Each leg's own time-fraction. During its own held moment it sits near
+        // the end of its forward push (so it reads as "arrived"); while flying
+        // toward it, it eases 0→1. Leg i is the OUTGOING leg of segment i and the
+        // INCOMING leg of segment i-1.
+        let local: number;
+        if (i < seg) local = 1; // already flown past
+        else if (i > seg + 1) local = 0; // not yet reached
+        else if (i === seg) local = mix; // outgoing: 0 (held) → 1 (flying out)
+        else local = mix; // i === seg+1, incoming: 0 (arriving) → 1
+        leg.target = clamp(local);
+
+        // Opacity: the outgoing leg (seg) fades 1→0 across the breathing zone,
+        // the incoming leg (seg+1) fades 0→1. Everyone else is hidden. A little
+        // overlap keeps the dissolve smooth (no hard cut, no double-bright).
         let op = 0;
-        const dist = bandF - i; // <0 before, 0..1 during, >1 after
-        if (dist >= -CROSSFADE && dist <= 1 + CROSSFADE) {
-          if (dist < 0) op = smooth(1 + dist / CROSSFADE);
-          else if (dist > 1) op = smooth(1 - (dist - 1) / CROSSFADE);
-          else op = 1;
-        }
-        leg.el.style.opacity = String(op);
+        if (i === seg) op = 1 - smooth((frac - (1 - CROSSFADE)) / CROSSFADE);
+        else if (i === seg + 1) op = smooth((frac - (1 - CROSSFADE * 2)) / CROSSFADE);
+        if (i === seg && frac < 1 - CROSSFADE) op = 1;
+        leg.el.style.opacity = String(clamp(op));
         leg.el.style.zIndex = i === active ? '2' : '1';
 
-        // Lazy-load clips near the viewport band.
-        if (dist > -1.4 && dist < 1.4) loadClip(leg);
+        // Lazy-load clips for the active segment and its immediate neighbours.
+        if (i >= seg - 1 && i <= seg + 2) loadClip(leg);
 
         // Poster Ken-Burns drift until the clip paints (keeps it alive, not flat).
         if (!leg.ready && !reduce) {
-          const sc = 1.04 + local * 0.1;
+          const sc = 1.04 + leg.target * 0.1;
           const stillImg = leg.el.querySelector<HTMLElement>('.cj-still');
           if (stillImg) stillImg.style.transform = `scale(${sc.toFixed(3)})`;
         }
       }
 
-      // AUDIO HOOK: `active` + `bandF` are exactly the signals a future audio bed
-      // needs — dispatch a scene-change event here so a Web-Audio layer can
-      // crossfade stems per scene without touching this engine.
+      // ── Per-caption fade ──────────────────────────────────────────────────
+      // Each caption is readable only while ITS band is near viewport centre, and
+      // fully faded during the breathing gaps between scenes → never two on
+      // screen at once. Driven by the caption band's own position, independent of
+      // the flight, so alignment is exact.
+      const vhalf = window.innerHeight / 2;
+      captionEls.forEach((cap, id) => {
+        const band = cap.parentElement; // the .cj-caption-band with min-height
+        if (!band) return;
+        const r = band.getBoundingClientRect();
+        const bandCenter = r.top + r.height / 2;
+        // Distance of the band centre from the viewport centre, normalised by a
+        // "reveal window" (half the viewport). 0 = perfectly centred → full copy.
+        const d = Math.abs(bandCenter - vhalf) / (window.innerHeight * 0.62);
+        const v = reduce ? 1 : clamp(1 - d);
+        cap.style.setProperty('--cj-cap', v.toFixed(3));
+        void id;
+      });
+
+      // AUDIO HOOK: dispatch on active-scene change so the Web-Audio bed can
+      // crossfade/duck stems per scene without touching this engine. `frac` and
+      // `seg` are also handed over for finer per-segment ducking if wanted.
       if (active !== lastActive) {
         lastActive = active;
         root.dispatchEvent(
-          new CustomEvent('cj:scene', { detail: { index: active, id: CINEMATIC_SCENES[active]!.id } }),
+          new CustomEvent('cj:scene', {
+            detail: { index: active, id: CINEMATIC_SCENES[active]!.id, seg, frac },
+          }),
         );
       }
 
@@ -253,8 +348,10 @@ export default function CinematicJourney() {
       legs.forEach((l) => l.video && primeVideo(l.video));
     }
 
-    // Reduced motion: paint the first poster and stop. No video, no scrub.
+    // Reduced motion: paint the first poster, hold every caption fully visible,
+    // and stop. No video, no scrub, no drift.
     if (reduce) {
+      measureAnchors();
       legs[0]!.el.style.opacity = '1';
       read();
       return () => {
@@ -270,18 +367,32 @@ export default function CinematicJourney() {
     };
     // Ignore URL-bar-only height changes on touch (they'd yank the scrub).
     let laidOutW = window.innerWidth;
+    const remeasure = () => {
+      measureAnchors();
+      read();
+    };
     const onResize = () => {
       if (coarse && window.innerWidth === laidOutW) return;
       laidOutW = window.innerWidth;
-      read();
+      remeasure();
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
-    window.addEventListener('orientationchange', read);
+    window.addEventListener('orientationchange', remeasure);
     window.addEventListener('pointerdown', onFirstGesture, { once: true, passive: true });
     window.addEventListener('touchstart', onFirstGesture, { once: true, passive: true });
-    window.addEventListener('load', read);
+    window.addEventListener('load', remeasure);
+
+    // Anchor positions depend on the full page having laid out (images, fonts,
+    // below-fold sections). Measure now, again on the next frame, and once more
+    // after web-fonts settle + all lazy sections mount. A ResizeObserver on the
+    // document keeps `sceneAt` correct if content height changes later.
+    measureAnchors();
+    const ro = new ResizeObserver(() => remeasure());
+    ro.observe(document.documentElement);
+    const t1 = window.setTimeout(remeasure, 250);
+    const t2 = window.setTimeout(remeasure, 1200);
 
     let rafId = requestAnimationFrame(raf);
     read();
@@ -289,8 +400,11 @@ export default function CinematicJourney() {
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
-      window.removeEventListener('orientationchange', read);
-      window.removeEventListener('load', read);
+      window.removeEventListener('orientationchange', remeasure);
+      window.removeEventListener('load', remeasure);
+      ro.disconnect();
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
       cancelAnimationFrame(rafId);
       // Free the video elements on route change (direct src → no blob to revoke).
       legs.forEach((l) => {

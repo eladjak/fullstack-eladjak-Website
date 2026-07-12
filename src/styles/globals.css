@@ -513,6 +513,46 @@ a:focus-visible .logo-anim__ch {
   z-index: 1;
 }
 
+/* ── Breathing zones ───────────────────────────────────────────────────────
+   Quiet vertical stretches BETWEEN scenes. They give the eye a rest and give
+   the camera a long, empty band to drift through before the next caption card
+   appears — so you "arrive at scene → read → fly on" instead of captions
+   stacking. Nothing is drawn here; it is pure scroll distance over the flight. */
+.cj-breath {
+  height: 46vh;
+  pointer-events: none;
+}
+@media (max-width: 860px) {
+  .cj-breath {
+    height: 34vh;
+  }
+}
+
+/* ── Caption fade ──────────────────────────────────────────────────────────
+   The engine sets --cj-cap (0..1) on each caption band from its OWN distance to
+   viewport centre, so a caption is only readable while ITS scene is the one on
+   screen, and fully faded during the breathing gaps → never two captions at
+   once. transform/opacity only (no layout animation). */
+.cj-caption {
+  opacity: var(--cj-cap, 1);
+  transform: translateY(calc((1 - var(--cj-cap, 1)) * 18px));
+  transition:
+    opacity 0.12s linear,
+    transform 0.12s linear;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Reduced motion: static page, captions always fully visible, no drift. */
+  .cj-caption {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+  .cj-breath {
+    height: 8vh;
+  }
+}
+
 /* ── Home page scoped "show-the-flight-through" treatment ──────────────────
    The home page is a dark cosmic context: its base is transparent so the fixed
    flight backdrop shows through, and the opaque section fills are softened to
