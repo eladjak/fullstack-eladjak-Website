@@ -83,14 +83,14 @@ export default function CinematicSceneCaption({ scene }: { scene: keyof typeof C
       data-cj-anchor={scene}
       className="cj-caption-band relative z-[1] flex min-h-[92dvh] w-full items-center justify-center px-6 py-24"
     >
-      <div className="cj-caption mx-auto max-w-2xl rounded-3xl border border-white/10 bg-black/30 px-8 py-10 text-center backdrop-blur-md">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-primary">
+      <div className="cj-caption cj-caption-card mx-auto max-w-xl px-8 py-11 text-center sm:px-11 sm:py-12">
+        <p className="cj-eyebrow mx-auto mb-5 inline-flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-primary sm:text-xs">
           {c.eyebrow[lang]}
         </p>
-        <p className="text-balance text-3xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl md:text-5xl">
+        <p className="text-balance text-3xl font-extrabold leading-[1.12] text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] sm:text-4xl md:text-[2.85rem]">
           {c.title[lang]}
         </p>
-        <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg">
+        <p className="mx-auto mt-5 max-w-md text-pretty text-base leading-[1.75] text-white/75 sm:text-[1.05rem]">
           {c.body[lang]}
         </p>
       </div>

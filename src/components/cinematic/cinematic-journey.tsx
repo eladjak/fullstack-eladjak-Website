@@ -21,7 +21,7 @@ import { useEffect, useRef } from 'react';
  * SEAM MODEL (scroll-world method, architecture A):
  *  - 6 legs, each a slow FORWARD flight into its arted scene (gpt-image-2 still
  *    → fal Seedance/Kling i2v). Consecutive legs share composition (dark space +
- *    centered rose glow), so a short cross-dissolve at each seam reads as one
+ *    centered violet glow), so a short cross-dissolve at each seam reads as one
  *    continuous flight with no pop.
  *  - Blob-seek: each clip is fetched as a Blob and played from an object URL, so
  *    it is always fully seekable regardless of HTTP byte-range support.

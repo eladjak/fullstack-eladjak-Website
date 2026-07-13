@@ -57,16 +57,19 @@ export default function RecommendationsSection() {
 
       <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+              {t('eyebrow')}
+            </p>
             <div className="flex items-center justify-center gap-1 mb-4">
               {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
+                <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+            <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h2>
-            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg">
+            <p className="mx-auto max-w-[600px] text-pretty text-muted-foreground md:text-lg leading-relaxed">
               {t('subtitle')}
             </p>
           </div>

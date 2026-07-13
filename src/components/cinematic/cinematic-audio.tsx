@@ -113,7 +113,7 @@ export default function CinematicAudio() {
       aria-pressed={!muted}
       aria-label={label}
       title={label}
-      className="cj-audio-toggle fixed bottom-4 z-[60] flex size-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/90 shadow-lg backdrop-blur-md transition-colors hover:bg-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ltr:right-4 rtl:left-4"
+      className="cj-audio-toggle fixed bottom-5 z-[60] flex size-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white/85 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-primary/40 hover:text-white hover:shadow-[0_0_20px_-2px_hsla(258,90%,66%,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ltr:right-5 rtl:left-5"
     >
       {/* Icon: speaker with waves when ON, muted speaker when OFF. */}
       {muted ? (

@@ -52,6 +52,7 @@
     }
   },
   "featuredProjects": {
+    "eyebrow": "Selected work",
     "title": "Featured Projects",
     "subtitle": "A selection of my recent work, from educational platforms to creative tools",
     "viewAll": "View All Projects",
@@ -124,6 +125,7 @@
     ]
   },
   "recommendations": {
+    "eyebrow": "Trust",
     "title": "Recommendations",
     "subtitle": "What people I've worked with say about me",
     "items": {

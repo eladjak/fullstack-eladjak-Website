@@ -23,7 +23,12 @@
     --animation-base: 250ms;
     --animation-slow: 400ms;
 
-    /* Light Mode - Material Design 3 Color Tokens */
+    /* Light Mode — Material Design 3 Color Tokens.
+       Brand = purple primary + amber CTA (the SITE's real palette, per DESIGN.md).
+       Restored 2026-07-13: an intermediate polish had wrongly repainted the site
+       ROSE (#E11D74) — reverted here to the canonical purple/amber system so the
+       cinematic journey (and all `from-primary`/`to-accent` utilities) read on
+       the site's genuine brand, not the personal rose brand. */
     --background: #FFFFFF;
     --foreground: #1F2937;           /* Gray-800 for good contrast */
 
@@ -57,7 +62,7 @@
 
     --radius: 0.75rem;               /* Material Design 3 - 12px for cards */
 
-    /* Chart colors for data visualization */
+    /* Chart colors — purple family for data visualization */
     --chart-1: #8B5CF6;
     --chart-2: #6D28D9;
     --chart-3: #A78BFA;
@@ -66,29 +71,30 @@
   }
 
   .dark {
-    /* Dark Mode - Material Design 3 Color Tokens */
-    --background: #050810;           /* Deeper blue-tinted black */
+    /* Dark Mode — brand PURPLE on a deep cinematic base (per DESIGN.md).
+       Base is a near-black Zinc-950 with a whisper of cool violet tint (not flat
+       #000) so the dark reads as graded cinematic depth and coheres with the
+       VIOLET flight footage. Accent = a lightened purple for AA contrast on dark.
+       Restored 2026-07-13 from a wrongly-applied rose repaint. */
+    --background: #09090B;           /* Zinc-950 near-black, cool violet tint */
     --foreground: #FAFAFA;           /* Gray-50 */
 
-    --card: #0D1117;                 /* Slightly lighter, more contrast with bg */
+    --card: #111827;                 /* Gray-900 — lifted charcoal */
     --card-foreground: #F9FAFB;
 
     --popover: #111827;
     --popover-foreground: #F9FAFB;
 
-    /* CRITICAL FIX: Primary was white (#FAFAFA), now proper purple */
-    --primary: #A78BFA;              /* Purple-400 - lighter for dark mode contrast */
-    --primary-foreground: #1F2937;   /* Dark text on light primary */
+    --primary: #A78BFA;              /* Purple-400 — brightened for AA on dark */
+    --primary-foreground: #1F2937;   /* Dark text on light purple */
 
-    /* CRITICAL FIX: Secondary was same as accent (#27272A), now distinct */
-    --secondary: #8B5CF6;            /* Purple-600 - DISTINCT */
+    --secondary: #8B5CF6;            /* Purple-600 — DISTINCT, deeper */
     --secondary-foreground: #F9FAFB;
 
-    --muted: #141B27;                /* Deeper muted, blue-tinted */
-    --muted-foreground: #D1D5DB;     /* Gray-300 - improved contrast from #A1A1AA */
+    --muted: #1F2937;                /* Gray-800 — deep muted */
+    --muted-foreground: #D1D5DB;     /* Gray-300 - AA contrast */
 
-    /* CRITICAL FIX: Accent was same as secondary (#27272A), now distinct */
-    --accent: #C4B5FD;               /* Purple-300 - DISTINCT */
+    --accent: #C4B5FD;               /* Purple-300 — DISTINCT from secondary */
     --accent-foreground: #1F2937;
 
     --destructive: #F87171;          /* Red-400 */
@@ -101,7 +107,7 @@
     --input: #374151;
     --ring: #A78BFA;
 
-    /* Chart colors for dark mode */
+    /* Chart colors — purple family for dark mode */
     --chart-1: #A78BFA;
     --chart-2: #8B5CF6;
     --chart-3: #C4B5FD;
@@ -123,10 +129,14 @@
   }
 
   .dark body {
+    /* Violet-graded ambient wash — depth, not a flat black. A soft purple bloom
+       top-right, a cooler indigo counter-light bottom-left, a faint centre lift.
+       Amplifies the site's genuine brand purple, kept low so it reads as graded
+       cinematic depth (not an AI-slop purple wash). */
     background-image:
-      radial-gradient(at 20% 80%, hsla(263, 70%, 50%, 0.06) 0, transparent 50%),
-      radial-gradient(at 80% 20%, hsla(200, 70%, 50%, 0.04) 0, transparent 50%),
-      radial-gradient(at 50% 50%, hsla(263, 50%, 30%, 0.03) 0, transparent 70%);
+      radial-gradient(at 82% 16%, hsla(258, 80%, 55%, 0.07) 0, transparent 52%),
+      radial-gradient(at 16% 82%, hsla(252, 70%, 50%, 0.05) 0, transparent 50%),
+      radial-gradient(at 50% 45%, hsla(258, 55%, 34%, 0.035) 0, transparent 72%);
   }
 
   [dir="rtl"] {
@@ -193,10 +203,10 @@ html {
   border-radius: 2px;
 }
 
-/* Selection color */
+/* Selection color — brand purple */
 ::selection {
-  background-color: hsl(263 70% 60% / 0.3);
-  color: var(--primary-foreground);
+  background-color: hsl(258 90% 66% / 0.32);
+  color: #fff;
 }
 
 /* Custom scrollbar */
@@ -271,7 +281,7 @@ html {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, hsla(263, 70%, 60%, 0.3), hsla(200, 70%, 60%, 0.1), hsla(263, 70%, 60%, 0.3));
+  background: linear-gradient(135deg, hsla(258, 90%, 66%, 0.3), hsla(252, 80%, 60%, 0.1), hsla(258, 90%, 66%, 0.3));
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -280,8 +290,9 @@ html {
   opacity: 1;
 }
 
+/* Restrained brand-purple text bloom — used only on hero H1 + hero stats, not a wash. */
 .text-glow {
-  text-shadow: 0 0 20px hsla(263, 70%, 60%, 0.3), 0 0 40px hsla(263, 70%, 60%, 0.1);
+  text-shadow: 0 0 22px hsla(258, 90%, 68%, 0.28), 0 0 44px hsla(258, 90%, 66%, 0.1);
 }
 
 /* ========================================
@@ -459,8 +470,9 @@ a:focus-visible .logo-anim__ch {
    on top. See src/components/cinematic/cinematic-journey.tsx.
    ─────────────────────────────────────────────────────────────────────────── */
 .cj-root {
-  /* Deep cosmic base so any gap between poster load and video paint is on-brand. */
-  background: #05060a;
+  /* Deep cosmic base so any gap between poster load and video paint is on-brand.
+     A hair of violet in the base keeps the backdrop coherent with the flight. */
+  background: radial-gradient(120% 90% at 50% 30%, #0a0813 0%, #07060d 60%, #050409 100%);
 }
 
 .cj-leg {
@@ -495,20 +507,25 @@ a:focus-visible .logo-anim__ch {
   z-index: 1;
 }
 
-/* Legibility scrim: a soft top+bottom darkening and a centre-clear vignette so
-   overlaid headings/cards stay readable over any bright frame, without killing
-   the cinematic feel. Tuned darker at the vertical edges where copy lives. */
+/* Legibility scrim + cinematic grade. Three stacked layers:
+   (1) top+bottom darkening so overlaid copy stays readable where it lives;
+   (2) a soft radial vignette that keeps the centre clear but pulls the corners
+       down — reads as a lens, not a flat wall;
+   (3) a whisper of violet bloom near the upper third so the dark has a graded,
+       filmic colour temperature instead of dead neutral black. Kept very low so
+       the flight footage still owns the colour. */
 .cj-scrim {
   z-index: 3;
   background:
+    radial-gradient(90% 55% at 50% 22%, hsla(258, 70%, 50%, 0.05) 0%, transparent 60%),
     linear-gradient(
       to bottom,
-      rgba(5, 6, 10, 0.72) 0%,
-      rgba(5, 6, 10, 0.28) 18%,
-      rgba(5, 6, 10, 0.28) 62%,
-      rgba(5, 6, 10, 0.78) 100%
+      rgba(6, 5, 10, 0.74) 0%,
+      rgba(6, 5, 10, 0.26) 18%,
+      rgba(6, 5, 10, 0.26) 62%,
+      rgba(5, 4, 9, 0.8) 100%
     ),
-    radial-gradient(120% 80% at 50% 42%, transparent 42%, rgba(5, 6, 10, 0.5) 100%);
+    radial-gradient(125% 85% at 50% 42%, transparent 40%, rgba(5, 4, 9, 0.58) 100%);
 }
 
 /* The real page content that rides on top of the fixed backdrop. */
@@ -539,12 +556,65 @@ a:focus-visible .logo-anim__ch {
    once. transform/opacity only (no layout animation). */
 .cj-caption {
   opacity: var(--cj-cap, 1);
-  transform: translateY(calc((1 - var(--cj-cap, 1)) * 18px));
+  transform: translateY(calc((1 - var(--cj-cap, 1)) * 20px));
+  /* ease-out reveal — the copy settles in rather than tracking scroll 1:1 */
   transition:
-    opacity 0.12s linear,
-    transform 0.12s linear;
+    opacity 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
+/* ── Premium caption glass card ────────────────────────────────────────────
+   Elevated from generic glassmorphism: a deep translucent panel with a real
+   top edge-light (the highlight a physical piece of glass catches), a soft
+   layered drop shadow for elevation off the flight, an inner hairline, and a
+   restrained violet ambient bloom behind it. One accent (purple), used with care. */
+.cj-caption-card {
+  position: relative;
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(180deg, rgba(18, 16, 28, 0.52) 0%, rgba(8, 7, 14, 0.62) 100%);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.1) inset,
+    0 -1px 0 0 rgba(0, 0, 0, 0.35) inset,
+    0 24px 60px -22px rgba(0, 0, 0, 0.7),
+    0 0 60px -12px hsla(258, 85%, 55%, 0.16);
+  border: 1px solid transparent;
+}
+/* Gradient hairline border: brighter along the top edge (light source above),
+   fading to near-invisible at the base — the classic "lit-glass" edge. */
+.cj-caption-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    hsla(258, 85%, 74%, 0.14) 22%,
+    rgba(255, 255, 255, 0.04) 55%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* Purple accent underline beneath the eyebrow — the single restrained brand mark. */
+.cj-eyebrow::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 2px;
+  margin: 0.7rem auto 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, hsl(258 90% 66%), transparent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* Reduced motion: static page, captions always fully visible, no drift. */
   .cj-caption {

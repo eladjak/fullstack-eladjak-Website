@@ -128,11 +128,14 @@ export default function FeaturedProjectsSection() {
     <section id="projects" className="w-full py-16 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <ScrollAnimate>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+          <div className="text-center mb-14">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+              {t('eyebrow')}
+            </p>
+            <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h2>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+            <p className="mx-auto max-w-[640px] text-pretty text-muted-foreground md:text-lg leading-relaxed">
               {t('subtitle')}
             </p>
           </div>
