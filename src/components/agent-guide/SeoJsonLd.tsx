@@ -1,4 +1,5 @@
 import { GUIDE_MODIFIED } from "@/lib/guide-modified-dates";
+import { safeJsonLd } from "@/lib/jsonld";
 import type { AgentGuideData } from "./types";
 
 const SITE_URL =
@@ -178,19 +179,19 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
     <>
       <script
         type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD string
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD, HTML-escaped via safeJsonLd
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(articleJsonLd) }}
       />
       <script
         type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD string
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD, HTML-escaped via safeJsonLd
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbJsonLd) }}
       />
       {howToJsonLd && (
         <script
           type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD string
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, app-generated JSON-LD, HTML-escaped via safeJsonLd
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(howToJsonLd) }}
         />
       )}
     </>

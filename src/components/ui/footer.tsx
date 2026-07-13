@@ -62,11 +62,11 @@ export default function Footer() {
               <div className="mt-4 pt-4 border-t border-border/30 text-xs text-muted-foreground space-y-1">
                 <p className="font-semibold text-foreground/80">פרויקטים נלווים:</p>
                 <ul className="space-y-0.5">
-                  <li><a href="https://www.eladjak.com" target="_blank" rel="noopener" className="hover:text-primary transition-colors">www.eladjak.com — Hub אישי</a></li>
-                  <li><a href="https://www.sipurai.ai" target="_blank" rel="noopener" className="hover:text-primary transition-colors">sipurai.ai — ספרי AI לילדים</a></li>
-                  <li><a href="https://ohlove.co.il" target="_blank" rel="noopener" className="hover:text-primary transition-colors">ohlove.co.il — אומנות הקשר</a></li>
-                  <li><a href="https://www.facebook.com/eladjak1" target="_blank" rel="noopener" className="hover:text-primary transition-colors">Facebook</a></li>
-                  <li><a href="https://www.youtube.com/@KamiMesenger" target="_blank" rel="noopener" className="hover:text-primary transition-colors">YouTube</a></li>
+                  <li><a href="https://www.eladjak.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">www.eladjak.com — Hub אישי</a></li>
+                  <li><a href="https://www.sipurai.ai" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">sipurai.ai — ספרי AI לילדים</a></li>
+                  <li><a href="https://ohlove.co.il" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">ohlove.co.il — אומנות הקשר</a></li>
+                  <li><a href="https://www.facebook.com/eladjak1" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Facebook</a></li>
+                  <li><a href="https://www.youtube.com/@KamiMesenger" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">YouTube</a></li>
                 </ul>
               </div>
             </div>

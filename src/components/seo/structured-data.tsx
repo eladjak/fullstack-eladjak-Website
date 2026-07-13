@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import { safeJsonLd } from '@/lib/jsonld';
 
 interface Person {
   '@type': 'Person';
@@ -112,7 +113,7 @@ export async function StructuredData({ data }: StructuredDataProps) {
       id={`structured-data-${typeId}`}
       type="application/ld+json"
       nonce={nonce}
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

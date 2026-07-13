@@ -5,6 +5,7 @@ import Script from "next/script";
 import { headers } from "next/headers";
 import { ChevronLeft, Sparkles, Bot, Server, Zap, Workflow } from "lucide-react";
 import { allGuides } from "@/data/agent-guides";
+import { safeJsonLd } from "@/lib/jsonld";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
@@ -166,7 +167,7 @@ export default async function GuideIndex() {
         type="application/ld+json"
         strategy="beforeInteractive"
         nonce={nonce}
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionJsonLd) }}
       />
       {/* Hero */}
       <section className="relative py-20 sm:py-28 overflow-hidden">
