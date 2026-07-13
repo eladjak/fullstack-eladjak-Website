@@ -476,9 +476,11 @@ a:focus-visible .logo-anim__ch {
 }
 
 .cj-leg {
-  /* opacity = the cross-dissolve; transform = the continuous breathing-zone drift
-     the engine applies so the camera never fully stops between scenes. */
-  will-change: opacity, transform;
+  /* opacity = the cross-dissolve; transform = the per-scene dolly/pan/tilt the
+     engine applies (see applyCamera); filter = the brief rack-focus blur on a
+     leg's entrance. All GPU-composited — hinted here so the compositor promotes
+     each leg to its own layer and the camera move never touches layout. */
+  will-change: opacity, transform, filter;
   transform-origin: center 45%;
   backface-visibility: hidden;
 }
@@ -505,6 +507,10 @@ a:focus-visible .logo-anim__ch {
 
 .cj-video {
   z-index: 1;
+  /* The engine scales the video plane a hair beyond its leg for depth parallax
+     (far world moves faster than the graded foreground). */
+  will-change: transform;
+  transform-origin: center 45%;
 }
 
 /* Legibility scrim + cinematic grade. Three stacked layers:
@@ -516,6 +522,10 @@ a:focus-visible .logo-anim__ch {
        the flight footage still owns the colour. */
 .cj-scrim {
   z-index: 3;
+  /* The engine counter-drifts + slightly over-scales this layer against the
+     flight (depth parallax between the graded "lens" and the moving "world"). */
+  will-change: transform;
+  transform-origin: center 45%;
   background:
     radial-gradient(90% 55% at 50% 22%, hsla(258, 70%, 50%, 0.05) 0%, transparent 60%),
     linear-gradient(
@@ -526,6 +536,24 @@ a:focus-visible .logo-anim__ch {
       rgba(5, 4, 9, 0.8) 100%
     ),
     radial-gradient(125% 85% at 50% 42%, transparent 40%, rgba(5, 4, 9, 0.58) 100%);
+}
+
+/* Seam bloom: a brand-purple glow that swells as the flight passes a scene
+   boundary (--cj-bloom peaks mid-dissolve, set by the engine) so crossing a seam
+   reads as flying through a burst of light, not a cut. Amber-warm core + violet
+   halo = the site brand (#A78BFA / #FBBF24). Pure opacity/gradient — no layout,
+   invisible (--cj-bloom:0) mid-scene. */
+.cj-scrim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--cj-bloom, 0);
+  background:
+    radial-gradient(70% 45% at 50% 44%, hsla(45, 96%, 62%, 0.1) 0%, transparent 55%),
+    radial-gradient(120% 80% at 50% 42%, hsla(258, 90%, 66%, 0.22) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  transition: opacity 0.12s linear;
 }
 
 /* The real page content that rides on top of the fixed backdrop. */
@@ -688,8 +716,17 @@ a:focus-visible .logo-anim__ch {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cj-still {
+  /* Kill every camera move: no dolly/pan/tilt on legs, no depth on the video, no
+     parallax/bloom on the scrim, no focus-pull blur. A single static poster. */
+  .cj-still,
+  .cj-leg,
+  .cj-video,
+  .cj-scrim {
     transform: none !important;
+    filter: none !important;
     transition: none;
+  }
+  .cj-scrim::after {
+    opacity: 0 !important;
   }
 }

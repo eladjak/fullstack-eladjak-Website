@@ -62,3 +62,6 @@ docs/extract-*.cjs
 # local rollback backup of the pre-violet (rose) cinematic scene assets — kept on
 # disk for regrade re-runs / rollback, never committed (see scripts/regrade-cinematic-violet.mjs)
 public/videos/cinematic/_rose-originals/
+
+# cinematic scroll-verify screenshot output (regenerated on demand)
+scripts/cj-shots/

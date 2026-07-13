@@ -65,6 +65,22 @@ export const CINEMATIC_SCENES: Scene[] = [
 // half-leg on each side (very gentle); smaller = a tighter, snappier dissolve.
 const OVERLAP = 0.42;
 
+// ── CAMERA INTENSITY — the single dial for the whole cinematic feel ──────────
+// One master knob (0 = flat/static, 1 = the shipped film-grade look, >1 = even
+// more dramatic). It scales EVERY camera move below in lockstep — the per-scene
+// dolly (zoom-in / zoom-out), the depth parallax between video/still/scrim
+// layers, the focus-pull blur on entering legs, and the seam bloom. To make the
+// journey more (or less) cinematic, change ONLY this number. 1.0 is the tuned
+// default; try 1.25 for "more film", 0.7 for "calmer".
+const CAM_INTENSITY = 1;
+
+// Per-scene dolly direction: +1 = the camera pushes IN (zoom-in) across the leg,
+// −1 = it pulls OUT (zoom-out). Alternating in/out from scene to scene is what
+// makes it read as a camera genuinely MOVING THROUGH space — plunging into the
+// core, drifting back to reveal the fleet, diving into the projects, and so on —
+// rather than one monotonous endless push. Length matches CINEMATIC_SCENES.
+const DOLLY_DIR = [1, -1, 1, -1, 1, -1];
+
 interface LegState {
   scene: Scene;
   el: HTMLDivElement;
@@ -108,6 +124,16 @@ export default function CinematicJourney() {
     // single continuous position and only shape OPACITY with this cosine ease, so
     // brightness never pops but the motion keeps gliding through the seam.
     const cosFade = (x: number) => 0.5 - 0.5 * Math.cos(clamp(x) * Math.PI);
+    // Weighty, non-linear camera easing (easeInOutCubic). Feeding the leg's
+    // within-fraction through this before it drives the dolly gives the camera
+    // INERTIA — it accelerates into the scene and settles as it arrives, instead
+    // of tracking scroll 1:1 (which felt mechanical/linear). Used only for the
+    // camera transform, never for the opacity crossfade (that stays cosine so the
+    // brightness math is untouched — no black-flash regression).
+    const easeInOutCubic = (x: number) => {
+      const t = clamp(x);
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    };
 
     // ── Anchor map ───────────────────────────────────────────────────────────
     // Instead of slicing the page into N EQUAL scroll bands (which drifts the
@@ -240,6 +266,63 @@ export default function CinematicJourney() {
       return seg + frac; // 0 .. N-1, continuous
     }
 
+    // ── applyCamera — the per-leg cinematic camera pose ─────────────────────
+    // Given a visible leg, its scene index, and `w` (the leg's own progress across
+    // its band; clamped to 0..1 inside, so passing the raw base/next values keeps
+    // the pair continuous through the seam), this sets a layered transform on the
+    // leg that reads as a moving film camera:
+    //
+    //   • DOLLY (scale): a strong zoom that eases in/out per scene direction. The
+    //     magnitude is CAM_INTENSITY-scaled; the phase uses easeInOutCubic so the
+    //     move has weight (accelerate, settle) rather than a linear crawl.
+    //   • PAN/TILT (translate): a slow vertical + horizontal drift that never
+    //     stops, so even while the scrubbed video frame is held during a dwell the
+    //     camera keeps breathing — no frozen snap between scenes.
+    //   • FOCUS PULL (blur): a brief soft-focus as a leg ENTERS, snapping sharp as
+    //     it arrives — the classic "rack focus" that makes footage feel alive.
+    //   • DEPTH: the video layer scales a touch MORE than the still under it, so
+    //     the two planes separate → parallax depth instead of a flat image.
+    //
+    // All transform/opacity/filter — GPU-composited, no layout. Mobile trims the
+    // blur (cheapest to drop) and eases the magnitudes so it stays smooth on phones.
+    function applyCamera(leg: LegState, sceneIdx: number, w: number, mobile: boolean) {
+      const k = CAM_INTENSITY * (mobile ? 0.72 : 1);
+      // `within` for THIS leg: how far it has travelled across its own band, 0..1.
+      const within = clamp(w);
+      const eased = easeInOutCubic(within);
+      const dir = DOLLY_DIR[sceneIdx] ?? 1;
+
+      // DOLLY. Base zoom 1.06 keeps the object-cover crop clean at the extremes.
+      // A ±0.14 travel (×k) is a big, filmic push/pull — far more than the old
+      // 0.03. Direction flips per scene so the camera dives in then drifts out.
+      const zoom = 0.14 * k;
+      const scaleLeg = 1.06 + (dir > 0 ? eased : 1 - eased) * zoom;
+
+      // PAN + TILT. Slow, always-moving drift; a gentle horizontal component adds
+      // a "steadicam" wander. Amounts are viewport-independent px.
+      const tiltY = (eased - 0.5) * 26 * k * dir; // vertical dolly-tilt
+      const panX = Math.sin(within * Math.PI) * 8 * k * dir; // subtle side wander
+
+      leg.el.style.transform = `translate3d(${panX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0) scale(${scaleLeg.toFixed(4)})`;
+
+      // FOCUS PULL: soft only in the first ~30% of a leg's entrance, then crisp.
+      // Skipped on mobile (blur is the most expensive filter on low-end GPUs).
+      const v = leg.video;
+      if (!mobile) {
+        const focus = clamp(1 - within / 0.32); // 1 at entry → 0 by 32% in
+        const blur = focus * focus * 3 * CAM_INTENSITY; // px, eased to 0
+        leg.el.style.filter = blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : '';
+      }
+
+      // DEPTH: the video plane scales slightly beyond the leg so it reads as the
+      // far world moving faster than the graded foreground. Applied to the video
+      // element itself (the still keeps the leg's own scale).
+      if (v) {
+        const depth = 1 + (dir > 0 ? eased : 1 - eased) * 0.05 * k;
+        v.style.transform = `scale(${depth.toFixed(4)})`;
+      }
+    }
+
     // Render one frame from the current eased scroll. Pure function of `pEased`:
     // no reads of live scroll here, so the visuals can never race ahead of the
     // damped value (which is what caused the pops).
@@ -288,7 +371,12 @@ export default function CinematicJourney() {
       // `1-f` and `f` so they always sum to 1 → the frame never darkens (no black
       // flash) and never double-brightens; cosFade is C1-continuous so brightness
       // has no velocity discontinuity through the transition.
-      for (let i = 0; i < N; i++) legs[i]!.el.style.opacity = '0';
+      for (let i = 0; i < N; i++) {
+        legs[i]!.el.style.opacity = '0';
+        // Shed any lingering focus-pull blur on hidden legs so a leg re-enters
+        // crisp and the compositor isn't holding an off-screen blur filter.
+        if (legs[i]!.el.style.filter) legs[i]!.el.style.filter = '';
+      }
       const base = clamp(Math.floor(flight), 0, N - 1);
       const nextLeg = clamp(base + 1, 0, N - 1);
       const within = flight - base; // 0..1 across leg base→base+1
@@ -297,20 +385,37 @@ export default function CinematicJourney() {
       legs[base]!.el.style.opacity = String(clamp(1 - f));
       legs[nextLeg]!.el.style.opacity = String(clamp(f));
 
-      // ── Continuous camera drift through the breathing zones ─────────────────
-      // The scrubbed clip naturally holds on its last frame during a scene's dwell
-      // (it has "arrived"). To avoid that reading as a frozen snap, we add a subtle,
-      // ALWAYS-MOVING parallax on the visible leg elements themselves: a slow push
-      // in (scale) + vertical drift that tracks the continuous flight position. This
-      // is transform-only (no layout), so the camera keeps gliding gently even while
-      // the video frame is held, and there is never a hard stop between scenes.
+      // ── Cinematic camera: per-scene dolly + layered depth parallax ──────────
+      // This is the heart of the "camera moving through space" feel. For each of
+      // the two visible legs we compute a full camera pose from its own eased
+      // within-fraction and its scene's dolly direction, then apply DIFFERENT
+      // amounts of that pose to the layers inside the leg (video vs still vs
+      // scrim) so foreground and background move at different rates — real depth,
+      // not a flat pan. Everything scales by CAM_INTENSITY and is transform-only
+      // (GPU compositing, zero layout thrash). The opacity crossfade above is
+      // untouched, so the smooth seam dissolve does not regress.
       if (!reduce) {
-        const driftBase = (within - 0.5) * 14; // px, −7..+7 across the leg
-        const driftNext = (within - 0.5 - 1) * 14;
-        const scaleBase = 1.015 + within * 0.03; // 1.015 → 1.045 push-in
-        const scaleNext = 1.015 + (within - 1) * 0.03;
-        legs[base]!.el.style.transform = `translate3d(0, ${driftBase.toFixed(2)}px, 0) scale(${scaleBase.toFixed(3)})`;
-        legs[nextLeg]!.el.style.transform = `translate3d(0, ${driftNext.toFixed(2)}px, 0) scale(${scaleNext.toFixed(3)})`;
+        // Both visible legs get a camera pose from their OWN within-fraction. The
+        // base leg is travelling across ITS band → within (0..1). The next leg is
+        // still one band behind → its own progress is within − 1 (i.e. it sits in
+        // the tail of its entrance while the base finishes), which we pass so the
+        // pair's motion is continuous as `base` advances at the seam.
+        applyCamera(legs[base]!, base, within, isMobile());
+        applyCamera(legs[nextLeg]!, nextLeg, within - 1, isMobile());
+
+        // Depth parallax on the shared scrim/vignette: it counter-drifts a hair
+        // against the flight, so the "lens" (foreground grade) and the "world"
+        // (background footage) separate — a subtle but unmistakable 3D read. Also
+        // a gentle brand-purple bloom that swells at each seam (peaks mid-dissolve)
+        // so passing a scene boundary feels like flying through a glow, not a cut.
+        const scrim = root.querySelector<HTMLElement>('.cj-scrim');
+        if (scrim) {
+          const par = (within - 0.5) * 10 * CAM_INTENSITY; // px, counter to legs
+          scrim.style.transform = `translate3d(0, ${(-par).toFixed(2)}px, 0) scale(1.02)`;
+          // f (0..1) already measures how deep we are into the seam dissolve.
+          const bloom = cosFade(f) * 0.5 * CAM_INTENSITY; // 0 mid-scene → up at seam
+          scrim.style.setProperty('--cj-bloom', bloom.toFixed(3));
+        }
       }
 
       // ── Per-caption fade (driven by eased flight, not raw scroll) ────────────
