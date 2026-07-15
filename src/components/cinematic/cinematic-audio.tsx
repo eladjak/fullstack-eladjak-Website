@@ -17,7 +17,8 @@ import { CinematicAudioEngine } from './cinematic-audio-engine';
  *    keyboard-accessible and screen-reader-correct out of the box.
  *
  * It listens for the engine's `cj:scene` CustomEvent (dispatched by
- * CinematicJourney on the `.cj-root` node) to duck/layer per scene.
+ * CinematicJourney on the `.cj-root` node) to duck/layer per scene, and for
+ * `cj:complete` to ring the one-time arrival chime at the end of the journey.
  */
 
 const SCENE_COUNT = 6;
@@ -57,8 +58,15 @@ export default function CinematicAudio() {
         const detail = (e as CustomEvent<{ index: number }>).detail;
         engineRef.current?.onScene(detail.index, SCENE_COUNT);
       };
+      const onComplete = () => {
+        engineRef.current?.onComplete();
+      };
       root.addEventListener('cj:scene', onScene as EventListener);
-      detach = () => root.removeEventListener('cj:scene', onScene as EventListener);
+      root.addEventListener('cj:complete', onComplete);
+      detach = () => {
+        root.removeEventListener('cj:scene', onScene as EventListener);
+        root.removeEventListener('cj:complete', onComplete);
+      };
     };
     tryAttach();
 

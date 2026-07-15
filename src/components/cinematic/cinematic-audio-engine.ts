@@ -14,10 +14,17 @@
  *    everything, gently rising in level as the flight goes deeper.
  *  - SFX are SYNTHESISED with proper envelopes + filters and a heavy reverb send
  *    so they read as "deep", never thin square-wave bleeps:
- *      • whoosh  — a filtered-noise + rising-sine dive on each scene change.
+ *      • whoosh  — a filtered-noise + rising-sine dive on each scene change,
+ *        panned across the stereo field (alternating per scene) so each seam
+ *        feels like flying PAST something, not through a mono blur.
  *      • subPulse — a slow low-sine sub swell for the network/fleet beat.
  *      • resolve — a warm sustained chord that blooms on arrival at the gate.
+ *      • chime   — a soft bell ping, fired ONCE when the journey completes
+ *        (the `cj:complete` event) — the "you have arrived" grace note.
  *  - Per-scene ducking/layering is driven by the engine's `cj:scene` event.
+ *  - Whooshes are THROTTLED (min 600ms apart) so rapid scroll-scrubbing can
+ *    never machine-gun them, and every one-shot SFX chain disconnects itself
+ *    on `ended` so long sessions don't accumulate orphaned nodes.
  *
  * HARD RULES enforced here:
  *  - Nothing makes sound until the user explicitly UNMUTES (default = muted).
@@ -46,6 +53,15 @@ export class CinematicAudioEngine {
   private bedNode: MediaElementAudioSourceNode | null = null;
   private armed = false;
   private lastScene = -1;
+  // Anti-machine-gun: minimum spacing between whooshes (ctx-clock seconds).
+  private lastWhooshAt = Number.NEGATIVE_INFINITY;
+  // Alternates the whoosh's stereo sweep direction on every scene change.
+  private whooshFlip = 1;
+  // The completion chime fires at most once per mount.
+  private chimed = false;
+
+  /** Min gap between whooshes — rapid scrubbing collapses into one swell. */
+  private static readonly WHOOSH_MIN_GAP = 0.6;
 
   /** True once the context exists and audio is flowing (i.e. user unmuted). */
   get isArmed() {
@@ -201,11 +217,19 @@ export class CinematicAudioEngine {
 
   // ── Synth SFX ──────────────────────────────────────────────────────────────
 
-  /** A soft whoosh/riser: filtered noise swept up + a rising sine, deep reverb. */
+  /**
+   * A soft whoosh/riser: filtered noise swept up + a rising sine, deep reverb,
+   * swept across the stereo field (direction alternates per call) so each seam
+   * reads as flying PAST something. Throttled: calls landing within
+   * WHOOSH_MIN_GAP of the previous one are dropped, so rapid scroll-scrubbing
+   * collapses into a single swell instead of a machine-gun burst.
+   */
   private whoosh(amount: number) {
     const ctx = this.ctx;
     if (!ctx || !this.dryGain || !this.convolver) return;
     const now = ctx.currentTime;
+    if (now - this.lastWhooshAt < CinematicAudioEngine.WHOOSH_MIN_GAP) return;
+    this.lastWhooshAt = now;
     const dur = 1.6;
 
     // Noise layer through a band-pass that sweeps up = the air-rush body.
@@ -234,14 +258,32 @@ export class CinematicAudioEngine {
     og.gain.exponentialRampToValueAtTime(0.0001, now + dur);
     osc.connect(og);
 
-    // Route both dry + into the reverb for a long tail (depth).
-    this.sendWithReverb(ng, 0.55);
-    this.sendWithReverb(og, 0.55);
+    // Stereo sweep: the whole whoosh glides gently across the field, flipping
+    // direction each time — the "flying past" cue. Kept narrow (±0.4) so it
+    // stays a drift, never a hard ping-pong. Safari < 14.1 lacks
+    // StereoPannerNode; there we simply stay centred.
+    const dir = this.whooshFlip;
+    this.whooshFlip = -this.whooshFlip;
+    let out: AudioNode | null = null;
+    if (typeof ctx.createStereoPanner === 'function') {
+      const pan = ctx.createStereoPanner();
+      pan.pan.setValueAtTime(-0.4 * dir, now);
+      pan.pan.linearRampToValueAtTime(0.4 * dir, now + dur);
+      ng.connect(pan);
+      og.connect(pan);
+      out = pan;
+      this.sendWithReverb(pan, 0.55);
+    } else {
+      this.sendWithReverb(ng, 0.55);
+      this.sendWithReverb(og, 0.55);
+    }
 
     noise.start(now);
     noise.stop(now + dur);
     osc.start(now);
     osc.stop(now + dur);
+    // Free the whole one-shot chain once the last source ends (no node leaks).
+    this.cleanupOnEnded(osc, out ? [noise, bp, ng, osc, og, out] : [noise, bp, ng, osc, og]);
   }
 
   /** A slow low-sine sub swell — the pulse of the network/fleet beat. */
@@ -266,6 +308,7 @@ export class CinematicAudioEngine {
     this.sendWithReverb(g, 0.35);
     osc.start(now);
     osc.stop(now + dur);
+    this.cleanupOnEnded(osc, [osc, lp, g]);
   }
 
   /** A warm sustained chord that blooms on arrival — the resolve at the gate. */
@@ -278,10 +321,12 @@ export class CinematicAudioEngine {
     const freqs = [110, 164.81, 277.18, 493.88];
     const bus = ctx.createGain();
     bus.gain.value = 1;
-    freqs.forEach((f, i) => {
+    const chain: AudioNode[] = [bus];
+    const oscs: OscillatorNode[] = [];
+    for (let i = 0; i < freqs.length; i++) {
       const osc = ctx.createOscillator();
       osc.type = i === 0 ? 'sine' : 'triangle';
-      osc.frequency.value = f;
+      osc.frequency.value = freqs[i]!;
       // very slight detune for width/warmth
       osc.detune.value = (i - 1.5) * 4;
       const g = ctx.createGain();
@@ -293,12 +338,67 @@ export class CinematicAudioEngine {
       g.connect(bus);
       osc.start(now);
       osc.stop(now + dur);
-    });
+      chain.push(osc, g);
+      oscs.push(osc);
+    }
     const lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
     lp.frequency.value = 2600;
     bus.connect(lp);
+    chain.push(lp);
     this.sendWithReverb(lp, 0.75);
+    if (oscs.length > 0) this.cleanupOnEnded(oscs[oscs.length - 1]!, chain);
+  }
+
+  /**
+   * A soft bell ping — two gentle sine partials with a fast-but-clickless
+   * attack and a long reverberant tail. Fired once by `onComplete()` when the
+   * visitor reaches the end of the journey: a quiet "you have arrived".
+   */
+  private chime(amount: number) {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const dur = 2.4;
+    // A5 fundamental + a 12th above it (bell-ish inharmonic shimmer).
+    const partials: Array<{ freq: number; peak: number }> = [
+      { freq: 880, peak: 0.07 },
+      { freq: 2637, peak: 0.022 },
+    ];
+    const bus = ctx.createGain();
+    bus.gain.value = 1;
+    const chain: AudioNode[] = [bus];
+    const oscs: OscillatorNode[] = [];
+    for (const { freq, peak } of partials) {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      const g = ctx.createGain();
+      // 15ms linear attack (no click), then a long exponential bell decay.
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(peak * amount, now + 0.015);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+      osc.connect(g);
+      g.connect(bus);
+      osc.start(now);
+      osc.stop(now + dur);
+      chain.push(osc, g);
+      oscs.push(osc);
+    }
+    // Mostly wet — the bell should bloom in the hall, not sit on the nose.
+    this.sendWithReverb(bus, 0.85);
+    if (oscs.length > 0) this.cleanupOnEnded(oscs[oscs.length - 1]!, chain);
+  }
+
+  /**
+   * The journey reached its end (`cj:complete` from the engine). Rings the
+   * arrival chime exactly once per mount — and only if the user has audio on.
+   */
+  onComplete() {
+    if (this.chimed) return;
+    this.chimed = true;
+    if (!this.armed || !this.ctx) return;
+    this.chime(1);
   }
 
   /** Route a node to BOTH the dry bus and the reverb send (for depth). */
@@ -309,6 +409,29 @@ export class CinematicAudioEngine {
     send.gain.value = reverbAmount;
     node.connect(send);
     send.connect(this.convolver);
+    this.sends.set(node, send);
+  }
+
+  /** Reverb-send gains created per one-shot node, disconnected on cleanup. */
+  private sends = new WeakMap<AudioNode, GainNode>();
+
+  /**
+   * When `source` finishes, disconnect every node in the one-shot chain (plus
+   * any reverb sends registered for them) so long scrolling sessions never
+   * accumulate orphaned nodes in the graph.
+   */
+  private cleanupOnEnded(source: AudioScheduledSourceNode, chain: AudioNode[]) {
+    source.addEventListener('ended', () => {
+      for (const node of chain) {
+        try {
+          this.sends.get(node)?.disconnect();
+          this.sends.delete(node);
+          node.disconnect();
+        } catch {
+          /* already gone */
+        }
+      }
+    });
   }
 
   // ── Buffers ─────────────────────────────────────────────────────────────────

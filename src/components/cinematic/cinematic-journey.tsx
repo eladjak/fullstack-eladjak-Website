@@ -327,6 +327,7 @@ export default function CinematicJourney() {
     // no reads of live scroll here, so the visuals can never race ahead of the
     // damped value (which is what caused the pops).
     let lastActive = -1;
+    let completed = false;
     function render() {
       const flight = flightFromP(pEased); // continuous 0..N-1
       const active = clamp(Math.round(flight), 0, N - 1);
@@ -453,6 +454,14 @@ export default function CinematicJourney() {
             },
           }),
         );
+      }
+
+      // AUDIO HOOK 2: the journey COMPLETES when the eased flight fully arrives
+      // at the last anchor (the gate/CTA). Fired once per mount — the audio
+      // layer answers with a soft arrival chime (if the user has sound on).
+      if (!completed && flight >= N - 1 - 0.02) {
+        completed = true;
+        root.dispatchEvent(new CustomEvent('cj:complete'));
       }
     }
 
