@@ -38,9 +38,24 @@ const BED_SRC = '/audio/cj-bed.mp3';
 // Master ceilings — the whole bed is intentionally gentle; it should feel like
 // depth under the visuals, never compete with the page.
 const MASTER_LEVEL = 0.85;
-const BED_BASE = 0.16; // bed level at scene 0
-const BED_DEEP = 0.34; // bed level at the deepest scene
 const WET_LEVEL = 0.9; // reverb return level (the "space")
+
+// ── Music bed as a SHORT INTRO SWELL that recedes (Elad's ask) ───────────────
+// Feedback: the ambient MUSIC was "too dominant, too sad/melancholic" — it grew
+// LOUDER with depth and never left, drowning the meaningful SFX. So the bed is
+// now (1) far quieter across the board, and (2) an INTRO ONLY: it swells in, sits
+// briefly under the opening, then fades to silence over the first ~18s and the
+// loop is STOPPED so it never returns. From there the synthesised SFX (whoosh,
+// sub-pulse, resolve, arrival chime) carry the whole experience — those are the
+// "significant effects" Elad wants kept, and they are UNTOUCHED.
+//
+// Old levels for reference (what was too loud): base 0.16, deep 0.34.
+const BED_INTRO_PEAK = 0.05; // intro swell ceiling — ~69% quieter than the old 0.16 base
+const BED_END = 0.0001; // effectively silent (exponential ramps can't hit 0)
+const BED_FADE_IN = 2.0; // swell up to the intro peak over 2s (no jolt)
+const BED_HOLD = 3.0; // dwell at the intro peak this long before receding
+const BED_FADE_OUT = 15.0; // then recede to silence over 15s → ~18s total intro
+// (BED_HOLD + BED_FADE_OUT = the intro window; after it the loop is paused.)
 
 export class CinematicAudioEngine {
   private ctx: AudioContext | null = null;
@@ -53,6 +68,13 @@ export class CinematicAudioEngine {
   private bedNode: MediaElementAudioSourceNode | null = null;
   private armed = false;
   private lastScene = -1;
+  // The music bed is an intro-only swell: once it has faded to silence we NEVER
+  // raise it again (no depth-ramp, no unmute-restart) — from there the SFX carry
+  // the experience. `bedFaded` latches true when the intro fade completes.
+  private bedFaded = false;
+  // Timer that pauses the looping <audio> once the intro fade reaches silence, so
+  // the bed can't loop back around and creep in again.
+  private bedStopTimer: ReturnType<typeof setTimeout> | null = null;
   // Anti-machine-gun: minimum spacing between whooshes (ctx-clock seconds).
   private lastWhooshAt = Number.NEGATIVE_INFINITY;
   // Alternates the whoosh's stereo sweep direction on every scene change.
@@ -133,13 +155,27 @@ export class CinematicAudioEngine {
     }
 
     await ctx.resume().catch(() => {});
-    // Fade the bed in from silence over ~2.5s so unmuting isn't a jolt.
+    // Music bed = a SHORT INTRO SWELL that then recedes to silence. It swells up
+    // to a quiet ceiling, dwells briefly, then rolls off to inaudible over the
+    // intro window — after which the loop is paused so it never returns. The SFX
+    // take over from there. (Elad: the old ever-present, ever-louder bed was too
+    // dominant/melancholic.) All ramps are envelope ramps → no click/pop.
     try {
       await bedEl.play();
       const now = ctx.currentTime;
+      const fadeOutStart = now + BED_FADE_IN + BED_HOLD;
+      const fadeOutEnd = fadeOutStart + BED_FADE_OUT;
       bedGain.gain.cancelScheduledValues(now);
-      bedGain.gain.setValueAtTime(0, now);
-      bedGain.gain.linearRampToValueAtTime(BED_BASE, now + 2.5);
+      bedGain.gain.setValueAtTime(BED_END, now); // start ~silent (exp ramps need >0)
+      // swell in to the (quiet) intro peak
+      bedGain.gain.exponentialRampToValueAtTime(BED_INTRO_PEAK, now + BED_FADE_IN);
+      // hold the peak, then recede smoothly to silence — exponential = natural roll-off
+      bedGain.gain.setValueAtTime(BED_INTRO_PEAK, fadeOutStart);
+      bedGain.gain.exponentialRampToValueAtTime(BED_END, fadeOutEnd);
+      // Snap to a hard 0 the instant the fade lands, then pause the loop so the bed
+      // cannot creep back on the next loop iteration.
+      bedGain.gain.setValueAtTime(0, fadeOutEnd);
+      this.scheduleBedStop((BED_FADE_IN + BED_HOLD + BED_FADE_OUT) * 1000);
     } catch {
       /* play() may still reject on some browsers until a 2nd gesture */
     }
@@ -147,6 +183,30 @@ export class CinematicAudioEngine {
     this.armed = true;
     // If a scene fired before arming, catch up now with a soft resolve.
     if (this.lastScene >= 0) this.playForScene(this.lastScene, true);
+  }
+
+  /**
+   * After the intro fade reaches silence, latch `bedFaded`, pause the looping
+   * bed <audio>, and mute its gain node so it can never contribute again — the
+   * SFX carry the rest of the journey. Runs off a real-time timer (ms) rather
+   * than the audio clock so it fires even if the tab was briefly backgrounded.
+   */
+  private scheduleBedStop(delayMs: number) {
+    if (this.bedStopTimer) clearTimeout(this.bedStopTimer);
+    this.bedStopTimer = setTimeout(() => {
+      this.bedFaded = true;
+      try {
+        this.bedEl?.pause();
+      } catch {
+        /* noop */
+      }
+      const ctx = this.ctx;
+      if (ctx && this.bedGain) {
+        const now = ctx.currentTime;
+        this.bedGain.gain.cancelScheduledValues(now);
+        this.bedGain.gain.setValueAtTime(0, now);
+      }
+    }, Math.max(0, delayMs));
   }
 
   /** Mute/unmute WITHOUT tearing down the graph — just ramps the master. */
@@ -158,27 +218,26 @@ export class CinematicAudioEngine {
     master.gain.cancelScheduledValues(now);
     master.gain.setValueAtTime(master.gain.value, now);
     master.gain.linearRampToValueAtTime(muted ? 0 : MASTER_LEVEL, now + 0.35);
+    // Only touch the bed loop while it's still the live intro. Once the intro has
+    // faded to silence (`bedFaded`), NEVER resume it on unmute — the music is
+    // meant to be a one-time intro, not something that comes back mid-journey.
     if (muted) this.bedEl?.pause();
-    else this.bedEl?.play().catch(() => {});
+    else if (!this.bedFaded) this.bedEl?.play().catch(() => {});
   }
 
   /**
-   * React to a scene change. Ducks the bed toward its depth-appropriate level and
-   * fires the layer SFX for that scene. `index` is the active scene (0..5).
+   * React to a scene change by firing that scene's layer SFX. `index` is the
+   * active scene (0..5).
+   *
+   * NOTE: the music bed is deliberately NOT touched here anymore. It used to be
+   * ramped LOUDER with depth (base→deep), which is exactly what made it feel too
+   * dominant. Now the bed is a self-contained intro swell that fades out on its
+   * own schedule (see `arm()`), and the SFX — fired below — are what carry each
+   * scene from that point on.
    */
-  onScene(index: number, sceneCount: number) {
+  onScene(index: number) {
     this.lastScene = index;
-    if (!this.armed || !this.ctx || !this.bedGain) return;
-    const ctx = this.ctx;
-
-    // Bed level rises as we fly deeper — layers add with depth.
-    const depth = sceneCount > 1 ? index / (sceneCount - 1) : 0;
-    const target = BED_BASE + (BED_DEEP - BED_BASE) * depth;
-    const now = ctx.currentTime;
-    this.bedGain.gain.cancelScheduledValues(now);
-    this.bedGain.gain.setValueAtTime(this.bedGain.gain.value, now);
-    this.bedGain.gain.linearRampToValueAtTime(target, now + 1.4);
-
+    if (!this.armed || !this.ctx) return;
     this.playForScene(index, false);
   }
 
@@ -468,6 +527,10 @@ export class CinematicAudioEngine {
 
   /** Release everything (route change / unmount). */
   dispose() {
+    if (this.bedStopTimer) {
+      clearTimeout(this.bedStopTimer);
+      this.bedStopTimer = null;
+    }
     try {
       this.bedEl?.pause();
       if (this.bedEl) this.bedEl.src = '';
@@ -481,5 +544,6 @@ export class CinematicAudioEngine {
     }
     this.ctx = null;
     this.armed = false;
+    this.bedFaded = false;
   }
 }

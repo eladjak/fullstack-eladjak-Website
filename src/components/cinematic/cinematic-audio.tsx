@@ -21,8 +21,6 @@ import { CinematicAudioEngine } from './cinematic-audio-engine';
  * `cj:complete` to ring the one-time arrival chime at the end of the journey.
  */
 
-const SCENE_COUNT = 6;
-
 export default function CinematicAudio() {
   const locale = useLocale();
   const lang: 'he' | 'en' = locale === 'en' ? 'en' : 'he';
@@ -56,7 +54,7 @@ export default function CinematicAudio() {
       }
       const onScene = (e: Event) => {
         const detail = (e as CustomEvent<{ index: number }>).detail;
-        engineRef.current?.onScene(detail.index, SCENE_COUNT);
+        engineRef.current?.onScene(detail.index);
       };
       const onComplete = () => {
         engineRef.current?.onComplete();
