@@ -26,7 +26,7 @@ export function WhatsAppFAB() {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 end-6 z-50 flex items-center justify-center w-14 h-14 bg-green-600 hover:bg-green-500 text-white rounded-full shadow-lg shadow-green-600/30 hover:shadow-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 group"
+      className="fixed bottom-6 end-6 z-50 flex items-center justify-center w-14 h-14 bg-green-700 hover:bg-green-600 text-white rounded-full shadow-lg shadow-green-700/30 hover:shadow-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 group"
       aria-label="דברו איתי בוואטסאפ"
       title="דברו איתי בוואטסאפ 💬"
       initial={prefersReducedMotion ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
