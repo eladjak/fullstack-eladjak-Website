@@ -67,7 +67,7 @@ export default function AboutPageClient() {
                       priority
                     />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-emerald-500 border-4 border-background flex items-center justify-center">
+                  <div className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-emerald-700 border-4 border-background flex items-center justify-center">
                     <span className="text-white text-xs">&#10003;</span>
                   </div>
                 </div>
