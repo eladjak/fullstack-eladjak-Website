@@ -413,6 +413,27 @@ html {
   }
 }
 
+/* Reduced-motion belt for the scroll-driven reveal classes.
+   The global reduced-motion block (above) only zeroes `animation-duration`,
+   which does NOT neutralise a `animation-timeline: view()` animation — duration
+   is irrelevant to a scroll timeline, so on a scroll-timeline-capable browser
+   (Chrome) an out-of-range element would otherwise be held at its `from` frame
+   (opacity:0). This disables the timeline entirely and pins every reveal element
+   to its final, fully-visible state. Base state = final state (no keyframes to
+   fight). Covers fade, scale, both slide directions, and the reveal bar. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade,
+  .scroll-scale,
+  .scroll-slide-left,
+  .scroll-slide-right,
+  .scroll-reveal-bar {
+    animation: none !important;
+    animation-timeline: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* ── Animated logo wordmark (EY.dev) ─────────────────────────────────
    transform+opacity only · entrance ≤600ms once · hover ≤200ms
    no layout shift (letters keep their box; only paint moves) */
