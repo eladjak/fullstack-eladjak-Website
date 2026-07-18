@@ -99,18 +99,18 @@ export default function GuideIndexEn() {
           className="absolute top-0 start-1/2 -translate-x-1/2 size-[600px] rounded-full bg-primary/10 blur-[120px] pointer-events-none"
         />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
+          <div className="scroll-fade inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             <span className="text-xs font-semibold text-primary tracking-wide uppercase">
               2026 · {allGuidesEn.length} Guides · Agents + Infrastructure
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
+          <h1 className="scroll-fade text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Agent Network Guides
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
+          <p className="scroll-fade text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
             {allGuidesEn.length} practical guides covering a complete AI agent network + core
             infrastructure. Not theory — real installation steps, tips from
             daily use, and working code examples.
@@ -125,16 +125,16 @@ export default function GuideIndexEn() {
             </Link>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
+            <span className="scroll-scale inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1 tabular-nums">
               <Bot className="size-3.5 text-primary" /> {agentGuides.length} agents
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
+            <span className="scroll-scale inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1 tabular-nums">
               <Workflow className="size-3.5 text-violet-500" /> {patternGuides.length} working patterns
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
+            <span className="scroll-scale inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1 tabular-nums">
               <Server className="size-3.5 text-accent" /> {infraGuides.length} infra components
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
+            <span className="scroll-scale inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1">
               <Zap className="size-3.5 text-amber-500" /> open source
             </span>
           </div>
@@ -220,10 +220,10 @@ export default function GuideIndexEn() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-6 py-3 hover:opacity-90 transition-opacity"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-6 py-3 transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Schedule a consultation
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
       </section>

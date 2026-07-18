@@ -52,14 +52,14 @@ export default function SkillsUniversePage() {
     <div dir="rtl" className="min-h-dvh bg-background">
       <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
         <header className="mb-8 text-center">
-          <h1 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+          <h1 className="scroll-fade text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
             יקום הכישורים
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
+          <p className="scroll-fade mx-auto mt-3 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
             הדמיה תלת-ממדית של כל הכלים, השפות והפריימוורקים שאני עובד איתם.
             כל כדור הוא טכנולוגיה — צבע = קטגוריה, גודל = רמת שליטה.
           </p>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground/80">
+          <p className="scroll-fade mx-auto mt-2 max-w-xl text-sm text-muted-foreground/80">
             גרור לסיבוב · גלגל לקירוב · לחיצה על כדור = פרטים
           </p>
         </header>
@@ -74,7 +74,7 @@ export default function SkillsUniversePage() {
             return (
               <li
                 key={cat}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm"
+                className="scroll-scale flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm"
               >
                 <span
                   aria-hidden="true"
@@ -82,7 +82,7 @@ export default function SkillsUniversePage() {
                   style={{ backgroundColor: CATEGORY_COLORS[cat] }}
                 />
                 <span className="font-medium">{CATEGORY_LABELS_HE[cat]}</span>
-                <span className="text-xs text-muted-foreground">({count})</span>
+                <span className="text-xs text-muted-foreground tabular-nums">({count})</span>
               </li>
             );
           })}
@@ -193,10 +193,10 @@ export default function SkillsUniversePage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             רוצה לעבוד יחד? בוא נדבר
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
           </Link>
         </section>
       </main>
