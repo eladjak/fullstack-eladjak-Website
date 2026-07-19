@@ -19,7 +19,7 @@ export default function AccessibilityPage() {
       <article className="prose prose-invert prose-headings:font-heebo prose-headings:font-bold max-w-none">
         <h1 className="text-3xl md:text-4xl font-bold mb-2">הצהרת נגישות</h1>
         <p className="text-muted-foreground mb-8">
-          עודכן: 27 באפריל 2026
+          עודכן: 19 ביולי 2026
         </p>
 
         <h2>מחויבותנו לנגישות</h2>
