@@ -175,7 +175,10 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
                 <CardHeader>
                   <div className="space-y-2">
                     <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
-                      <Link href={`/blog/${post.slug}`}>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
                         {getTitle(post)}
                       </Link>
                     </h2>

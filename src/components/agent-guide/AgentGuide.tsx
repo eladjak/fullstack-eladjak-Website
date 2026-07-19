@@ -276,7 +276,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               {prevGuide ? (
                 <Link
                   href={guideHref(prevGuide.slug)}
-                  className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                  className="p-1.5 rounded-full text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                   aria-label={`${t.prevGuide}: ${prevGuide.agentName}`}
                   title={prevGuide.agentName}
                 >
@@ -290,7 +290,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               <button
                 type="button"
                 onClick={() => setMenuOpen((v) => !v)}
-                className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                className="p-1.5 rounded-full text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                 aria-label={t.allGuides}
                 aria-expanded={menuOpen}
                 title={t.allGuides}
@@ -300,7 +300,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               {nextGuide ? (
                 <Link
                   href={guideHref(nextGuide.slug)}
-                  className="p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                  className="p-1.5 rounded-full text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                   aria-label={`${t.nextGuide}: ${nextGuide.agentName}`}
                   title={nextGuide.agentName}
                 >
@@ -313,7 +313,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               )}
               <Link
                 href={t.switchLangHref(guide.slug)}
-                className="ms-1 px-2 py-1 rounded-full text-[10px] font-semibold text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors border border-border/60"
+                className="ms-1 px-2 py-1 rounded-full text-[10px] font-semibold text-muted-foreground transition-colors hover:text-primary hover:bg-primary/10 border border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                 hrefLang={locale === "he" ? "en" : "he"}
                 title={t.switchLang}
               >
@@ -330,7 +330,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     e.preventDefault();
                     scrollToSection(item.id);
                   }}
-                  className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors px-2.5 py-1 rounded-full hover:bg-primary/10 whitespace-nowrap"
+                  className="text-xs font-medium text-muted-foreground transition-colors px-2.5 py-1 rounded-full hover:text-primary hover:bg-primary/10 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                 >
                   {item.label}
                 </a>
@@ -486,7 +486,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               </div>
               <button
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-3 py-1.5 text-xs text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+                className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:text-primary hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-label={locale === "he" ? "שיתוף המדריך" : "Share guide"}
               >
                 {copied ? (
@@ -549,7 +549,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 onClick={() => setShowBeginner(true)}
                 role="tab"
                 aria-selected={showBeginner}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   showBeginner
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -561,7 +561,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 onClick={() => setShowBeginner(false)}
                 role="tab"
                 aria-selected={!showBeginner}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   !showBeginner
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -697,7 +697,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                   onClick={() =>
                     setExpandedSection(isExpanded ? null : section.id)
                   }
-                  className="w-full text-right"
+                  className="w-full rounded-2xl text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
                   aria-expanded={isExpanded}
                   aria-controls={`panel-${section.id}`}
                 >
@@ -833,7 +833,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                                       setTimeout(() => setCopiedCode(null), 1500);
                                     }
                                   }}
-                                  className="ms-auto inline-flex items-center gap-1 text-[11px] text-zinc-400 hover:text-zinc-100 transition-colors"
+                                  className="ms-auto inline-flex items-center gap-1 rounded text-[11px] text-zinc-400 transition-colors hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
                                   aria-label={copiedCode === section.id ? t.copied : t.copyCode}
                                 >
                                   {copiedCode === section.id ? (
@@ -895,7 +895,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 <Link
                   key={g.slug}
                   href={href}
-                  className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-sm text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+                  className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-sm text-foreground transition-colors hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   {g.agentName}
                 </Link>
@@ -959,7 +959,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               target={
                 guide.primaryCta.href.startsWith("http") ? "_blank" : undefined
               }
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-8 py-3.5 hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-8 py-3.5 shadow-lg shadow-primary/20 transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <PrimaryIcon className="h-5 w-5" />
               {guide.primaryCta.label}
@@ -972,7 +972,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     ? "_blank"
                     : undefined
                 }
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-muted text-foreground font-medium px-8 py-3.5 hover:bg-muted/80 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-muted text-foreground font-medium px-8 py-3.5 transition-all duration-200 hover:bg-muted/80 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <SecondaryIcon className="h-5 w-5" />
                 {guide.secondaryCta.label}
@@ -984,7 +984,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             <span className="text-sm text-muted-foreground">{t.liked}</span>
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:border-primary/30 transition-colors"
+              className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               aria-label={t.copyLink}
             >
               {copied ? (
