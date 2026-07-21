@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fullstack-eladjak.co.il';
 
   // Guard: env vars not configured → graceful degradation to WhatsApp
-  if (!companyId || !orgId || !apiToken) {
+  if (!companyId || !apiToken) {
     return NextResponse.json(
       {
         error: 'payment_not_configured',
@@ -52,56 +52,62 @@ export async function POST(req: Request) {
     );
   }
 
-  // Sumit LowProfile checkout — creates a hosted payment page
-  // Reference: https://app.sumit.co.il/developers/docs/lowprofile
+  // Sumit hosted payment page — VERIFIED API shape (21.7.2026, tested live):
+  // POST https://api.sumit.co.il/billing/payments/beginredirect/
+  // body: { Credentials:{CompanyID,APIKey}, Customer, Items[], RedirectURL, ... }
+  // Returns { Data: { RedirectURL }, Status: 0 } on success.
   const sumitPayload = {
-    APIKey: apiToken,
-    OrganizationID: orgId,
-    Settings: {
-      CustomerName: name,
-      CustomerEmail: email,
-      CustomerPhone: phone,
+    Credentials: {
+      CompanyID: Number(companyId),
+      APIKey: apiToken,
     },
-    Sale: {
-      Price: 500, // ₪500 מקדמת-מייסד
-      Currency: 'ILS',
-      Description: 'מוח עסקי — הרשמת מייסד (מקדמה)',
-      SendEmailToCustomer: true,
-      DocumentType: 3, // קבלה (receipt)
+    Customer: {
+      Name: name,
+      EmailAddress: email,
+      Phone: phone,
+      SearchMode: 0,
     },
-    URLs: {
-      Approved: `${siteUrl}/thanks?product=business-brain`,
-      Error: `${siteUrl}/products/business-brain?payment=error`,
-    },
+    Items: [
+      {
+        Item: { Name: 'מוח עסקי - הרשמת מייסד (מקדמה)' },
+        Quantity: 1,
+        UnitPrice: 500, // ₪500 מקדמת-מייסד — נקבע בצד שרת בלבד
+        Currency: 'ILS',
+      },
+    ],
+    DocumentDescription: 'מוח עסקי - הרשמת מייסד (מקדמה)',
+    MaximumPayments: 1,
+    RedirectURL: `${siteUrl}/thanks?product=business-brain`,
+    ExitRedirectURL: `${siteUrl}/products/business-brain?payment=cancel`,
   };
 
   try {
     const sumitRes = await fetch(
-      `https://api.sumit.co.il/payments/create/${companyId}/`,
+      'https://api.sumit.co.il/billing/payments/beginredirect/',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify(sumitPayload),
       },
     );
 
     const data = (await sumitRes.json()) as {
-      data?: { URL?: string };
-      Succeeded?: boolean;
-      Error?: { Message?: string };
+      Data?: { RedirectURL?: string };
+      Status?: number;
+      UserErrorMessage?: string | null;
     };
 
-    if (!sumitRes.ok || !data.Succeeded || !data.data?.URL) {
+    if (!sumitRes.ok || data.Status !== 0 || !data.Data?.RedirectURL) {
       return NextResponse.json(
         {
           error: 'sumit_error',
-          message: data.Error?.Message ?? 'שגיאה בפתיחת עמוד תשלום',
+          message: data.UserErrorMessage ?? 'שגיאה בפתיחת עמוד תשלום',
         },
         { status: 502 },
       );
     }
 
-    return NextResponse.json({ checkoutUrl: data.data.URL });
+    return NextResponse.json({ checkoutUrl: data.Data.RedirectURL });
   } catch {
     return NextResponse.json(
       { error: 'network_error', message: 'לא הצלחנו להתחבר לספק התשלומים' },
