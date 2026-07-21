@@ -316,6 +316,85 @@ export default function ServicesPage() {
             an honest estimate range + prefilled WhatsApp CTA (interaction > information) */}
         <QuoteBuilder />
 
+        {/* Products for purchase — standalone packaged products */}
+        <section className="w-full py-12 md:py-16" dir="rtl" lang="he">
+          <div className="container px-4 md:px-6">
+            <ScrollAnimate>
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-8">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-1.5 text-xs font-semibold text-amber-500 uppercase tracking-wide">
+                    <MessageCircle className="h-3.5 w-3.5" />
+                    מוצרים לרכישה
+                  </span>
+                  <h2 className="mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
+                    מוצרים מוכנים — מתחילים לעבוד מהיום
+                  </h2>
+                  <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto text-pretty">
+                    בשונה מפרויקטים מותאמים-אישית, המוצרים האלה הם פתרונות מוכנים עם תמחור שקוף.
+                  </p>
+                </div>
+
+                {/* Business Brain product card */}
+                <Link
+                  href="/products/business-brain"
+                  className="group block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/[0.04] via-card/60 to-violet-500/[0.04] backdrop-blur-sm p-6 md:p-8 hover:border-amber-500/40 hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <div className="flex flex-col sm:flex-row gap-5 items-start">
+                    {/* Icon */}
+                    <div className="flex-shrink-0 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      <MessageCircle className="h-7 w-7" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 space-y-3 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div>
+                          <h3 className="text-xl font-bold font-heebo">מוח עסקי</h3>
+                          <p className="text-sm text-amber-500 font-medium mt-0.5">עוזר ניהול עסקי בוואטסאפ</p>
+                        </div>
+                        <div className="flex flex-col items-start sm:items-end gap-1">
+                          <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-3 py-1 text-sm font-semibold text-amber-500">
+                            ₪490 / חודש
+                          </span>
+                          <span className="text-xs text-muted-foreground">הגדרה חד-פעמית ₪2,900</span>
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-muted-foreground leading-relaxed text-pretty">
+                        עוזר ניהולי שמכיר את העסק שלך, עונה לשאלות, מתאם פגישות ומשלח תזכורות — ישירות דרך וואטסאפ. ומאחוריו תמיד בן-אדם.
+                      </p>
+
+                      <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
+                        {[
+                          'זמין 24/7 בוואטסאפ',
+                          'מותאם לעסק שלך',
+                          'מדד הצלחה מוסכם מראש',
+                          'ביטול ללא קנסות',
+                        ].map((f) => (
+                          <li key={f} className="flex items-center gap-2">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-amber-500 flex-shrink-0" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex items-center gap-2 pt-1">
+                        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500 group-hover:gap-2.5 transition-all duration-200">
+                          לפרטים מלאים ולהצטרפות כמייסד
+                          <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
+                        </span>
+                        <span className="rounded-full bg-amber-500 px-2.5 py-0.5 text-xs font-bold text-black">
+                          3 מקומות מייסד
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </ScrollAnimate>
+          </div>
+        </section>
+
         {/* FAQ Chat Section */}
         <ChatFAQ />
 
