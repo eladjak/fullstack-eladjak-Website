@@ -325,6 +325,80 @@ function CountUp({
   );
 }
 
+// ─── Cinematic helpers ────────────────────────────────────────────────────────
+
+/**
+ * Illustration with a gentle scroll parallax (transform-only, GPU-friendly).
+ * Falls back to a static image under prefers-reduced-motion.
+ */
+function ParallaxIllustration({
+  src,
+  reduced,
+  className = '',
+  imgClassName = '',
+  priority = false,
+}: {
+  src: string;
+  reduced: boolean;
+  className?: string;
+  imgClassName?: string;
+  priority?: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
+
+  return (
+    <div ref={ref} className={`relative overflow-hidden ${className}`}>
+      <motion.div
+        className="absolute inset-[-8%]"
+        style={{ y: reduced ? 0 : y }}
+      >
+        <Image
+          src={src}
+          alt=""
+          aria-hidden="true"
+          fill
+          className={`object-cover object-center ${imgClassName}`}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          priority={priority}
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+/** Content that slides in from a horizontal direction as it enters the viewport. */
+function SlideIn({
+  children,
+  from,
+  reduced,
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode;
+  from: 'right' | 'left';
+  reduced: boolean;
+  delay?: number;
+  className?: string;
+}) {
+  if (reduced) return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: from === 'right' ? 48 : -48 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 // ─── Founder Banner ───────────────────────────────────────────────────────────
 
 function FounderBanner({
@@ -599,6 +673,13 @@ export default function BusinessBrainPage() {
   });
   const heroParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
+  // "How it works" — a line that fills as the visitor scrolls through the steps
+  const howStepsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: howProgress } = useScroll({
+    target: howStepsRef,
+    offset: ['start 0.8', 'end 0.5'],
+  });
+
   return (
     <>
       <CheckoutModal
@@ -764,7 +845,7 @@ export default function BusinessBrainPage() {
 
           {/* ─── 3 Key Messages ─── */}
           <section
-            className="w-full py-20 md:py-28"
+            className="w-full py-20 md:py-28 bg-gradient-to-b from-muted/20 via-background to-background"
             aria-labelledby="bb-messages-heading"
           >
             <div className="container px-4 md:px-6">
@@ -819,7 +900,7 @@ export default function BusinessBrainPage() {
 
           {/* ─── Comparison Table ─── */}
           <section
-            className="w-full py-20 md:py-28 bg-gradient-to-b from-muted/20 to-background"
+            className="w-full py-20 md:py-28 bg-gradient-to-b from-background via-primary/[0.03] to-muted/20"
             aria-labelledby="bb-compare-heading"
           >
             <div className="container px-4 md:px-6">
@@ -840,7 +921,16 @@ export default function BusinessBrainPage() {
                 </p>
               </ScrollAnimate>
 
-              <ScrollAnimate>
+              {/* Scene illustration — secretary vs. agent, slides in from the side */}
+              <SlideIn from="left" reduced={reduced} className="mx-auto max-w-3xl mb-10">
+                <ParallaxIllustration
+                  src="/images/business-brain-compare.jpg"
+                  reduced={reduced}
+                  className="h-52 md:h-72 rounded-2xl border border-border/40"
+                />
+              </SlideIn>
+
+              <SlideIn from="right" reduced={reduced}>
                 <div className="mx-auto max-w-3xl overflow-x-auto rounded-2xl border border-border/60">
                   <table className="w-full text-sm" role="table">
                     <caption className="sr-only">השוואת שירות מוח עסקי מול חלופות</caption>
@@ -890,9 +980,9 @@ export default function BusinessBrainPage() {
                     </tbody>
                   </table>
                 </div>
-              </ScrollAnimate>
+              </SlideIn>
 
-              {/* Count-up stats */}
+              {/* Count-up stats — cards enter from alternating sides */}
               <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
                   { label: 'חיסכון לעומת מזכירה', value: 7800, prefix: '₪', suffix: '/חודש' },
@@ -900,7 +990,12 @@ export default function BusinessBrainPage() {
                   { label: 'חיסכון שנתי', value: 87720, prefix: '₪', suffix: '' },
                   { label: 'זמן תגובה', value: 4, prefix: '', suffix: ' שעות' },
                 ].map((stat, i) => (
-                  <ScrollAnimate key={stat.label} delay={i * 0.08}>
+                  <SlideIn
+                    key={stat.label}
+                    from={i % 2 === 0 ? 'right' : 'left'}
+                    reduced={reduced}
+                    delay={i * 0.08}
+                  >
                     <div className="rounded-2xl border border-border/60 bg-card/60 p-5 text-center">
                       <div className="text-3xl font-bold text-primary mb-1">
                         <CountUp
@@ -912,7 +1007,7 @@ export default function BusinessBrainPage() {
                       </div>
                       <p className="text-xs text-muted-foreground">{stat.label}</p>
                     </div>
-                  </ScrollAnimate>
+                  </SlideIn>
                 ))}
               </div>
             </div>
@@ -920,7 +1015,7 @@ export default function BusinessBrainPage() {
 
           {/* ─── How It Works ─── */}
           <section
-            className="w-full py-20 md:py-28"
+            className="w-full py-20 md:py-28 bg-gradient-to-b from-muted/20 via-background to-muted/10"
             aria-labelledby="bb-how-heading"
           >
             <div className="container px-4 md:px-6">
@@ -933,7 +1028,29 @@ export default function BusinessBrainPage() {
                 </h2>
               </ScrollAnimate>
 
-              <div className="mx-auto max-w-2xl space-y-4">
+              {/* Wide journey illustration — the 4 stages as one visual story */}
+              <ScrollAnimate className="mx-auto max-w-4xl mb-14">
+                <ParallaxIllustration
+                  src="/images/business-brain-how.jpg"
+                  reduced={reduced}
+                  className="h-48 md:h-72 rounded-2xl border border-border/40"
+                />
+              </ScrollAnimate>
+
+              <div
+                ref={howStepsRef}
+                className="relative mx-auto max-w-2xl space-y-4"
+              >
+                {/* Progress track + fill line, aligned to the icon column (RTL: right side) */}
+                <div
+                  className="absolute top-6 bottom-14 end-[21px] w-0.5 bg-border/40"
+                  aria-hidden="true"
+                />
+                <motion.div
+                  className="absolute top-6 bottom-14 end-[21px] w-0.5 origin-top bg-gradient-to-b from-primary to-amber-500"
+                  style={{ scaleY: reduced ? 1 : howProgress }}
+                  aria-hidden="true"
+                />
                 {[
                   {
                     step: '01',
@@ -962,15 +1079,12 @@ export default function BusinessBrainPage() {
                 ].map((step, i) => {
                   const Icon = step.icon;
                   return (
-                    <ScrollAnimate key={step.step} delay={i * 0.1}>
+                    <SlideIn key={step.step} from="left" reduced={reduced} delay={i * 0.12}>
                       <div className="flex items-start gap-5 group">
-                        <div className="shrink-0 flex flex-col items-center gap-1">
-                          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
+                        <div className="relative z-10 shrink-0">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-background text-primary shadow-sm group-hover:bg-primary/10 transition-colors duration-200">
                             <Icon className="h-5 w-5" aria-hidden="true" />
                           </div>
-                          {i < 3 && (
-                            <div className="w-0.5 h-8 bg-border/60" aria-hidden="true" />
-                          )}
                         </div>
                         <div className="pb-8">
                           <div className="flex items-center gap-2 mb-1">
@@ -980,7 +1094,7 @@ export default function BusinessBrainPage() {
                           <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                         </div>
                       </div>
-                    </ScrollAnimate>
+                    </SlideIn>
                   );
                 })}
               </div>
@@ -989,11 +1103,23 @@ export default function BusinessBrainPage() {
 
           {/* ─── Pricing ─── */}
           <section
-            className="w-full py-20 md:py-28 bg-gradient-to-b from-muted/20 to-background"
+            className="relative w-full py-20 md:py-28 bg-gradient-to-b from-muted/10 to-background overflow-hidden"
             id="pricing"
             aria-labelledby="bb-pricing-heading"
           >
-            <div className="container px-4 md:px-6">
+            {/* Faint constellation backdrop — barely there, pure atmosphere */}
+            <div className="absolute inset-0 opacity-[0.22] pointer-events-none" aria-hidden="true">
+              <Image
+                src="/images/business-brain-pricing-bg.jpg"
+                alt=""
+                fill
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+            </div>
+
+            <div className="container relative px-4 md:px-6">
               <ScrollAnimate className="text-center max-w-2xl mx-auto mb-12">
                 <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-sm font-medium text-primary mb-4">
                   <Calendar className="h-4 w-4" aria-hidden="true" />
@@ -1012,7 +1138,13 @@ export default function BusinessBrainPage() {
 
               <div className="mx-auto max-w-3xl grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                 {PRICING_TIERS.map((tier, i) => (
-                  <ScrollAnimate key={tier.name} delay={i * 0.1}>
+                  <motion.div
+                    key={tier.name}
+                    initial={reduced ? false : { opacity: 0, y: 36, scale: 0.97 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.55, delay: i * 0.14, ease: 'easeOut' }}
+                  >
                     <div
                       className={`h-full rounded-2xl border p-6 transition-all duration-200 ${
                         tier.highlighted
@@ -1057,7 +1189,7 @@ export default function BusinessBrainPage() {
                         לקבוע שיחת היכרות
                       </a>
                     </div>
-                  </ScrollAnimate>
+                  </motion.div>
                 ))}
               </div>
 
@@ -1073,33 +1205,45 @@ export default function BusinessBrainPage() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.8 }}
-              className="relative h-64 md:h-80"
+              className="relative"
             >
-              <Image
+              <ParallaxIllustration
                 src="/images/business-brain-network.jpg"
-                alt=""
-                fill
-                className="object-cover object-center"
-                sizes="100vw"
+                reduced={reduced}
+                className="h-64 md:h-80"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" />
             </motion.div>
           </section>
 
           {/* ─── Privacy & guarantees ─── */}
           <section
-            className="w-full py-20 md:py-28"
+            className="w-full py-20 md:py-28 bg-gradient-to-b from-background via-primary/[0.02] to-background"
             aria-labelledby="bb-trust-heading"
           >
             <div className="container px-4 md:px-6">
-              <ScrollAnimate className="text-center max-w-2xl mx-auto mb-12">
-                <h2
-                  id="bb-trust-heading"
-                  className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
-                >
-                  אמינות ופרטיות — לא עניין של רגש
-                </h2>
-              </ScrollAnimate>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-5xl mx-auto mb-12">
+                {/* Shield illustration — slides in as the trust scene opens */}
+                <SlideIn from="right" reduced={reduced}>
+                  <ParallaxIllustration
+                    src="/images/business-brain-trust.jpg"
+                    reduced={reduced}
+                    className="h-56 md:h-72 rounded-2xl border border-border/40"
+                  />
+                </SlideIn>
+
+                <SlideIn from="left" reduced={reduced} delay={0.1}>
+                  <h2
+                    id="bb-trust-heading"
+                    className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                  >
+                    אמינות ופרטיות — לא עניין של רגש
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    המידע של העסק שלך נשאר אצלך. הכל כתוב, חתום, וברור — לפני שמתחילים.
+                  </p>
+                </SlideIn>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 {[
