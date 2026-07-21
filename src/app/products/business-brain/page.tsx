@@ -622,7 +622,7 @@ export default function BusinessBrainPage() {
               style={{ y: reduced ? 0 : heroParallaxY }}
             >
               <Image
-                src="/images/business-brain-hero.png"
+                src="/images/business-brain-hero.jpg"
                 alt=""
                 aria-hidden="true"
                 fill
@@ -1076,7 +1076,7 @@ export default function BusinessBrainPage() {
               className="relative h-64 md:h-80"
             >
               <Image
-                src="/images/business-brain-network.png"
+                src="/images/business-brain-network.jpg"
                 alt=""
                 fill
                 className="object-cover object-center"
@@ -1152,7 +1152,7 @@ export default function BusinessBrainPage() {
 
                   <div className="relative">
                     <Image
-                      src="/images/business-brain-value.png"
+                      src="/images/business-brain-value.jpg"
                       alt=""
                       aria-hidden="true"
                       width={80}
