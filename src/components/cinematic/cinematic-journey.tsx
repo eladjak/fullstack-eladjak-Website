@@ -101,7 +101,11 @@ export default function CinematicJourney() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     const smallMQ = window.matchMedia('(max-width: 860px)');
-    const isMobile = () => coarse || smallMQ.matches;
+    // Cache mobile flag and update only on MQ change — avoids re-querying matchMedia
+    // on every rAF frame (called 60×/s × 4 places = unnecessary overhead).
+    let mobile = coarse || smallMQ.matches;
+    const isMobile = () => mobile;
+    smallMQ.addEventListener('change', (e) => { mobile = coarse || e.matches; });
 
     const N = CINEMATIC_SCENES.length;
     const legEls = Array.from(root.querySelectorAll<HTMLDivElement>('[data-leg]'));
@@ -144,6 +148,12 @@ export default function CinematicJourney() {
     // sceneAt[i] and sceneAt[i+1] is the breathing zone where leg i crossfades
     // into leg i+1 and the camera keeps drifting.
     const captionEls = new Map<string, HTMLElement>();
+    // Pre-measured absolute top+halfHeight for each caption band (document coords).
+    // Updated in measureAnchors (on resize/load) — never inside the rAF loop.
+    // This eliminates the per-frame getBoundingClientRect() forced reflow that was
+    // the primary source of scroll jank: 6 BCR reads × 60fps = layout thrash every frame.
+    const captionBandTop = new Map<string, number>();
+    const captionBandHalf = new Map<string, number>();
     let sceneAt: number[] = [];
 
     function measureAnchors() {
@@ -168,7 +178,18 @@ export default function CinematicJourney() {
         const cap = root.ownerDocument?.querySelector<HTMLElement>(
           `[data-cj-anchor="${id}"] .cj-caption`,
         );
-        if (cap) captionEls.set(id, cap);
+        if (cap) {
+          captionEls.set(id, cap);
+          // Pre-measure the band's absolute document position so the rAF loop
+          // never needs to call getBoundingClientRect() — it derives viewport
+          // position as (bandTop - scrollY) which is a pure arithmetic op.
+          const band = cap.parentElement;
+          if (band) {
+            const br = band.getBoundingClientRect();
+            captionBandTop.set(id, br.top + window.scrollY);
+            captionBandHalf.set(id, br.height / 2);
+          }
+        }
       }
       // Enforce a strictly-increasing, well-separated sequence so the flight
       // always advances forward even if two anchors measure very close.
@@ -307,11 +328,14 @@ export default function CinematicJourney() {
 
       // FOCUS PULL: soft only in the first ~30% of a leg's entrance, then crisp.
       // Skipped on mobile (blur is the most expensive filter on low-end GPUs).
+      // Max blur reduced 3→1.8px and threshold raised 0.05→0.5px so the filter
+      // is only applied when perceptibly visible — avoids compositor overhead on
+      // full-viewport elements for the invisible 0–0.05px range.
       const v = leg.video;
       if (!mobile) {
         const focus = clamp(1 - within / 0.32); // 1 at entry → 0 by 32% in
-        const blur = focus * focus * 3 * CAM_INTENSITY; // px, eased to 0
-        leg.el.style.filter = blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : '';
+        const blur = focus * focus * 1.8 * CAM_INTENSITY; // px, eased to 0
+        leg.el.style.filter = blur > 0.5 ? `blur(${blur.toFixed(2)}px)` : '';
       }
 
       // DEPTH: the video plane scales slightly beyond the leg so it reads as the
@@ -422,14 +446,16 @@ export default function CinematicJourney() {
       // ── Per-caption fade (driven by eased flight, not raw scroll) ────────────
       // Each caption is readable only while ITS band is near viewport centre and
       // fully faded in the breathing gaps → never two captions on screen at once.
-      // We still measure the band's live position (so alignment is exact to the
-      // DOM) but smooth the resulting value so it can't flicker on a jerky wheel.
+      // Band positions are pre-measured in measureAnchors() and stored as absolute
+      // document coords — we derive viewport position via (top - scrollY) which is
+      // pure arithmetic, eliminating getBoundingClientRect() from the hot path.
       const vhalf = window.innerHeight / 2;
+      const scrollY = window.scrollY;
       captionEls.forEach((cap, id) => {
-        const band = cap.parentElement;
-        if (!band) return;
-        const r = band.getBoundingClientRect();
-        const bandCenter = r.top + r.height / 2;
+        const bandAbsTop = captionBandTop.get(id);
+        const bandHalf = captionBandHalf.get(id);
+        if (bandAbsTop === undefined || bandHalf === undefined) return;
+        const bandCenter = bandAbsTop - scrollY + bandHalf;
         const dist = Math.abs(bandCenter - vhalf) / (window.innerHeight * 0.62);
         const targetV = reduce ? 1 : clamp(1 - dist);
         const prev = parseFloat(cap.dataset.capv || String(targetV));

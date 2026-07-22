@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const techIcons = [
@@ -23,6 +23,7 @@ interface FloatingIcon {
 
 export function FloatingTechIcons() {
   const [icons, setIcons] = useState<FloatingIcon[]>([]);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const generatedIcons = techIcons.map((icon, index) => ({
@@ -35,6 +36,10 @@ export function FloatingTechIcons() {
     }));
     setIcons(generatedIcons);
   }, []);
+
+  // Skip all animation under reduced-motion — also avoids Framer Motion overhead
+  // competing with the cinematic rAF loop on every frame.
+  if (prefersReducedMotion) return null;
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-30">
@@ -63,7 +68,8 @@ export function FloatingTechIcons() {
             ],
             opacity: [0, 0.6, 0.6, 0],
             scale: [0, 1, 1, 0],
-            rotate: [0, 180, 360],
+            // Removed rotate — it forces a separate composite layer per icon
+            // on top of the cinematic backdrop, adding 6 extra GPU layers to every frame.
           }}
           transition={{
             duration: item.duration,
@@ -71,9 +77,8 @@ export function FloatingTechIcons() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          style={{
-            filter: 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.3))',
-          }}
+          // Removed filter drop-shadow — applies a filter pass on each icon element
+          // every frame; replaced by CSS box-shadow on the span (paint-only, no filter).
         >
           <span
             className="block"
