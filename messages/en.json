@@ -85,7 +85,7 @@
       },
       "zehutai": {
         "title": "Zehut - Party Platform & Campaign",
-        "description": "A multilingual platform for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system, and a separate campaign-management system for field teams."
+        "description": "The official platform of the Zehut movement, live at zehut.org.il: a Next.js site with Payload CMS in 12 languages, an online store with Cardcom payments and platform-book fulfillment, an events board, an AI assistant, and a campaign-management system for field teams."
       },
       "teamMeetings": {
         "title": "Team Meetings Manager",
@@ -472,7 +472,11 @@
       },
       "zehutai": {
         "title": "Zehut - Party Platform & Campaign",
-        "description": "A multilingual platform for a political movement: a Next.js site with Payload CMS, a role-based translation-editing system, and a separate campaign-management system for field teams."
+        "description": "The official platform of the Zehut movement, live at zehut.org.il: a Next.js site with Payload CMS in 12 languages, an online store with Cardcom payments and platform-book fulfillment, an events board, an AI assistant, and a campaign-management system for field teams."
+      },
+      "businessBrain": {
+        "title": "Business Brain for AI Agents",
+        "description": "A new product that turns a business's knowledge into a living brain AI agents can work with: structured industry and business knowledge capture, a smart Q&A engine, and a live industry FAQ-bot demo — with a cinematic product page and online checkout."
       },
       "vacationVibe": {
         "title": "VacationVibe - Vacation Manager",

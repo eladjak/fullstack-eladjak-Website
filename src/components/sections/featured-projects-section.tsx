@@ -20,7 +20,7 @@ interface StaticProject {
 }
 
 // LINK-AUDIT (2026-07-13): every live_url + github_url below HEAD-checked live → 200
-// to a real page. zehutai (NDA) has no link by design (non-clickable, no dead anchor).
+// to a real page. LINK-AUDIT (2026-07-24): zehutai now links to public zehut.org.il.
 const staticProjects: StaticProject[] = [
   {
     id: 'haderech',
@@ -87,7 +87,8 @@ const staticProjects: StaticProject[] = [
   {
     id: 'zehutai',
     messageKey: 'zehutai',
-    technologies: ['Next.js', 'Payload CMS', 'PostgreSQL', 'next-intl', 'RBAC'],
+    technologies: ['Next.js', 'Payload CMS', 'next-intl', 'Cardcom', 'PostgreSQL'],
+    live_url: 'https://zehut.org.il',
     gradient: 'from-sky-500/20 to-blue-600/20',
     icon: 'Zehut',
     image: '/projects/zehutai.jpg',

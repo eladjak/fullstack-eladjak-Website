@@ -31,8 +31,10 @@ interface StaticProject {
 // and returns HTTP 200 to a real page (following redirects). RULE for future edits:
 // a card is clickable ONLY via fields present here, and any live_url/github_url MUST
 // resolve 200 to a real page — HEAD-check before adding/changing one. Projects with
-// NO link are non-clickable BY DESIGN: triplus + zehutai are NDA/client-internal and
-// intentionally expose no public URL (no broken anchor is rendered for them).
+// NO link are non-clickable BY DESIGN: triplus is NDA/client-internal and
+// intentionally exposes no public URL (no broken anchor is rendered for it).
+// LINK-AUDIT (2026-07-24): zehutai now links to the public zehut.org.il (site went
+// live July 2026); businessBrain links to the on-site product page. Both HEAD 200.
 const allProjects: StaticProject[] = [
   {
     id: 'haderech',
@@ -205,10 +207,21 @@ const allProjects: StaticProject[] = [
     id: 'zehutai',
     messageKey: 'zehutai',
     category: 'web',
-    technologies: ['Next.js', 'Payload CMS', 'PostgreSQL', 'next-intl', 'RBAC'],
+    technologies: ['Next.js', 'Payload CMS', 'next-intl', 'Cardcom', 'PostgreSQL', 'RBAC'],
+    live_url: 'https://zehut.org.il',
     gradient: 'from-sky-500/20 to-blue-600/20',
     icon: 'Zehut',
     image: '/projects/zehutai.jpg',
+  },
+  {
+    id: 'businessBrain',
+    messageKey: 'businessBrain',
+    category: 'ai',
+    technologies: ['Next.js', 'TypeScript', 'Claude API', 'Sumit', 'Tailwind CSS', 'RTL'],
+    live_url: 'https://fullstack-eladjak.co.il/products/business-brain',
+    gradient: 'from-indigo-500/20 to-violet-600/20',
+    icon: 'BizBrain',
+    image: '/images/business-brain-hero.jpg',
   },
   {
     id: 'kidushishi',
