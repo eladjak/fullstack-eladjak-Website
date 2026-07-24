@@ -1,5 +1,14 @@
 # Full-Stack Portfolio Website - Progress
 
+## 2026-07-24 — July projects refresh shipped to PROD (branch `feat/july-projects-refresh` → main `18ca12b`, deploy `eladjak-website-jku4ewg3n` Ready + aliased)
+
+- **Zehut card is now clickable → https://zehut.org.il** (site went public July 2026). Description updated he+en on BOTH /projects and homepage featured: 12 languages, Cardcom e-commerce + platform-book fulfillment, events board, AI assistant, campaign system. Technologies + LINK-AUDIT comments updated (triplus remains the only NDA no-link card).
+- **New `businessBrain` card** (AI category) → on-site `/products/business-brain`, reusing `public/images/business-brain-hero.jpg`. Follows existing pattern exactly (icon as string — no RSC-serialization risk). Added to `projectsPage.projects` he+en; not added to featured (kept minimal).
+- **LINK-AUDIT 2026-07-24:** all 40 live_url/github_url across both data files curl-checked → 200.
+- **Gates:** tsc 0 · `next build` 0 (clean worktree AND combined tree with the uncommitted business-brain WIP from the parallel session) · live verified: zehut.org.il link + "מוח עסקי" render on /projects/, homepage featured has zehut link, 0 MISSING_MESSAGE, business-brain orgs section intact.
+- **Deploy note:** prod deployed from the working tree AS-IS (preserving the parallel session's uncommitted business-brain edits) via the VPS (node22 + authed vercel CLI, `/tmp/portfolio-july24`). Stray root-level `kami_bench*.ts/py` + `)` files broke `next build` typecheck — moved (preserved) to `~/projects/portfolio-untracked-bench-20260724/`.
+
+
 ## 2026-07-13 — Cinematic journey: re-aligned from wrongly-applied ROSE to the SITE's real PURPLE/AMBER brand (branch `feat/cinematic-journey`, PREVIEW only)
 
 **Elad's correction (13.7): the cinematic scroll-journey was built in the PERSONAL brand ROSE (`#E11D74`) — it must use the SITE's own brand (purple `#A78BFA`/`#8B5CF6` + amber `#FBBF24` CTA) and amplify it. Source of truth = `DESIGN.md` (which always stayed purple). NOT promoted to prod — preview only.**
