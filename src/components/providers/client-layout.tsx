@@ -1,6 +1,7 @@
 'use client';
 
 import { type ReactNode } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
 import { LocaleProvider } from '@/components/providers/locale-provider';
@@ -31,6 +32,12 @@ interface ClientLayoutProps {
 export function ClientLayout({ children, nonce }: ClientLayoutProps) {
   return (
     <LocaleProvider>
+      {/* framer writes inline transforms and springs that the stylesheet cannot
+          reach, so the CSS reduced-motion rules alone left the mobile drawer
+          still sliding its full width for motion-sensitive users. Verified with
+          prefers-reduced-motion emulated: without this the drawer was mid-travel
+          at translateX(26%) 60ms after opening; with it, it does not travel. */}
+      <MotionConfig reducedMotion="user">
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem nonce={nonce}>
           {/* Skip to content link - WCAG 2.4.1 / IS 5568 */}
           <a
@@ -53,6 +60,7 @@ export function ClientLayout({ children, nonce }: ClientLayoutProps) {
           <Analytics />
           <SpeedInsights />
       </ThemeProvider>
+      </MotionConfig>
     </LocaleProvider>
   );
 }
