@@ -39,7 +39,7 @@ export function ScrollToTop() {
         <motion.button
           key="scroll-to-top"
           onClick={handleClick}
-          className="fixed bottom-6 start-6 z-40 rounded-full p-3 bg-card/60 backdrop-blur-sm border border-border/50 hover:border-primary/30 shadow-sm hover:shadow-primary/10 text-foreground/70 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="fixed bottom-6 start-6 z-40 rounded-full p-3 bg-card/60 backdrop-blur-sm border border-border/50 hover:border-primary/30 shadow-sm text-foreground/70 hover:text-foreground transition-[color,background-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           aria-label="Scroll to top"
           title="חזרה לראש העמוד"
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.7 }}

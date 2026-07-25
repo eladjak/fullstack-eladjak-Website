@@ -69,7 +69,7 @@ export default function CTASection() {
                   viewport={{ once: true }}
                   className="group relative"
                 >
-                  <div className="wow-card relative p-6 rounded-xl bg-card/40 border border-border/50 backdrop-blur-sm text-center">
+                  <div className="relative p-6 rounded-xl bg-card/40 border border-border/50 backdrop-blur-sm text-center">
                     <div className="wow-icon inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                       <Icon className="h-6 w-6" />
                     </div>

@@ -47,12 +47,24 @@ violation. Convert:
    only existed for those.
 3. KEEP the static `border-*`, `shadow-*`, `bg-*`, `rounded-*` classes exactly
    as they are — the resting look must not change.
-4. If the container had `hover:bg-*` you may keep it (a background tint is a
-   cheap paint, not a per-frame animated property) — but drop `transition-all`
-   in favour of nothing, or `transition-colors` if the tint looked abrupt.
-5. If the card is a `<div>` inside a `<Link>`, put `wow-card` on the element
-   that carries the border/rounding. Keyboard focus is handled automatically by
-   the `:has(:focus-visible)` rule — do not add a manual focus style.
+4. If the container had `hover:bg-*` you may keep it, but never with
+   `transition-colors` when the element also changes a border colour —
+   `transition-colors` includes `border-color`, which is banned. Use an explicit
+   list such as `transition-[color,background-color]`.
+5. Put `wow-card` on the FOCUSABLE element itself wherever possible (the `<a>`,
+   `<Link>` or `<button>`). The stylesheet covers three shapes — card is the
+   focusable (`:focus-visible`), card CONTAINS the focusable
+   (`:has(:focus-visible)`), and card is INSIDE the focusable
+   (`a:focus-visible .wow-card`) — but shape 1 is the only one that is also
+   correct semantically, so prefer it.
+6. `wow-card` means "this whole card is clickable". Never put it on a purely
+   informational card, and never on a card whose only interactive element is a
+   small nested link — that is a false affordance and users will click dead
+   space.
+7. Never put `wow-media` and a `group-hover:scale-*` on the SAME element.
+   `wow-media` is a scroll-timeline animation with `fill-mode: both`, and
+   animation values outrank normal transforms, so the hover zoom would be
+   permanently dead. Wrapper gets the settle, inner image gets the hover.
 
 **Never add `wow-card` to an element that already has a framer-motion
 `whileHover` transform** (double transform ownership). Leave those alone.

@@ -92,7 +92,7 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
     <div className="container mx-auto px-4 py-12">
       <ScrollAnimate>
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold mb-4 text-glow">{t('title')}</h1>
+          <h1 className="wow-title wow-title--center text-4xl font-bold mb-4 text-glow">{t('title')}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {t('subtitle')}
           </p>
@@ -107,10 +107,10 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
               type="button"
               onClick={() => setSelectedTag(null)}
               aria-pressed={selectedTag === null}
-              className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+              className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-[color,background-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                 selectedTag === null
                   ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-primary/10 text-primary border-transparent hover:bg-primary/15 transition-colors duration-200'
+                  : 'bg-primary/10 text-primary border-transparent hover:bg-primary/15'
               }`}
             >
               <Tag className="h-3 w-3" />
@@ -122,10 +122,10 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
                 key={tag}
                 onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
                 aria-pressed={selectedTag === tag}
-                className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium transition-[color,background-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   selectedTag === tag
                     ? 'bg-primary text-primary-foreground border-primary'
-                    : 'bg-primary/10 text-primary border-transparent hover:bg-primary/15 transition-colors duration-200'
+                    : 'bg-primary/10 text-primary border-transparent hover:bg-primary/15'
                 }`}
               >
                 {tag}
@@ -159,7 +159,7 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
                       src={post.frontmatter.featured_image}
                       alt={getTitle(post)}
                       fill
-                      className="object-cover transition-transform duration-200 group-hover:scale-105"
+                      className="object-cover transition-transform duration-200 group-hover:scale-105 group-focus-within:scale-105"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       loading="lazy"
                     />
@@ -174,7 +174,7 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
                 )}
                 <CardHeader>
                   <div className="space-y-2">
-                    <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
+                    <h2 className="text-xl font-bold group-hover:text-primary group-focus-within:text-primary transition-colors">
                       <Link
                         href={`/blog/${post.slug}`}
                         className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

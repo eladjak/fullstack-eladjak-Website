@@ -261,7 +261,7 @@ function ContactPageInner() {
               className="flex flex-col items-center space-y-8 text-center"
             >
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl text-glow">
+                <h1 className="wow-title wow-title--center text-4xl font-bold tracking-tighter sm:text-5xl text-glow">
                   {heroTitle}
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">

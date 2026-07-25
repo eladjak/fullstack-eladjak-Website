@@ -218,7 +218,7 @@ export default function ThanksPageClient() {
               </motion.div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl [text-shadow:0_0_40px_hsl(var(--primary)/0.4)]">
+                <h1 className="wow-title wow-title--center text-4xl font-bold tracking-tighter sm:text-5xl [text-shadow:0_0_40px_hsl(var(--primary)/0.4)]">
                   {t('title')}
                 </h1>
                 <p className="mx-auto max-w-[600px] text-foreground/70 md:text-lg">

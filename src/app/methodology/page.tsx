@@ -108,7 +108,7 @@ export default function MethodologyPage() {
                       viewport={{ once: true }}
                       className="group"
                     >
-                      <div className="wow-card relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 md:p-10">
+                      <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 md:p-10">
                       <div className="flex flex-col md:flex-row gap-6 md:gap-10">
                         {/* Icon + number column */}
                         <div className="flex md:flex-col items-center md:items-start gap-4 md:gap-3 shrink-0">
@@ -195,7 +195,7 @@ export default function MethodologyPage() {
             <div className="grid gap-5 md:grid-cols-2 max-w-4xl mx-auto">
               {Array.from({ length: PRINCIPLES_COUNT }).map((_, idx) => (
                 <ScrollAnimate key={idx} delay={idx * 0.05}>
-                  <div className="wow-card rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm p-6">
+                  <div className="rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm p-6">
                     <h3 className="text-lg font-semibold mb-2 font-heebo">
                       {t(`principles.items.${idx}.title`)}
                     </h3>

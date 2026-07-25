@@ -726,11 +726,6 @@ a:focus-visible .logo-anim__ch {
   /* the hero-dev.jpg photo layer — hide it so the flight is the hero bg */
   opacity: 0 !important;
 }
-/* the animated primary/accent gradient wash — drop it so the cosmos shows */
-.home-cinematic #hero > .animate-gradient {
-  background: none !important;
-  opacity: 0 !important;
-}
 .home-cinematic #hero > .bg-background\/60 {
   /* the flat dark veil — soften to a light readability wash over the flight */
   background-color: rgba(5, 6, 10, 0.34) !important;
@@ -850,9 +845,15 @@ a:focus-visible .logo-anim__ch {
    on an inert ::after whose opacity is the only animated value. Keyboard
    parity is exact: :focus-visible on the card, and :has(:focus-visible) for
    the common case of a card wrapping the real focusable link. */
+/* This layer is authored after Tailwind's utilities, so a bare
+   `transition: transform` shorthand here beats a `transition-colors` utility on
+   the same element. Both properties are therefore listed explicitly. Geometry,
+   box-shadow and border-color are never transitioned. */
 .wow-card {
   position: relative;
-  transition: transform var(--wow-fast) var(--wow-ease);
+  transition:
+    transform var(--wow-fast) var(--wow-ease),
+    background-color var(--wow-fast) var(--wow-ease);
 }
 
 /* `inset:0` rather than a negative inset on purpose: a good number of these
@@ -884,13 +885,23 @@ a:focus-visible .logo-anim__ch {
   }
 }
 
+/* Keyboard parity has to cover three real DOM shapes, because `:has()` only
+   looks DOWN the tree:
+   1. the card IS the focusable  → :focus-visible
+   2. the card CONTAINS the focusable → :has(:focus-visible)
+   3. the card is INSIDE the focusable (a div wrapped in a Link) → the last two
+      selectors, which style down from the focused ancestor. */
 .wow-card:focus-visible,
-.wow-card:has(:focus-visible) {
+.wow-card:has(:focus-visible),
+a:focus-visible .wow-card,
+button:focus-visible .wow-card {
   transform: translateY(var(--wow-lift));
 }
 
 .wow-card:focus-visible::after,
-.wow-card:has(:focus-visible)::after {
+.wow-card:has(:focus-visible)::after,
+a:focus-visible .wow-card::after,
+button:focus-visible .wow-card::after {
   opacity: 1;
 }
 
@@ -919,8 +930,14 @@ a:focus-visible .logo-anim__ch {
 
 /* ── 4. CTA press ──────────────────────────────────────────────────────────
    Sub-200ms tactile feedback on the primary actions. transform only. */
+/* Same cascade note as .wow-card. .wow-press is on the shared Button
+   primitive, so the colour properties must be listed or every button's hover
+   fade would be flattened by this later shorthand. */
 .wow-press {
-  transition: transform 140ms var(--wow-ease);
+  transition:
+    transform 140ms var(--wow-ease),
+    background-color 140ms var(--wow-ease),
+    color 140ms var(--wow-ease);
 }
 
 .wow-press:active {
@@ -966,8 +983,12 @@ a:focus-visible .logo-anim__ch {
 /* ── 6. Icon nudge ─────────────────────────────────────────────────────────
    A small scale on an icon inside a hovered/focused card or button. Capped at
    1.06 per the anti-kitsch gate. */
+/* Same cascade note: icons are frequently paired with a `transition-colors`
+   utility that this later shorthand would otherwise beat. */
 .wow-icon {
-  transition: transform var(--wow-fast) var(--wow-ease);
+  transition:
+    transform var(--wow-fast) var(--wow-ease),
+    color var(--wow-fast) var(--wow-ease);
 }
 
 @media (hover: hover) {
@@ -977,7 +998,12 @@ a:focus-visible .logo-anim__ch {
   }
 }
 
+/* Same three shapes as the card itself — an anchor that IS the card cannot
+   `:has()` itself, so :focus-visible must be listed directly. */
+.wow-card:focus-visible .wow-icon,
 .wow-card:has(:focus-visible) .wow-icon,
+a:focus-visible .wow-card .wow-icon,
+button:focus-visible .wow-card .wow-icon,
 .wow-press:focus-visible .wow-icon {
   transform: scale(1.06);
 }
@@ -986,28 +1012,44 @@ a:focus-visible .logo-anim__ch {
    The hover rules above are equal-specificity and appear later than the
    global reduced-motion block near the top of the file, so they would
    otherwise silently re-enable the lift for reduced-motion users. This block
-   is authored last AND uses !important so it wins on both axes. Every element
-   is returned to its final, visible, untransformed state. The static colour /
-   glow response is intentionally preserved — reduced-motion is about
-   movement, not about removing all feedback. */
+   is authored last AND uses !important so it wins on both axes.
+
+   `opacity` is pinned ONLY on the two reveal-owned elements below. It must
+   never be forced on .wow-card / .wow-press / .wow-icon: those classes sit on
+   ordinary interactive elements that legitimately own their own opacity — most
+   importantly the shared Button, where `disabled:opacity-50` would be
+   overridden and every disabled action would look enabled to precisely the
+   users this belt exists to protect. */
 @media (prefers-reduced-motion: reduce) {
   .wow-title::after,
-  .wow-media,
-  .wow-card,
-  .wow-card:hover,
-  .wow-card:focus-visible,
-  .wow-card:has(:focus-visible),
-  .wow-press,
-  .wow-press:active,
-  .wow-icon,
-  .wow-card:hover .wow-icon,
-  .wow-press:hover .wow-icon,
-  .wow-card:has(:focus-visible) .wow-icon,
-  .wow-press:focus-visible .wow-icon {
+  .wow-media {
     animation: none !important;
     animation-timeline: auto !important;
     transform: none !important;
     opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .wow-card,
+  .wow-card:hover,
+  .wow-card:focus-visible,
+  .wow-card:focus-within,
+  .wow-card:has(:focus-visible),
+  a:focus-visible .wow-card,
+  button:focus-visible .wow-card,
+  .wow-press,
+  .wow-press:active,
+  .wow-icon,
+  .wow-card:hover .wow-icon,
+  .wow-card:focus-visible .wow-icon,
+  .wow-press:hover .wow-icon,
+  .wow-card:has(:focus-visible) .wow-icon,
+  a:focus-visible .wow-card .wow-icon,
+  button:focus-visible .wow-card .wow-icon,
+  .wow-press:focus-visible .wow-icon {
+    animation: none !important;
+    animation-timeline: auto !important;
+    transform: none !important;
     transition: none !important;
   }
 

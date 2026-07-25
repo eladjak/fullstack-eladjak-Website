@@ -52,7 +52,7 @@ export default function SkillsUniversePage() {
     <div dir="rtl" className="min-h-dvh bg-background">
       <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
         <header className="mb-8 text-center">
-          <h1 className="scroll-fade text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+          <h1 className="wow-title wow-title--center scroll-fade text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
             יקום הכישורים
           </h1>
           <p className="scroll-fade mx-auto mt-3 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">

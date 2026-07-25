@@ -66,7 +66,7 @@ export default function ServicesPreviewSection() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="wow-card relative p-5 rounded-xl bg-card/50 border border-border/50 backdrop-blur-sm text-center h-full flex flex-col items-center">
+                <div className="relative p-5 rounded-xl bg-card/50 border border-border/50 backdrop-blur-sm text-center h-full flex flex-col items-center">
                   <div
                     className={`wow-icon inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white mb-3`}
                   >

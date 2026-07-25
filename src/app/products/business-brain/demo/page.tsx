@@ -338,7 +338,7 @@ export default function BusinessBrainDemoPage() {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="wow-card rounded-2xl border border-border/60 bg-card/60 px-3 py-4"
+                  className="rounded-2xl border border-border/60 bg-card/60 px-3 py-4"
                 >
                   <div className="text-2xl md:text-3xl font-bold text-primary">
                     <CountUp target={s.value} suffix={s.suffix} />
@@ -407,7 +407,7 @@ export default function BusinessBrainDemoPage() {
                     <button
                       type="button"
                       onClick={resetDemo}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors duration-150 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-[color] duration-150 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
                     >
                       <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
                       איפוס

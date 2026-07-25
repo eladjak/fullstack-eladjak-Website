@@ -132,7 +132,7 @@ function QuestionChip({ label, onClick, disabled }: ChipProps) {
       whileHover={disabled ? {} : { scale: 1.03 }}
       whileTap={disabled ? {} : { scale: 0.97 }}
       className={[
-        'rounded-full border px-3 py-1.5 text-sm font-medium text-start transition-colors duration-150',
+        'rounded-full border px-3 py-1.5 text-sm font-medium text-start transition-[background-color] duration-150',
         'border-primary/30 bg-primary/10 text-primary',
         'hover:border-primary/50 hover:bg-primary/20',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',

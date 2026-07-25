@@ -912,7 +912,7 @@ export default function BusinessBrainPage() {
                   const Icon = card.icon;
                   return (
                     <ScrollAnimate key={card.title} delay={i * 0.1}>
-                      <div className="group wow-card h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 active:scale-[0.98] transition-colors duration-200">
+                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 active:scale-[0.98] transition-colors duration-200">
                         <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
                           <Icon className="h-5 w-5 wow-icon" aria-hidden="true" />
                         </div>
@@ -1178,7 +1178,7 @@ export default function BusinessBrainPage() {
                   const Icon = card.icon;
                   return (
                     <ScrollAnimate key={card.title} delay={i * 0.1}>
-                      <div className="group wow-card h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 transition-colors duration-200">
+                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 transition-colors duration-200">
                         <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
                           <Icon className="h-5 w-5 wow-icon" aria-hidden="true" />
                         </div>

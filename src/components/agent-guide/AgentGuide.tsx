@@ -381,7 +381,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                               onClick={() => setMenuOpen(false)}
                               role="menuitem"
                               aria-current={isCurrent ? "page" : undefined}
-                              className={`flex items-center gap-2.5 text-xs font-medium px-3 py-2 rounded-lg transition-colors ${
+                              className={`flex items-center gap-2.5 text-xs font-medium px-3 py-2 rounded-lg transition-[color,background-color] ${
                                 isCurrent
                                   ? "bg-primary/15 text-primary border border-primary/30"
                                   : "text-muted-foreground hover:text-foreground hover:bg-muted border border-transparent"
@@ -486,7 +486,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               </div>
               <button
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:text-primary hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-3 py-1.5 text-xs text-muted-foreground transition-[color] hover:text-primary hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-label={locale === "he" ? "שיתוף המדריך" : "Share guide"}
               >
                 {copied ? (
@@ -895,7 +895,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 <Link
                   key={g.slug}
                   href={href}
-                  className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-sm text-foreground transition-colors hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-sm text-foreground transition-[color] hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   {g.agentName}
                 </Link>
@@ -991,7 +991,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             <span className="text-sm text-muted-foreground">{t.liked}</span>
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center gap-1.5 bg-card/60 border border-border/50 rounded-full px-4 py-2 text-sm text-muted-foreground transition-[color] hover:text-primary hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               aria-label={t.copyLink}
             >
               {copied ? (

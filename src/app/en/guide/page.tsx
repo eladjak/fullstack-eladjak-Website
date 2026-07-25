@@ -253,13 +253,13 @@ function GuideCard({
       aria-label={`${guide.agentName} guide`}
     >
       {heroImage && (
-        <div className="relative h-32 sm:h-36 overflow-hidden">
+        <div className="wow-media relative h-32 sm:h-36 overflow-hidden">
           <Image
             src={heroImage}
             alt={`${guide.agentName} guide illustration`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="wow-media object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105 group-focus-visible:scale-105"
           />
           <div
             aria-hidden="true"
@@ -296,7 +296,7 @@ function GuideCard({
       )}
       <div className="flex-1 flex flex-col p-5">
         <div className="mb-2 flex items-start justify-between gap-2">
-          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors leading-tight">
+          <h3 className="font-bold text-lg text-foreground group-hover:text-primary group-focus-visible:text-primary transition-colors leading-tight">
             {guide.agentName}
           </h3>
           {variant === "infra" && (

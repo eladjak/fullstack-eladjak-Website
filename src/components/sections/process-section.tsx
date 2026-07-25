@@ -67,7 +67,7 @@ export default function ProcessSection() {
               return (
                 <div
                   key={key}
-                  className={`wow-card relative text-center group ${slideClass} rounded-2xl border border-transparent p-4`}
+                  className={`relative text-center group ${slideClass} rounded-2xl border border-transparent p-4`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Step number + Icon combined */}

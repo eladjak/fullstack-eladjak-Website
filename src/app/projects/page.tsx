@@ -416,7 +416,7 @@ export default function ProjectsPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('search.placeholder')}
                 aria-label={t('search.label')}
-                className="w-full rounded-full border border-white/10 bg-white/5 ps-10 pe-10 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:border-purple-500/50"
+                className="w-full rounded-full border border-white/10 bg-white/5 ps-10 pe-10 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:border-purple-500/50"
               />
               {searchQuery && (
                 <button
@@ -554,7 +554,7 @@ export default function ProjectsPage() {
                   <div className="wow-card relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden">
                     {/* Project header - screenshot or gradient */}
                     <div
-                      className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
+                      className={`wow-media relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
                     >
                       {/* Category badge */}
                       <span className="absolute top-2 start-2 z-10 rounded-full bg-black/55 backdrop-blur-sm px-2.5 py-0.5 text-[10px] font-medium text-white/90 ring-1 ring-white/10">
@@ -565,7 +565,7 @@ export default function ProjectsPage() {
                           src={project.image}
                           alt={t(`projects.${project.messageKey}.title`)}
                           fill
-                          className="wow-media object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105 group-focus-within:scale-105"
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           {...(index < 3 ? { priority: true } : { loading: 'lazy' })}
                         />
@@ -581,7 +581,7 @@ export default function ProjectsPage() {
 
                       {/* Live Preview overlay button — shows on hover when live_url exists */}
                       {project.live_url && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200">
                           <button
                             onClick={() => setPreviewProject(project)}
                             aria-label={`${t('livePreview')} — ${t(`projects.${project.messageKey}.title`)}`}
@@ -595,7 +595,7 @@ export default function ProjectsPage() {
                     </div>
 
                     <div className="p-5">
-                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200">
+                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary group-focus-within:text-primary transition-colors duration-200">
                         {t(`projects.${project.messageKey}.title`)}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-3">

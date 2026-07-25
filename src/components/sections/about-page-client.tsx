@@ -99,7 +99,7 @@ export default function AboutPageClient() {
                     <ScrollAnimate key={key} delay={index * 0.05}>
                       <div className="group relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="wow-card relative flex flex-col items-center space-y-3 p-6 rounded-xl bg-card border border-border/50">
+                        <div className="relative flex flex-col items-center space-y-3 p-6 rounded-xl bg-card border border-border/50">
                           <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                             <Icon className="h-6 w-6 wow-icon" />
                           </div>
@@ -203,7 +203,7 @@ export default function AboutPageClient() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     {traitKeys.map((key, index) => (
                       <ScrollAnimate key={key} delay={index * 0.05}>
-                        <div className="wow-card p-4 rounded-lg border border-border/50 bg-card/50">
+                        <div className="p-4 rounded-lg border border-border/50 bg-card/50">
                           <h3 className="font-semibold text-sm text-primary mb-1">
                             {t(`unique.traits.${key}.title`)}
                           </h3>

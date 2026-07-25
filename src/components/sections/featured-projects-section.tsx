@@ -206,7 +206,7 @@ export default function FeaturedProjectsSection() {
                       src={project.image}
                       alt={project.icon}
                       fill
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105 group-focus-within:scale-105"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       loading="lazy"
                     />
@@ -222,7 +222,7 @@ export default function FeaturedProjectsSection() {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-200">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary group-focus-within:text-primary transition-colors duration-200">
                     {t(`projects.${project.messageKey}.title`)}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-3">

@@ -171,7 +171,7 @@ export default function SkillsSection() {
                 />
 
                 {/* Card */}
-                <div className="wow-card relative h-full p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/50">
+                <div className="relative h-full p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/50">
                   {/* Decorative corner accent */}
                   <div
                     className={`absolute -top-10 -end-10 h-20 w-20 rounded-full bg-gradient-to-br ${capability.gradient} opacity-40`}

@@ -49,7 +49,7 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
               href={`/blog/${post.slug}`}
               className="wow-card group block rounded-xl border border-border/50 bg-card p-5"
             >
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary group-focus-visible:text-primary transition-colors line-clamp-2">
                 {getTitle(post)}
               </h3>
               <p className="text-sm text-muted-foreground line-clamp-2 mb-3">

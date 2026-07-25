@@ -340,13 +340,13 @@ function GuideCard({
     >
       {/* Card image header */}
       {heroImage && (
-        <div className="relative h-32 sm:h-36 overflow-hidden">
+        <div className="wow-media relative h-32 sm:h-36 overflow-hidden">
           <Image
             src={heroImage}
             alt={`איור המדריך ל-${guide.agentNameHe}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="wow-media object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105 group-focus-visible:scale-105"
             {...(eager ? { priority: true, fetchPriority: 'high' as const } : { loading: 'lazy' as const })}
           />
           <div
@@ -396,7 +396,7 @@ function GuideCard({
       {/* Body */}
       <div className="flex-1 flex flex-col p-5">
         <div className="mb-2 flex items-start justify-between gap-2">
-          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors font-heebo leading-tight">
+          <h3 className="font-bold text-lg text-foreground group-hover:text-primary group-focus-visible:text-primary transition-colors font-heebo leading-tight">
             {guide.agentNameHe}
           </h3>
           {variant === "infra" && (
