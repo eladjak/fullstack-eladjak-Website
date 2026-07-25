@@ -83,7 +83,7 @@ export default function AboutPageClient() {
                 <a
                   href="/cv-elad-yaakobovitch.html"
                   download
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border/60 bg-background/50 px-6 py-2.5 text-sm font-medium text-foreground/80 transition-all duration-200 hover:bg-primary/10 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border/60 bg-background/50 px-6 py-2.5 text-sm font-medium text-foreground/80 transition-[transform,background-color,color,opacity] duration-200 hover:bg-primary/10 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   aria-label="הורדת קורות חיים"
                 >
                   <Download className="h-4 w-4" aria-hidden="true" />
@@ -99,9 +99,9 @@ export default function AboutPageClient() {
                     <ScrollAnimate key={key} delay={index * 0.05}>
                       <div className="group relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="relative flex flex-col items-center space-y-3 p-6 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 transition-all duration-300">
+                        <div className="wow-card relative flex flex-col items-center space-y-3 p-6 rounded-xl bg-card border border-border/50">
                           <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                            <Icon className="h-6 w-6" />
+                            <Icon className="h-6 w-6 wow-icon" />
                           </div>
                           <h3 className="text-lg font-semibold">
                             {t(`highlights.${key}.title`)}
@@ -124,7 +124,7 @@ export default function AboutPageClient() {
           <div className="container px-4 md:px-6">
             <ScrollAnimate>
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
+                <h2 className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
                   {t('journey.title')}
                 </h2>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg">
@@ -178,7 +178,7 @@ export default function AboutPageClient() {
             <div className="max-w-3xl mx-auto">
               <ScrollAnimate>
                 <div>
-                  <h2 className="text-2xl font-bold mb-4">{t('experience.title')}</h2>
+                  <h2 className="wow-title text-2xl font-bold mb-4">{t('experience.title')}</h2>
                   <p className="text-muted-foreground mb-4">{t('experience.intro')}</p>
                   <ul className="text-muted-foreground mb-6 space-y-2 list-none">
                     {(['haderech', 'cms', 'edutech', 'tools'] as const).map((key) => (
@@ -199,11 +199,11 @@ export default function AboutPageClient() {
               {/* What Makes Me Unique */}
               <ScrollAnimate>
                 <div>
-                  <h2 className="text-2xl font-bold mb-6">{t('unique.title')}</h2>
+                  <h2 className="wow-title text-2xl font-bold mb-6">{t('unique.title')}</h2>
                   <div className="grid gap-4 sm:grid-cols-2">
                     {traitKeys.map((key, index) => (
                       <ScrollAnimate key={key} delay={index * 0.05}>
-                        <div className="p-4 rounded-lg border border-border/50 bg-card/50 hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 transition-all duration-200">
+                        <div className="wow-card p-4 rounded-lg border border-border/50 bg-card/50">
                           <h3 className="font-semibold text-sm text-primary mb-1">
                             {t(`unique.traits.${key}.title`)}
                           </h3>

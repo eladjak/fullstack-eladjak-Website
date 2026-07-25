@@ -106,13 +106,14 @@ export default function MethodologyPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                       viewport={{ once: true }}
-                      className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 md:p-10 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10"
+                      className="group"
                     >
+                      <div className="wow-card relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 md:p-10">
                       <div className="flex flex-col md:flex-row gap-6 md:gap-10">
                         {/* Icon + number column */}
                         <div className="flex md:flex-col items-center md:items-start gap-4 md:gap-3 shrink-0">
                           <div
-                            className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${phase.gradient} text-white shadow-lg shrink-0`}
+                            className={`wow-icon inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${phase.gradient} text-white shadow-lg shrink-0`}
                           >
                             <Icon className="h-8 w-8" />
                           </div>
@@ -167,6 +168,7 @@ export default function MethodologyPage() {
                           </div>
                         </div>
                       </div>
+                      </div>
                     </motion.article>
                   </ScrollAnimate>
                 );
@@ -181,7 +183,7 @@ export default function MethodologyPage() {
           <div className="container relative px-4 md:px-6">
             <ScrollAnimate>
               <div className="text-center mb-12 max-w-2xl mx-auto">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4 font-heebo">
+                <h2 className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl mb-4 font-heebo">
                   {t('principles.title')}
                 </h2>
                 <p className="text-muted-foreground md:text-lg text-pretty">
@@ -193,7 +195,7 @@ export default function MethodologyPage() {
             <div className="grid gap-5 md:grid-cols-2 max-w-4xl mx-auto">
               {Array.from({ length: PRINCIPLES_COUNT }).map((_, idx) => (
                 <ScrollAnimate key={idx} delay={idx * 0.05}>
-                  <div className="rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm p-6 hover:border-primary/30 transition-colors duration-300">
+                  <div className="wow-card rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm p-6">
                     <h3 className="text-lg font-semibold mb-2 font-heebo">
                       {t(`principles.items.${idx}.title`)}
                     </h3>
@@ -214,7 +216,7 @@ export default function MethodologyPage() {
           <div className="container relative px-4 md:px-6">
             <ScrollAnimate>
               <div className="max-w-2xl mx-auto text-center space-y-6">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-heebo text-balance">
+                <h2 className="wow-title wow-title--center text-3xl md:text-4xl font-bold tracking-tight font-heebo text-balance">
                   {tCta('title')}
                 </h2>
                 <p className="text-muted-foreground md:text-lg text-pretty">
@@ -225,19 +227,19 @@ export default function MethodologyPage() {
                   <CalBookingButton
                     calLink="eladjak/30min"
                     label={tCta('bookCall')}
-                    className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   />
                   {/* Secondary CTAs */}
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="wow-press inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:bg-primary/5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     {tCta('ctaPrimary')}
-                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
+                    <ArrowRight className="wow-icon h-5 w-5" aria-hidden="true" />
                   </Link>
                   <Link
                     href="/services"
-                    className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="wow-press inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:bg-primary/5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     {tCta('ctaSecondary')}
                   </Link>

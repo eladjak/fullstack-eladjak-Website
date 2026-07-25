@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           post.frontmatter.date
         )}
       />
-      <article className="container mx-auto px-4 py-12 max-w-4xl transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/5">
+      <article className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Back Link (i18n) */}
         <BlogPostBackLink />
 

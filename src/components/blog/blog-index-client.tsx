@@ -150,7 +150,7 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.2, delay: Math.min(index * 0.05, 0.3) }}
             >
-              <Card className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:translate-y-[-4px] hover:border-primary/20 h-full flex flex-col">
+              <Card className="wow-card group overflow-hidden h-full flex flex-col">
                 {/* Featured Image — render real image only when not a duplicate.
                     Duplicates and missing images fall back to a gradient placeholder. */}
                 {imageUsage.get(post.slug) && post.frontmatter.featured_image ? (
@@ -169,7 +169,7 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
                     className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-primary/30 via-primary/10 to-secondary/20 flex items-center justify-center"
                     aria-hidden="true"
                   >
-                    <Tag className="h-10 w-10 text-primary/40" />
+                    <Tag className="h-10 w-10 text-primary/40 wow-icon" />
                   </div>
                 )}
                 <CardHeader>

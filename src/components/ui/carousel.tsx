@@ -164,14 +164,14 @@ export function Carousel({
         <>
           <button
             onClick={goPrev}
-            className="absolute top-1/2 -translate-y-1/2 start-0 -ms-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 border border-border/50 backdrop-blur-sm text-foreground/70 hover:text-foreground hover:bg-background shadow-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="absolute top-1/2 -translate-y-1/2 start-0 -ms-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 border border-border/50 backdrop-blur-sm text-foreground/70 hover:text-foreground hover:bg-background shadow-lg transition-[transform,background-color,color,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Previous slide"
           >
             <ChevronRight className="h-5 w-5 rtl:rotate-0 ltr:rotate-180" />
           </button>
           <button
             onClick={goNext}
-            className="absolute top-1/2 -translate-y-1/2 end-0 -me-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 border border-border/50 backdrop-blur-sm text-foreground/70 hover:text-foreground hover:bg-background shadow-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="absolute top-1/2 -translate-y-1/2 end-0 -me-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 border border-border/50 backdrop-blur-sm text-foreground/70 hover:text-foreground hover:bg-background shadow-lg transition-[transform,background-color,color,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Next slide"
           >
             <ChevronLeft className="h-5 w-5 rtl:rotate-0 ltr:rotate-180" />
@@ -189,7 +189,7 @@ export function Carousel({
               role="tab"
               aria-selected={i === currentIndex}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-2 rounded-full transition-[transform,background-color,color,opacity] duration-300 ${
                 i === currentIndex
                   ? 'w-8 bg-primary'
                   : 'w-2 bg-foreground/20 hover:bg-foreground/40'

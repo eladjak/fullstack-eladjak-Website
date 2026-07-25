@@ -36,7 +36,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           // Base styles with proper focus management (WCAG AA)
           "inline-flex items-center justify-center rounded-md font-medium",
-          "ring-offset-background transition-colors",
+          // `wow-press` adds the tactile :active scale (transform only) that
+          // every action on the site now shares.
+          "ring-offset-background transition-colors wow-press",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "disabled:pointer-events-none disabled:opacity-50",
           // Apply variant and size

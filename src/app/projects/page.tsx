@@ -391,7 +391,7 @@ export default function ProjectsPage() {
       <main className="container mx-auto px-4 py-12">
         <ScrollAnimate>
           <header className="text-center mb-12">
-            <h1 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+            <h1 className="wow-title wow-title--center text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
@@ -467,7 +467,7 @@ export default function ProjectsPage() {
               <button
                 onClick={() => setSelectedTechs([])}
                 aria-pressed={selectedTechs.length === 0}
-                className={`rounded-full px-3.5 py-1 text-xs font-medium border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
+                className={`rounded-full px-3.5 py-1 text-xs font-medium border transition-[transform,background-color,color,opacity] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
                   selectedTechs.length === 0
                     ? 'border-purple-500/60 bg-purple-500/15 text-purple-300'
                     : 'border-white/10 bg-white/5 text-white/50 hover:border-white/20 hover:bg-white/10 hover:text-white/80'
@@ -483,7 +483,7 @@ export default function ProjectsPage() {
                     key={tech}
                     onClick={() => toggleTech(tech)}
                     aria-pressed={active}
-                    className={`rounded-full px-3.5 py-1 text-xs font-medium border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
+                    className={`rounded-full px-3.5 py-1 text-xs font-medium border transition-[transform,background-color,color,opacity] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
                       active
                         ? 'border-purple-500/60 bg-purple-500/15 text-purple-300 shadow-[0_0_8px_rgba(168,85,247,0.25)]'
                         : 'border-white/10 bg-white/5 text-white/50 hover:border-white/20 hover:bg-white/10 hover:text-white/80'
@@ -499,7 +499,7 @@ export default function ProjectsPage() {
                 <button
                   onClick={() => setTechExpanded((v) => !v)}
                   aria-expanded={techExpanded}
-                  className="inline-flex items-center gap-1 rounded-full px-3.5 py-1 text-xs font-medium border border-dashed border-white/15 bg-transparent text-white/50 hover:text-white/80 hover:border-white/30 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                  className="inline-flex items-center gap-1 rounded-full px-3.5 py-1 text-xs font-medium border border-dashed border-white/15 bg-transparent text-white/50 hover:text-white/80 hover:border-white/30 transition-[transform,background-color,color,opacity] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                 >
                   {techExpanded
                     ? t('techFilter.showLess')
@@ -551,7 +551,7 @@ export default function ProjectsPage() {
                   exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
                   className="group"
                 >
-                  <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="wow-card relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden">
                     {/* Project header - screenshot or gradient */}
                     <div
                       className={`relative h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
@@ -565,7 +565,7 @@ export default function ProjectsPage() {
                           src={project.image}
                           alt={t(`projects.${project.messageKey}.title`)}
                           fill
-                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                          className="wow-media object-cover object-top transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           {...(index < 3 ? { priority: true } : { loading: 'lazy' })}
                         />
@@ -585,7 +585,7 @@ export default function ProjectsPage() {
                           <button
                             onClick={() => setPreviewProject(project)}
                             aria-label={`${t('livePreview')} — ${t(`projects.${project.messageKey}.title`)}`}
-                            className="inline-flex items-center gap-2 rounded-lg bg-purple-600/90 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-purple-500 active:scale-95 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                            className="wow-press inline-flex items-center gap-2 rounded-lg bg-purple-600/90 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-purple-500 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
                           >
                             <Eye className="h-4 w-4" aria-hidden="true" />
                             {t('livePreview')}

@@ -187,7 +187,7 @@ export default async function GuideIndex() {
               2026 · {allGuides.length} מדריכים · סוכנים + תשתית
             </span>
           </div>
-          <h1 className="scroll-fade text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 font-heebo text-balance">
+          <h1 className="wow-title wow-title--center scroll-fade text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 font-heebo text-balance">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               מדריכי רשת הסוכנים
             </span>
@@ -220,7 +220,7 @@ export default async function GuideIndex() {
             <Bot className="size-5 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-heebo">
+            <h2 className="wow-title text-2xl sm:text-3xl font-bold text-foreground font-heebo">
               סוכני AI
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -243,7 +243,7 @@ export default async function GuideIndex() {
             <Workflow className="size-5 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-heebo">
+            <h2 className="wow-title text-2xl sm:text-3xl font-bold text-foreground font-heebo">
               דפוסי-עבודה
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -271,7 +271,7 @@ export default async function GuideIndex() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-heebo">
+                <h2 className="wow-title text-2xl sm:text-3xl font-bold text-foreground font-heebo">
                   בנה את השרת שלך
                 </h2>
                 <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/20">
@@ -304,7 +304,7 @@ export default async function GuideIndex() {
           </p>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-6 py-3 transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="wow-press group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-6 py-3 transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             תאמו שיחת ייעוץ
             <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
@@ -335,7 +335,7 @@ function GuideCard({
   return (
     <Link
       href={href}
-      className="group bg-card rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 flex flex-col"
+      className="wow-card group bg-card rounded-2xl border border-border overflow-hidden flex flex-col"
       aria-label={`מדריך ${guide.agentName}`}
     >
       {/* Card image header */}
@@ -346,7 +346,7 @@ function GuideCard({
             alt={`איור המדריך ל-${guide.agentNameHe}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="wow-media object-cover transition-transform duration-500 group-hover:scale-105"
             {...(eager ? { priority: true, fetchPriority: 'high' as const } : { loading: 'lazy' as const })}
           />
           <div

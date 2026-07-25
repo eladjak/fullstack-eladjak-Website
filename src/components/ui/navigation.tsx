@@ -128,7 +128,7 @@ export default function Navigation() {
       <nav
         role="navigation"
         aria-label="Main navigation"
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 w-full z-50 transition-[transform,background-color,color,opacity] duration-300 ${
           scrolled
             ? 'bg-background/70 backdrop-blur-xl shadow-lg border-b border-primary/10'
             : 'bg-background/40 backdrop-blur-md'
@@ -158,7 +158,7 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-sm text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
+                  className={`wow-underline text-sm text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
                     isActive(item.href) ? 'text-primary font-semibold' : ''
                   }`}
                   aria-current={isActive(item.href) ? 'page' : undefined}

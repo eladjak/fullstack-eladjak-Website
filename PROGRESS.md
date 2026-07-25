@@ -1,5 +1,7 @@
 # Full-Stack Portfolio Website - Progress
 
+
+## 2026-07-24 — Wave-10 GEO sweep: 92→100/100 (prod). Fixed the one regression — empty alt on the cinematic scene1 poster (`cinematic-journey-mount.tsx`). Deployed from tree as-is via VPS+vercel (`eladjak-website-ef115a12l`, aliased). Live-verified: 0 images missing alt, geo-scan 100.
 ## 2026-07-24 — July projects refresh shipped to PROD (branch `feat/july-projects-refresh` → main `18ca12b`, deploy `eladjak-website-jku4ewg3n` Ready + aliased)
 
 - **Zehut card is now clickable → https://zehut.org.il** (site went public July 2026). Description updated he+en on BOTH /projects and homepage featured: 12 languages, Cardcom e-commerce + platform-book fulfillment, events board, AI assistant, campaign system. Technologies + LINK-AUDIT comments updated (triplus remains the only NDA no-link card).

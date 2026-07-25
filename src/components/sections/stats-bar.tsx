@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { GitBranch, Code2, Briefcase, BookOpen, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { AGENT_COUNT } from '@/data/site-facts';
@@ -14,9 +14,16 @@ interface StatItem {
 }
 
 function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
-  const [count, setCount] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+  // Reduced motion starts at the final value so the number never animates and
+  // never renders a misleading intermediate figure.
+  const [count, setCount] = useState(prefersReducedMotion ? value : 0);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setCount(value);
+      return;
+    }
     if (!inView) return;
 
     let start = 0;
@@ -33,7 +40,7 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
     }, 16);
 
     return () => clearInterval(timer);
-  }, [inView, value]);
+  }, [inView, value, prefersReducedMotion]);
 
   return (
     <span className="tabular-nums">
@@ -45,6 +52,7 @@ function AnimatedCounter({ value, suffix, inView }: { value: number; suffix: str
 export default function StatsBar() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
+  const reduceMotion = useReducedMotion();
   const t = useTranslations('stats');
 
   const stats: StatItem[] = [
@@ -63,9 +71,9 @@ export default function StatsBar() {
             <motion.div
               key={stat.labelKey}
               className="flex flex-col items-center gap-2 text-center"
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.1 }}
             >
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary">
                 {stat.icon}

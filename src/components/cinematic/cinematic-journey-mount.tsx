@@ -21,7 +21,7 @@ const CinematicJourney = dynamic(() => import('./cinematic-journey'), {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/videos/cinematic/scene1.webp"
-        alt=""
+        alt="Cinematic backdrop — night-city opening scene of the portfolio journey"
         className="absolute inset-0 h-full w-full object-cover"
         decoding="async"
       />

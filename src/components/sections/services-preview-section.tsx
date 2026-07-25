@@ -40,12 +40,12 @@ export default function ServicesPreviewSection() {
                 src="/images/illustration-services.jpg"
                 alt="איור של שירותי הפיתוח והייעוץ — אתרים, אפליקציות, אוטומציה ו-AI"
                 fill
-                className="object-cover"
+                className="wow-media object-cover"
                 loading="lazy"
               />
             </div>
             <div className="text-center md:text-start flex-1">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+              <h2 className="wow-title wow-title--center-sm text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                 {t('title')}
               </h2>
               <p className="mx-auto md:mx-0 max-w-[600px] text-muted-foreground md:text-lg">
@@ -66,9 +66,9 @@ export default function ServicesPreviewSection() {
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="relative p-5 rounded-xl bg-card/50 border border-border/50 backdrop-blur-sm text-center hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center">
+                <div className="wow-card relative p-5 rounded-xl bg-card/50 border border-border/50 backdrop-blur-sm text-center h-full flex flex-col items-center">
                   <div
-                    className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white mb-3 group-hover:scale-110 transition-transform`}
+                    className={`wow-icon inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white mb-3`}
                   >
                     <Icon className="h-6 w-6" />
                   </div>
@@ -88,7 +88,7 @@ export default function ServicesPreviewSection() {
           <div className="text-center">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-primary/30 bg-background/50 backdrop-blur-sm px-6 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:bg-primary/10 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="wow-press inline-flex items-center gap-2 rounded-full border-2 border-primary/30 bg-background/50 backdrop-blur-sm px-6 py-3 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {tNav('services')}
               <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />

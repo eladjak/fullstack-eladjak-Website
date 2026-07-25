@@ -19,7 +19,7 @@ const AVATAR_GRADIENTS = [
 
 function RecommendationCard({ recKey, index, t }: { recKey: string; index: number; t: ReturnType<typeof useTranslations> }) {
   return (
-    <div className="relative h-full min-h-[260px] rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5 flex flex-col">
+    <div className="relative h-full min-h-[260px] rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-6 flex flex-col">
       <div className={`absolute -top-2 -end-2 h-16 w-16 rounded-full bg-gradient-to-br ${AVATAR_GRADIENTS[index]} opacity-10 blur-xl`} />
       <Quote className="h-7 w-7 text-primary/20 mb-3 shrink-0" aria-hidden="true" />
       <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
@@ -66,7 +66,7 @@ export default function RecommendationsSection() {
                 <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
+            <h2 className="wow-title wow-title--center text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h2>
             <p className="mx-auto max-w-[600px] text-pretty text-muted-foreground md:text-lg leading-relaxed">

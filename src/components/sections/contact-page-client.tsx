@@ -273,8 +273,8 @@ function ContactPageInner() {
               <div className="grid gap-6 grid-cols-2 md:grid-cols-4 max-w-4xl w-full mt-8">
                 {contactInfo.map((info, index) => (
                   <ScrollAnimate key={info.title} delay={index * 0.05}>
-                    <div className="flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50 hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 border border-transparent">
-                      <info.icon className="h-8 w-8 text-primary" aria-hidden="true" />
+                    <div className="wow-card flex flex-col items-center space-y-2 p-6 rounded-lg bg-secondary/50 border border-transparent">
+                      <info.icon className="h-8 w-8 text-primary wow-icon" aria-hidden="true" />
                       <h3 className="text-lg font-semibold">{info.title}</h3>
                       {info.href ? (
                         <a
@@ -513,7 +513,7 @@ function ContactPageInner() {
 
                       <Button
                         type="submit"
-                        className="w-full hover:scale-105 transition-all duration-300"
+                        className="wow-press w-full transition-[transform,background-color,color,opacity] duration-300"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (

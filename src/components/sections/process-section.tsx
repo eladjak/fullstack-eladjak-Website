@@ -39,12 +39,12 @@ export default function ProcessSection() {
                 src="/images/illustration-process.jpg"
                 alt="איור של ששת שלבי תהליך העבודה — מאפיון ועד השקה ותחזוקה"
                 fill
-                className="object-cover"
+                className="wow-media object-cover"
                 loading="lazy"
               />
             </div>
             <div className="text-center md:text-start flex-1">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
+              <h2 className="wow-title wow-title--center-sm text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
                 {t('title')}
               </h2>
               <p className="mx-auto md:mx-0 max-w-[700px] text-muted-foreground md:text-lg">
@@ -67,7 +67,7 @@ export default function ProcessSection() {
               return (
                 <div
                   key={key}
-                  className={`relative text-center group ${slideClass} rounded-2xl border border-transparent hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 transition-all duration-300 p-4`}
+                  className={`wow-card relative text-center group ${slideClass} rounded-2xl border border-transparent p-4`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Step number + Icon combined */}
@@ -75,7 +75,7 @@ export default function ProcessSection() {
                     <div className="text-5xl font-bold text-muted-foreground/10 select-none mb-2">
                       {String(index + 1).padStart(2, '0')}
                     </div>
-                    <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`wow-icon inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-lg`}>
                       <Icon className="h-6 w-6" />
                     </div>
                   </div>

@@ -124,7 +124,7 @@ export default function ServicesPage() {
                 {t('badge')}
               </motion.span>
 
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-glow">
+              <h1 className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-glow">
                 {t('title')}
               </h1>
 
@@ -145,7 +145,7 @@ export default function ServicesPage() {
                     <Building2 className="h-3.5 w-3.5" />
                     {t('pillarsSection.badge')}
                   </span>
-                  <h2 className="mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
+                  <h2 className="wow-title wow-title--center mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
                     {t('pillarsSection.title')}
                   </h2>
                   <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto text-pretty">
@@ -169,7 +169,7 @@ export default function ServicesPage() {
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => setActivePillar(p.id)}
-                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-[transform,background-color,color,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                           isActive
                             ? 'bg-primary text-primary-foreground shadow-md shadow-primary/25'
                             : 'bg-card/60 border border-border/60 text-foreground/80 hover:border-primary/40 hover:bg-primary/5'
@@ -222,7 +222,7 @@ export default function ServicesPage() {
                       className="group relative"
                     >
                       <div
-                        className={`relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-8 md:p-10 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10 ${
+                        className={`wow-card relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-8 md:p-10 ${
                           isEven ? '' : 'md:flex-row-reverse'
                         }`}
                       >
@@ -284,7 +284,7 @@ export default function ServicesPage() {
                     <Building2 className="h-7 w-7" />
                   </div>
                   <div className="flex-1 space-y-3">
-                    <h2 className="text-xl md:text-2xl font-bold font-heebo text-balance">
+                    <h2 className="wow-title text-xl md:text-2xl font-bold font-heebo text-balance">
                       {t('b2b.title')}
                     </h2>
                     <p className="text-muted-foreground leading-relaxed text-pretty">
@@ -293,14 +293,14 @@ export default function ServicesPage() {
                     <div className="flex flex-wrap gap-3 pt-2">
                       <Link
                         href="/contact?type=b2b"
-                        className="inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 text-sm font-medium text-cta-foreground shadow-md hover:bg-cta/90 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        className="wow-press inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 text-sm font-medium text-cta-foreground shadow-md hover:bg-cta/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         {t('b2b.ctaPrimary')}
-                        <ArrowRight className="h-4 w-4" />
+                        <ArrowRight className="wow-icon h-4 w-4" />
                       </Link>
                       <Link
                         href="/methodology"
-                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-6 py-3 text-sm font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        className="wow-press inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-6 py-3 text-sm font-medium text-foreground hover:bg-primary/5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         {t('b2b.ctaSecondary')}
                       </Link>
@@ -326,7 +326,7 @@ export default function ServicesPage() {
                     <MessageCircle className="h-3.5 w-3.5" />
                     מוצרים לרכישה
                   </span>
-                  <h2 className="mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
+                  <h2 className="wow-title wow-title--center mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
                     מוצרים מוכנים — מתחילים לעבוד מהיום
                   </h2>
                   <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto text-pretty">
@@ -337,11 +337,11 @@ export default function ServicesPage() {
                 {/* Business Brain product card */}
                 <Link
                   href="/products/business-brain"
-                  className="group block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/[0.04] via-card/60 to-violet-500/[0.04] backdrop-blur-sm p-6 md:p-8 hover:border-amber-500/40 hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-card group block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/[0.04] via-card/60 to-violet-500/[0.04] backdrop-blur-sm p-6 md:p-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <div className="flex flex-col sm:flex-row gap-5 items-start">
                     {/* Icon */}
-                    <div className="flex-shrink-0 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg group-hover:scale-105 transition-transform duration-300">
+                    <div className="wow-icon flex-shrink-0 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg">
                       <MessageCircle className="h-7 w-7" />
                     </div>
 
@@ -379,7 +379,7 @@ export default function ServicesPage() {
                       </ul>
 
                       <div className="flex items-center gap-2 pt-1">
-                        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500 group-hover:gap-2.5 transition-all duration-200">
+                        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-500">
                           לפרטים מלאים ולהצטרפות כמייסד
                           <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
                         </span>
@@ -406,7 +406,7 @@ export default function ServicesPage() {
           <div className="container px-4 md:px-6 relative">
             <ScrollAnimate>
               <div className="text-center mb-12 max-w-2xl mx-auto">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                <h2 className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                   {t('cta.title')}
                 </h2>
                 <p className="text-muted-foreground md:text-lg">
@@ -423,9 +423,9 @@ export default function ServicesPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Contact via WhatsApp"
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-green-500/30 hover:bg-green-500/5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-card flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-green-500/5 transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white group-hover:scale-110 transition-transform">
+                  <div className="wow-icon flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white">
                     <WhatsAppIcon className="h-6 w-6" />
                   </div>
                   <span className="font-medium">WhatsApp</span>
@@ -436,9 +436,9 @@ export default function ServicesPage() {
                 <a
                   href="mailto:eladhiteclearning@gmail.com"
                   aria-label="Send email to eladhiteclearning@gmail.com"
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-card flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-primary/5 transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground group-hover:scale-110 transition-transform">
+                  <div className="wow-icon flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                     <Mail className="h-6 w-6" />
                   </div>
                   <span className="font-medium">{t('cta.email')}</span>
@@ -449,9 +449,9 @@ export default function ServicesPage() {
                 <a
                   href="tel:+972525427474"
                   aria-label="Call 052-542-7474"
-                  className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-card flex flex-col items-center gap-3 p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:bg-primary/5 transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground group-hover:scale-110 transition-transform">
+                  <div className="wow-icon flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                     <Phone className="h-6 w-6" />
                   </div>
                   <span className="font-medium">{t('cta.phone')}</span>
@@ -464,10 +464,10 @@ export default function ServicesPage() {
               <div className="text-center">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-press inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   {t('cta.contactForm')}
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="wow-icon h-5 w-5" />
                 </Link>
               </div>
             </ScrollAnimate>

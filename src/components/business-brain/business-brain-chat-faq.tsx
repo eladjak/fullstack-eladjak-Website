@@ -14,7 +14,8 @@ type FaqKey =
   | 'howItWorks'
   | 'pricing'
   | 'founding'
-  | 'cancel';
+  | 'cancel'
+  | 'orgs';
 
 interface ChatMessage {
   id: string;
@@ -31,6 +32,7 @@ const QUESTIONS: Record<FaqKey, string> = {
   pricing: 'מה כוללת חבילת המייסד?',
   founding: 'כמה מקומות מייסדים נשארו?',
   cancel: 'אפשר לבטל את המנוי?',
+  orgs: 'זה מתאים גם לתנועה או לארגון?',
 };
 
 const ANSWERS: Record<FaqKey, string> = {
@@ -47,20 +49,23 @@ const ANSWERS: Record<FaqKey, string> = {
   pricing:
     'חבילת מייסד: הקמה ₪1,450 (במקום ₪2,900) + מנוי ₪390 לחודש (במקום ₪490). מכסה עד 3 מייסדים בלבד. ₪500 מקדמה עכשיו נספרת על חשבון ההקמה.',
   founding:
-    'התחלנו עם 3 מקומות. כל שריון מגיע עם ₪500 מקדמה שנספרת על חשבון ההקמה. אחרי שהמקומות יתמלאו, המחיר חוזר לרגיל (₪2,900 + ₪490). לא מיהרת, עלות שנה ראשונה תעלה לך ₪1,740 יותר.',
+    'התחלנו עם 3 מקומות. כל שריון מגיע עם ₪500 מקדמה שנספרת על חשבון ההקמה. אחרי שהמקומות יתמלאו, המחיר חוזר לרגיל (₪2,900 + ₪490). מי שמצטרף אחר כך משלם ₪1,740 יותר בשנה הראשונה.',
   cancel:
     'כן, ניתן לבטל בכל עת עם 30 יום הודעה מראש, בלי שום עלות נוספת. מקדמת ההרשמה לא מוחזרת, אבל כל שאר התשלומים עוצרים. פשוט וענייני.',
+  orgs:
+    'כן, ובגדול. ארגון עם מתנדבים, רכזים וצוותים עצמאיים הוא בדיוק המקום שבו דברים נופלים בין הכיסאות. הסוכן מותאם למבנה שלכם: דו"ח בוקר להנהלה, מעקב פניות בין צוותים, וזיכרון ארגוני שנשאר גם כשאנשים מתחלפים. ההיקף נסגר בשיחת המיפוי.',
 };
 
 const FOLLOW_UPS: Record<FaqKey, FaqKey[]> = {
   privacy: ['metaAi', 'cancel', 'howItWorks'],
   metaAi: ['privacy', 'taskFocus', 'pricing'],
   vacation: ['pricing', 'cancel', 'founding'],
-  taskFocus: ['howItWorks', 'metaAi', 'pricing'],
+  taskFocus: ['howItWorks', 'metaAi', 'orgs'],
   howItWorks: ['taskFocus', 'pricing', 'founding'],
   pricing: ['founding', 'cancel', 'howItWorks'],
   founding: ['pricing', 'howItWorks', 'cancel'],
   cancel: ['pricing', 'vacation', 'privacy'],
+  orgs: ['howItWorks', 'pricing', 'privacy'],
 };
 
 const INITIAL_QUESTIONS: FaqKey[] = ['metaAi', 'howItWorks', 'pricing', 'privacy'];
@@ -72,6 +77,7 @@ const ALL_QUESTIONS: FaqKey[] = [
   'privacy',
   'taskFocus',
   'vacation',
+  'orgs',
   'founding',
   'cancel',
 ];
@@ -227,7 +233,7 @@ export function BusinessBrainChatFAQ() {
     setIsTyping(true);
 
     // System context injected client-side for the free-text path
-    const systemContext = `אתה עוזר-מכירות של "מוח עסקי" — שירות ניהול עסקי בוואטסאפ של אלעד יעקובוביץ' (fullstack-eladjak.co.il). ענה בעברית, בגוף ראשון כאלעד, בקצרה (2-3 משפטים), בלי מקפים ארוכים, בלי bullet points. תמחור: הקמה ₪2,900, מנוי בסיסי ₪490, מקצועי ₪790. חבילת מייסד: ₪1,450 + ₪390 לחודש. וואטסאפ: 052-542-7474.`;
+    const systemContext = `אתה עוזר-מכירות של "מוח עסקי" — שירות ניהול עסקי בוואטסאפ של אלעד יעקובוביץ' (fullstack-eladjak.co.il). ענה בעברית, בגוף ראשון כאלעד, בקצרה (2-3 משפטים), בלי מקפים ארוכים, בלי bullet points. תמחור: הקמה ₪2,900, מנוי בסיסי ₪490, מקצועי ₪790. חבילת מייסד: ₪1,450 + ₪390 לחודש. השירות מתאים גם לארגונים ותנועות עם מתנדבים וצוותים (דו"ח בוקר להנהלה, מעקב פניות, זיכרון ארגוני). וואטסאפ: 052-542-7474.`;
 
     let answerText = 'לא הצלחתי לענות כרגע. רוצה לכתוב לי ישירות בוואטסאפ?';
     try {

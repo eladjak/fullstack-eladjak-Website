@@ -40,7 +40,7 @@ export default function B2BBand() {
                   </p>
                   <h2
                     id="b2b-band-heading"
-                    className="text-xl md:text-2xl font-bold font-heebo text-balance leading-tight"
+                    className="wow-title text-xl md:text-2xl font-bold font-heebo text-balance leading-tight"
                   >
                     {t('title')}
                   </h2>
@@ -78,7 +78,7 @@ export default function B2BBand() {
               {/* CTA */}
               <Link
                 href="/methodology"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground/90 px-5 py-3 text-sm font-medium text-background hover:bg-foreground transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shrink-0 self-start lg:self-auto"
+                className="wow-press inline-flex items-center gap-2 rounded-full bg-foreground/90 px-5 py-3 text-sm font-medium text-background hover:bg-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shrink-0 self-start lg:self-auto"
               >
                 {t('cta')}
                 <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />

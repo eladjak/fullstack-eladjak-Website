@@ -105,7 +105,7 @@ export default function GuideIndexEn() {
               2026 · {allGuidesEn.length} Guides · Agents + Infrastructure
             </span>
           </div>
-          <h1 className="scroll-fade text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
+          <h1 className="wow-title wow-title--center scroll-fade text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Agent Network Guides
             </span>
@@ -148,7 +148,7 @@ export default function GuideIndexEn() {
             <Bot className="size-5 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <h2 className="wow-title text-2xl sm:text-3xl font-bold text-foreground">
               AI Agents
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -170,7 +170,7 @@ export default function GuideIndexEn() {
             <Workflow className="size-5 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <h2 className="wow-title text-2xl sm:text-3xl font-bold text-foreground">
               Working Patterns
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -192,7 +192,7 @@ export default function GuideIndexEn() {
             <Server className="size-5 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+            <h2 className="wow-title text-2xl sm:text-3xl font-bold text-foreground">
               Infrastructure
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -220,7 +220,7 @@ export default function GuideIndexEn() {
           </p>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-6 py-3 transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="wow-press group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-6 py-3 transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Schedule a consultation
             <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -249,7 +249,7 @@ function GuideCard({
   return (
     <Link
       href={href}
-      className="group bg-card rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 flex flex-col"
+      className="wow-card group bg-card rounded-2xl border border-border overflow-hidden flex flex-col"
       aria-label={`${guide.agentName} guide`}
     >
       {heroImage && (
@@ -259,7 +259,7 @@ function GuideCard({
             alt={`${guide.agentName} guide illustration`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="wow-media object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div
             aria-hidden="true"

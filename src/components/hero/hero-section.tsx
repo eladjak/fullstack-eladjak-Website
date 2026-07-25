@@ -33,6 +33,27 @@ export default function HeroSection() {
       {/* Animated CSS gradient background layered over image */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-br from-primary/15 via-accent/10 to-background animate-gradient bg-[length:200%_200%]" />
 
+      {/* Cinematic dual-radial depth + vignette (wow-ui-standard §14) — static, zero CPU.
+          NOTE: no particles layer here on purpose — the homepage already runs the
+          full-page scroll-scrubbed flight backdrop (CinematicJourneyMount) + floating
+          icons; a second rAF layer fails the anti-kitsch/CPU gate. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 90% 70% at 50% 15%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 60%), radial-gradient(ellipse 120% 80% at 50% 110%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-[2] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.14) 100%)',
+        }}
+      />
+
       {/* Floating tech icons background */}
       <FloatingTechIcons />
 
@@ -116,14 +137,14 @@ export default function HeroSection() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-3.5 text-sm font-medium text-cta-foreground shadow-lg shadow-cta/25 transition-all duration-300 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-cta px-8 py-3.5 text-sm font-medium text-cta-foreground shadow-lg shadow-cta/25 transition-[transform,background-color] duration-200 hover:bg-cta/90 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:scale-105 active:scale-[.97]"
             >
               {t('contactCta')}
               <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
             </Link>
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-border bg-background/50 backdrop-blur-sm px-8 py-3.5 text-sm font-medium text-foreground transition-all duration-200 hover:bg-accent/10 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-border bg-background/50 backdrop-blur-sm px-8 py-3.5 text-sm font-medium text-foreground transition-[transform,background-color] duration-200 hover:bg-accent/10 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:bg-accent/10 focus-visible:border-primary/30 active:scale-[.97]"
             >
               {t('viewProjects')}
               <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />
@@ -132,7 +153,7 @@ export default function HeroSection() {
               href="https://wa.me/972525427474?text=%D7%94%D7%99%D7%99%20%D7%90%D7%9C%D7%A2%D7%93%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%A9%D7%9C%D7%99"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-green-600 px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-green-600/25 transition-all duration-200 hover:bg-green-500 hover:shadow-xl hover:shadow-green-600/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-green-600 px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-green-600/25 transition-[transform,background-color] duration-200 hover:bg-green-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:bg-green-500 active:scale-[.97]"
               aria-label="Contact via WhatsApp"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
@@ -143,7 +164,7 @@ export default function HeroSection() {
             <a
               href="/cv-elad-yaakobovitch.html"
               download
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-border/60 bg-background/40 backdrop-blur-sm px-5 py-3.5 text-sm font-medium text-foreground/80 transition-all duration-200 hover:bg-muted/60 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border/60 bg-background/40 backdrop-blur-sm px-5 py-3.5 text-sm font-medium text-foreground/80 transition-[transform,background-color,color] duration-200 hover:bg-muted/60 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:bg-muted/60 focus-visible:border-primary/40 focus-visible:text-primary active:scale-[.97]"
               aria-label="הורדת קורות חיים"
             >
               <Download className="h-4 w-4" aria-hidden="true" />

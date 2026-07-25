@@ -237,7 +237,7 @@ export default function ThanksPageClient() {
                 <ScrollAnimate key={person.key} delay={index * 0.04}>
                   <div className="group relative h-full">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative flex flex-col h-full p-6 rounded-xl bg-card border border-border/50 backdrop-blur-sm hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
+                    <div className="wow-card relative flex flex-col h-full p-6 rounded-xl bg-card border border-border/50 backdrop-blur-sm">
                       {/* Category badge */}
                       <div className="absolute top-3 end-3">
                         <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${categoryColors[person.category]}`}>
@@ -292,10 +292,10 @@ export default function ThanksPageClient() {
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary hover:scale-110 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                className="wow-press inline-flex h-11 w-11 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                 aria-label={`ביקור בפרופיל ${link.type} של ${t(`people.${person.key}.name`)}`}
                               >
-                                <Icon className="h-4 w-4" aria-hidden="true" />
+                                <Icon className="h-4 w-4 wow-icon" aria-hidden="true" />
                               </a>
                             );
                           })}

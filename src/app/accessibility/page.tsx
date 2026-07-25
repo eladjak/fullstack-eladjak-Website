@@ -22,7 +22,7 @@ export default function AccessibilityPage() {
           עודכן: 19 ביולי 2026
         </p>
 
-        <h2>מחויבותנו לנגישות</h2>
+        <h2 className="wow-title">מחויבותנו לנגישות</h2>
         <p>
           אתר fullstack-eladjak.co.il (להלן: &quot;האתר&quot;) פועל לעמוד בדרישות תקנות
           שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע&quot;ג-2013,
@@ -30,7 +30,7 @@ export default function AccessibilityPage() {
           הבינלאומיים <strong>WCAG 2.1 רמה AA</strong>.
         </p>
 
-        <h2>התאמות נגישות באתר</h2>
+        <h2 className="wow-title">התאמות נגישות באתר</h2>
         <ul>
           <li>תאימות מלאה לקוראי מסך (NVDA, JAWS, VoiceOver)</li>
           <li>ניווט מלא במקלדת (Tab, Shift+Tab, Enter, Esc)</li>
@@ -45,37 +45,37 @@ export default function AccessibilityPage() {
           <li>תוויות ברורות לכל שדות הטופס וקישורים</li>
         </ul>
 
-        <h2>תוכן שאינו נגיש (אם רלוונטי)</h2>
+        <h2 className="wow-title">תוכן שאינו נגיש (אם רלוונטי)</h2>
         <p>
           סקציית <strong>יקום הכישורים</strong> (<code>/skills-universe</code>) היא
           הדמיה תלת-ממדית אינטראקטיבית. ההדמיה עצמה אינה נגישה לחלוטין למשתמשי
           מקלדת ולקוראי מסך — אך ניתן לדלג עליה ולהמשיך לתוכן הטקסטואלי. תוכן
-          המידע המופיע בה זמין במלואו בעמוד <a href="/guide">המדריכים</a> בצורה
+          המידע המופיע בה זמין במלואו בעמוד <a href="/guide" className="wow-underline">המדריכים</a> בצורה
           טקסטואלית ונגישה.
         </p>
 
-        <h2>הסדרי נגישות לעיון בעמדה ציבורית</h2>
+        <h2 className="wow-title">הסדרי נגישות לעיון בעמדה ציבורית</h2>
         <p>
           האתר הוא דיגיטלי בלבד ואינו מחזיק עמדה פיזית פתוחה לציבור.
         </p>
 
-        <h2>פניות בנושא נגישות</h2>
+        <h2 className="wow-title">פניות בנושא נגישות</h2>
         <p>
           נתקלת בבעיית נגישות באתר? אשמח לדעת. פנייתך תטופל תוך זמן סביר.
         </p>
         <ul>
-          <li>אימייל: <a href="mailto:eladhiteclearning@gmail.com">eladhiteclearning@gmail.com</a></li>
-          <li>WhatsApp: <a href="https://wa.me/972525427474">052-542-7474</a></li>
-          <li>טופס יצירת קשר: <a href="/contact">/contact</a></li>
+          <li>אימייל: <a href="mailto:eladhiteclearning@gmail.com" className="wow-underline">eladhiteclearning@gmail.com</a></li>
+          <li>WhatsApp: <a href="https://wa.me/972525427474" className="wow-underline">052-542-7474</a></li>
+          <li>טופס יצירת קשר: <a href="/contact" className="wow-underline">/contact</a></li>
         </ul>
 
-        <h2>רכז הנגישות</h2>
+        <h2 className="wow-title">רכז הנגישות</h2>
         <p>
           <strong>אלעד יעקובוביץ&apos;</strong> · אימייל:{' '}
-          <a href="mailto:eladhiteclearning@gmail.com">eladhiteclearning@gmail.com</a>
+          <a href="mailto:eladhiteclearning@gmail.com" className="wow-underline">eladhiteclearning@gmail.com</a>
         </p>
 
-        <h2>הצהרה זו תקפה ל</h2>
+        <h2 className="wow-title">הצהרה זו תקפה ל</h2>
         <p>
           כלל עמודי האתר תחת הדומיין <code>fullstack-eladjak.co.il</code>, כולל
           תתי-דומיינים אם קיימים. ההצהרה נסקרת מחדש לפחות אחת לשנה ובכל שינוי

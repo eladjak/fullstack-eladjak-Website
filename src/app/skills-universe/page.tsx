@@ -193,7 +193,7 @@ export default function SkillsUniversePage() {
           </p>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="wow-press group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-[transform,background-color,color,opacity] duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             רוצה לעבוד יחד? בוא נדבר
             <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />

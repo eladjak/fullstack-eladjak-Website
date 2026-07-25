@@ -40,14 +40,14 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
   return (
     <section aria-label="Related posts">
       <ScrollAnimate>
-        <h2 className="text-2xl font-bold mb-6">{t('relatedPosts')}</h2>
+        <h2 className="wow-title text-2xl font-bold mb-6">{t('relatedPosts')}</h2>
       </ScrollAnimate>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post, index) => (
           <ScrollAnimate key={post.slug} delay={index * 0.05}>
             <Link
               href={`/blog/${post.slug}`}
-              className="group block rounded-xl border border-border/50 bg-card p-5 transition-all duration-200 hover:shadow-lg hover:border-primary/30 hover:translate-y-[-2px]"
+              className="wow-card group block rounded-xl border border-border/50 bg-card p-5"
             >
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
                 {getTitle(post)}

@@ -134,12 +134,12 @@ export default function SkillsSection() {
                 src="/images/illustration-skills.jpg"
                 alt="איור של ערימה טכנולוגית — frontend, backend ו-AI"
                 fill
-                className="object-cover"
+                className="wow-media object-cover"
                 loading="lazy"
               />
             </div>
             <div className="text-center md:text-start flex-1">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+              <h2 className="wow-title wow-title--center-sm text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                 {t('title')}
               </h2>
               <p className="mx-auto md:mx-0 max-w-[700px] text-muted-foreground md:text-lg">
@@ -171,7 +171,7 @@ export default function SkillsSection() {
                 />
 
                 {/* Card */}
-                <div className="relative h-full p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/50 hover:border-primary/40 hover:shadow-lg transition-all duration-300">
+                <div className="wow-card relative h-full p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/50">
                   {/* Decorative corner accent */}
                   <div
                     className={`absolute -top-10 -end-10 h-20 w-20 rounded-full bg-gradient-to-br ${capability.gradient} opacity-40`}
@@ -181,7 +181,7 @@ export default function SkillsSection() {
                     {/* Icon + Title */}
                     <div className="flex items-start gap-4">
                       <div
-                        className={`flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br ${capability.gradient} text-primary-foreground shrink-0`}
+                        className={`wow-icon flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br ${capability.gradient} text-primary-foreground shrink-0`}
                       >
                         <Icon className="h-6 w-6" aria-hidden="true" />
                       </div>
@@ -201,7 +201,7 @@ export default function SkillsSection() {
                       {capability.techTags.map((tag) => (
                         <span
                           key={tag.name}
-                          className="px-3 py-1 text-xs font-medium rounded-lg bg-background/60 border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors duration-200"
+                          className="px-3 py-1 text-xs font-medium rounded-lg bg-background/60 border border-border/50 text-muted-foreground hover:text-foreground transition-colors duration-200"
                         >
                           {tag.name}
                         </span>

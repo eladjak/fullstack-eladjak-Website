@@ -549,7 +549,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 onClick={() => setShowBeginner(true)}
                 role="tab"
                 aria-selected={showBeginner}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-[transform,background-color,color,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   showBeginner
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -561,7 +561,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                 onClick={() => setShowBeginner(false)}
                 role="tab"
                 aria-selected={!showBeginner}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-[transform,background-color,color,opacity] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   !showBeginner
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -594,7 +594,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 font-heebo text-balance">
+            <h2 className="wow-title wow-title--center text-3xl sm:text-4xl font-bold mb-4 font-heebo text-balance">
               {guide.paradigmTitle}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
@@ -612,7 +612,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="relative bg-card/60 backdrop-blur-sm rounded-xl border border-border/50 p-5 hover:border-primary/20 transition-all duration-300"
+                  className="relative bg-card/60 backdrop-blur-sm rounded-xl border border-border/50 p-5"
                 >
                   <div className="flex items-start gap-3 mb-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
@@ -649,7 +649,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  className="bg-card/60 backdrop-blur-sm rounded-xl border border-border/50 p-5 text-center hover:border-primary/20 hover:-translate-y-1 transition-all duration-300"
+                  className="h-full bg-card/60 backdrop-blur-sm rounded-xl border border-border/50 p-5 text-center"
                 >
                   <div
                     className={`inline-flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${item.color} text-white mb-3`}
@@ -670,7 +670,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
       {/* GUIDE SECTIONS */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold font-heebo mb-2">
+          <h2 className="wow-title wow-title--center text-3xl font-bold font-heebo mb-2">
             {t.practicalGuide}
           </h2>
           <p className="text-muted-foreground">{t.clickToOpen}</p>
@@ -702,7 +702,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                   aria-controls={`panel-${section.id}`}
                 >
                   <div
-                    className={`group bg-card rounded-2xl border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md ${
+                    className={`group wow-card bg-card rounded-2xl border border-border p-5 sm:p-6 ${
                       isExpanded
                         ? "ring-2 ring-primary/30 shadow-lg border-primary/20"
                         : ""
@@ -908,7 +908,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
       {/* RESOURCES */}
       <section className="bg-card/50 border-t border-border py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-10 font-heebo">
+          <h2 className="wow-title wow-title--center text-2xl sm:text-3xl font-bold text-foreground text-center mb-10 font-heebo">
             {t.resources}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -916,28 +916,35 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               const Icon = resource.icon;
               const isExternal = resource.href.startsWith("http");
               return (
-                <motion.a
+                <motion.div
                   key={resource.title}
-                  href={resource.href}
-                  {...(isExternal
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.06 }}
-                  className="group bg-card rounded-xl border border-border p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:shadow-primary/10 hover:border-primary/30"
+                  className="h-full"
                 >
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary mb-3">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-heebo">
-                    {resource.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1 text-pretty">
-                    {resource.description}
-                  </p>
-                </motion.a>
+                  {/* The entrance stays on the motion wrapper and the hover/focus
+                      lift on the anchor: framer writes an inline transform, so a
+                      CSS hover transform on the same node would never apply. */}
+                  <a
+                    href={resource.href}
+                    {...(isExternal
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="group wow-card block h-full bg-card rounded-xl border border-border p-5"
+                  >
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary mb-3">
+                      <Icon className="wow-icon h-5 w-5" />
+                    </div>
+                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-heebo">
+                      {resource.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mt-1 text-pretty">
+                      {resource.description}
+                    </p>
+                  </a>
+                </motion.div>
               );
             })}
           </div>
@@ -947,7 +954,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
       {/* CTA */}
       <section className="relative py-16 text-center overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-foreground mb-4 font-heebo text-balance">
+          <h2 className="wow-title wow-title--center text-3xl font-bold text-foreground mb-4 font-heebo text-balance">
             {guide.ctaTitle}
           </h2>
           <p className="text-lg text-muted-foreground mb-8 text-pretty">
@@ -959,7 +966,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
               target={
                 guide.primaryCta.href.startsWith("http") ? "_blank" : undefined
               }
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-8 py-3.5 shadow-lg shadow-primary/20 transition-all duration-200 hover:opacity-90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-medium px-8 py-3.5 shadow-lg shadow-primary/20 transition-opacity duration-200 hover:opacity-90 wow-press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <PrimaryIcon className="h-5 w-5" />
               {guide.primaryCta.label}
@@ -972,7 +979,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
                     ? "_blank"
                     : undefined
                 }
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-muted text-foreground font-medium px-8 py-3.5 transition-all duration-200 hover:bg-muted/80 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-muted text-foreground font-medium px-8 py-3.5 transition-colors duration-200 hover:bg-muted/80 wow-press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <SecondaryIcon className="h-5 w-5" />
                 {guide.secondaryCta.label}
@@ -1005,7 +1012,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             {prevGuide ? (
               <Link
                 href={guideHref(prevGuide.slug)}
-                className="group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4"
+                className="group wow-card bg-card border border-border rounded-2xl p-5 flex items-center gap-4"
               >
                 <PrevArrowIcon className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                 <div className="flex-1 min-w-0">
@@ -1023,7 +1030,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             {nextGuide ? (
               <Link
                 href={guideHref(nextGuide.slug)}
-                className={`group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 ${isRtl ? "sm:flex-row-reverse sm:text-start text-end" : ""}`}
+                className={`group wow-card bg-card border border-border rounded-2xl p-5 flex items-center gap-4 ${isRtl ? "sm:flex-row-reverse sm:text-start text-end" : ""}`}
               >
                 <NextArrowIcon className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                 <div className="flex-1 min-w-0">
@@ -1038,7 +1045,7 @@ export function AgentGuide({ guide, locale = "he" }: AgentGuideProps) {
             ) : (
               <Link
                 href={t.guideIndex}
-                className={`group bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-0.5 transition-all flex items-center gap-4 ${isRtl ? "sm:flex-row-reverse sm:text-start text-end" : ""}`}
+                className={`group wow-card bg-card border border-border rounded-2xl p-5 flex items-center gap-4 ${isRtl ? "sm:flex-row-reverse sm:text-start text-end" : ""}`}
               >
                 <LayoutGrid className="h-6 w-6 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                 <div className="flex-1 min-w-0">

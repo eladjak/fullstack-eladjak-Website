@@ -64,7 +64,7 @@ export default function LatestPostsSection({ posts }: LatestPostsSectionProps) {
         <ScrollAnimate>
           <div className="flex items-center justify-between mb-12 gap-4 flex-wrap">
             <div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-glow">
+              <h2 className="wow-title text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-glow">
                 {t('title')}
               </h2>
               <p className="mt-2 text-muted-foreground text-base md:text-lg max-w-xl">
@@ -106,7 +106,7 @@ export default function LatestPostsSection({ posts }: LatestPostsSectionProps) {
                 >
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="flex flex-col h-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 gap-4 hover:border-primary/40 hover:bg-white/8 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="flex flex-col h-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 gap-4 hover:bg-white/8 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     aria-label={title}
                   >
                     {/* Tags */}

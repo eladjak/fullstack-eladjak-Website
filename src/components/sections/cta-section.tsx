@@ -38,12 +38,12 @@ export default function CTASection() {
                 src="/images/illustration-cta.jpg"
                 alt="איור המזמין להתחיל פרויקט פיתוח או ייעוץ AI משותף"
                 fill
-                className="object-cover"
+                className="wow-media object-cover"
                 loading="lazy"
               />
             </div>
             <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
+              <h2 className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-glow">
                 {t('title')}
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg mb-2">
@@ -69,8 +69,8 @@ export default function CTASection() {
                   viewport={{ once: true }}
                   className="group relative"
                 >
-                  <div className="relative p-6 rounded-xl bg-card/40 border border-border/50 backdrop-blur-sm text-center hover:border-primary/30 transition-all duration-300">
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
+                  <div className="wow-card relative p-6 rounded-xl bg-card/40 border border-border/50 backdrop-blur-sm text-center">
+                    <div className="wow-icon inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4">
                       <Icon className="h-6 w-6" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2">
@@ -91,7 +91,7 @@ export default function CTASection() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 hover:shadow-xl hover:shadow-cta/30 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="wow-press inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-medium text-cta-foreground shadow-lg shadow-cta/25 hover:bg-cta/90 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {t('getInTouch')}
                 <ArrowRight className="h-5 w-5 rtl:-scale-x-100" />
@@ -101,7 +101,7 @@ export default function CTASection() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-press inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:bg-primary/5 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <Calendar className="h-5 w-5" />
                   {t('bookCall')}
@@ -109,7 +109,7 @@ export default function CTASection() {
               ) : (
                 <Link
                   href={BOOKING_URL}
-                  className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="wow-press inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-8 py-4 text-base font-medium text-foreground hover:bg-primary/5 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <Calendar className="h-5 w-5" />
                   {t('bookCall')}

@@ -16,7 +16,7 @@ export default function NotFound() {
             404
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="rounded-full bg-primary/10 p-8 dark:bg-primary/15 dark:shadow-[0_0_24px_4px_hsla(263,70%,60%,0.25)] transition-shadow duration-300">
+            <div className="rounded-full bg-primary/10 p-8 dark:bg-primary/15 dark:shadow-[0_0_24px_4px_hsla(263,70%,60%,0.25)]">
               <FileQuestion className="h-16 w-16 text-primary" />
             </div>
           </div>
@@ -36,7 +36,7 @@ export default function NotFound() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-4">
           <Link
             href="/"
-            className="group flex flex-col items-center gap-3 p-6 glow-border bg-card/60 backdrop-blur-sm border border-border/60 rounded-lg hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="group flex flex-col items-center gap-3 p-6 glow-border bg-card/60 backdrop-blur-sm border border-border/60 rounded-lg hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 transition-[transform,background-color,color,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <div className="rounded-full bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
               <Home className="h-6 w-6 text-primary" />
@@ -49,7 +49,7 @@ export default function NotFound() {
 
           <Link
             href="/blog"
-            className="group flex flex-col items-center gap-3 p-6 glow-border bg-card/60 backdrop-blur-sm border border-border/60 rounded-lg hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="group flex flex-col items-center gap-3 p-6 glow-border bg-card/60 backdrop-blur-sm border border-border/60 rounded-lg hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 transition-[transform,background-color,color,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <div className="rounded-full bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
               <FileQuestion className="h-6 w-6 text-primary" />
@@ -62,7 +62,7 @@ export default function NotFound() {
 
           <Link
             href="/projects"
-            className="group flex flex-col items-center gap-3 p-6 glow-border bg-card/60 backdrop-blur-sm border border-border/60 rounded-lg hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="group flex flex-col items-center gap-3 p-6 glow-border bg-card/60 backdrop-blur-sm border border-border/60 rounded-lg hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 transition-[transform,background-color,color,opacity] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <div className="rounded-full bg-primary/10 p-3 group-hover:bg-primary/20 transition-colors">
               <Search className="h-6 w-6 text-primary" />

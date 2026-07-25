@@ -133,7 +133,7 @@ export default function FeaturedProjectsSection() {
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
               {t('eyebrow')}
             </p>
-            <h2 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
+            <h2 className="wow-title wow-title--center text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
               {t('title')}
             </h2>
             <p className="mx-auto max-w-[640px] text-pretty text-muted-foreground md:text-lg leading-relaxed">
@@ -196,7 +196,7 @@ export default function FeaturedProjectsSection() {
           {staticProjects.map((project, index) => (
             <div key={project.id} className="group scroll-scale">
               <TiltedCard tiltStrength={8} className="h-full">
-              <div className="relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+              <div className="wow-card relative h-full rounded-xl border border-border/50 bg-card/60 backdrop-blur-sm overflow-hidden">
                 {/* Project header - screenshot or gradient */}
                 <div
                   className={`relative h-40 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
@@ -280,7 +280,7 @@ export default function FeaturedProjectsSection() {
           <div className="text-center mt-10">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-3 text-sm font-medium text-primary hover:bg-primary/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="wow-press inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-3 text-sm font-medium text-primary hover:bg-primary/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {t('viewAll')}
               <ArrowRight className="h-4 w-4 rtl:-scale-x-100" />

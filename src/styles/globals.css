@@ -751,3 +751,275 @@ a:focus-visible .logo-anim__ch {
     opacity: 0 !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WOW-2026 LAYER — wave 16
+   A shared interaction vocabulary applied across every route, built strictly
+   inside the site's OWN brand (purple --primary/--accent + amber --cta).
+
+   Motion diet (hard): only `transform` and `opacity` are ever animated.
+   Colour/shadow/border values are STATIC — the brand glow lives on an inert
+   decorative pseudo-element whose *opacity* is what moves. Nothing here
+   animates width/height/top/left/box-shadow/border-color/letter-spacing.
+
+   Every decorative pseudo-element is pointer-events:none.
+   Every hover response has an exact :focus-visible twin (keyboard parity).
+   The reduced-motion belt lives at the very END of this file so it wins the
+   cascade against these equal-specificity hover rules.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --wow-lift: -4px;
+  --wow-fast: 180ms;
+  --wow-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── 1. Section-heading accent line ────────────────────────────────────────
+   A short brand rule under a section title that draws itself in as the
+   section enters view (scaleX only). Base state IS the final state, so a
+   browser without scroll-timeline — or a reduced-motion user — simply sees a
+   finished line. Origin is the reading start edge, so it draws right→left in
+   Hebrew and left→right in English. */
+.wow-title {
+  position: relative;
+}
+
+.wow-title::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 3.25rem;
+  margin-block-start: 0.75rem;
+  margin-inline-end: auto;
+  border-radius: 999px;
+  pointer-events: none;
+  background-image: linear-gradient(to left, var(--primary), var(--cta));
+  transform-origin: right center;
+}
+
+[dir='ltr'] .wow-title::after {
+  background-image: linear-gradient(to right, var(--primary), var(--cta));
+  transform-origin: left center;
+}
+
+/* Centred variant — for headings centred at every breakpoint. */
+.wow-title--center::after {
+  margin-inline: auto;
+  transform-origin: center;
+}
+
+/* Responsive variant — matches the very common `text-center md:text-start`
+   heading: the bar is centred on mobile and moves to the reading-start edge
+   from `md` up, so it never sits on the far edge of centred copy. */
+.wow-title--center-sm::after {
+  margin-inline: auto;
+  transform-origin: center;
+}
+
+@media (min-width: 768px) {
+  .wow-title--center-sm::after {
+    margin-inline-start: 0;
+    margin-inline-end: auto;
+    transform-origin: right center;
+  }
+
+  [dir='ltr'] .wow-title--center-sm::after {
+    transform-origin: left center;
+  }
+}
+
+@keyframes wow-accent-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .wow-title::after {
+    animation: wow-accent-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 24%;
+  }
+}
+
+/* ── 2. Card lift + brand glow ─────────────────────────────────────────────
+   The lift is a transform on the card; the glow is a STATIC box-shadow parked
+   on an inert ::after whose opacity is the only animated value. Keyboard
+   parity is exact: :focus-visible on the card, and :has(:focus-visible) for
+   the common case of a card wrapping the real focusable link. */
+.wow-card {
+  position: relative;
+  transition: transform var(--wow-fast) var(--wow-ease);
+}
+
+/* `inset:0` rather than a negative inset on purpose: a good number of these
+   cards are `overflow-hidden` (image cards especially), which clips the outer
+   half of this layer's shadow. The INSET ring is drawn inside the box, so it
+   survives clipping — a clipped card still gets a visible brand ring plus the
+   lift, and an unclipped card additionally gets the soft outer bloom. */
+.wow-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--wow-fast) var(--wow-ease);
+  box-shadow:
+    0 14px 34px -16px hsla(258, 90%, 58%, 0.5),
+    0 0 0 1px hsla(258, 90%, 68%, 0.45) inset,
+    0 0 24px -6px hsla(258, 90%, 66%, 0.28) inset;
+}
+
+@media (hover: hover) {
+  .wow-card:hover {
+    transform: translateY(var(--wow-lift));
+  }
+
+  .wow-card:hover::after {
+    opacity: 1;
+  }
+}
+
+.wow-card:focus-visible,
+.wow-card:has(:focus-visible) {
+  transform: translateY(var(--wow-lift));
+}
+
+.wow-card:focus-visible::after,
+.wow-card:has(:focus-visible)::after {
+  opacity: 1;
+}
+
+/* ── 3. Image scale-settle on reveal ───────────────────────────────────────
+   A picture arrives a hair over-scaled and settles to rest as it enters view.
+   Requires an overflow-hidden parent (all call sites have one). Base state is
+   the settled state, so no-support / reduced-motion shows a still image. */
+@keyframes wow-media-settle {
+  from {
+    transform: scale(1.055);
+    opacity: 0.82;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .wow-media {
+    animation: wow-media-settle linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+
+/* ── 4. CTA press ──────────────────────────────────────────────────────────
+   Sub-200ms tactile feedback on the primary actions. transform only. */
+.wow-press {
+  transition: transform 140ms var(--wow-ease);
+}
+
+.wow-press:active {
+  transform: scale(0.97);
+}
+
+/* ── 5. Link underline-slide ───────────────────────────────────────────────
+   Grows from the reading-start edge. The bar itself is statically positioned
+   (inset-block-end) and only its scaleX moves. */
+.wow-underline {
+  position: relative;
+}
+
+.wow-underline::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -2px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+  opacity: 0.65;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--wow-fast) var(--wow-ease);
+}
+
+[dir='ltr'] .wow-underline::after {
+  transform-origin: left center;
+}
+
+@media (hover: hover) {
+  .wow-underline:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.wow-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ── 6. Icon nudge ─────────────────────────────────────────────────────────
+   A small scale on an icon inside a hovered/focused card or button. Capped at
+   1.06 per the anti-kitsch gate. */
+.wow-icon {
+  transition: transform var(--wow-fast) var(--wow-ease);
+}
+
+@media (hover: hover) {
+  .wow-card:hover .wow-icon,
+  .wow-press:hover .wow-icon {
+    transform: scale(1.06);
+  }
+}
+
+.wow-card:has(:focus-visible) .wow-icon,
+.wow-press:focus-visible .wow-icon {
+  transform: scale(1.06);
+}
+
+/* ── REDUCED-MOTION BELT (must stay LAST in this file) ─────────────────────
+   The hover rules above are equal-specificity and appear later than the
+   global reduced-motion block near the top of the file, so they would
+   otherwise silently re-enable the lift for reduced-motion users. This block
+   is authored last AND uses !important so it wins on both axes. Every element
+   is returned to its final, visible, untransformed state. The static colour /
+   glow response is intentionally preserved — reduced-motion is about
+   movement, not about removing all feedback. */
+@media (prefers-reduced-motion: reduce) {
+  .wow-title::after,
+  .wow-media,
+  .wow-card,
+  .wow-card:hover,
+  .wow-card:focus-visible,
+  .wow-card:has(:focus-visible),
+  .wow-press,
+  .wow-press:active,
+  .wow-icon,
+  .wow-card:hover .wow-icon,
+  .wow-press:hover .wow-icon,
+  .wow-card:has(:focus-visible) .wow-icon,
+  .wow-press:focus-visible .wow-icon {
+    animation: none !important;
+    animation-timeline: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  /* The underline is a decorative bar, not content: under reduced motion it
+     simply appears at full width on hover/focus instead of sliding. */
+  .wow-underline::after {
+    transition: none !important;
+    transform: scaleX(0) !important;
+  }
+
+  .wow-underline:hover::after,
+  .wow-underline:focus-visible::after {
+    transform: scaleX(1) !important;
+  }
+}

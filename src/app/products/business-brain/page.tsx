@@ -55,6 +55,12 @@ const WA_FOUNDER_LINK =
   'https://wa.me/972525427474?text=' +
   encodeURIComponent('היי אלעד, אני מעוניין לשריין מקום מייסד במוח העסקי');
 
+const WA_ORG_LINK =
+  'https://wa.me/972525427474?text=' +
+  encodeURIComponent(
+    'היי אלעד, אנחנו ארגון ורוצים לשמוע על המוח העסקי לצוותים ומתנדבים',
+  );
+
 // Live WhatsApp conversation demo
 const DEMO_MESSAGES: ChatMessage[] = [
   {
@@ -84,7 +90,7 @@ const DEMO_MESSAGES: ChatMessage[] = [
   {
     id: '5',
     sender: 'bot',
-    text: '"שלמה שלום, רק רציתי לבדוק שהכל ברור מהצעה שנשלחה. שמח לענות על כל שאלה. מה שיהיה כאן — אלעד."',
+    text: '"שלמה שלום, רציתי לוודא שההצעה ששלחתי ברורה. אם עלתה שאלה, אני כאן. אלעד."',
     delay: 7000,
   },
 ];
@@ -457,7 +463,7 @@ function FounderBanner({
           <button
             type="button"
             onClick={onCheckout}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-all duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="wow-press inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             שריין מקום מייסד — ₪500 מקדמה
@@ -467,7 +473,7 @@ function FounderBanner({
             href={WA_FOUNDER_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium transition-all duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
             שאלה קודם? שלח הודעה
@@ -508,6 +514,8 @@ function CheckoutModal({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [taxId, setTaxId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -520,7 +528,7 @@ function CheckoutModal({
       const res = await fetch('/api/sumit/business-brain-checkout/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone }),
+        body: JSON.stringify({ name, email, phone, businessName, taxId }),
       });
       const data = (await res.json()) as {
         checkoutUrl?: string;
@@ -603,6 +611,8 @@ function CheckoutModal({
                 { id: 'co-name', label: 'שם מלא', value: name, set: setName, type: 'text', placeholder: 'ישראל ישראלי', autoComplete: 'name' },
                 { id: 'co-email', label: 'כתובת מייל', value: email, set: setEmail, type: 'email', placeholder: 'you@example.com', autoComplete: 'email' },
                 { id: 'co-phone', label: 'מספר טלפון', value: phone, set: setPhone, type: 'tel', placeholder: '052-000-0000', autoComplete: 'tel' },
+                { id: 'co-business', label: 'שם העסק (לקבלה)', value: businessName, set: setBusinessName, type: 'text', placeholder: 'שם העסק שלך', autoComplete: 'organization', optional: true },
+                { id: 'co-taxid', label: 'ח.פ / ע.מ (לא חובה)', value: taxId, set: setTaxId, type: 'text', placeholder: '512345678', autoComplete: 'off', optional: true },
               ].map((field) => (
                 <div key={field.id} className="space-y-1.5">
                   <label
@@ -618,7 +628,7 @@ function CheckoutModal({
                     onChange={(e) => field.set(e.target.value)}
                     placeholder={field.placeholder}
                     autoComplete={field.autoComplete}
-                    required
+                    required={!field.optional}
                     className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
                   />
                 </div>
@@ -634,7 +644,7 @@ function CheckoutModal({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/20 transition-all duration-150 hover:bg-amber-400 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60 disabled:pointer-events-none"
+                className="wow-press w-full inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/20 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60 disabled:pointer-events-none"
               >
                 {loading ? (
                   <>
@@ -716,6 +726,26 @@ export default function BusinessBrainPage() {
             {/* Overlay */}
             <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/80 via-background/60 to-background" />
 
+            {/* Cinematic dual-radial depth + vignette (wow-ui-standard §14) — static, zero CPU.
+                No particles layer: the hero already runs parallax + staged motion; a
+                particles canvas here would fail the anti-kitsch/CPU gate. */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 z-[2] pointer-events-none"
+              style={{
+                background:
+                  'radial-gradient(ellipse 90% 70% at 50% 15%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 60%), radial-gradient(ellipse 120% 80% at 50% 110%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%)',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 z-[2] pointer-events-none"
+              style={{
+                background:
+                  'radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.12) 100%)',
+              }}
+            />
+
             <div className="container relative z-10 px-4 md:px-6 pt-28 pb-16">
               <div className="max-w-3xl">
                 {/* Badge */}
@@ -748,7 +778,7 @@ export default function BusinessBrainPage() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8"
                 >
-                  דו"ח בוקר, תזכורות לידים, סיכום יום — ישירות לוואטסאפ שלך.
+                  דו"ח בוקר, תזכורות לידים וסיכום יום, ישירות לוואטסאפ שלך.
                   ומאחוריו אלעד: בן-אדם שמבין עסקים ועונה כשצריך.
                 </motion.p>
 
@@ -762,7 +792,7 @@ export default function BusinessBrainPage() {
                   <button
                     type="button"
                     onClick={() => setCheckoutOpen(true)}
-                    className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-7 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-all duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-7 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:bg-amber-400 focus-visible:-translate-y-0.5"
                   >
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
                     שריין מקום מייסד
@@ -772,7 +802,7 @@ export default function BusinessBrainPage() {
                     href={WA_DEEP_LINK}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-medium transition-all duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 hover:bg-white/10 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:bg-white/10 focus-visible:-translate-y-0.5"
                   >
                     <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                     לקבוע שיחת היכרות
@@ -814,7 +844,7 @@ export default function BusinessBrainPage() {
 
                   <h2
                     id="bb-demo-heading"
-                    className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-5"
+                    className="wow-title text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-5"
                   >
                     הבוקר מתחיל לפני שאתה פותח לפטופ
                   </h2>
@@ -852,7 +882,7 @@ export default function BusinessBrainPage() {
               <ScrollAnimate className="text-center max-w-2xl mx-auto mb-14">
                 <h2
                   id="bb-messages-heading"
-                  className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                  className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                 >
                   שלוש אמיתות שכדאי לדעת
                 </h2>
@@ -882,9 +912,9 @@ export default function BusinessBrainPage() {
                   const Icon = card.icon;
                   return (
                     <ScrollAnimate key={card.title} delay={i * 0.1}>
-                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 transition-all duration-200 hover:border-primary/40 hover:bg-card/80 hover:shadow-lg hover:shadow-primary/5 active:scale-[0.98]">
+                      <div className="group wow-card h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 active:scale-[0.98] transition-colors duration-200">
                         <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
-                          <Icon className="h-5 w-5" aria-hidden="true" />
+                          <Icon className="h-5 w-5 wow-icon" aria-hidden="true" />
                         </div>
                         <h3 className="mb-2 text-lg font-semibold">{card.title}</h3>
                         <p className="text-sm leading-relaxed text-muted-foreground">
@@ -911,7 +941,7 @@ export default function BusinessBrainPage() {
                 </span>
                 <h2
                   id="bb-compare-heading"
-                  className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                  className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                 >
                   מה ₪490 לחודש קונה לך?
                 </h2>
@@ -1022,7 +1052,7 @@ export default function BusinessBrainPage() {
               <ScrollAnimate className="text-center max-w-2xl mx-auto mb-14">
                 <h2
                   id="bb-how-heading"
-                  className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                  className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                 >
                   איך זה עובד
                 </h2>
@@ -1101,6 +1131,94 @@ export default function BusinessBrainPage() {
             </div>
           </section>
 
+          {/* ─── Organizations & Movements ─── */}
+          <section
+            className="w-full py-20 md:py-28 bg-gradient-to-b from-muted/10 via-primary/[0.03] to-muted/10"
+            id="organizations"
+            aria-labelledby="bb-orgs-heading"
+          >
+            <div className="container px-4 md:px-6">
+              <ScrollAnimate className="text-center max-w-2xl mx-auto mb-12">
+                <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+                  <Users className="h-4 w-4" aria-hidden="true" />
+                  לתנועות ולארגונים
+                </span>
+                <h2
+                  id="bb-orgs-heading"
+                  className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                >
+                  מנהל ארגון עם הרבה ידיים? זה נבנה גם בשבילך
+                </h2>
+                <p className="text-muted-foreground md:text-lg leading-relaxed">
+                  בארגון עם מתנדבים, רכזים וצוותים שעובדים עצמאית, הבעיה היא
+                  כמעט אף פעם לא רצון. הבעיה היא תיאום: מי לקח את הפנייה, מה
+                  נתקע אצל מי, ומה באמת קורה בשטח. מוח אחד שרואה את התמונה
+                  כולה, ומתדרך את ההנהלה כל בוקר.
+                </p>
+              </ScrollAnimate>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
+                {[
+                  {
+                    icon: BarChart3,
+                    title: 'דו"ח בוקר להנהלה',
+                    body: 'מה קרה אתמול בכל הצוותים, מה מחכה להחלטה, ומה עומד להתפספס. תמונת מצב אחת, כל בוקר, בוואטסאפ.',
+                  },
+                  {
+                    icon: MessageCircle,
+                    title: 'שום פנייה לא נופלת',
+                    body: 'פנייה שנכנסה, מי קיבל אותה, ומה קרה איתה מאז. כשמשהו תקוע יותר מדי זמן, מגיעה תזכורת למי שצריך.',
+                  },
+                  {
+                    icon: Shield,
+                    title: 'זיכרון ארגוני',
+                    body: 'מתנדבים מתחלפים, הידע נשאר. מי דיבר עם מי, מה סוכם ומתי. גם מי שהצטרף אתמול נכנס לתמונה בדקות.',
+                  },
+                ].map((card, i) => {
+                  const Icon = card.icon;
+                  return (
+                    <ScrollAnimate key={card.title} delay={i * 0.1}>
+                      <div className="group wow-card h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 transition-colors duration-200">
+                        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
+                          <Icon className="h-5 w-5 wow-icon" aria-hidden="true" />
+                        </div>
+                        <h3 className="mb-2 text-lg font-semibold">{card.title}</h3>
+                        <p className="text-sm leading-relaxed text-muted-foreground">
+                          {card.body}
+                        </p>
+                      </div>
+                    </ScrollAnimate>
+                  );
+                })}
+              </div>
+
+              <ScrollAnimate className="text-center">
+                <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto">
+                  ההקמה לארגון נבנית סביב המבנה שלכם: צוותים, תחומי אחריות
+                  ומערכות קיימות. מתחילים בשיחת מיפוי, כמו עם כל עסק.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <a
+                    href={WA_ORG_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="wow-press inline-flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-7 py-3.5 text-sm font-semibold text-primary transition-[transform,background-color,color,opacity] duration-150 hover:bg-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+                    לדבר על הארגון שלכם
+                  </a>
+                  <Link
+                    href="/products/business-brain/demo"
+                    className="wow-press inline-flex items-center gap-2 rounded-xl border border-border/70 bg-card/60 px-7 py-3.5 text-sm font-semibold transition-[transform,background-color,color,opacity] duration-150 hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    <Sparkles className="h-4 w-4" aria-hidden="true" />
+                    פתח הדגמה חיה
+                  </Link>
+                </div>
+              </ScrollAnimate>
+            </div>
+          </section>
+
           {/* ─── Pricing ─── */}
           <section
             className="relative w-full py-20 md:py-28 bg-gradient-to-b from-muted/10 to-background overflow-hidden"
@@ -1127,7 +1245,7 @@ export default function BusinessBrainPage() {
                 </span>
                 <h2
                   id="bb-pricing-heading"
-                  className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                  className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                 >
                   ללא הפתעות
                 </h2>
@@ -1146,7 +1264,7 @@ export default function BusinessBrainPage() {
                     transition={{ duration: 0.55, delay: i * 0.14, ease: 'easeOut' }}
                   >
                     <div
-                      className={`h-full rounded-2xl border p-6 transition-all duration-200 ${
+                      className={`wow-card h-full rounded-2xl border p-6 ${
                         tier.highlighted
                           ? 'border-primary/50 bg-primary/5 shadow-lg shadow-primary/10'
                           : 'border-border/60 bg-card/60'
@@ -1179,7 +1297,7 @@ export default function BusinessBrainPage() {
                         href={WA_DEEP_LINK}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-all duration-150 hover:shadow-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                        className={`wow-press inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                           tier.highlighted
                             ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20'
                             : 'border border-border/80 bg-transparent hover:bg-card/80'
@@ -1235,12 +1353,12 @@ export default function BusinessBrainPage() {
                 <SlideIn from="left" reduced={reduced} delay={0.1}>
                   <h2
                     id="bb-trust-heading"
-                    className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                    className="wow-title text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                   >
-                    אמינות ופרטיות — לא עניין של רגש
+                    המידע שלך נשאר שלך
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    המידע של העסק שלך נשאר אצלך. הכל כתוב, חתום וברור לפני שמתחילים.
+                    פרטיות ואמינות הן לא הבטחה בעל-פה. הכול כתוב, חתום וברור לפני שמתחילים.
                   </p>
                 </SlideIn>
               </div>
@@ -1306,7 +1424,7 @@ export default function BusinessBrainPage() {
 
                     <h2
                       id="bb-cta-heading"
-                      className="text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
+                      className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                     >
                       שלושה מקומות. לא יותר.
                     </h2>
@@ -1319,7 +1437,7 @@ export default function BusinessBrainPage() {
                       <button
                         type="button"
                         onClick={() => setCheckoutOpen(true)}
-                        className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-all duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        className="wow-press inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         <Sparkles className="h-4 w-4" aria-hidden="true" />
                         שריין מקום מייסד — ₪500 מקדמה
@@ -1329,7 +1447,7 @@ export default function BusinessBrainPage() {
                         href={WA_DEEP_LINK}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-8 py-4 text-sm font-medium transition-all duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-8 py-4 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                         רוצה לדבר קודם
