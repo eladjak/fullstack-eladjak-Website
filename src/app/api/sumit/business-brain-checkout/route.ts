@@ -44,12 +44,6 @@ export async function POST(req: Request) {
   const name = typeof body.name === 'string' ? body.name.trim() : '';
   const email = typeof body.email === 'string' ? body.email.trim() : '';
   const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
-  const businessName =
-    typeof body.businessName === 'string' ? body.businessName.trim() : '';
-  const taxId = typeof body.taxId === 'string' ? body.taxId.trim() : '';
-
-  // Receipt is issued to the business name when provided (osek patur → קבלה only).
-  const documentName = businessName || name;
 
   if (!name || !email || !phone) {
     return NextResponse.json(
@@ -68,7 +62,7 @@ export async function POST(req: Request) {
       APIKey: apiToken,
     },
     Customer: {
-      Name: documentName,
+      Name: name,
       EmailAddress: email,
       Phone: phone,
       SearchMode: 0,
@@ -81,9 +75,7 @@ export async function POST(req: Request) {
         Currency: 'ILS',
       },
     ],
-    DocumentDescription: businessName
-      ? `מוח עסקי - הרשמת מייסד (מקדמה) · איש קשר: ${name}${taxId ? ` · ח.פ/ע.מ: ${taxId}` : ''}`
-      : 'מוח עסקי - הרשמת מייסד (מקדמה)',
+    DocumentDescription: 'מוח עסקי - הרשמת מייסד (מקדמה)',
     MaximumPayments: 1,
     RedirectURL: `${siteUrl}/thanks?product=business-brain`,
     ExitRedirectURL: `${siteUrl}/products/business-brain?payment=cancel`,

@@ -514,8 +514,6 @@ function CheckoutModal({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [businessName, setBusinessName] = useState('');
-  const [taxId, setTaxId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -528,7 +526,7 @@ function CheckoutModal({
       const res = await fetch('/api/sumit/business-brain-checkout/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, businessName, taxId }),
+        body: JSON.stringify({ name, email, phone }),
       });
       const data = (await res.json()) as {
         checkoutUrl?: string;
@@ -611,8 +609,6 @@ function CheckoutModal({
                 { id: 'co-name', label: 'שם מלא', value: name, set: setName, type: 'text', placeholder: 'ישראל ישראלי', autoComplete: 'name' },
                 { id: 'co-email', label: 'כתובת מייל', value: email, set: setEmail, type: 'email', placeholder: 'you@example.com', autoComplete: 'email' },
                 { id: 'co-phone', label: 'מספר טלפון', value: phone, set: setPhone, type: 'tel', placeholder: '052-000-0000', autoComplete: 'tel' },
-                { id: 'co-business', label: 'שם העסק (לקבלה)', value: businessName, set: setBusinessName, type: 'text', placeholder: 'שם העסק שלך', autoComplete: 'organization', optional: true },
-                { id: 'co-taxid', label: 'ח.פ / ע.מ (לא חובה)', value: taxId, set: setTaxId, type: 'text', placeholder: '512345678', autoComplete: 'off', optional: true },
               ].map((field) => (
                 <div key={field.id} className="space-y-1.5">
                   <label
@@ -628,7 +624,7 @@ function CheckoutModal({
                     onChange={(e) => field.set(e.target.value)}
                     placeholder={field.placeholder}
                     autoComplete={field.autoComplete}
-                    required={!field.optional}
+                    required
                     className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
                   />
                 </div>
