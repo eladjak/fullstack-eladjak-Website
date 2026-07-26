@@ -90,7 +90,7 @@ const DEMO_MESSAGES: ChatMessage[] = [
   {
     id: '5',
     sender: 'bot',
-    text: '"שלמה שלום, רציתי לוודא שההצעה ששלחתי ברורה. אם עלתה שאלה, אני כאן. אלעד."',
+    text: '"שלמה שלום, רק רציתי לבדוק שהכל ברור מהצעה שנשלחה. שמח לענות על כל שאלה. מה שיהיה כאן — אלעד."',
     delay: 7000,
   },
 ];
@@ -463,7 +463,7 @@ function FounderBanner({
           <button
             type="button"
             onClick={onCheckout}
-            className="wow-press inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="wow-press inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 focus-visible:shadow-amber-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             שריין מקום מייסד — ₪500 מקדמה
@@ -774,7 +774,7 @@ export default function BusinessBrainPage() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8"
                 >
-                  דו"ח בוקר, תזכורות לידים וסיכום יום, ישירות לוואטסאפ שלך.
+                  דו"ח בוקר, תזכורות לידים, סיכום יום — ישירות לוואטסאפ שלך.
                   ומאחוריו אלעד: בן-אדם שמבין עסקים ועונה כשצריך.
                 </motion.p>
 
@@ -788,7 +788,7 @@ export default function BusinessBrainPage() {
                   <button
                     type="button"
                     onClick={() => setCheckoutOpen(true)}
-                    className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-7 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:bg-amber-400 focus-visible:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-7 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:bg-amber-400 focus-visible:-translate-y-0.5"
                   >
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
                     שריין מקום מייסד
@@ -908,7 +908,7 @@ export default function BusinessBrainPage() {
                   const Icon = card.icon;
                   return (
                     <ScrollAnimate key={card.title} delay={i * 0.1}>
-                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 active:scale-[0.98] transition-colors duration-200">
+                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 transition-[transform,background-color,box-shadow,border-color] duration-200 hover:border-primary/40 hover:bg-card/80 hover:shadow-lg hover:shadow-primary/5 active:scale-[0.98]">
                         <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
                           <Icon className="h-5 w-5 wow-icon" aria-hidden="true" />
                         </div>
@@ -1174,7 +1174,7 @@ export default function BusinessBrainPage() {
                   const Icon = card.icon;
                   return (
                     <ScrollAnimate key={card.title} delay={i * 0.1}>
-                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 hover:bg-card/80 transition-colors duration-200">
+                      <div className="group h-full rounded-2xl border border-border/60 bg-card/60 p-6 transition-[transform,background-color,box-shadow,border-color] duration-200 hover:border-primary/40 hover:bg-card/80 hover:shadow-lg hover:shadow-primary/5">
                         <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-200">
                           <Icon className="h-5 w-5 wow-icon" aria-hidden="true" />
                         </div>
@@ -1293,7 +1293,7 @@ export default function BusinessBrainPage() {
                         href={WA_DEEP_LINK}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`wow-press inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                        className={`wow-press inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                           tier.highlighted
                             ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20'
                             : 'border border-border/80 bg-transparent hover:bg-card/80'
@@ -1351,10 +1351,10 @@ export default function BusinessBrainPage() {
                     id="bb-trust-heading"
                     className="wow-title text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                   >
-                    המידע שלך נשאר שלך
+                    אמינות ופרטיות — לא עניין של רגש
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    פרטיות ואמינות הן לא הבטחה בעל-פה. הכול כתוב, חתום וברור לפני שמתחילים.
+                    המידע של העסק שלך נשאר אצלך. הכל כתוב, חתום וברור לפני שמתחילים.
                   </p>
                 </SlideIn>
               </div>
@@ -1433,7 +1433,7 @@ export default function BusinessBrainPage() {
                       <button
                         type="button"
                         onClick={() => setCheckoutOpen(true)}
-                        className="wow-press inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        className="wow-press inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 focus-visible:shadow-amber-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         <Sparkles className="h-4 w-4" aria-hidden="true" />
                         שריין מקום מייסד — ₪500 מקדמה

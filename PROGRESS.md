@@ -1265,3 +1265,9 @@ For each project, work in its own repo:
 
 ### 11.6.2026 — מעבר שיפורים רוחבי (Fable-5 sweep)
 - דווח בלבד (package.json מלוכלך): tsc — 8 שגיאות three/Bundler = ארטיפקט Windows מתועד (עובר ב-Vercel) · audit: next HIGH + fast-uri/js-cookie/react-use HIGH (fix לא-major זמין) — לבצע next 16.2.9 + audit fix אחרי קומיט העבודה הפתוחה · סקריפט lint משתמש ב-eslint flat בלי תמיכת --no-warn-ignored.
+
+### 26.7.2026 — שחזור עיצוב "המוח העסקי" (רגרסיה מגל wow-2026)
+- **כלל-על שנלמד: שכבת-אינטראקציה משותפת לעולם לא דורסת דף שיש לו זהות-ויזואלית מכוונת משלו. נאמנות-מותג-פר-פרויקט גוברת על אחידות-צי.**
+- הרגרסיה: גל wow-2026 (b1bb5fe) שיטח את דף `/products/business-brain` — הדף שאלעד שלח לליאור ידו כפיץ' מכירה.
+- שוחזר נקודתית מ-290ec8a: זוהר-הזהב בריחוף על 3 כפתורי-ה-CTA (`hover:shadow-amber-500/40`) · ריחוף עשיר על הכרטיסים (`hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5`) · `hover:shadow-md` על כפתורי-התמחור · 4 שורות-קופי שנוסחו-מחדש בתוך מעבר-CSS.
+- נשמר מהגל: צמצום `transition-all` לרשימת-מאפיינים מפורשת · חגורת-reduced-motion · פוקוס-מקלדת מקביל · מקטע "לתנועות ולארגונים" + מסלול `/demo` + שאלת-ה-FAQ החדשה (תוספות-תוכן אמיתיות, לא רגרסיה).
