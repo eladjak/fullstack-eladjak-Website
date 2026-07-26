@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { aiGuard } from "@/lib/ai-guard";
 import { Resend } from 'resend';
 import heMessages from '../../../../messages/he.json';
 import { AGENT_COUNT } from '@/data/site-facts';
@@ -190,6 +191,14 @@ export async function POST(req: Request) {
       .map((m) => `${m.role === 'user' ? 'משתמש' : 'אסיסטנט'}: ${m.content}`)
       .join('\n');
     const fullPrompt = `${SYSTEM_PROMPT}\n\nשיחה עד כה:\n${conversationText}\n\nאסיסטנט:`;
+
+    // Spend guard: public unauthenticated endpoint on Elad's own Gemini key.
+    // Per-IP window plus a SHARED per-site daily ceiling, so the cap holds across
+    // serverless instances rather than resetting on every cold start.
+    const _guard = await aiGuard(req, "portfolio-website");
+    if (!_guard.ok) {
+      return NextResponse.json({ content: "העוזר עמוס כרגע — אפשר לנסות שוב מאוחר יותר, או להשאיר פרטים בטופס ונחזור אליכם." });
+    }
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 12_000);
