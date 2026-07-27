@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { StructuredData, structuredDataGenerators } from "@/components/seo/structured-data";
 import { WebVitalsReporter } from "@/components/analytics/web-vitals-reporter";
 import { ClientLayout } from "@/components/providers/client-layout";
+import Gateway from "@/components/Gateway";
 import "@/styles/globals.css";
 
 const heebo = Heebo({
@@ -155,6 +156,10 @@ export default async function RootLayout({
         <ClientLayout nonce={nonce}>
           {children}
         </ClientLayout>
+        {/* אחרי התוכן בכוונה: השער מצייר את עצמו מעל הדף, אבל הדף כבר קיים
+            ב-DOM מתחתיו. אם הסקריפט נכשל או JS כבוי — האתר נטען כרגיל,
+            וסורקים לא רואים אותו בכלל. */}
+        <Gateway theme="portfolio" />
       </body>
     </html>
   );
