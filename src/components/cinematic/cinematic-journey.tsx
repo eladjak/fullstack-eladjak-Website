@@ -87,6 +87,20 @@ const DOLLY_DIR = [1, -1, 1, -1, 1, -1];
 const CLIP_FPS = 24;
 const FRAME_STEP = 1 / CLIP_FPS;
 
+// How long (ms) a leg must stay OUTSIDE the ±1 load window before its clip is
+// torn down. The load window is additive on its own — nothing ever released a
+// clip, so a single read-through of the page ended with all six <video> elements
+// alive and fully buffered (measured on production: 6 resident, 18.9MB
+// transferred, every clip buffered end-to-end, and the last two sitting at
+// readyState 1 with a seek still outstanding for ~4s after scrolling stopped).
+// Releasing distant legs caps the resident set at the three the window actually
+// needs. The grace period is what keeps that from thrashing: a visitor nudging
+// back and forth across a seam repeatedly crosses the window edge, and tearing
+// down + re-creating a clip on each crossing would be far worse than holding it.
+// 1500ms is longer than any such oscillation and far shorter than a real
+// navigation away from a scene.
+const RELEASE_GRACE_MS = 1500;
+
 interface LegState {
   scene: Scene;
   el: HTMLDivElement;
@@ -115,6 +129,10 @@ interface LegState {
   lastVideoTransform: string;
   lastStillTransform: string;
   live: boolean;
+  // Timestamp (performance.now) at which this leg first fell outside the load
+  // window while still holding a clip; 0 while it is inside. Drives the delayed
+  // release — see RELEASE_GRACE_MS.
+  outsideSince: number;
 }
 
 export default function CinematicJourney() {
@@ -153,6 +171,7 @@ export default function CinematicJourney() {
         lastVideoTransform: '',
         lastStillTransform: '',
         live: false,
+        outsideSince: 0,
       }),
     );
 
@@ -325,6 +344,37 @@ export default function CinematicJourney() {
       leg.video = v;
     }
 
+    // Tear a distant leg's clip back down, returning its decoder slot and its
+    // buffered frames to the browser. The leg reverts to exactly the state it was
+    // in before it ever loaded: poster visible (`.cj-has-clip` removed), Ken-Burns
+    // drift resumed (that branch is gated on `!leg.ready`), and `warmed` cleared so
+    // the one-time warm seek runs again if the leg is re-entered. `leg.cur` is
+    // deliberately KEPT — it is the leg's eased position, so a re-entered leg
+    // primes to the frame it should be showing rather than snapping to 0.
+    //
+    // Only ever called on a leg the seam-dissolve has at opacity 0 (it is at least
+    // two legs from the flight position), so removing the video paints nothing.
+    function releaseClip(leg: LegState) {
+      const v = leg.video;
+      if (!v) return;
+      try {
+        // Detach the source before removing: without this the element can keep its
+        // network/decoder resources alive until GC gets round to it.
+        v.removeAttribute('src');
+        v.load();
+      } catch {
+        /* noop */
+      }
+      v.remove();
+      leg.video = null;
+      leg.loading = false;
+      leg.ready = false;
+      leg.warmed = false;
+      leg.lastVideoTransform = '';
+      leg.outsideSince = 0;
+      leg.el.classList.remove('cj-has-clip');
+    }
+
     // ── Global eased scroll — the SINGLE source of truth ─────────────────────
     // `pRaw` is the raw whole-page scroll fraction (0..1), updated on every scroll
     // event. `pEased` is a critically-damped follower of it, advanced once per
@@ -443,6 +493,8 @@ export default function CinematicJourney() {
     let visibleBase = 0;
     let visibleNext = 0;
     function render() {
+      // One clock read per frame, shared by the release-window check below.
+      const nowMs = performance.now();
       const flight = flightFromP(pEased); // continuous 0..N-1
       const active = clamp(Math.round(flight), 0, N - 1);
 
@@ -462,11 +514,20 @@ export default function CinematicJourney() {
         leg.target = clamp(flight - (i - 1));
         setZ(leg, i === active ? '2' : '1');
 
-        // Load only the current leg and its immediate neighbours. The old ±2 window
-        // meant five clips were decoding-ready at once (and by the end of a scroll
-        // all six existed); ±1 still has the next leg fully primed before the
-        // dissolve reaches it, so the swap looks identical.
-        if (i >= active - 1 && i <= active + 1) loadClip(leg);
+        // Load only the current leg and its immediate neighbours — and RELEASE the
+        // ones that fall out of that window. The window was previously additive:
+        // it correctly declined to load a distant leg, but nothing ever tore one
+        // down, so "by the end of a scroll all six existed" was still true. The
+        // window now has both edges, capping the resident set at three clips
+        // regardless of how far the visitor has travelled. The next leg is still
+        // fully primed before the dissolve reaches it, so the swap looks identical.
+        if (i >= active - 1 && i <= active + 1) {
+          leg.outsideSince = 0;
+          loadClip(leg);
+        } else if (leg.video) {
+          if (leg.outsideSince === 0) leg.outsideSince = nowMs;
+          else if (nowMs - leg.outsideSince > RELEASE_GRACE_MS) releaseClip(leg);
+        }
 
         if (!leg.ready && !reduce) {
           // Ken-Burns drift on the still: scale tracks the eased leg time so the
