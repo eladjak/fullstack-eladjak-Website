@@ -411,7 +411,13 @@
     size();
     global.addEventListener("resize", size);
 
-    var COUNT = Math.min(110, Math.round((W * H) / 12000));
+    /* שדה "רשת" מצייר קו בין כל זוג שכנים — עלות ריבועית (N²/2 קריאות stroke
+       בכל פריים). ב-110 חלקיקים זה כמעט 6,000 ציורים נפרדים בכל פריים, וזה
+       מה שמוריד את הדף לחצי-קצב עוד לפני שהמשתמש לחץ על משהו. תקרה נמוכה
+       יותר דווקא לשדה הזה חותכת את העלות פי ~2.5 והצפיפות כמעט לא משתנה. */
+    var CAP = t.field === "net" ? 70 : 110;
+    var COUNT = Math.min(CAP, Math.round((W * H) / 12000));
+    var LINK2 = 15000, LINK = Math.sqrt(LINK2);
     function rnd(a, b) { return a + Math.random() * (b - a); }
     function color() { return t.parts[Math.floor(Math.random() * t.parts.length)]; }
 
@@ -434,10 +440,15 @@
         ctx2d.lineWidth = 1;
         for (var a = 0; a < P.length; a++) {
           for (var b = a + 1; b < P.length; b++) {
-            var dx = P[a].x - P[b].x, dy = P[a].y - P[b].y;
+            var dx = P[a].x - P[b].x;
+            /* דחייה מוקדמת על ציר אחד: רוב הזוגות רחוקים מדי ממילא, ואין
+               טעם לשלם על הכפל והשורש בשבילם. */
+            if (dx > LINK || dx < -LINK) continue;
+            var dy = P[a].y - P[b].y;
+            if (dy > LINK || dy < -LINK) continue;
             var d2 = dx * dx + dy * dy;
-            if (d2 < 15000) {
-              ctx2d.globalAlpha = (1 - d2 / 15000) * 0.22;
+            if (d2 < LINK2) {
+              ctx2d.globalAlpha = (1 - d2 / LINK2) * 0.22;
               ctx2d.strokeStyle = t.accent2;
               ctx2d.beginPath(); ctx2d.moveTo(P[a].x, P[a].y); ctx2d.lineTo(P[b].x, P[b].y); ctx2d.stroke();
             }
@@ -472,6 +483,16 @@
     }
     raf = requestAnimationFrame(frame);
 
+    /* לשונית מוסתרת לא צריכה לצייר. rAF אמנם נעצר לבד בלשונית ברקע, אבל לא
+       בחלון שרק מכוסה או ממוזער — ושם הלולאה המשיכה לשרוף מעבד מתחת לכלום. */
+    var doc0 = global.document;
+    function onVis() {
+      if (dead) return;
+      if (doc0.hidden) { cancelAnimationFrame(raf); raf = 0; }
+      else if (!raf) raf = requestAnimationFrame(frame);
+    }
+    doc0.addEventListener("visibilitychange", onVis);
+
     return {
       burst: function () {
         bursting = 1;
@@ -485,7 +506,9 @@
       stop: function () {
         dead = true;
         cancelAnimationFrame(raf);
+        raf = 0;
         global.removeEventListener("resize", size);
+        doc0.removeEventListener("visibilitychange", onVis);
       },
     };
   }
@@ -600,6 +623,10 @@
     var t = THEMES[opts.theme] || THEMES.personal;
     var doc = global.document;
     if (!doc || !doc.body) return;
+    /* שער אחד בלבד בכל רגע. mount נקרא מ-useEffect, ו-React במצב פיתוח
+       מרכיב פעמיים — בלי הבדיקה הזאת נערמות שתי שכבות עם שתי לולאות ציור,
+       והשנייה גם לא הייתה נסגרת אף פעם (הכפתור של הראשונה סוגר רק אותה). */
+    if (doc.querySelector(".gw")) return;
     var seen = false;
     try {
       seen = global.sessionStorage && sessionStorage.getItem(t.key) === "1";
@@ -687,36 +714,62 @@
       }
       if (audio) audio.ambient();
     }
-    ["pointerdown", "keydown"].forEach(function (evt) {
+    /* מאזינים ברמת המסמך — נרשמים כאן ומוסרים ב-close. בלי ההסרה הם שורדים
+       את השער עצמו, וכל לחיצה באתר, לנצח, ממשיכה לרוץ לתוך קוד של מסך פתיחה
+       שכבר לא קיים. */
+    var ARM_EVENTS = ["pointerdown", "keydown"];
+    ARM_EVENTS.forEach(function (evt) {
       doc.addEventListener(evt, armAudio, { once: false });
     });
 
     function close() {
       if (closed) return;
       closed = true;
-      if (audio) {
-        audio.whoosh();
-        /* אם יש הקלטה — היא ממשיכה פנימה בעוצמת-רקע, עם פקד להשתקה.
-           מנוע הסינתזה לעומת זאת נסגר: הוא נכתב כפתיחה, לא כפסקול-רקע. */
-        if (t.track && audio.linger) {
-          audio.linger(0.20);
-          mountControl(t, audio);
-        } else {
-          audio.end();
-        }
-      }
-      if (field) field.burst();
-      el.setAttribute("data-out", "1");
+      clearTimeout(guard);
+
+      /* שחרור הדף קודם כל, ובלי תלות בשום דבר אחר.
+         כל מה שמחזיק את האתר שבוי — נעילת הגלילה, השכבה שמכסה הכל, מאזיני
+         המקלדת — משתחרר כאן, לפני האודיו והאנימציות. אם משהו בהמשך ייפול,
+         הוא ייפול על שער שכבר לא חוסם: הדף כבר גלוי ולחיץ.
+         pointer-events נכבה מיד ולא רק כשהאלמנט יוסר, כי טיימר ההסרה עלול
+         להיחנק בלשונית ברקע — ושכבה שקופה שנשארת תלויה מעל הדף היא בדיוק
+         "אי אפשר ללחוץ על הקישורים". */
       doc.body.style.overflow = prevOverflow;
+      el.style.pointerEvents = "none";
+      doc.removeEventListener("keydown", onKey);
+      ARM_EVENTS.forEach(function (evt) { doc.removeEventListener(evt, armAudio); });
       try { sessionStorage.setItem(t.key, "1"); } catch (e) {}
+
+      try {
+        if (audio) {
+          audio.whoosh();
+          /* אם יש הקלטה — היא ממשיכה פנימה בעוצמת-רקע, עם פקד להשתקה.
+             מנוע הסינתזה לעומת זאת נסגר: הוא נכתב כפתיחה, לא כפסקול-רקע. */
+          if (t.track && audio.linger) {
+            audio.linger(0.20);
+            mountControl(t, audio);
+          } else {
+            audio.end();
+          }
+        }
+        if (field) field.burst();
+        el.setAttribute("data-out", "1");
+      } catch (e) { /* אנימציית יציאה היא קישוט. הדף כבר משוחרר. */ }
+
       setTimeout(function () {
-        if (field) field.stop();
+        try { if (field) field.stop(); } catch (e) {}
         if (el.parentNode) el.parentNode.removeChild(el);
         if (style.parentNode) style.parentNode.removeChild(style);
         if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
       }, reduce ? 0 : 1150);
-      doc.removeEventListener("keydown", onKey);
     }
+
+    /* מפסק-אדם-מת.
+       השער נשען על כך שהמשתמש ילחץ. כל תרחיש שבו הלחיצה לא מגיעה או לא
+       מסתיימת — שגיאה ב-enter, טיימר שנחנק, מישהו שפתח את הדף והלך — משאיר
+       אתר שלם מאחורי שכבה אטומה עם גלילה נעולה. שער כניסה שלא נסגר הוא
+       באג חמור בהרבה משער שנסגר מוקדם מדי, ולכן יש לו תקרת-חיים קשיחה. */
+    var guard = setTimeout(close, 20000);
 
     function enter() {
       if (closed) return;
