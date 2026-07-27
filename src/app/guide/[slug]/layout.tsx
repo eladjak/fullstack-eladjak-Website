@@ -40,6 +40,14 @@ function clampMeta(raw: string, max = 158): string {
  * Pre-generate params for all guides so each /guide/[slug] route has static
  * metadata resolved at build time (better for Google + AI engine indexing).
  */
+/**
+ * Anything not produced by generateStaticParams below is not a guide, and must
+ * fail at the routing layer with a real 404. Without this the route answered
+ * 200 for any slug: the page is a client component, so its notFound() painted
+ * the right screen far too late to change the status line.
+ */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return allGuides
     .filter((g) => g.slug !== "claude-code")
