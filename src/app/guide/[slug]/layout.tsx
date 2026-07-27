@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { guideBySlug, allGuides } from "@/data/agent-guides";
 import { SeoJsonLd } from "@/components/agent-guide/SeoJsonLd";
 import { GuideSeoContent } from "@/components/agent-guide/GuideSeoContent";
@@ -45,6 +46,14 @@ export function generateStaticParams() {
     .filter((g) => g.slug !== "claude-code")
     .map((g) => ({ slug: g.slug }));
 }
+
+/**
+ * Only the slugs above exist. Without this, an unknown slug is rendered on
+ * demand and the client-side notFound() in page.tsx fires AFTER the server has
+ * already answered 200 — a Google "soft 404". false makes the server itself
+ * return a real 404 for anything not in generateStaticParams.
+ */
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -157,6 +166,12 @@ export default async function GuideLayout({
 }: LayoutProps) {
   const { slug } = await params;
   const guide = guideBySlug.get(slug);
+  // Unknown slug must 404 from the SERVER. The page below is "use client", so
+  // its notFound() only fires in the browser — after a 200 has already gone
+  // out (Google "soft 404"). The root layout reads headers() for the CSP
+  // nonce, which makes every route dynamic, so dynamicParams alone cannot be
+  // relied on here. This check runs on the server on every request.
+  if (!guide || guide.slug === "claude-code") notFound();
   return (
     <>
       {/* JSON-LD emitted from this SERVER layout so it lands in the initial

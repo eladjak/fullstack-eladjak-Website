@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { guideBySlugEn, allGuidesEn } from "@/data/agent-guides/en";
 import { guideBySlug } from "@/data/agent-guides";
 import { SeoJsonLd } from "@/components/agent-guide/SeoJsonLd";
@@ -42,6 +43,12 @@ export function generateStaticParams() {
     .filter((g) => g.slug !== "claude-code")
     .map((g) => ({ slug: g.slug }));
 }
+
+/**
+ * See the Hebrew layout: without this an unknown slug answers 200 and only
+ * then client-side notFound() renders — a soft 404. false = real server 404.
+ */
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -151,6 +158,9 @@ export default async function GuideLayoutEn({
 }: LayoutProps) {
   const { slug } = await params;
   const guide = guideBySlugEn.get(slug);
+  // See the Hebrew layout: server-side 404 so an unknown slug never answers
+  // 200 with a client-rendered "not found" body.
+  if (!guide || guide.slug === "claude-code") notFound();
   return (
     <>
       {/* JSON-LD emitted from this SERVER layout so it lands in the initial
