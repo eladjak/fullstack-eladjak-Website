@@ -614,8 +614,9 @@
       try { want = localStorage.getItem("gw-sound") === "1"; } catch (e) {}
       var reduced = global.matchMedia &&
         global.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (want && t.track && !reduced) {
-        mountControl(t, makeTrack(t.track, function () {}), true);
+      var lateTrack = global.GW_TRACK || t.track;
+      if (want && lateTrack && !reduced) {
+        mountControl(t, makeTrack(lateTrack, function () {}), true);
       }
       return;
     }
@@ -671,10 +672,13 @@
        הקשר אודיו. הראשונה שתגיע (לחיצה או מקש) תפעיל אותו. */
     function armAudio() {
       if (reduce || !wantSound || audio) return;
-      if (t.track) {
+      /* אתר יכול לדרוס את נתיב-הפסקול (למשל כדי לגרסֵן אותו מול CDN)
+         בלי לשנות את המודול המשותף. */
+      var trackUrl = global.GW_TRACK || t.track;
+      if (trackUrl) {
         /* אם ההקלטה נופלת אחרי שכבר התחלנו — מחליפים לסינתזה בלי שהמשתמש
            ישים לב שמשהו קרה. */
-        audio = makeTrack(t.track, function () {
+        audio = makeTrack(trackUrl, function () {
           audio = makeAudio(t.audio);
           if (audio) audio.ambient();
         });
