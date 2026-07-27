@@ -557,6 +557,24 @@
       '.gw-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 20px 46px ', t.glowA, '}',
       '.gw-btn:focus-visible{outline:3px solid ', t.accent2, ';outline-offset:5px}',
       '.gw-btn[disabled]{cursor:default;transform:none}',
+
+      /* חיווי-טעינה על הכפתור עצמו.
+         כשהסאונד דלוק, הלחיצה לא סוגרת מיד — רצה כוריאוגרפיה של 3.6 שניות.
+         היה פס בעובי 3 פיקסלים בתחתית המסך, שאיש לא מסתכל עליו, ולכן מבקר
+         לחץ ולא היה בטוח שהלחיצה נקלטה. החיווי עבר לאן שהעין כבר נמצאת:
+         הכפתור מתמלא מקצה לקצה בקצב האמיתי של ההמתנה, ושלוש נקודות פועמות
+         אומרות "זה עובד" בלי מילים. עכשיו ההמתנה נקראת כחלק מהמנגנון. */
+      '.gw-btn .gw-fill{position:absolute;inset:0;border-radius:inherit;z-index:0;',
+      'background:rgba(255,255,255,.30);transform-origin:right;transform:scaleX(0)}',
+      '.gw-btn[data-loading="1"] .gw-fill{transition:transform 3.6s linear;transform:scaleX(1)}',
+      '.gw-btn .gw-lbl{position:relative;z-index:1}',
+      '.gw-dots{display:inline-block;width:1.1em;text-align:right}',
+      '.gw-dots i{display:inline-block;width:.22em;height:.22em;margin-inline-start:.12em;',
+      'border-radius:50%;background:currentColor;opacity:.25;vertical-align:middle;',
+      'animation:gwdot 1.05s infinite ease-in-out}',
+      '.gw-dots i:nth-child(2){animation-delay:.16s}.gw-dots i:nth-child(3){animation-delay:.32s}',
+      '@keyframes gwdot{0%,70%,100%{opacity:.25;transform:translateY(0)}',
+      '35%{opacity:1;transform:translateY(-.18em)}}',
       /* טבעת פעימה סביב הכפתור — הזמנה ללחוץ */
       '.gw-ring{position:absolute;inset:-10px;border-radius:999px;border:2px solid ', t.accent, ';',
       'opacity:0;pointer-events:none;animation:gw-ping 2.6s ease-out 2s infinite}',
@@ -671,7 +689,7 @@
       '<p class="gw-line gw-rise">' + t.line + '</p>' +
       '<div class="gw-btnwrap gw-rise" style="position:relative;display:inline-block">' +
       '<span class="gw-ring" aria-hidden="true"></span>' +
-      '<button class="gw-btn" type="button">' + t.cta + '</button></div>' +
+      '<button class="gw-btn" type="button">' + '<span class="gw-fill" aria-hidden="true"></span>' + '<span class="gw-lbl">' + t.cta + '</span>' + '</button></div>' +
       '<div class="gw-hint">' + t.hint + '</div></div>' +
       '<div class="gw-iris" aria-hidden="true"></div>' +
       '<div class="gw-bar" aria-hidden="true"></div>';
@@ -778,7 +796,21 @@
         if (audio) audio.swell();
         bar.setAttribute("data-run", "1");
         btn.disabled = true;
-        btn.textContent = t.enterTxt;
+        btn.setAttribute("data-loading", "1");
+        // aria-busy so a screen reader announces the wait rather than silence
+        btn.setAttribute("aria-busy", "true");
+        var lbl = btn.querySelector(".gw-lbl");
+        if (lbl) {
+          lbl.innerHTML = "";
+          lbl.appendChild(doc.createTextNode(t.enterTxt));
+          var dots = doc.createElement("span");
+          dots.className = "gw-dots";
+          dots.setAttribute("aria-hidden", "true");
+          dots.innerHTML = "<i></i><i></i><i></i>";
+          lbl.appendChild(dots);
+        } else {
+          btn.textContent = t.enterTxt;
+        }
         setTimeout(close, 3600);
         return;
       }
