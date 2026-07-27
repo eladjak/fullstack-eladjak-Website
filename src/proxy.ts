@@ -1,4 +1,28 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { GUIDE_SLUG_SET } from '@/data/agent-guides/slugs';
+
+/** /guide/<slug> or /en/guide/<slug>, with or without a trailing slash. */
+const GUIDE_PATH = /^\/(?:en\/)?guide\/([^/]+)\/?$/;
+
+/**
+ * Return true when the path is a guide URL whose slug does not exist.
+ *
+ * Why this lives in the proxy: the guide page is a client component, so its
+ * notFound() only runs in the browser — the server has already answered 200 by
+ * then, which Google treats as a "soft 404" and counts against site quality.
+ * Moving the check into the server layout was not enough either: the root
+ * layout reads headers() for the CSP nonce, so every route is dynamic and
+ * streams, and once the shell has flushed the status can no longer change.
+ * (The same is visible on /blog/<bad-slug>, which also answers 200.)
+ *
+ * The proxy runs BEFORE any rendering, so it is the one place that can still
+ * choose the status code.
+ */
+function isMissingGuide(pathname: string): boolean {
+  const match = GUIDE_PATH.exec(pathname);
+  if (!match) return false;
+  return !GUIDE_SLUG_SET.has(decodeURIComponent(match[1]));
+}
 
 /**
  * Nonce-based Content Security Policy proxy (Next.js 16+ replaced the
@@ -21,6 +45,14 @@ import { NextResponse, type NextRequest } from 'next/server';
  * from those responses anyway (JSON / static files / image bytes).
  */
 export function proxy(request: NextRequest) {
+  // An unknown guide slug is rewritten to a path that matches no route, so
+  // Next.js serves its own not-found page with a real 404 — the same handling
+  // any unmatched URL already gets. Rewriting (not redirecting) keeps the URL
+  // the visitor requested, which is what a 404 should do.
+  if (isMissingGuide(request.nextUrl.pathname)) {
+    return NextResponse.rewrite(new URL('/_guide-not-found', request.url));
+  }
+
   // 16-byte base64 nonce (24 chars). crypto.randomUUID() also works, but base64
   // of random bytes is the more conventional CSP nonce shape.
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
