@@ -497,13 +497,23 @@ a:focus-visible .logo-anim__ch {
 }
 
 .cj-leg {
-  /* opacity = the cross-dissolve; transform = the per-scene dolly/pan/tilt the
-     engine applies (see applyCamera); filter = the brief rack-focus blur on a
-     leg's entrance. All GPU-composited — hinted here so the compositor promotes
-     each leg to its own layer and the camera move never touches layout. */
-  will-change: opacity, transform, filter;
   transform-origin: center 45%;
   backface-visibility: hidden;
+}
+
+/* opacity = the cross-dissolve; transform = the per-scene dolly/pan/tilt the
+   engine applies (see applyCamera); filter = the brief rack-focus blur on a
+   leg's entrance. All GPU-composited — hinted so the compositor promotes the leg
+   to its own layer and the camera move never touches layout.
+
+   The hint is scoped to `.cj-live` (the engine puts it on the two legs the seam
+   dissolve is actually showing). Unscoped, all six full-viewport legs — plus each
+   one's still and video plane — were promoted and held for the whole session, so
+   the compositor carried ~18 viewport-sized layers to display at most two.
+   `will-change` is a pure hint: which elements carry it changes nothing about how
+   any frame is painted. */
+.cj-leg.cj-live {
+  will-change: opacity, transform, filter;
 }
 
 .cj-still,
@@ -517,8 +527,13 @@ a:focus-visible .logo-anim__ch {
 }
 
 .cj-still {
-  will-change: transform;
   transition: opacity 0.4s ease-out;
+}
+
+/* Promote the inner planes only while their leg is on screen (see .cj-live above). */
+.cj-leg.cj-live .cj-still,
+.cj-leg.cj-live .cj-video {
+  will-change: transform;
 }
 
 /* Reveal the scrubbed video only once it has painted a frame; hide the poster. */
@@ -529,8 +544,8 @@ a:focus-visible .logo-anim__ch {
 .cj-video {
   z-index: 1;
   /* The engine scales the video plane a hair beyond its leg for depth parallax
-     (far world moves faster than the graded foreground). */
-  will-change: transform;
+     (far world moves faster than the graded foreground). `will-change` for this
+     plane is applied via `.cj-live` above, only while its leg is visible. */
   transform-origin: center 45%;
 }
 

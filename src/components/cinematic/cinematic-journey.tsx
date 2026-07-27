@@ -81,6 +81,12 @@ const CAM_INTENSITY = 1;
 // rather than one monotonous endless push. Length matches CINEMATIC_SCENES.
 const DOLLY_DIR = [1, -1, 1, -1, 1, -1];
 
+// Source frame rate of every cinematic clip (all six legs are rendered at 24fps).
+// Used as the scrub granularity: asking the decoder for a time closer than one
+// frame to what it is already showing produces the identical picture.
+const CLIP_FPS = 24;
+const FRAME_STEP = 1 / CLIP_FPS;
+
 interface LegState {
   scene: Scene;
   el: HTMLDivElement;
@@ -89,6 +95,26 @@ interface LegState {
   ready: boolean;
   cur: number; // eased current time-fraction (0..1)
   target: number; // scroll-driven target time-fraction (0..1)
+  // Whether this clip has been seeked at least once. The FIRST seek is what fires
+  // `seeked` → `.cj-has-clip` (the poster→video swap), so every loaded leg must be
+  // primed exactly once even while it is invisible. After that a hidden leg is
+  // never seeked again (see raf) — an off-screen seek costs a full decode but
+  // paints nothing.
+  warmed: boolean;
+  // Cached child refs so the per-frame loop never calls querySelector.
+  still: HTMLElement | null;
+  // Last COMMITTED style values. The loop used to rewrite transform/opacity/
+  // filter/zIndex on all six full-viewport legs every frame even when the value
+  // was byte-identical, and each write invalidates style for a promoted,
+  // viewport-sized layer. We diff against these and only touch the DOM on a real
+  // change — the resulting pixels are identical either way.
+  lastTransform: string;
+  lastFilter: string;
+  lastOpacity: string;
+  lastZ: string;
+  lastVideoTransform: string;
+  lastStillTransform: string;
+  live: boolean;
 }
 
 export default function CinematicJourney() {
@@ -118,8 +144,50 @@ export default function CinematicJourney() {
         ready: false,
         cur: 0,
         target: 0,
+        warmed: false,
+        still: legEls[i]!.querySelector<HTMLElement>('.cj-still'),
+        lastTransform: '',
+        lastFilter: '',
+        lastOpacity: i === 0 ? '1' : '0',
+        lastZ: '',
+        lastVideoTransform: '',
+        lastStillTransform: '',
+        live: false,
       }),
     );
+
+    // Style-write helpers: commit only when the value actually changed.
+    const setTransform = (leg: LegState, v: string) => {
+      if (leg.lastTransform === v) return;
+      leg.lastTransform = v;
+      leg.el.style.transform = v;
+    };
+    const setFilter = (leg: LegState, v: string) => {
+      if (leg.lastFilter === v) return;
+      leg.lastFilter = v;
+      leg.el.style.filter = v;
+    };
+    const setOpacity = (leg: LegState, v: string) => {
+      if (leg.lastOpacity === v) return;
+      leg.lastOpacity = v;
+      leg.el.style.opacity = v;
+    };
+    const setZ = (leg: LegState, v: string) => {
+      if (leg.lastZ === v) return;
+      leg.lastZ = v;
+      leg.el.style.zIndex = v;
+    };
+    // `.cj-live` scopes the `will-change` promotion hint to the legs actually on
+    // screen (see globals.css). Purely a compositor hint — no visual effect.
+    const setLive = (leg: LegState, on: boolean) => {
+      if (leg.live === on) return;
+      leg.live = on;
+      leg.el.classList.toggle('cj-live', on);
+    };
+
+    // Resolved once — the scrim is a static child of the root, so re-querying it
+    // 60×/s only burned selector-matching time.
+    const scrim = root.querySelector<HTMLElement>('.cj-scrim');
 
     const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
     // A soft, C1-continuous fade curve for the seam cross-dissolve. Unlike a hard
@@ -160,6 +228,9 @@ export default function CinematicJourney() {
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight || 1;
       const vh = window.innerHeight;
+      // Publish to the rAF loop so it never has to touch layout itself.
+      scrollMax = max;
+      viewportH = vh;
       const next: number[] = [];
       for (let i = 0; i < N; i++) {
         const id = CINEMATIC_SCENES[i]!.id;
@@ -268,10 +339,18 @@ export default function CinematicJourney() {
     let pEased = 0;
     let primed = false; // snap pEased to pRaw on first read so we don't animate in
 
+    // Scroll extent + viewport height are cached by measureAnchors() rather than
+    // read every frame. `scrollHeight` is a layout-dependent property: reading it
+    // inside the rAF loop — which writes styles to six full-viewport layers on the
+    // same tick — invites a forced synchronous layout on any frame where something
+    // else has dirtied style. Both values only change when the layout changes, and
+    // measureAnchors() already runs on exactly those events (resize, orientation,
+    // load, ResizeObserver).
+    let scrollMax = 1;
+    let viewportH = 1;
+
     function readScroll() {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - window.innerHeight || 1;
-      pRaw = clamp((window.scrollY || window.pageYOffset) / max);
+      pRaw = clamp((window.scrollY || window.pageYOffset) / scrollMax);
     }
 
     // Map an eased whole-page fraction to a CONTINUOUS flight position in [0, N-1].
@@ -324,7 +403,10 @@ export default function CinematicJourney() {
       const tiltY = (eased - 0.5) * 26 * k * dir; // vertical dolly-tilt
       const panX = Math.sin(within * Math.PI) * 8 * k * dir; // subtle side wander
 
-      leg.el.style.transform = `translate3d(${panX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0) scale(${scaleLeg.toFixed(4)})`;
+      setTransform(
+        leg,
+        `translate3d(${panX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0) scale(${scaleLeg.toFixed(4)})`,
+      );
 
       // FOCUS PULL: soft only in the first ~30% of a leg's entrance, then crisp.
       // Skipped on mobile (blur is the most expensive filter on low-end GPUs).
@@ -335,7 +417,7 @@ export default function CinematicJourney() {
       if (!mobile) {
         const focus = clamp(1 - within / 0.32); // 1 at entry → 0 by 32% in
         const blur = focus * focus * 1.8 * CAM_INTENSITY; // px, eased to 0
-        leg.el.style.filter = blur > 0.5 ? `blur(${blur.toFixed(2)}px)` : '';
+        setFilter(leg, blur > 0.5 ? `blur(${blur.toFixed(2)}px)` : '');
       }
 
       // DEPTH: the video plane scales slightly beyond the leg so it reads as the
@@ -343,7 +425,11 @@ export default function CinematicJourney() {
       // element itself (the still keeps the leg's own scale).
       if (v) {
         const depth = 1 + (dir > 0 ? eased : 1 - eased) * 0.05 * k;
-        v.style.transform = `scale(${depth.toFixed(4)})`;
+        const next = `scale(${depth.toFixed(4)})`;
+        if (leg.lastVideoTransform !== next) {
+          leg.lastVideoTransform = next;
+          v.style.transform = next;
+        }
       }
     }
 
@@ -352,6 +438,10 @@ export default function CinematicJourney() {
     // damped value (which is what caused the pops).
     let lastActive = -1;
     let completed = false;
+    // The two legs the seam-dissolve is currently showing. render() sets them;
+    // the seek loop in raf() reads them so only on-screen clips are ever scrubbed.
+    let visibleBase = 0;
+    let visibleNext = 0;
     function render() {
       const flight = flightFromP(pEased); // continuous 0..N-1
       const active = clamp(Math.round(flight), 0, N - 1);
@@ -370,16 +460,23 @@ export default function CinematicJourney() {
         // This removes the currentTime snap-back that made the camera visibly
         // reverse/reset at every scene boundary — the #1 source of the "jump".
         leg.target = clamp(flight - (i - 1));
-        leg.el.style.zIndex = i === active ? '2' : '1';
+        setZ(leg, i === active ? '2' : '1');
 
-        if (i >= active - 2 && i <= active + 2) loadClip(leg);
+        // Load only the current leg and its immediate neighbours. The old ±2 window
+        // meant five clips were decoding-ready at once (and by the end of a scroll
+        // all six existed); ±1 still has the next leg fully primed before the
+        // dissolve reaches it, so the swap looks identical.
+        if (i >= active - 1 && i <= active + 1) loadClip(leg);
 
         if (!leg.ready && !reduce) {
           // Ken-Burns drift on the still: scale tracks the eased leg time so the
           // poster keeps drifting smoothly (no snap) until the clip paints.
           const sc = 1.04 + clamp(leg.cur) * 0.1;
-          const stillImg = leg.el.querySelector<HTMLElement>('.cj-still');
-          if (stillImg) stillImg.style.transform = `scale(${sc.toFixed(3)})`;
+          const next = `scale(${sc.toFixed(3)})`;
+          if (leg.still && leg.lastStillTransform !== next) {
+            leg.lastStillTransform = next;
+            leg.still.style.transform = next;
+          }
         }
       }
 
@@ -396,19 +493,26 @@ export default function CinematicJourney() {
       // `1-f` and `f` so they always sum to 1 → the frame never darkens (no black
       // flash) and never double-brightens; cosFade is C1-continuous so brightness
       // has no velocity discontinuity through the transition.
-      for (let i = 0; i < N; i++) {
-        legs[i]!.el.style.opacity = '0';
-        // Shed any lingering focus-pull blur on hidden legs so a leg re-enters
-        // crisp and the compositor isn't holding an off-screen blur filter.
-        if (legs[i]!.el.style.filter) legs[i]!.el.style.filter = '';
-      }
       const base = clamp(Math.floor(flight), 0, N - 1);
       const nextLeg = clamp(base + 1, 0, N - 1);
+      visibleBase = base;
+      visibleNext = nextLeg;
+      for (let i = 0; i < N; i++) {
+        if (i === base || i === nextLeg) continue;
+        const leg = legs[i]!;
+        setOpacity(leg, '0');
+        // Shed any lingering focus-pull blur on hidden legs so a leg re-enters
+        // crisp and the compositor isn't holding an off-screen blur filter.
+        setFilter(leg, '');
+        setLive(leg, false);
+      }
       const within = flight - base; // 0..1 across leg base→base+1
       const seamStart = 1 - OVERLAP; // start dissolving toward the next leg here
       const f = within <= seamStart ? 0 : cosFade((within - seamStart) / OVERLAP);
-      legs[base]!.el.style.opacity = String(clamp(1 - f));
-      legs[nextLeg]!.el.style.opacity = String(clamp(f));
+      setOpacity(legs[base]!, String(clamp(1 - f)));
+      setOpacity(legs[nextLeg]!, String(clamp(f)));
+      setLive(legs[base]!, true);
+      setLive(legs[nextLeg]!, true);
 
       // ── Cinematic camera: per-scene dolly + layered depth parallax ──────────
       // This is the heart of the "camera moving through space" feel. For each of
@@ -433,7 +537,6 @@ export default function CinematicJourney() {
         // (background footage) separate — a subtle but unmistakable 3D read. Also
         // a gentle brand-purple bloom that swells at each seam (peaks mid-dissolve)
         // so passing a scene boundary feels like flying through a glow, not a cut.
-        const scrim = root.querySelector<HTMLElement>('.cj-scrim');
         if (scrim) {
           const par = (within - 0.5) * 10 * CAM_INTENSITY; // px, counter to legs
           scrim.style.transform = `translate3d(0, ${(-par).toFixed(2)}px, 0) scale(1.02)`;
@@ -449,14 +552,14 @@ export default function CinematicJourney() {
       // Band positions are pre-measured in measureAnchors() and stored as absolute
       // document coords — we derive viewport position via (top - scrollY) which is
       // pure arithmetic, eliminating getBoundingClientRect() from the hot path.
-      const vhalf = window.innerHeight / 2;
+      const vhalf = viewportH / 2;
       const scrollY = window.scrollY;
       captionEls.forEach((cap, id) => {
         const bandAbsTop = captionBandTop.get(id);
         const bandHalf = captionBandHalf.get(id);
         if (bandAbsTop === undefined || bandHalf === undefined) return;
         const bandCenter = bandAbsTop - scrollY + bandHalf;
-        const dist = Math.abs(bandCenter - vhalf) / (window.innerHeight * 0.62);
+        const dist = Math.abs(bandCenter - vhalf) / (viewportH * 0.62);
         const targetV = reduce ? 1 : clamp(1 - dist);
         const prev = parseFloat(cap.dataset.capv || String(targetV));
         // One-pole smoothing so the copy fades in/out like a slow reveal, never a
@@ -509,7 +612,13 @@ export default function CinematicJourney() {
 
       render();
 
-      const eps = isMobile() ? 0.02 : 0.006;
+      // Seek granularity = one source frame. The clips are 24fps, so any two times
+      // closer together than 1/24s decode to the SAME frame — the old 6ms threshold
+      // asked the decoder for a new frame roughly seven times per frame actually
+      // shown, and every one of those requests is a real decode. Snapping the
+      // threshold to the frame grid cannot change a single displayed pixel (there
+      // is nothing between two frames to show) and removes most of the work.
+      const eps = FRAME_STEP;
       for (let i = 0; i < N; i++) {
         const leg = legs[i]!;
         const v = leg.video;
@@ -517,11 +626,26 @@ export default function CinematicJourney() {
         leg.cur += (leg.target - leg.cur) * (reduce ? 1 : 0.22);
         if (!leg.ready || !v) continue;
         if (v.seeking) continue;
+
+        // Seek ONLY the two legs the dissolve is actually showing. Previously every
+        // loaded leg was seeked on every frame: by the end of a scroll all six clips
+        // existed, so one scroll frame could queue six seeks — and a seek is not
+        // cheap here, it decodes forward from the preceding keyframe. Six invisible
+        // decodes per frame is what pinned the decoder (all six clips ended a scroll
+        // stuck at readyState 1, `seeking` never clearing) and produced the ~1s
+        // stalls. Hidden legs hold whatever frame they last painted, which is
+        // invisible by definition, so nothing about the look changes.
+        const visible = i === visibleBase || i === visibleNext;
+        if (!visible && leg.warmed) continue;
+
         const dur = v.duration || 1;
+        // The one-time warm seek stays at the leg's own eased position so the frame
+        // it primes is the one it will actually show when it becomes visible.
         const t = clamp(leg.cur, 0, 0.999) * dur;
         if (Math.abs(v.currentTime - t) > eps) {
           try {
             v.currentTime = t;
+            leg.warmed = true;
           } catch {
             /* noop */
           }
