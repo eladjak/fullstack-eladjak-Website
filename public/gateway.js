@@ -328,7 +328,71 @@
         fadeTo(0, 700);
         setTimeout(function () { try { a.pause(); a.src = ""; } catch (e) {} }, 900);
       },
+      /* המעבר אל תוך האתר: לא לעצור — לרדת לעוצמת-רקע ולהמשיך. */
+      linger: function (vol) { if (!dead) fadeTo(vol, 1800); },
+      setVolume: function (v) { if (!dead) { if (fadeTimer) clearInterval(fadeTimer); a.volume = v; } },
+      stop: function () {
+        if (fadeTimer) clearInterval(fadeTimer);
+        try { a.pause(); } catch (e) {}
+      },
+      resume: function () {
+        if (dead) return;
+        var pr = a.play();
+        if (pr && pr.catch) pr.catch(function () {});
+        fadeTo(0.20, 900);
+      },
+      isPlaying: function () { return !dead && !a.paused; },
     };
+  }
+
+  /* ══ הפקד שנשאר ══════════════════════════════════════════════════════════
+     כפתור קטן, קבוע, שמאפשר להשתיק בלחיצה אחת. הוא הסיבה שמותר להשאיר
+     מוזיקה דולקת: מוזיקה שאי-אפשר לעצור היא בדיוק מה שגורם לאנשים לשנוא
+     אתרים עם מוזיקה. הבחירה נזכרת, וביקור הבא מכבד אותה בלי ויכוח. */
+  function mountControl(t, player, startMuted) {
+    var doc = global.document;
+    if (doc.querySelector(".gw-ctl")) return;
+    var st = doc.createElement("style");
+    st.textContent = [
+      '.gw-ctl{position:fixed;inset-block-end:16px;inset-inline-start:16px;z-index:2147482000;',
+      'min-width:44px;min-height:44px;padding:0 14px;border-radius:999px;cursor:pointer;',
+      'display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;font-weight:600;',
+      'background:', t.bg, ';color:', t.ink, ';border:1px solid ', t.accent, ';',
+      'box-shadow:0 6px 20px rgba(0,0,0,.18);opacity:.55;',
+      'transition:opacity .18s ease,transform .18s ease}',
+      '.gw-ctl:hover,.gw-ctl:focus-visible{opacity:1;transform:translateY(-2px)}',
+      '.gw-ctl:focus-visible{outline:2px solid ', t.accent2, ';outline-offset:3px}',
+      '.gw-ctl .bars{display:inline-flex;align-items:flex-end;gap:2px;height:13px}',
+      '.gw-ctl .bars i{width:2.5px;background:', t.accent, ';border-radius:1px;height:35%;',
+      'animation:gw-eq .9s ease-in-out infinite alternate}',
+      '.gw-ctl .bars i:nth-child(2){animation-delay:.18s;height:85%}',
+      '.gw-ctl .bars i:nth-child(3){animation-delay:.36s;height:55%}',
+      '@keyframes gw-eq{to{height:100%}}',
+      '.gw-ctl[aria-pressed="true"] .bars i{animation:none;height:35%;opacity:.4}',
+      '@media (prefers-reduced-motion: reduce){.gw-ctl .bars i{animation:none}}',
+    ].join("");
+    doc.head.appendChild(st);
+
+    var b = doc.createElement("button");
+    b.className = "gw-ctl";
+    b.type = "button";
+    b.innerHTML = '<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl"></span>';
+    var lbl = b.querySelector(".lbl");
+
+    function paint(muted) {
+      b.setAttribute("aria-pressed", muted ? "true" : "false");
+      b.setAttribute("aria-label", muted ? "הפעלת המוזיקה" : "השתקת המוזיקה");
+      lbl.textContent = muted ? "מוזיקה כבויה" : "מוזיקה";
+    }
+    var muted = !!startMuted;
+    paint(muted);
+    b.addEventListener("click", function () {
+      muted = !muted;
+      paint(muted);
+      try { localStorage.setItem("gw-sound", muted ? "0" : "1"); } catch (e) {}
+      if (muted) { player.stop(); } else { player.resume(); }
+    });
+    doc.body.appendChild(b);
   }
 
   /* ══ שדה החלקיקים ══════════════════════════════════════════════════════ */
@@ -536,9 +600,25 @@
     var t = THEMES[opts.theme] || THEMES.personal;
     var doc = global.document;
     if (!doc || !doc.body) return;
+    var seen = false;
     try {
-      if (global.sessionStorage && sessionStorage.getItem(t.key) === "1") return;
+      seen = global.sessionStorage && sessionStorage.getItem(t.key) === "1";
     } catch (e) { /* אחסון חסום — מציגים */ }
+
+    if (seen) {
+      /* עמוד שני, או רענון. השער לא חוזר — אבל אם המוזיקה הייתה דלוקה, היא
+         נעצרה עם הניווט ואי-אפשר להחזיר אותה לבד: דפדפן דורש מחווה חדשה בכל
+         טעינה. אז מעלים את הפקד לבד, כבוי, ולחיצה אחת מחזירה אותה. עדיף
+         להציע מאשר להשתיק בשקט. */
+      var want = false;
+      try { want = localStorage.getItem("gw-sound") === "1"; } catch (e) {}
+      var reduced = global.matchMedia &&
+        global.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (want && t.track && !reduced) {
+        mountControl(t, makeTrack(t.track, function () {}), true);
+      }
+      return;
+    }
 
     var reduce = global.matchMedia &&
       global.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -610,7 +690,17 @@
     function close() {
       if (closed) return;
       closed = true;
-      if (audio) { audio.whoosh(); audio.end(); }
+      if (audio) {
+        audio.whoosh();
+        /* אם יש הקלטה — היא ממשיכה פנימה בעוצמת-רקע, עם פקד להשתקה.
+           מנוע הסינתזה לעומת זאת נסגר: הוא נכתב כפתיחה, לא כפסקול-רקע. */
+        if (t.track && audio.linger) {
+          audio.linger(0.20);
+          mountControl(t, audio);
+        } else {
+          audio.end();
+        }
+      }
       if (field) field.burst();
       el.setAttribute("data-out", "1");
       doc.body.style.overflow = prevOverflow;
