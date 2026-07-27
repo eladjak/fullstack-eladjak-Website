@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllMDXPosts } from '@/lib/mdx';
 import { allGuides } from '@/data/agent-guides';
+import { allGuidesEn } from '@/data/agent-guides/en';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 
@@ -93,6 +94,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: (g.category ?? 'agent') === 'agent' ? 0.8 : 0.7,
     }));
 
+  // The English guides were absent from this file entirely. The pages are live
+  // and return 200; they were simply never announced, so search engines had no
+  // way to find roughly half of the guide content. Mirrors the Hebrew block
+  // above exactly, same exclusion and same priorities.
+  const guideIndexRouteEn: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/en/guide`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+  ];
+  const guideRoutesEn: MetadataRoute.Sitemap = allGuidesEn
+    .filter((g) => g.slug !== 'claude-code')
+    .map((g) => ({
+      url: `${SITE_URL}/en/guide/${g.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: (g.category ?? 'agent') === 'agent' ? 0.8 : 0.7,
+    }));
+
   // MDX blog posts (local files)
   const mdxPosts = getAllMDXPosts();
   const mdxRoutes: MetadataRoute.Sitemap = mdxPosts.map((post) => ({
@@ -102,5 +124,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...guideIndexRoute, ...guideRoutes, ...mdxRoutes];
+  return [...staticRoutes, ...guideIndexRoute, ...guideRoutes,
+    ...guideIndexRouteEn,
+    ...guideRoutesEn, ...mdxRoutes];
 }
