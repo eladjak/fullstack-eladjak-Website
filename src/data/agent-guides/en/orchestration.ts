@@ -311,7 +311,7 @@ export const orchestrationGuideEn: AgentGuideData = {
     {
       title: "Consultation — agent networks",
       description: "Want to build a coordinated network of your own?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -325,7 +325,7 @@ export const orchestrationGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

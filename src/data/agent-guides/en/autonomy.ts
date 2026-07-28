@@ -368,7 +368,7 @@ export const autonomyGuideEn: AgentGuideData = {
     {
       title: "Consultation — an autonomous network",
       description: "Want a system that works for you 24/7 — safely?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -382,7 +382,7 @@ export const autonomyGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

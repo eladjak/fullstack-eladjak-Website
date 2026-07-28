@@ -288,7 +288,7 @@ export const qdrantGuideEn: AgentGuideData = {
     {
       title: "Book a consultation",
       description: "Want RAG in your product?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -302,7 +302,7 @@ export const qdrantGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

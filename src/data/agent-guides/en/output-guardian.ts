@@ -282,7 +282,7 @@ export const outputGuardianGuideEn: AgentGuideData = {
     {
       title: "Consultation — automation reliability",
       description: "Want to know your automation actually produces — not just runs?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -296,7 +296,7 @@ export const outputGuardianGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

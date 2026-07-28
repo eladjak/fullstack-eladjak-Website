@@ -292,7 +292,7 @@ export const delegatorGuideEn: AgentGuideData = {
     {
       title: "Architecture consultation",
       description: "Want a gateway for your network?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -306,7 +306,7 @@ export const delegatorGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Consultation call",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

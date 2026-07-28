@@ -280,7 +280,7 @@ export const crewaiGuideEn: AgentGuideData = {
     {
       title: "Book a consultation",
       description: "Want a custom crew? A 30-minute advisory call",
-      href: "/en/contact",
+      href: "/contact",
       icon: DollarSign,
     },
   ],
@@ -294,7 +294,7 @@ export const crewaiGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Mail,
   },
   authorBio:

@@ -113,7 +113,7 @@ export const boxGuideEn: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "beginner",
       beginner:
-        "Think of it as a digital journal with a brain. You write \"I ate a burrito\" in Telegram — Box understands it's a meal, estimates calories and protein, stores it in an internal record, and at the end of the week sends you a short summary. No app, no signup, no buttons. In my own ([Elad](/en/contact)) setup it accompanies a weight-loss and strength program, but in your setup it can track sleep, running, study habits, or any other goal.",
+        "Think of it as a digital journal with a brain. You write \"I ate a burrito\" in Telegram — Box understands it's a meal, estimates calories and protein, stores it in an internal record, and at the end of the week sends you a short summary. No app, no signup, no buttons. In my own ([Elad](/contact)) setup it accompanies a weight-loss and strength program, but in your setup it can track sleep, running, study habits, or any other goal.",
       content: [
         "What is live in my setup today — proactive check-ins (version 2): Box reaches out to me on Telegram at set times with a short question ('what did you eat? how did you sleep?'), gets a free-form answer, and stores it. Simple, consistent — and that is what actually builds a streak over time.",
         "In the full pattern, Box is an endpoint on the [Delegator](/en/guide/delegator) — the central API layer every agent in the network speaks through. In other words, Box isn't a separate server but a capability that plugs into an existing stack.",
@@ -196,7 +196,7 @@ export const boxGuideEn: AgentGuideData = {
         "7 events ahead on every call — when the calendar syncs again tomorrow, there will be 7 new ones. There's no \"end\" to the calendar; it keeps producing the next one continuously.",
         "How to add it in Google: Calendar → Other calendars → From URL → paste the URL. In Apple Calendar: File → New Calendar Subscription. It's a one-time action.",
         "Typical sync time: 5–15 minutes. Google checks the URL on its own cadence; you can't force an instant refresh, but in practice it's excellent for daily reminders.",
-        "In my own setup ([Elad](/en/contact)) this is essential because I stay quiet on Shabbat and holidays — the calendar automatically skips those days (see [Adopter](/en/guide/adopter) and the Shabbat-awareness principle that runs across every agent in the network).",
+        "In my own setup ([Elad](/contact)) this is essential because I stay quiet on Shabbat and holidays — the calendar automatically skips those days (see [Adopter](/en/guide/adopter) and the Shabbat-awareness principle that runs across every agent in the network).",
       ],
       codeExample: {
         label: "VCALENDAR example",
@@ -281,7 +281,7 @@ export const boxGuideEn: AgentGuideData = {
     {
       title: "Consultation call",
       description: "Want your own coach version? 30-minute call",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
     {
@@ -301,7 +301,7 @@ export const boxGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

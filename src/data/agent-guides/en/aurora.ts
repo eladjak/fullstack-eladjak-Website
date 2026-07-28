@@ -313,7 +313,7 @@ export const auroraGuideEn: AgentGuideData = {
     {
       title: "Consultation — a reflection layer",
       description: "Want an agent that checks your network actually works?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -327,7 +327,7 @@ export const auroraGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

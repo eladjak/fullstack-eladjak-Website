@@ -17,7 +17,9 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/contact`,
     languages: {
       'he-IL': `${SITE_URL}/contact`,
-      'en': `${SITE_URL}/en/contact`,
+      // /en/contact does not exist. Advertising it to search engines pointed
+      // them at a 404 as the English alternate of this page.
+      'en': `${SITE_URL}/contact`,
     },
   },
   openGraph: {

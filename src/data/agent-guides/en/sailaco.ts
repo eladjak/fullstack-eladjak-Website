@@ -280,7 +280,7 @@ export const sailacoGuideEn: AgentGuideData = {
     {
       title: "Consultation — sales automation",
       description: "Want a sales assistant that does the worn-out work — safely?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -294,7 +294,7 @@ export const sailacoGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

@@ -276,7 +276,7 @@ export const solisGuideEn: AgentGuideData = {
     {
       title: "Consultation — agent networks",
       description: "Want a network that remembers whom it serves?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -290,7 +290,7 @@ export const solisGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

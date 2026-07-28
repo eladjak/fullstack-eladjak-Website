@@ -325,7 +325,7 @@ export const capabilityLadderGuideEn: AgentGuideData = {
     {
       title: "Consultation — a capability ladder for your business",
       description: "Want to map where your agents sit on the ladder — and what the next rung is?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -339,7 +339,7 @@ export const capabilityLadderGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

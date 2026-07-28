@@ -304,7 +304,7 @@ export const dashboardGuideEn: AgentGuideData = {
     {
       title: "Book a consultation",
       description: "Want a dashboard tailored to you?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -318,7 +318,7 @@ export const dashboardGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

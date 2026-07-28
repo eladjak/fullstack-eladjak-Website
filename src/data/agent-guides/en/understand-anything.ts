@@ -288,7 +288,7 @@ export const understandAnythingGuideEn: AgentGuideData = {
     {
       title: "Book a consultation",
       description: "Want to deeply understand your own codebase?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -302,7 +302,7 @@ export const understandAnythingGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

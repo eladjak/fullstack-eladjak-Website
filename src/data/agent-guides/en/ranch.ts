@@ -280,7 +280,7 @@ export const ranchGuideEn: AgentGuideData = {
     {
       title: "Consultation — a content factory",
       description: "Want an agent that turns every conversation into content — in your voice?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -294,7 +294,7 @@ export const ranchGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a consultation",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:

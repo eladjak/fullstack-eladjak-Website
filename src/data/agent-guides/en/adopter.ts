@@ -281,7 +281,7 @@ export const adopterGuideEn: AgentGuideData = {
     {
       title: "Book a call",
       description: "Want automated sourcing tailored to your needs?",
-      href: "/en/contact",
+      href: "/contact",
       icon: Mail,
     },
   ],
@@ -295,7 +295,7 @@ export const adopterGuideEn: AgentGuideData = {
   },
   secondaryCta: {
     label: "Book a call",
-    href: "/en/contact",
+    href: "/contact",
     icon: Users,
   },
   authorBio:
