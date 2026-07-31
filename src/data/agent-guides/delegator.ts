@@ -24,16 +24,22 @@ export const delegatorGuide: AgentGuideData = {
   agentNameHe: "שער API מרכזי לכל רשת",
   category: "agent",
   logoImage: "/images/guide-logos/delegator-logo.png",
-  tagline: "שער אחד, 100+ endpoints, כל הרשת מאחור",
-  heroDescription: "Delegator הוא מה שנקרא בעגה המקצועית 'שער API' (API Gateway) — מעין מרכזייה דיגיטלית שיושבת בכניסה לרשת סוכני ה-AI שלי וממיינת את כל התנועה שעוברת דרכה. חשבו על מרכזייה של בניין משרדים גדול: במקום שכל עובד יזכור את המספר של הבנק, של חברת הדואר, של ספק החשמל ושל עשרות הלקוחות — יש מרכזנית אחת שיודעת את הכל; העובד רק מבקש 'תעבירי אותי לבנק' והיא מחברת. בדיוק כך Delegator מתפקד עבור הסוכנים שלי: כש-[Kami](/guide/kami) רוצה לשלוח אימייל, כש-[Box](/guide/box) צריך ליצור אירוע ביומן, כש-[Adopter](/guide/adopter) רוצה לשמור משהו בזיכרון — אף אחד מהם לא צריך לדעת את מפתחות ה-API של Resend (מייל — 100 ביום בחינם, מעבר לזה pay-per-use), Google, Twilio (SMS — תשלום לפי הודעה) או Perplexity (Pro API למחקר). הם פשוט שולחים בקשה ל-Delegator, והוא דואג לכל השאר. הטכנולוגיה עצמה פשוטה מאוד — שרת HTTP שכתבתי ב-Python עם מעל 100 נקודות קצה (endpoints) שמטפלות בכל מה שצריך. אצלי Delegator מחבר 12 סוכנים שונים מאחורי שער אחד — אצלכם הוא יכול להחליף שירותי אוטומציה כמו Zapier (חינם עד 100 tasks בחודש, Starter כ-29 דולר לחודש, Professional כ-73 דולר, Team כ-103 דולר למשתמש ב-2026) או Make, ולשמש כתשתית API מרכזית לכל ארכיטקטורה עם מספר מערכות AI — בלי לפזר סיסמאות וקונפיגורציה בחמישה מקומות שונים.",
+  tagline: "שער אחד, 39 endpoints, כל הרשת מאחור",
+  heroDescription: "Delegator הוא מה שנקרא בעגה המקצועית 'שער API' (API Gateway) — מעין מרכזייה דיגיטלית שיושבת בכניסה לרשת סוכני ה-AI שלי וממיינת את כל התנועה שעוברת דרכה. חשבו על מרכזייה של בניין משרדים גדול: במקום שכל עובד יזכור את המספר של הבנק, של חברת הדואר, של ספק החשמל ושל עשרות הלקוחות — יש מרכזנית אחת שיודעת את הכל; העובד רק מבקש 'תעבירי אותי לבנק' והיא מחברת. בדיוק כך Delegator מתפקד עבור הסוכנים שלי: כש-[Kami](/guide/kami) רוצה לשלוח אימייל, כש-[Box](/guide/box) צריך ליצור אירוע ביומן, כש-[Adopter](/guide/adopter) רוצה לשמור משהו בזיכרון — אף אחד מהם לא צריך לדעת את מפתחות ה-API של Resend (מייל — 100 ביום בחינם, מעבר לזה pay-per-use), Google, Twilio (SMS — תשלום לפי הודעה) או Perplexity (Pro API למחקר). הם פשוט שולחים בקשה ל-Delegator, והוא דואג לכל השאר. הטכנולוגיה עצמה פשוטה מאוד — שרת HTTP שכתבתי ב-Python עם 39 נקודות קצה (endpoints) שמטפלות בכל מה שצריך. אצלי Delegator מחבר 9 סוכנים שונים מאחורי שער אחד — אצלכם הוא יכול להחליף שירותי אוטומציה כמו Zapier (חינם עד 100 tasks בחודש, Starter כ-29 דולר לחודש, Professional כ-73 דולר, Team כ-103 דולר למשתמש ב-2026) או Make, ולשמש כתשתית API מרכזית לכל ארכיטקטורה עם מספר מערכות AI — בלי לפזר סיסמאות וקונפיגורציה בחמישה מקומות שונים.",
   badgeText: "2026 · Central API Router · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/delegator",
   heroBgImage: "/images/guides/guide-delegator-hero.jpg",
   videoUrl: "/videos/guides/delegator.mp4",
+  // Counted against the running service on 31.7.2026, not estimated.
+  // Previously: "endpoints 100+" (39 route paths are defined), "שירותים
+  // מאחורה 10" (/routes returns 9), and "uptime (90 יום) 99.7%" — a precise
+  // figure implying continuous monitoring, when nothing on the server recorded
+  // uptime at all. A number a reader would quote back has to be one we can
+  // show them where it came from.
   stats: [
-    { label: "endpoints", value: "100+" },
-    { label: "שירותים מאחורה", value: "10" },
-    { label: "uptime (90 יום)", value: "99.7%" },
+    { label: "endpoints", value: "39" },
+    { label: "שירותים מאחורה", value: "9" },
+    { label: "בדיקת חיים", value: "כל 20 ד׳" },
     { label: "public URL", value: "hub" },
   ],
   paradigmTitle: "Stop duplicating the middle layer",
@@ -111,23 +117,23 @@ export const delegatorGuide: AgentGuideData = {
       color: "from-cyan-600 to-blue-500",
       difficulty: "beginner",
       beginner:
-        "דמיינו מרכזייה של בניין משרדים גדול. במקום שכל עובד יזכור את מספר הטלפון של הבנק, של חברת הדואר, של ספק החשמל ושל הלקוחות — יש מרכזנית אחת שיודעת את הכל. העובד מרים טלפון, אומר 'תעבירי אותי לבנק' — והיא מחברת. כך בדיוק עובד Delegator. הסוכנים לא צריכים לנהל בעצמם את פרטי הקשר (מה שנקרא credentials — סיסמאות ומפתחות גישה לשירותים חיצוניים); הם רק שולחים בקשה פשוטה ל-Delegator והוא דואג לכל השאר. כך, אם מחליפים מפתח API של שירות מייל — משנים את זה במקום אחד בלבד, לא ב-12 סוכנים שונים.",
+        "דמיינו מרכזייה של בניין משרדים גדול. במקום שכל עובד יזכור את מספר הטלפון של הבנק, של חברת הדואר, של ספק החשמל ושל הלקוחות — יש מרכזנית אחת שיודעת את הכל. העובד מרים טלפון, אומר 'תעבירי אותי לבנק' — והיא מחברת. כך בדיוק עובד Delegator. הסוכנים לא צריכים לנהל בעצמם את פרטי הקשר (מה שנקרא credentials — סיסמאות ומפתחות גישה לשירותים חיצוניים); הם רק שולחים בקשה פשוטה ל-Delegator והוא דואג לכל השאר. כך, אם מחליפים מפתח API של שירות מייל — משנים את זה במקום אחד בלבד, לא ב-9 סוכנים שונים.",
       content: [
         "רץ על port 3900 בשרת (שרת ה-Contabo שלי) — בפנים בלבד. לגולשים מבחוץ הוא נגיש בכתובת hub.eladjak.com דרך cloudflared tunnel (שירות חינמי של Cloudflare שמחבר שרת ביתי לאינטרנט בלי לפתוח פורטים בפיירוול)",
         "הקוד יושב ב-`/opt/ai-factory/scripts/delegator.py` — קובץ פייתון אחד, כ-7,000 שורות. בלי dependency hell, בלי מיליון ספריות. רק stdlib (הספרייה הסטנדרטית של פייתון) + כמה ספריות רשת בסיסיות",
-        "מעל 100 endpoints (נקודות קצה — כתובות שאליהן אפשר לפנות, כמו /email/send או /calendar/check). כל endpoint מטפל במשימה ספציפית",
+        "39 endpoints (נקודות קצה — כתובות שאליהן אפשר לפנות, כמו /email/send או /calendar/check). כל endpoint מטפל במשימה ספציפית",
         "ניהול סודות (secrets) מרוכז — מפתחות ה-API של Resend (שירות שליחת מיילים — שכבה חינמית של 100 מיילים ליום, מעבר לזה תשלום לפי נפח), Twilio (SMS — תשלום לפי הודעה), Google OAuth, Anthropic (Claude Sonnet 4.6 / Opus 4.7 / Haiku 4.5), OpenAI, Gemini, Perplexity (Pro API למחקר), fal.ai (יצירת תמונות/וידאו) — כולם ב-environment variables של השרת, אף פעם לא בקוד ולא ב-Git",
         "Dashboards ציבוריים (עמודי בקרה ב-HTML) שרצים על אותו שרת: `/launcher` (תפריט הסוכנים), `/hub` (מצב הרשת), `/costs/llm` (עלויות LLM), `/calendar/publishing-status` (מה מותר לפרסם עכשיו)",
-        "אצלי: מרכז את 12 הסוכנים מאחורי שער אחד. אצלכם: יכול לשמש כ-gateway לרשת multi-agent משלכם, או להחליף Zapier/Make כשהם נעשים יקרים מדי",
+        "אצלי: מרכז את 9 הסוכנים מאחורי שער אחד. אצלכם: יכול לשמש כ-gateway לרשת multi-agent משלכם, או להחליף Zapier/Make כשהם נעשים יקרים מדי",
       ],
     },
     {
       id: "routes",
       icon: Route,
-      title: "מעל 100 endpoints — מה יש בתוך השער",
+      title: "39 endpoints — מה יש בתוך השער",
       subtitle: "לא רק צינור — גם לוגיקה עסקית אמיתית",
       description:
-        "endpoint היא כתובת ספציפית בשרת שעונה למשימה מסוימת. למשל POST /email/send לשליחת מייל, או GET /calendar/check לבדיקת לו\"ז. Delegator מחזיק מעל 100 כאלה, מחולקים לפי תחומי אחריות. זה לא רק middleware (שכבת תיווך שמעבירה בקשות לשירות אחר) — יש כאן גם לוגיקה עסקית אמיתית, למשל שער שבודק אם מותר לפרסם עכשיו, או router שמחליט איזה LLM להפעיל לפי עלות.",
+        "endpoint היא כתובת ספציפית בשרת שעונה למשימה מסוימת. למשל POST /email/send לשליחת מייל, או GET /calendar/check לבדיקת לו\"ז. Delegator מחזיק 39 כאלה, מחולקים לפי תחומי אחריות. זה לא רק middleware (שכבת תיווך שמעבירה בקשות לשירות אחר) — יש כאן גם לוגיקה עסקית אמיתית, למשל שער שבודק אם מותר לפרסם עכשיו, או router שמחליט איזה LLM להפעיל לפי עלות.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
       beginner:
@@ -310,5 +316,5 @@ export const delegatorGuide: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Delegator חי אצלי חודשים ארוכים, כ-7,000 שורות קוד, 100+ endpoints. הגרסה הראשונה הייתה 200 שורות. הוא גדל עם הצורך — כל feature שצץ בכמה סוכנים עבר דרכו. המדריך מבוסס על הגדילה הזו.",
+    "Delegator חי אצלי חודשים ארוכים, כ-7,200 שורות קוד, 39 endpoints. הגרסה הראשונה הייתה 200 שורות. הוא גדל עם הצורך — כל feature שצץ בכמה סוכנים עבר דרכו. המדריך מבוסס על הגדילה הזו.",
 };

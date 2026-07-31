@@ -31,8 +31,12 @@ export const dashboardGuide: AgentGuideData = {
   canonical: "https://fullstack-eladjak.co.il/guide/dashboard",
   heroBgImage: "/images/guides/guide-dashboard-hero.jpg",
   videoUrl: "/videos/guides/dashboard.mp4",
+  // Counted 31.7.2026 from the distinct data-tab values in
+  // ~/.claude/dashboard/index.html: agents, analytics, bridge, chat,
+  // executions, guardian, health, knowledge, missionctl, projects, qwen,
+  // scheduler, sdlocal, settings. The guide said 12.
   stats: [
-    { label: "טאבים", value: "12" },
+    { label: "טאבים", value: "14" },
     { label: "WebSocket updates", value: "5s" },
     { label: "עלות", value: "חינם" },
     { label: "שכבות נתונים", value: "live" },

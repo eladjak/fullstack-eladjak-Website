@@ -24,16 +24,16 @@ export const delegatorGuideEn: AgentGuideData = {
   agentNameHe: "Delegator — Central API Gateway",
   category: "agent",
   logoImage: "/images/guide-logos/delegator-logo.png",
-  tagline: "One gateway, 100+ endpoints, the whole network behind it",
-  heroDescription: "Delegator is a plain-Python HTTP router (stdlib, no FastAPI) that runs on port 3900 on my VPS. It centralizes 100+ endpoints: email (Resend — free tier 100/day, then pay-per-use), SMS (Twilio — pay-per-message), calendar (Hebcal free + Google Calendar), Drive, research (Perplexity Pro API + Gemini), content-studio, landing-pages, campaigns, pipeline orchestration, and auto-routing. Auth is handled today with a simple API key (JWT-ready in middleware), and everything is logged to [Qdrant](/en/guide/qdrant). For me it fronts all 12 agents behind a single gateway — for you it can replace Zapier (free tier 100 tasks/month, Starter ~$29/mo, Professional ~$73/mo in 2026) or Make, and serve as an API gateway for any multi-agent architecture, without scattering credentials across five different .env files.",
+  tagline: "One gateway, 39 endpoints, the whole network behind it",
+  heroDescription: "Delegator is a plain-Python HTTP router (stdlib, no FastAPI) that runs on port 3900 on my VPS. It centralizes 39 endpoints: email (Resend — free tier 100/day, then pay-per-use), SMS (Twilio — pay-per-message), calendar (Hebcal free + Google Calendar), Drive, research (Perplexity Pro API + Gemini), content-studio, landing-pages, campaigns, pipeline orchestration, and auto-routing. Auth is handled today with a simple API key (JWT-ready in middleware), and everything is logged to [Qdrant](/en/guide/qdrant). For me it fronts all 9 agents behind a single gateway — for you it can replace Zapier (free tier 100 tasks/month, Starter ~$29/mo, Professional ~$73/mo in 2026) or Make, and serve as an API gateway for any multi-agent architecture, without scattering credentials across five different .env files.",
   badgeText: "2026 · Central API Router · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/delegator",
   heroBgImage: "/images/guides/guide-delegator-hero.jpg",
   videoUrl: "/videos/guides/delegator.mp4",
   stats: [
-    { label: "endpoints", value: "100+" },
+    { label: "endpoints", value: "39" },
     { label: "services behind it", value: "10" },
-    { label: "uptime (90 days)", value: "99.7%" },
+    { label: "liveness check", value: "every 20m" },
     { label: "public URL", value: "hub" },
   ],
   paradigmTitle: "Stop duplicating the middle layer",
@@ -115,19 +115,19 @@ export const delegatorGuideEn: AgentGuideData = {
       content: [
         "Runs on port 3900 on the server (my Contabo machine) — internal only. External visitors reach it at hub.eladjak.com through a cloudflared tunnel (a free Cloudflare service that connects a home server to the internet without opening firewall ports)",
         "The code lives at `/opt/ai-factory/scripts/delegator.py` — a single Python file, roughly 7,000 lines. No dependency hell, no million libraries. Just stdlib (Python's standard library) and a handful of basic networking libraries",
-        "Over 100 endpoints (endpoints — addresses you can hit, like /email/send or /calendar/check). Each endpoint handles a specific job",
+        "39 endpoints (endpoints — addresses you can hit, like /email/send or /calendar/check). Each endpoint handles a specific job",
         "Centralized secrets management — API keys for Resend (email — free tier 100/day, then pay-per-volume), Twilio (SMS — pay-per-message), Google OAuth, Anthropic (Claude Sonnet 4.6 / Opus 4.7 / Haiku 4.5), OpenAI, Gemini, Perplexity (Pro API for research), fal.ai (image/video generation) — all live in the server's environment variables, never in code and never in Git",
         "Public HTML dashboards running on the same server: `/launcher` (agent menu), `/hub` (network status), `/costs/llm` (LLM spend), `/calendar/publishing-status` (what's allowed to publish right now)",
-        "For me: fronts all 12 agents behind a single gateway. For you: can serve as the gateway for your own multi-agent network, or replace Zapier/Make when they get too pricey",
+        "For me: fronts all 9 agents behind a single gateway. For you: can serve as the gateway for your own multi-agent network, or replace Zapier/Make when they get too pricey",
       ],
     },
     {
       id: "routes",
       icon: Route,
-      title: "Over 100 endpoints — what's inside the gateway",
+      title: "39 endpoints — what's inside the gateway",
       subtitle: "Not just a pipe — real business logic too",
       description:
-        "An endpoint is a specific server address that answers a specific request. For example POST /email/send to send an email, or GET /calendar/check to check a schedule. Delegator hosts 100+ of them, grouped by responsibility. It's not just middleware (a pass-through layer that forwards requests to another service) — there's real business logic in here too, like a gate that checks whether publishing is allowed right now, or a router that picks which LLM to call based on cost.",
+        "An endpoint is a specific server address that answers a specific request. For example POST /email/send to send an email, or GET /calendar/check to check a schedule. Delegator hosts 39 of them, grouped by responsibility. It's not just middleware (a pass-through layer that forwards requests to another service) — there's real business logic in here too, like a gate that checks whether publishing is allowed right now, or a router that picks which LLM to call based on cost.",
       color: "from-violet-600 to-purple-500",
       difficulty: "intermediate",
       beginner:
@@ -310,5 +310,5 @@ export const delegatorGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "The Delegator has been with me for many months, ~7,000 lines of code, 100+ endpoints. The first version was 200 lines. It grew with need — every feature that showed up in a handful of agents ended up passing through it. This guide is based on that growth.",
+    "The Delegator has been with me for many months, ~7,200 lines of code, 39 endpoints. The first version was 200 lines. It grew with need — every feature that showed up in a handful of agents ended up passing through it. This guide is based on that growth.",
 };
