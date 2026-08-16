@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -27,7 +27,7 @@ const staticProjects: StaticProject[] = [
     messageKey: 'haderech',
     technologies: ['Next.js', 'TypeScript', 'Supabase', 'OpenAI', 'Tailwind CSS'],
     github_url: 'https://github.com/eladjak/Haderech-Next',
-    live_url: 'https://haderech-next.vercel.app',
+    // Public card: named domain only. Preview URL stays off the door.
     gradient: 'from-violet-500/20 to-purple-600/20',
     icon: 'HaDerech',
     image: '/projects/haderech-screenshot.png',
@@ -79,7 +79,6 @@ const staticProjects: StaticProject[] = [
     messageKey: 'htmlToPptx',
     technologies: ['Next.js 14', 'TypeScript', 'pptxgenjs', 'JSDOM', 'Tailwind CSS'],
     github_url: 'https://github.com/eladjak/html-to-pptx',
-    live_url: 'https://html-to-pptx-ten.vercel.app',
     gradient: 'from-orange-500/20 to-amber-500/20',
     icon: 'PPTX',
     image: '/projects/html-to-pptx-screenshot.png',
@@ -98,12 +97,17 @@ const staticProjects: StaticProject[] = [
     messageKey: 'teamMeetings',
     technologies: ['React', 'TypeScript', 'Vite', 'FullCalendar', 'MUI'],
     github_url: 'https://github.com/eladjak/team-meetings',
-    live_url: 'https://team-meetings.vercel.app',
     gradient: 'from-purple-500/20 to-violet-500/20',
     icon: 'Meetings',
     image: '/projects/team-meetings-screenshot.jpg',
   },
 ];
+
+function publicLiveUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  if (url.includes('vercel.app')) return undefined;
+  return url;
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -172,13 +176,8 @@ export default function FeaturedProjectsSection() {
                       ))}
                     </div>
                     <div className="flex items-center gap-3">
-                      {project.github_url && (
-                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-                          <Github className="h-4 w-4" /> {t('code')}
-                        </a>
-                      )}
-                      {project.live_url && (
-                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                      {publicLiveUrl(project.live_url) && (
+                        <a href={publicLiveUrl(project.live_url)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
                           <ExternalLink className="h-4 w-4" /> {t('liveDemo')}
                         </a>
                       )}
@@ -244,21 +243,9 @@ export default function FeaturedProjectsSection() {
 
                   {/* Links */}
                   <div className="flex items-center gap-4 pt-2 border-t border-border/50">
-                    {project.github_url && (
+                    {publicLiveUrl(project.live_url) && (
                       <a
-                        href={project.github_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                        aria-label={`View source code for ${project.icon}`}
-                      >
-                        <Github className="h-4 w-4" aria-hidden="true" />
-                        <span>{t('code')}</span>
-                      </a>
-                    )}
-                    {project.live_url && (
-                      <a
-                        href={project.live_url}
+                        href={publicLiveUrl(project.live_url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"

@@ -17,11 +17,11 @@
   },
   "hero": {
     "badge": "Available for Projects",
-    "heading": "Full-Stack Developer with a Server-Side Focus",
-    "title": "Building Node.js backends, REST APIs & PostgreSQL systems — 26+ apps in production",
-    "description": "From idea to production — I build robust server-side systems, REST APIs, and AI-powered solutions. AI tooling as a force multiplier. Israel.",
+    "heading": "Hire me to build a system you can actually use",
+    "title": "Sites, apps, and AI agents for a business that needs a result, not a slide",
+    "description": "We start with one conversation. You leave with something that works, in Hebrew, on a real address.",
     "viewProjects": "View My Work",
-    "contactCta": "Let's Talk"
+    "contactCta": "Let's start"
   },
   "skills": {
     "title": "What I Can Build For You",

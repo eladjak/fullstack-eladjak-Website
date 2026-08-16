@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
-import { Github, ExternalLink, Eye, Search, X, ChevronDown } from 'lucide-react';
+import { ExternalLink, Eye, Search, X, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
@@ -35,6 +35,13 @@ interface StaticProject {
 // intentionally exposes no public URL (no broken anchor is rendered for it).
 // LINK-AUDIT (2026-07-24): zehutai now links to the public zehut.org.il (site went
 // live July 2026); businessBrain links to the on-site product page. Both HEAD 200.
+// Door rule (2026-08-16): a visitor never leaves this page to *.vercel.app.
+function publicLiveUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  if (url.includes('vercel.app')) return undefined;
+  return url;
+}
+
 const allProjects: StaticProject[] = [
   {
     id: 'haderech',
@@ -42,7 +49,7 @@ const allProjects: StaticProject[] = [
     category: 'web',
     technologies: ['Next.js', 'TypeScript', 'Supabase', 'Convex', 'Clerk', 'Tailwind CSS'],
     github_url: 'https://github.com/eladjak/Haderech-Next',
-    live_url: 'https://haderech-next.vercel.app',
+
     gradient: 'from-violet-500/20 to-purple-600/20',
     icon: 'HaDerech',
     image: '/projects/haderech-screenshot.png',
@@ -75,7 +82,7 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['Next.js 15', 'React 19', 'Supabase', 'Zustand', 'next-intl', 'Vitest'],
     github_url: 'https://github.com/eladjak/ninja-keyboard',
-    live_url: 'https://ninja-keyboard-nine.vercel.app',
+
     gradient: 'from-red-500/20 to-orange-500/20',
     icon: 'Ninja',
     image: '/projects/ninja-keyboard-live.png',
@@ -86,7 +93,7 @@ const allProjects: StaticProject[] = [
     category: 'ai',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Canvas'],
     github_url: 'https://github.com/eladjak/gamespark-ai-kids',
-    live_url: 'https://gamespark-ai-kids.vercel.app',
+
     gradient: 'from-cyan-500/20 to-emerald-500/20',
     icon: 'GameSpark',
     image: '/projects/gamespark.png',
@@ -96,7 +103,7 @@ const allProjects: StaticProject[] = [
     messageKey: 'orgBrain',
     category: 'ai',
     technologies: ['Next.js', 'TypeScript', 'Markdown', 'Git', 'Claude API'],
-    live_url: 'https://org-brain-demo.vercel.app',
+
     gradient: 'from-pink-500/20 to-rose-600/20',
     icon: 'OrgBrain',
     image: '/projects/org-brain.png',
@@ -166,7 +173,7 @@ const allProjects: StaticProject[] = [
     messageKey: 'dateKirva',
     category: 'web',
     technologies: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'RTL'],
-    live_url: 'https://date-kirva.vercel.app',
+
     gradient: 'from-rose-500/20 to-pink-600/20',
     icon: 'DateKirva',
     image: '/projects/date-kirva.png',
@@ -239,7 +246,7 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['Next.js 14', 'TypeScript', 'pptxgenjs', 'JSDOM', 'Tailwind CSS'],
     github_url: 'https://github.com/eladjak/html-to-pptx',
-    live_url: 'https://html-to-pptx-ten.vercel.app',
+
     gradient: 'from-orange-500/20 to-amber-500/20',
     icon: 'PPTX',
     image: '/projects/html-to-pptx-screenshot.png',
@@ -250,7 +257,7 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['React', 'FullCalendar', 'Hebrew Calendar API', 'Google OAuth', 'i18n'],
     github_url: 'https://github.com/eladjak/hebrew-gregorian-calendar',
-    live_url: 'https://hebrew-calendar-eosin.vercel.app',
+
     gradient: 'from-indigo-500/20 to-blue-500/20',
     icon: 'Calendar',
     image: '/projects/hebrew-calendar-screenshot.jpg',
@@ -261,7 +268,7 @@ const allProjects: StaticProject[] = [
     category: 'web',
     technologies: ['React', 'TypeScript', 'NestJS', 'TypeORM', 'Redux Toolkit', 'Material-UI'],
     github_url: 'https://github.com/eladjak/Vacation-STUDENT_ID_Final',
-    live_url: 'https://vacation-vibe-pi.vercel.app',
+
     gradient: 'from-cyan-500/20 to-blue-500/20',
     icon: 'Vacation',
     image: '/projects/vacation-vibe-screenshot.jpg',
@@ -272,7 +279,7 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['React', 'TypeScript', 'Vite', 'FullCalendar', 'MUI', 'Framer Motion'],
     github_url: 'https://github.com/eladjak/team-meetings',
-    live_url: 'https://team-meetings.vercel.app',
+
     gradient: 'from-purple-500/20 to-violet-500/20',
     icon: 'Meetings',
     image: '/projects/team-meetings-screenshot.jpg',
@@ -283,7 +290,7 @@ const allProjects: StaticProject[] = [
     category: 'web',
     technologies: ['Angular', 'Node.js', 'Express', 'MongoDB', 'JWT Auth'],
     github_url: 'https://github.com/eladjak/Custome-Mengment-Angular',
-    live_url: 'https://customer-crm-tau.vercel.app',
+
     gradient: 'from-rose-500/20 to-pink-500/20',
     icon: 'CRM',
     image: '/projects/customer-crm-screenshot.jpg',
@@ -294,7 +301,7 @@ const allProjects: StaticProject[] = [
     category: 'tools',
     technologies: ['jQuery', 'AJAX', 'CoinGecko API', 'Chart.js', 'Bootstrap'],
     github_url: 'https://github.com/eladjak/Jquery-AJAX---Cryptocurrency-API-Tracking-Application-Project',
-    live_url: 'https://crypto-tracker-iota-mocha.vercel.app',
+
     gradient: 'from-yellow-500/20 to-amber-500/20',
     icon: 'Crypto',
     image: '/projects/crypto-tracker-screenshot.jpg',
@@ -579,8 +586,8 @@ export default function ProjectsPage() {
                         </>
                       )}
 
-                      {/* Live Preview overlay button — shows on hover when live_url exists */}
-                      {project.live_url && (
+                      {/* Live Preview overlay button — named public domains only */}
+                      {publicLiveUrl(project.live_url) && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200">
                           <button
                             onClick={() => setPreviewProject(project)}
@@ -625,22 +632,10 @@ export default function ProjectsPage() {
 
                       {/* Links */}
                       <div className="flex items-center gap-4 pt-2 border-t border-border/50">
-                        {project.github_url && (
-                          <a
-                            href={project.github_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
-                            aria-label={`צפייה בקוד המקור של ${t(`projects.${project.messageKey}.title`)}`}
-                          >
-                            <Github className="h-4 w-4" aria-hidden="true" />
-                            <span>{t('code')}</span>
-                          </a>
-                        )}
-                        {project.live_url && (
+                        {publicLiveUrl(project.live_url) && (
                           <>
                             <a
-                              href={project.live_url}
+                              href={publicLiveUrl(project.live_url)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
@@ -688,9 +683,9 @@ export default function ProjectsPage() {
       </main>
 
       {/* Live Preview Modal */}
-      {previewProject?.live_url && (
+      {publicLiveUrl(previewProject?.live_url) && (
         <ProjectPreviewModal
-          url={previewProject.live_url}
+          url={publicLiveUrl(previewProject?.live_url)!}
           title={t(`projects.${previewProject.messageKey}.title`)}
           onClose={() => setPreviewProject(null)}
         />
