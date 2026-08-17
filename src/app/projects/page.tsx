@@ -35,6 +35,16 @@ interface StaticProject {
 // intentionally exposes no public URL (no broken anchor is rendered for it).
 // LINK-AUDIT (2026-07-24): zehutai now links to the public zehut.org.il (site went
 // live July 2026); businessBrain links to the on-site product page. Both HEAD 200.
+// Door rule (2026-08-16): a visitor never leaves this page for a *.vercel.app
+// address. The data keeps the URL - that is still how the project is reached
+// internally - but the public card offers neither the link nor the preview.
+// Filtered at render rather than deleted, so restoring a demo is one named
+// domain away and no card loses its record of where it lives.
+function publicLiveUrl(url?: string): string | undefined {
+  if (!url || url.includes('vercel.app')) return undefined;
+  return url;
+}
+
 const allProjects: StaticProject[] = [
   {
     id: 'haderech',
@@ -580,7 +590,7 @@ export default function ProjectsPage() {
                       )}
 
                       {/* Live Preview overlay button — shows on hover when live_url exists */}
-                      {project.live_url && (
+                      {publicLiveUrl(project.live_url) && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200">
                           <button
                             onClick={() => setPreviewProject(project)}
@@ -637,10 +647,10 @@ export default function ProjectsPage() {
                             <span>{t('code')}</span>
                           </a>
                         )}
-                        {project.live_url && (
+                        {publicLiveUrl(project.live_url) && (
                           <>
                             <a
-                              href={project.live_url}
+                              href={publicLiveUrl(project.live_url)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
@@ -688,9 +698,9 @@ export default function ProjectsPage() {
       </main>
 
       {/* Live Preview Modal */}
-      {previewProject?.live_url && (
+      {publicLiveUrl(previewProject?.live_url) && (
         <ProjectPreviewModal
-          url={previewProject.live_url}
+          url={publicLiveUrl(previewProject.live_url)!}
           title={t(`projects.${previewProject.messageKey}.title`)}
           onClose={() => setPreviewProject(null)}
         />
