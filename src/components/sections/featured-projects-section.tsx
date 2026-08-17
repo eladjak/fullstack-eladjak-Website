@@ -21,6 +21,16 @@ interface StaticProject {
 
 // LINK-AUDIT (2026-07-13): every live_url + github_url below HEAD-checked live → 200
 // to a real page. LINK-AUDIT (2026-07-24): zehutai now links to public zehut.org.il.
+// Door rule (2026-08-16): a visitor never leaves the front door for a
+// *.vercel.app address. The data keeps the URL — a preview deploy is still how
+// the project is reached internally — but the public card does not offer it.
+// Filtered at render rather than deleted, so restoring a demo is one named
+// domain away and no card silently loses its record of where it lives.
+function publicLiveUrl(url?: string): string | undefined {
+  if (!url || url.includes('vercel.app')) return undefined;
+  return url;
+}
+
 const staticProjects: StaticProject[] = [
   {
     id: 'haderech',
@@ -177,8 +187,8 @@ export default function FeaturedProjectsSection() {
                           <Github className="h-4 w-4" /> {t('code')}
                         </a>
                       )}
-                      {project.live_url && (
-                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                      {publicLiveUrl(project.live_url) && (
+                        <a href={publicLiveUrl(project.live_url)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
                           <ExternalLink className="h-4 w-4" /> {t('liveDemo')}
                         </a>
                       )}
@@ -256,9 +266,9 @@ export default function FeaturedProjectsSection() {
                         <span>{t('code')}</span>
                       </a>
                     )}
-                    {project.live_url && (
+                    {publicLiveUrl(project.live_url) && (
                       <a
-                        href={project.live_url}
+                        href={publicLiveUrl(project.live_url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"

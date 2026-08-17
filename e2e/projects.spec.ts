@@ -87,21 +87,17 @@ test.describe('Projects Page', () => {
     expect(count).toBeGreaterThan(2);
   });
 
-  test('each visible project card has a GitHub link', async ({ page }) => {
-    const githubLinks = page.locator('a[href*="github.com"]');
-    await expect(githubLinks.first()).toBeVisible();
-    const count = await githubLinks.count();
-    expect(count).toBeGreaterThan(3);
+  test('project cards do not send a visitor to vercel.app', async ({ page }) => {
+    const previewLinks = page.locator('a[href*="vercel.app"]');
+    await expect(previewLinks).toHaveCount(0);
   });
 
-  test('project cards with live_url have external links', async ({ page }) => {
-    // Some projects have live_url set (haderech, portfolio, ey-ai-kids, etc.)
-    const liveLinks = page.locator('a[href*="vercel.app"], a[href*=".co.il"], a[href*=".ai"]')
-      .filter({ hasNot: page.locator('[href*="github"]') });
-    // At least some live links should exist
+  test('project cards with a named domain still have a live link', async ({ page }) => {
+    const liveLinks = page.locator('a[href*=".co.il"], a[href*=".ai"], a[href*=".com"]')
+      .filter({ hasNot: page.locator('[href*="github"]') })
+      .filter({ hasNot: page.locator('[href*="vercel.app"]') });
     const count = await liveLinks.count();
-    // Not all projects have live URLs, but some do
-    expect(count).toBeGreaterThanOrEqual(0); // permissive - just check it doesn't error
+    expect(count).toBeGreaterThan(0);
   });
 
   test('technology tags are visible on project cards', async ({ page }) => {
