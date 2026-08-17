@@ -77,11 +77,19 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "אלעד יעקובוביץ' - תיק עבודות",
     locale: "he_IL",
+    // 17.8.2026 — the card was a 460x460 GitHub avatar while twitter.card below
+    // declares summary_large_image. WhatsApp, LinkedIn and X all want 1200x630
+    // for a large card, and a square that small is either cropped to something
+    // unrecognisable or dropped entirely, which reads to a human as "the link
+    // preview is broken". The site was already serving a correct 1200x630
+    // og-image.png at the root the whole time; only the metadata pointed
+    // elsewhere. It also pointed OFF-SITE, so a preview depended on
+    // githubusercontent staying reachable to every crawler.
     images: [
       {
-        url: 'https://avatars.githubusercontent.com/u/108827199?v=4',
-        width: 460,
-        height: 460,
+        url: `${SITE_URL}/og-image.png`,
+        width: 1200,
+        height: 630,
         alt: "אלעד יעקובוביץ' - מפתח Full-Stack ומומחה AI | ישראל",
       },
     ],
@@ -90,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "אלעד יעקובוביץ' | מפתח Full-Stack ומומחה AI",
     description: "מפתח Full-Stack מומחה ל-Next.js, React ו-TypeScript. בניית אפליקציות ווב ופתרונות AI.",
-    images: ['https://avatars.githubusercontent.com/u/108827199?v=4'],
+    images: [`${SITE_URL}/og-image.png`],
   },
   robots: {
     index: true,
