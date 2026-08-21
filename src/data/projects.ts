@@ -1,5 +1,5 @@
 // GENERATED FILE - DO NOT EDIT BY HAND.
-// Source of truth: ~/projects/_lib/publicity-bank/projects.json (bank sha de245fe2abff5238)
+// Source of truth: ~/projects/_lib/publicity-bank/projects.json (bank sha d15543e26062602a)
 // To change anything here, edit the bank and run:  node ~/projects/_lib/publicity-bank/sync.mjs
 // Emitted to: src/data/projects.ts
 
@@ -380,4 +380,4 @@ export const allProjects: BankProject[] = [
 
 export const featuredProjects: BankProject[] = allProjects.filter((p) => p.featured);
 
-export const BANK_SHA = "de245fe2abff5238";
+export const BANK_SHA = "d15543e26062602a";
