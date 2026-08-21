@@ -7,22 +7,15 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import TiltedCard from '@/components/ui/tilted-card';
+import { featuredProjects as bankFeatured, type BankProject } from '@/data/projects';
 
-interface StaticProject {
-  id: string;
-  messageKey: string;
-  technologies: string[];
-  github_url?: string;
-  live_url?: string;
-  gradient: string;
-  icon: string;
-  image?: string;
-}
+// Shape comes from the publicity bank, not from a copy kept here.
+type StaticProject = BankProject;
 
 // LINK-AUDIT (2026-07-13): every live_url + github_url below HEAD-checked live → 200
 // to a real page. LINK-AUDIT (2026-07-24): zehutai now links to public zehut.org.il.
 // Door rule (2026-08-16): a visitor never leaves the front door for a
-// *.vercel.app address. The data keeps the URL — a preview deploy is still how
+// *.vercel.app address. The data keeps the URL, a preview deploy is still how
 // the project is reached internally — but the public card does not offer it.
 // Filtered at render rather than deleted, so restoring a demo is one named
 // domain away and no card silently loses its record of where it lives.
@@ -31,89 +24,10 @@ function publicLiveUrl(url?: string): string | undefined {
   return url;
 }
 
-const staticProjects: StaticProject[] = [
-  {
-    id: 'haderech',
-    messageKey: 'haderech',
-    technologies: ['Next.js', 'TypeScript', 'Supabase', 'OpenAI', 'Tailwind CSS'],
-    github_url: 'https://github.com/eladjak/Haderech-Next',
-    live_url: 'https://haderech-next.vercel.app',
-    gradient: 'from-violet-500/20 to-purple-600/20',
-    icon: 'HaDerech',
-    image: '/projects/haderech-screenshot.png',
-  },
-  {
-    id: 'portfolio',
-    messageKey: 'portfolio',
-    technologies: ['Next.js 16', 'TypeScript', 'Framer Motion', 'Tailwind CSS', 'next-intl'],
-    github_url: 'https://github.com/eladjak/fullstack-eladjak-Website',
-    live_url: 'https://fullstack-eladjak.co.il',
-    gradient: 'from-blue-500/20 to-cyan-500/20',
-    icon: 'Portfolio',
-    image: '/projects/portfolio-screenshot.png',
-  },
-  {
-    id: 'ey-ai-kids',
-    messageKey: 'eyAiKids',
-    technologies: ['React', 'TypeScript', 'AI/ML', 'Tailwind CSS', 'Node.js'],
-    github_url: 'https://github.com/eladjak/ey.ai-kids-playground',
-    // Live product of the AI-kids work; verified 200 (2026-07-13).
-    live_url: 'https://sipurai.ai',
-    gradient: 'from-emerald-500/20 to-teal-500/20',
-    icon: 'EY.AI',
-    image: '/projects/ey-ai-kids-screenshot.png',
-  },
-  {
-    id: 'omanut',
-    messageKey: 'omanut',
-    technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Responsive Design'],
-    github_url: 'https://github.com/eladjak/omanut-hakesher-website',
-    // Canonical live domain (ohlove.co.il, verified 200 2026-07-13) — matches the
-    // projects page; the older *.vercel.app alias is retired to avoid two links.
-    live_url: 'https://ohlove.co.il',
-    gradient: 'from-amber-500/20 to-orange-500/20',
-    icon: 'Omanut',
-    image: '/projects/omanut-screenshot.png',
-  },
-  {
-    id: 'voice-chat',
-    messageKey: 'voiceChat',
-    technologies: ['TypeScript', 'Whisper', 'Claude API', 'ElevenLabs', 'WebSocket'],
-    github_url: 'https://github.com/eladjak/voice-chat-claude',
-    gradient: 'from-fuchsia-500/20 to-pink-500/20',
-    icon: 'Voice',
-    image: '/projects/voice-chat.jpg',
-  },
-  {
-    id: 'html-to-pptx',
-    messageKey: 'htmlToPptx',
-    technologies: ['Next.js 14', 'TypeScript', 'pptxgenjs', 'JSDOM', 'Tailwind CSS'],
-    github_url: 'https://github.com/eladjak/html-to-pptx',
-    live_url: 'https://html-to-pptx-ten.vercel.app',
-    gradient: 'from-orange-500/20 to-amber-500/20',
-    icon: 'PPTX',
-    image: '/projects/html-to-pptx-screenshot.png',
-  },
-  {
-    id: 'zehutai',
-    messageKey: 'zehutai',
-    technologies: ['Next.js', 'Payload CMS', 'next-intl', 'Cardcom', 'PostgreSQL'],
-    live_url: 'https://zehut.org.il',
-    gradient: 'from-sky-500/20 to-blue-600/20',
-    icon: 'Zehut',
-    image: '/projects/zehutai.jpg',
-  },
-  {
-    id: 'team-meetings',
-    messageKey: 'teamMeetings',
-    technologies: ['React', 'TypeScript', 'Vite', 'FullCalendar', 'MUI'],
-    github_url: 'https://github.com/eladjak/team-meetings',
-    live_url: 'https://team-meetings.vercel.app',
-    gradient: 'from-purple-500/20 to-violet-500/20',
-    icon: 'Meetings',
-    image: '/projects/team-meetings-screenshot.jpg',
-  },
-];
+// Which projects are featured is decided in the bank (featured: true), so the
+// front door and the projects page can no longer disagree about a project.
+const staticProjects: StaticProject[] = bankFeatured;
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
