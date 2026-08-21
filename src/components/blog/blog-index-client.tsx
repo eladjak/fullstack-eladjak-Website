@@ -151,7 +151,7 @@ export default function BlogIndexClient({ posts }: BlogIndexClientProps) {
               transition={{ duration: 0.2, delay: Math.min(index * 0.05, 0.3) }}
             >
               <Card className="wow-card group overflow-hidden h-full flex flex-col">
-                {/* Featured Image — render real image only when not a duplicate.
+                {/* Featured Image, render real image only when not a duplicate.
                     Duplicates and missing images fall back to a gradient placeholder. */}
                 {imageUsage.get(post.slug) && post.frontmatter.featured_image ? (
                   <div className="relative w-full aspect-video overflow-hidden">

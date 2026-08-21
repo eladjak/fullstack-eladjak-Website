@@ -18,7 +18,7 @@ export interface MDXFrontmatter {
   /**
    * Optional locale restriction. When set, the post is shown only on the matching
    * locale's blog index. When omitted, the post is treated as bilingual (visible
-   * on both `he` and `en` indexes) — Hebrew is the primary language by default.
+   * on both `he` and `en` indexes), Hebrew is the primary language by default.
    */
   locale?: 'he' | 'en';
 }
@@ -115,7 +115,7 @@ export function localizeMDXContent(content: string, locale: 'he' | 'en'): string
   }
   // Deterministic: authored order is English first, Hebrew second (the delimiter is
   // inserted before the Hebrew block). en=parts[0], he=parts[1]. Defensive guard:
-  // if the first part is actually more-Hebrew than the second, swap — so a future
+  // if the first part is actually more-Hebrew than the second, swap, so a future
   // mis-ordered post still routes correctly without relying on a fragile ratio.
   const heRatio = (s: string) => (s.match(HEBREW_RE)?.length ?? 0) / Math.max(s.length, 1);
   let enPart = parts[0];

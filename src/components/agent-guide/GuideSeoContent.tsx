@@ -52,7 +52,7 @@ export function GuideSeoContent({ guide, locale = "he" }: GuideSeoContentProps) 
     <article className="sr-only" aria-label={heading}>
       {/* No <h1> here: the visible client guide UI already emits the page's
           single <h1> in SSR HTML. A second <h1> would split the document
-          outline and fail the "single <h1>" GEO check — so this fallback uses
+          outline and fail the "single <h1>" GEO check, so this fallback uses
           a <p> for its title and starts its own headings at <h2>. */}
       <header>
         <p>{heading}</p>

@@ -7,10 +7,10 @@
  * crawler rotating addresses, which is the case that actually empties the account.
  *
  * TWO LAYERS:
- *   1. per-IP window   — in-memory, per lambda. Cheap, instant, no network. Good enough
+ *   1. per-IP window, in-memory, per lambda. Cheap, instant, no network. Good enough
  *                        for its job because one abusive client tends to land on one
  *                        warm instance.
- *   2. per-site daily  — a SHARED counter in Supabase, so every lambda of every region
+ *   2. per-site daily, a SHARED counter in Supabase, so every lambda of every region
  *                        agrees on one number. This is the real ceiling.
  *
  * The daily counter deliberately does NOT use in-process state. Serverless instances do
@@ -18,7 +18,7 @@
  * gets a fresh budget, so it looks like a cap while capping nothing.
  *
  * FAIL-OPEN on infrastructure trouble, FAIL-CLOSED on the ceiling. If Supabase is
- * unreachable the answer still goes out — these are visitor-facing widgets and a
+ * unreachable the answer still goes out, these are visitor-facing widgets and a
  * database blip must not take them down. The ceiling itself is enforced strictly.
  *
  * Requires AI_GUARD_SUPABASE_URL and AI_GUARD_SUPABASE_KEY. The key is publishable by
@@ -45,7 +45,7 @@ const DAILY_LIMIT = Number(process.env.AI_CHAT_DAILY_LIMIT ?? 400);
  * Deliberately dedicated variable names, NOT the generic NEXT_PUBLIC_SUPABASE_*.
  * Several of these sites already point those at their OWN Supabase project
  * (hitechkids has a standalone one), and reusing the generic names would send the
- * counter RPC to a project that has no such function — failing open silently,
+ * counter RPC to a project that has no such function, failing open silently,
  * which is the worst kind of broken cap: one that looks configured.
  */
 const SUPABASE_URL = process.env.AI_GUARD_SUPABASE_URL || "";
@@ -66,7 +66,7 @@ export function clientIp(req: Request): string {
   return req.headers.get("x-real-ip") || "unknown";
 }
 
-/** Per-IP window. Synchronous and local on purpose — no network on the hot path. */
+/** Per-IP window. Synchronous and local on purpose, no network on the hot path. */
 function ipAllows(req: Request): boolean {
   const now = Date.now();
   const ip = clientIp(req);
@@ -84,7 +84,7 @@ function ipAllows(req: Request): boolean {
 
 /**
  * Charge one answer against the shared daily ceiling.
- * `site` must be stable per project — it is the counter key.
+ * `site` must be stable per project, it is the counter key.
  */
 export async function aiGuard(req: Request, site: string): Promise<GuardVerdict> {
   if (!ipAllows(req)) {

@@ -37,7 +37,7 @@ export default function ProcessSection() {
             <div className="relative w-48 h-32 md:w-64 md:h-44 rounded-2xl overflow-hidden shrink-0 border border-border/30 shadow-lg shadow-primary/5">
               <Image
                 src="/images/illustration-process.jpg"
-                alt="איור של ששת שלבי תהליך העבודה — מאפיון ועד השקה ותחזוקה"
+                alt="איור של ששת שלבי תהליך העבודה, מאפיון ועד השקה ותחזוקה"
                 fill
                 className="wow-media object-cover"
                 loading="lazy"

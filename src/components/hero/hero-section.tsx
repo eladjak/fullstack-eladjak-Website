@@ -21,7 +21,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-dev.jpg"
-          alt="סביבת עבודה של מפתח Full-Stack — קוד, AI ואוטומציה"
+          alt="סביבת עבודה של מפתח Full-Stack, קוד, AI ואוטומציה"
           fill
           sizes="100vw"
           className="object-cover opacity-15"
@@ -32,13 +32,13 @@ export default function HeroSection() {
 
       {/* The animated gradient layer that used to sit here is gone. HeroSection
           only ever renders inside `.home-cinematic`, which forced this layer to
-          `background:none; opacity:0` — so it was invisible on every page it
+          `background:none; opacity:0`, so it was invisible on every page it
           existed on while still running an infinite background-position
           animation (a repaint of the full viewport, forever, on top of the
           scroll-scrubbed flight video). */}
 
-      {/* Cinematic dual-radial depth + vignette (wow-ui-standard §14) — static, zero CPU.
-          NOTE: no particles layer here on purpose — the homepage already runs the
+      {/* Cinematic dual-radial depth + vignette (wow-ui-standard §14), static, zero CPU.
+          NOTE: no particles layer here on purpose, the homepage already runs the
           full-page scroll-scrubbed flight backdrop (CinematicJourneyMount) + floating
           icons; a second rAF layer fails the anti-kitsch/CPU gate. */}
       <div

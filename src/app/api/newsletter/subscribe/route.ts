@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Simple, RFC-5322-compatible-ish email regex (server-side only — never trust client).
+// Simple, RFC-5322-compatible-ish email regex (server-side only, never trust client).
 // Intentionally permissive: blocks the obvious garbage but doesn't try to be exhaustive.
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -18,7 +18,7 @@ function checkRateLimit(ip: string): boolean {
   const entry = rateLimitMap.get(ip);
 
   if (!entry || now > entry.resetAt) {
-    // Opportunistic cleanup of stale entries on every touch — replaces the leaky setInterval.
+    // Opportunistic cleanup of stale entries on every touch, replaces the leaky setInterval.
     if (rateLimitMap.size > RATE_LIMIT_MAX_KEYS) {
       for (const [key, e] of rateLimitMap) {
         if (now > e.resetAt) rateLimitMap.delete(key);
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Parse body (defensive — bad JSON should not 500)
+    // Parse body (defensive, bad JSON should not 500)
     let body: unknown;
     try {
       body = await request.json();
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
 
     const email = (body as { email?: unknown })?.email;
 
-    // Server-side validation — don't trust the client
+    // Server-side validation, don't trust the client
     if (typeof email !== 'string' || email.length > 254 || !EMAIL_REGEX.test(email.trim())) {
       return NextResponse.json(
         { ok: false, error: 'invalid_email' },
@@ -111,7 +111,7 @@ export async function POST(request: Request) {
     }
 
     // Send to Resend Audiences API.
-    // Wrap the SDK call (3rd party) in try/catch — but DO NOT expose error details to the client.
+    // Wrap the SDK call (3rd party) in try/catch, but DO NOT expose error details to the client.
     try {
       const resend = new Resend(apiKey);
       const { error } = await resend.contacts.create({
@@ -122,7 +122,7 @@ export async function POST(request: Request) {
 
       if (error) {
         // Resend returned a structured error (e.g. duplicate, invalid). Log it but treat
-        // duplicate/already-subscribed as success from the user's POV — don't punish them
+        // duplicate/already-subscribed as success from the user's POV, don't punish them
         // for clicking twice.
         console.error('[newsletter] Resend error:', error);
         return NextResponse.json({ ok: true });

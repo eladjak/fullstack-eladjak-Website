@@ -51,7 +51,7 @@ const INITIAL_QUESTIONS: QuestionKey[] = [
   'hebrew',
 ];
 
-// Every question, in reading order — used by the server-rendered static
+// Every question, in reading order, used by the server-rendered static
 // fallback so the full FAQ content is present in the initial HTML (GEO/SEO).
 const ALL_QUESTIONS: QuestionKey[] = [
   'services',
@@ -68,7 +68,7 @@ const ALL_QUESTIONS: QuestionKey[] = [
   'contact',
 ];
 
-// Real external profiles — visible citation links inside the static FAQ block.
+// Real external profiles, visible citation links inside the static FAQ block.
 const EXTERNAL_LINKS: { href: string; label: string }[] = [
   { href: 'https://github.com/eladjak', label: 'GitHub' },
   { href: 'https://linkedin.com/in/eladjak', label: 'LinkedIn' },
@@ -175,7 +175,7 @@ export function ChatFAQ() {
     setSuggested([]);
     setIsTyping(true);
 
-    // Track answered question — capture the updated set for follow-up filtering
+    // Track answered question, capture the updated set for follow-up filtering
     const newAnsweredKeys = new Set(answeredKeys).add(key);
     setAnsweredKeys(newAnsweredKeys);
 
@@ -205,8 +205,7 @@ export function ChatFAQ() {
   };
 
   // Free-text question → the real grounded bot at /api/chat-faq (Gemini,
-  // server-side key, rate-limited). Chip questions stay instant/baked above —
-  // zero cost; free text is the live AI demo.
+  // server-side key, rate-limited). Chip questions stay instant/baked above, // zero cost; free text is the live AI demo.
   const handleFreeTextSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const question = input.trim();
@@ -228,7 +227,7 @@ export function ChatFAQ() {
 
     let answerText = t('apiError');
     try {
-      // Trailing slash matches next.config `trailingSlash: true` — without it
+      // Trailing slash matches next.config `trailingSlash: true`, without it
       // the POST hits a 308 redirect (extra hop + body-drop risk on some clients).
       const res = await fetch('/api/chat-faq/', {
         method: 'POST',
@@ -242,7 +241,7 @@ export function ChatFAQ() {
         answerText = data.content;
       }
     } catch {
-      // network failure — keep the apiError fallback text
+      // network failure, keep the apiError fallback text
     }
 
     const assistantMsg: ChatMessage = {
@@ -446,7 +445,7 @@ export function ChatFAQ() {
               </AnimatePresence>
             </div>
 
-            {/* Free-text input — a REAL grounded AI bot (Gemini via /api/chat-faq).
+            {/* Free-text input, a REAL grounded AI bot (Gemini via /api/chat-faq).
                 This is a live demo of the chatbots Elad builds for clients. */}
             <form
               onSubmit={handleFreeTextSubmit}
@@ -480,7 +479,7 @@ export function ChatFAQ() {
             </form>
           </div>
 
-          {/* Server-rendered static FAQ fallback — the full Q&A content lives
+          {/* Server-rendered static FAQ fallback, the full Q&A content lives
               in the initial HTML so search engines and AI crawlers can read it
               even without running the chat. The chat above is the progressive
               enhancement; this <details> block is the canonical text. */}

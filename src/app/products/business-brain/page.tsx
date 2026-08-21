@@ -66,7 +66,7 @@ const DEMO_MESSAGES: ChatMessage[] = [
   {
     id: '1',
     sender: 'bot',
-    text: 'בוקר טוב! הנה הדו"ח שלך לסוף השבוע: 4 לידים חדשים, 2 פגישות מחר, ותזכורת — שלמה לא ענה עדיין על ההצעה שלך מלפני 3 ימים.',
+    text: 'בוקר טוב! הנה הדו"ח שלך לסוף השבוע: 4 לידים חדשים, 2 פגישות מחר, ותזכורת, שלמה לא ענה עדיין על ההצעה שלך מלפני 3 ימים.',
     delay: 0,
   },
   {
@@ -78,7 +78,7 @@ const DEMO_MESSAGES: ChatMessage[] = [
   {
     id: '3',
     sender: 'bot',
-    text: 'שלמה כהן — פגישה ראשונה 14.7, הצעה נשלחה 18.7 (₪4,200), לא ענה. רוצה שאכין טיוטת הודעת מעקב?',
+    text: 'שלמה כהן, פגישה ראשונה 14.7, הצעה נשלחה 18.7 (₪4,200), לא ענה. רוצה שאכין טיוטת הודעת מעקב?',
     delay: 3200,
   },
   {
@@ -90,7 +90,7 @@ const DEMO_MESSAGES: ChatMessage[] = [
   {
     id: '5',
     sender: 'bot',
-    text: '"שלמה שלום, רק רציתי לבדוק שהכל ברור מהצעה שנשלחה. שמח לענות על כל שאלה. מה שיהיה כאן — אלעד."',
+    text: '"שלמה שלום, רק רציתי לבדוק שהכל ברור מהצעה שנשלחה. שמח לענות על כל שאלה. מה שיהיה כאן, אלעד."',
     delay: 7000,
   },
 ];
@@ -432,7 +432,7 @@ function FounderBanner({
         <div className="flex-1">
           <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/20 border border-amber-500/30 px-3 py-1 text-sm font-medium text-amber-400 mb-4">
             <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            מחיר מייסד — 3 מקומות בלבד
+            מחיר מייסד, 3 מקומות בלבד
           </div>
 
           <h3 className="text-2xl md:text-3xl font-bold text-balance mb-2">
@@ -466,7 +466,7 @@ function FounderBanner({
             className="wow-press inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 focus-visible:shadow-amber-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
-            שריין מקום מייסד — ₪500 מקדמה
+            שריין מקום מייסד, ₪500 מקדמה
           </button>
 
           <a
@@ -538,7 +538,7 @@ function CheckoutModal({
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       } else if (data.whatsappFallback) {
-        // Payment not configured yet — open WhatsApp
+        // Payment not configured yet, open WhatsApp
         window.open(data.whatsappFallback, '_blank', 'noopener,noreferrer');
         onClose();
       } else {
@@ -586,7 +586,7 @@ function CheckoutModal({
                   מחיר מייסד
                 </div>
                 <h2 id="checkout-title" className="text-lg font-bold">
-                  שריין מקום — ₪500 מקדמה
+                  שריין מקום, ₪500 מקדמה
                 </h2>
                 <p className="text-sm text-muted-foreground mt-1">
                   המקדמה נספרת על חשבון עלות ההקמה.
@@ -679,7 +679,7 @@ export default function BusinessBrainPage() {
   });
   const heroParallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
-  // "How it works" — a line that fills as the visitor scrolls through the steps
+  // "How it works", a line that fills as the visitor scrolls through the steps
   const howStepsRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: howProgress } = useScroll({
     target: howStepsRef,
@@ -722,7 +722,7 @@ export default function BusinessBrainPage() {
             {/* Overlay */}
             <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/80 via-background/60 to-background" />
 
-            {/* Cinematic dual-radial depth + vignette (wow-ui-standard §14) — static, zero CPU.
+            {/* Cinematic dual-radial depth + vignette (wow-ui-standard §14), static, zero CPU.
                 No particles layer: the hero already runs parallax + staged motion; a
                 particles canvas here would fail the anti-kitsch/CPU gate. */}
             <div
@@ -774,7 +774,7 @@ export default function BusinessBrainPage() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8"
                 >
-                  דו"ח בוקר, תזכורות לידים, סיכום יום — ישירות לוואטסאפ שלך.
+                  דו"ח בוקר, תזכורות לידים, סיכום יום, ישירות לוואטסאפ שלך.
                   ומאחוריו אלעד: בן-אדם שמבין עסקים ועונה כשצריך.
                 </motion.p>
 
@@ -824,7 +824,7 @@ export default function BusinessBrainPage() {
             </motion.div>
           </section>
 
-          {/* ─── "יום בחיים" — WhatsApp Demo Scene ─── */}
+          {/* ─── "יום בחיים", WhatsApp Demo Scene ─── */}
           <section
             className="w-full py-20 md:py-28 bg-gradient-to-b from-background to-muted/20"
             aria-labelledby="bb-demo-heading"
@@ -847,15 +847,15 @@ export default function BusinessBrainPage() {
 
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      7:30 — הודעה מגיעה לוואטסאפ: לידים שנכנסו אתמול, פגישות
+                      7:30, הודעה מגיעה לוואטסאפ: לידים שנכנסו אתמול, פגישות
                       של היום, ותזכורת על הצעה שלא קיבלה מענה. אתה עדיין בקפה.
                     </p>
                     <p>
-                      אחר הצהריים — תשאל "מה הסטטוס של שלמה?" ותקבל תשובה עם
+                      אחר הצהריים, תשאל "מה הסטטוס של שלמה?" ותקבל תשובה עם
                       כל ההיסטוריה, מה הוצע, מתי. בשניות.
                     </p>
                     <p>
-                      18:00 — סיכום יום. מה נסגר, מה נשאר פתוח. בלי Excel. בלי
+                      18:00, סיכום יום. מה נסגר, מה נשאר פתוח. בלי Excel. בלי
                       ניחוש. ישר לטלפון.
                     </p>
                   </div>
@@ -883,7 +883,7 @@ export default function BusinessBrainPage() {
                   שלוש אמיתות שכדאי לדעת
                 </h2>
                 <p className="text-muted-foreground md:text-lg">
-                  לפני שמחליטים — הנה מה שחשוב.
+                  לפני שמחליטים, הנה מה שחשוב.
                 </p>
               </ScrollAnimate>
 
@@ -947,7 +947,7 @@ export default function BusinessBrainPage() {
                 </p>
               </ScrollAnimate>
 
-              {/* Scene illustration — secretary vs. agent, slides in from the side */}
+              {/* Scene illustration, secretary vs. agent, slides in from the side */}
               <SlideIn from="left" reduced={reduced} className="mx-auto max-w-3xl mb-10">
                 <ParallaxIllustration
                   src="/images/business-brain-compare.jpg"
@@ -1008,7 +1008,7 @@ export default function BusinessBrainPage() {
                 </div>
               </SlideIn>
 
-              {/* Count-up stats — cards enter from alternating sides */}
+              {/* Count-up stats, cards enter from alternating sides */}
               <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
                   { label: 'חיסכון לעומת מזכירה', value: 7800, prefix: '₪', suffix: '/חודש' },
@@ -1054,7 +1054,7 @@ export default function BusinessBrainPage() {
                 </h2>
               </ScrollAnimate>
 
-              {/* Wide journey illustration — the 4 stages as one visual story */}
+              {/* Wide journey illustration, the 4 stages as one visual story */}
               <ScrollAnimate className="mx-auto max-w-4xl mb-14">
                 <ParallaxIllustration
                   src="/images/business-brain-how.jpg"
@@ -1087,7 +1087,7 @@ export default function BusinessBrainPage() {
                   {
                     step: '02',
                     icon: Bot,
-                    title: 'בנייה ואפיון — שבועיים',
+                    title: 'בנייה ואפיון, שבועיים',
                     desc: 'הסוכן מוגדר לפי העסק שלך: שמות, לידים, סגנון הכתיבה שלך. לא תבנית גנרית.',
                   },
                   {
@@ -1221,7 +1221,7 @@ export default function BusinessBrainPage() {
             id="pricing"
             aria-labelledby="bb-pricing-heading"
           >
-            {/* Faint constellation backdrop — barely there, pure atmosphere */}
+            {/* Faint constellation backdrop, barely there, pure atmosphere */}
             <div className="absolute inset-0 opacity-[0.22] pointer-events-none" aria-hidden="true">
               <Image
                 src="/images/business-brain-pricing-bg.jpg"
@@ -1337,7 +1337,7 @@ export default function BusinessBrainPage() {
           >
             <div className="container px-4 md:px-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-5xl mx-auto mb-12">
-                {/* Shield illustration — slides in as the trust scene opens */}
+                {/* Shield illustration, slides in as the trust scene opens */}
                 <SlideIn from="right" reduced={reduced}>
                   <ParallaxIllustration
                     src="/images/business-brain-trust.jpg"
@@ -1351,7 +1351,7 @@ export default function BusinessBrainPage() {
                     id="bb-trust-heading"
                     className="wow-title text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                   >
-                    אמינות ופרטיות — לא עניין של רגש
+                    אמינות ופרטיות, לא עניין של רגש
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
                     המידע של העסק שלך נשאר אצלך. הכל כתוב, חתום וברור לפני שמתחילים.
@@ -1363,7 +1363,7 @@ export default function BusinessBrainPage() {
                 {[
                   {
                     icon: Shield,
-                    title: 'תיקון 13 — הסכם עיבוד נתונים',
+                    title: 'תיקון 13, הסכם עיבוד נתונים',
                     desc: 'לפי הדרישה החוקית, כל לקוח חותם על הסכם עיבוד נתונים. המידע שלך לא יוצא לשום מקום.',
                   },
                   {
@@ -1425,7 +1425,7 @@ export default function BusinessBrainPage() {
                       שלושה מקומות. לא יותר.
                     </h2>
                     <p className="text-muted-foreground mb-8 leading-relaxed">
-                      כל שריון מגיע עם מחיר מייסד — חיסכון של ₪1,740 בשנה
+                      כל שריון מגיע עם מחיר מייסד, חיסכון של ₪1,740 בשנה
                       הראשונה. כשהמקומות מתמלאים, המחיר חוזר לרגיל.
                     </p>
 
@@ -1436,7 +1436,7 @@ export default function BusinessBrainPage() {
                         className="wow-press inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 focus-visible:shadow-amber-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         <Sparkles className="h-4 w-4" aria-hidden="true" />
-                        שריין מקום מייסד — ₪500 מקדמה
+                        שריין מקום מייסד, ₪500 מקדמה
                       </button>
 
                       <a

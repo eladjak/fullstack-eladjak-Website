@@ -34,7 +34,7 @@ async function fetchHealth(): Promise<HealthData> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const json: unknown = await res.json();
-    // The hub /health response shape may vary — try a few common keys defensively.
+    // The hub /health response shape may vary, try a few common keys defensively.
     const data = json as Record<string, unknown>;
 
     // Try common shapes:
@@ -70,7 +70,7 @@ async function fetchHealth(): Promise<HealthData> {
     }
 
     if (total === undefined || healthy === undefined) {
-      // Endpoint reachable but unrecognized shape — be honest: status unknown.
+      // Endpoint reachable but unrecognized shape, be honest: status unknown.
       return {
         total: ASSUMED_TOTAL,
         healthy: 0,
@@ -92,7 +92,7 @@ async function fetchHealth(): Promise<HealthData> {
     };
   } catch {
     clearTimeout(timeoutId);
-    // CORS/network/timeout — be honest: we don't know.
+    // CORS/network/timeout, be honest: we don't know.
     return {
       total: ASSUMED_TOTAL,
       healthy: 0,
@@ -142,7 +142,7 @@ export function AgentNetworkStatus() {
     run();
     startPolling();
 
-    // Pause polling when tab is hidden — saves the hub from useless 60s pings.
+    // Pause polling when tab is hidden, saves the hub from useless 60s pings.
     const onVisibilityChange = () => {
       if (typeof document === 'undefined') return;
       if (document.visibilityState === 'hidden') {

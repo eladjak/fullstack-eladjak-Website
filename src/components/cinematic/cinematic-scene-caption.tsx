@@ -3,12 +3,11 @@
 import { useLocale } from 'next-intl';
 
 /**
- * CinematicSceneCaption — the readable copy that "rests" inside each flight scene.
+ * CinematicSceneCaption, the readable copy that "rests" inside each flight scene.
  *
  * A generously-spaced band that separates the real portfolio sections and gives
- * the camera a long dwell. It carries the scene's eyebrow + title (NOT an <h1> —
- * the page's single H1 lives in HeroSection). Text sits on a soft glass card so
- * it is fully readable over any bright frame — this is the direct fix for the #1
+ * the camera a long dwell. It carries the scene's eyebrow + title (NOT an <h1>, * the page's single H1 lives in HeroSection). Text sits on a soft glass card so
+ * it is fully readable over any bright frame, this is the direct fix for the #1
  * complaint ("text too fast, cramped, cut off"): the band is tall, the copy is
  * centered with room to breathe, and it fades in slowly as its scene arrives.
  *
@@ -27,24 +26,24 @@ const CAPTIONS: Record<string, Copy> = {
     eyebrow: { he: 'המסע מתחיל', en: 'The journey begins' },
     title: { he: 'נקודת אור אחת בחלל', en: 'One point of light' },
     body: {
-      he: 'הכול מתחיל מרעיון בודד. גלול פנימה — המצלמה טסה קדימה אל תוך העולם.',
-      en: 'It all starts with a single spark. Scroll inward — the camera flies forward into the world.',
+      he: 'הכול מתחיל מרעיון בודד. גלול פנימה, המצלמה טסה קדימה אל תוך העולם.',
+      en: 'It all starts with a single spark. Scroll inward, the camera flies forward into the world.',
     },
   },
   fleet: {
     eyebrow: { he: 'רשת חיה', en: 'A living network' },
     title: { he: 'מפעיל אחד. צי שלם.', en: 'One operator. A whole fleet.' },
     body: {
-      he: 'מהמרכז מתגלה קונסטלציה של סוכני AI — כל צומת סוכן, מחוברים בקווי אור, פועמים יחד.',
-      en: 'From the core, a constellation of AI agents unfolds — each node an agent, wired in light, pulsing as one.',
+      he: 'מהמרכז מתגלה קונסטלציה של סוכני AI, כל צומת סוכן, מחוברים בקווי אור, פועמים יחד.',
+      en: 'From the core, a constellation of AI agents unfolds, each node an agent, wired in light, pulsing as one.',
     },
   },
   projects: {
     eyebrow: { he: 'מה שנבנה', en: 'What gets built' },
     title: { he: 'שכונות של אור', en: 'Districts of light' },
     body: {
-      he: 'האתרים, האפליקציות והמערכות — כל אחד מגדל זוהר בעיר. אנחנו טסים דרכם.',
-      en: 'The sites, the apps, the systems — each a glowing tower in the city. We fly straight through them.',
+      he: 'האתרים, האפליקציות והמערכות, כל אחד מגדל זוהר בעיר. אנחנו טסים דרכם.',
+      en: 'The sites, the apps, the systems, each a glowing tower in the city. We fly straight through them.',
     },
   },
   trust: {
@@ -59,8 +58,8 @@ const CAPTIONS: Record<string, Copy> = {
     eyebrow: { he: 'הצעד הבא', en: 'The next step' },
     title: { he: 'השער פתוח', en: 'The gate is open' },
     body: {
-      he: 'הגענו. הדלת מוארת ופתוחה — בוא נדבר על מה שנבנה יחד.',
-      en: 'We have arrived. The doorway is lit and open — let’s talk about what we build together.',
+      he: 'הגענו. הדלת מוארת ופתוחה, בוא נדבר על מה שנבנה יחד.',
+      en: 'We have arrived. The doorway is lit and open, let’s talk about what we build together.',
     },
   },
 };

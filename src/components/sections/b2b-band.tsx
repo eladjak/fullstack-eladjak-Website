@@ -8,7 +8,7 @@ import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 /**
  * Subtle B2B-focused band aimed at organizations and dev teams.
- * Additive — sits as its own small section, doesn't replace the main CTA.
+ * Additive, sits as its own small section, doesn't replace the main CTA.
  * Content is i18n-driven; deliberately avoids fake stats ("100+ ארגונים" etc.).
  */
 export default function B2BBand() {

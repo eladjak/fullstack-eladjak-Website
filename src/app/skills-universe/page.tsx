@@ -57,7 +57,7 @@ export default function SkillsUniversePage() {
           </h1>
           <p className="scroll-fade mx-auto mt-3 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
             הדמיה תלת-ממדית של כל הכלים, השפות והפריימוורקים שאני עובד איתם.
-            כל כדור הוא טכנולוגיה — צבע = קטגוריה, גודל = רמת שליטה.
+            כל כדור הוא טכנולוגיה, צבע = קטגוריה, גודל = רמת שליטה.
           </p>
           <p className="scroll-fade mx-auto mt-2 max-w-xl text-sm text-muted-foreground/80">
             גרור לסיבוב · גלגל לקירוב · לחיצה על כדור = פרטים
@@ -107,12 +107,12 @@ export default function SkillsUniversePage() {
           {liveMessage}
         </div>
 
-        {/* The 3D canvas — lazy-mounted behind a poster + click to keep TBT low */}
+        {/* The 3D canvas, lazy-mounted behind a poster + click to keep TBT low */}
         <SkillsLazyMount selected={selected} onSelect={setSelected} />
 
         {/*
          * Accessible keyboard alternative to the 3D canvas.
-         * Collapsed by default — the browser handles open/close a11y of <details>.
+         * Collapsed by default, the browser handles open/close a11y of <details>.
          * Buttons inside are NOT rendered until the user expands, but in modern
          * browsers <details> children ARE in the DOM (just not displayed).
          * That's fine for SR users (they can still drill in), and the visual

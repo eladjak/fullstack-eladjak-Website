@@ -172,7 +172,7 @@ export default async function GuideLayout({
       {guide && guide.slug !== "claude-code" && (
         <SeoJsonLd guide={guide} locale="he" />
       )}
-      {/* Server-rendered SEO/GEO content fallback (sr-only) — supplies <h1>,
+      {/* Server-rendered SEO/GEO content fallback (sr-only), supplies <h1>,
           semantic tags, <h4> depth and external citation links in the initial
           HTML, which the "use client" guide UI cannot. */}
       {guide && guide.slug !== "claude-code" && (

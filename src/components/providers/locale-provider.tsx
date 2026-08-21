@@ -53,7 +53,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       try {
         localStorage.setItem(STORAGE_KEY, newLocale);
       } catch {
-        // localStorage unavailable (SSR, private mode) — path still drives locale
+        // localStorage unavailable (SSR, private mode), path still drives locale
       }
 
       if (pathname) {

@@ -1,8 +1,8 @@
 /**
- * CinematicAudioEngine — the layered, DEEP audio bed for the cinematic journey.
+ * CinematicAudioEngine, the layered, DEEP audio bed for the cinematic journey.
  *
  * Design goals (Elad's ask): "what makes the experience is sounds/music/effects
- * WITH DEPTH" — not synthetic bleeps. Everything here is routed through a real
+ * WITH DEPTH", not synthetic bleeps. Everything here is routed through a real
  * convolution reverb (a procedurally-generated hall impulse response), so every
  * layer sits in a large, warm, reverberant space:
  *
@@ -14,13 +14,13 @@
  *    everything, gently rising in level as the flight goes deeper.
  *  - SFX are SYNTHESISED with proper envelopes + filters and a heavy reverb send
  *    so they read as "deep", never thin square-wave bleeps:
- *      • whoosh  — a filtered-noise + rising-sine dive on each scene change,
+ *      • whoosh, a filtered-noise + rising-sine dive on each scene change,
  *        panned across the stereo field (alternating per scene) so each seam
  *        feels like flying PAST something, not through a mono blur.
- *      • subPulse — a slow low-sine sub swell for the network/fleet beat.
- *      • resolve — a warm sustained chord that blooms on arrival at the gate.
- *      • chime   — a soft bell ping, fired ONCE when the journey completes
- *        (the `cj:complete` event) — the "you have arrived" grace note.
+ *      • subPulse, a slow low-sine sub swell for the network/fleet beat.
+ *      • resolve, a warm sustained chord that blooms on arrival at the gate.
+ *      • chime, a soft bell ping, fired ONCE when the journey completes
+ *        (the `cj:complete` event), the "you have arrived" grace note.
  *  - Per-scene ducking/layering is driven by the engine's `cj:scene` event.
  *  - Whooshes are THROTTLED (min 600ms apart) so rapid scroll-scrubbing can
  *    never machine-gun them, and every one-shot SFX chain disconnects itself
@@ -35,22 +35,22 @@
 
 const BED_SRC = '/audio/cj-bed.mp3';
 
-// Master ceilings — the whole bed is intentionally gentle; it should feel like
+// Master ceilings, the whole bed is intentionally gentle; it should feel like
 // depth under the visuals, never compete with the page.
 const MASTER_LEVEL = 0.85;
 const WET_LEVEL = 0.9; // reverb return level (the "space")
 
 // ── Music bed as a SHORT INTRO SWELL that recedes (Elad's ask) ───────────────
-// Feedback: the ambient MUSIC was "too dominant, too sad/melancholic" — it grew
+// Feedback: the ambient MUSIC was "too dominant, too sad/melancholic", it grew
 // LOUDER with depth and never left, drowning the meaningful SFX. So the bed is
 // now (1) far quieter across the board, and (2) an INTRO ONLY: it swells in, sits
 // briefly under the opening, then fades to silence over the first ~18s and the
 // loop is STOPPED so it never returns. From there the synthesised SFX (whoosh,
-// sub-pulse, resolve, arrival chime) carry the whole experience — those are the
+// sub-pulse, resolve, arrival chime) carry the whole experience, those are the
 // "significant effects" Elad wants kept, and they are UNTOUCHED.
 //
 // Old levels for reference (what was too loud): base 0.16, deep 0.34.
-const BED_INTRO_PEAK = 0.05; // intro swell ceiling — ~69% quieter than the old 0.16 base
+const BED_INTRO_PEAK = 0.05; // intro swell ceiling, ~69% quieter than the old 0.16 base
 const BED_END = 0.0001; // effectively silent (exponential ramps can't hit 0)
 const BED_FADE_IN = 2.0; // swell up to the intro peak over 2s (no jolt)
 const BED_HOLD = 3.0; // dwell at the intro peak this long before receding
@@ -69,7 +69,7 @@ export class CinematicAudioEngine {
   private armed = false;
   private lastScene = -1;
   // The music bed is an intro-only swell: once it has faded to silence we NEVER
-  // raise it again (no depth-ramp, no unmute-restart) — from there the SFX carry
+  // raise it again (no depth-ramp, no unmute-restart), from there the SFX carry
   // the experience. `bedFaded` latches true when the intro fade completes.
   private bedFaded = false;
   // Timer that pauses the looping <audio> once the intro fade reaches silence, so
@@ -82,7 +82,7 @@ export class CinematicAudioEngine {
   // The completion chime fires at most once per mount.
   private chimed = false;
 
-  /** Min gap between whooshes — rapid scrubbing collapses into one swell. */
+  /** Min gap between whooshes, rapid scrubbing collapses into one swell. */
   private static readonly WHOOSH_MIN_GAP = 0.6;
 
   /** True once the context exists and audio is flowing (i.e. user unmuted). */
@@ -130,7 +130,7 @@ export class CinematicAudioEngine {
     dryGain.connect(master);
     this.dryGain = dryGain;
 
-    // Music bed — a looping <audio> element routed through the graph.
+    // Music bed, a looping <audio> element routed through the graph.
     const bedGain = ctx.createGain();
     bedGain.gain.value = 0;
     bedGain.connect(master);
@@ -157,7 +157,7 @@ export class CinematicAudioEngine {
     await ctx.resume().catch(() => {});
     // Music bed = a SHORT INTRO SWELL that then recedes to silence. It swells up
     // to a quiet ceiling, dwells briefly, then rolls off to inaudible over the
-    // intro window — after which the loop is paused so it never returns. The SFX
+    // intro window, after which the loop is paused so it never returns. The SFX
     // take over from there. (Elad: the old ever-present, ever-louder bed was too
     // dominant/melancholic.) All ramps are envelope ramps → no click/pop.
     try {
@@ -169,7 +169,7 @@ export class CinematicAudioEngine {
       bedGain.gain.setValueAtTime(BED_END, now); // start ~silent (exp ramps need >0)
       // swell in to the (quiet) intro peak
       bedGain.gain.exponentialRampToValueAtTime(BED_INTRO_PEAK, now + BED_FADE_IN);
-      // hold the peak, then recede smoothly to silence — exponential = natural roll-off
+      // hold the peak, then recede smoothly to silence, exponential = natural roll-off
       bedGain.gain.setValueAtTime(BED_INTRO_PEAK, fadeOutStart);
       bedGain.gain.exponentialRampToValueAtTime(BED_END, fadeOutEnd);
       // Snap to a hard 0 the instant the fade lands, then pause the loop so the bed
@@ -187,7 +187,7 @@ export class CinematicAudioEngine {
 
   /**
    * After the intro fade reaches silence, latch `bedFaded`, pause the looping
-   * bed <audio>, and mute its gain node so it can never contribute again — the
+   * bed <audio>, and mute its gain node so it can never contribute again, the
    * SFX carry the rest of the journey. Runs off a real-time timer (ms) rather
    * than the audio clock so it fires even if the tab was briefly backgrounded.
    */
@@ -209,7 +209,7 @@ export class CinematicAudioEngine {
     }, Math.max(0, delayMs));
   }
 
-  /** Mute/unmute WITHOUT tearing down the graph — just ramps the master. */
+  /** Mute/unmute WITHOUT tearing down the graph, just ramps the master. */
   setMuted(muted: boolean) {
     const ctx = this.ctx;
     const master = this.master;
@@ -219,7 +219,7 @@ export class CinematicAudioEngine {
     master.gain.setValueAtTime(master.gain.value, now);
     master.gain.linearRampToValueAtTime(muted ? 0 : MASTER_LEVEL, now + 0.35);
     // Only touch the bed loop while it's still the live intro. Once the intro has
-    // faded to silence (`bedFaded`), NEVER resume it on unmute — the music is
+    // faded to silence (`bedFaded`), NEVER resume it on unmute, the music is
     // meant to be a one-time intro, not something that comes back mid-journey.
     if (muted) this.bedEl?.pause();
     else if (!this.bedFaded) this.bedEl?.play().catch(() => {});
@@ -232,7 +232,7 @@ export class CinematicAudioEngine {
    * NOTE: the music bed is deliberately NOT touched here anymore. It used to be
    * ramped LOUDER with depth (base→deep), which is exactly what made it feel too
    * dominant. Now the bed is a self-contained intro swell that fades out on its
-   * own schedule (see `arm()`), and the SFX — fired below — are what carry each
+   * own schedule (see `arm()`), and the SFX, fired below, are what carry each
    * scene from that point on.
    */
   onScene(index: number) {
@@ -318,7 +318,7 @@ export class CinematicAudioEngine {
     osc.connect(og);
 
     // Stereo sweep: the whole whoosh glides gently across the field, flipping
-    // direction each time — the "flying past" cue. Kept narrow (±0.4) so it
+    // direction each time, the "flying past" cue. Kept narrow (±0.4) so it
     // stays a drift, never a hard ping-pong. Safari < 14.1 lacks
     // StereoPannerNode; there we simply stay centred.
     const dir = this.whooshFlip;
@@ -345,7 +345,7 @@ export class CinematicAudioEngine {
     this.cleanupOnEnded(osc, out ? [noise, bp, ng, osc, og, out] : [noise, bp, ng, osc, og]);
   }
 
-  /** A slow low-sine sub swell — the pulse of the network/fleet beat. */
+  /** A slow low-sine sub swell, the pulse of the network/fleet beat. */
   private subPulse(amount: number) {
     const ctx = this.ctx;
     if (!ctx) return;
@@ -370,13 +370,13 @@ export class CinematicAudioEngine {
     this.cleanupOnEnded(osc, [osc, lp, g]);
   }
 
-  /** A warm sustained chord that blooms on arrival — the resolve at the gate. */
+  /** A warm sustained chord that blooms on arrival, the resolve at the gate. */
   private resolve(amount: number) {
     const ctx = this.ctx;
     if (!ctx) return;
     const now = ctx.currentTime;
     const dur = 3.2;
-    // A gentle major-9 stack (A2, E3, C#4, B4) — warm, hopeful, not saccharine.
+    // A gentle major-9 stack (A2, E3, C#4, B4), warm, hopeful, not saccharine.
     const freqs = [110, 164.81, 277.18, 493.88];
     const bus = ctx.createGain();
     bus.gain.value = 1;
@@ -410,7 +410,7 @@ export class CinematicAudioEngine {
   }
 
   /**
-   * A soft bell ping — two gentle sine partials with a fast-but-clickless
+   * A soft bell ping, two gentle sine partials with a fast-but-clickless
    * attack and a long reverberant tail. Fired once by `onComplete()` when the
    * visitor reaches the end of the journey: a quiet "you have arrived".
    */
@@ -444,14 +444,14 @@ export class CinematicAudioEngine {
       chain.push(osc, g);
       oscs.push(osc);
     }
-    // Mostly wet — the bell should bloom in the hall, not sit on the nose.
+    // Mostly wet, the bell should bloom in the hall, not sit on the nose.
     this.sendWithReverb(bus, 0.85);
     if (oscs.length > 0) this.cleanupOnEnded(oscs[oscs.length - 1]!, chain);
   }
 
   /**
    * The journey reached its end (`cj:complete` from the engine). Rings the
-   * arrival chime exactly once per mount — and only if the user has audio on.
+   * arrival chime exactly once per mount, and only if the user has audio on.
    */
   onComplete() {
     if (this.chimed) return;

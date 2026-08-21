@@ -87,7 +87,7 @@ export function CommandPalette() {
       })
       .catch(() => {
         clearTimeout(timeoutId);
-        // Silent fallback — palette still works for nav + guides.
+        // Silent fallback, palette still works for nav + guides.
       });
     return () => {
       clearTimeout(timeoutId);
@@ -180,7 +180,7 @@ export function CommandPalette() {
       try {
         track('palette_open');
       } catch {
-        // Silent — analytics is best-effort.
+        // Silent, analytics is best-effort.
       }
     }
   }, [open]);
@@ -192,7 +192,7 @@ export function CommandPalette() {
       try {
         track('palette_query', { q: query.slice(0, QUERY_TRUNCATE) });
       } catch {
-        // Silent — analytics is best-effort.
+        // Silent, analytics is best-effort.
       }
     }, QUERY_DEBOUNCE_MS);
     return () => clearTimeout(handle);

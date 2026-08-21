@@ -39,7 +39,7 @@ const SERVICES = [
     nameHe: 'אוטומציית WhatsApp',
     price: 'from ₪3,500',
     description:
-      '24/7 WhatsApp AI agents — auto-replies, scheduling, reminders, CRM integration.',
+      '24/7 WhatsApp AI agents, auto-replies, scheduling, reminders, CRM integration.',
   },
 ];
 
@@ -66,7 +66,7 @@ const HUB_REVALIDATE_S = 60;
 
 type AgentStatusValue = 'ok' | 'down' | 'unknown';
 
-// Normalized error vocabulary — keep this list small and stable so consumers
+// Normalized error vocabulary, keep this list small and stable so consumers
 // can switch on it. Never leak raw error.message to the public response.
 type AgentNetworkError =
   | 'timeout'
@@ -226,7 +226,7 @@ async function fetchAgentNetworkHealth(): Promise<AgentNetworkHealth> {
   }
 }
 
-// Render dynamically so the live hub fetch happens per-request — otherwise
+// Render dynamically so the live hub fetch happens per-request, otherwise
 // the build-time hub state is baked into the static artifact and a hub
 // outage at deploy time freezes "hub_reachable: false" for the cache TTL.
 // Cache-Control headers below give Edge a 5-minute fresh window plus a

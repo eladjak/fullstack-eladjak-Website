@@ -118,7 +118,7 @@ export default function SkillsSection() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/section-skills.jpg"
-          alt="כישורים טכניים — Next.js, React, TypeScript, AI, אוטומציה"
+          alt="כישורים טכניים, Next.js, React, TypeScript, AI, אוטומציה"
           fill
           className="object-cover opacity-[0.06]"
           loading="lazy"
@@ -132,7 +132,7 @@ export default function SkillsSection() {
             <div className="relative w-48 h-32 md:w-64 md:h-44 rounded-2xl overflow-hidden shrink-0 border border-border/30 shadow-lg shadow-primary/5">
               <Image
                 src="/images/illustration-skills.jpg"
-                alt="איור של ערימה טכנולוגית — frontend, backend ו-AI"
+                alt="איור של ערימה טכנולוגית, frontend, backend ו-AI"
                 fill
                 className="wow-media object-cover"
                 loading="lazy"

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "המדריך המלא ל-Claude Code | אלעד יעקובוביץ'",
     description:
-      'מדריך מעשי בעברית ל-Claude Code — התקנה, CLAUDE.md, MCP, Skills, סוכנים מקבילים וטיפים מתקדמים של מפתח שמשתמש בו יומיומית.',
+      'מדריך מעשי בעברית ל-Claude Code, התקנה, CLAUDE.md, MCP, Skills, סוכנים מקבילים וטיפים מתקדמים של מפתח שמשתמש בו יומיומית.',
     url: CANONICAL,
     type: 'article',
     locale: 'he_IL',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: 'Claude Code — מדריך מעשי בעברית',
+        alt: 'Claude Code, מדריך מעשי בעברית',
       },
     ],
     authors: ["אלעד יעקובוביץ'"],
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "המדריך המלא ל-Claude Code | אלעד יעקובוביץ'",
     description:
-      'מדריך מעשי בעברית ל-Claude Code — התקנה, CLAUDE.md, MCP, Skills וסוכנים מקבילים.',
+      'מדריך מעשי בעברית ל-Claude Code, התקנה, CLAUDE.md, MCP, Skills וסוכנים מקבילים.',
     card: 'summary_large_image',
     images: [OG_IMAGE],
     creator: '@eladjak',

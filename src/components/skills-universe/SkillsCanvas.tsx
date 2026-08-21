@@ -21,7 +21,7 @@ import {
 
 /**
  * Deterministic Fibonacci sphere distribution.
- * Returns evenly spaced points on a sphere of given radius — same input always
+ * Returns evenly spaced points on a sphere of given radius, same input always
  * yields the same output, so positions don't jitter between renders.
  */
 function fibonacciSphere(count: number, radius: number): Array<[number, number, number]> {
@@ -123,7 +123,7 @@ function SkillSphere({ skill, position, isSelected, ring, onSelect }: SkillSpher
 }
 
 /**
- * InstancedSkillRing — renders many spheres as a single InstancedMesh.
+ * InstancedSkillRing, renders many spheres as a single InstancedMesh.
  *
  * Why: 313 outer-ring spheres, each as their own React component + useFrame,
  * tanks performance on mid-range mobile (313 draw calls + 313 closures per
@@ -149,7 +149,7 @@ function InstancedSkillRing({
   selectedId,
   onSelect,
 }: InstancedSkillRingProps) {
-  // Stable refs into the InstancedMesh — one PositionMesh proxy per skill.
+  // Stable refs into the InstancedMesh, one PositionMesh proxy per skill.
   const instanceRefs = useRef<Array<PositionMesh | null>>([]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
@@ -331,7 +331,7 @@ function Scene({ selectedId, onSelect, reducedMotion, starCount }: SceneProps) {
 interface SkillsCanvasProps {
   /**
    * Optional controlled selection. When provided, the canvas treats selection
-   * as fully external — the parent owns state, can render an `aria-live`
+   * as fully external, the parent owns state, can render an `aria-live`
    * announcement and an accessible skills list outside the canvas.
    * When omitted, the canvas falls back to its own internal state for
    * backward compatibility with existing callers.
@@ -397,7 +397,7 @@ export default function SkillsCanvas({
         />
       </Canvas>
 
-      {/* Detail panel — bottom sheet on mobile, side panel from sm: up */}
+      {/* Detail panel, bottom sheet on mobile, side panel from sm: up */}
       {selected && (
         <aside
           dir="rtl"

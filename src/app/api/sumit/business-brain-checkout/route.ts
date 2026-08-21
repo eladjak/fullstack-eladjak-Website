@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
  *
  * Initiates a Sumit payment for the Business Brain founding reservation.
  * Amount: ₪500 deposit (non-refundable, counts toward setup fee).
- * Product: "מוח עסקי — הרשמת מייסד"
+ * Product: "מוח עסקי, הרשמת מייסד"
  *
  * Env vars required (set in Vercel dashboard / .env.local):
  *   SUMIT_COMPANY_ID  – Sumit company ID
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     );
   }
 
-  // Sumit hosted payment page — VERIFIED API shape (21.7.2026, tested live):
+  // Sumit hosted payment page, VERIFIED API shape (21.7.2026, tested live):
   // POST https://api.sumit.co.il/billing/payments/beginredirect/
   // body: { Credentials:{CompanyID,APIKey}, Customer, Items[], RedirectURL, ... }
   // Returns { Data: { RedirectURL }, Status: 0 } on success.
@@ -71,7 +71,7 @@ export async function POST(req: Request) {
       {
         Item: { Name: 'מוח עסקי - הרשמת מייסד (מקדמה)' },
         Quantity: 1,
-        UnitPrice: 500, // ₪500 מקדמת-מייסד — נקבע בצד שרת בלבד
+        UnitPrice: 500, // ₪500 מקדמת-מייסד, נקבע בצד שרת בלבד
         Currency: 'ILS',
       },
     ],

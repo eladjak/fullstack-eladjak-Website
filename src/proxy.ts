@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 /**
  * Nonce-based Content Security Policy proxy (Next.js 16+ replaced the
- * "middleware" file convention with "proxy" — same runtime, new name).
+ * "middleware" file convention with "proxy", same runtime, new name).
  *
  * Why this exists:
  *  - Removes the last 'unsafe-inline' XSS-hardening hole flagged by security review.
@@ -27,7 +27,7 @@ export function proxy(request: NextRequest) {
 
   const isDev = process.env.NODE_ENV !== 'production';
 
-  // In dev, Next.js + Turbopack use eval() for HMR — we need 'unsafe-eval'.
+  // In dev, Next.js + Turbopack use eval() for HMR, we need 'unsafe-eval'.
   // In prod, no eval is used in compiled bundles.
   const scriptSrc = isDev
     ? `'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval'`
@@ -38,7 +38,7 @@ export function proxy(request: NextRequest) {
     `script-src ${scriptSrc}`,
     // Tailwind/framer-motion inject runtime CSS-in-JS via inline <style>.
     // Removing 'unsafe-inline' from style-src would require a separate nonce
-    // pass for styles — out of scope for this XSS-hardening migration.
+    // pass for styles, out of scope for this XSS-hardening migration.
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https: blob:",
     "font-src 'self' data:",

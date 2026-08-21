@@ -16,7 +16,7 @@ type StaticProject = BankProject;
 // to a real page. LINK-AUDIT (2026-07-24): zehutai now links to public zehut.org.il.
 // Door rule (2026-08-16): a visitor never leaves the front door for a
 // *.vercel.app address. The data keeps the URL, a preview deploy is still how
-// the project is reached internally — but the public card does not offer it.
+// the project is reached internally, but the public card does not offer it.
 // Filtered at render rather than deleted, so restoring a demo is one named
 // domain away and no card silently loses its record of where it lives.
 function publicLiveUrl(url?: string): string | undefined {

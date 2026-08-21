@@ -114,7 +114,7 @@ export async function generateMetadata({
       url: enCanonical,
       type: "article",
       locale: "en_US",
-      siteName: "Elad Yaakobovitch — Portfolio",
+      siteName: "Elad Yaakobovitch, Portfolio",
       images: [
         {
           url: ogImageUrl,
@@ -166,7 +166,7 @@ export default async function GuideLayoutEn({
       {guide && guide.slug !== "claude-code" && (
         <SeoJsonLd guide={guide} locale="en" />
       )}
-      {/* Server-rendered SEO/GEO content fallback (sr-only) — supplies <h1>,
+      {/* Server-rendered SEO/GEO content fallback (sr-only), supplies <h1>,
           semantic tags, <h4> depth and external citation links in the initial
           HTML, which the "use client" guide UI cannot. */}
       {guide && guide.slug !== "claude-code" && (

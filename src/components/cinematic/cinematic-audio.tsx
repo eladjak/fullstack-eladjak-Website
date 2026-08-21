@@ -5,14 +5,14 @@ import { useLocale } from 'next-intl';
 import { CinematicAudioEngine } from './cinematic-audio-engine';
 
 /**
- * CinematicAudio — the mute toggle + wiring for the layered audio bed.
+ * CinematicAudio, the mute toggle + wiring for the layered audio bed.
  *
  * Behaviour (all hard rules from the brief):
  *  - Default = MUTED. Nothing plays until the user presses the toggle.
  *  - The AudioContext is created + resumed inside that first click/keydown
  *    (browser autoplay policy). We NEVER autoplay with sound.
  *  - Under prefers-reduced-motion the control is not rendered and no audio is
- *    ever armed — the experience stays silent + static.
+ *    ever armed, the experience stays silent + static.
  *  - The toggle is a real <button> with aria-pressed + aria-label, so it is
  *    keyboard-accessible and screen-reader-correct out of the box.
  *

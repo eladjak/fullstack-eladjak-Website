@@ -7,10 +7,10 @@ const CANONICAL_HE = `${SITE_URL}/methodology`;
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Methodology — From Idea to Production | Elad Yaakobovitch",
+    absolute: "Methodology, From Idea to Production | Elad Yaakobovitch",
   },
   description:
-    "How I build AI and Full-Stack projects — six clear phases from initial consultation to production: PRD, weekly sprints, QA, launch, and ongoing support. A proven approach for organizations, development teams, and founders.",
+    "How I build AI and Full-Stack projects, six clear phases from initial consultation to production: PRD, weekly sprints, QA, launch, and ongoing support. A proven approach for organizations, development teams, and founders.",
   keywords: [
     "development methodology",
     "AI development process",
@@ -32,16 +32,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Methodology — From Idea to Production",
+    title: "Methodology, From Idea to Production",
     description:
       "Six development phases: consultation, PRD, weekly sprints, QA, launch, and ongoing support. A proven approach for organizations and dev teams.",
     url: CANONICAL_EN,
     type: "website",
     locale: "en_US",
-    siteName: "Elad Yaakobovitch — Portfolio",
+    siteName: "Elad Yaakobovitch, Portfolio",
   },
   twitter: {
-    title: "Methodology — From Idea to Production",
+    title: "Methodology, From Idea to Production",
     description:
       "Six development phases that take a project from idea to production. Consultation, PRD, sprints, QA, launch, and support.",
     card: "summary_large_image",

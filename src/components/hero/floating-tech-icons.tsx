@@ -37,7 +37,7 @@ export function FloatingTechIcons() {
     setIcons(generatedIcons);
   }, []);
 
-  // Skip all animation under reduced-motion — also avoids Framer Motion overhead
+  // Skip all animation under reduced-motion, also avoids Framer Motion overhead
   // competing with the cinematic rAF loop on every frame.
   if (prefersReducedMotion) return null;
 
@@ -68,7 +68,7 @@ export function FloatingTechIcons() {
             ],
             opacity: [0, 0.6, 0.6, 0],
             scale: [0, 1, 1, 0],
-            // Removed rotate — it forces a separate composite layer per icon
+            // Removed rotate, it forces a separate composite layer per icon
             // on top of the cinematic backdrop, adding 6 extra GPU layers to every frame.
           }}
           transition={{
@@ -77,7 +77,7 @@ export function FloatingTechIcons() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          // Removed filter drop-shadow — applies a filter pass on each icon element
+          // Removed filter drop-shadow, applies a filter pass on each icon element
           // every frame; replaced by CSS box-shadow on the span (paint-only, no filter).
         >
           <span

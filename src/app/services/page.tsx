@@ -20,8 +20,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
-// SSR'd (no `ssr: false`) so the FAQ content — including the static Q&A
-// fallback inside ChatFAQ — is present in the initial HTML for GEO/SEO.
+// SSR'd (no `ssr: false`) so the FAQ content, including the static Q&A
+// fallback inside ChatFAQ, is present in the initial HTML for GEO/SEO.
 import { ChatFAQ } from '@/components/ui/chat-faq';
 import { QuoteBuilder } from '@/components/ui/quote-builder';
 
@@ -58,7 +58,7 @@ const serviceColors = [
   'from-green-500 to-emerald-600',
 ] as const;
 
-// Pillar grouping — additive layer over existing services.
+// Pillar grouping, additive layer over existing services.
 // Each existing service is mapped to one or more pillars (Implementation/Consulting/Training).
 // 'all' shows the original list as-is.
 type PillarId = 'all' | 'implementation' | 'consulting' | 'training';
@@ -135,7 +135,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Pillar selector — additive layer above the existing service cards */}
+        {/* Pillar selector, additive layer above the existing service cards */}
         <section className="w-full pt-12 md:pt-16">
           <div className="container px-4 md:px-6">
             <ScrollAnimate>
@@ -202,7 +202,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Services Grid — original 5 cards, unchanged. Filtered by active pillar. */}
+        {/* Services Grid, original 5 cards, unchanged. Filtered by active pillar. */}
         <section id="b2b" className="w-full py-12 md:py-16">
           <div className="container px-4 md:px-6">
             <div className="grid gap-8 md:gap-10">
@@ -274,7 +274,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* B2B-focused band — additive */}
+        {/* B2B-focused band, additive */}
         <section className="w-full py-12 md:py-16">
           <div className="container px-4 md:px-6">
             <ScrollAnimate>
@@ -312,11 +312,11 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Interactive quote builder — the visitor assembles a project and gets
+        {/* Interactive quote builder, the visitor assembles a project and gets
             an honest estimate range + prefilled WhatsApp CTA (interaction > information) */}
         <QuoteBuilder />
 
-        {/* Products for purchase — standalone packaged products */}
+        {/* Products for purchase, standalone packaged products */}
         <section className="w-full py-12 md:py-16" dir="rtl" lang="he">
           <div className="container px-4 md:px-6">
             <ScrollAnimate>
@@ -327,7 +327,7 @@ export default function ServicesPage() {
                     מוצרים לרכישה
                   </span>
                   <h2 className="wow-title wow-title--center mt-4 text-2xl md:text-3xl font-bold font-heebo text-balance">
-                    מוצרים מוכנים — מתחילים לעבוד מהיום
+                    מוצרים מוכנים, מתחילים לעבוד מהיום
                   </h2>
                   <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto text-pretty">
                     בשונה מפרויקטים מותאמים-אישית, המוצרים האלה הם פתרונות מוכנים עם תמחור שקוף.
@@ -361,7 +361,7 @@ export default function ServicesPage() {
                       </div>
 
                       <p className="text-sm text-muted-foreground leading-relaxed text-pretty">
-                        עוזר ניהולי שמכיר את העסק שלך, עונה לשאלות, מתאם פגישות ומשלח תזכורות — ישירות דרך וואטסאפ. ומאחוריו תמיד בן-אדם.
+                        עוזר ניהולי שמכיר את העסק שלך, עונה לשאלות, מתאם פגישות ומשלח תזכורות, ישירות דרך וואטסאפ. ומאחוריו תמיד בן-אדם.
                       </p>
 
                       <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-muted-foreground">

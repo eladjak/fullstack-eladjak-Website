@@ -3,11 +3,11 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * CinematicJourney — the full-page cinematic scroll backdrop.
+ * CinematicJourney, the full-page cinematic scroll backdrop.
  *
  * A FIXED, full-viewport video layer that sits at z-0 BEHIND the entire page.
  * As the visitor scrolls the document, one continuous "camera flight" through a
- * dark cosmic world (6 pre-rendered legs) is scrubbed by scroll position — no
+ * dark cosmic world (6 pre-rendered legs) is scrubbed by scroll position, no
  * cuts, a single connected journey. The real SSR page content (Hero, sections,
  * FAQ) renders on top at a higher z-index and stays fully readable; a per-scene
  * scrim keeps text legible over any frame.
@@ -27,7 +27,7 @@ import { useEffect, useRef } from 'react';
  *    it is always fully seekable regardless of HTTP byte-range support.
  *
  * GUARDRAILS:
- *  - Rendered client-only (ssr:false via the lazy mount) — bundle never touches
+ *  - Rendered client-only (ssr:false via the lazy mount), bundle never touches
  *    SSR HTML or the LCP path. Poster stills paint instantly.
  *  - prefers-reduced-motion → NO video, NO scrub: a single static poster stays.
  *  - transform/opacity only; the layer is position:fixed so it causes 0 CLS.
@@ -61,13 +61,13 @@ export const CINEMATIC_SCENES: Scene[] = [
 // cross-dissolve centred on every seam. The outgoing leg fades out and the
 // incoming leg fades in over the window [anchor - OVERLAP, anchor + OVERLAP], so
 // the swap straddles the seam symmetrically and the two clips are frame-continuous
-// through it — no hard cut, no double-bright flash. 0.5 = the fade spans the whole
+// through it, no hard cut, no double-bright flash. 0.5 = the fade spans the whole
 // half-leg on each side (very gentle); smaller = a tighter, snappier dissolve.
 const OVERLAP = 0.42;
 
-// ── CAMERA INTENSITY — the single dial for the whole cinematic feel ──────────
+// ── CAMERA INTENSITY, the single dial for the whole cinematic feel ──────────
 // One master knob (0 = flat/static, 1 = the shipped film-grade look, >1 = even
-// more dramatic). It scales EVERY camera move below in lockstep — the per-scene
+// more dramatic). It scales EVERY camera move below in lockstep, the per-scene
 // dolly (zoom-in / zoom-out), the depth parallax between video/still/scrim
 // layers, the focus-pull blur on entering legs, and the seam bloom. To make the
 // journey more (or less) cinematic, change ONLY this number. 1.0 is the tuned
@@ -76,9 +76,8 @@ const CAM_INTENSITY = 1;
 
 // Per-scene dolly direction: +1 = the camera pushes IN (zoom-in) across the leg,
 // −1 = it pulls OUT (zoom-out). Alternating in/out from scene to scene is what
-// makes it read as a camera genuinely MOVING THROUGH space — plunging into the
-// core, drifting back to reveal the fleet, diving into the projects, and so on —
-// rather than one monotonous endless push. Length matches CINEMATIC_SCENES.
+// makes it read as a camera genuinely MOVING THROUGH space, plunging into the
+// core, drifting back to reveal the fleet, diving into the projects, and so on, // rather than one monotonous endless push. Length matches CINEMATIC_SCENES.
 const DOLLY_DIR = [1, -1, 1, -1, 1, -1];
 
 // Source frame rate of every cinematic clip (all six legs are rendered at 24fps).
@@ -88,7 +87,7 @@ const CLIP_FPS = 24;
 const FRAME_STEP = 1 / CLIP_FPS;
 
 // How long (ms) a leg must stay OUTSIDE the ±1 load window before its clip is
-// torn down. The load window is additive on its own — nothing ever released a
+// torn down. The load window is additive on its own, nothing ever released a
 // clip, so a single read-through of the page ended with all six <video> elements
 // alive and fully buffered (measured on production: 6 resident, 18.9MB
 // transferred, every clip buffered end-to-end, and the last two sitting at
@@ -112,7 +111,7 @@ interface LegState {
   // Whether this clip has been seeked at least once. The FIRST seek is what fires
   // `seeked` → `.cj-has-clip` (the poster→video swap), so every loaded leg must be
   // primed exactly once even while it is invisible. After that a hidden leg is
-  // never seeked again (see raf) — an off-screen seek costs a full decode but
+  // never seeked again (see raf), an off-screen seek costs a full decode but
   // paints nothing.
   warmed: boolean;
   // Cached child refs so the per-frame loop never calls querySelector.
@@ -121,7 +120,7 @@ interface LegState {
   // filter/zIndex on all six full-viewport legs every frame even when the value
   // was byte-identical, and each write invalidates style for a promoted,
   // viewport-sized layer. We diff against these and only touch the DOM on a real
-  // change — the resulting pixels are identical either way.
+  // change, the resulting pixels are identical either way.
   lastTransform: string;
   lastFilter: string;
   lastOpacity: string;
@@ -131,7 +130,7 @@ interface LegState {
   live: boolean;
   // Timestamp (performance.now) at which this leg first fell outside the load
   // window while still holding a clip; 0 while it is inside. Drives the delayed
-  // release — see RELEASE_GRACE_MS.
+  // release, see RELEASE_GRACE_MS.
   outsideSince: number;
 }
 
@@ -145,7 +144,7 @@ export default function CinematicJourney() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     const smallMQ = window.matchMedia('(max-width: 860px)');
-    // Cache mobile flag and update only on MQ change — avoids re-querying matchMedia
+    // Cache mobile flag and update only on MQ change, avoids re-querying matchMedia
     // on every rAF frame (called 60×/s × 4 places = unnecessary overhead).
     let mobile = coarse || smallMQ.matches;
     const isMobile = () => mobile;
@@ -197,14 +196,14 @@ export default function CinematicJourney() {
       leg.el.style.zIndex = v;
     };
     // `.cj-live` scopes the `will-change` promotion hint to the legs actually on
-    // screen (see globals.css). Purely a compositor hint — no visual effect.
+    // screen (see globals.css). Purely a compositor hint, no visual effect.
     const setLive = (leg: LegState, on: boolean) => {
       if (leg.live === on) return;
       leg.live = on;
       leg.el.classList.toggle('cj-live', on);
     };
 
-    // Resolved once — the scrim is a static child of the root, so re-querying it
+    // Resolved once, the scrim is a static child of the root, so re-querying it
     // 60×/s only burned selector-matching time.
     const scrim = root.querySelector<HTMLElement>('.cj-scrim');
 
@@ -217,10 +216,10 @@ export default function CinematicJourney() {
     const cosFade = (x: number) => 0.5 - 0.5 * Math.cos(clamp(x) * Math.PI);
     // Weighty, non-linear camera easing (easeInOutCubic). Feeding the leg's
     // within-fraction through this before it drives the dolly gives the camera
-    // INERTIA — it accelerates into the scene and settles as it arrives, instead
+    // INERTIA, it accelerates into the scene and settles as it arrives, instead
     // of tracking scroll 1:1 (which felt mechanical/linear). Used only for the
     // camera transform, never for the opacity crossfade (that stays cosine so the
-    // brightness math is untouched — no black-flash regression).
+    // brightness math is untouched, no black-flash regression).
     const easeInOutCubic = (x: number) => {
       const t = clamp(x);
       return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -236,7 +235,7 @@ export default function CinematicJourney() {
     // into leg i+1 and the camera keeps drifting.
     const captionEls = new Map<string, HTMLElement>();
     // Pre-measured absolute top+halfHeight for each caption band (document coords).
-    // Updated in measureAnchors (on resize/load) — never inside the rAF loop.
+    // Updated in measureAnchors (on resize/load), never inside the rAF loop.
     // This eliminates the per-frame getBoundingClientRect() forced reflow that was
     // the primary source of scroll jank: 6 BCR reads × 60fps = layout thrash every frame.
     const captionBandTop = new Map<string, number>();
@@ -271,7 +270,7 @@ export default function CinematicJourney() {
         if (cap) {
           captionEls.set(id, cap);
           // Pre-measure the band's absolute document position so the rAF loop
-          // never needs to call getBoundingClientRect() — it derives viewport
+          // never needs to call getBoundingClientRect(), it derives viewport
           // position as (bandTop - scrollY) which is a pure arithmetic op.
           const band = cap.parentElement;
           if (band) {
@@ -294,11 +293,11 @@ export default function CinematicJourney() {
       sceneAt = next;
     }
 
-    // Under reduced motion we never load a video — the first poster stays put.
+    // Under reduced motion we never load a video, the first poster stays put.
     //
     // We load each clip via a DIRECT same-origin URL (not a blob object URL).
     // Scroll-scrubbing needs the source to be seekable, which requires the host
-    // to serve HTTP byte-range (206) requests — Next.js dev AND Vercel both do,
+    // to serve HTTP byte-range (206) requests, Next.js dev AND Vercel both do,
     // verified. A direct <source> is lighter than holding a full Blob in RAM and
     // sidesteps the browser "blob media URL safety" rejection. `media-src 'self'`
     // in the CSP already permits it.
@@ -315,10 +314,10 @@ export default function CinematicJourney() {
       v.setAttribute('playsinline', '');
       v.addEventListener('loadedmetadata', () => {
         // Mark ready; the rAF loop picks it up next frame and seeks to the eased
-        // target — no explicit render call needed (the loop is always running).
+        // target, no explicit render call needed (the loop is always running).
         leg.ready = true;
       });
-      // Only reveal the video (hide the poster) once a real frame paints — iOS
+      // Only reveal the video (hide the poster) once a real frame paints, iOS
       // keeps a seeked-but-never-played muted video blank otherwise.
       v.addEventListener(
         'seeked',
@@ -336,7 +335,7 @@ export default function CinematicJourney() {
         if (userReady) primeVideo(v);
       });
       v.addEventListener('error', () => {
-        // Leave the poster in place if a clip fails to load — never a black hole.
+        // Leave the poster in place if a clip fails to load, never a black hole.
         leg.loading = false;
       });
       v.src = url;
@@ -349,7 +348,7 @@ export default function CinematicJourney() {
     // in before it ever loaded: poster visible (`.cj-has-clip` removed), Ken-Burns
     // drift resumed (that branch is gated on `!leg.ready`), and `warmed` cleared so
     // the one-time warm seek runs again if the leg is re-entered. `leg.cur` is
-    // deliberately KEPT — it is the leg's eased position, so a re-entered leg
+    // deliberately KEPT, it is the leg's eased position, so a re-entered leg
     // primes to the frame it should be showing rather than snapping to 0.
     //
     // Only ever called on a leg the seam-dissolve has at opacity 0 (it is at least
@@ -375,11 +374,11 @@ export default function CinematicJourney() {
       leg.el.classList.remove('cj-has-clip');
     }
 
-    // ── Global eased scroll — the SINGLE source of truth ─────────────────────
+    // ── Global eased scroll, the SINGLE source of truth ─────────────────────
     // `pRaw` is the raw whole-page scroll fraction (0..1), updated on every scroll
     // event. `pEased` is a critically-damped follower of it, advanced once per
-    // frame in raf(). EVERYTHING downstream — flight position, per-leg time,
-    // opacity crossfade, captions, audio — reads `pEased`, so the whole scene
+    // frame in raf(). EVERYTHING downstream, flight position, per-leg time,
+    // opacity crossfade, captions, audio, reads `pEased`, so the whole scene
     // moves as ONE eased quantity. This is the core of the "glide, don't jump"
     // fix: a jerky wheel/trackpad flick no longer maps 1:1 onto the visuals; it
     // decays smoothly into the flight. (Previously only per-leg currentTime was
@@ -391,8 +390,8 @@ export default function CinematicJourney() {
 
     // Scroll extent + viewport height are cached by measureAnchors() rather than
     // read every frame. `scrollHeight` is a layout-dependent property: reading it
-    // inside the rAF loop — which writes styles to six full-viewport layers on the
-    // same tick — invites a forced synchronous layout on any frame where something
+    // inside the rAF loop, which writes styles to six full-viewport layers on the
+    // same tick, invites a forced synchronous layout on any frame where something
     // else has dirtied style. Both values only change when the layout changes, and
     // measureAnchors() already runs on exactly those events (resize, orientation,
     // load, ResizeObserver).
@@ -416,7 +415,7 @@ export default function CinematicJourney() {
       return seg + frac; // 0 .. N-1, continuous
     }
 
-    // ── applyCamera — the per-leg cinematic camera pose ─────────────────────
+    // ── applyCamera, the per-leg cinematic camera pose ─────────────────────
     // Given a visible leg, its scene index, and `w` (the leg's own progress across
     // its band; clamped to 0..1 inside, so passing the raw base/next values keeps
     // the pair continuous through the seam), this sets a layered transform on the
@@ -427,13 +426,13 @@ export default function CinematicJourney() {
     //     move has weight (accelerate, settle) rather than a linear crawl.
     //   • PAN/TILT (translate): a slow vertical + horizontal drift that never
     //     stops, so even while the scrubbed video frame is held during a dwell the
-    //     camera keeps breathing — no frozen snap between scenes.
+    //     camera keeps breathing, no frozen snap between scenes.
     //   • FOCUS PULL (blur): a brief soft-focus as a leg ENTERS, snapping sharp as
-    //     it arrives — the classic "rack focus" that makes footage feel alive.
+    //     it arrives, the classic "rack focus" that makes footage feel alive.
     //   • DEPTH: the video layer scales a touch MORE than the still under it, so
     //     the two planes separate → parallax depth instead of a flat image.
     //
-    // All transform/opacity/filter — GPU-composited, no layout. Mobile trims the
+    // All transform/opacity/filter, GPU-composited, no layout. Mobile trims the
     // blur (cheapest to drop) and eases the magnitudes so it stays smooth on phones.
     function applyCamera(leg: LegState, sceneIdx: number, w: number, mobile: boolean) {
       const k = CAM_INTENSITY * (mobile ? 0.72 : 1);
@@ -443,7 +442,7 @@ export default function CinematicJourney() {
       const dir = DOLLY_DIR[sceneIdx] ?? 1;
 
       // DOLLY. Base zoom 1.06 keeps the object-cover crop clean at the extremes.
-      // A ±0.14 travel (×k) is a big, filmic push/pull — far more than the old
+      // A ±0.14 travel (×k) is a big, filmic push/pull, far more than the old
       // 0.03. Direction flips per scene so the camera dives in then drifts out.
       const zoom = 0.14 * k;
       const scaleLeg = 1.06 + (dir > 0 ? eased : 1 - eased) * zoom;
@@ -461,7 +460,7 @@ export default function CinematicJourney() {
       // FOCUS PULL: soft only in the first ~30% of a leg's entrance, then crisp.
       // Skipped on mobile (blur is the most expensive filter on low-end GPUs).
       // Max blur reduced 3→1.8px and threshold raised 0.05→0.5px so the filter
-      // is only applied when perceptibly visible — avoids compositor overhead on
+      // is only applied when perceptibly visible, avoids compositor overhead on
       // full-viewport elements for the invisible 0–0.05px range.
       const v = leg.video;
       if (!mobile) {
@@ -507,14 +506,14 @@ export default function CinematicJourney() {
         // Per-leg time: MONOTONE, never rewinds at a seam. Leg i plays its forward
         // push as the flight travels from anchor (i-1) to anchor i, i.e.
         // target = clamp(flight - (i-1)). Once the flight is at/past anchor i, leg
-        // i HOLDS at 1 (arrived) — it is not reset to 0 when it later becomes the
+        // i HOLDS at 1 (arrived), it is not reset to 0 when it later becomes the
         // "outgoing" leg of the next seam. Legs ahead sit at 0 (not yet reached).
         // This removes the currentTime snap-back that made the camera visibly
-        // reverse/reset at every scene boundary — the #1 source of the "jump".
+        // reverse/reset at every scene boundary, the #1 source of the "jump".
         leg.target = clamp(flight - (i - 1));
         setZ(leg, i === active ? '2' : '1');
 
-        // Load only the current leg and its immediate neighbours — and RELEASE the
+        // Load only the current leg and its immediate neighbours, and RELEASE the
         // ones that fall out of that window. The window was previously additive:
         // it correctly declined to load a distant leg, but nothing ever tore one
         // down, so "by the end of a scroll all six existed" was still true. The
@@ -580,7 +579,7 @@ export default function CinematicJourney() {
       // the two visible legs we compute a full camera pose from its own eased
       // within-fraction and its scene's dolly direction, then apply DIFFERENT
       // amounts of that pose to the layers inside the leg (video vs still vs
-      // scrim) so foreground and background move at different rates — real depth,
+      // scrim) so foreground and background move at different rates, real depth,
       // not a flat pan. Everything scales by CAM_INTENSITY and is transform-only
       // (GPU compositing, zero layout thrash). The opacity crossfade above is
       // untouched, so the smooth seam dissolve does not regress.
@@ -595,7 +594,7 @@ export default function CinematicJourney() {
 
         // Depth parallax on the shared scrim/vignette: it counter-drifts a hair
         // against the flight, so the "lens" (foreground grade) and the "world"
-        // (background footage) separate — a subtle but unmistakable 3D read. Also
+        // (background footage) separate, a subtle but unmistakable 3D read. Also
         // a gentle brand-purple bloom that swells at each seam (peaks mid-dissolve)
         // so passing a scene boundary feels like flying through a glow, not a cut.
         if (scrim) {
@@ -611,7 +610,7 @@ export default function CinematicJourney() {
       // Each caption is readable only while ITS band is near viewport centre and
       // fully faded in the breathing gaps → never two captions on screen at once.
       // Band positions are pre-measured in measureAnchors() and stored as absolute
-      // document coords — we derive viewport position via (top - scrollY) which is
+      // document coords, we derive viewport position via (top - scrollY) which is
       // pure arithmetic, eliminating getBoundingClientRect() from the hot path.
       const vhalf = viewportH / 2;
       const scrollY = window.scrollY;
@@ -631,7 +630,7 @@ export default function CinematicJourney() {
         void id;
       });
 
-      // AUDIO HOOK: same contract as before — dispatch on active-scene change only.
+      // AUDIO HOOK: same contract as before, dispatch on active-scene change only.
       if (active !== lastActive) {
         lastActive = active;
         root.dispatchEvent(
@@ -647,7 +646,7 @@ export default function CinematicJourney() {
       }
 
       // AUDIO HOOK 2: the journey COMPLETES when the eased flight fully arrives
-      // at the last anchor (the gate/CTA). Fired once per mount — the audio
+      // at the last anchor (the gate/CTA). Fired once per mount, the audio
       // layer answers with a soft arrival chime (if the user has sound on).
       if (!completed && flight >= N - 1 - 0.02) {
         completed = true;
@@ -674,7 +673,7 @@ export default function CinematicJourney() {
       render();
 
       // Seek granularity = one source frame. The clips are 24fps, so any two times
-      // closer together than 1/24s decode to the SAME frame — the old 6ms threshold
+      // closer together than 1/24s decode to the SAME frame, the old 6ms threshold
       // asked the decoder for a new frame roughly seven times per frame actually
       // shown, and every one of those requests is a real decode. Snapping the
       // threshold to the frame grid cannot change a single displayed pixel (there
@@ -690,7 +689,7 @@ export default function CinematicJourney() {
 
         // Seek ONLY the two legs the dissolve is actually showing. Previously every
         // loaded leg was seeked on every frame: by the end of a scroll all six clips
-        // existed, so one scroll frame could queue six seeks — and a seek is not
+        // existed, so one scroll frame could queue six seeks, and a seek is not
         // cheap here, it decodes forward from the preceding keyframe. Six invisible
         // decodes per frame is what pinned the decoder (all six clips ended a scroll
         // stuck at readyState 1, `seeking` never clearing) and produced the ~1s
@@ -751,7 +750,7 @@ export default function CinematicJourney() {
     }
 
     // The rAF loop samples scroll itself and renders every frame, so we no longer
-    // need a scroll handler to trigger renders — we just remeasure anchors when
+    // need a scroll handler to trigger renders, we just remeasure anchors when
     // the layout could have changed (resize / orientation / late content).
     let laidOutW = window.innerWidth;
     const remeasure = () => {
@@ -835,7 +834,7 @@ export default function CinematicJourney() {
         </div>
       ))}
       {/* Global darkening + vignette so overlaid page text stays legible over any
-          frame. Kept subtle — the flight must still read as cinematic. */}
+          frame. Kept subtle, the flight must still read as cinematic. */}
       <div className="cj-scrim pointer-events-none absolute inset-0" />
     </div>
   );

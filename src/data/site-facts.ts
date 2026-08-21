@@ -4,17 +4,17 @@
 //
 // Born from the 2026-07-10 staleness audit, which found FIVE different agent
 // counts on the same site (3 / 9 / 10 / 12 / 13) and a dead Hetzner server
-// still described as the network's core. Update HERE once — everything that
+// still described as the network's core. Update HERE once, everything that
 // imports from this file stays in sync.
 //
 // NOTE: messages/he.json + messages/en.json (FAQ, about) cannot import TS
-// constants — when AGENT_COUNT changes, grep both files for the old number.
+// constants, when AGENT_COUNT changes, grep both files for the old number.
 
 /**
  * Canonical count used across the site's copy for "the agent network".
  *
  * This is the number of agent-category GUIDES documented in /guide (2026-07),
- * NOT a literal headcount of the running fleet — the two overlap but are not
+ * NOT a literal headcount of the running fleet, the two overlap but are not
  * identical, so keep the distinction clear:
  *
  *   • 12 agents documented in /guide (the curated catalog this number tracks):
@@ -24,8 +24,7 @@
  *     frameworks, routers and UI layer that the fleet is built on, so they
  *     live in the guide catalog even though they aren't autonomous agents.)
  *
- *   • The real production fleet on Contabo is the autonomous set —
- *     Kami, Kaylee, Hermes/Gardax, Ranch, Box, Solis, plus the infra-layer
+ *   • The real production fleet on Contabo is the autonomous set, *     Kami, Kaylee, Hermes/Gardax, Ranch, Box, Solis, plus the infra-layer
  *     agents Oracle/orchestrator-brain, output-guardian, gemini-leak-guard
  *     and autonomy-worker (each described in the relevant /guide entry).
  *

@@ -9,10 +9,10 @@ const CANONICAL_HE = `${SITE_URL}/claude-code`;
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Claude Code — The Complete Guide | Elad Yaakobovitch",
+    absolute: "Claude Code, The Complete Guide | Elad Yaakobovitch",
   },
   description:
-    "Claude Code is Anthropic's CLI + IDE extensions — the most advanced AI coding tool of 2026. A practical English guide with 350+ ready-to-install skills, 32 specialized sub-agents, and 17 MCP servers. Everything free and open source.",
+    "Claude Code is Anthropic's CLI + IDE extensions, the most advanced AI coding tool of 2026. A practical English guide with 350+ ready-to-install skills, 32 specialized sub-agents, and 17 MCP servers. Everything free and open source.",
   alternates: {
     canonical: CANONICAL_EN,
     languages: {
@@ -34,27 +34,27 @@ export const metadata: Metadata = {
     "Elad Yaakobovitch",
   ],
   openGraph: {
-    title: "Claude Code — The Complete Guide",
+    title: "Claude Code, The Complete Guide",
     description:
-      "A complete practical guide to Claude Code with 350+ skills, 32 agents, and 17 MCP servers — all open source.",
+      "A complete practical guide to Claude Code with 350+ skills, 32 agents, and 17 MCP servers, all open source.",
     url: CANONICAL_EN,
     type: "article",
     locale: "en_US",
-    siteName: "Elad Yaakobovitch — Portfolio",
+    siteName: "Elad Yaakobovitch, Portfolio",
     images: [
       {
         url: `${SITE_URL}/images/guides/guide-claude-code-hero.jpg`,
         width: 1200,
         height: 630,
-        alt: "Claude Code — Complete Guide",
+        alt: "Claude Code, Complete Guide",
       },
     ],
     authors: ["Elad Yaakobovitch"],
   },
   twitter: {
-    title: "Claude Code — The Complete Guide",
+    title: "Claude Code, The Complete Guide",
     description:
-      "350+ skills, 32 agents, 17 MCP servers — the ultimate Claude Code setup, open source.",
+      "350+ skills, 32 agents, 17 MCP servers, the ultimate Claude Code setup, open source.",
     card: "summary_large_image",
     images: [`${SITE_URL}/images/guides/guide-claude-code-hero.jpg`],
     creator: "@eladjak",

@@ -20,13 +20,13 @@ interface Props {
  * "Book a 30-minute free call" CTA.
  *
  * If `calLink` is provided we open Cal.com in a new tab (no SDK install required).
- * Otherwise we open a prefilled WhatsApp message — that's the safe default
+ * Otherwise we open a prefilled WhatsApp message, that's the safe default
  * because we don't yet know whether Elad has a Cal.com account configured.
  */
 export function CalBookingButton({
   calLink,
   className,
-  label = '📅 לקבוע שיחה — 30 דקות חינם',
+  label = '📅 לקבוע שיחה, 30 דקות חינם',
 }: Props) {
   const prefersReducedMotion = useReducedMotion();
   const href = calLink ? `https://cal.com/${calLink}` : WHATSAPP_FALLBACK;

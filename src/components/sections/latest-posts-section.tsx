@@ -26,7 +26,7 @@ interface LatestPostsSectionProps {
   /**
    * Top blog posts, fetched server-side and passed down as plain serializable
    * objects. Rendering from props (instead of a client `fetch`) means the cards
-   * exist in the initial SSR HTML — visible to AI/SEO crawlers, no spinner.
+   * exist in the initial SSR HTML, visible to AI/SEO crawlers, no spinner.
    */
   posts: MDXPostSerialized[];
 }

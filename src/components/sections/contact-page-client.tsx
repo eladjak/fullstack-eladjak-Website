@@ -89,7 +89,7 @@ function ContactPageInner() {
     if (isB2B && formData.message === '') {
       setFormData((prev) => ({
         ...prev,
-        message: 'פנייה ארגונית — שמתי עין על פרויקט מסוג [סוג הפרויקט]…',
+        message: 'פנייה ארגונית, שמתי עין על פרויקט מסוג [סוג הפרויקט]…',
       }));
     }
     // We intentionally only run this when isB2B flips
@@ -118,7 +118,7 @@ function ContactPageInner() {
     setB2bData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Cap free-text B2B fields at 200 chars before bundling — avoid spam vector
+  // Cap free-text B2B fields at 200 chars before bundling, avoid spam vector
   // where attacker stuffs 100KB into "organization" + "role".
   const cap = (v: string, max = 200): string =>
     v.length > max ? v.slice(0, max) + '…' : v;
@@ -238,7 +238,7 @@ function ContactPageInner() {
     ? 'מתעניינים בפתרון AI, ייעוץ אסטרטגי או סדנת הדרכה לארגון? מלאו את הפרטים ואחזור אליכם תוך מספר שעות.'
     : t('subtitle');
 
-  // Native select base classes — match Input look
+  // Native select base classes, match Input look
   const selectClass = [
     'flex w-full rounded-md border bg-background px-3 py-2',
     'text-sm ring-offset-background',
@@ -338,7 +338,7 @@ function ContactPageInner() {
                             className="text-xs text-muted-foreground"
                           >
                             פרטי הארגון עוזרים לי להבין את ההקשר ולהכין הצעה
-                            רלוונטית. כל השדות בבלוק הזה אופציונליים — מלאו את
+                            רלוונטית. כל השדות בבלוק הזה אופציונליים, מלאו את
                             מה שנוח.
                           </p>
 

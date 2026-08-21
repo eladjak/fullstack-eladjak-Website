@@ -26,7 +26,7 @@ export function MDXRenderer({ content }: MDXRendererProps) {
 
 /**
  * Posts are authored as: English content, then a single `---` line, then Hebrew.
- * Some posts have no Hebrew section yet — in that case we return the full content.
+ * Some posts have no Hebrew section yet, in that case we return the full content.
  * If we're in `he` locale and a Hebrew section exists, return it; otherwise English.
  */
 function sliceByLocale(content: string, locale: string): string {

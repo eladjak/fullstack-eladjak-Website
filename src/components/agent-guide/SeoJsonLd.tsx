@@ -26,7 +26,7 @@ interface SeoJsonLdProps {
  * Rendered as plain inline `<script type="application/ld+json">` (NOT
  * `next/script` `<Script>`). This component is rendered from the server
  * component layout (`/guide/[slug]/layout.tsx`) so the JSON-LD lands in the
- * INITIAL server-rendered HTML — visible to AI crawlers — instead of the
+ * INITIAL server-rendered HTML, visible to AI crawlers, instead of the
  * React client payload (which is where `<Script>` inside a "use client"
  * component would have placed it). See ~/.claude/rules/geo-aeo-protocol.md #1.
  *
@@ -46,7 +46,7 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
       : `${SITE_URL}${guide.heroBgImage}`
     : PUBLISHER_LOGO;
 
-  // Dates — we don't track per-guide publish dates yet, so use sitemap-style
+  // Dates, we don't track per-guide publish dates yet, so use sitemap-style
   // "recent" date. Year is 2026 per site-wide content. Using a stable Q1 2026
   // date means the TechArticle has a real datePublished without misleading
   // "updated today" every build.
@@ -145,7 +145,7 @@ export function SeoJsonLd({ guide, locale = "he" }: SeoJsonLdProps) {
     ],
   };
 
-  // HowTo schema — emit only when the guide has 5+ sections (otherwise it's
+  // HowTo schema, emit only when the guide has 5+ sections (otherwise it's
   // not really a step-by-step). Each section becomes a HowToStep with a
   // jump-link URL so AI engines can cite specific steps.
   const howToJsonLd =

@@ -38,7 +38,7 @@ export default function ServicesPreviewSection() {
             <div className="relative w-48 h-32 md:w-64 md:h-44 rounded-2xl overflow-hidden shrink-0 border border-border/30 shadow-lg shadow-primary/5">
               <Image
                 src="/images/illustration-services.jpg"
-                alt="איור של שירותי הפיתוח והייעוץ — אתרים, אפליקציות, אוטומציה ו-AI"
+                alt="איור של שירותי הפיתוח והייעוץ, אתרים, אפליקציות, אוטומציה ו-AI"
                 fill
                 className="wow-media object-cover"
                 loading="lazy"

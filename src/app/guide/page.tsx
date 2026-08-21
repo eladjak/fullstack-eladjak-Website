@@ -14,7 +14,7 @@ const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
 
 export const metadata: Metadata = {
   title: "מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
-  // NOTE: keep 120-160 chars (GEO/AEO meta budget — see rules/geo-aeo-protocol.md).
+  // NOTE: keep 120-160 chars (GEO/AEO meta budget, see rules/geo-aeo-protocol.md).
   description:
     `${allGuides.length} מדריכים מעשיים בעברית לרשת סוכני AI מלאה: Claude Code, Kami, Kaylee, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד וטיפים מייצור 24/7.`,
   alternates: {
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${allGuides.length} מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'`,
     description:
-      "רשת סוכני AI מלאה בעברית — Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד, וטיפים מייצור.",
+      "רשת סוכני AI מלאה בעברית, Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד, וטיפים מייצור.",
     url: GUIDE_INDEX_URL,
     type: "website",
     locale: "he_IL",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   twitter: {
     title: `${allGuides.length} מדריכי סוכני AI + תשתית בעברית`,
     description:
-      "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד — מדריכים מעשיים בעברית.",
+      "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n ועוד, מדריכים מעשיים בעברית.",
     card: "summary_large_image",
     images: [GUIDE_INDEX_OG],
     creator: "@eladjak",
@@ -94,7 +94,7 @@ export default async function GuideIndex() {
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   // JSON-LD: CollectionPage wrapping an ItemList of all guides (currently 32)
-  // as LearningResource entries — count is derived live from allGuides.length,
+  // as LearningResource entries, count is derived live from allGuides.length,
   // so the output never drifts. This helps AI search engines (ChatGPT,
   // Perplexity, Claude, Gemini) and Google AI Overviews understand the
   // index page as a curated collection of educational Hebrew resources.
@@ -193,8 +193,7 @@ export default async function GuideIndex() {
             </span>
           </h1>
           <p className="scroll-fade text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            {allGuides.length} מדריכים בעברית לרשת סוכני AI מלאה + רכיבי תשתית. לא תיאוריה —
-            התקנה מעשית, טיפים מתוך שימוש אמיתי, ודוגמאות קוד שעובדות.
+            {allGuides.length} מדריכים בעברית לרשת סוכני AI מלאה + רכיבי תשתית. לא תיאוריה, התקנה מעשית, טיפים מתוך שימוש אמיתי, ודוגמאות קוד שעובדות.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
             <span className="scroll-scale inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1 tabular-nums">
@@ -247,7 +246,7 @@ export default async function GuideIndex() {
               דפוסי-עבודה
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
-              {patternGuides.length} דפוסים ותבניות-חשיבה שהופכים אוסף סוכנים למערכת אחת — תזמור, אוטונומיה, אימות ודיווח
+              {patternGuides.length} דפוסים ותבניות-חשיבה שהופכים אוסף סוכנים למערכת אחת, תזמור, אוטונומיה, אימות ודיווח
             </p>
           </div>
         </div>
@@ -292,10 +291,10 @@ export default async function GuideIndex() {
           ))}
         </div>
 
-        {/* sr-only <h4> — heading-pyramid depth signal for GEO/AEO scanners
+        {/* sr-only <h4>, heading-pyramid depth signal for GEO/AEO scanners
             (see rules/geo-aeo-protocol.md: "H4 used somewhere, even sr-only"). */}
         <h4 className="sr-only">
-          כל המדריכים: סוכנים, דפוסי-עבודה ורכיבי תשתית — בעברית, בחינם
+          כל המדריכים: סוכנים, דפוסי-עבודה ורכיבי תשתית, בעברית, בחינם
         </h4>
 
         <div className="mt-16 text-center">

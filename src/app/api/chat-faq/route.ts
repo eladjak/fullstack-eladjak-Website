@@ -8,10 +8,10 @@ import { AGENT_COUNT } from '@/data/site-facts';
 // Pattern proven on hitechkids (2026-05-27) + zehut: server-side ONLY (the Gemini
 // key never reaches the browser), per-IP rate limit, input caps, grounded system
 // prompt, 12s timeout, graceful fallback. This chat is itself a live demo of the
-// product Elad sells — a grounded business chatbot.
+// product Elad sells, a grounded business chatbot.
 //
 // RAG-lite grounding: the site's canonical FAQ content (messages/he.json → faq)
-// is baked into the system prompt at build time. Single source of truth — editing
+// is baked into the system prompt at build time. Single source of truth, editing
 // the FAQ translations updates both the visible static FAQ and the bot's knowledge.
 
 export const runtime = 'nodejs';
@@ -78,12 +78,12 @@ function rateLimited(ip: string): boolean {
 }
 
 const FALLBACK_CONTACT =
-  'הבוט לא זמין כרגע — כתבו לי ישירות בוואטסאפ 052-542-7474 או דרך טופס יצירת הקשר ואשמח לענות.';
+  'הבוט לא זמין כרגע, כתבו לי ישירות בוואטסאפ 052-542-7474 או דרך טופס יצירת הקשר ואשמח לענות.';
 
 // ─── Lead signal: email Elad the conversation on ENGAGED turns ──────────────
 // The chat is a live demo of the lead-gen bots Elad sells; until now it captured
 // nothing. On a signal-worthy turn (2+ user messages OR an intent keyword) we
-// email Elad the transcript — reusing the SAME Resend setup as /api/contact
+// email Elad the transcript, reusing the SAME Resend setup as /api/contact
 // (from portfolio@eladjak.com → CONTACT_EMAIL). Fully non-blocking: it never
 // awaits inside the response path and never affects the user's answer.
 // Privacy: the bot is instructed not to echo personal details, and the IP is
@@ -197,7 +197,7 @@ export async function POST(req: Request) {
     // serverless instances rather than resetting on every cold start.
     const _guard = await aiGuard(req, "portfolio-website");
     if (!_guard.ok) {
-      return NextResponse.json({ content: "העוזר עמוס כרגע — אפשר לנסות שוב מאוחר יותר, או להשאיר פרטים בטופס ונחזור אליכם." });
+      return NextResponse.json({ content: "העוזר עמוס כרגע, אפשר לנסות שוב מאוחר יותר, או להשאיר פרטים בטופס ונחזור אליכם." });
     }
 
     const controller = new AbortController();
@@ -211,7 +211,7 @@ export async function POST(req: Request) {
           headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
           body: JSON.stringify({
             contents: [{ parts: [{ text: fullPrompt }] }],
-            // thinkingBudget:0 disables Gemini Flash "thinking" — otherwise thinking
+            // thinkingBudget:0 disables Gemini Flash "thinking", otherwise thinking
             // tokens consume the whole maxOutputTokens budget (finishReason=MAX_TOKENS)
             // and the visible answer truncates mid-sentence (verified bug, 2026-05-27).
             generationConfig: {
@@ -240,7 +240,7 @@ export async function POST(req: Request) {
     const content =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
       'סליחה, לא הצלחתי להבין. אפשר לנסות לנסח אחרת?';
-    // Fire-and-forget lead signal — never awaited, never affects the response.
+    // Fire-and-forget lead signal, never awaited, never affects the response.
     void logConversation(recent, content, clientIp(req)).catch(() => {});
     return NextResponse.json({ content });
   } catch {

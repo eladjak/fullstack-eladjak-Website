@@ -5,7 +5,7 @@ import BlogIndexClient, {
 
 // Server Component: fetch all published posts at build/request time and render
 // them into the initial HTML. Previously this page was `"use client"` and
-// fetched `/api/blog/posts` in a `useEffect` — shipping an empty shell + spinner
+// fetched `/api/blog/posts` in a `useEffect`, shipping an empty shell + spinner
 // to crawlers. Now the post list is server-rendered; only tag/locale filtering
 // is client-side (in BlogIndexClient).
 export default function BlogPage() {

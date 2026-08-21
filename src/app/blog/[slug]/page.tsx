@@ -17,7 +17,7 @@ interface BlogPostPageProps {
   }>;
 }
 
-// Body varies by NEXT_LOCALE cookie (bilingual posts) — render per-request, never
+// Body varies by NEXT_LOCALE cookie (bilingual posts), render per-request, never
 // serve a cached wrong-language body. generateStaticParams still pre-lists slugs.
 export const dynamic = 'force-dynamic';
 

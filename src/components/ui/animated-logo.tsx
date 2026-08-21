@@ -12,7 +12,7 @@ import type { CSSProperties } from 'react';
  *
  * Animation rules (ui-skills): transform+opacity only, entrance <=600ms once,
  * hover feedback <=200ms, prefers-reduced-motion -> static, no layout shift.
- * Pure CSS — keyframes live in globals.css (.logo-anim).
+ * Pure CSS, keyframes live in globals.css (.logo-anim).
  */
 const LETTERS: ReadonlyArray<{ ch: string; color: string }> = [
   { ch: 'E', color: '#C084FC' },

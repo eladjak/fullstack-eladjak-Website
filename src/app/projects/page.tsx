@@ -25,7 +25,7 @@ type StaticProject = BankProject;
 // LINK-AUDIT (2026-07-13): every live_url + github_url below was HEAD-checked live
 // and returns HTTP 200 to a real page (following redirects). RULE for future edits:
 // a card is clickable ONLY via fields present here, and any live_url/github_url MUST
-// resolve 200 to a real page — HEAD-check before adding/changing one. Projects with
+// resolve 200 to a real page, HEAD-check before adding/changing one. Projects with
 // NO link are non-clickable BY DESIGN: triplus is NDA/client-internal and
 // intentionally exposes no public URL (no broken anchor is rendered for it).
 // LINK-AUDIT (2026-07-24): zehutai now links to the public zehut.org.il (site went
@@ -321,7 +321,7 @@ export default function ProjectsPage() {
                         </>
                       )}
 
-                      {/* Live Preview overlay button — shows on hover when live_url exists */}
+                      {/* Live Preview overlay button, shows on hover when live_url exists */}
                       {publicLiveUrl(project.live_url) && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200">
                           <button

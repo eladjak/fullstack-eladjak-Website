@@ -298,7 +298,7 @@ export function BusinessBrainChatFAQ() {
                 <Bot className="h-5 w-5 text-white" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-sm font-semibold leading-tight">מוח עסקי — מידע ושאלות</p>
+                <p className="text-sm font-semibold leading-tight">מוח עסקי, מידע ושאלות</p>
                 <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <span
                     className="inline-block h-2 w-2 rounded-full bg-emerald-500"

@@ -6,11 +6,10 @@ import { Bot, Globe, Layers, MessageCircle, Presentation, RefreshCw, Sparkles } 
 import type { LucideIcon } from 'lucide-react';
 import { useLocale } from '@/components/providers/locale-provider';
 
-// "Build me a quote" — interactive project estimator.
+// "Build me a quote", interactive project estimator.
 // Interaction > information (web-paradigm-shift): instead of reading a price
 // list, the visitor assembles their project and gets a truthful estimate range.
-// All ranges come from the SAME published ranges as the FAQ/services content —
-// no invented pricing. The final CTA opens WhatsApp with a prefilled summary.
+// All ranges come from the SAME published ranges as the FAQ/services content, // no invented pricing. The final CTA opens WhatsApp with a prefilled summary.
 
 type TierId = 'basic' | 'standard' | 'custom';
 
@@ -66,8 +65,8 @@ const PROJECT_TYPES: ProjectType[] = [
     icon: Layers,
     label: { he: 'אפליקציית Full-Stack', en: 'Full-Stack Application' },
     desc: {
-      he: 'Next.js + Node.js + PostgreSQL — מקצה לקצה',
-      en: 'Next.js + Node.js + PostgreSQL — end to end',
+      he: 'Next.js + Node.js + PostgreSQL, מקצה לקצה',
+      en: 'Next.js + Node.js + PostgreSQL, end to end',
     },
     ranges: {
       basic: { he: '₪8,000–12,000', en: '₪8,000–12,000' },
@@ -102,8 +101,8 @@ const PROJECT_TYPES: ProjectType[] = [
     icon: Presentation,
     label: { he: 'סדנת AI לצוות', en: 'Team AI Workshop' },
     desc: {
-      he: 'Claude Code, רשתות סוכנים ועבודה מוגברת-AI — הלכה למעשה',
-      en: 'Claude Code, agent networks & AI-augmented work — hands-on',
+      he: 'Claude Code, רשתות סוכנים ועבודה מוגברת-AI, הלכה למעשה',
+      en: 'Claude Code, agent networks & AI-augmented work, hands-on',
     },
     ranges: {
       basic: { he: '₪2,000–4,000', en: '₪2,000–4,000' },
@@ -138,16 +137,16 @@ const TIERS: { id: TierId; label: { he: string; en: string }; desc: { he: string
 const T = {
   title: { he: 'בנו לי הצעה', en: 'Build Me a Quote' },
   subtitle: {
-    he: 'שלוש בחירות — ותקבלו אומדן כן, בלי טופס ובלי המתנה',
-    en: 'Three clicks — get an honest estimate, no form, no waiting',
+    he: 'שלוש בחירות, ותקבלו אומדן כן, בלי טופס ובלי המתנה',
+    en: 'Three clicks, get an honest estimate, no form, no waiting',
   },
   step1: { he: '1. מה בונים?', en: '1. What are we building?' },
   step2: { he: '2. באיזה היקף?', en: '2. At what scope?' },
   resultTitle: { he: 'אומדן ראשוני', en: 'Initial estimate' },
   includesLabel: { he: 'מה כלול:', en: 'What\'s included:' },
   disclaimer: {
-    he: 'זה אומדן כן על בסיס טווחי המחיר המפורסמים שלי — הצעה מדויקת נסגרת אחרי שיחה קצרה על הצרכים שלכם.',
-    en: 'An honest estimate based on my published ranges — an exact quote follows a short call about your needs.',
+    he: 'זה אומדן כן על בסיס טווחי המחיר המפורסמים שלי, הצעה מדויקת נסגרת אחרי שיחה קצרה על הצרכים שלכם.',
+    en: 'An honest estimate based on my published ranges, an exact quote follows a short call about your needs.',
   },
   ctaWhatsApp: { he: 'שלחו לי את זה בוואטסאפ', en: 'Send me this on WhatsApp' },
   ctaContact: { he: 'או דרך טופס יצירת הקשר', en: 'or via the contact form' },
@@ -190,7 +189,7 @@ export function QuoteBuilder() {
         </div>
 
         <div className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-black/20 p-6 md:p-8">
-          {/* Step 1 — project type */}
+          {/* Step 1, project type */}
           <h3 className="text-sm font-semibold text-muted-foreground mb-3">{T.step1[lang]}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8" role="group" aria-label={T.step1[lang]}>
             {PROJECT_TYPES.map((p) => {
@@ -217,7 +216,7 @@ export function QuoteBuilder() {
             })}
           </div>
 
-          {/* Step 2 — scope tier */}
+          {/* Step 2, scope tier */}
           <AnimatePresence>
             {selectedType && (
               <motion.div

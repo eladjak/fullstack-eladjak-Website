@@ -21,21 +21,21 @@ export const SKILLS: SkillNode[] = [
     label: "React",
     category: "frontend",
     level: 5,
-    description: "ספריית UI מבוססת קומפוננטות — ליבה של כל פרויקט פרונט.",
+    description: "ספריית UI מבוססת קומפוננטות, ליבה של כל פרויקט פרונט.",
   },
   {
     id: "next",
     label: "Next.js",
     category: "frontend",
     level: 5,
-    description: "App Router, RSC, ISR — הפריימוורק שאיתו האתר הזה נבנה.",
+    description: "App Router, RSC, ISR, הפריימוורק שאיתו האתר הזה נבנה.",
   },
   {
     id: "tailwind",
     label: "Tailwind",
     category: "frontend",
     level: 5,
-    description: "Utility-first CSS — מהיר, עקבי, ובלי לקרוס לתחזוקה.",
+    description: "Utility-first CSS, מהיר, עקבי, ובלי לקרוס לתחזוקה.",
   },
   {
     id: "framer-motion",
@@ -71,21 +71,21 @@ export const SKILLS: SkillNode[] = [
     label: "Supabase",
     category: "backend",
     level: 5,
-    description: "Postgres + Auth + Storage + RLS — ה-stack המועדף ל-MVP.",
+    description: "Postgres + Auth + Storage + RLS, ה-stack המועדף ל-MVP.",
   },
   {
     id: "convex",
     label: "Convex",
     category: "backend",
     level: 4,
-    description: "Backend reactive עם פונקציות TypeScript — חלופה ל-Supabase.",
+    description: "Backend reactive עם פונקציות TypeScript, חלופה ל-Supabase.",
   },
   {
     id: "redis",
     label: "Redis Streams",
     category: "backend",
     level: 4,
-    description: "Pub/sub וזיכרון בין סוכנים — הליבה של ה-bridge.",
+    description: "Pub/sub וזיכרון בין סוכנים, הליבה של ה-bridge.",
   },
   // AI / Agents (purple)
   {
@@ -93,49 +93,49 @@ export const SKILLS: SkillNode[] = [
     label: "Claude",
     category: "ai",
     level: 5,
-    description: "המודל המוביל של Anthropic — הליבה של Claude Code ושל סוכניי.",
+    description: "המודל המוביל של Anthropic, הליבה של Claude Code ושל סוכניי.",
   },
   {
     id: "gpt",
     label: "GPT-5",
     category: "ai",
     level: 4,
-    description: "מודל OpenAI — לראייה ולגיבוי כשצריך מודל חיצוני.",
+    description: "מודל OpenAI, לראייה ולגיבוי כשצריך מודל חיצוני.",
   },
   {
     id: "gemini",
     label: "Gemini 2.5",
     category: "ai",
     level: 5,
-    description: "מודל Google — חינמי לתמונות (nano-banana) ומהיר ל-Kaylee.",
+    description: "מודל Google, חינמי לתמונות (nano-banana) ומהיר ל-Kaylee.",
   },
   {
     id: "mcp",
     label: "MCP",
     category: "ai",
     level: 5,
-    description: "Model Context Protocol — מחבר כלים חיצוניים לסוכנים.",
+    description: "Model Context Protocol, מחבר כלים חיצוניים לסוכנים.",
   },
   {
     id: "kami",
     label: "Kami (WA agent)",
     category: "ai",
     level: 5,
-    description: "סוכן הוואטסאפ האישי שלי — Sonnet + Green API.",
+    description: "סוכן הוואטסאפ האישי שלי, Sonnet + Green API.",
   },
   {
     id: "kaylee",
     label: "Kaylee (TG agent)",
     category: "ai",
     level: 5,
-    description: "סוכנית הטלגרם — OpenClaw + Gemini Flash.",
+    description: "סוכנית הטלגרם, OpenClaw + Gemini Flash.",
   },
   {
     id: "box",
     label: "Box (coach)",
     category: "ai",
     level: 4,
-    description: "המאמן הדיגיטלי שלי — תזונה, כושר, ושינה.",
+    description: "המאמן הדיגיטלי שלי, תזונה, כושר, ושינה.",
   },
   {
     id: "delegator",
@@ -149,7 +149,7 @@ export const SKILLS: SkillNode[] = [
     label: "CrewAI",
     category: "ai",
     level: 4,
-    description: "תזמור צוותי סוכנים פייתוני — ליבת ה-pipelines.",
+    description: "תזמור צוותי סוכנים פייתוני, ליבת ה-pipelines.",
   },
   {
     id: "qdrant",
@@ -163,21 +163,21 @@ export const SKILLS: SkillNode[] = [
     label: "Ollama",
     category: "ai",
     level: 4,
-    description: "מודלים מקומיים — Gemma, Qwen — ל-fallback ופרטיות.",
+    description: "מודלים מקומיים, Gemma, Qwen, ל-fallback ופרטיות.",
   },
   {
     id: "n8n",
     label: "n8n",
     category: "ai",
     level: 3,
-    description: "אוטומציה ויזואלית — חיבור webhooks ו-cron.",
+    description: "אוטומציה ויזואלית, חיבור webhooks ו-cron.",
   },
   {
     id: "aider",
     label: "Aider",
     category: "ai",
     level: 4,
-    description: "Pair-programmer בטרמינל — חלופה זולה ל-Claude Code.",
+    description: "Pair-programmer בטרמינל, חלופה זולה ל-Claude Code.",
   },
   // DevOps (orange)
   {
@@ -185,42 +185,42 @@ export const SKILLS: SkillNode[] = [
     label: "Docker",
     category: "devops",
     level: 5,
-    description: "בידוד שירותים — כל הסוכנים רצים בקונטיינרים.",
+    description: "בידוד שירותים, כל הסוכנים רצים בקונטיינרים.",
   },
   {
     id: "vercel",
     label: "Vercel",
     category: "devops",
     level: 5,
-    description: "הוסטינג ה-Next.js שלי — האתר הזה כאן.",
+    description: "הוסטינג ה-Next.js שלי, האתר הזה כאן.",
   },
   {
     id: "cloudflare",
     label: "Cloudflare",
     category: "devops",
     level: 4,
-    description: "DNS, Tunnels, Workers — תשתית ה-edge.",
+    description: "DNS, Tunnels, Workers, תשתית ה-edge.",
   },
   {
     id: "contabo",
     label: "Contabo VPS",
     category: "devops",
     level: 4,
-    description: "ה-VPS המרכזי (62GB RAM) שמריץ את כל רשת הסוכנים — התחיל על Hetzner.",
+    description: "ה-VPS המרכזי (62GB RAM) שמריץ את כל רשת הסוכנים, התחיל על Hetzner.",
   },
   {
     id: "github-actions",
     label: "GitHub Actions",
     category: "devops",
     level: 4,
-    description: "CI/CD — בדיקות, build, ודפלוי אוטומטי.",
+    description: "CI/CD, בדיקות, build, ודפלוי אוטומטי.",
   },
   {
     id: "systemd",
     label: "systemd",
     category: "devops",
     level: 4,
-    description: "ניהול שירותים בלינוקס — keep-alive ל-bridges.",
+    description: "ניהול שירותים בלינוקס, keep-alive ל-bridges.",
   },
   {
     id: "nginx",
@@ -249,14 +249,14 @@ export const SKILLS: SkillNode[] = [
     label: "JavaScript",
     category: "lang",
     level: 5,
-    description: "הבסיס — בכל מקום שאין TypeScript.",
+    description: "הבסיס, בכל מקום שאין TypeScript.",
   },
   {
     id: "sql",
     label: "SQL",
     category: "lang",
     level: 4,
-    description: "Postgres / SQLite — שאילתות, אינדקסים, RLS.",
+    description: "Postgres / SQLite, שאילתות, אינדקסים, RLS.",
   },
   {
     id: "bash",
@@ -271,7 +271,7 @@ export const SKILLS: SkillNode[] = [
     label: "Git",
     category: "tools",
     level: 5,
-    description: "ניהול גרסאות — בלעדיו אין כלום.",
+    description: "ניהול גרסאות, בלעדיו אין כלום.",
   },
   {
     id: "vscode",
@@ -285,7 +285,7 @@ export const SKILLS: SkillNode[] = [
     label: "Figma",
     category: "tools",
     level: 3,
-    description: "לסקיצות והשראה — לרוב Stitch מחליף.",
+    description: "לסקיצות והשראה, לרוב Stitch מחליף.",
   },
   {
     id: "postman",
@@ -295,7 +295,7 @@ export const SKILLS: SkillNode[] = [
     description: "בדיקת API ידנית מהירה.",
   },
   // ── Expansion (Apr 2026): full stack to ~100 skills ──────────────────────
-  // AI / Agents — the missing 8 microservices + AI SDKs
+  // AI / Agents, the missing 8 microservices + AI SDKs
   {
     id: "hermes",
     label: "Hermes",
@@ -308,7 +308,7 @@ export const SKILLS: SkillNode[] = [
     label: "Adopter",
     category: "ai",
     level: 4,
-    description: "סוכן גילוי תוכן אוטונומי — מסווג ומאמץ פוסטים רלוונטיים.",
+    description: "סוכן גילוי תוכן אוטונומי, מסווג ומאמץ פוסטים רלוונטיים.",
   },
   {
     id: "dashboard-agent",
@@ -322,35 +322,35 @@ export const SKILLS: SkillNode[] = [
     label: "Claude Code",
     category: "ai",
     level: 5,
-    description: "ה-CLI הרשמי של Anthropic — סביבת העבודה היומית.",
+    description: "ה-CLI הרשמי של Anthropic, סביבת העבודה היומית.",
   },
   {
     id: "gmail-reader",
     label: "Gmail Reader",
     category: "ai",
     level: 4,
-    description: "סוכן קריאת מיילים — port 3710.",
+    description: "סוכן קריאת מיילים, port 3710.",
   },
   {
     id: "gcal-writer",
     label: "GCal Writer",
     category: "ai",
     level: 4,
-    description: "סוכן כתיבה ל-Google Calendar — port 3720.",
+    description: "סוכן כתיבה ל-Google Calendar, port 3720.",
   },
   {
     id: "gdrive-reader",
     label: "GDrive Reader",
     category: "ai",
     level: 4,
-    description: "סוכן קריאה/כתיבה ב-Google Drive — port 3730.",
+    description: "סוכן קריאה/כתיבה ב-Google Drive, port 3730.",
   },
   {
     id: "whatsapp-cloud",
     label: "WhatsApp Cloud",
     category: "ai",
     level: 3,
-    description: "Meta WhatsApp Cloud API — port 3740, ב-STANDBY.",
+    description: "Meta WhatsApp Cloud API, port 3740, ב-STANDBY.",
   },
   {
     id: "vercel-ai-sdk",
@@ -417,7 +417,7 @@ export const SKILLS: SkillNode[] = [
     label: "nano-banana-poster",
     category: "ai",
     level: 5,
-    description: "Gemini image generation — חינמי, איכותי, התחנה הראשונה לכל ויזואל.",
+    description: "Gemini image generation, חינמי, איכותי, התחנה הראשונה לכל ויזואל.",
   },
   {
     id: "fal-ai",
@@ -425,7 +425,7 @@ export const SKILLS: SkillNode[] = [
     category: "ai",
     level: 3,
   },
-  // Frontend — UI libraries, animation, 3D
+  // Frontend, UI libraries, animation, 3D
   {
     id: "reactbits",
     label: "ReactBits",
@@ -487,7 +487,7 @@ export const SKILLS: SkillNode[] = [
     category: "frontend",
     level: 3,
   },
-  // Backend — APIs, auth, DBs, ORMs, Israeli services
+  // Backend, APIs, auth, DBs, ORMs, Israeli services
   {
     id: "express",
     label: "Express",
@@ -559,16 +559,16 @@ export const SKILLS: SkillNode[] = [
     label: "Cardcom",
     category: "backend",
     level: 3,
-    description: "סליקה ישראלית — מותאם לעוסק פטור/מורשה.",
+    description: "סליקה ישראלית, מותאם לעוסק פטור/מורשה.",
   },
   {
     id: "green-invoice",
     label: "Green Invoice",
     category: "backend",
     level: 4,
-    description: "API חשבוניות ישראלי — קבלות, חשבוניות, ניהול לקוחות.",
+    description: "API חשבוניות ישראלי, קבלות, חשבוניות, ניהול לקוחות.",
   },
-  // DevOps — edge, hosting, build tools
+  // DevOps, edge, hosting, build tools
   {
     id: "caddy",
     label: "Caddy",
@@ -647,7 +647,7 @@ export const SKILLS: SkillNode[] = [
     category: "devops",
     level: 3,
   },
-  // Tools — IDEs, AI coding helpers, design, browser automation
+  // Tools, IDEs, AI coding helpers, design, browser automation
   {
     id: "cursor",
     label: "Cursor",
@@ -683,7 +683,7 @@ export const SKILLS: SkillNode[] = [
     label: "Google Stitch",
     category: "tools",
     level: 4,
-    description: "כלי עיצוב UI של Google — Stitch MCP בכל פרויקט פרונט.",
+    description: "כלי עיצוב UI של Google, Stitch MCP בכל פרויקט פרונט.",
   },
   {
     id: "v0",

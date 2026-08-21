@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: {
     absolute: "AI Agent + Infrastructure Guides | Elad Yaakobovitch",
   },
-  // NOTE: keep 120-160 chars (GEO/AEO meta budget — see rules/geo-aeo-protocol.md).
+  // NOTE: keep 120-160 chars (GEO/AEO meta budget, see rules/geo-aeo-protocol.md).
   description:
     `${allGuidesEn.length} practical guides for a full AI agent network: Claude Code, Kami, Kaylee, Qdrant, Docker, Ollama, n8n and more. Installation, code and production tips.`,
   alternates: {
@@ -45,11 +45,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${allGuidesEn.length} AI Agent + Infrastructure Guides | Elad Yaakobovitch`,
     description:
-      "A complete AI agent network — Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n and more. Practical guides with installation, code, and production tips.",
+      "A complete AI agent network, Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n and more. Practical guides with installation, code, and production tips.",
     url: GUIDE_INDEX_URL_EN,
     type: "website",
     locale: "en_US",
-    siteName: "Elad Yaakobovitch — Portfolio",
+    siteName: "Elad Yaakobovitch, Portfolio",
     images: [
       {
         url: GUIDE_INDEX_OG,
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     title: `${allGuidesEn.length} AI Agent + Infrastructure Guides`,
     description:
-      "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n and more — practical guides.",
+      "Claude Code, Kami, Kaylee, CrewAI, Qdrant, Docker, Ollama, n8n and more, practical guides.",
     card: "summary_large_image",
     images: [GUIDE_INDEX_OG],
     creator: "@eladjak",
@@ -112,7 +112,7 @@ export default function GuideIndexEn() {
           </h1>
           <p className="scroll-fade text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
             {allGuidesEn.length} practical guides covering a complete AI agent network + core
-            infrastructure. Not theory — real installation steps, tips from
+            infrastructure. Not theory, real installation steps, tips from
             daily use, and working code examples.
           </p>
           <div className="mt-6 flex justify-center">
@@ -174,7 +174,7 @@ export default function GuideIndexEn() {
               Working Patterns
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
-              {patternGuides.length} patterns and mental models that turn a pile of agents into one system — orchestration, autonomy, verification, and reporting
+              {patternGuides.length} patterns and mental models that turn a pile of agents into one system, orchestration, autonomy, verification, and reporting
             </p>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function GuideIndexEn() {
               Infrastructure
             </h2>
             <p className="text-sm text-muted-foreground mt-0.5">
-              The core tools that power the network — containers, local LLMs,
+              The core tools that power the network, containers, local LLMs,
               automations, and a complementary CLI
             </p>
           </div>
@@ -207,10 +207,10 @@ export default function GuideIndexEn() {
           ))}
         </div>
 
-        {/* sr-only <h4> — heading-pyramid depth signal for GEO/AEO scanners
+        {/* sr-only <h4>, heading-pyramid depth signal for GEO/AEO scanners
             (see rules/geo-aeo-protocol.md: "H4 used somewhere, even sr-only"). */}
         <h4 className="sr-only">
-          All guides: agents, working patterns and infrastructure — free, with code
+          All guides: agents, working patterns and infrastructure, free, with code
         </h4>
 
         <div className="mt-16 text-center">

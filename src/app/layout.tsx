@@ -157,7 +157,7 @@ export default async function RootLayout({
           {children}
         </ClientLayout>
         {/* אחרי התוכן בכוונה: השער מצייר את עצמו מעל הדף, אבל הדף כבר קיים
-            ב-DOM מתחתיו. אם הסקריפט נכשל או JS כבוי — האתר נטען כרגיל,
+            ב-DOM מתחתיו. אם הסקריפט נכשל או JS כבוי, האתר נטען כרגיל,
             וסורקים לא רואים אותו בכלל. */}
         <Gateway theme="portfolio" />
       </body>
