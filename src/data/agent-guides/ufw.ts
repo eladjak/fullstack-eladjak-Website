@@ -20,13 +20,13 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const ufwGuide: AgentGuideData = {
   slug: "ufw",
   agentName: "UFW",
-  agentNameHe: "UFW — חומת אש פשוטה ל-Ubuntu בפקודה אחת",
+  agentNameHe: "UFW, חומת אש פשוטה ל-Ubuntu בפקודה אחת",
   category: "infra",
   brandIconSlug: "",
   heroBgImage: "/images/guides/guide-ufw-hero.jpg",
-  tagline: "Uncomplicated Firewall — שלוש פקודות בין שרת חשוף לשרת מוגן",
+  tagline: "Uncomplicated Firewall, שלוש פקודות בין שרת חשוף לשרת מוגן",
   heroDescription:
-    "UFW (ראשי תיבות של Uncomplicated Firewall — חומת אש לא מסובכת) הוא כלי command-line ל-Ubuntu שעוטף את iptables של לינוקס בסינטקס פשוט וברור. iptables עצמו הוא הכלי הסטנדרטי לחומת אש בלינוקס מאז שנות ה-2000 — חזק מאוד, אבל מורכב להחריד (פקודות עם 6 פרמטרים, chains, tables ו-policies). UFW לוקח את כל הכוח הזה ומציע ממשק שאפשר ללמוד ב-5 דקות: 'הרשה SSH', 'חסום את כל השאר', 'הפעל'. זה בדיוק מה שצריך לרוב מקרי ה-VPS האישי. אצלי (אלעד) העיקרון הזה חי, רק בכלים קצת אחרים: על שרת ה-Contabo שלי חומת האש בנויה ישירות על iptables (הכלי שמתחת ל-UFW) — רק שלושה פורטים פתוחים (SSH‏ 22, HTTP‏ 80 ו-HTTPS‏ 443), הגישה הניהולית עוברת דרך Tailscale (רשת פרטית מוצפנת בין המחשבים שלי), ו-fail2ban חוסם אוטומטית כתובות שמנסות לפרוץ. כל הסוכנים שרצים על פורטים פנימיים לא נגישים מהאינטרנט בכלל, וזה משלים את [Cloudflare Tunnel](/guide/cloudflare-tunnel) באופן מושלם — שתי שכבות הגנה במקום אחת. UFW הוא הדרך הידידותית ביותר להגיע בדיוק לאותה תוצאה, ולכן המדריך הזה מלמד אותו: 5 הפקודות שתשתמשו בהן ב-100% מהזמן וההגדרות הנפוצות שכל VPS בייצור צריך.",
+    "UFW (ראשי תיבות של Uncomplicated Firewall, חומת אש לא מסובכת) הוא כלי command-line ל-Ubuntu שעוטף את iptables של לינוקס בסינטקס פשוט וברור. iptables עצמו הוא הכלי הסטנדרטי לחומת אש בלינוקס מאז שנות ה-2000, חזק מאוד, אבל מורכב להחריד (פקודות עם 6 פרמטרים, chains, tables ו-policies). UFW לוקח את כל הכוח הזה ומציע ממשק שאפשר ללמוד ב-5 דקות: 'הרשה SSH', 'חסום את כל השאר', 'הפעל'. זה בדיוק מה שצריך לרוב מקרי ה-VPS האישי. אצלי (אלעד) העיקרון הזה חי, רק בכלים קצת אחרים: על שרת ה-Contabo שלי חומת האש בנויה ישירות על iptables (הכלי שמתחת ל-UFW), רק שלושה פורטים פתוחים (SSH‏ 22, HTTP‏ 80 ו-HTTPS‏ 443), הגישה הניהולית עוברת דרך Tailscale (רשת פרטית מוצפנת בין המחשבים שלי), ו-fail2ban חוסם אוטומטית כתובות שמנסות לפרוץ. כל הסוכנים שרצים על פורטים פנימיים לא נגישים מהאינטרנט בכלל, וזה משלים את [Cloudflare Tunnel](/guide/cloudflare-tunnel) באופן מושלם, שתי שכבות הגנה במקום אחת. UFW הוא הדרך הידידותית ביותר להגיע בדיוק לאותה תוצאה, ולכן המדריך הזה מלמד אותו: 5 הפקודות שתשתמשו בהן ב-100% מהזמן וההגדרות הנפוצות שכל VPS בייצור צריך.",
   badgeText: "2026 · Linux Firewall · מדריך מעשי",
   canonical: "https://fullstack-eladjak.co.il/guide/ufw",
   stats: [
@@ -41,17 +41,17 @@ export const ufwGuide: AgentGuideData = {
   paradigmShifts: [
     {
       before: "מאות פקודות iptables עם syntax מסובך",
-      after: "`ufw allow 22/tcp` — פקודה ברורה",
+      after: "`ufw allow 22/tcp`, פקודה ברורה",
       icon: Terminal,
     },
     {
-      before: "שרת חשוף — 'מי בכלל יודע עליו?'",
-      after: "שרת חסום — אפילו אם יודעים, אין כניסה",
+      before: "שרת חשוף, 'מי בכלל יודע עליו?'",
+      after: "שרת חסום, אפילו אם יודעים, אין כניסה",
       icon: Lock,
     },
     {
       before: "פתחתי פורט לבדיקה ושכחתי לסגור",
-      after: "`ufw status` מציג את הכול — אין הפתעות",
+      after: "`ufw status` מציג את הכול, אין הפתעות",
       icon: Eye,
     },
     {
@@ -71,7 +71,7 @@ export const ufwGuide: AgentGuideData = {
     {
       title: "מפתחים שעוברים מ-PaaS לשרת",
       description:
-        "ב-Vercel/Heroku אין firewall — הספק מטפל. על VPS, אתם מטפלים. UFW עושה את זה פשוט.",
+        "ב-Vercel/Heroku אין firewall, הספק מטפל. על VPS, אתם מטפלים. UFW עושה את זה פשוט.",
       icon: Server,
       color: "from-emerald-500 to-teal-500",
     },
@@ -105,22 +105,22 @@ export const ufwGuide: AgentGuideData = {
       title: "מה זה firewall ולמה צריך אותו",
       subtitle: "השומר הראשון בכניסה לרשת שלכם",
       description:
-        "Firewall (חומת אש) היא תוכנה שיושבת בכניסה לכרטיס הרשת ובודקת כל packet שמגיע — אם הוא תואם לחוק שמתיר את הכניסה, היא מעבירה הלאה; אם לא, היא זורקת אותו לפח. בלי firewall, כל שירות שמאזין על השרת שלכם פתוח לעולם — וזה כולל פורטים שאתם בכלל לא ידעתם שפתוחים (כמו דאטאבייס שניסיתם פעם, או שירות פיתוח ששכחתם לסגור). על VPS חדש, סורקי הרשת של האינטרנט ימצאו אתכם בתוך דקות וינסו לפרוץ. UFW הופך את ההגנה הזו לפשוטה: ברירת מחדל 'חסום את הכול', אתם מתירים רק מה שצריך.",
+        "Firewall (חומת אש) היא תוכנה שיושבת בכניסה לכרטיס הרשת ובודקת כל packet שמגיע, אם הוא תואם לחוק שמתיר את הכניסה, היא מעבירה הלאה; אם לא, היא זורקת אותו לפח. בלי firewall, כל שירות שמאזין על השרת שלכם פתוח לעולם, וזה כולל פורטים שאתם בכלל לא ידעתם שפתוחים (כמו דאטאבייס שניסיתם פעם, או שירות פיתוח ששכחתם לסגור). על VPS חדש, סורקי הרשת של האינטרנט ימצאו אתכם בתוך דקות וינסו לפרוץ. UFW הופך את ההגנה הזו לפשוטה: ברירת מחדל 'חסום את הכול', אתם מתירים רק מה שצריך.",
       color: "from-blue-600 to-cyan-500",
       difficulty: "beginner",
       beginner:
-        "תחשבו על UFW כמו על שומר במשרד: יש רשימה של אנשים שמותר להם להיכנס (פורטים מותרים), וכל מי שלא ברשימה — לא נכנס, אפילו אם הוא מתעקש. בלי שומר, כל אחד יכול להיכנס בלי לעצור — כולל כאלה שמחפשים בעיות.",
+        "תחשבו על UFW כמו על שומר במשרד: יש רשימה של אנשים שמותר להם להיכנס (פורטים מותרים), וכל מי שלא ברשימה, לא נכנס, אפילו אם הוא מתעקש. בלי שומר, כל אחד יכול להיכנס בלי לעצור, כולל כאלה שמחפשים בעיות.",
       content: [
-        "Packet — היחידה הבסיסית של תעבורת רשת. כל בקשת HTTP, כל ping, כל חיבור SSH — מורכבים מ-packets",
-        "Port — מספר בין 0-65535 שמזהה איזה שירות מאזין. 22 = SSH, 80 = HTTP, 443 = HTTPS, 5432 = Postgres, ועוד אלפים",
-        "TCP / UDP — שני סוגי תעבורה. TCP = אמין (HTTP, SSH); UDP = מהיר (DNS, video). UFW מטפל בשניהם",
-        "Inbound מול Outbound — תעבורה נכנסת (מהאינטרנט אליכם) ויוצאת (מכם החוצה). UFW כברירת מחדל מתיר outbound וחוסם inbound",
-        "Rule — חוק. 'הרשה TCP על port 22 מכל מקום' = רוב ה-VPSים. אפשר להוסיף הגבלות (רק מ-IP מסוים, רק בזמנים מסוימים)",
-        "iptables / nftables — המנגנון של הליבה ש-UFW משתמש בו מאחורי הקלעים. iptables ב-Ubuntu 20.04 ומטה, nftables ב-22.04 ומעלה",
+        "Packet, היחידה הבסיסית של תעבורת רשת. כל בקשת HTTP, כל ping, כל חיבור SSH, מורכבים מ-packets",
+        "Port, מספר בין 0-65535 שמזהה איזה שירות מאזין. 22 = SSH, 80 = HTTP, 443 = HTTPS, 5432 = Postgres, ועוד אלפים",
+        "TCP / UDP, שני סוגי תעבורה. TCP = אמין (HTTP, SSH); UDP = מהיר (DNS, video). UFW מטפל בשניהם",
+        "Inbound מול Outbound, תעבורה נכנסת (מהאינטרנט אליכם) ויוצאת (מכם החוצה). UFW כברירת מחדל מתיר outbound וחוסם inbound",
+        "Rule, חוק. 'הרשה TCP על port 22 מכל מקום' = רוב ה-VPSים. אפשר להוסיף הגבלות (רק מ-IP מסוים, רק בזמנים מסוימים)",
+        "iptables / nftables, המנגנון של הליבה ש-UFW משתמש בו מאחורי הקלעים. iptables ב-Ubuntu 20.04 ומטה, nftables ב-22.04 ומעלה",
       ],
       tips: [
-        "UFW כבר מותקן ב-Ubuntu desktop ו-server. אבל הוא לא מופעל כברירת מחדל — צריך `ufw enable` ידני",
-        "אם אתם משתמשים ב-Docker — שימו לב ש-Docker יודע לפתוח פורטים בעקיפת UFW. צריך הגדרה מיוחדת (ראו סעיף advanced)",
+        "UFW כבר מותקן ב-Ubuntu desktop ו-server. אבל הוא לא מופעל כברירת מחדל, צריך `ufw enable` ידני",
+        "אם אתם משתמשים ב-Docker, שימו לב ש-Docker יודע לפתוח פורטים בעקיפת UFW. צריך הגדרה מיוחדת (ראו סעיף advanced)",
       ],
     },
     {
@@ -133,18 +133,18 @@ export const ufwGuide: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       beginner:
-        "אל תיבהלו מ-firewall — בפועל כל מה שתעשו ביום-יום זה חמש פקודות בעברית פשוטה: 'תראה לי מה מותר' (status), 'תתיר את זה' (allow), 'תחסום את זה' (deny), 'תמחק את החוק הזה' (delete), ו'תדליק את השמירה' (enable). זהו. רק שימו לב לאזהרה אחת קריטית, ואני (אלעד) למדתי אותה בדרך הקשה: תמיד תתירו את SSH לפני שאתם מדליקים את החומה — אחרת תנעלו את עצמכם בחוץ מהשרת ותצטרכו קונסול חירום כדי לחזור פנימה.",
+        "אל תיבהלו מ-firewall, בפועל כל מה שתעשו ביום-יום זה חמש פקודות בעברית פשוטה: 'תראה לי מה מותר' (status), 'תתיר את זה' (allow), 'תחסום את זה' (deny), 'תמחק את החוק הזה' (delete), ו'תדליק את השמירה' (enable). זהו. רק שימו לב לאזהרה אחת קריטית, ואני (אלעד) למדתי אותה בדרך הקשה: תמיד תתירו את SSH לפני שאתם מדליקים את החומה, אחרת תנעלו את עצמכם בחוץ מהשרת ותצטרכו קונסול חירום כדי לחזור פנימה.",
       content: [
-        "`ufw status` — מציג מצב נוכחי + רשימת חוקים. הוסיפו `verbose` כדי לראות גם logging ו-default policies",
-        "`ufw allow <port>` — מוסיף חוק שמתיר. `ufw allow 22/tcp` או פשוט `ufw allow ssh` (UFW מכיר שמות שירותים)",
-        "`ufw deny <port>` — חוסם פורט מפורשות. שימושי כדי לחסום משהו שהיה מותר",
-        "`ufw delete <rule_number>` — מוחק חוק. תקבלו מספרים מ-`ufw status numbered`",
-        "`ufw enable` / `ufw disable` — מפעיל/מכבה. אזהרה: enable יכול לחתוך לכם SSH אם לא הוספתם חוק לפני!",
-        "`ufw reset` — מוחק את כל החוקים ומכבה. שימושי להתחלה נקייה",
-        "`ufw default deny incoming` / `ufw default allow outgoing` — קובע ברירות מחדל. תמיד הריצו את שניהם בהתחלה",
+        "`ufw status`, מציג מצב נוכחי + רשימת חוקים. הוסיפו `verbose` כדי לראות גם logging ו-default policies",
+        "`ufw allow <port>`, מוסיף חוק שמתיר. `ufw allow 22/tcp` או פשוט `ufw allow ssh` (UFW מכיר שמות שירותים)",
+        "`ufw deny <port>`, חוסם פורט מפורשות. שימושי כדי לחסום משהו שהיה מותר",
+        "`ufw delete <rule_number>`, מוחק חוק. תקבלו מספרים מ-`ufw status numbered`",
+        "`ufw enable` / `ufw disable`, מפעיל/מכבה. אזהרה: enable יכול לחתוך לכם SSH אם לא הוספתם חוק לפני!",
+        "`ufw reset`, מוחק את כל החוקים ומכבה. שימושי להתחלה נקייה",
+        "`ufw default deny incoming` / `ufw default allow outgoing`, קובע ברירות מחדל. תמיד הריצו את שניהם בהתחלה",
       ],
       tips: [
-        "תמיד הריצו `ufw allow ssh` לפני `ufw enable` — אחרת תחתכו את עצמכם ותיאלצו לדבר עם hosting provider לקונסול חירום",
+        "תמיד הריצו `ufw allow ssh` לפני `ufw enable`, אחרת תחתכו את עצמכם ותיאלצו לדבר עם hosting provider לקונסול חירום",
         "UFW תומך בשמות שירותים: `ufw allow ssh`, `ufw allow http`, `ufw allow https`. הוא יודע מאיזה port מדובר",
         "`ufw status verbose` הרבה יותר אינפורמטיבי מ-`ufw status` רגיל. הרגילו את עצמכם להריץ verbose",
       ],
@@ -163,15 +163,15 @@ export const ufwGuide: AgentGuideData = {
       color: "from-purple-600 to-violet-500",
       difficulty: "intermediate",
       beginner:
-        "עכשיו מהתיאוריה לחיים. רוב השרתים בעולם הם אחד משני סוגים: או שרת אתר רגיל (פותחים לו שלושה פתחים — SSH לניהול, ו-80/443 לאתר), או שרת שמסתתר מאחורי מנהרה (פותחים לו רק SSH, וכל השאר עובר במנהרה מוצפנת). אצלי (אלעד) על השרת זה הסוג הראשון, בגרסה הקפדנית שלו: שלושה פתחים בלבד (מיושם אצלי ישירות ב-iptables), ואף שירות פנימי לא חשוף לאינטרנט בכלל. הרעיון המנחה פשוט — כל פתח שאתם לא פותחים זה פתח שאי אפשר לפרוץ דרכו.",
+        "עכשיו מהתיאוריה לחיים. רוב השרתים בעולם הם אחד משני סוגים: או שרת אתר רגיל (פותחים לו שלושה פתחים, SSH לניהול, ו-80/443 לאתר), או שרת שמסתתר מאחורי מנהרה (פותחים לו רק SSH, וכל השאר עובר במנהרה מוצפנת). אצלי (אלעד) על השרת זה הסוג הראשון, בגרסה הקפדנית שלו: שלושה פתחים בלבד (מיושם אצלי ישירות ב-iptables), ואף שירות פנימי לא חשוף לאינטרנט בכלל. הרעיון המנחה פשוט, כל פתח שאתם לא פותחים זה פתח שאי אפשר לפרוץ דרכו.",
       content: [
-        "VPS עם web app — `allow ssh + http + https`. זה הסטאק הסטנדרטי, מתאים לרוב המקרים",
-        "VPS עם Cloudflare Tunnel — `allow ssh בלבד`. כל השאר עובר דרך המנהרה ואין צורך לפתוח פורטים נוספים",
-        "Postgres חיצוני שצריך לחבר אליו לקוח BI — `ufw allow from 1.2.3.4 to any port 5432`. פותח את הפורט רק ל-IP ספציפי",
-        "SSH על פורט לא סטנדרטי — `ufw allow 2222/tcp`. ב-`/etc/ssh/sshd_config` שנו ל-`Port 2222`. מסנן 99% מהבוטים",
-        "rate limiting על SSH — `ufw limit ssh`. UFW חוסם אוטומטית IP שמנסה להתחבר 6 פעמים ב-30 שניות. הגנה מצוינת מ-brute force",
-        "אפליקציה פנימית — אל תפתחו את הפורט שלה בכלל. שימו אותה מאחורי nginx על פורט 80/443. אצלי כל 12 הסוכנים על פורטים 3700-3900 לא חשופים בכלל",
-        "Webhook receiver עם whitelist — אם יודעים שהשירות שמתקשר אליכם מכתובת מסוימת, `ufw allow from <range> to any port <port>`",
+        "VPS עם web app, `allow ssh + http + https`. זה הסטאק הסטנדרטי, מתאים לרוב המקרים",
+        "VPS עם Cloudflare Tunnel, `allow ssh בלבד`. כל השאר עובר דרך המנהרה ואין צורך לפתוח פורטים נוספים",
+        "Postgres חיצוני שצריך לחבר אליו לקוח BI, `ufw allow from 1.2.3.4 to any port 5432`. פותח את הפורט רק ל-IP ספציפי",
+        "SSH על פורט לא סטנדרטי, `ufw allow 2222/tcp`. ב-`/etc/ssh/sshd_config` שנו ל-`Port 2222`. מסנן 99% מהבוטים",
+        "rate limiting על SSH, `ufw limit ssh`. UFW חוסם אוטומטית IP שמנסה להתחבר 6 פעמים ב-30 שניות. הגנה מצוינת מ-brute force",
+        "אפליקציה פנימית, אל תפתחו את הפורט שלה בכלל. שימו אותה מאחורי nginx על פורט 80/443. אצלי כל 12 הסוכנים על פורטים 3700-3900 לא חשופים בכלל",
+        "Webhook receiver עם whitelist, אם יודעים שהשירות שמתקשר אליכם מכתובת מסוימת, `ufw allow from <range> to any port <port>`",
       ],
       tips: [
         "אצלי היום זה מיושם ישירות ב-iptables: רק 22, 80 ו-443 פתוחים. שום דבר אחר. כל הסוכנים פנימיים",
@@ -189,27 +189,27 @@ export const ufwGuide: AgentGuideData = {
       title: "מתקדם: profiles, IPv6 ו-Docker",
       subtitle: "מה שצריך לדעת כשהבסיס לא מספיק",
       description:
-        "אחרי שיש לכם את הבסיס, יש כמה מקרים שדורשים תשומת לב מיוחדת — בעיקר Docker (שעוקף את UFW), IPv6 (שכבר ברירת מחדל ב-2026), ו-application profiles.",
+        "אחרי שיש לכם את הבסיס, יש כמה מקרים שדורשים תשומת לב מיוחדת, בעיקר Docker (שעוקף את UFW), IPv6 (שכבר ברירת מחדל ב-2026), ו-application profiles.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
       beginner:
-        "יש מלכודת אחת ש'תופסת' כמעט כל מי שמשתמש ב-Docker, ושווה להכיר אותה לפני שנכווים: Docker יודע לפתוח פתחים בשרת מאחורי הגב של ה-firewall. כלומר אתם בטוחים ש-UFW חוסם את בסיס הנתונים — ובפועל Docker פתח אותו לעולם בלי לספר לאף אחד. הפתרון פשוט (להגיד ל-Docker 'תפתח רק פנימה, לא החוצה'), אבל חייבים לדעת שהבעיה קיימת. שאר הסעיף נוגע בדברים שמתעוררים כשהבסיס לא מספיק — IPv6, פרופילים מוכנים, וניהול חוקים מתוחכם יותר.",
+        "יש מלכודת אחת ש'תופסת' כמעט כל מי שמשתמש ב-Docker, ושווה להכיר אותה לפני שנכווים: Docker יודע לפתוח פתחים בשרת מאחורי הגב של ה-firewall. כלומר אתם בטוחים ש-UFW חוסם את בסיס הנתונים, ובפועל Docker פתח אותו לעולם בלי לספר לאף אחד. הפתרון פשוט (להגיד ל-Docker 'תפתח רק פנימה, לא החוצה'), אבל חייבים לדעת שהבעיה קיימת. שאר הסעיף נוגע בדברים שמתעוררים כשהבסיס לא מספיק, IPv6, פרופילים מוכנים, וניהול חוקים מתוחכם יותר.",
       content: [
-        "Application profiles — UFW מכיר שמות של אפליקציות פופולריות. `ufw app list` מציג את הזמינים. `ufw allow OpenSSH` במקום `ufw allow 22/tcp`",
-        "IPv6 — ב-`/etc/default/ufw` יש `IPV6=yes` (ברירת מחדל ב-2026). תמיד בדקו שזה דלוק, אחרת תוקפים יכולים להגיע דרך IPv6 ו-UFW לא יחסום",
-        "Docker עוקף את UFW — Docker עורך את iptables ישירות, ו-UFW לא יודע על זה. פורט שאתם פותחים עם `docker run -p 80:80` יהיה פתוח גם אם UFW אומר 'no'",
-        "פתרון 1 ל-Docker — bind ל-`127.0.0.1:80:80` במקום `80:80` בקובץ docker-compose. כך הפורט פתוח רק ל-localhost ו-UFW לא רלוונטי",
-        "פתרון 2 ל-Docker — חבילת `ufw-docker` שעוטפת את UFW עם הגדרות מודעות ל-Docker. מתקינים פעם אחת ושוכחים",
-        "Logging — `ufw logging on` רושם packets שנדחו ל-`/var/log/ufw.log`. שימושי כדי לראות מי מנסה לפרוץ. אבל יכול לגדול מהר — מומלץ `medium` או `low`",
-        "Conditional rules — `ufw allow from 1.2.3.4 to any port 22 proto tcp` — מאפשר SSH רק מ-IP ספציפי. שימושי לאדמינים קבועים",
+        "Application profiles, UFW מכיר שמות של אפליקציות פופולריות. `ufw app list` מציג את הזמינים. `ufw allow OpenSSH` במקום `ufw allow 22/tcp`",
+        "IPv6, ב-`/etc/default/ufw` יש `IPV6=yes` (ברירת מחדל ב-2026). תמיד בדקו שזה דלוק, אחרת תוקפים יכולים להגיע דרך IPv6 ו-UFW לא יחסום",
+        "Docker עוקף את UFW, Docker עורך את iptables ישירות, ו-UFW לא יודע על זה. פורט שאתם פותחים עם `docker run -p 80:80` יהיה פתוח גם אם UFW אומר 'no'",
+        "פתרון 1 ל-Docker, bind ל-`127.0.0.1:80:80` במקום `80:80` בקובץ docker-compose. כך הפורט פתוח רק ל-localhost ו-UFW לא רלוונטי",
+        "פתרון 2 ל-Docker, חבילת `ufw-docker` שעוטפת את UFW עם הגדרות מודעות ל-Docker. מתקינים פעם אחת ושוכחים",
+        "Logging, `ufw logging on` רושם packets שנדחו ל-`/var/log/ufw.log`. שימושי כדי לראות מי מנסה לפרוץ. אבל יכול לגדול מהר, מומלץ `medium` או `low`",
+        "Conditional rules, `ufw allow from 1.2.3.4 to any port 22 proto tcp`, מאפשר SSH רק מ-IP ספציפי. שימושי לאדמינים קבועים",
       ],
       tips: [
         "אם אתם משתמשים ב-Docker עם UFW, השקיעו דקה וחצי בהוספת `ufw-docker`. אצלי זה מנע פעם אחת חשיפת DB לעולם",
-        "הוסיפו `comment 'מה זה'` לכל חוק. אחרי 6 חודשים, כשתחזרו לראות את ה-rules — תזכרו למה הוספתם כל אחד",
+        "הוסיפו `comment 'מה זה'` לכל חוק. אחרי 6 חודשים, כשתחזרו לראות את ה-rules, תזכרו למה הוספתם כל אחד",
       ],
       codeExample: {
         label: "טיפול ב-Docker שלא יעקוף את UFW",
-        code: "# אופציה 1: bind ל-localhost ב-docker-compose\nservices:\n  postgres:\n    image: postgres:16\n    ports:\n      - '127.0.0.1:5432:5432'  # רק localhost — UFW לא רלוונטי\n  api:\n    image: my-api\n    ports:\n      - '127.0.0.1:3000:3000'  # פנימי בלבד, nginx יעשה proxy\n\n# אופציה 2: ufw-docker (התקנה חד-פעמית)\nsudo wget -O /usr/local/bin/ufw-docker \\\n  https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker\nsudo chmod +x /usr/local/bin/ufw-docker\nsudo ufw-docker install\nsudo systemctl restart ufw\n\n# עכשיו אפשר לחסום פורטים ספציפיים של containers\nsudo ufw-docker allow my-container 80/tcp\nsudo ufw-docker delete allow my-container 80/tcp",
+        code: "# אופציה 1: bind ל-localhost ב-docker-compose\nservices:\n  postgres:\n    image: postgres:16\n    ports:\n      - '127.0.0.1:5432:5432'  # רק localhost, UFW לא רלוונטי\n  api:\n    image: my-api\n    ports:\n      - '127.0.0.1:3000:3000'  # פנימי בלבד, nginx יעשה proxy\n\n# אופציה 2: ufw-docker (התקנה חד-פעמית)\nsudo wget -O /usr/local/bin/ufw-docker \\\n  https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker\nsudo chmod +x /usr/local/bin/ufw-docker\nsudo ufw-docker install\nsudo systemctl restart ufw\n\n# עכשיו אפשר לחסום פורטים ספציפיים של containers\nsudo ufw-docker allow my-container 80/tcp\nsudo ufw-docker delete allow my-container 80/tcp",
       },
     },
     {
@@ -222,19 +222,19 @@ export const ufwGuide: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "intermediate",
       beginner:
-        "כמעט כל תקלה ב-firewall נופלת לאחת משתי קטגוריות: 'חסמתי בטעות משהו שהייתי צריך', או הקלאסיקה — 'ננעלתי בחוץ אחרי שהדלקתי את החומה'. החדשות הטובות: לשתיהן יש פתרון מסודר. לרובן עוזרת קונסולת החירום שכל ספק VPS נותן (מין מסך שמתחבר ישירות לשרת בלי SSH), ולכן הכלל הזהב שלי (אלעד) הוא לוודא שיש לכם גישה אליה לפני שאתם נוגעים ב-firewall. זאת רשת הביטחון שמונעת לילה לבן.",
+        "כמעט כל תקלה ב-firewall נופלת לאחת משתי קטגוריות: 'חסמתי בטעות משהו שהייתי צריך', או הקלאסיקה, 'ננעלתי בחוץ אחרי שהדלקתי את החומה'. החדשות הטובות: לשתיהן יש פתרון מסודר. לרובן עוזרת קונסולת החירום שכל ספק VPS נותן (מין מסך שמתחבר ישירות לשרת בלי SSH), ולכן הכלל הזהב שלי (אלעד) הוא לוודא שיש לכם גישה אליה לפני שאתם נוגעים ב-firewall. זאת רשת הביטחון שמונעת לילה לבן.",
       content: [
-        "'איבדתי SSH אחרי enable' — אם יש לכם hosting עם web console (Hetzner, DigitalOcean), פתחו אותו והריצו `ufw allow ssh` ואז `ufw reload`. אם לא — צריך לפנות לתמיכה",
-        "'הוספתי allow ועדיין חסום' — בדקו `ufw status numbered`. אולי יש חוק deny שמופיע לפניו. ב-UFW, החוקים נבדקים לפי סדר",
-        "'הפורט פתוח מבחוץ אבל לא מבפנים' — UFW מטפל באינטרפייס נכנס בלבד. אם השירות לא מאזין על 0.0.0.0 (רק על 127.0.0.1), הוא לא יראה תעבורה חיצונית",
-        "'לא מוצא את ה-rule שאני רוצה למחוק' — `ufw status numbered` ממספר אותם. `ufw delete <number>` מוחק לפי מספר. או `ufw delete allow ssh` למחיקה מפורשת",
-        "'IPv6 לא חסום' — `cat /etc/default/ufw | grep IPV6`. אם זה `IPV6=no`, שנו ל-`yes` והריצו `ufw disable && ufw enable`",
-        "Logs — `tail -f /var/log/ufw.log` מראה מה נחסם בזמן אמת. שימושי כדי לראות אם בקשה הגיעה ונחסמה",
-        "`iptables -L -n -v` — מציג את ה-rules בפורמט iptables הגולמי. שימושי כשאתם חושדים שמשהו עוקף את UFW",
+        "'איבדתי SSH אחרי enable', אם יש לכם hosting עם web console (Hetzner, DigitalOcean), פתחו אותו והריצו `ufw allow ssh` ואז `ufw reload`. אם לא, צריך לפנות לתמיכה",
+        "'הוספתי allow ועדיין חסום', בדקו `ufw status numbered`. אולי יש חוק deny שמופיע לפניו. ב-UFW, החוקים נבדקים לפי סדר",
+        "'הפורט פתוח מבחוץ אבל לא מבפנים', UFW מטפל באינטרפייס נכנס בלבד. אם השירות לא מאזין על 0.0.0.0 (רק על 127.0.0.1), הוא לא יראה תעבורה חיצונית",
+        "'לא מוצא את ה-rule שאני רוצה למחוק', `ufw status numbered` ממספר אותם. `ufw delete <number>` מוחק לפי מספר. או `ufw delete allow ssh` למחיקה מפורשת",
+        "'IPv6 לא חסום', `cat /etc/default/ufw | grep IPV6`. אם זה `IPV6=no`, שנו ל-`yes` והריצו `ufw disable && ufw enable`",
+        "Logs, `tail -f /var/log/ufw.log` מראה מה נחסם בזמן אמת. שימושי כדי לראות אם בקשה הגיעה ונחסמה",
+        "`iptables -L -n -v`, מציג את ה-rules בפורמט iptables הגולמי. שימושי כשאתם חושדים שמשהו עוקף את UFW",
       ],
       tips: [
         "תמיד ודאו שיש לכם גישה ל-console (web KVM ב-VPS שלכם) לפני שמשנים firewall. זו רשת הביטחון",
-        "לפני שאתם מאשרים שינוי גדול, הריצו `ufw show added` — הוא מציג מה ייכנס לתוקף ברענון הבא, בלי להפעיל",
+        "לפני שאתם מאשרים שינוי גדול, הריצו `ufw show added`, הוא מציג מה ייכנס לתוקף ברענון הבא, בלי להפעיל",
       ],
     },
     {
@@ -247,14 +247,14 @@ export const ufwGuide: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
       beginner:
-        "UFW עצמו הוא בעצם 'שלט ידידותי' לכלי חזק וישן בשם iptables — הוא לא מחליף אותו, רק עוטף אותו בשפה פשוטה. בסעיף הזה תכירו את שאר המשפחה: כלים שמתאימים לסביבות אחרות (כמו firewalld בעולם של RedHat) או למשימות אחרות. השם החשוב מביניהם הוא fail2ban — הוא לא חומת אש בכלל, אלא שומר נוסף שיושב לידה, קורא את היומנים, וכל מי שמנסה לנחש את הסיסמה שלכם שוב ושוב — הוא חוסם אוטומטית. השילוב של UFW (חוסם פתחים) יחד עם fail2ban (חוסם תוקפים) הוא ההגנה הבסיסית שכל שרת ייצור צריך.",
+        "UFW עצמו הוא בעצם 'שלט ידידותי' לכלי חזק וישן בשם iptables, הוא לא מחליף אותו, רק עוטף אותו בשפה פשוטה. בסעיף הזה תכירו את שאר המשפחה: כלים שמתאימים לסביבות אחרות (כמו firewalld בעולם של RedHat) או למשימות אחרות. השם החשוב מביניהם הוא fail2ban, הוא לא חומת אש בכלל, אלא שומר נוסף שיושב לידה, קורא את היומנים, וכל מי שמנסה לנחש את הסיסמה שלכם שוב ושוב, הוא חוסם אוטומטית. השילוב של UFW (חוסם פתחים) יחד עם fail2ban (חוסם תוקפים) הוא ההגנה הבסיסית שכל שרת ייצור צריך.",
       content: [
-        "iptables — הכלי הקלאסי. UFW עוטף אותו. אם אתם רוצים שליטה מלאה (חוקים מורכבים, NAT), השתמשו ב-iptables ישירות. אבל ה-syntax הוא משהו אחר",
-        "nftables — היורש המודרני של iptables. מובנה ב-kernel מ-Ubuntu 22.04 ומעלה. UFW משתמש בו כיום מאחורי הקלעים",
-        "firewalld — האלטרנטיבה של Red Hat/CentOS/Fedora. מבוסס zones, מתקדם יותר מ-UFW. אם אתם על RHEL — זה ברירת המחדל",
-        "fail2ban — לא חומת אש, אבל משלים אותה. סורק לוגים ומוסיף אוטומטית ל-firewall IPs שמנסים לפרוץ. ההגנה הטובה ביותר מ-brute force",
-        "CrowdSec — 'הדור הבא' של fail2ban. משתף בלאקליסט גלובלי של IPs מסוכנים. חינמי לקהילה, מצוין לשרתי ייצור",
-        "iptables-persistent — אם אתם מעדיפים iptables גולמי, החבילה הזו שומרת חוקים אחרי reboot",
+        "iptables, הכלי הקלאסי. UFW עוטף אותו. אם אתם רוצים שליטה מלאה (חוקים מורכבים, NAT), השתמשו ב-iptables ישירות. אבל ה-syntax הוא משהו אחר",
+        "nftables, היורש המודרני של iptables. מובנה ב-kernel מ-Ubuntu 22.04 ומעלה. UFW משתמש בו כיום מאחורי הקלעים",
+        "firewalld, האלטרנטיבה של Red Hat/CentOS/Fedora. מבוסס zones, מתקדם יותר מ-UFW. אם אתם על RHEL, זה ברירת המחדל",
+        "fail2ban, לא חומת אש, אבל משלים אותה. סורק לוגים ומוסיף אוטומטית ל-firewall IPs שמנסים לפרוץ. ההגנה הטובה ביותר מ-brute force",
+        "CrowdSec, 'הדור הבא' של fail2ban. משתף בלאקליסט גלובלי של IPs מסוכנים. חינמי לקהילה, מצוין לשרתי ייצור",
+        "iptables-persistent, אם אתם מעדיפים iptables גולמי, החבילה הזו שומרת חוקים אחרי reboot",
         "השוואה: לדסקטופ ולשרתים פשוטים → UFW. ל-server עם דרישות מורכבות → nftables ישירות. ל-RHEL → firewalld. תמיד בשילוב עם fail2ban או CrowdSec",
       ],
       tips: [
@@ -266,7 +266,7 @@ export const ufwGuide: AgentGuideData = {
   resources: [
     {
       title: "Ubuntu UFW Documentation",
-      description: "התיעוד הרשמי — קצר וברור",
+      description: "התיעוד הרשמי, קצר וברור",
       href: "https://help.ubuntu.com/community/UFW",
       icon: BookOpen,
     },
@@ -284,13 +284,13 @@ export const ufwGuide: AgentGuideData = {
     },
     {
       title: "fail2ban",
-      description: "ההשלמה ההכרחית ל-UFW — בלוקים אוטומטיים על brute force",
+      description: "ההשלמה ההכרחית ל-UFW, בלוקים אוטומטיים על brute force",
       href: "https://www.fail2ban.org/",
       icon: ExternalLink,
     },
     {
       title: "CrowdSec",
-      description: "הגנה קולקטיבית — בלאקליסט גלובלי משותף של תוקפים",
+      description: "הגנה קולקטיבית, בלאקליסט גלובלי משותף של תוקפים",
       href: "https://www.crowdsec.net/",
       icon: ExternalLink,
     },
@@ -315,5 +315,5 @@ export const ufwGuide: AgentGuideData = {
     icon: Mail,
   },
   authorBio:
-    "אצלי היום, על שרת Contabo, חומת האש בנויה ישירות על iptables — 3 פורטים פתוחים בלבד (SSH, 80, 443), גישה ניהולית דרך Tailscale, ו-fail2ban שחוסם אוטומטית כל IP שמנסה לפרוץ ב-SSH. זה אחד הדברים שגורמים לי לישון בשקט בלילה — ו-UFW הוא הדרך הפשוטה ביותר להגיע בדיוק לאותה תוצאה. שילוב פשוט, פתרון של 5 דקות.",
+    "אצלי היום, על שרת Contabo, חומת האש בנויה ישירות על iptables, 3 פורטים פתוחים בלבד (SSH, 80, 443), גישה ניהולית דרך Tailscale, ו-fail2ban שחוסם אוטומטית כל IP שמנסה לפרוץ ב-SSH. זה אחד הדברים שגורמים לי לישון בשקט בלילה, ו-UFW הוא הדרך הפשוטה ביותר להגיע בדיוק לאותה תוצאה. שילוב פשוט, פתרון של 5 דקות.",
 };
