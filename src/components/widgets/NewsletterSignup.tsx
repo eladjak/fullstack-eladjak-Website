@@ -39,6 +39,7 @@ export function NewsletterSignup({
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [status, setStatus] = React.useState<Status>('idle');
   const [errorMessage, setErrorMessage] = React.useState('');
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const isSuccess = status === 'success';
   const isError = status === 'error';
@@ -51,6 +52,10 @@ export function NewsletterSignup({
     if (!trimmed) {
       setStatus('error');
       setErrorMessage(COPY.errorInvalid);
+      // The role="alert" below announces the message, but measured in a browser
+      // focus stayed on <body> after a rejected submit, leaving the user with
+      // nowhere to type. rAF so focus lands after React commits the error state.
+      requestAnimationFrame(() => inputRef.current?.focus());
       return;
     }
 
@@ -113,6 +118,7 @@ export function NewsletterSignup({
             aria-hidden="true"
           />
           <input
+            ref={inputRef}
             id="newsletter-email"
             type="email"
             dir="ltr"

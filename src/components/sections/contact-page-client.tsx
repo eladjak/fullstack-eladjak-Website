@@ -53,6 +53,15 @@ const PROJECT_TYPE_OPTIONS = [
   { value: 'אחר', label: 'אחר' },
 ] as const;
 
+/**
+ * Visual order of the fields, used to decide which one receives focus after a
+ * rejected submit. Each entry is BOTH the ContactFormData key and the DOM id of
+ * its control, which is what makes the getElementById lookup below valid — if
+ * those ever diverge, focus silently stops moving and nothing else breaks, so
+ * keep them in step.
+ */
+const FIELD_FOCUS_ORDER: (keyof ContactFormData)[] = ['name', 'email', 'subject', 'message'];
+
 function ContactPageInner() {
   const t = useTranslations('contact');
   const searchParams = useSearchParams();
@@ -164,6 +173,18 @@ function ContactPageInner() {
       setErrors(fieldErrors);
       toast.error(t('validationError'));
       setIsSubmitting(false);
+      // Move focus to the first field that failed. The per-field messages
+      // already carry role="alert" (from Input/Textarea) so they ARE announced,
+      // but measured in a browser before this, focus stayed on <body> after a
+      // rejected submit: the user is told something is wrong and left with no
+      // position in the form and no indication of which field to fix. rAF so the
+      // focus lands after React has committed the error state.
+      const firstInvalid = FIELD_FOCUS_ORDER.find((f) => fieldErrors[f]);
+      if (firstInvalid) {
+        requestAnimationFrame(() => {
+          document.getElementById(firstInvalid)?.focus();
+        });
+      }
       return;
     }
 
