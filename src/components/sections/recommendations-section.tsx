@@ -8,13 +8,17 @@ import { ScrollAnimate } from '@/components/ui/scroll-animate';
 
 const recommendationKeys = ['rec1', 'rec2', 'rec3', 'rec4', 'rec5', 'rec6'] as const;
 
+// Same six hues, two steps deeper. The initials are white at 14px bold, which
+// is not "large text", so they need 4.5:1 — and white never reaches that on a
+// 500-level amber, cyan, teal or rose. Deepening the stops keeps the palette
+// and the rainbow-of-avatars idea intact while making the label legible.
 const AVATAR_GRADIENTS = [
-  'from-violet-500 to-purple-600',
-  'from-blue-500 to-cyan-500',
-  'from-amber-500 to-orange-500',
-  'from-emerald-500 to-teal-500',
-  'from-pink-500 to-rose-500',
-  'from-indigo-500 to-violet-500',
+  'from-violet-700 to-purple-800',
+  'from-blue-700 to-cyan-800',
+  'from-amber-700 to-orange-800',
+  'from-emerald-700 to-teal-800',
+  'from-pink-700 to-rose-700',
+  'from-indigo-700 to-violet-700',
 ] as const;
 
 function RecommendationCard({ recKey, index, t }: { recKey: string; index: number; t: ReturnType<typeof useTranslations> }) {
@@ -58,7 +62,7 @@ export default function RecommendationsSection() {
       <div className="container relative z-10 px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-14">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+            <p className="section-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.28em]">
               {t('eyebrow')}
             </p>
             <div className="flex items-center justify-center gap-1 mb-4">

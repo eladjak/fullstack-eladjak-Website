@@ -125,8 +125,11 @@ function QuestionChip({ label, onClick, disabled }: ChipProps) {
       whileTap={disabled ? {} : { scale: 0.97 }}
       className={[
         'rounded-full border px-3 py-1.5 text-sm font-medium text-start transition-colors duration-150',
-        'border-primary/30 bg-primary/10 text-primary',
-        'hover:border-primary/60 hover:bg-primary/20 hover:shadow-md hover:shadow-primary/10',
+        // `brand-chip` instead of `border-primary/30 bg-primary/10 text-primary`:
+        // the two slash-opacity utilities generate no rule, so these pills had
+        // no plate and no border colour and sat straight on the chat panel.
+        'brand-chip',
+        'hover:shadow-md',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         'disabled:pointer-events-none disabled:opacity-40',
       ].join(' ')}

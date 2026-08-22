@@ -37,7 +37,7 @@ export default function Footer() {
   const cvHref = '/cv-elad-yaakobovitch.html';
 
   return (
-    <footer className="relative w-full bg-card/30 border-t border-border/30 backdrop-blur-sm" role="contentinfo">
+    <footer className="footer-plate relative w-full border-t border-border/30 backdrop-blur-sm" role="contentinfo">
       {/* Decorative gradient line at top */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
@@ -115,7 +115,7 @@ export default function Footer() {
                   (tech) => (
                     <span
                       key={tech}
-                      className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20 transition-colors duration-200 cursor-default"
+                      className="brand-chip inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-200 cursor-default"
                     >
                       {tech}
                     </span>

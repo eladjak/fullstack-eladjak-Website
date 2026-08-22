@@ -54,7 +54,7 @@ export default function FeaturedProjectsSection() {
       <div className="container px-4 md:px-6">
         <ScrollAnimate>
           <div className="text-center mb-14">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+            <p className="section-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.28em]">
               {t('eyebrow')}
             </p>
             <h2 className="wow-title wow-title--center text-balance text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
@@ -92,7 +92,7 @@ export default function FeaturedProjectsSection() {
                     <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{t(`projects.${project.messageKey}.description`)}</p>
                     <div className="flex flex-wrap gap-1 mb-3">
                       {project.technologies.slice(0, 3).map((tech) => (
-                        <span key={tech} className="inline-flex items-center rounded-full bg-primary/5 px-2 py-0.5 text-xs font-medium text-primary">{tech}</span>
+                        <span key={tech} className="brand-chip inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium">{tech}</span>
                       ))}
                     </div>
                     <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export default function FeaturedProjectsSection() {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="inline-flex items-center rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors duration-200 hover:bg-primary/15"
+                        className="brand-chip inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors duration-200"
                       >
                         {tech}
                       </span>
