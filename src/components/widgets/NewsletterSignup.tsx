@@ -115,6 +115,7 @@ export function NewsletterSignup({
           <input
             id="newsletter-email"
             type="email"
+            dir="ltr"
             inputMode="email"
             autoComplete="email"
             required

@@ -157,7 +157,7 @@ export default function HeroSection() {
               href="https://wa.me/972525427474?text=%D7%94%D7%99%D7%99%20%D7%90%D7%9C%D7%A2%D7%93%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%A9%D7%9C%D7%99"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-green-600 px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-green-600/25 transition-[transform,background-color] duration-200 hover:bg-green-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:bg-green-500 active:scale-[.97]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-green-700 px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-green-700/25 transition-[transform,background-color] duration-200 hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:bg-green-500 active:scale-[.97]"
               aria-label="Contact via WhatsApp"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
