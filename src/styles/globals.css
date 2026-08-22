@@ -566,10 +566,10 @@ a:focus-visible .logo-anim__ch {
     radial-gradient(90% 55% at 50% 22%, hsla(258, 70%, 50%, 0.05) 0%, transparent 60%),
     linear-gradient(
       to bottom,
-      rgba(6, 5, 10, 0.74) 0%,
-      rgba(6, 5, 10, 0.26) 18%,
-      rgba(6, 5, 10, 0.26) 62%,
-      rgba(5, 4, 9, 0.8) 100%
+      rgba(6, 5, 10, 0.78) 0%,
+      rgba(6, 5, 10, 0.58) 18%,
+      rgba(6, 5, 10, 0.58) 62%,
+      rgba(5, 4, 9, 0.84) 100%
     ),
     radial-gradient(125% 85% at 50% 42%, transparent 40%, rgba(5, 4, 9, 0.58) 100%);
 }
@@ -699,6 +699,10 @@ a:focus-visible .logo-anim__ch {
 .home-cinematic {
   background: transparent !important;
   color-scheme: dark;
+  /* Secondary copy on this page is never over a flat surface, it is over moving
+     footage, so it needs more headroom than the same token needs elsewhere.
+     Gray-200 instead of Gray-300; scoped to the cinematic page only. */
+  --muted-foreground: #e5e7eb;
 }
 
 /* Neutralise the fully-opaque `from-background … to-background` gradient
@@ -760,6 +764,101 @@ a:focus-visible .logo-anim__ch {
   .cj-scrim::after {
     opacity: 0 !important;
   }
+}
+
+/* ── Section eyebrow ───────────────────────────────────────────────────────
+   The small uppercase label above a section title. At 12px it needs 4.5:1, and
+   `text-primary` (#A78BFA) sits on the flight footage with nothing between it
+   and the beams — measured 1.37:1 over the lit cityscape behind "פרויקטים
+   נבחרים". Brand purple, several steps lighter, so it clears the bright parts
+   of the backdrop and still reads as the accent rather than as body text. */
+.section-eyebrow {
+  color: #5b21b6;
+}
+
+.dark .section-eyebrow {
+  color: #ede9fe; /* Purple-100 */
+}
+
+/* ── Footer plate ──────────────────────────────────────────────────────────
+   The footer asks for `bg-card/30` and gets nothing (same dropped-rule cause as
+   `bg-primary/10` below), so it sits directly on the brightest vertical beam of
+   the flight. Its white 14px headings measured 2.08:1 there. This restores the
+   translucent plate the layout was designed around: the flight still shows
+   through, it simply stops being brighter than the text on top of it. */
+.footer-plate {
+  background-color: rgba(255, 255, 255, 0.82);
+}
+
+.dark .footer-plate {
+  background-color: rgba(9, 9, 11, 0.82);
+}
+
+/* ── Brand chip plate ──────────────────────────────────────────────────────
+   `bg-primary/10`, `bg-primary/5` and `border-primary/30` generate NO CSS RULE
+   AT ALL on this site. `--primary` holds a hex (#8B5CF6 / #A78BFA) and Tailwind
+   v3 cannot apply an opacity modifier to a var() that is not raw channels, so
+   the declaration is dropped. Verified against the shipped stylesheet: with
+   `.bg-white\/5{background-color:#ffffff0d}` present as a control,
+   `.bg-primary\/10` is absent entirely.
+
+   The consequence is not cosmetic. Every brand-purple pill was designed to sit
+   on its own tinted plate; with no plate it sits directly on the cinematic
+   flight footage, so its contrast is whatever the video happens to be doing
+   behind it. That is how a badge measures 1.5:1 in one place and 6:1 in
+   another. This gives the pill an explicit plate, so it carries its own
+   background instead of borrowing one — and pins a foreground that clears AA
+   against that plate in BOTH themes. */
+.brand-chip {
+  background-color: rgba(139, 92, 246, 0.13);
+  border-color: rgba(109, 40, 217, 0.3);
+  color: #5b21b6; /* Purple-800 on a light tint: AA at 12–14px */
+}
+
+.dark .brand-chip {
+  /* Deliberately near-opaque: the plate's job is to stop the bright beams of
+     the flight footage from reaching the glyphs. */
+  background-color: rgba(26, 22, 44, 0.88);
+  border-color: rgba(167, 139, 250, 0.36);
+  color: #ddd6fe; /* Purple-200 — headroom over the plate, still brand purple */
+}
+
+.brand-chip:hover {
+  background-color: rgba(139, 92, 246, 0.2);
+}
+
+.dark .brand-chip:hover {
+  background-color: rgba(38, 32, 62, 0.92);
+  border-color: rgba(167, 139, 250, 0.55);
+}
+
+/* The home page is dark in BOTH themes. `.home-cinematic` declares
+   color-scheme:dark and keeps the flight footage behind everything, so in the
+   light theme the page still has a dark backdrop while the light token set
+   hands out dark text. Measured on production before any of this: the eyebrow
+   reads 1.13:1 and 2.56:1 in light mode, and body copy 1.81–3.17:1 — the light
+   theme of this page is broken independently of contrast work, and the light
+   values above would have inherited that.
+
+   These two components therefore take the dark treatment on the cinematic page
+   regardless of theme, because that is what is actually behind them. Placed
+   AFTER the `.dark` rules deliberately: equal specificity, so source order is
+   what makes them win. (The footer is the exception and is left alone: its
+   near-opaque white plate gives the light theme's dark text a real surface,
+   which is why it measures 14.68:1 there.) */
+.home-cinematic .section-eyebrow {
+  color: #ede9fe;
+}
+
+.home-cinematic .brand-chip {
+  background-color: rgba(26, 22, 44, 0.88);
+  border-color: rgba(167, 139, 250, 0.36);
+  color: #ddd6fe;
+}
+
+.home-cinematic .brand-chip:hover {
+  background-color: rgba(38, 32, 62, 0.92);
+  border-color: rgba(167, 139, 250, 0.55);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

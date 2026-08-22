@@ -26,7 +26,10 @@ export function TagBadge({
   className
 }: TagBadgeProps) {
   const variantStyles = {
-    default: "bg-primary/10 text-primary border-transparent hover:bg-primary/15",
+    // `brand-chip` carries the plate + foreground explicitly. `bg-primary/10`
+    // was silently generating no rule at all, so this pill had no background
+    // and its contrast tracked whatever was behind it.
+    default: "brand-chip",
     outline: "bg-transparent text-primary border-primary",
     solid: "bg-primary text-primary-foreground border-transparent",
   };
