@@ -5,18 +5,40 @@ import Script from "next/script";
 import { headers } from "next/headers";
 import { ChevronLeft, Sparkles, Bot, Server, Zap, Workflow } from "lucide-react";
 import { allGuides } from "@/data/agent-guides";
+import {
+  GuideDiscoveryForm,
+  GuideNoResults,
+  type GuideDiscoveryCopy,
+} from "@/components/guide-discovery/GuideDiscoveryForm";
+import { filterGuides, firstGuideSearchParam, isGuideDiscoveryCategory } from "@/lib/guide-discovery";
 import { safeJsonLd } from "@/lib/jsonld";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
 const GUIDE_INDEX_URL = `${SITE_URL}/guide`;
 const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
+const HEBREW_DISCOVERY_COPY: GuideDiscoveryCopy = {
+  title: "מצאו מדריך",
+  searchLabel: "חיפוש וסינון מדריכים",
+  searchPlaceholder: "חפשו שם, נושא או יכולת",
+  categoryLabel: "סוג מדריך",
+  allCategories: "כל הסוגים",
+  agents: "סוכני AI",
+  patterns: "דפוסי־עבודה",
+  infrastructure: "תשתית",
+  submit: "הצג תוצאות",
+  reset: "איפוס",
+  resultCount: (count) => `${count} מדריכים נמצאו`,
+  noResultsTitle: "לא נמצאו מדריכים מתאימים",
+  noResultsDescription: "נסו מונח חיפוש אחר או אפסו את הסינון כדי לראות את כל מדריכי הייחוס.",
+  resetSearch: "הצג את כל המדריכים",
+};
 
 export const metadata: Metadata = {
   title: "מדריכי סוכני AI + תשתית בעברית | אלעד יעקובוביץ'",
   // NOTE: keep 120-160 chars (GEO/AEO meta budget, see rules/geo-aeo-protocol.md).
   description:
-    `${allGuides.length} מדריכים מעשיים בעברית לרשת סוכני AI מלאה: Claude Code, Kami, Kaylee, Qdrant, Docker, Ollama, n8n ועוד. התקנה, קוד וטיפים מייצור 24/7.`,
+    `${allGuides.length} מדריכים מעשיים בעברית לסוכני AI ולתשתיות: Claude Code, Kami, Kaylee, Qdrant, Docker ועוד. דוגמאות קוד, דפוסי עבודה והסברים להטמעה.`,
   alternates: {
     canonical: GUIDE_INDEX_URL,
     languages: {
@@ -84,10 +106,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function GuideIndex() {
-  const agentGuides = allGuides.filter((g) => (g.category ?? "agent") === "agent");
-  const patternGuides = allGuides.filter((g) => g.category === "pattern");
-  const infraGuides = allGuides.filter((g) => g.category === "infra");
+export default async function GuideIndex({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[]; category?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const query = firstGuideSearchParam(params.q);
+  const rawCategory = firstGuideSearchParam(params.category);
+  const category = isGuideDiscoveryCategory(rawCategory) ? rawCategory : "all";
+  const visibleGuides = filterGuides(allGuides, { query, category });
+  const agentGuides = visibleGuides.filter((g) => (g.category ?? "agent") === "agent");
+  const patternGuides = visibleGuides.filter((g) => g.category === "pattern");
+  const infraGuides = visibleGuides.filter((g) => g.category === "infra");
 
   // Per-request CSP nonce from src/proxy.ts so the inline JSON-LD
   // <script> below satisfies our nonce-based CSP without 'unsafe-inline'.
@@ -193,7 +224,7 @@ export default async function GuideIndex() {
             </span>
           </h1>
           <p className="scroll-fade text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            {allGuides.length} מדריכים בעברית לרשת סוכני AI מלאה + רכיבי תשתית. לא תיאוריה, התקנה מעשית, טיפים מתוך שימוש אמיתי, ודוגמאות קוד שעובדות.
+            {allGuides.length} מדריכי ייחוס בעברית לרשת סוכני AI ולרכיבי תשתית. הם מתעדים דוגמאות, עקרונות והתקנות; הם אינם דוח זמינות או אימות מצב־חי של כל רכיב.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
             <span className="scroll-scale inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1 tabular-nums">
@@ -212,8 +243,24 @@ export default async function GuideIndex() {
         </div>
       </section>
 
+      <GuideDiscoveryForm
+        action="/guide"
+        query={query}
+        category={category}
+        resultCount={visibleGuides.length}
+        copy={HEBREW_DISCOVERY_COPY}
+      />
+
+      {visibleGuides.length === 0 ? (
+        <GuideNoResults
+          action="/guide"
+          copy={HEBREW_DISCOVERY_COPY}
+        />
+      ) : (
+        <>
+
       {/* Agents */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+      {agentGuides.length > 0 && <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         <div className="mb-8 flex items-center gap-3">
           <div className="size-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0">
             <Bot className="size-5 text-white" />
@@ -233,10 +280,10 @@ export default async function GuideIndex() {
             <GuideCard key={guide.slug} guide={guide} variant="agent" eager={index < 3} />
           ))}
         </div>
-      </section>
+      </section>}
 
       {/* Patterns */}
-      <section id="patterns" className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+      {patternGuides.length > 0 && <section id="patterns" className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         <div className="mb-8 flex items-center gap-3">
           <div className="size-10 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center shrink-0">
             <Workflow className="size-5 text-white" />
@@ -256,10 +303,10 @@ export default async function GuideIndex() {
             <GuideCard key={guide.slug} guide={guide} variant="pattern" />
           ))}
         </div>
-      </section>
+      </section>}
 
       {/* Build your server */}
-      <section
+      {infraGuides.length > 0 && <section
         id="build-your-server"
         className="max-w-6xl mx-auto px-4 sm:px-6 pb-20"
       >
@@ -278,8 +325,8 @@ export default async function GuideIndex() {
                 </span>
               </div>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty">
-                כלי הליבה שאני בונה איתם את השרת האישי שלי. כל אחד מהם רץ אצלי
-                על Contabo VPS ומשרת את {agentGuides.length} הסוכנים.
+                מדריכים לכלי תשתית, אחסון ותפעול שאפשר לשלב ברשת סוכנים.
+                בחרו את הרכיבים לפי הצרכים שלכם ובדקו כל שילוב בסביבה שלכם.
               </p>
             </div>
           </div>
@@ -299,7 +346,7 @@ export default async function GuideIndex() {
 
         <div className="mt-16 text-center">
           <p className="text-muted-foreground mb-4">
-            רוצים לקבל עזרה בהטמעה? יש לי תשתית דומה בייצור 24/7.
+            רוצים לקבל עזרה בהטמעה? נתאים את הכלים והתשתית לצרכים שלכם.
           </p>
           <Link
             href="/contact"
@@ -309,7 +356,9 @@ export default async function GuideIndex() {
             <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
           </Link>
         </div>
-      </section>
+      </section>}
+        </>
+      )}
     </main>
   );
 }

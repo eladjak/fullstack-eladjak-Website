@@ -1,0 +1,10 @@
+$ node scripts/generate-skills.mjs
+[skills] ERROR reading C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\full-build-isolated-20260915-1506\empty-userprofile\.claude\skills: ENOENT: no such file or directory, scandir 'C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\full-build-isolated-20260915-1506\empty-userprofile\.claude\skills'
+[commands] WARNING no md files in C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\full-build-isolated-20260915-1506\empty-userprofile\.claude\commands
+No entries found. Paths tried:
+  skills:   C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\full-build-isolated-20260915-1506\empty-userprofile\.claude\skills
+  commands: C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\full-build-isolated-20260915-1506\empty-userprofile\.claude\commands
+Preserving existing src/data/skills-universe-generated.ts (CI-safe exit).
+$ next build
+⚠ The Edge Runtime is deprecated. You can use the "nodejs" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated
+⚠ Using edge runtime on a page currently disables static generation for that page

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "startedAt": "2026-09-15T12:03:21.546Z",
+  "cwd": "C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915",
+  "evidenceHome": "C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\full-build-isolated-20260915-1506\\empty-userprofile",
+  "nodeExecutable": "C:\\Program Files\\nodejs\\node.exe",
+  "probe": {
+    "code": 0,
+    "signal": null,
+    "stdoutBytes": 126,
+    "stderrBytes": 0,
+    "pid": 22160
+  },
+  "probeHome": "C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\full-build-isolated-20260915-1506\\empty-userprofile",
+  "homeVerified": true,
+  "hashesBefore": {
+    "scripts/generate-skills.mjs": "4480BAC58FF9EADFEFDA0A9980016C42C53FEC51C3324900096DD1FB2226271F",
+    "src/lib/mdx.ts": "AFC74EA28A5A6B6AB69DD1CCC6035506CAF24890707885697C739C3DF20DF911",
+    "src/data/skills-universe-generated.ts": "3C1B67365D3EA26E3F383C6CFFAD6892A3EC59B82A10A25BF139C1F62756DA35",
+    "bun.lock": "AC3A82C4544F1EB0196B667AC72761152B2549177EC7EC3482DAFB842653E7AF"
+  },
+  "command": [
+    "bun",
+    "run",
+    "build"
+  ],
+  "build": {
+    "code": 0,
+    "signal": null,
+    "stdoutBytes": 1748,
+    "stderrBytes": 1225,
+    "pid": 41600
+  },
+  "hashesAfter": {
+    "scripts/generate-skills.mjs": "4480BAC58FF9EADFEFDA0A9980016C42C53FEC51C3324900096DD1FB2226271F",
+    "src/lib/mdx.ts": "AFC74EA28A5A6B6AB69DD1CCC6035506CAF24890707885697C739C3DF20DF911",
+    "src/data/skills-universe-generated.ts": "3C1B67365D3EA26E3F383C6CFFAD6892A3EC59B82A10A25BF139C1F62756DA35",
+    "bun.lock": "AC3A82C4544F1EB0196B667AC72761152B2549177EC7EC3482DAFB842653E7AF"
+  },
+  "finishedAt": "2026-09-15T12:03:45.228Z"
+}

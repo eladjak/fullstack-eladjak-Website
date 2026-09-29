@@ -1,9 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { load as loadYaml } from 'js-yaml';
 import readingTime from 'reading-time';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
+const MDX_MATTER_OPTIONS = {
+  engines: {
+    yaml: {
+      parse: (source: string) => loadYaml(source) as object,
+    },
+  },
+};
 
 export interface MDXFrontmatter {
   title: string;
@@ -44,7 +52,7 @@ export function getAllMDXPosts(): MDXPost[] {
     const slug = filename.replace('.mdx', '');
     const filePath = path.join(BLOG_DIR, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const { data, content } = matter(fileContents, MDX_MATTER_OPTIONS);
     const frontmatter = data as MDXFrontmatter;
 
     // Skip unpublished posts
@@ -78,7 +86,7 @@ export function getMDXPostBySlug(slug: string): MDXPost | null {
   }
 
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(fileContents);
+  const { data, content } = matter(fileContents, MDX_MATTER_OPTIONS);
   const frontmatter = data as MDXFrontmatter;
   const stats = readingTime(content);
 

@@ -1,0 +1,33 @@
+{
+  "fixture": "C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2",
+  "sourceHome": "C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user",
+  "sourceHashBefore": "3c1b67365d3ea26e3f383c6cffad6892a3ec59b82a10a25bf139c1f62756da35",
+  "sourceHashAfter": "3c1b67365d3ea26e3f383c6cffad6892a3ec59b82a10a25bf139c1f62756da35",
+  "positive": {
+    "status": 0,
+    "signal": null,
+    "stdout": "--- Skills generator ---\nScanning skills:   C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\skills\nScanning commands: C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFound 0 skills, 0 commands\n",
+    "stderr": "[commands] WARNING no md files in C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nNo entries found. Paths tried:\n  skills:   C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\skills\n  commands: C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nPreserving existing src/data/skills-universe-generated.ts (CI-safe exit).\n"
+  },
+  "positivePreservedBytes": true,
+  "missing": {
+    "status": 1,
+    "signal": null,
+    "stdout": "--- Skills generator ---\nScanning skills:   C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\skills\nScanning commands: C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFound 0 skills, 0 commands\n",
+    "stderr": "[commands] WARNING no md files in C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFATAL: Error: Cannot preserve generated skills catalog: expected readable regular non-empty file at C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\src\\data\\skills-universe-generated.ts; ENOENT: no such file or directory, stat 'C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\src\\data\\skills-universe-generated.ts'\n    at assertPreservedOutputFile (file:///C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915/.g01-evidence/prebuild-empty-source-fail-closed-fixture-v2/scripts/generate-skills.mjs:271:11)\n    at async main (file:///C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915/.g01-evidence/prebuild-empty-source-fail-closed-fixture-v2/scripts/generate-skills.mjs:379:5)\n"
+  },
+  "missingStillAbsent": true,
+  "empty": {
+    "status": 1,
+    "signal": null,
+    "stdout": "--- Skills generator ---\nScanning skills:   C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\skills\nScanning commands: C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFound 0 skills, 0 commands\n",
+    "stderr": "[commands] WARNING no md files in C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFATAL: Error: Cannot preserve generated skills catalog: expected a non-empty file at C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\src\\data\\skills-universe-generated.ts.\n    at assertPreservedOutputFile (file:///C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915/.g01-evidence/prebuild-empty-source-fail-closed-fixture-v2/scripts/generate-skills.mjs:283:11)\n    at async main (file:///C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915/.g01-evidence/prebuild-empty-source-fail-closed-fixture-v2/scripts/generate-skills.mjs:379:5)\n"
+  },
+  "directory": {
+    "status": 1,
+    "signal": null,
+    "stdout": "--- Skills generator ---\nScanning skills:   C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\skills\nScanning commands: C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFound 0 skills, 0 commands\n",
+    "stderr": "[commands] WARNING no md files in C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\empty-user\\.claude\\commands\nFATAL: Error: Cannot preserve generated skills catalog: expected a regular file at C:\\Users\\eladj\\projects\\portfolio-wt-renewal-guides-20260915\\.g01-evidence\\prebuild-empty-source-fail-closed-fixture-v2\\src\\data\\skills-universe-generated.ts.\n    at assertPreservedOutputFile (file:///C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915/.g01-evidence/prebuild-empty-source-fail-closed-fixture-v2/scripts/generate-skills.mjs:277:11)\n    at async main (file:///C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915/.g01-evidence/prebuild-empty-source-fail-closed-fixture-v2/scripts/generate-skills.mjs:379:5)\n"
+  },
+  "fixtureRestoredBytes": true
+}

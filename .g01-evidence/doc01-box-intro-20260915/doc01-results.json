@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-09-15T12:28:08.739Z",
+  "parser": "5.9.3",
+  "changedNames": [
+    "src/data/agent-guides/box.ts",
+    "src/data/agent-guides/en/box.ts"
+  ],
+  "results": [
+    {
+      "locale": "he",
+      "relativePath": "src/data/agent-guides/box.ts",
+      "currentSha256": "789520A7FEC6527E3B43045288FCADC253BB78A4682734AD9BE1742A6B3BBD1E",
+      "headSha256": "A5F1871316400133F8AA2FD180321F3C79118545E66DF1AF92AF67173309785A",
+      "parseDiagnostics": [],
+      "heroPropertyCountCurrent": 1,
+      "heroPropertyCountHead": 1,
+      "heroChanged": true,
+      "nonHeroUnchanged": true,
+      "sentenceCount": 5,
+      "sentenceCountValid": true,
+      "linkCount": 2,
+      "linksLocalized": true,
+      "noSelfLink": true,
+      "englishHasNoHebrew": true
+    },
+    {
+      "locale": "en",
+      "relativePath": "src/data/agent-guides/en/box.ts",
+      "currentSha256": "9BADAE08A8F4A1FACB9CC369D3A04D2ED30B224C8385C5E9F952FC6B03D84553",
+      "headSha256": "8CDC1E00760BBF7317377F92EC0C862232CD649098163943B39CFE5C58F52CE3",
+      "parseDiagnostics": [],
+      "heroPropertyCountCurrent": 1,
+      "heroPropertyCountHead": 1,
+      "heroChanged": true,
+      "nonHeroUnchanged": true,
+      "sentenceCount": 5,
+      "sentenceCountValid": true,
+      "linkCount": 2,
+      "linksLocalized": true,
+      "noSelfLink": true,
+      "englishHasNoHebrew": true
+    }
+  ],
+  "pass": true
+}

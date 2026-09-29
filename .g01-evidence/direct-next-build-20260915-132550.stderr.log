@@ -1,0 +1,18 @@
+⚠ The Edge Runtime is deprecated. You can use the "nodejs" runtime instead. Learn more: https://nextjs.org/docs/messages/edge-runtime-deprecated
+⚠ Using edge runtime on a page currently disables static generation for that page
+Error occurred prerendering page "/sitemap.xml". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: Function yaml.safeLoad is removed in js-yaml 4. Use yaml.load instead, which is now safe by default.
+    at <unknown> (src\lib\mdx.ts:47:31)
+    at Array.map (<anonymous>)
+    at l (src\lib\mdx.ts:43:23)
+    at tg (src\app\sitemap.ts:119:20)
+    at ty (src\app\sitemap--route-entry.js:14:24)
+  45 |     const filePath = path.join(BLOG_DIR, filename);
+  46 |     const fileContents = fs.readFileSync(filePath, 'utf8');
+> 47 |     const { data, content } = matter(fileContents);
+     |                               ^
+  48 |     const frontmatter = data as MDXFrontmatter;
+  49 |
+  50 |     // Skip unpublished posts
+Export encountered an error on /sitemap.xml/route: /sitemap.xml, exiting the build.
+⨯ Next.js build worker exited with code: 1 and signal: null

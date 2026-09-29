@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-09-15T15:06:56.799Z",
+  "base": "http://127.0.0.1:4381",
+  "buildIdOnDisk": "LwI7Bi1TiWMTa25h2dNTr",
+  "results": [
+    {
+      "name": "root",
+      "path": "/",
+      "initialStatus": 200,
+      "redirectLocation": null,
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "אלעד יעקובוביץ"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 238273,
+      "pass": true
+    },
+    {
+      "name": "blog",
+      "path": "/blog",
+      "initialStatus": 308,
+      "redirectLocation": "/blog/",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "בלוג"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 130979,
+      "pass": true
+    },
+    {
+      "name": "projects",
+      "path": "/projects",
+      "initialStatus": 308,
+      "redirectLocation": "/projects/",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "פרויקטים"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 215879,
+      "pass": true
+    },
+    {
+      "name": "he-guide-base",
+      "path": "/guide",
+      "initialStatus": 308,
+      "redirectLocation": "/guide/",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "מצאו מדריך",
+        "מדריכים נמצאו"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 529610,
+      "pass": true
+    },
+    {
+      "name": "en-guide-base",
+      "path": "/en/guide",
+      "initialStatus": 308,
+      "redirectLocation": "/en/guide/",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "Find a guide",
+        "guides found"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 431980,
+      "pass": true
+    },
+    {
+      "name": "sitemap",
+      "path": "/sitemap.xml",
+      "initialStatus": 200,
+      "redirectLocation": null,
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "https://fullstack-eladjak.co.il/blog"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 15496,
+      "pass": true
+    },
+    {
+      "name": "he-guide-no-results",
+      "path": "/guide?q=zzzz-g01-benign-no-match-20260915",
+      "initialStatus": 308,
+      "redirectLocation": "/guide/?q=zzzz-g01-benign-no-match-20260915",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "לא נמצאו מדריכים מתאימים",
+        "הצג את כל המדריכים"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 128217,
+      "pass": true
+    },
+    {
+      "name": "he-guide-reset",
+      "path": "/guide",
+      "initialStatus": 308,
+      "redirectLocation": "/guide/",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "מצאו מדריך",
+        "מדריכים נמצאו"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 529610,
+      "pass": true
+    },
+    {
+      "name": "en-guide-no-results",
+      "path": "/en/guide?q=zzzz-g01-benign-no-match-20260915",
+      "initialStatus": 308,
+      "redirectLocation": "/en/guide/?q=zzzz-g01-benign-no-match-20260915",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "No matching guides found",
+        "Browse all guides"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 79543,
+      "pass": true
+    },
+    {
+      "name": "en-guide-reset",
+      "path": "/en/guide",
+      "initialStatus": 308,
+      "redirectLocation": "/en/guide/",
+      "finalStatus": 200,
+      "positiveMarkers": [
+        "Find a guide",
+        "guides found"
+      ],
+      "missingMarkers": [],
+      "bodyBytes": 431980,
+      "pass": true
+    }
+  ],
+  "passed": true
+}

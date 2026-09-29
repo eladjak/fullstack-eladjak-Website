@@ -1,0 +1,11 @@
+
+Running 3 tests using 1 worker
+
+
+
+
+
+[1A[2K[1/3] tests\guide-discovery\discovery.spec.ts:12:1 › Hebrew: keyboard search, category intersection, empty state and reset on mobile
+[1A[2K[2/3] tests\guide-discovery\discovery.spec.ts:38:1 › English: first repeated query wins, invalid category normalizes, no-match resets
+[1A[2K[3/3] tests\guide-discovery\discovery.spec.ts:56:1 › guide links and search remain usable with JavaScript disabled
+[1A[2K  3 passed (1.7m)

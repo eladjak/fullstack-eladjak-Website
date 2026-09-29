@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "stoppedAt": "2026-09-15T12:07:41.396Z",
+  "targetPid": 28080,
+  "ownedReceiptValidated": true,
+  "taskkill": {
+    "code": 0,
+    "signal": null,
+    "stdout": "SUCCESS: The process with PID 35924 (child process of PID 38392) has been terminated.\r\nSUCCESS: The process with PID 12872 (child process of PID 38392) has been terminated.\r\nSUCCESS: The process with PID 38392 (child process of PID 28080) has been terminated.\r\nSUCCESS: The process with PID 28080 (child process of PID 8360) has been terminated.\r\n",
+    "stderr": ""
+  }
+}

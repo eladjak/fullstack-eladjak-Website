@@ -263,6 +263,37 @@ async function readCuratedLabels() {
   return { labels, ids };
 }
 
+async function assertPreservedOutputFile() {
+  let stats;
+  try {
+    stats = await fs.lstat(OUTPUT_FILE);
+  } catch (error) {
+    throw new Error(
+      `Cannot preserve generated skills catalog: expected readable regular non-empty file at ${OUTPUT_FILE}; ${error.message}`,
+    );
+  }
+
+  if (!stats.isFile()) {
+    throw new Error(
+      `Cannot preserve generated skills catalog: expected a regular file at ${OUTPUT_FILE}.`,
+    );
+  }
+
+  if (stats.size === 0) {
+    throw new Error(
+      `Cannot preserve generated skills catalog: expected a non-empty file at ${OUTPUT_FILE}.`,
+    );
+  }
+
+  try {
+    await fs.readFile(OUTPUT_FILE, 'utf8');
+  } catch (error) {
+    throw new Error(
+      `Cannot preserve generated skills catalog: expected readable file at ${OUTPUT_FILE}; ${error.message}`,
+    );
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -345,6 +376,7 @@ async function main() {
     // CI environments (Vercel, GitHub Actions) don't have ~/.claude/skills.
     // The committed src/data/skills-universe-generated.ts already has the
     // last-known-good list — keep it and exit cleanly so the build proceeds.
+    await assertPreservedOutputFile();
     console.warn('No entries found. Paths tried:');
     console.warn(`  skills:   ${SKILLS_DIR}`);
     console.warn(`  commands: ${COMMANDS_DIR}`);

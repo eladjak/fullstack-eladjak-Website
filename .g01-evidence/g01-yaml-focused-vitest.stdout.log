@@ -1,0 +1,19 @@
+
+ RUN  v4.1.8 C:/Users/eladj/projects/portfolio-wt-renewal-guides-20260915
+
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > uses the first repeated URL field and handles empty fields 1ms
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > normalizes equivalent Unicode forms consistently 0ms
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > returns an explicit empty result for a missing term 1ms
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > normalizes search terms before matching 0ms
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > finds a guide by its localized name and respects the selected category 0ms
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > matches useful reference text, not only the title 0ms
+ ✓ src/lib/__tests__/guide-discovery.test.ts > guide discovery > does not treat an unknown category as a valid filter 0ms
+ ✓ src/lib/__tests__/mdx-yaml-engine.test.ts > MDX YAML v4 engine > preserves ordinary frontmatter through exported list and slug lookups 73ms
+ ✓ src/lib/__tests__/mdx-yaml-engine.test.ts > MDX YAML v4 engine > uses the explicit v4 engine even when the legacy default engine fails 5ms
+ ✓ src/lib/__tests__/mdx-yaml-engine.test.ts > MDX YAML v4 engine > rejects ordinary malformed YAML through exported parsing 3ms
+
+ Test Files  2 passed (2)
+      Tests  10 passed (10)
+   Start at  14:52:16
+   Duration  1.46s (transform 77ms, setup 266ms, import 47ms, tests 87ms, environment 2.07s)
+

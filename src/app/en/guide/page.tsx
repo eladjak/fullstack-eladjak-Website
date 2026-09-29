@@ -2,13 +2,35 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Sparkles, Bot, Server, Zap, Workflow } from "lucide-react";
+import {
+  GuideDiscoveryForm,
+  GuideNoResults,
+  type GuideDiscoveryCopy,
+} from "@/components/guide-discovery/GuideDiscoveryForm";
 import { allGuidesEn } from "@/data/agent-guides/en";
+import { filterGuides, firstGuideSearchParam, isGuideDiscoveryCategory } from "@/lib/guide-discovery";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://fullstack-eladjak.co.il";
 const GUIDE_INDEX_URL_EN = `${SITE_URL}/en/guide`;
 const GUIDE_INDEX_URL_HE = `${SITE_URL}/guide`;
 const GUIDE_INDEX_OG = `${SITE_URL}/images/og-default.jpg`;
+const ENGLISH_DISCOVERY_COPY: GuideDiscoveryCopy = {
+  title: "Find a guide",
+  searchLabel: "Search and filter guides",
+  searchPlaceholder: "Search by name, topic, or capability",
+  categoryLabel: "Guide type",
+  allCategories: "All guide types",
+  agents: "AI agents",
+  patterns: "Working patterns",
+  infrastructure: "Infrastructure",
+  submit: "Show results",
+  reset: "Reset",
+  resultCount: (count) => `${count} guides found`,
+  noResultsTitle: "No matching guides found",
+  noResultsDescription: "Try another search term or reset the filters to browse all reference guides.",
+  resetSearch: "Browse all guides",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -79,12 +101,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GuideIndexEn() {
-  const agentGuides = allGuidesEn.filter(
+export default async function GuideIndexEn({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[]; category?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const query = firstGuideSearchParam(params.q);
+  const rawCategory = firstGuideSearchParam(params.category);
+  const category = isGuideDiscoveryCategory(rawCategory) ? rawCategory : "all";
+  const visibleGuides = filterGuides(allGuidesEn, { query, category });
+  const agentGuides = visibleGuides.filter(
     (g) => (g.category ?? "agent") === "agent",
   );
-  const patternGuides = allGuidesEn.filter((g) => g.category === "pattern");
-  const infraGuides = allGuidesEn.filter((g) => g.category === "infra");
+  const patternGuides = visibleGuides.filter((g) => g.category === "pattern");
+  const infraGuides = visibleGuides.filter((g) => g.category === "infra");
 
   return (
     <main className="min-h-dvh bg-background" dir="ltr" lang="en">
@@ -111,9 +142,9 @@ export default function GuideIndexEn() {
             </span>
           </h1>
           <p className="scroll-fade text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
-            {allGuidesEn.length} practical guides covering a complete AI agent network + core
-            infrastructure. Not theory, real installation steps, tips from
-            daily use, and working code examples.
+            {allGuidesEn.length} practical reference guides for an AI agent network and
+            core infrastructure. They document examples, patterns, and installation
+            approaches; they are not a live status report or verification of every component.
           </p>
           <div className="mt-6 flex justify-center">
             <Link
@@ -141,8 +172,24 @@ export default function GuideIndexEn() {
         </div>
       </section>
 
+      <GuideDiscoveryForm
+        action="/en/guide"
+        query={query}
+        category={category}
+        resultCount={visibleGuides.length}
+        copy={ENGLISH_DISCOVERY_COPY}
+      />
+
+      {visibleGuides.length === 0 ? (
+        <GuideNoResults
+          action="/en/guide"
+          copy={ENGLISH_DISCOVERY_COPY}
+        />
+      ) : (
+        <>
+
       {/* Agents */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+      {agentGuides.length > 0 && <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         <div className="mb-8 flex items-center gap-3">
           <div className="size-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0">
             <Bot className="size-5 text-white" />
@@ -161,10 +208,10 @@ export default function GuideIndexEn() {
             <GuideCard key={guide.slug} guide={guide} variant="agent" />
           ))}
         </div>
-      </section>
+      </section>}
 
       {/* Patterns */}
-      <section id="patterns" className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+      {patternGuides.length > 0 && <section id="patterns" className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
         <div className="mb-8 flex items-center gap-3">
           <div className="size-10 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 flex items-center justify-center shrink-0">
             <Workflow className="size-5 text-white" />
@@ -183,10 +230,10 @@ export default function GuideIndexEn() {
             <GuideCard key={guide.slug} guide={guide} variant="pattern" />
           ))}
         </div>
-      </section>
+      </section>}
 
       {/* Infrastructure */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
+      {infraGuides.length > 0 && <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
         <div className="mb-8 mt-4 flex items-center gap-3">
           <div className="size-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shrink-0">
             <Server className="size-5 text-white" />
@@ -215,8 +262,8 @@ export default function GuideIndexEn() {
 
         <div className="mt-16 text-center">
           <p className="text-muted-foreground mb-4">
-            Need help deploying something similar? I run this exact
-            infrastructure in production 24/7.
+            Need help deploying something similar? We can choose the tools
+            and infrastructure that fit your needs.
           </p>
           <Link
             href="/contact"
@@ -226,7 +273,9 @@ export default function GuideIndexEn() {
             <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
-      </section>
+      </section>}
+        </>
+      )}
     </main>
   );
 }

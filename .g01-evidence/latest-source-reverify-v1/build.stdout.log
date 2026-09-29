@@ -1,0 +1,59 @@
+--- Skills generator ---
+Scanning skills:   C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\latest-source-reverify-v1\evidence-home\.claude\skills
+Scanning commands: C:\Users\eladj\projects\portfolio-wt-renewal-guides-20260915\.g01-evidence\latest-source-reverify-v1\evidence-home\.claude\commands
+Found 0 skills, 0 commands
+▲ Next.js 16.3.1 (Turbopack)
+✓ Running next.config.js took 40ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.1s
+  Running TypeScript ...
+  Finished TypeScript in 6.5s ...
+  Collecting page data using 19 workers ...
+  Generating static pages using 19 workers (0/103) ...
+  Generating static pages using 19 workers (25/103) 
+  Generating static pages using 19 workers (51/103) 
+  Generating static pages using 19 workers (77/103) 
+✓ Generating static pages using 19 workers (103/103) in 731ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /about
+├ ƒ /accessibility
+├ ƒ /api/blog/posts
+├ ƒ /api/chat-faq
+├ ƒ /api/contact
+├ ƒ /api/mcp/skills
+├ ƒ /api/newsletter/subscribe
+├ ƒ /api/sumit/business-brain-checkout
+├ ƒ /blog
+├ ƒ /blog/[slug]
+├ ƒ /claude-code
+├ ƒ /contact
+├ ƒ /en/claude-code
+├ ƒ /en/guide
+├ ƒ /en/guide/[slug]
+├ ƒ /en/methodology
+├ ƒ /feed.xml
+├ ƒ /guide
+├ ƒ /guide/[slug]
+├ ○ /icon.svg
+├ ƒ /methodology
+├ ƒ /opengraph-image
+├ ƒ /products/business-brain
+├ ƒ /products/business-brain/demo
+├ ƒ /projects
+├ ○ /robots.txt
+├ ƒ /services
+├ ○ /sitemap.xml
+├ ƒ /skills-universe
+└ ƒ /thanks
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
