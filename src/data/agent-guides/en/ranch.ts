@@ -23,12 +23,12 @@ export const ranchGuideEn: AgentGuideData = {
   tagline:
     "The agent that mines ideas from your conversations, repurposes each idea to every channel in your voice — and publishes only with approval",
   heroDescription:
-    "Most 'content agents' wait for you to ask them to write. Ranch does the opposite: he takes the initiative. He is male (he/his), chats on Telegram via @eladcontent_bot and in the 'Rebels' group, and does three things that turn a pile of conversations into a content factory: proactive idea mining (goes over conversation memory and finds worthy content ideas already said but never written), per-channel repurposing (takes one idea and turns it into N versions, each tailored to its channel, in Elad's voice and amlak-first — a TL;DR at the top), and scheduled publishing. But publishing itself is blocked behind a Firewall — Ranch prepares and proposes, but a post goes out only after human approval. Mind the division of labor: Ranch writes the copy; [Hermes](/en/guide/hermes) supplies him the media and illustrations. For me (Elad) Ranch is the difference between 'I have tons of ideas that vanish' and 'my ideas automatically become content on every channel'. For you — it's the pattern that turns every conversation into a content source, without losing your personal voice and without publishing anything you didn't approve.",
+    "Ranch is a content agent described as a way to turn ideas from conversations into material a person can edit and publish. Idea mining means revisiting conversation material to find points worth developing, while repurposing means adapting one idea to different formats; a TL;DR is a short summary at the start of a piece. Ranch writes the copy, [Hermes](/en/guide/hermes) can help with media and illustrations, and [Kaylee](/en/guide/kaylee) has a separate infrastructure role. In my setup (Elad), the emphasis is on keeping a personal voice while preparing ideas for editing. You could adapt the same pattern for posts, articles, or product updates, with human approval before publishing through the [autonomy stack](/en/guide/autonomy), a set of rules for which actions require approval.",
   badgeText: "2026 · Content Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/ranch",
   heroBgImage: "/images/guides/guide-ranch-hero.jpg",
   stats: [
-    { label: "Idea mining", value: "Proactive" },
+    { label: "Idea mining", value: "When configured" },
     { label: "Repurposing", value: "Per-channel" },
     { label: "Publishing", value: "Human OK" },
     { label: "Voice", value: "Elad · TL;DR" },
@@ -39,7 +39,7 @@ export const ranchGuideEn: AgentGuideData = {
   paradigmShifts: [
     {
       before: "Content ideas get said in conversation and vanish forever",
-      after: "Ranch mines them automatically from conversation memory and surfaces the worthy ones",
+      after: "A configured workflow can mine approved sources and surface candidate ideas",
       icon: Lightbulb,
     },
     {
@@ -103,14 +103,14 @@ export const ranchGuideEn: AgentGuideData = {
       title: "What is Ranch?",
       subtitle: "The content agent that takes initiative — mines ideas, repurposes per channel, publishes with approval",
       description:
-        "Ranch is the network's content specialist — and the key word is proactive. While most content agents wait for a request, Ranch actively goes over conversation memory, finds content ideas already said, and turns them into per-channel versions. He doesn't write 'generically' — he writes in Elad's voice, amlak-first (a TL;DR at the top of every text, mandatory for an Israeli audience). The division of labor is clear: Ranch writes the copy; [Hermes](/en/guide/hermes) supplies the media and illustrations; publishing itself goes through a Firewall. He depends on [Hermes](/en/guide/hermes) for media, [Kaylee](/en/guide/kaylee) for infra, and [Claude Code](/en/claude-code) for doc/link ingest.",
+        "This guide presents Ranch as a content-agent design, not a claim that a live workflow is connected. If configured, it can review explicitly approved sources, propose content ideas, and adapt drafts per channel. A voice guide and amlak-first summaries can be supplied as editorial settings; publishing integrations and any approval gate must be configured and tested separately. Optional dependencies include [Hermes](/en/guide/hermes) for media, [Kaylee](/en/guide/kaylee) for infrastructure, and [Claude Code](/en/claude-code) for document/link intake.",
       color: "from-indigo-600 to-violet-500",
       difficulty: "beginner",
       beginner:
-        "Think of a personal content editor sitting next to you in meetings. Instead of you having to remember 'oh, that's a good post idea', he jots down every interesting idea that comes up in conversation. Then he takes each such idea and turns it into several versions — a short post for Facebook, a thread for Twitter, an article for the blog — each in a style that fits the channel, and in your voice (not a robot voice). At the end he shows you everything and says 'ready to publish, approve?'. Ranch is exactly that editor, except he's an AI agent who never misses an idea and never tires.",
+        "Think of a content editor that can review selected notes or conversations when you provide access. It may suggest candidate ideas and draft channel-specific versions in a supplied voice. Coverage depends on the sources and schedule you configure, so it cannot promise to find every idea. Review drafts before external use, and connect publishing only with an explicit approval process.",
       content: [
         "Ranch is male (he/his) — the network's content agent, alongside Kami, Kaylee, Hermes, Aurora and Sailaco",
-        "Channel: Telegram @eladcontent_bot + the 'Rebels' group (an active bot in the group)",
+        "Possible channel in this design: Telegram or a dedicated group, depending on the connection and configuration",
         "Four responsibilities: content_propose (proposing ideas), content_repurpose (per-channel repurposing), publish (publishing), content_copy (copywriting)",
         "Division of labor: Ranch = copy/text; [Hermes](/en/guide/hermes) = media/illustrations. The copy belongs to Ranch, not Hermes",
         "Depends on [Hermes](/en/guide/hermes) (media), [Kaylee](/en/guide/kaylee) (infra), [Claude Code](/en/claude-code) (doc/link ingest)",
@@ -124,21 +124,21 @@ export const ranchGuideEn: AgentGuideData = {
     {
       id: "mining",
       icon: Lightbulb,
-      title: "Proactive idea mining — from conversations already had",
-      subtitle: "Ranch goes over conversation memory and finds worthy content ideas",
+      title: "Configured idea mining — from selected sources",
+      subtitle: "A workflow can review connected sources and suggest content ideas",
       description:
-        "The best source for content isn't 'what do we write today' but 'what have you already said'. Every conversation, decision or insight is a potential content idea — but most vanish. content_propose is Ranch's domain that mines that gold: he goes over [conversation memory](/en/guide/orchestration) (the knowledge hub / conversation-memory), finds worthy ideas (not noise, not a raw news digest — but a valuable angle), and proposes them as content items. That way 'I have an idea' doesn't depend on you remembering to write it down.",
+        "A configured content workflow can use selected sources, such as [conversation memory](/en/guide/orchestration), to suggest candidate ideas. Source access, filtering rules, and review cadence are implementation choices; this design does not establish that any live scan or proposal pipeline is running. Treat suggestions as drafts for human review.",
       color: "from-cyan-600 to-blue-500",
       difficulty: "intermediate",
       beginner:
-        "Imagine every interesting conversation you have is a little gold mine of ideas — but without mining, the gold stays in the ground. Ranch is the miner: he goes back over what was already said and looks for the moments worth turning into content. 'Wait, what you said there about X is a great post idea'. Instead of relying on your memory (which always forgets the best idea), Ranch goes over your conversations and extracts the gold — and offers it to you ready.",
+        "Selected meeting notes can be a possible source of content ideas. A configured workflow may look for useful angles and offer drafts, but it only sees authorized sources and may miss relevant material. Review each suggestion and decide whether to develop it.",
       content: [
         "Source: conversation memory / the [knowledge hub](/en/guide/orchestration) — what was already said, not an idea to invent from scratch",
         "Filtering for a worthy angle: Ranch doesn't propose every sentence — he looks for a valuable idea (angle, insight, story), not a raw digest",
-        "Proactive, not reactive: Ranch pushes content proposals on his own ('here are 3 ideas from this week') instead of waiting for a request",
+        "Optional cadence: a scheduled or requested review can produce proposals, if configured",
         "Every idea is a single idea with an ID and status — not 'just text', but an item trackable through the state machine",
         "Connects to [Claude Code](/en/claude-code): when an idea comes from a doc/link, the orchestrator ingests it and Ranch processes it",
-        "Proposals are shown in the 'Rebels' group / to Elad — he picks which ideas to advance to the repurposing step",
+        "Choose a private review surface and human owner; no particular group, bot, or account is assumed",
       ],
       tips: [
         "Initiative is a content agent's superpower. A tool that writes when asked saves time; an agent that spots ideas that would otherwise be forgotten is worth far more",
@@ -199,25 +199,25 @@ export const ranchGuideEn: AgentGuideData = {
       title: "Publish + Firewall — goes out only with approval",
       subtitle: "Ranch schedules and prepares; a post publishes only after a button click",
       description:
-        "All of Ranch's work — mining, repurposing, writing, scheduling — runs on its own. But the one action with an irreversible external consequence — publishing a post to the world — is blocked behind the [autonomy stack's Firewall](/en/guide/autonomy). A post goes out only after Elad approves it. This is critical: content published in your name is your brand, and an unapproved post (a factual error, the wrong tone, sensitive timing) can embarrass. Ranch brings everything up to the publish gate; the last step is taken by a human.",
+        "In this design, idea collection, adaptation, writing, and scheduling can be configured as preparation steps. Publishing has an external effect, so route it through the [autonomy stack's approval gate](/en/guide/autonomy) and require a person to review the post before it goes out. This protects the name and brand attached to published content. The guide describes this control pattern; it does not verify a live queue or publishing connection.",
       color: "from-rose-600 to-red-500",
       difficulty: "intermediate",
       beginner:
-        "Think of an editor who prepares your whole newspaper — writes, designs, lays it out — but you press the 'publish' button. Why? Because once something is published in your name, you can't take it back, and it represents you to everyone. Ranch's Firewall is exactly that 'publish' button: all the prep is automatic, but the moment content goes out to the world — that's where you approve. You review the draft, approve, and that's it. That way you get a content factory without losing control of what goes out in your name.",
+        "Think of an editor that prepares a draft while a person decides whether it is ready to publish. If you connect a publishing service, configure and test its approval gate first; this guide does not establish that a Firewall, queue, or automatic preparation is active.",
       content: [
-        "Safe actions (run on their own): mining, repurposing, writing, draft scheduling, idea proposals — no external consequence",
+        "Classify actions by their data access and effects; drafting is not automatically safe in every configuration",
         "Blocked action: publish — posting to the world, an irreversible move that represents the brand",
-        "The mechanism: a ready post enters the [approval queue](/en/guide/autonomy); Elad approves/rejects with a click in the dashboard or the bot",
-        "Cascading approval: approving an idea can approve all its variants at once; a targeted note targets a single variant",
-        "Scheduling vs publishing: Ranch can schedule (safe); the actual publish at the target time still passes the gate (or is explicitly pre-approved)",
-        "The same principle across the network: an action visible in the world (publish, send, payment) = firewall; an internal action = safe",
+        "If connected, test the [approval queue](/en/guide/autonomy), reviewer identity, and rejection path before publishing",
+        "Specify whether approval covers one draft or multiple variants; do not assume approval cascades",
+        "Scheduling and publishing are separate capabilities; verify the connected service and its gate at the scheduled time",
+        "Use least privilege and explicit gates for external effects; internal processing still needs privacy and access controls",
       ],
       tips: [
         "Publishing is exactly the kind of action the Firewall was built for: irreversible, world-visible, and brand-representing. Don't fully automate publishing 'to save a click'",
         "Make approval fast and from the phone. If approving every post is a headache, you'll be tempted to disable the gate — which is exactly the mistake it exists to prevent",
       ],
       codeExample: {
-        label: "Ranch's safety classification",
+        label: "Illustrative classification and approval-queue design — this code does not verify autonomous mining or an active queue; check access, permissions, and rejection in each implementation",
         code: 'SAFETY = {\n  "content_propose":   "safe",     # mining runs alone\n  "content_repurpose": "safe",     # repurposing is safe\n  "publish":           "firewall", # publishing waits for approval\n}\nif SAFETY[task.type] != "safe":\n    approvals.enqueue(task)          # Elad approves with a click',
       },
     },
@@ -231,13 +231,13 @@ export const ranchGuideEn: AgentGuideData = {
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       beginner:
-        "The golden rule returns: don't build the whole content agent on day one. Start with the simplest thing — an agent that goes over your conversations and proposes 'here are content ideas'. Only after that works, let it repurpose each idea to every channel in your voice. And only at the end, when you trust the quality, wire in publishing — but always behind approval. For me (Elad) Ranch started as a simple idea-proposer and gradually became a full content factory. Auto-publishing behind a gate is the last thing, not the first.",
+        "Start with manually supplied ideas and drafts. If you later connect selected sources, verify access scope and suggestions. Add channel adaptations next, then consider publishing only after a human approval path has been configured and tested. These are rollout steps for a design, not a personal history or report of current operation.",
       content: [
         "Step 1 — idea mining: an agent that goes over conversation memory and proposes worthy content ideas. That's the first component",
         "Step 2 — Elad's voice + amlak: as ideas mature, add writing in the personal voice with amlak-first and AI-tell removal",
         "Step 3 — per-channel repurposing: one idea → N versions, each tailored to its channel (never the same text)",
         "Step 4 — publishing behind a Firewall: only when you trust the quality, wire publish — always via the [approval queue](/en/guide/autonomy)",
-        "Infra: an endpoint in the [autonomy stack](/en/guide/autonomy), a Telegram bot, depends on [Hermes](/en/guide/hermes) (media) + [Kaylee](/en/guide/kaylee) (infra)",
+        "Infrastructure: choose and verify any channel, endpoint, and [Hermes](/en/guide/hermes) or [Kaylee](/en/guide/kaylee) integrations you actually need",
         "Coordination: the delegation matrix ([network protocol](/en/guide/orchestration)) decides that content/copy→Ranch, media→Hermes",
       ],
       tips: [
@@ -286,7 +286,7 @@ export const ranchGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Turn every idea into content on every channel — in your voice, with your approval",
   ctaSub:
-    "Proactive idea mining, per-channel repurposing, writing in Elad's voice with amlak-first. Publishing always behind human approval.",
+    "A configurable content workflow for candidate ideas, channel-specific drafts, and optional publishing with a tested human approval gate.",
   primaryCta: {
     label: "Start with orchestration",
     href: "/en/guide/orchestration",
@@ -298,5 +298,5 @@ export const ranchGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "I built Ranch because I realized lots of good ideas get said in conversations and simply vanish. The big lesson: a good content agent is proactive (mines ideas) not reactive (waits for a request), writes in my voice not a robot's, and publishing — which represents the brand — always stays behind approval.",
+    "Ranch illustrates a content-workflow design: selected sources can inform draft ideas, editorial settings can guide the voice, and any connected publishing step should have a clearly tested review policy.",
 };

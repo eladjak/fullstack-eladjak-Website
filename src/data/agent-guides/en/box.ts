@@ -26,7 +26,7 @@ export const boxGuideEn: AgentGuideData = {
   agentNameHe: "Box — Telegram Health Coach",
   category: "agent",
   logoImage: "/images/guide-logos/box-logo.png",
-  tagline: "A health app people actually use — because it lives in Telegram",
+  tagline: "A tracking-assistant pattern that can meet people in the chat they already use",
   heroDescription:
     "Box is a personal Telegram-based tracking and coaching assistant built from Elad's system. Its purpose is simple: collect short updates in a conversation, use [Claude Code](/en/claude-code) to process them, and keep long-term context in [Qdrant](/en/guide/qdrant), a store that can find information by meaning rather than by exact wording alone. You write naturally and the information stays readable; ICS is a standard calendar file, and this guide explains how you can add it to your own calendar to keep reminders in one place. In my setup (Elad), Box is intended to turn short updates into organized follow-up. In your setup, you could adapt the same pattern to track sleep, running, habits, learning, or any measurable personal goal without turning the conversation into a complicated system.",
   badgeText: "2026 · Health Coach AI · Practical Guide",
@@ -113,15 +113,15 @@ export const boxGuideEn: AgentGuideData = {
       color: "from-rose-600 to-pink-500",
       difficulty: "beginner",
       beginner:
-        "Think of it as a digital journal with a brain. You write \"I ate a burrito\" in Telegram — Box understands it's a meal, estimates calories and protein, stores it in an internal record, and at the end of the week sends you a short summary. No app, no signup, no buttons. In my own ([Elad](/contact)) setup it accompanies a weight-loss and strength program, but in your setup it can track sleep, running, study habits, or any other goal.",
+        "Think of a digital journal that helps organize short updates. Once chat access and the appropriate permissions are connected, you can build a workflow that saves a message such as 'I practiced guitar for twenty minutes' and prepares a summary from the collected records. In your setup, the same pattern could track learning, practice, or another personal goal. Storage, summaries, and delivery frequency depend on configuration and verification of the implementation.",
       content: [
-        "What is live in my setup today — proactive check-ins (version 2): Box reaches out to me on Telegram at set times with a short question ('what did you eat? how did you sleep?'), gets a free-form answer, and stores it. Simple, consistent — and that is what actually builds a streak over time.",
+        "One possible pattern is a proactive check-in — a short message asking about progress — at times configured in advance. Box can accept a free-form reply and save it as a record; the questions and schedule are configuration choices, and this example is not proof of an active schedule.",
         "In the full pattern, Box is an endpoint on the [Delegator](/en/guide/delegator) — the central API layer every agent in the network speaks through. In other words, Box isn't a separate server but a capability that plugs into an existing stack.",
         "Communication (in the full pattern): an intake endpoint accepting simple JSON ({text, source}) → parsing with Gemini 2.5 Flash (Google's free model, which handles Hebrew beautifully) → write to intake.jsonl (a plain text file where each line is one event).",
         "The response you get back: {ok, summary, next_step, calories_estimate, macros} — meaning \"got it, here's the summary, and here's what to do next.\"",
         "state.json — Box's brain. A single JSON file holding the entire context: phase (intake/active/maintenance), weight goal, protocol (keto/16:8/calorie deficit), window start time. It's loaded on every interaction so Box never forgets who you are.",
-        "Calendar feed: the /box/calendar.ics endpoint — ICS is the standard calendar format (the one Google Calendar and Apple Calendar read). Box generates a live file with 7 days of eating windows ahead, and you subscribe to it once from your phone.",
-        "Dashboard: /coach/dashboard — a simple HTML page showing the current state, the last 10 intakes, and the weekly trend. It's a window into the state, not a management tool.",
+        "Calendar feed: you can add an endpoint that returns an ICS file, a calendar format Google Calendar and Apple Calendar can read. If connected, it could show eating windows calculated from the settings; this guide does not verify a live endpoint or updates.",
+        "Dashboard: you can build an HTML page to show state, recent intake records, and trends. This is a display concept; its address, current data, and availability depend on the connection and permissions.",
         "Long-term memory sits in [Qdrant](/en/guide/qdrant) — a vector database that enables semantic search. After three months you can ask \"when did I feel best?\" and Box finds the right matches, not by exact word but by meaning.",
       ],
       tips: [
@@ -139,7 +139,7 @@ export const boxGuideEn: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       beginner:
-        "Simple free-form writing: \"morning — protein shake, egg, black coffee\" — Box understands it's a meal, estimates macros, and saves it with a timestamp. \"Feeling bloated\" — Box stores this as a symptom, separately from the food, so later we can check whether there's a correlation. There's no fixed format and no mistakes — the model handles almost any phrasing.",
+        "You can write a free-form update such as 'morning: a twenty-minute walk'. In a workflow configured for it, a language model can suggest a category and save the text with a timestamp. Ambiguous wording may be misinterpreted; show the interpretation for review and allow corrections. Free-form input can make reporting easier, but it does not guarantee accurate understanding",
       content: [
         "Automatic classification: every incoming message is categorized into one of five types — meal, symptom, weight, activity, fasting (window). The LLM does this transparently, without you having to choose.",
         "Internal format stored: {ts, text, type, classified, macros?, notes?} — timestamp, the original text, the type, what the AI understood, and any notes. Nothing is lost — both the raw text and its interpretation are kept.",
@@ -168,7 +168,7 @@ export const boxGuideEn: AgentGuideData = {
       content: [
         "Location: a state.json file in Box's data folder on the server — a single, simple JSON file. You can open it in a text editor, read it, and edit it by hand. Fully transparent — no black box.",
         "Core fields: phase (intake/active/maintenance), protocol (keto/if/deficit), weight_start, weight_target, fast_start_hour. A minimal schema keeps the state easy to understand and maintain.",
-        "Automatic updates: every weight intake updates progress; every protocol change is reflected immediately. No need to remember to \"save\" — the state is live.",
+        "In an implementation, a weight intake or protocol change can update the saved state. The write path, persistence, and timing depend on the application; this guide does not verify a live state service.",
         "phase=intake: the initial data-collection stage. Box doesn't suggest steps yet — it's just learning your patterns. Typical length: one or two weeks. This is also the first-use phase, where Box focuses on observation rather than intervention.",
         "phase=active: the working phase. There's a protocol, there's a goal, Box reminds you about windows, calculates macros, and gives daily next steps.",
         "phase=maintenance: after you reach the goal. Box shifts to maintenance mode — fewer instructions, more monitoring, and alerts only when there's a significant deviation.",
@@ -185,18 +185,18 @@ export const boxGuideEn: AgentGuideData = {
       title: "ICS calendar — 16:8 windows inside Google Calendar",
       subtitle: "Subscribe once and see your eating windows on your phone forever",
       description:
-        "ICS is the standard file format for calendars — exactly what Google Calendar, Apple Calendar, and Outlook know how to read. Box exposes an endpoint that returns a live ICS file (always up to date), and you subscribe to it like subscribing to a podcast. The result: your fasting and eating windows appear in the calendar you already use, without another app.",
+        "ICS is a standard calendar-file format that Google Calendar, Apple Calendar, and Outlook can read. The design can provide a URL that returns an ICS file and let you subscribe to it like a calendar feed. If the connection exists and updates, it can show fasting and eating windows in the calendar you already use; this description does not verify a live endpoint.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       beginner:
-        "Think of it as \"subscribing to a calendar channel.\" You hand Google Calendar one Box URL and it syncs automatically every few minutes. The windows — when you can eat and when you fast — show up on your phone, laptop, and any device signed into the same Google account. If I change the start time in chat with Box, the calendar updates within a few minutes — you don't have to touch anything.",
+        "Think of it as subscribing to a calendar channel: if a valid endpoint is implemented and connected to Google Calendar, the calendar can fetch events on the provider's refresh schedule. Whether eating and fasting windows appear depends on what the endpoint returns, and Box changes appear only after they are saved and available to fetch. This guide does not verify an active endpoint or a specific sync interval.",
       content: [
-        "The endpoint: GET /box/calendar.ics on the server — returns text in VCALENDAR format (the standard text format for calendars). You can open it in a browser, see how it looks, and download it.",
+        "Example endpoint: GET /box/calendar.ics could return text in VCALENDAR format, the standard text format for calendars. If you implement an address like this, you can open it in a browser and inspect the output.",
         "What's in the events: each event is a \"16:8 eating window\" — it begins at fast_start_hour + 16 hours of fasting, and lasts 8 hours for eating. The times are set dynamically from Box's state.",
-        "7 events ahead on every call — when the calendar syncs again tomorrow, there will be 7 new ones. There's no \"end\" to the calendar; it keeps producing the next one continuously.",
-        "How to add it in Google: Calendar → Other calendars → From URL → paste the URL. In Apple Calendar: File → New Calendar Subscription. It's a one-time action.",
-        "Typical sync time: 5–15 minutes. Google checks the URL on its own cadence; you can't force an instant refresh, but in practice it's excellent for daily reminders.",
-        "In my own setup ([Elad](/contact)) this is essential because I stay quiet on Shabbat and holidays — the calendar automatically skips those days (see [Adopter](/en/guide/adopter) and the Shabbat-awareness principle that runs across every agent in the network).",
+        "A design could return a limited number of future events on each request. The quantity and update behavior depend on the implementation and the calendar provider's sync schedule.",
+        "To connect an implemented endpoint in Google, use Calendar → Other calendars → From URL → paste the URL. In Apple Calendar, use File → New Calendar Subscription. The calendar subscription and returned events must be tested after setup.",
+        "Refresh cadence: the calendar provider decides when it fetches the URL. Do not rely on an immediate update or a fixed interval; check provider behavior before using the calendar for time-sensitive reminders.",
+        "A schedule can be designed to exclude Shabbat or holidays if the calendar logic and source data are configured. That behavior is not verified here; see [Adopter](/en/guide/adopter) for a related design consideration.",
       ],
       codeExample: {
         label: "VCALENDAR example",
@@ -245,7 +245,7 @@ export const boxGuideEn: AgentGuideData = {
         "Shabbat awareness: on Israeli Shabbat and holidays Box goes quiet automatically — no reports, no reminders. This principle runs across every agent in my network (see [Kami](/en/guide/kami) and [Kaylee](/en/guide/kaylee), which behave the same way).",
         "Multi-user: state is keyed by user_id, so you can run one Box for multiple people (coaches, dietitians, therapists). Each client gets their own state, privacy is preserved, and you maintain a single codebase.",
         "Export: GET /coach/state returns the full state as JSON. Simple backup: a cron job that copies the file to Box.com or Google Drive every night. Exporting to another format (CSV/Excel) is trivial from JSON.",
-        "Monitoring: the [Dashboard](/en/guide/dashboard) shows Box's health alongside the rest of the agents — so you see immediately if intakes aren't coming in or if state.json isn't being updated.",
+        "Monitoring: you can connect a [Dashboard](/en/guide/dashboard) to display health and missing intake metrics if you implement it; this guide does not verify an active Box dashboard.",
       ],
       tips: [
         "The thing that helped me most: writing in short bullets. \"Morning: 3 eggs, toast, coffee\" — Box processes it fast and replies instantly. Long sentences work too, but they cost more tokens and the response is slower.",
@@ -305,5 +305,5 @@ export const boxGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Box is built as a coach-agent pattern for any personal goal: health, habit change, sleep, learning, finance. The version live in my setup today focuses on proactive check-ins in Telegram — the chat where I already live, with no new app to abandon after a week. This guide presents the architecture and pattern so you can adapt it to any coaching use case in your organization or personal life.",
+    "Box is described as a coach-agent pattern — an agent that collects updates and supports progress toward a personal goal — that can be adapted for learning, sleep, habits, or other goals. A proactive check-in is a short follow-up message in a configured channel, such as chat; you can add response storage and a progress view. This guide explains the architecture and options without claiming that a specific schedule, channel, or endpoint is active today.",
 };

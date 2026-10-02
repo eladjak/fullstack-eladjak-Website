@@ -28,14 +28,14 @@ export const kayleeGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/kaylee-logo.png",
   tagline: "Who watches your server at 3 AM? An AI agent that never sleeps",
   heroDescription:
-    "Kaylee is the autonomous AI agent that keeps my entire agent network alive — around the clock, every day, without a break. Under the hood she runs on OpenClaw, a framework that has recently taken the agent world by storm: an AI agent that can perform almost any action you ask of it on a Linux server (start services, inspect logs, fix configuration, even edit source code) entirely on its own. OpenClaw pairs with Gemini Flash (Google's free tier) for reasoning, and ships with full access to the critical pieces of a host: containers (via [Docker](/en/guide/docker)), system services (systemd), and the file system. That power is also its risk — it fires a lot of parallel requests at the model, so unconstrained use can get expensive fast. The fix is to set boundaries up front: an allowlist of permitted actions, protected paths, and budget guards. In my setup Kaylee speaks over Telegram (the @kylie_elad_bot), watches ten services at once, and only wakes me when she genuinely doesn't know what to do. For you she can replace on-call rotation, tidy up log noise automatically, or act as a general maintenance agent for any server environment that needs to stay stable.",
+    "Kaylee is a server-maintenance agent designed to help Elad inspect incidents and prepare repair actions. The guide describes her with OpenClaw, an agent framework, plus [Docker](/en/guide/docker), which isolates software in separate services, and systemd, the Linux service manager that runs programs in the background. Tools like these can read system logs and run commands, so an operator sets an allowlist of permitted actions and protected paths first; the AI model interprets requests and suggests a next step, while its ability to act depends on the permissions granted. In my setup (Elad), Kaylee illustrates an infrastructure-monitoring role that hands difficult cases to a person, alongside [Kami](/en/guide/kami) for conversation and [Aurora](/en/guide/aurora) for audits. You could adapt the same pattern for an operations team, with clear limits on what it may inspect and what needs human approval.",
   badgeText: "2026 · Monitoring + Self-Healing · Hands-On Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/kaylee",
   heroBgImage: "/images/guides/guide-kaylee-hero.jpg",
   videoUrl: "/videos/guides/kaylee.mp4",
   stats: [
     { label: "Automated checks", value: "5m" },
-    { label: "Self-healing cycle", value: "10m" },
+    { label: "Self-healing cycle", value: "By configuration" },
     { label: "Active tools", value: "50+" },
     { label: "Mean diagnosis time", value: "<3s" },
   ],
@@ -114,10 +114,10 @@ export const kayleeGuideEn: AgentGuideData = {
       color: "from-emerald-600 to-teal-500",
       difficulty: "beginner",
       beginner:
-        "Think of Kaylee as a teammate glued to a screen 24/7, quietly handling every small server hiccup — no complaints, no sleep, no salary. You tell her in plain language 'check on delegator', and she actually runs the right commands, reads the logs, and reports back with what she found. If the issue is simple, she also fixes it and tells you 'handled'.",
+        "Think of Kaylee as an operations teammate that can be configured to check selected services, read their logs, and report what it finds. If an incident matches a permitted repair, the design can let her try that action and verify the result; more sensitive cases stay with a person. The exact checks and permissions depend on the server setup.",
       content: [
         "The engine: [OpenClaw](https://github.com/openclaw/agent) — an agent platform built on the Claude Agent SDK (the same kit that powers [Claude Code](/en/claude-code))",
-        "The brain: [Gemini 2.5 Flash](https://ai.google.dev) by default — fully free up to several thousand requests per day. Swap it for any model you like (Claude Sonnet, GPT-4, a local Ollama — all via one config line)",
+        "The model layer: [Gemini API](https://ai.google.dev) is one option for connecting a language model. Model choice, availability, quotas, and cost depend on your account and the provider's terms; check them before connecting. An alternative model needs interface adaptation and verification of the capabilities you require",
         "System access: shell (bash), Docker CLI, systemd, file read/write — everything gated through an allowlist so she can't escalate her own privileges",
         "User interface: a Telegram bot (mine is @kylie_elad_bot) — you just message her and get a reply. She also has a dedicated webhook (port 3500 in my setup) through which other agents in the network send her messages",
         "Network chatter: she receives messages from the [Delegator](/en/guide/delegator) (the central API gateway) and from [Kami](/en/guide/kami) (when he relays a WhatsApp request from me), forming a loop of agents that help each other",
@@ -144,7 +144,7 @@ export const kayleeGuideEn: AgentGuideData = {
         "docker-compose.yml is the main config file (the one that tells [Docker](/en/guide/docker) how to bring the container up) — it already exists in the repo and defines the container plus the volumes (folders shared between container and host) you'll use",
         "SYSTEM_OVERRIDE.md is Kaylee's persona-and-rules file — what she's allowed to do, how she speaks, and what's off limits. This is where I define her customized behavior",
         "CLAUDE.md is the file that explains your project to Kaylee — the stack, which services run, and project conventions. It's re-read on every message, so you can tweak her behavior on the fly",
-        "Environment variables: GEMINI_API_KEY (a free key from ai.google.dev), TELEGRAM_BOT_TOKEN (from your bot), and DELEGATOR_URL (the central API gateway, if you're running one — see the [Delegator guide](/en/guide/delegator))",
+        "Environment variables are configuration values the application reads at startup: GEMINI_API_KEY (an access key from ai.google.dev; usage is subject to account and provider terms), TELEGRAM_BOT_TOKEN (from your bot), and DELEGATOR_URL (the central API gateway, if you're running one — see the [Delegator guide](/en/guide/delegator))",
         "Run it: docker-compose up -d brings the container up in the background — within thirty seconds she's online and answering your first Telegram messages",
       ],
       codeExample: {
@@ -152,7 +152,7 @@ export const kayleeGuideEn: AgentGuideData = {
         code: 'services:\n  openclaw:\n    image: openclaw/agent:latest\n    volumes:\n      - /opt/openclaw/data:/home/node/.openclaw\n    environment:\n      - GEMINI_API_KEY=${GEMINI_API_KEY}\n      - TELEGRAM_BOT_TOKEN=${TG_TOKEN}\n    ports: ["18789:3000"]\n    restart: unless-stopped',
       },
       tips: [
-        "A true security story: in early versions I mounted /var/run/docker.sock (the Docker socket — effectively the remote control for [Docker](/en/guide/docker) on the host) into Kaylee's container, which gave her full authority over every other container on the box. Powerful — but dangerous: a compromised agent with docker.sock equals a takeover of the whole server. I eventually removed that mount deliberately as part of a security hardening pass. The lesson: give an agent only the power it truly needs, and configure a strict Telegram allowlist that defines exactly who is allowed to send it instructions",
+        "Security principle: mounting /var/run/docker.sock (the control interface for host [Docker](/en/guide/docker)) can grant an agent broad authority over the server. Avoid it unless essential; give the agent only the permissions it needs, restrict who can invoke it, and require human approval for sensitive actions.",
         "Keep her state in its own folder (I use /opt/openclaw/data). That way, even if you bump the container image later, her memory and history stay intact",
       ],
     },
@@ -187,24 +187,24 @@ export const kayleeGuideEn: AgentGuideData = {
       title: "Scheduled monitoring — heartbeat + health + cleanup",
       subtitle: "Three layers of background surveillance",
       description:
-        "Scheduled monitoring is a set of jobs that run on a fixed cadence in the background — without anyone having to ask. On Linux this happens via cron (the veteran scheduling system). In my setup these jobs run at the network level — they are not part of Kaylee herself, but independent scripts that Kaylee is one consumer of: when something falls over, she is the one who gets the alert and can investigate and act. That combination turns her from 'someone who answers when asked' into an agent that proactively looks after the server.",
+        "Scheduled monitoring is a design for background jobs that run on a chosen cadence; on Linux, cron is one scheduling option. The jobs, intervals, permissions, reporting destination, and Kaylee's connection to them must be configured and tested separately. This section presents design options; it does not verify active jobs or monitoring of a particular server.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "intermediate",
       beginner:
-        "Picture a security guard on three patrol loops: a short one every five minutes that confirms everyone's in their rooms, a medium loop every ten minutes that checks what's broken and fixes it, and a daily loop that covers general cleanliness. Each loop catches different problems — together they make sure nothing slips through the cracks.",
+        "The examples in this section are a possible monitoring configuration, not a description of active jobs: you can define periodic checks, status summaries, or scheduled cleanup when the infrastructure and permissions support them. Set and test the cadence, reporting channels, and repair actions separately in your environment.",
       content: [
-        "heartbeat cron every 5 minutes — runs a health check against the agents in the network and writes the result to the agent_status collection in [Qdrant](/en/guide/qdrant). That's what lets the [Dashboard](/en/guide/dashboard) show a live view of the entire network",
-        "self-heal cron every 10 minutes — an independent script that detects a fallen service and automatically attempts to bring it back (up to three tries) before escalating — to Kaylee or to a human",
-        "automatic monitoring reports — a sweep of journalctl (the systemd log system) for anomalies, summarizing them and posting short alerts to the [Dashboard](/en/guide/dashboard)",
-        "08:00 morning report — a daily health summary: disk usage, RAM usage, CPU load, and how many containers are healthy. Delivered straight to the user's Telegram",
-        "22:00 evening cleanup — runs /tmp tidying (the temporary file folder), docker prune (removing unused images), and log rotation (swapping full log files for fresh ones)",
+        "Configuration example: a heartbeat (periodic health check) can write results to agent_status in [Qdrant](/en/guide/qdrant) if connected; a [Dashboard](/en/guide/dashboard) view requires its own implementation and connection",
+        "Configuration example: a self-heal process can detect an unavailable service and attempt a defined recovery action, with retry limits and escalation conditions set in advance. Example numbers do not describe an active system",
+        "Monitoring reports can be configured to scan journalctl (systemd's log system) and surface unusual events; posting them to a [Dashboard](/en/guide/dashboard) depends on an implemented connection",
+        "Schedule example: a morning report at a chosen time can summarize disk, memory, load, and containers and send it through a selected channel if the alert connection is configured and tested",
+        "You can schedule maintenance such as log rotation or temporary-file cleanup. Do not run deletion or docker prune by default: define paths, retention, checks, and explicit approval for actions that could remove data",
       ],
       tips: [
         "All the crons are short, readable bash scripts — adding a new job or changing a cadence takes minutes, no deep refactor required",
-        "If a cron job itself crashes, it will come back within five minutes via the heartbeat — the system knows how to heal its own safety net",
+        "One possible pattern is an independent check for failed scheduled jobs and an alert; automatic recovery requires a separate mechanism that is configured and tested, and is not guaranteed by having a heartbeat",
       ],
       codeExample: {
-        label: "Self-heal logic in a nutshell",
+        label: "Self-heal design example",
         code: 'for container in ${CRITICAL}; do\n  if ! docker ps | grep -q "$container"; then\n    docker restart $container || alert_kaylee "failed to restart $container"\n  fi\ndone',
       },
     },
@@ -214,18 +214,18 @@ export const kayleeGuideEn: AgentGuideData = {
       title: "Self-healing",
       subtitle: "Hermes-style — detect, diagnose, repair, verify",
       description:
-        "Self-healing is Kaylee's ability to spot a problem, diagnose it, attempt a fix, and then verify the fix actually worked — all without needing to wake anyone up. This is the same pattern that [Hermes](/en/guide/hermes) implements across the whole network: from the first detection to the final alert when the system truly gives up. In operations parlance, escalation means handing a problem to someone (or something) that knows more. In practice it means Kaylee only pages me after she has genuinely tried and proven she can't handle it alone.",
+        "Self-healing is a design pattern in which an agent detects a problem, checks it, attempts a limited repair, and verifies the result. Escalation means handing an issue to a person or another system when needed, if repair and alert steps are configured and tested. The examples here do not verify an active heartbeat, automatic repair, or alert path.",
       color: "from-rose-600 to-pink-500",
       difficulty: "advanced",
       beginner:
-        "Suppose one of [Kami](/en/guide/kami)'s services dies in the middle of the night. Kaylee notices within ten minutes (via the heartbeat), tries a restart, confirms the service is healthy again, and updates the [Dashboard](/en/guide/dashboard) with a short note: 'went down, recovered'. Only if three consecutive attempts fail will she page you directly on Telegram. In practice most small incidents resolve before you even realize there was one.",
+        "Configuration example: if a [Kami](/en/guide/kami) service stops responding, a scheduled check could detect it, attempt an approved restart, verify health, and escalate if the attempt fails. The check interval, retry count, repair action, [Dashboard](/en/guide/dashboard) update, and alert channel must be configured and tested; this guide does not establish that they are active.",
       content: [
-        "Detection — the 5-minute heartbeat spots a service that has stopped responding or is in a failure state",
+        "Detection: a configured periodic check can detect a service that stops responding or enters a failure state",
         "Diagnosis — Gemini reads the container's last 100 log lines (tail -100) and tries to explain what went wrong",
-        "Repair — Kaylee walks through the approved action list in order: restart, pull + up (fetch a fresh image and reconnect), rebuild, reset (full reset)",
-        "Verification — the crucial step: after the fix she actually confirms that the service is back to active and that the health endpoint (the URL you check to ask 'are you alive?') responds with 200 as expected",
-        "Escalation — if three consecutive attempts fail, she relays an alert via [Kami](/en/guide/kami) to my WhatsApp, with a summary of what she tried and how each attempt ended",
-        "Learning — every repair is written to the healing_history collection in [Qdrant](/en/guide/qdrant) with full metadata: which problem it was, which fix worked, how long it took",
+        "Repair: define an allowlist and order of actions. Start with limited, reversible steps; pull, rebuild, or reset can change or delete state and require appropriate review and approval",
+        "Verification: after an action, a configured check can confirm whether the service is healthy; a health endpoint reports availability, and its response meaning must be validated in your environment",
+        "Escalation: you can configure a failure threshold and alert channel, such as through [Kami](/en/guide/kami), after verifying the connection and recipient",
+        "Learning: if you build a repair log, retain only necessary information and define access and retention; a connection to a store such as [Qdrant](/en/guide/qdrant) is optional",
       ],
       tips: [
         "After a month or two in production she starts recognizing your server's specific failure patterns — repairs get faster because she pulls the fix that worked last time for a similar issue",
@@ -260,15 +260,15 @@ export const kayleeGuideEn: AgentGuideData = {
       id: "advanced",
       icon: Cpu,
       title: "Advanced tips",
-      subtitle: "What I learned after four months of daily use",
+      subtitle: "Options for configuring and checking an operations assistant",
       description:
-        "This section is the pile of nuances that separates 'I have a DevOps bot' from 'Kaylee is a genuine teammate'. These are things I (Elad) learned after four months of daily use on a real production server — tricks that multiplied her reliability, cut my model costs, and gave me tighter control over how she operates. For you, each one will save weeks of trial and error.",
+        "This section presents options for designing an operations assistant: dividing responsibilities, updating rules, using multiple servers, and providing a fallback when a dependency fails. Each option needs configuration and testing in your environment. These examples do not verify production use, improved reliability, or cost savings.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       beginner:
-        "This section is a collection of 'the small details' that separate 'I have a bot managing the server' from 'Kaylee is a genuine teammate'. These are things I (Elad) only learned after four months of daily use on a real server — each one boosted her reliability, saved me money, or gave me tighter control. There's no need to apply everything on day one; take what's relevant to you and come back to the rest as you grow into it. This part is more technical, but every line in it will save you weeks of trial and error.",
+        "Think of this as a list of options for improving your working environment. Start with one need: rules that are easy to update, consolidated reports, or handling a provider failure. Define the intended behavior and also check a case where the action fails. You can work gradually; the result depends on implementation, permissions, and your environment.",
       content: [
-        "Current role (my network, 2026): Kaylee focused into a Chief Reliability Officer — predictive infra health and self-healing, backups, cron-master, and security/access auditing — plus a Telegram distribution operator (pushing content to communities + community moderation). The principle: 24/7 reliability leverage, not 'another creative hand'.",
+        "A possible role for Kaylee in an agent network: infrastructure-health checks, backups, scheduled jobs, and permission reviews. Content distribution or community moderation could be added as separate capabilities, each requiring its own connection and authorization. The principle is to use her for operations, without assuming she runs around the clock.",
         "Division of labor (deliberate focus): content/asset generation and data-science moved to [Hermes](/en/guide/hermes) (studio/worker); ad-hoc development to [Claude Code](/en/claude-code). Kaylee keeps the environment stable and distributes — she doesn't dabble everywhere. Less turned out to be more for reliability.",
         "Hot-reloading SYSTEM_OVERRIDE.md — Kaylee re-reads the rules file on every incoming message, which means you can tweak her behavior on the fly without restarting the container",
         "Multi-VPS — you can run Kaylee instances on several servers in parallel and wire them together through the [Delegator](/en/guide/delegator) (the central API gateway), so each VPS is tended by a local Kaylee but all reports converge in one place",
@@ -322,7 +322,7 @@ export const kayleeGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Want DevOps that sleeps at night?",
   ctaSub:
-    "OpenClaw is open source, Gemini is free, and a VPS is cheap. In an hour, Kaylee is watching your back.",
+    "Start by defining and checking one task on your server. Model choice, infrastructure costs, and setup time depend on your environment and provider terms; active monitoring requires connection and verification.",
   primaryCta: {
     label: "Install OpenClaw",
     href: "https://github.com/openclaw/openclaw",
@@ -334,5 +334,5 @@ export const kayleeGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "Kaylee is the agent that keeps the rest of the network alive. She runs 24/7 on a single VPS watching ten services at once, self-heals known incidents, and only wakes a human when she genuinely doesn't know what to do. This guide lays out the architecture of an SRE agent you can adopt into any production stack — big or small.",
+    "Kaylee is an operations agent designed to help a team look after its services. The architecture in this guide describes monitoring a selected set of services, trying permitted repairs for known incidents, and escalating cases that need a person's decision. The number of services and the actions available depend on the infrastructure and permissions, so the pattern can be adapted to a small or large production stack.",
 };

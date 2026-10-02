@@ -13,7 +13,11 @@
     "services": "שירותים",
     "claudeCode": "Claude Code",
     "guides": "מדריכים",
-    "skillsUniverse": "יקום הכישורים"
+    "skillsUniverse": "יקום הכישורים",
+    "skipToMainContent": "דלג לתוכן הראשי",
+    "openMenu": "פתח תפריט",
+    "closeMenu": "סגור תפריט",
+    "mobileNavigation": "תפריט ניווט"
   },
   "hero": {
     "badge": "זמין לפרויקטים",

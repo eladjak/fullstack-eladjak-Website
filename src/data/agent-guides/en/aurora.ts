@@ -19,20 +19,20 @@ import type { AgentGuideData } from "@/components/agent-guide/types";
 export const auroraGuideEn: AgentGuideData = {
   slug: "aurora",
   agentName: "Aurora",
-  agentNameHe: "Aurora (Oracle) — the network's reflection agent",
+  agentNameHe: "Aurora — a review and reflection agent pattern",
   category: "pattern",
   tagline:
-    "The agent that weekly audits the network, finds what isn't working, and proposes a fix — before something crashes",
+    "A review-agent pattern for summarizing outcomes and suggesting what to inspect or improve",
   heroDescription:
-    "Most agent networks build agents that do — but no one checks whether they actually work. Aurora is the answer: the network's reflection agent (Oracle). She is female (she/her), chats on Telegram via @Oracle_elad_bot and in the 'Rebels' group, and does four things no doer-agent does: a weekly reflection (goes over the outcome ledger, flags any task type failing more than 30% of the time, and auto-enqueues a fix proposal to the approval queue), organizational-brain maintenance (brain_maintain — builds an index, finds gaps and duplicates, keeps the source of truth coherent), a map audit (map_audit — confirms what's declared in the system map actually exists and runs), and one iron rule: critique to optimize the existing first — deletion is a last resort, not a default. For me (Elad) Aurora is the difference between a network that silently degrades and one that maintains itself. For you — it's the agent every multi-agent network needs but no one builds: the one whose job is to audit all the others.",
-  badgeText: "2026 · Reflection & Oracle Agent · Practical Guide",
+    "Aurora is a review-agent pattern for agent systems. Oracle is described in the documentation as a model router; this guide presents a review pattern called Aurora and does not establish whether they are the same component. In the Aurora design, the reviewer compares an outcome ledger — reports about tasks that ran and how they ended — with a system map, a list of components meant to be available, and summarizes gaps for a person to inspect. You can configure rules to flag recurring task failures and prepare a fix proposal for review, alongside knowledge maintenance where an index is a lookup list that makes records easier to find. In my setup (Elad), Aurora illustrates a review pattern that recommends improving what exists before considering a larger change; conceptually she connects to the [autonomy stack](/en/guide/autonomy) and [orchestration layer](/en/guide/orchestration), which explain how work is assigned. You could use the same pattern to review automated processes and decide what needs human attention.",
+  badgeText: "2026 · Review and Reflection Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/aurora",
   heroBgImage: "/images/guides/guide-aurora-hero.jpg",
   stats: [
-    { label: "Cadence", value: "Weekly" },
-    { label: "Flag threshold", value: "Fail >30%" },
+    { label: "Cadence", value: "Configured" },
+    { label: "Flag threshold", value: "Adjustable" },
     { label: "Iron rule", value: "Improve before delete" },
-    { label: "Channel", value: "Telegram" },
+    { label: "Channel", value: "By connection" },
   ],
   paradigmTitle: "Who audits the auditors?",
   paradigmSub:
@@ -40,12 +40,12 @@ export const auroraGuideEn: AgentGuideData = {
   paradigmShifts: [
     {
       before: "Agents run for weeks, and no one knows which of them are actually failing",
-      after: "Aurora goes over the ledger weekly and highlights every task type failing over 30%",
+      after: "Aurora can review the ledger and flag recurring failure patterns",
       icon: Eye,
     },
     {
       before: "You spot a problem — then forget to fix it until it crashes",
-      after: "Aurora auto-enqueues a fix proposal (fix_proposal) to the approval queue",
+      after: "Aurora can prepare a fix proposal (fix_proposal) for review and approval",
       icon: Wrench,
     },
     {
@@ -70,7 +70,7 @@ export const auroraGuideEn: AgentGuideData = {
     {
       title: "Solo operators",
       description:
-        "Want to know what in the system isn't working — without digging through logs yourself? Aurora sends you a weekly health summary.",
+        "Want to know which processes need review without reading every activity log yourself? Aurora can summarize findings at an interval you configure.",
       icon: ClipboardCheck,
       color: "from-emerald-500 to-teal-500",
     },
@@ -105,14 +105,14 @@ export const auroraGuideEn: AgentGuideData = {
       title: "What is Aurora?",
       subtitle: "The network's reflection agent — her job is to audit all the rest",
       description:
-        "Aurora (Oracle) is the only agent in the network whose job isn't to 'do' but to audit. While [Hermes](/en/guide/hermes) works, [Kaylee](/en/guide/kaylee) maintains infrastructure and [Kami](/en/guide/kami) talks to Elad — Aurora goes over all of them and asks: what actually works here? She leans on two sources of truth: the outcome ledger (what ran and how it ended) and the system map (what's supposed to exist), and from the gap between them she produces constructive critique. Her guiding rule is critical: critique to improve the existing — not to delete. Deletion is a last resort.",
+        "Aurora is a review-agent pattern whose role is to inspect reported outcomes rather than carry out the underlying tasks. Oracle is described in the documentation as a model router; this guide does not establish whether it is the same component or whether its behavior belongs to Aurora. In the design, the reviewer compares an outcome ledger (what was reported as run and how it ended) with a system map (what is meant to exist), then produces findings for a person to inspect. The guiding rule is to improve what exists before considering deletion.",
       color: "from-indigo-600 to-violet-500",
       difficulty: "beginner",
       beginner:
         "Think of a good internal auditor in an organization. They're not the one producing the product — they're the one who goes over every department once a week and asks 'what works? what's stuck? what can be improved?'. Aurora is exactly that for the agent network: she doesn't do tasks herself, she checks whether everyone else is doing theirs properly. And importantly — she audits with a 'let's improve what we have' mindset, not 'let's delete'. Just like a good auditor whose goal is to help the organization improve, not to fire people.",
       content: [
-        "Aurora is female (she/her) — an Oracle figure in the network, alongside Kami, Kaylee, Box, Solis and Ranch",
-        "Channel: Telegram @Oracle_elad_bot + the 'Rebels' group (one of several agents in the network with an active bot in the group)",
+        "Aurora is female (she/her) and is described here as a review-agent pattern; Oracle is described as a model router, and this guide does not establish whether they are the same component",
+        "A reporting channel such as Telegram or a dedicated group can be connected, depending on configuration and permissions",
         "Five responsibilities: weekly_review (weekly reflection), reflection, brain_maintain (organizational-brain maintenance), map_audit, and the orchestrator brain — a recognize-route-execute-verify layer for every new request",
         "Two sources of truth: the outcome ledger (observed truth) and the system map (declared truth) — the gap between them is the raw material of the critique",
         "The iron rule: critique to OPTIMIZE existing first — deletion is a last resort, not a default",
@@ -127,9 +127,9 @@ export const auroraGuideEn: AgentGuideData = {
       id: "reflection",
       icon: ClipboardCheck,
       title: "Weekly reflection — what fails too often",
-      subtitle: "Goes over the outcome ledger, highlights every task type failing over 30%",
+      subtitle: "Reviews reported outcomes and can flag recurring failure patterns",
       description:
-        "Once a week Aurora does the thing no doer-agent does: she stops and looks back. She goes over the [outcome ledger](/en/guide/autonomy) — every task that ran this week and how it ended — and computes the failure rate for each task type. Any task type failing above a threshold (30% for me) is flagged. This isn't a statistic for the shelf: every flag becomes the input for the next step — a fix proposal.",
+        "In a configurable periodic review, Aurora can inspect the [outcome ledger](/en/guide/autonomy) — reports about tasks that ran and how they ended — and summarize patterns by task type. You can choose a threshold to flag recurring failures, then review those cases before proposing a change. The review interval, threshold, and ledger connection are deployment choices and are not verified here.",
       color: "from-cyan-600 to-blue-500",
       difficulty: "intermediate",
       beginner:
@@ -137,10 +137,10 @@ export const auroraGuideEn: AgentGuideData = {
       content: [
         "Input: the outcome ledger ({task_type, status, duration, cost, ts}) for the last week's window",
         "Computation: failure rate per task type — how many ran, how many passed verification, how many failed",
-        "Flag threshold: any task type failing above ~30% is flagged for handling (the threshold is tunable — a noisy system starts high)",
+        "Flag threshold: configure a rule for an unusually high failure rate, tuning it to the quality and volume of available data",
         "Looks at trends, not just points: a task type degrading week over week gets flagged even if still below threshold",
         "Every flag flows to the next step: Aurora doesn't just report 'failed' — she writes a structured fix proposal",
-        "Human output: a weekly health summary to the 'Rebels' group / to WhatsApp via [Kami](/en/guide/kami) — so Elad sees network state without digging through logs",
+        "Possible output: a person-readable summary, for example in a group or through [Kami](/en/guide/kami), if that connection is configured",
       ],
       tips: [
         "The failure threshold is a tuning knob, not a constant. In a new, noisy system start with a high threshold (50%) and lower it as the network stabilizes — otherwise you'll get flags on everything",
@@ -151,18 +151,18 @@ export const auroraGuideEn: AgentGuideData = {
       id: "fix-proposal",
       icon: Wrench,
       title: "Fix proposal — detects, diagnoses, proposes",
-      subtitle: "Every flag becomes a structured fix_proposal auto-enqueued to the approval queue",
+      subtitle: "A finding can become a structured fix_proposal for review",
       description:
-        "What turns Aurora from a reporting layer into an action layer is the fix proposal. When she detects a task type failing too often, she doesn't settle for 'it failed' — she tries to diagnose a root cause and writes a structured fix_proposal: the finding, the suspected cause, and the proposed fix. The proposal is auto-enqueued to the [autonomy stack's](/en/guide/autonomy) approval queue, and Elad approves or rejects it with a single click. Aurora detects and proposes; the human decides.",
+        "A fix proposal turns a finding into a plan a person can consider. It can record what was observed, the suspected cause, and a recommended change, then be sent to the [autonomy stack's](/en/guide/autonomy) approval queue if one is connected. A person reviews it and decides whether to accept or reject; Aurora should not make a change without explicit authorization. This guide presents the flow as a design pattern and does not verify a live queue or one-click approval.",
       color: "from-amber-600 to-orange-500",
       difficulty: "advanced",
       beginner:
         "The difference between a good auditor and a great one: the good one says 'there's a problem'. The great one says 'there's a problem, here's why I think it's happening, and here's what I'd fix'. Aurora is the second kind. When she finds something failing too often, she doesn't just flag it — she writes an orderly 'fix proposal' and sends it for approval. You just need to click 'yes' or 'no'. That way the critique doesn't stay on paper — it leads to action.",
       content: [
-        "Structure: {type:'fix_proposal', author:'oracle', finding, root_cause, proposed_fix, status:'pending_approval'}",
+        "Example structure: {type:'fix_proposal', author:'review_agent', finding, root_cause, proposed_fix, status:'pending_approval'}",
         "Root-cause diagnosis: not just 'income_scan failed' but 'income_scan failed 5/7 nights → suspected cause: gmail token expired → fix: refresh oauth'",
-        "Auto-enqueued to the [approval queue](/en/guide/autonomy) — Aurora doesn't apply a fix herself; she routes it through the Firewall",
-        "One-click approval: Elad approves/rejects via the dashboard or the bot; only then is the fix applied (or rejected)",
+        "If an approval queue is connected, the proposal can be sent there; an approval queue is a list where a person reviews actions before execution",
+        "Approval: explicitly define who reviews a proposal and what happens after acceptance or rejection; do not assume a live dashboard or bot",
         "At a higher tier (off by default): fixes of a known, safe type can move to automatic apply_remediation — but only per fault-type that has proven itself",
         "Feedback loop: an approved fix that worked feeds back into the ledger — so Aurora sees whether the problem was really resolved next week",
       ],
@@ -172,7 +172,7 @@ export const auroraGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "An Aurora fix proposal",
-        code: '{"type":"fix_proposal","author":"oracle",\n "finding":"content_repurpose failed 4/10 this week",\n "root_cause":"channel API rate-limit",\n "proposed_fix":"add backoff + spread schedule",\n "status":"pending_approval"}  # awaits Elad',
+        code: '{"type":"fix_proposal","author":"review_agent",\n "finding":"content_repurpose failed 4/10 this week",\n "root_cause":"channel API rate-limit",\n "proposed_fix":"add backoff + spread schedule",\n "status":"pending_approval"}  # illustrative design',
       },
     },
     {
@@ -214,13 +214,13 @@ export const auroraGuideEn: AgentGuideData = {
         "Comparison: every component in the system map against its appearances in the outcome ledger",
         "Shelfware signal: a component declared with no successful outcome → 'declared but not wired' (the most useful flag)",
         "no-map-no-route: the map audit supports the rule that you can't route a task to an undeclared component — it keeps the map honest",
-        "A daily (light) map check + a deeper weekly audit — combining high frequency for fast detection with depth for analysis",
-        "Audit results flow to the health summary and the approval queue (if a fix is needed)",
+        "You can schedule a light map check and a deeper review at different intervals to fit the system's change rate and resources",
+        "Audit results can be included in a summary or sent for human review if a suitable connection is configured",
         "Connects to [orchestration](/en/guide/orchestration): the map derives the delegation matrix, and the map audit keeps delegation grounded in reality",
       ],
       tips: [
         "The shelfware signal is the most valuable finding a reflection agent can produce. A component that 'exists on paper' but doesn't run is silent tech debt — Aurora makes it visible",
-        "Run a light map check daily and a deep audit weekly. High frequency catches problems fast; the weekly depth gives the big picture",
+        "Choose review intervals that fit the system's change rate; more frequent checks can surface gaps sooner but require resources",
       ],
     },
     {
@@ -259,18 +259,18 @@ export const auroraGuideEn: AgentGuideData = {
       title: "Integration — how to adopt a reflection agent yourself",
       subtitle: "Start with reflection-only, add fix proposals and maintenance gradually",
       description:
-        "As in every guide — don't build the full Aurora on day one. The order: first reflection-only (an agent that goes over the ledger and reports), then fix proposals (when reporting matures into action), and then brain maintenance and map audit (as the network and documentation grow). Aurora sits at the heart of the [autonomy stack](/en/guide/autonomy) as the first tier of self-healing, and above the [orchestration layer](/en/guide/orchestration) that supplies her sources of truth. She's the agent that turns a network that 'works' into one that 'improves'.",
+        "Do not build the full Aurora on day one. A suggested order is to start with reflection-only, add fix proposals after checking the reports, then add knowledge maintenance and map audits if the documentation grows. In the design, Aurora can fit into the [autonomy stack](/en/guide/autonomy) and [orchestration layer](/en/guide/orchestration), which provide rules and work assignment; verify each connection and role before enabling it.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "advanced",
       beginner:
-        "The golden rule returns: don't build the whole reflection agent on day one. Start with the simplest thing — an agent that once a week goes over what happened and reports 'here's what worked and here's what didn't'. Only after that stabilizes, let it also propose fixes. And only when your documentation truly grows — add memory maintenance. For me (Elad) Aurora started as a simple weekly report and gradually became the layer that maintains the whole network. Each capability came in only when the previous one had proven itself.",
+        "The golden rule: do not build the whole reflection agent on day one. Start with an agent that reviews outcomes at a chosen interval and reports what worked and what did not. After the reports are checked, you can add fix proposals; when documentation grows, you can add knowledge maintenance. This is a suggested implementation order, and each capability should be checked before expanding permissions.",
       content: [
-        "Step 1 — reflection-only: an agent that goes over the ledger weekly and reports what fails too often. That's the first component",
-        "Step 2 — fix proposals: as reporting matures, add root-cause diagnosis + a fix_proposal enqueued to the approval queue",
+        "Step 1 — reflection-only: an agent that reviews the ledger at a chosen interval and reports failure patterns for review",
+        "Step 2 — fix proposals: after checking the reports, add root-cause diagnosis and send a fix_proposal to a connected approval queue",
         "Step 3 — brain maintenance: as documentation/memory grows, add brain_maintain (index, duplicates, gaps)",
         "Step 4 — map audit: as the network grows, add map_audit to find 'declared-but-not-wired' components",
-        "Step 5 — the orchestrator brain: once several live executors exist, add the recognize-route-execute-verify layer (POST /ask) — and make sure the verified-artifact gate ships with it, not after it",
-        "Infra: Aurora is a component in the [autonomy stack](/en/guide/autonomy), reads from the [outcome ledger](/en/guide/autonomy) and the system map, and reports via [Kami](/en/guide/kami)/Telegram",
+        "Step 5 — the orchestrator brain: when several executors are connected, add a recognize-route-execute-verify layer (POST /ask) with a check that the requested artifact was actually created",
+        "Infrastructure: in the design, Aurora can read the [outcome ledger](/en/guide/autonomy) and system map, and report through [Kami](/en/guide/kami) or Telegram if those connections are configured",
         "Meta-rule: critique to optimize first — deletion last. An auditor-agent that's quick to delete breaks more than it fixes",
       ],
       tips: [
@@ -300,7 +300,7 @@ export const auroraGuideEn: AgentGuideData = {
     },
     {
       title: "The Kami guide",
-      description: "How Aurora's weekly health summary reaches Elad",
+      description: "How a configured health summary could reach a person",
       href: "/en/guide/kami",
       icon: BookOpen,
     },

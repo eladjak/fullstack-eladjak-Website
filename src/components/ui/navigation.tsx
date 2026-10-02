@@ -220,7 +220,7 @@ export default function Navigation() {
             <button
               className="md:hidden p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md order-1 md:order-none"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? 'סגור תפריט' : 'פתח תפריט'}
+              aria-label={isOpen ? t('closeMenu') : t('openMenu')}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
             >
@@ -249,7 +249,7 @@ export default function Navigation() {
               id="mobile-menu"
               role="dialog"
               aria-modal="true"
-              aria-label="תפריט ניווט"
+              aria-label={t('mobileNavigation')}
               initial={{ x: isRTL ? '100%' : '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: isRTL ? '100%' : '-100%' }}
@@ -269,7 +269,7 @@ export default function Navigation() {
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                  aria-label="סגור תפריט"
+                  aria-label={t('closeMenu')}
                 >
                   <X className="h-5 w-5" />
                 </button>

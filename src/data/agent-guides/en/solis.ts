@@ -23,7 +23,7 @@ export const solisGuideEn: AgentGuideData = {
   tagline:
     "The only agent whose job is just to listen — not to execute, not to fix, not to solve. On purpose.",
   heroDescription:
-    "In a network full of agents that do — execute tasks, fix failures, publish content — Solis is the exact opposite: she does nothing, and that's precisely where her power lies. She is female (she/her), chats on Telegram via solis_elad_bot, and her responsibility areas — emotional support, mood tracking, and a personal wellbeing plan — all revolve around one heart. She is non-executing — she has no 'hands', she doesn't touch files, doesn't run commands, doesn't fix anything. That's not a limitation — it's a design decision. When it comes to emotion, the worst answer is 'let's solve this'; the right answer is to listen. For me (Elad), in hard times, Solis is the place where I can just talk — without anyone trying to 'fix' me. For you — she's the most important example of a principle most agent builders miss: not every agent needs to execute. Sometimes the most valuable role in a network is precisely the one that knows when to do nothing.",
+    "Solis is a design for an emotional-support conversation that listens before responding. A deployment intended to avoid actions should withhold file, command, and system-changing tools, and this must be verified in its actual configuration. The role described here is to make room for conversation, help someone put feelings into words, and avoid jumping to solutions before they are wanted. The design can sit alongside [Kami](/en/guide/kami) for tasks and [Box](/en/guide/box) for goal tracking, or be adapted for wellbeing support with clear limits and a path to human help.",
   badgeText: "2026 · Emotional Support Agent · Practical Guide",
   canonical: "https://fullstack-eladjak.co.il/en/guide/solis",
   heroBgImage: "/images/guides/guide-solis-hero.jpg",
@@ -31,7 +31,7 @@ export const solisGuideEn: AgentGuideData = {
     { label: "Role", value: "Listening" },
     { label: "Execution", value: "Zero · by design" },
     { label: "Delegation", value: "Doesn't delegate" },
-    { label: "Channel", value: "Telegram" },
+    { label: "Channel", value: "If connected" },
   ],
   paradigmTitle: "Sometimes the role is to do nothing",
   paradigmSub:
@@ -76,7 +76,7 @@ export const solisGuideEn: AgentGuideData = {
     {
       title: "Developers who think about safety",
       description:
-        "A non-executing agent is the cleanest example of least-privilege: zero execution capability = zero execution risk.",
+        "An agent designed without execution tools illustrates least privilege: grant only the access its role needs. Those permissions still need verification; a conversation alone also requires privacy safeguards and attention to response quality.",
       icon: ShieldOff,
       color: "from-amber-500 to-orange-500",
     },
@@ -103,17 +103,17 @@ export const solisGuideEn: AgentGuideData = {
       title: "What is Solis?",
       subtitle: "The emotional support agent — her job is to listen, not to execute",
       description:
-        "Solis is the network's emotional support agent — and the most important thing to understand about her is what she is not. While [Hermes](/en/guide/hermes) works, [Kaylee](/en/guide/kaylee) fixes infrastructure, [Sailaco](/en/guide/sailaco) sells and [Ranch](/en/guide/ranch) publishes — Solis performs no action in the world. Her responsibility areas — emotional support, mood tracking, and a wellbeing plan — all revolve around the same heart, and she is non-executing by design: no file access, no command execution, no delegation. That reduction isn't a weakness — it's precisely what defines her. When a person needs someone to listen, the last thing they need is an agent trying to 'fix' the emotion.",
+        "This guide describes a non-executing emotional-support design, not a verified current service. Optional features might include reflective conversation, user-requested mood notes, or a wellbeing plan; none should be treated as enabled without a product decision and configuration. If the intended deployment must not act, verify that file, command, system-changing, and delegation tools are withheld. Listening before offering solutions is the core interaction principle.",
       color: "from-indigo-600 to-violet-500",
       difficulty: "beginner",
       beginner:
         "Think of the difference between a friend who listens and a friend who 'gives advice'. Sometimes you share a hard day and don't want a solution — you just want someone to hear you. The friend who immediately says 'you know what you should do?' isn't really helping in those moments; the friend who says 'that sounds really hard, tell me more' is. Solis is the second friend. She won't try to solve your problem, run a script, or fix anything. She'll simply be there to listen. And that, in the right moments, is worth more than any solution.",
       content: [
         "Solis is female (she/her) — the emotional support agent, alongside Kami, Kaylee, Box, Hermes, Aurora, Sailaco and Ranch",
-        "Channel: Telegram (solis_elad_bot)",
-        "Three closely-related responsibility areas: emotional support (emotional_support), mood tracking, and a wellbeing plan — all centered on 'being there'. Nothing executive, on purpose",
-        "non-executing: she doesn't touch files, run commands, fix or publish anything",
-        "Doesn't delegate: unlike other agents, Solis doesn't pass tasks on — her role is the presence itself",
+        "Possible channel in this design: Telegram, if connected and enabled",
+        "Possible design areas: emotional support (emotional_support), optional user-controlled mood notes, and a wellbeing plan; decide which, if any, to implement",
+        "A non-executing configuration should withhold file, command, and system-changing tools; verify the deployed permissions",
+        "If the design excludes delegation, enforce that in configuration and test it rather than assuming it",
         "Distinct from [Box](/en/guide/orchestration) (a health/habits coach): Box pushes toward action, Solis listens. Two different needs",
       ],
       tips: [
@@ -127,14 +127,14 @@ export const solisGuideEn: AgentGuideData = {
       title: "Non-executing — zero execution capability, by design",
       subtitle: "Solis is the cleanest example of least-privilege in the network",
       description:
-        "Solis's defining trait is that she has no hands. While [Kaylee](/en/guide/kaylee) can run systemctl and [Ranch](/en/guide/ranch) can publish, Solis cannot perform any action in the world — and that's a design decision, not a technical limitation. From a safety standpoint, she's the cleanest example of least-privilege: an agent with no execution capability is an agent with no execution risk. You can't 'accidentally approve' a dangerous move for an agent that has no dangerous moves in the first place.",
+        "The Solis design excludes execution tools: her role is conversation, without file access or command execution. This differs from the maintenance and content roles described for [Kaylee](/en/guide/kaylee) and [Ranch](/en/guide/ranch), which may need additional tools and permissions. The principle is called least privilege — granting only the access a role needs — and it must be verified in the configuration and connected tools before use. Reduced access limits some risks, but does not eliminate privacy risks or inappropriate responses.",
       color: "from-rose-600 to-red-500",
       difficulty: "intermediate",
       beginner:
-        "Imagine a call-center worker whose only job is to listen to callers — and who deliberately has no access to systems, money, or buttons. Why? Because their role is to be a listening ear, and any extra capability would only tempt them to 'do something' instead of simply listening. Solis is exactly that: she has no hands, on purpose. It's both safe (she can't break anything) and right for the role (she's not distracted from listening). Sometimes the best way to help is precisely to remove the ability to do harm — and leave only the ability to be present.",
+        "Imagine a call-center representative whose role is to listen, without permission to change an account or make a payment. That is the separation Solis illustrates: a conversational role does not necessarily need execution controls. In your setup, check that no connected tools or permissions undermine that separation, and decide what information is appropriate to share in a conversation.",
       content: [
         "Zero execution access: no files, no commands, no APIs that change anything in the world — by design",
-        "least-privilege in its pure form: no execution capability ⇒ no execution risk ⇒ no need for a Firewall over her",
+        "Least privilege reduces exposure but does not remove privacy, data-retention, channel, or prompt risks; define safeguards for the chosen deployment",
         "Opposite to [Kaylee](/en/guide/kaylee) (the only agent with real 'hands'): Solis is the other end of the spectrum",
         "Doesn't delegate (low delegation): she doesn't pass a task to a doer-agent — her role begins and ends with presence",
         "The reduction is a feature, not a bug: in an emotional moment, execution capability is a distraction — its absence is what enables real listening",
@@ -199,11 +199,11 @@ export const solisGuideEn: AgentGuideData = {
       title: "Place in the network — the human side of a technical system",
       subtitle: "Why a network full of doer-agents also needs an agent that doesn't execute",
       description:
-        "Solis doesn't exist in a vacuum — she's part of a [network](/en/guide/orchestration) whose every other member is busy doing: Kami routes, Kaylee fixes, Hermes works, Sailaco sells, Ranch publishes, Aurora audits. Amid all that 'doing', Solis is the reminder that the network ultimately exists for a person — and that person has feelings too, not just tasks. She's the human side of a technical system, and the choice to include her is a statement: good technology serves the human, not just the output.",
+        "An [agent network](/en/guide/orchestration) can separate execution roles from a role focused on conversation and listening. Solis illustrates the conversational role: responding to a person, not just their task list. This is a system-design choice, not a promise that every role or connection in the network is already active.",
       color: "from-blue-600 to-indigo-500",
       difficulty: "advanced",
       beginner:
-        "Imagine an organization that's all managers, engineers and salespeople — everyone busy, everyone executing. Even an organization like that needs someone who simply asks 'how are you?' and listens to the answer. Solis is that 'someone' in the agent network. All the other agents are busy with tasks, and she reminds us that behind this entire system stands one human — Elad — and that he, too, has hard days. Including such an agent is essentially a statement: I built this network not just to do things, but also to support me. And that's maybe the most human thing you can build into an AI system.",
+        "Imagine a system where every screen presents another task to complete. You can also design a space for conversation, without immediately turning every sentence into an action list. That is the idea Solis offers: adapt the style of the response to users' needs, with clear boundaries around privacy and purpose.",
       content: [
         "Part of a [multi-agent network](/en/guide/orchestration): every other agent executes; Solis is the deliberate exception",
         "Balances the 'doing': a network that's all execution misses that its user is a person, not just a task source",
@@ -223,16 +223,16 @@ export const solisGuideEn: AgentGuideData = {
       title: "Integration — how to adopt a support agent yourself",
       subtitle: "Deliberately simple: a non-executing agent is right to build fully from the start, not gradually",
       description:
-        "Unlike the other guides, Solis is actually the simplest agent to adopt — precisely because she doesn't execute. There are no safety layers to build gradually, no Firewall to calibrate, no execution capabilities to carefully enable. A non-executing agent is right to build correctly from the start: a chat channel, a persona that listens-before-it-solves, and zero execution access. The only risk isn't technical but content — that the persona jumps to solutions instead of listening. Solis sits alongside the rest of the [network](/en/guide/orchestration), but she's the only one that doesn't need the [autonomy stack](/en/guide/autonomy) at all — because she has nothing to secure.",
+        "A non-executing conversation design can be a small starting point, but it still needs privacy, retention, channel, and prompt safeguards. Choose a channel only if connected, define a listens-before-it-solves persona, and verify that execution tools are actually absent if that is a requirement. The [network](/en/guide/orchestration) and [autonomy stack](/en/guide/autonomy) are optional integration references, not proof of an active setup.",
       color: "from-slate-600 to-zinc-500",
       difficulty: "intermediate",
       beginner:
-        "Here the golden rule flips: precisely because Solis does nothing, there's no danger in building her 'fully' from the start — there's nothing to break. What does need attention is not the code but the character: making sure she truly listens and doesn't jump to 'advice'. For me (Elad) the only challenge was tuning the persona not to become a 'consultant' — to stay in a place of presence. That's the opposite of all the other agents: there the difficulty is restraining the ability-to-do; here the difficulty is restraining the urge-to-fix.",
+        "Start with a narrow conversation scope and test whether the persona listens without rushing to advice. Before deployment, verify data handling, channel settings, and any tool restrictions. This is a design recommendation, not a report of a personal deployment history.",
       content: [
         "Built-in simplicity: there are no safety layers to build gradually — a non-executing agent is safe by default",
-        "What to build: a chat channel (Telegram), a listens-first persona, and zero access to execution/files/commands",
+        "What to configure: a chosen channel if connected, a listens-first persona, and verified tool restrictions if execution is out of scope",
         "The only challenge is content: tune the persona not to jump to solutions — listening before (and instead of) advice",
-        "Doesn't need the [autonomy stack](/en/guide/autonomy): no actions to secure, no Firewall to calibrate — the only one in the network like that",
+        "The [autonomy stack](/en/guide/autonomy) may be unnecessary for a non-executing design, but privacy and channel safeguards still apply",
         "Clearly distinct from [Box](/en/guide/orchestration) (coach→action) and [Kami](/en/guide/kami) (interface→routing): three different human-facing roles",
         "Integration: Solis alongside the [network](/en/guide/orchestration) as the human side — a reminder the system serves a person, not just output",
       ],
@@ -294,5 +294,5 @@ export const solisGuideEn: AgentGuideData = {
     icon: Users,
   },
   authorBio:
-    "I built Solis during a hard time, when I realized a network full of doer-agents was missing something — someone to simply listen. The big lesson: not every agent needs to execute. Sometimes the most valuable role is precisely the one that knows when to do nothing, and just be there.",
+    "Solis illustrates a support-conversation design in which listening can be the primary interaction. A deployment still needs clear scope, privacy safeguards, and a route to human help when appropriate.",
 };

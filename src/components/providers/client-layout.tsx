@@ -1,6 +1,7 @@
 'use client';
 
 import { type ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'react-hot-toast';
@@ -19,6 +20,19 @@ interface ClientLayoutProps {
   /** CSP nonce forwarded from server (src/proxy.ts) so next-themes can stamp
    * its inline FOUC-prevention script and pass strict-dynamic CSP. */
   nonce?: string;
+}
+
+function SkipLink() {
+  const t = useTranslations('nav');
+
+  return (
+    <a
+      href="#main-content"
+      className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg focus:outline-none"
+    >
+      {t('skipToMainContent')}
+    </a>
+  );
 }
 
 /**
@@ -40,12 +54,7 @@ export function ClientLayout({ children, nonce }: ClientLayoutProps) {
       <MotionConfig reducedMotion="user">
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem nonce={nonce}>
           {/* Skip to content link - WCAG 2.4.1 / IS 5568 */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg focus:outline-none"
-          >
-            דלג לתוכן הראשי
-          </a>
+          <SkipLink />
           <Navigation />
           <div className="pt-16" id="main-content" tabIndex={-1}>
             <PageTransition>

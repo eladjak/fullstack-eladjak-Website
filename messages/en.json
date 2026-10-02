@@ -13,7 +13,11 @@
     "services": "Services",
     "claudeCode": "Claude Code",
     "guides": "Guides",
-    "skillsUniverse": "Skills Universe"
+    "skillsUniverse": "Skills Universe",
+    "skipToMainContent": "Skip to main content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileNavigation": "Mobile navigation"
   },
   "hero": {
     "badge": "Available for Projects",
