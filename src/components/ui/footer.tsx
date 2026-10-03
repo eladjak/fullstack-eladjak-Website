@@ -3,10 +3,11 @@
 import { Github, Linkedin, Mail, Globe, Heart, Code2, ArrowUp, Download } from 'lucide-react';
 import Link from 'next/link';
 import { SocialLink } from './social-link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { NewsletterSignup } from '@/components/widgets/NewsletterSignup';
 import dynamic from 'next/dynamic';
+import { toggleLocaleInPath } from '@/lib/locale-path';
 
 const AgentNetworkStatus = dynamic(
   () => import('@/components/widgets/AgentNetworkStatus').then((m) => m.AgentNetworkStatus),
@@ -14,8 +15,11 @@ const AgentNetworkStatus = dynamic(
 );
 
 export default function Footer() {
+  const locale = useLocale();
   const tFooter = useTranslations('footer');
   const tNav = useTranslations('nav');
+  const footerPath = (path: string) =>
+    locale === 'en' ? toggleLocaleInPath(path, 'en') : path;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -24,14 +28,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerNavLinks = [
-    { href: '/', label: tNav('home') },
-    { href: '/services', label: tNav('services') },
-    { href: '/projects', label: tNav('projects') },
-    { href: '/blog', label: tNav('blog') },
-    { href: '/about', label: tNav('about') },
-    { href: '/contact', label: tNav('contact') },
-    { href: '/thanks', label: tNav('thanks') },
-    { href: '/guide', label: tNav('guides') },
+    { href: footerPath('/'), label: tNav('home') },
+    { href: footerPath('/services'), label: tNav('services') },
+    { href: footerPath('/projects'), label: tNav('projects') },
+    { href: footerPath('/blog'), label: tNav('blog') },
+    { href: footerPath('/about'), label: tNav('about') },
+    { href: footerPath('/contact'), label: tNav('contact') },
+    { href: footerPath('/thanks'), label: tNav('thanks') },
+    { href: footerPath('/guide'), label: tNav('guides') },
   ];
 
   const cvHref = '/cv-elad-yaakobovitch.html';
@@ -41,7 +45,7 @@ export default function Footer() {
       {/* Decorative gradient line at top */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="container px-4 md:px-6 py-12 md:py-16">
+      <div className="container px-4 md:px-6 pt-12 pb-24 md:pt-16 md:pb-24">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <ScrollAnimate>
@@ -60,11 +64,11 @@ export default function Footer() {
                 <SocialLink href="https://fullstack-eladjak.co.il" icon={Globe} label="Portfolio Website" />
               </div>
               <div className="mt-4 pt-4 border-t border-border/30 text-xs text-muted-foreground space-y-1">
-                <p className="font-semibold text-foreground/80">פרויקטים נלווים:</p>
+                <p className="font-semibold text-foreground/80">{tFooter('relatedProjects')}</p>
                 <ul className="space-y-0.5">
-                  <li><a href="https://www.eladjak.com" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">www.eladjak.com, Hub אישי</a></li>
-                  <li><a href="https://www.sipurai.ai" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">sipurai.ai, ספרי AI לילדים</a></li>
-                  <li><a href="https://ohlove.co.il" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">ohlove.co.il, אומנות הקשר</a></li>
+                  <li><a href="https://www.eladjak.com" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">{tFooter('personalHub')}</a></li>
+                  <li><a href="https://www.sipurai.ai" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">{tFooter('aiStorybooks')}</a></li>
+                  <li><a href="https://ohlove.co.il" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">{tFooter('relationshipArt')}</a></li>
                   <li><a href="https://www.facebook.com/eladjak1" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">Facebook</a></li>
                   <li><a href="https://www.youtube.com/@KamiMesenger" target="_blank" rel="noopener noreferrer" className="wow-underline inline-block hover:text-primary transition-colors">YouTube</a></li>
                 </ul>
@@ -94,10 +98,10 @@ export default function Footer() {
                     href={cvHref}
                     download
                     className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-                    aria-label="הורדת קורות חיים"
+                    aria-label={tFooter('downloadCv')}
                   >
                     <Download className="h-3.5 w-3.5" aria-hidden="true" />
-                    הורדת קורות חיים
+                    {tFooter('downloadCv')}
                   </a>
                 </li>
               </ul>
@@ -145,17 +149,17 @@ export default function Footer() {
 
             {/* Accessibility statement, IS 5568 requirement */}
             <Link
-              href="/accessibility"
+              href={footerPath('/accessibility')}
               className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1"
             >
-              הצהרת נגישות
+              {tFooter('accessibilityStatement')}
             </Link>
 
             {/* Back to top */}
             <button
               onClick={scrollToTop}
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1"
-              aria-label="גלול למעלה"
+              aria-label={tFooter('scrollToTop')}
             >
               <ArrowUp className="h-4 w-4" aria-hidden="true" />
               {tFooter('backToTop')}

@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl';
 import { useLocale } from '@/components/providers/locale-provider';
 import dynamic from 'next/dynamic';
 import type { Locale } from '@/i18n';
+import { toggleLocaleInPath } from '@/lib/locale-path';
 
 const CommandPalette = dynamic(
   () => import('@/components/ui/command-palette').then((m) => m.CommandPalette),
@@ -116,6 +117,9 @@ export default function Navigation() {
     { href: '/contact', label: t('contact') },
   ];
 
+  const localizedHref = (href: string) =>
+    locale === 'en' ? toggleLocaleInPath(href, 'en') : href;
+
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
@@ -157,11 +161,11 @@ export default function Navigation() {
               {navItems.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={localizedHref(item.href)}
                   className={`wow-underline text-sm text-foreground/90 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm ${
-                    isActive(item.href) ? 'text-primary font-semibold' : ''
+                    isActive(localizedHref(item.href)) ? 'text-primary font-semibold' : ''
                   }`}
-                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  aria-current={isActive(localizedHref(item.href)) ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>
@@ -280,13 +284,13 @@ export default function Navigation() {
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={localizedHref(item.href)}
                     className={`block py-3 px-6 text-base transition-colors ${
-                      isActive(item.href)
+                      isActive(localizedHref(item.href))
                         ? 'text-primary font-medium bg-primary/5 border-e-2 border-primary'
                         : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
                     }`}
-                    aria-current={isActive(item.href) ? 'page' : undefined}
+                    aria-current={isActive(localizedHref(item.href)) ? 'page' : undefined}
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}

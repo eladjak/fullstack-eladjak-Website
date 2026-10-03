@@ -4,11 +4,12 @@ import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Mail, Loader2, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLocale, useTranslations } from 'next-intl';
 
 type Status = 'idle' | 'success' | 'error';
 
 interface Props {
-  /** Optional override for the heading. Defaults to Hebrew. */
+  /** Optional override for the heading. Defaults to the active locale. */
   title?: string;
   subtitle?: string;
   /** Compact mode hides the heading + subtitle, useful for tight footer slots. */
@@ -16,24 +17,24 @@ interface Props {
   className?: string;
 }
 
-const COPY = {
-  title: 'הירשמו לעדכונים',
-  subtitle:
-    'אחת לחודש: מדריך חדש, פרויקט חדש, ולפעמים גם לקח קטן מהשרת. אפס ספאם.',
-  placeholder: 'האימייל שלכם',
-  button: 'הירשמו',
-  success: 'נרשמתם. תודה.',
-  privacy: 'ניתן לבטל בכל עת. לא משתפים עם אף אחד.',
-  errorInvalid: 'אימייל לא תקין',
-  errorGeneric: 'משהו השתבש. נסו שוב.',
-} as const;
-
 export function NewsletterSignup({
-  title = COPY.title,
-  subtitle = COPY.subtitle,
+  title,
+  subtitle,
   compact = false,
   className,
 }: Props) {
+  const locale = useLocale();
+  const t = useTranslations('footer.newsletter');
+  const copy = {
+    title: title ?? t('title'),
+    subtitle: subtitle ?? t('subtitle'),
+    placeholder: t('placeholder'),
+    button: t('button'),
+    success: t('success'),
+    privacy: t('privacy'),
+    errorInvalid: t('errorInvalid'),
+    errorGeneric: t('errorGeneric'),
+  };
   const prefersReducedMotion = useReducedMotion();
   const [email, setEmail] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -51,7 +52,7 @@ export function NewsletterSignup({
     const trimmed = email.trim();
     if (!trimmed) {
       setStatus('error');
-      setErrorMessage(COPY.errorInvalid);
+      setErrorMessage(copy.errorInvalid);
       // The role="alert" below announces the message, but measured in a browser
       // focus stayed on <body> after a rejected submit, leaving the user with
       // nowhere to type. rAF so focus lands after React commits the error state.
@@ -83,24 +84,24 @@ export function NewsletterSignup({
 
       setStatus('error');
       setErrorMessage(
-        data.error === 'invalid_email' ? COPY.errorInvalid : COPY.errorGeneric
+        data.error === 'invalid_email' ? copy.errorInvalid : copy.errorGeneric
       );
     } catch {
       setStatus('error');
-      setErrorMessage(COPY.errorGeneric);
+      setErrorMessage(copy.errorGeneric);
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <div className={cn('w-full', className)} dir="rtl">
+    <div className={cn('w-full', className)} dir={locale === 'he' ? 'rtl' : 'ltr'}>
       {!compact && (
         <div className="space-y-2 mb-3">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
-            {title}
+            {copy.title}
           </h3>
-          <p className="text-sm text-muted-foreground text-pretty">{subtitle}</p>
+          <p className="text-sm text-muted-foreground text-pretty">{copy.subtitle}</p>
         </div>
       )}
 
@@ -110,7 +111,7 @@ export function NewsletterSignup({
         noValidate
       >
         <label htmlFor="newsletter-email" className="sr-only">
-          {COPY.placeholder}
+          {copy.placeholder}
         </label>
         <div className="relative flex-1">
           <Mail
@@ -131,7 +132,7 @@ export function NewsletterSignup({
               setEmail(ev.target.value);
               if (status !== 'idle') setStatus('idle');
             }}
-            placeholder={COPY.placeholder}
+            placeholder={copy.placeholder}
             aria-invalid={isError}
             aria-describedby={isError ? 'newsletter-error' : undefined}
             className={cn(
@@ -159,14 +160,14 @@ export function NewsletterSignup({
               ? 'bg-primary/10 text-primary border border-primary/30'
               : 'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90'
           )}
-          aria-label={COPY.button}
+          aria-label={copy.button}
         >
           {isSubmitting ? (
             <Loader2 className="size-4 animate-spin" aria-hidden="true" />
           ) : isSuccess ? (
             <Check className="size-4" aria-hidden="true" />
           ) : null}
-          <span>{isSuccess ? COPY.success : COPY.button}</span>
+          <span>{isSuccess ? copy.success : copy.button}</span>
         </motion.button>
       </form>
 
@@ -176,12 +177,12 @@ export function NewsletterSignup({
           role="alert"
           className="mt-2 text-xs text-destructive"
         >
-          {errorMessage || COPY.errorGeneric}
+          {errorMessage || copy.errorGeneric}
         </p>
       )}
 
       {!compact && !isError && (
-        <p className="mt-2 text-xs text-muted-foreground/80">{COPY.privacy}</p>
+        <p className="mt-2 text-xs text-muted-foreground/80">{copy.privacy}</p>
       )}
     </div>
   );

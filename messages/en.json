@@ -255,9 +255,41 @@
     "navigation": "Navigation",
     "toolsAndFeatures": "Tools & Features",
     "builtWith": "Built With",
+    "relatedProjects": "Related projects",
+    "personalHub": "www.eladjak.com, personal hub",
+    "aiStorybooks": "sipurai.ai, AI storybooks for children",
+    "relationshipArt": "ohlove.co.il, relationship art",
+    "downloadCv": "Download CV",
+    "accessibilityStatement": "Accessibility statement",
+    "scrollToTop": "Scroll to top",
+    "whatsapp": {
+      "ariaLabel": "Message me on WhatsApp",
+      "title": "Message me on WhatsApp 💬",
+      "tooltip": "Message me on WhatsApp 💬"
+    },
     "copyright": "Elad Ya'akobovitch. Built with",
     "andCoffee": "and lots of coffee.",
-    "backToTop": "Back to Top"
+    "backToTop": "Back to Top",
+    "newsletter": {
+      "title": "Get updates",
+      "subtitle": "Once a month: a new guide, a new project, and sometimes a small lesson from the server. No spam.",
+      "placeholder": "Your email",
+      "button": "Subscribe",
+      "success": "You're subscribed. Thank you.",
+      "privacy": "Unsubscribe anytime. Your email is never shared.",
+      "errorInvalid": "Invalid email address",
+      "errorGeneric": "Something went wrong. Please try again."
+    },
+    "agentNetwork": {
+      "loading": "Checking agent network…",
+      "unavailable": "Agent network status unavailable",
+      "maintenance": "The server is under maintenance",
+      "activeAgents": "{healthy}/{total} active agents",
+      "linkLabel": "Agent network status: {status}. Select for more information.",
+      "tooltipTitle": "Elad's agent network",
+      "updated": "Updated:",
+      "guideHint": "Select \"What is this?\" for guides."
+    }
   },
   "about": {
     "title": "About Me",

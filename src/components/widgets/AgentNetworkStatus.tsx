@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { AGENT_COUNT } from '@/data/site-facts';
+import { useLocale, useTranslations } from 'next-intl';
+import { toggleLocaleInPath } from '@/lib/locale-path';
 
 type Status = 'green' | 'yellow' | 'red' | 'unknown';
 
@@ -110,13 +112,9 @@ const STATUS_COLOR: Record<Status, string> = {
   unknown: 'bg-zinc-400',
 };
 
-function statusLabel(d: HealthData): string {
-  if (d.fallback || d.status === 'unknown') return 'סטטוס רשת לא זמין';
-  if (d.status === 'red') return 'השרת בתחזוקה';
-  return `${d.healthy}/${d.total} סוכנים פעילים`;
-}
-
 export function AgentNetworkStatus() {
+  const locale = useLocale();
+  const t = useTranslations('footer.agentNetwork');
   const [data, setData] = useState<HealthData | null>(null);
   const [showTip, setShowTip] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -166,9 +164,15 @@ export function AgentNetworkStatus() {
   }, []);
 
   const status: Status = data?.status ?? 'unknown';
-  const label = data ? statusLabel(data) : 'בודק רשת סוכנים…';
+  const label = !data
+    ? t('loading')
+    : data.fallback || data.status === 'unknown'
+      ? t('unavailable')
+      : data.status === 'red'
+        ? t('maintenance')
+        : t('activeAgents', { healthy: data.healthy, total: data.total });
   const ts = data
-    ? new Date(data.fetchedAt).toLocaleTimeString('he-IL', {
+    ? new Date(data.fetchedAt).toLocaleTimeString(locale, {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
@@ -184,9 +188,9 @@ export function AgentNetworkStatus() {
       onBlur={() => setShowTip(false)}
     >
       <Link
-        href="/guide"
+        href={locale === 'en' ? toggleLocaleInPath('/guide', 'en') : '/guide'}
         className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-card/40 px-3 py-1.5 text-xs text-muted-foreground transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        aria-label={`סטטוס רשת הסוכנים: ${label}. לחצו למידע נוסף.`}
+        aria-label={t('linkLabel', { status: label })}
       >
         <span className="relative flex size-2.5">
           <span
@@ -206,12 +210,12 @@ export function AgentNetworkStatus() {
           role="tooltip"
           className="pointer-events-none absolute bottom-full mb-2 end-0 z-50 w-56 rounded-md border border-border/50 bg-popover px-3 py-2 text-[11px] leading-snug text-popover-foreground shadow-lg"
         >
-          <div className="font-medium text-foreground">רשת הסוכנים של אלעד</div>
+          <div className="font-medium text-foreground">{t('tooltipTitle')}</div>
           <div className="mt-0.5 text-muted-foreground">
-            עודכן: <span className="tabular-nums">{ts}</span>
+            {t('updated')} <span className="tabular-nums">{ts}</span>
           </div>
           <div className="mt-1 text-muted-foreground/80">
-            לחצו &quot;מה זה?&quot; למדריכים.
+            {t('guideHint')}
           </div>
         </div>
       )}

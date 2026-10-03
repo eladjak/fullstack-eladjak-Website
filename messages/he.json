@@ -255,9 +255,41 @@
     "navigation": "ניווט",
     "toolsAndFeatures": "כלים ותכונות",
     "builtWith": "נבנה עם",
+    "relatedProjects": "פרויקטים נלווים:",
+    "personalHub": "www.eladjak.com, Hub אישי",
+    "aiStorybooks": "sipurai.ai, ספרי AI לילדים",
+    "relationshipArt": "ohlove.co.il, אומנות הקשר",
+    "downloadCv": "הורדת קורות חיים",
+    "accessibilityStatement": "הצהרת נגישות",
+    "scrollToTop": "גלול למעלה",
+    "whatsapp": {
+      "ariaLabel": "דברו איתי בוואטסאפ",
+      "title": "דברו איתי בוואטסאפ 💬",
+      "tooltip": "דברו איתי בוואטסאפ 💬"
+    },
     "copyright": "אלעד יעקובוביץ'. נבנה עם",
     "andCoffee": "והרבה קפה.",
-    "backToTop": "חזרה למעלה"
+    "backToTop": "חזרה למעלה",
+    "newsletter": {
+      "title": "הירשמו לעדכונים",
+      "subtitle": "אחת לחודש: מדריך חדש, פרויקט חדש, ולפעמים גם לקח קטן מהשרת. אפס ספאם.",
+      "placeholder": "האימייל שלכם",
+      "button": "הירשמו",
+      "success": "נרשמתם. תודה.",
+      "privacy": "ניתן לבטל בכל עת. לא משתפים עם אף אחד.",
+      "errorInvalid": "אימייל לא תקין",
+      "errorGeneric": "משהו השתבש. נסו שוב."
+    },
+    "agentNetwork": {
+      "loading": "בודק רשת סוכנים…",
+      "unavailable": "סטטוס רשת לא זמין",
+      "maintenance": "השרת בתחזוקה",
+      "activeAgents": "{healthy}/{total} סוכנים פעילים",
+      "linkLabel": "סטטוס רשת הסוכנים: {status}. לחצו למידע נוסף.",
+      "tooltipTitle": "רשת הסוכנים של אלעד",
+      "updated": "עודכן:",
+      "guideHint": "לחצו \"מה זה?\" למדריכים."
+    }
   },
   "about": {
     "title": "אודותיי",

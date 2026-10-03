@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 const WHATSAPP_URL = 'https://wa.me/972525427474?text=%D7%94%D7%99%D7%99%20%D7%90%D7%9C%D7%A2%D7%93%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%A9%D7%9C%D7%99';
 
@@ -20,6 +21,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function WhatsAppFAB() {
   const prefersReducedMotion = useReducedMotion();
+  const t = useTranslations('footer.whatsapp');
 
   return (
     <motion.a
@@ -27,8 +29,8 @@ export function WhatsAppFAB() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 end-6 z-50 flex items-center justify-center w-14 h-14 bg-green-700 hover:bg-green-600 text-white rounded-full shadow-lg shadow-green-700/30 hover:shadow-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 group"
-      aria-label="דברו איתי בוואטסאפ"
-      title="דברו איתי בוואטסאפ 💬"
+      aria-label={t('ariaLabel')}
+      title={t('title')}
       initial={prefersReducedMotion ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={prefersReducedMotion ? { duration: 0 } : { delay: 2, duration: 0.3 }}
@@ -40,7 +42,7 @@ export function WhatsAppFAB() {
         className="absolute end-16 whitespace-nowrap rounded-md bg-gray-900 px-2.5 py-1.5 text-sm text-white opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 pointer-events-none"
         role="tooltip"
       >
-        דברו איתי בוואטסאפ 💬
+        {t('tooltip')}
       </span>
     </motion.a>
   );

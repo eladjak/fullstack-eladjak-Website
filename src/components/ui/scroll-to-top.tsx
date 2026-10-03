@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const SCROLL_THRESHOLD = 300;
 
@@ -16,6 +17,7 @@ const SCROLL_THRESHOLD = 300;
 export function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const t = useTranslations('footer');
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,8 +42,8 @@ export function ScrollToTop() {
           key="scroll-to-top"
           onClick={handleClick}
           className="fixed bottom-6 start-6 z-40 rounded-full p-3 bg-card/60 backdrop-blur-sm border border-border/50 hover:border-primary/30 shadow-sm text-foreground/70 hover:text-foreground transition-[color,background-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          aria-label="Scroll to top"
-          title="חזרה לראש העמוד"
+          aria-label={t('scrollToTop')}
+          title={t('backToTop')}
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.7 }}
