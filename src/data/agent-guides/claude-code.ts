@@ -244,7 +244,7 @@ export const claudeCodeGuide: AgentGuideData = {
       id: "skills-hooks",
       icon: Sparkles,
       title: "Skills ו-Hooks, מאגר מיומנויות חינמי להורדה",
-      subtitle: "300+ מיומנויות מוכנות שבניתי ופתחתי לציבור, הורידו ובחרו לעצמכם",
+      subtitle: "200+ מיומנויות מוכנות שבניתי ופתחתי לציבור, הורידו ובחרו לעצמכם",
       description:
         "Skills הם אחת התכונות החזקות ביותר של Claude Code: כל Skill הוא בעצם 'מדריך פעולה' קצר שמלמד את Claude לבצע משימה ספציפית בצורה הטובה ביותר. Hooks הם סקריפטים שרצים אוטומטית לפני או אחרי כל פעולה (למשל: הפעלת בדיקת איות אוטומטית אחרי כל עריכת קובץ). יחד, השניים הופכים את Claude Code ממודל שפה לסביבת עבודה מותאמת אישית.",
       color: "from-amber-600 to-orange-500",
@@ -257,7 +257,7 @@ export const claudeCodeGuide: AgentGuideData = {
         "פקודה /review מפעילה סקירת קוד מקיפה עם שלושה סוקרים מתמחים (איכות, אבטחה, ביצועים) שעובדים במקביל",
         "פקודה /plan עושה תכנון מסודר לכל פיצ'ר גדול לפני שמתחילים לכתוב קוד, חוסכת שעות של תקיעות",
         "Hooks מאפשרים אוטומציה של תהליכים קבועים: הפעלת Prettier בכל שמירת קובץ, הרצת בדיקת TypeScript אחרי עריכה והפעלת בדיקות אבטחה לפני commit",
-        "303 Skills מוכנים לשימוש מיידי, ממיומנויות קוד (React, Next.js, Python) ועד התמחויות ייחודיות לישראל (ביטוח לאומי, אישי קבר, חשבוניות מע\"מ), כולם בקוד פתוח, להורדה חינמית",
+        "205 Skills מוכנים לשימוש מיידי, ממיומנויות קוד (React, Next.js, Python) ועד התמחויות ייחודיות לישראל (ביטוח לאומי, אישי קבר, חשבוניות מע\"מ), כולם בקוד פתוח, להורדה חינמית",
       ],
       tips: [
         "הכי פשוט להתחיל: מתקינים את אוסף הסקילים שלי כ-Plugin Marketplace ישירות מתוך Claude Code (הפקודות בדוגמה למטה), בלי להוריד קבצים ובלי להעתיק תיקיות. אחרי ההתקנה פותחים את Claude Code מחדש או מקלידים /reload-plugins",
@@ -266,7 +266,7 @@ export const claudeCodeGuide: AgentGuideData = {
       ],
       codeExample: {
         label: "דוגמה, התקנת אוסף הסקילים מתוך Claude Code",
-        code: "# בתוך Claude Code: מוסיפים את האוסף (303 skills ב-13 חבילות)\n/plugin marketplace add eladjak/claude-skills\n\n# מתקינים חבילה לפי נושא, למשל עיצוב ועברית:\n/plugin install design-ui@eladjak-skills\n/plugin install hebrew-rtl@eladjak-skills\n\n# טוענים מחדש, והסקילים זמינים:\n/reload-plugins",
+        code: "# בתוך Claude Code: מוסיפים את האוסף (205 skills ב-12 חבילות)\n/plugin marketplace add eladjak/claude-skills\n\n# מתקינים חבילה לפי נושא, למשל עיצוב ועברית:\n/plugin install design-ui@eladjak-skills\n/plugin install hebrew-rtl@eladjak-skills\n\n# טוענים מחדש, והסקילים זמינים:\n/reload-plugins",
       },
     },
     {
@@ -358,7 +358,7 @@ export const claudeCodeGuide: AgentGuideData = {
   resources: [
     {
       title: "⭐ אוסף הסקילים שלי ל-Claude Code (חינם!)",
-      description: "303 סקילים ב-13 חבילות לפי נושא: עיצוב, פרונטאנד, בק-אנד, עברית ו-RTL, עסקים בישראל, אבטחה ועוד. מתקינים רק את מה שצריך בשתי פקודות מתוך Claude Code, בחינם ובקוד פתוח.",
+      description: "205 סקילים ב-12 חבילות לפי נושא: עיצוב, פרונטאנד, בק-אנד, עברית ו-RTL, עסקים בישראל, אבטחה ועוד. מתקינים רק את מה שצריך בשתי פקודות מתוך Claude Code, בחינם ובקוד פתוח.",
       href: "https://github.com/eladjak/claude-skills",
       icon: Rocket,
     },
@@ -395,7 +395,7 @@ export const claudeCodeGuide: AgentGuideData = {
   ],
   ctaTitle: "מוכנים להתחיל? המאגר המלא שלי מחכה לכם",
   ctaSub:
-    "התקינו את Claude Code, התקינו את אוסף 303 הסקילים שבניתי ופתחתי לציבור, וסיימו את יום הראשון שלכם עם סביבת פיתוח מוכנה. הכל חינם, בקוד פתוח, ומתעדכן באופן שוטף.",
+    "התקינו את Claude Code, התקינו את אוסף 205 הסקילים שבניתי ופתחתי לציבור, וסיימו את יום הראשון שלכם עם סביבת פיתוח מוכנה. הכל חינם, בקוד פתוח, ומתעדכן באופן שוטף.",
   primaryCta: {
     label: "התקינו את אוסף הסקילים (GitHub)",
     href: "https://github.com/eladjak/claude-skills",
