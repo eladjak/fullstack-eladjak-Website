@@ -27,13 +27,13 @@ export const claudeCodeGuideEn: AgentGuideData = {
   logoImage: "/images/guide-logos/claude-code-logo.png",
   tagline: "Not just another AI tool — an entire team of specialists working for you",
   heroDescription:
-    "Claude Code is the real 2025–2026 breakthrough in software development: instead of treating AI as a side assistant that writes snippets for you in ChatGPT, Claude Code brings the most advanced AI in the world directly into your terminal and working environment — with the ability to edit files, run commands, manage git, test sites in a browser, and execute complex tasks completely on its own. It's built by Anthropic (creators of the Claude model — the direct competitor to OpenAI's ChatGPT, and widely considered the most advanced model in the world for coding today). The Claude Code CLI integrates with every leading development environment (VS Code, Cursor, JetBrains, plus a Mac/Windows desktop app), offers access to the three current 2026 models — Opus 4.7 (the strongest, with a one-million-token context window), Sonnet 4.6 (the balanced default — 400K tokens, with 1M in beta for some users), and Haiku 4.5 (fast and cost-efficient) — and supports a massive open ecosystem of extensions: Skills (ready-made capabilities that teach Claude to perform specific tasks), MCP Servers (connectors to external services), Sub-Agents and Managed Agents (a virtual team of specialists working in parallel, including background tasks), Hooks (automations that fire before or after any action), and more. What I've put together and share in this guide — my full working environment with 350+ professional Skills, 32 specialized agents, and 22 MCP servers — represents hundreds of hours of research, experimentation, and expensive mistakes I've already made on your behalf. Everything is open source, completely free, continuously updated, and ready to install on your machine with a single command. Whether you're a seasoned developer looking for a dramatic productivity jump, an entrepreneur who wants to build an MVP in a single night, or simply curious about the technology reshaping the world of work — Claude Code is the entry point, and this guide (together with the repositories linked below) is the shortest route in.",
+    "Claude Code is the real 2025–2026 breakthrough in software development: instead of treating AI as a side assistant that writes snippets for you in ChatGPT, Claude Code brings the most advanced AI in the world directly into your terminal and working environment — with the ability to edit files, run commands, manage git, test sites in a browser, and execute complex tasks completely on its own. It's built by Anthropic (creators of the Claude model — the direct competitor to OpenAI's ChatGPT, and widely considered the most advanced model in the world for coding today). The Claude Code CLI integrates with every leading development environment (VS Code, Cursor, JetBrains, plus a Mac/Windows desktop app), offers access to the three current 2026 models — Opus 4.7 (the strongest, with a one-million-token context window), Sonnet 4.6 (the balanced default — 400K tokens, with 1M in beta for some users), and Haiku 4.5 (fast and cost-efficient) — and supports a massive open ecosystem of extensions: Skills (ready-made capabilities that teach Claude to perform specific tasks), MCP Servers (connectors to external services), Sub-Agents and Managed Agents (a virtual team of specialists working in parallel, including background tasks), Hooks (automations that fire before or after any action), and more. What I've put together and share in this guide — my full working environment with 300+ professional Skills, 32 specialized agents, and 22 MCP servers — represents hundreds of hours of research, experimentation, and expensive mistakes I've already made on your behalf. Everything is open source, completely free, continuously updated, and ready to install on your machine with a single command. Whether you're a seasoned developer looking for a dramatic productivity jump, an entrepreneur who wants to build an MVP in a single night, or simply curious about the technology reshaping the world of work — Claude Code is the entry point, and this guide (together with the repositories linked below) is the shortest route in.",
   badgeText: "2026 · Updated · Practical guide",
   canonical: "https://fullstack-eladjak.co.il/en/claude-code",
   heroBgImage: "/images/guides/guide-claude-code-hero.jpg",
   videoUrl: "/videos/guides/claude-code.mp4",
   stats: [
-    { label: "Skills", value: "350+" },
+    { label: "Skills", value: "300+" },
     { label: "MCP connectors", value: "22" },
     { label: "Agents", value: "32" },
     { label: "LSP speed", value: "900x" },
@@ -81,7 +81,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
     {
       title: "Experienced developers",
       description:
-        "Double your productivity. 32 parallel agents, 350+ skills, and automated quality checks.",
+        "Double your productivity. 32 parallel agents, 300+ skills, and automated quality checks.",
       icon: Code2,
       color: "from-violet-500 to-purple-500",
     },
@@ -122,7 +122,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "Runs directly in the terminal (command line) or as a plugin inside your editor — no more switching windows",
         "Reads, writes, and edits files, runs automated tests, and performs git operations (commit, push, pull) on its own",
         "Supports MCP (Model Context Protocol — a protocol for connecting external tools) which opens access to GitHub, databases, UI design tools, and more — details in the [MCP section](/en/guide/claude-code#mcp-servers)",
-        "Skills system (short instruction files that teach Claude how to perform a specific task) — my own setup includes 350+ professional skills that I built and released for free",
+        "Skills system (short instruction files that teach Claude how to perform a specific task) — my own setup includes 300+ professional skills that I built and released for free",
         "Runs an entire team of Sub-Agents (specialist sub-agents working in parallel): see [Kami](/en/guide/kami), [Kaylee](/en/guide/kaylee), [Box](/en/guide/box), and the rest of my agent network",
       ],
       tips: [
@@ -244,7 +244,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
       id: "skills-hooks",
       icon: Sparkles,
       title: "Skills and Hooks — a free skill library ready to download",
-      subtitle: "350+ ready-made skills I built and released to the public — download them and pick what fits",
+      subtitle: "300+ ready-made skills I built and released to the public — download them and pick what fits",
       description:
         "Skills are one of Claude Code's most powerful features: each Skill is essentially a short 'how-to manual' that teaches Claude to perform a specific task the right way. Hooks are scripts that run automatically before or after any action (for example: triggering a spell-check after every file edit). Together, the two transform Claude Code from a language model into a personalized working environment.",
       color: "from-amber-600 to-orange-500",
@@ -257,16 +257,16 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "The /review command runs a comprehensive code review with three specialist reviewers (quality, security, performance) working in parallel",
         "The /plan command does structured planning for any large feature before coding begins — saves hours of getting stuck midway",
         "Hooks enable automation of recurring processes: running Prettier on every file save, running a TypeScript check after every edit, running security checks before every commit",
-        "Over 350 skills ready to use out of the box — from coding skills (React, Next.js, Python) to Israel-specific specialties (social security, burial notices, VAT invoices) — all open source and free to download",
+        "303 skills ready to use out of the box — from coding skills (React, Next.js, Python) to Israel-specific specialties (social security, burial notices, VAT invoices) — all open source and free to download",
       ],
       tips: [
-        "The fastest way to start: download the ai-agents-skills bundle from GitHub (link below) — a single ZIP containing every skill. Copy it into ~/.claude/skills/ and you're done",
+        "The fastest way to start: install my skills collection as a Plugin Marketplace straight from inside Claude Code (commands in the example below) — no downloads and no copying folders. After installing, restart Claude Code or run /reload-plugins",
         "You can write your own Skill — it's just a Markdown file with clear instructions for Claude — and share it with your team or the community",
         "Quick install command: npx skills add <repo>/<skill-name> -y -g (requires Node.js 18+)",
       ],
       codeExample: {
-        label: "Example — install the full skills library in one command",
-        code: "# Install my ai-agents-skills bundle (350+ skills)\ngit clone https://github.com/eladjak/ai-agents-skills.git ~/.claude/skills\n\n# Every skill is now available — ready to use:\nclaude\n> /commit   # run the commit-messages skill\n> /review   # code review with 3 reviewers\n> /plan     # structured feature planning",
+        label: "Example — install the skills collection from inside Claude Code",
+        code: "# Inside Claude Code: add the collection (303 skills in 13 plugins)\n/plugin marketplace add eladjak/claude-skills\n\n# Install plugins by topic, for example design and Hebrew:\n/plugin install design-ui@eladjak-skills\n/plugin install hebrew-rtl@eladjak-skills\n\n# Reload, and the skills are available:\n/reload-plugins",
       },
     },
     {
@@ -357,15 +357,15 @@ export const claudeCodeGuideEn: AgentGuideData = {
   ],
   resources: [
     {
-      title: "⭐ Ultimate AI Dev Environment — my full setup (free!)",
-      description: "The ultimate development environment I built and share for free: 350+ Skills, 22 MCP servers, 32 specialized agents. Download it, install it, and make your Claude Code as sharp and organized as mine.",
-      href: "https://github.com/eladjak/ultimate-ai-dev-environment",
+      title: "⭐ My Claude Code skills collection (free!)",
+      description: "303 skills in 13 plugins by topic: design, frontend, backend, Hebrew and RTL, Israeli business, security and more. Install only what you need in two commands from inside Claude Code — free and open source.",
+      href: "https://github.com/eladjak/claude-skills",
       icon: Rocket,
     },
     {
-      title: "📦 AI Agent Skills Repository — the skills library ready to use",
-      description: "350+ ready-made skills you can download: smart git commits, code review, feature planning, TDD, security scans, RAG pipelines, React patterns. One ZIP file or one git clone — and it's all yours.",
-      href: "https://github.com/eladjak/ai-agents-skills",
+      title: "📦 Install guide and plugin list — claude-skills on GitHub",
+      description: "Every plugin, what each one contains, and the install, update and uninstall commands. Skills include: smart commits, code review, feature planning, TDD and security checks. Another large collection by Yuval Avidani: hoodini/ai-agents-skills.",
+      href: "https://github.com/eladjak/claude-skills",
       icon: Puzzle,
     },
     {
@@ -395,10 +395,10 @@ export const claudeCodeGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Ready to start? My full repository is waiting for you",
   ctaSub:
-    "Install Claude Code, download all 350+ skills I've built and released to the public, and end your very first day with a complete development environment. Everything is free, open source, and continuously updated.",
+    "Install Claude Code, install my collection of 303 skills that I built and released to the public, and end your very first day with a complete development environment. Everything is free, open source, and continuously updated.",
   primaryCta: {
-    label: "Download the full repository (GitHub)",
-    href: "https://github.com/eladjak/ultimate-ai-dev-environment",
+    label: "Install the skills collection (GitHub)",
+    href: "https://github.com/eladjak/claude-skills",
     icon: Rocket,
   },
   secondaryCta: {
