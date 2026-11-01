@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     absolute: "Claude Code, The Complete Guide | Elad Yaakobovitch",
   },
   description:
-    "Claude Code is Anthropic's CLI + IDE extensions, the most advanced AI coding tool of 2026. A practical English guide with 300+ ready-to-install skills, 32 specialized sub-agents, and 17 MCP servers. Everything free and open source.",
+    "Claude Code is Anthropic's CLI + IDE extensions, the most advanced AI coding tool of 2026. A practical English guide with 200+ ready-to-install skills, 32 specialized sub-agents, and 17 MCP servers. Everything free and open source.",
   alternates: {
     canonical: CANONICAL_EN,
     languages: {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Claude Code, The Complete Guide",
     description:
-      "A complete practical guide to Claude Code with 300+ skills, 32 agents, and 17 MCP servers, all open source.",
+      "A complete practical guide to Claude Code with 200+ skills, 32 agents, and 17 MCP servers, all open source.",
     url: CANONICAL_EN,
     type: "article",
     locale: "en_US",
