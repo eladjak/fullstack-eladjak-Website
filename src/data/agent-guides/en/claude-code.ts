@@ -257,7 +257,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
         "The /review command runs a comprehensive code review with three specialist reviewers (quality, security, performance) working in parallel",
         "The /plan command does structured planning for any large feature before coding begins — saves hours of getting stuck midway",
         "Hooks enable automation of recurring processes: running Prettier on every file save, running a TypeScript check after every edit, running security checks before every commit",
-        "205 skills ready to use out of the box — from coding skills (React, Next.js, Python) to Israel-specific specialties (social security, burial notices, VAT invoices) — all open source and free to download",
+        "229 skills ready to use out of the box — from coding skills (React, Next.js, Python) to Israel-specific specialties (social security, burial notices, VAT invoices) — all open source and free to download",
       ],
       tips: [
         "The fastest way to start: install my skills collection as a Plugin Marketplace straight from inside Claude Code (commands in the example below) — no downloads and no copying folders. After installing, restart Claude Code or run /reload-plugins",
@@ -266,7 +266,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
       ],
       codeExample: {
         label: "Example — install the skills collection from inside Claude Code",
-        code: "# Inside Claude Code: add the collection (205 skills in 12 plugins)\n/plugin marketplace add eladjak/claude-skills\n\n# Install plugins by topic, for example design and Hebrew:\n/plugin install design-ui@eladjak-skills\n/plugin install hebrew-rtl@eladjak-skills\n\n# Reload, and the skills are available:\n/reload-plugins",
+        code: "# Inside Claude Code: add the collection (229 skills in 12 plugins)\n/plugin marketplace add eladjak/claude-skills\n\n# Install plugins by topic, for example design and Hebrew:\n/plugin install design-ui@eladjak-skills\n/plugin install hebrew-rtl@eladjak-skills\n\n# Reload, and the skills are available:\n/reload-plugins",
       },
     },
     {
@@ -358,7 +358,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
   resources: [
     {
       title: "⭐ My Claude Code skills collection (free!)",
-      description: "205 skills in 12 plugins by topic: design, frontend, backend, Hebrew and RTL, Israeli business, security and more. Install only what you need in two commands from inside Claude Code — free and open source.",
+      description: "229 skills in 12 plugins by topic: design, frontend, backend, Hebrew and RTL, Israeli business, security and more. Install only what you need in two commands from inside Claude Code — free and open source.",
       href: "https://github.com/eladjak/claude-skills",
       icon: Rocket,
     },
@@ -395,7 +395,7 @@ export const claudeCodeGuideEn: AgentGuideData = {
   ],
   ctaTitle: "Ready to start? My full repository is waiting for you",
   ctaSub:
-    "Install Claude Code, install my collection of 205 skills that I built and released to the public, and end your very first day with a complete development environment. Everything is free, open source, and continuously updated.",
+    "Install Claude Code, install my collection of 229 skills that I built and released to the public, and end your very first day with a complete development environment. Everything is free, open source, and continuously updated.",
   primaryCta: {
     label: "Install the skills collection (GitHub)",
     href: "https://github.com/eladjak/claude-skills",
