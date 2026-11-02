@@ -56,6 +56,13 @@ const config = {
         destination: '/en/claude-code',
         permanent: false,
       },
+      // /demo never existed as a route; the real interactive demo lives under
+      // the product. Send anyone who guesses the short URL there.
+      {
+        source: '/demo',
+        destination: '/products/business-brain/demo',
+        permanent: false,
+      },
     ];
   },
   async headers() {
