@@ -1271,3 +1271,8 @@ For each project, work in its own repo:
 - הרגרסיה: גל wow-2026 (b1bb5fe) שיטח את דף `/products/business-brain` — הדף שאלעד שלח לליאור ידו כפיץ' מכירה.
 - שוחזר נקודתית מ-290ec8a: זוהר-הזהב בריחוף על 3 כפתורי-ה-CTA (`hover:shadow-amber-500/40`) · ריחוף עשיר על הכרטיסים (`hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5`) · `hover:shadow-md` על כפתורי-התמחור · 4 שורות-קופי שנוסחו-מחדש בתוך מעבר-CSS.
 - נשמר מהגל: צמצום `transition-all` לרשימת-מאפיינים מפורשת · חגורת-reduced-motion · פוקוס-מקלדת מקביל · מקטע "לתנועות ולארגונים" + מסלול `/demo` + שאלת-ה-FAQ החדשה (תוספות-תוכן אמיתיות, לא רגרסיה).
+
+## 2026-11-06 — Blog syndication preview
+- Native MDX accepts canonical/source/modified/image-alt fields and preview-only samples gated by `VERCEL_ENV=preview` or `BLOG_PREVIEW=1`. Preview sample copies existing Claude Code article and credits/canonicalizes its source; noindex.
+- Removed obsolete horizontal-rule language splitting; the server already selects the explicit locale block. Article body headings no longer add a second H1. Sitemap uses modified date.
+- `bun run typecheck` and `BLOG_PREVIEW=1 bun run build` passed. Existing custom Markdown renderer must not receive untrusted text; sanitization/adapter validation remains required before external ingestion.

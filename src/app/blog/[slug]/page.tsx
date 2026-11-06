@@ -49,8 +49,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     title: `${title} | ${blogLabel}`,
     description,
     alternates: {
-      canonical: `${siteUrl}/blog/${slug}`,
+      canonical: post.frontmatter.canonical_url || `${siteUrl}/blog/${slug}`,
     },
+    robots: post.frontmatter.previewOnly ? { index: false, follow: false } : undefined,
     openGraph: {
       title,
       description,
@@ -110,12 +111,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <ReadingProgressBar />
       <StructuredData
         data={structuredDataGenerators.article(
-          post.frontmatter.title,
-          post.frontmatter.description,
+          locale === 'he' ? (post.frontmatter.titleHe || post.frontmatter.title) : post.frontmatter.title,
+          locale === 'he' ? (post.frontmatter.descriptionHe || post.frontmatter.description) : post.frontmatter.description,
           post.frontmatter.date,
           post.frontmatter.author || "Elad Ya'akobovitch",
           post.frontmatter.featured_image || undefined,
-          post.frontmatter.date
+          post.frontmatter.modified || post.frontmatter.date
         )}
       />
       <article className="container mx-auto px-4 py-12 max-w-4xl">
@@ -134,13 +135,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mb-8 overflow-hidden rounded-lg relative w-full aspect-video">
             <Image
               src={post.frontmatter.featured_image}
-              alt={post.frontmatter.title}
+              alt={post.frontmatter.featured_image_alt || post.frontmatter.title}
               fill
               className="object-cover"
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             />
           </div>
+        )}
+
+        {post.frontmatter.source_url && (
+          <p className="mb-6"><a className="underline" href={post.frontmatter.source_url}>{locale === 'he' ? 'למאמר המקורי' : 'Read the original article'}</a></p>
         )}
 
         {/* MDX Content */}
