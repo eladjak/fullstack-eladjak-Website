@@ -8,6 +8,7 @@ const config = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/images/b0hm1i34/production/**' },
       {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',

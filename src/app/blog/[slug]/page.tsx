@@ -3,8 +3,11 @@ import Image from 'next/image';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
 import { cookies } from 'next/headers';
 import readingTime from 'reading-time';
-import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug, localizeMDXContent } from '@/lib/mdx';
+import { getAllMDXSlugs, localizeMDXContent } from '@/lib/mdx';
+import { getBlogPosts } from '@/lib/blog-content';
+import { PortableText } from '@portabletext/react';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
+import { SyndicatedMarkdown } from '@/components/blog/syndicated-markdown';
 import { BlogPostBackLink, BlogPostFooter } from '@/components/blog/blog-post-nav';
 import { RelatedPosts } from '@/components/blog/related-posts';
 import { ReadingProgressBar } from '@/components/blog/reading-progress';
@@ -28,7 +31,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getMDXPostBySlug(slug);
+  const post = (await getBlogPosts()).find(p => p.slug === slug);
 
   if (!post) {
     return { title: 'Post Not Found' };
@@ -49,8 +52,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     title: `${title} | ${blogLabel}`,
     description,
     alternates: {
-      canonical: `${siteUrl}/blog/${slug}`,
+      canonical: post.frontmatter.canonical_url || `${siteUrl}/blog/${slug}`,
     },
+    robots: post.frontmatter.previewOnly ? { index: false, follow: false } : undefined,
     openGraph: {
       title,
       description,
@@ -75,7 +79,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
-  const post = getMDXPostBySlug(slug);
+  const post = (await getBlogPosts()).find(p => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -86,10 +90,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const locale = (cookieStore.get('NEXT_LOCALE')?.value as 'he' | 'en') || 'he';
   const localizedContent = localizeMDXContent(post.content, locale);
   // Reading time on the active-locale half (post.readingTime counts the full bilingual body).
-  const localizedReadingTime = Math.ceil(readingTime(localizedContent).minutes);
+  const localizedReadingTime = post.sanityBodies ? post.readingTime : Math.max(1, Math.ceil(readingTime(localizedContent).minutes));
 
   // Get related posts based on shared tags
-  const allPosts = getAllMDXPosts();
+  const allPosts = await getBlogPosts();
   const relatedPosts = allPosts
     .filter((p) => p.slug !== slug)
     .map((p) => ({
@@ -110,12 +114,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <ReadingProgressBar />
       <StructuredData
         data={structuredDataGenerators.article(
-          post.frontmatter.title,
-          post.frontmatter.description,
+          locale === 'he' ? (post.frontmatter.titleHe || post.frontmatter.title) : post.frontmatter.title,
+          locale === 'he' ? (post.frontmatter.descriptionHe || post.frontmatter.description) : post.frontmatter.description,
           post.frontmatter.date,
           post.frontmatter.author || "Elad Ya'akobovitch",
           post.frontmatter.featured_image || undefined,
-          post.frontmatter.date
+          post.frontmatter.modified || post.frontmatter.date
         )}
       />
       <article className="container mx-auto px-4 py-12 max-w-4xl">
@@ -134,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mb-8 overflow-hidden rounded-lg relative w-full aspect-video">
             <Image
               src={post.frontmatter.featured_image}
-              alt={post.frontmatter.title}
+              alt={post.frontmatter.featured_image_alt || post.frontmatter.title}
               fill
               className="object-cover"
               priority
@@ -143,9 +147,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         )}
 
+        {post.frontmatter.source_url && (
+          <p className="mb-6"><a className="underline" href={post.frontmatter.source_url}>{locale === 'he' ? 'למאמר המקורי' : 'Read the original article'}</a></p>
+        )}
+
         {/* MDX Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-          <MDXRenderer content={localizedContent} />
+        <div className="prose prose-lg dark:prose-invert max-w-none mb-12" dir={post.frontmatter.locale === 'en' ? 'ltr' : post.frontmatter.locale === 'he' ? 'rtl' : undefined}>
+          {post.sanityBodies ? <PortableText value={post.sanityBodies[locale] ?? post.sanityBodies.he ?? []} components={{ marks: { link: ({children, value}) => { const href = value?.href; return typeof href === 'string' && (/^https?:\/\//i.test(href) || /^\/(?!\/)/.test(href)) ? <a href={href}>{children}</a> : <>{children}</>; } } }} /> : post.frontmatter.source_url ? <SyndicatedMarkdown content={localizedContent} /> : <MDXRenderer content={localizedContent} />}
         </div>
 
         {/* Related Posts */}
