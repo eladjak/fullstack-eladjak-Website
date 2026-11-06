@@ -15,6 +15,11 @@ export interface MDXFrontmatter {
   featured_image?: string;
   author?: string;
   published?: boolean;
+  previewOnly?: boolean;
+  canonical_url?: string;
+  source_url?: string;
+  modified?: string;
+  featured_image_alt?: string;
   /**
    * Optional locale restriction. When set, the post is shown only on the matching
    * locale's blog index. When omitted, the post is treated as bilingual (visible
@@ -48,7 +53,7 @@ export function getAllMDXPosts(): MDXPost[] {
     const frontmatter = data as MDXFrontmatter;
 
     // Skip unpublished posts
-    if (frontmatter.published === false) {
+    if (frontmatter.published === false || (frontmatter.previewOnly && process.env.VERCEL_ENV !== 'preview' && process.env.BLOG_PREVIEW !== '1')) {
       return null;
     }
 
@@ -80,6 +85,7 @@ export function getMDXPostBySlug(slug: string): MDXPost | null {
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
   const frontmatter = data as MDXFrontmatter;
+  if (frontmatter.published === false || (frontmatter.previewOnly && process.env.VERCEL_ENV !== 'preview' && process.env.BLOG_PREVIEW !== '1')) return null;
   const stats = readingTime(content);
 
   return {
