@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const locale = (cookieStore.get('NEXT_LOCALE')?.value as 'he' | 'en') || 'he';
   const localizedContent = localizeMDXContent(post.content, locale);
   // Reading time on the active-locale half (post.readingTime counts the full bilingual body).
-  const localizedReadingTime = Math.ceil(readingTime(localizedContent).minutes);
+  const localizedReadingTime = post.sanityBodies ? post.readingTime : Math.max(1, Math.ceil(readingTime(localizedContent).minutes));
 
   // Get related posts based on shared tags
   const allPosts = await getBlogPosts();
