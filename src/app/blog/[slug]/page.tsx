@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import readingTime from 'reading-time';
 import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug, localizeMDXContent } from '@/lib/mdx';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
+import { SyndicatedMarkdown } from '@/components/blog/syndicated-markdown';
 import { BlogPostBackLink, BlogPostFooter } from '@/components/blog/blog-post-nav';
 import { RelatedPosts } from '@/components/blog/related-posts';
 import { ReadingProgressBar } from '@/components/blog/reading-progress';
@@ -150,7 +151,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* MDX Content */}
         <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-          <MDXRenderer content={localizedContent} />
+          {post.frontmatter.source_url ? <SyndicatedMarkdown content={localizedContent} /> : <MDXRenderer content={localizedContent} />}
         </div>
 
         {/* Related Posts */}
