@@ -33,7 +33,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
     const url = new URL('https://b0hm1i34.api.sanity.io/v2024-01-01/data/query/production');
     url.searchParams.set('query', query); url.searchParams.set('perspective', 'published');
-    const response = await fetch(url, { next: { revalidate: 60 } });
+    const response = await fetch(url, { next: { revalidate: 60 }, signal: AbortSignal.timeout(10000) });
     if (!response.ok) throw new Error(`Sanity HTTP ${response.status}`);
     const data = await response.json();
     if (!Array.isArray(data.result)) throw new Error('Invalid Sanity result');
