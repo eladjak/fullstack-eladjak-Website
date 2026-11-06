@@ -7,6 +7,7 @@ import { BlogPostReadingTime } from '@/components/blog/blog-post-nav';
 import { useLocale } from '@/components/providers/locale-provider';
 
 interface Frontmatter {
+  locale?: 'he' | 'en';
   title: string;
   titleHe?: string;
   description: string;
@@ -35,9 +36,9 @@ export function BlogPostLocalizedHeader({ frontmatter, shareUrl, readingTime }: 
 
   return (
     <header className="mb-8 space-y-4">
-      <h1 className="text-4xl md:text-5xl font-bold leading-tight text-glow">{title}</h1>
+      <h1 dir={frontmatter.locale === 'en' ? 'ltr' : undefined} className="text-4xl md:text-5xl font-bold leading-tight text-glow">{title}</h1>
 
-      {description && <p className="text-xl text-foreground/80">{description}</p>}
+      {description && <p dir={frontmatter.locale === 'en' ? 'ltr' : undefined} className="text-xl text-foreground/80">{description}</p>}
 
       <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
         <div className="flex items-center gap-2">
