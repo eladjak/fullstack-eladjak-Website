@@ -150,7 +150,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* MDX Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
+        <div className="prose prose-lg dark:prose-invert max-w-none mb-12" dir={post.frontmatter.locale === 'en' ? 'ltr' : post.frontmatter.locale === 'he' ? 'rtl' : undefined}>
           {post.frontmatter.source_url ? <SyndicatedMarkdown content={localizedContent} /> : <MDXRenderer content={localizedContent} />}
         </div>
 
