@@ -3,7 +3,9 @@ import Image from 'next/image';
 import { StructuredData, structuredDataGenerators } from '@/components/seo/structured-data';
 import { cookies } from 'next/headers';
 import readingTime from 'reading-time';
-import { getAllMDXSlugs, getAllMDXPosts, getMDXPostBySlug, localizeMDXContent } from '@/lib/mdx';
+import { getAllMDXSlugs, localizeMDXContent } from '@/lib/mdx';
+import { getBlogPosts } from '@/lib/blog-content';
+import { PortableText } from '@portabletext/react';
 import { MDXRenderer } from '@/components/blog/mdx-renderer';
 import { SyndicatedMarkdown } from '@/components/blog/syndicated-markdown';
 import { BlogPostBackLink, BlogPostFooter } from '@/components/blog/blog-post-nav';
@@ -29,7 +31,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getMDXPostBySlug(slug);
+  const post = (await getBlogPosts()).find(p => p.slug === slug);
 
   if (!post) {
     return { title: 'Post Not Found' };
@@ -77,7 +79,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
-  const post = getMDXPostBySlug(slug);
+  const post = (await getBlogPosts()).find(p => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -91,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const localizedReadingTime = Math.ceil(readingTime(localizedContent).minutes);
 
   // Get related posts based on shared tags
-  const allPosts = getAllMDXPosts();
+  const allPosts = await getBlogPosts();
   const relatedPosts = allPosts
     .filter((p) => p.slug !== slug)
     .map((p) => ({
@@ -151,7 +153,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* MDX Content */}
         <div className="prose prose-lg dark:prose-invert max-w-none mb-12" dir={post.frontmatter.locale === 'en' ? 'ltr' : post.frontmatter.locale === 'he' ? 'rtl' : undefined}>
-          {post.frontmatter.source_url ? <SyndicatedMarkdown content={localizedContent} /> : <MDXRenderer content={localizedContent} />}
+          {post.sanityBodies ? <PortableText value={post.sanityBodies[locale] ?? post.sanityBodies.he ?? []} components={{ marks: { link: ({children, value}) => { const href = value?.href; return typeof href === 'string' && (/^https?:\/\//i.test(href) || /^\/(?!\/)/.test(href)) ? <a href={href}>{children}</a> : <>{children}</>; } } }} /> : post.frontmatter.source_url ? <SyndicatedMarkdown content={localizedContent} /> : <MDXRenderer content={localizedContent} />}
         </div>
 
         {/* Related Posts */}

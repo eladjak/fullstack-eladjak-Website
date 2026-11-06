@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllMDXPosts } from '@/lib/mdx';
+import { getBlogPosts } from '@/lib/blog-content';
 import { allGuides } from '@/data/agent-guides';
 import { allGuidesEn } from '@/data/agent-guides/en';
 
@@ -116,7 +116,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   // MDX blog posts (local files)
-  const mdxPosts = getAllMDXPosts();
+  const mdxPosts = await getBlogPosts();
   const mdxRoutes: MetadataRoute.Sitemap = mdxPosts.map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.frontmatter.modified || post.frontmatter.date),
