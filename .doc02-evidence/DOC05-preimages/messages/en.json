@@ -1,0 +1,1027 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "theme": "Theme",
+    "skills": "Skills",
+    "featuredProjects": "Projects",
+    "testimonials": "Testimonials",
+    "thanks": "Thanks",
+    "services": "Services",
+    "claudeCode": "Claude Code",
+    "guides": "Guides",
+    "skillsUniverse": "Skills Universe",
+    "skipToMainContent": "Skip to main content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileNavigation": "Mobile navigation"
+  },
+  "hero": {
+    "badge": "Available for Projects",
+    "heading": "Full-Stack Developer with a Server-Side Focus",
+    "title": "Building Node.js backends, REST APIs & PostgreSQL systems — 26+ apps in production",
+    "description": "From idea to production — I build robust server-side systems, REST APIs, and AI-powered solutions. AI tooling as a force multiplier. Israel.",
+    "viewProjects": "View My Work",
+    "contactCta": "Let's Talk"
+  },
+  "skills": {
+    "title": "What I Can Build For You",
+    "subtitle": "Capabilities focused on delivering real business value",
+    "capabilities": {
+      "webApps": {
+        "title": "Modern Web Applications",
+        "description": "Fast, responsive, and beautifully designed web apps that work seamlessly across all devices. From landing pages to complex dashboards."
+      },
+      "aiIntegration": {
+        "title": "AI-Powered Solutions",
+        "description": "Add intelligence to your applications with AI integrations. From chatbots and content generation to semantic search and automation."
+      },
+      "backendApis": {
+        "title": "Backend & APIs",
+        "description": "Robust server-side systems, databases, and APIs that scale with your business. Reliable, secure, and performant infrastructure."
+      },
+      "mobileCrossPlatform": {
+        "title": "Mobile & Cross-Platform",
+        "description": "Build once, deploy everywhere. Progressive Web Apps and responsive designs that deliver native-like experiences on any device."
+      }
+    },
+    "stats": {
+      "experience": "Years Experience",
+      "projects": "Projects Completed",
+      "technologies": "Technologies",
+      "satisfaction": "Client Satisfaction"
+    }
+  },
+  "featuredProjects": {
+    "eyebrow": "Selected work",
+    "title": "Featured Projects",
+    "subtitle": "A selection of my recent work, from educational platforms to creative tools",
+    "viewAll": "View All Projects",
+    "code": "Code",
+    "liveDemo": "Live Demo",
+    "projects": {
+      "tachles": {
+        "title": "Tachles · Meeting Notes",
+        "description": "Upload a meeting recording and get back a clean Hebrew document. Not a summary of the meeting, but the part of it that outlives it: what was decided, what each person took on and by when, and what is still open. Tasks are grouped under each name, once per name, so you can hand someone their part without editing it. Exports as text, Word, timestamped captions, and a WhatsApp-ready copy."
+      },
+      "haderech": {
+        "title": "HaDerech",
+        "description": "An interactive learning platform that transforms how students master programming through hands-on practice and community support. Reduces learning time while increasing retention with AI-powered feedback."
+      },
+      "portfolio": {
+        "title": "Portfolio Website",
+        "description": "A high-converting developer portfolio that showcases technical excellence through smooth animations and bilingual content. Designed to turn visitors into clients."
+      },
+      "eyAiKids": {
+        "title": "SipurAI - AI Children's Story Platform",
+        "description": "Safe AI-powered education that sparks creativity in children while giving parents full control. Features age-appropriate content filtering and engaging interactive experiences."
+      },
+      "omanut": {
+        "title": "Omanut Website",
+        "description": "A professional coaching business website that builds trust through compelling content and testimonials. Full Hebrew support helps reach the target audience effectively."
+      },
+      "voiceChat": {
+        "title": "Voice Chat with Claude",
+        "description": "Enables natural voice conversations with AI using Whisper for speech-to-text, Claude for intelligence, and ElevenLabs for lifelike responses. Push-to-talk and continuous modes for any use case."
+      },
+      "htmlToPptx": {
+        "title": "HTML to PPTX Converter",
+        "description": "Converts HTML content into professional PowerPoint presentations instantly. Smart slide detection, 5 themes, and full Hebrew RTL support make presentation creation effortless."
+      },
+      "zehutai": {
+        "title": "Zehut - Party Platform & Campaign",
+        "description": "The official platform of the Zehut movement, live at zehut.org.il: a Next.js site with Payload CMS in 12 languages, an online store with Cardcom payments and platform-book fulfillment, an events board, an AI assistant, and a campaign-management system for field teams."
+      },
+      "teamMeetings": {
+        "title": "Team Meetings Manager",
+        "description": "Modern meeting management with interactive calendar, room booking, drag-and-drop scheduling, and full Hebrew RTL support. Makes team coordination effortless."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What People Say",
+    "subtitle": "Feedback from clients and collaborators",
+    "at": "at",
+    "items": [
+      {
+        "name": "Sarah Cohen",
+        "role": "Product Manager",
+        "company": "TechStart IL",
+        "content": "Elad delivered an exceptional web application that exceeded our expectations. His attention to detail and technical expertise in React and Next.js made the development process smooth and efficient."
+      },
+      {
+        "name": "David Levi",
+        "role": "CEO",
+        "company": "EduTech Solutions",
+        "content": "Working with Elad on our educational platform was a great experience. He brought creative solutions to complex problems and delivered a high-quality product on time."
+      },
+      {
+        "name": "Maya Shapira",
+        "role": "CTO",
+        "company": "Digital Innovations",
+        "content": "Elad combines strong technical skills with excellent communication. He understood our business needs and translated them into a beautiful, functional application."
+      },
+      {
+        "name": "Yoni Berger",
+        "role": "Founder",
+        "company": "StartupHub",
+        "content": "The portfolio website Elad built for us is both visually stunning and incredibly fast. His use of modern technologies like Framer Motion and Next.js added a premium feel to the project."
+      }
+    ]
+  },
+  "recommendations": {
+    "eyebrow": "Trust",
+    "title": "Recommendations",
+    "subtitle": "What people I've worked with say about me",
+    "items": {
+      "rec1": {
+        "name": "Kfir Guy",
+        "initials": "KG",
+        "role": "Lecturer & Tech Mentor, John Bryce",
+        "text": "Elad is an exceptional developer who combines strong technical abilities with creative thinking. He's always eager to learn new technologies and brings a professional approach to every project."
+      },
+      "rec2": {
+        "name": "Daniel Cohen",
+        "initials": "DC",
+        "role": "Tech Lead, Tech Startup",
+        "text": "I've worked with Elad on multiple projects and was consistently impressed by his ability to deliver quality code quickly. He understands the big picture and knows how to translate business requirements into technical solutions."
+      },
+      "rec3": {
+        "name": "Michal Levi",
+        "initials": "ML",
+        "role": "Product Manager",
+        "text": "Elad is not just a great developer, but a true partner in the process. He understands UX, suggests smart solutions, and always thinks about the end user. Highly recommended."
+      },
+      "rec4": {
+        "name": "Yuval Avidani",
+        "initials": "YA",
+        "role": "AI Content Creator & Tech Mentor",
+        "text": "Elad demonstrates endless curiosity and rapid learning ability. He grasps complex AI concepts and applies them in real projects at a pace I've rarely seen before."
+      },
+      "rec5": {
+        "name": "Noam Nissan",
+        "initials": "NN",
+        "role": "Technology Instructor",
+        "text": "Elad's persistence is exceptional. He never gives up on problems and searches for creative solutions until he achieves a perfect result. A rare quality to find."
+      },
+      "rec6": {
+        "name": "Roey Tzezana",
+        "initials": "RT",
+        "role": "Futurist & Technology Researcher",
+        "text": "Elad understands that the future is a blend of humanity and technology. His projects reflect this vision — technically brilliant yet accessible and human."
+      }
+    }
+  },
+  "process": {
+    "title": "How I Work",
+    "subtitle": "A structured approach that ensures quality results and clear communication at every step",
+    "steps": {
+      "discover": {
+        "title": "Discover",
+        "description": "Understanding your goals, users, and technical requirements through focused research and discussion."
+      },
+      "plan": {
+        "title": "Plan & Design",
+        "description": "Creating a clear roadmap with architecture decisions, tech stack selection, and milestone definition."
+      },
+      "build": {
+        "title": "Build & Iterate",
+        "description": "Agile development with regular check-ins, clean code practices, and continuous testing."
+      },
+      "launch": {
+        "title": "Launch & Support",
+        "description": "Deployment, performance optimization, and ongoing support to ensure long-term success."
+      }
+    }
+  },
+  "cta": {
+    "title": "Let's Build Your Next Project",
+    "subtitle": "Looking for a developer who combines technical excellence with creative thinking?",
+    "availability": "Available now · Response within hours",
+    "bookCall": "Book a Call",
+    "trustSignal": "26+ apps in production · 10 live demos · 60 green tests",
+    "getInTouch": "Get In Touch",
+    "features": {
+      "cleanCode": {
+        "title": "Clean Code",
+        "description": "Well-structured, maintainable code with modern best practices"
+      },
+      "aiIntegration": {
+        "title": "AI Integration",
+        "description": "Leveraging AI tools for smarter, more efficient development"
+      },
+      "fastDelivery": {
+        "title": "Fast Delivery",
+        "description": "Results-driven approach focused on quality and efficiency"
+      }
+    }
+  },
+  "blog": {
+    "latestPosts": "Latest Posts",
+    "subtitle": "Thoughts on development, technology, and more",
+    "readMore": "Read More Posts",
+    "share": {
+      "twitter": "Share on X",
+      "linkedin": "Share on LinkedIn",
+      "whatsapp": "Share on WhatsApp",
+      "copyLink": "Copy Link",
+      "copied": "Link copied!"
+    }
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Thoughts, stories and ideas about software development, technology, and my journey as a developer.",
+    "allPosts": "All Posts",
+    "noPosts": "No blog posts found.",
+    "minRead": "min read",
+    "backToBlog": "Back to Blog",
+    "allPostsLink": "All Posts",
+    "getInTouch": "Get in touch",
+    "relatedPosts": "Related Posts"
+  },
+  "stats": {
+    "repos": "GitHub Repos",
+    "commits": "Contributions",
+    "projects": "Apps in Production",
+    "agents": "Autonomous AI Agents",
+    "blogPosts": "Blog Posts",
+    "yearsExp": "Years Experience"
+  },
+  "footer": {
+    "description": "Full-Stack Developer specializing in modern web applications. Building creative solutions with Next.js, React, and TypeScript.",
+    "navigation": "Navigation",
+    "toolsAndFeatures": "Tools & Features",
+    "builtWith": "Built With",
+    "relatedProjects": "Related projects",
+    "personalHub": "www.eladjak.com, personal hub",
+    "aiStorybooks": "sipurai.ai, AI storybooks for children",
+    "relationshipArt": "ohlove.co.il, relationship art",
+    "downloadCv": "Download CV",
+    "accessibilityStatement": "Accessibility statement",
+    "scrollToTop": "Scroll to top",
+    "copyright": "Elad Ya'akobovitch. Built with",
+    "andCoffee": "and lots of coffee.",
+    "backToTop": "Back to Top",
+    "newsletter": {
+      "title": "Get updates",
+      "subtitle": "Once a month: a new guide, a new project, and sometimes a small lesson from the server. No spam.",
+      "placeholder": "Your email",
+      "button": "Subscribe",
+      "success": "You're subscribed. Thank you.",
+      "privacy": "Unsubscribe anytime. Your email is never shared.",
+      "errorInvalid": "Invalid email address",
+      "errorGeneric": "Something went wrong. Please try again."
+    },
+    "agentNetwork": {
+      "loading": "Checking agent network…",
+      "unavailable": "Agent network status unavailable",
+      "maintenance": "The server is under maintenance",
+      "activeAgents": "{healthy}/{total} active agents",
+      "linkLabel": "Agent network status: {status}. Select for more information.",
+      "tooltipTitle": "Elad's agent network",
+      "updated": "Updated:",
+      "guideHint": "Select \"What is this?\" for guides."
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "name": "Elad Ya'akobovitch",
+    "subtitle": "Full-Stack Developer & AI Engineer — React, Next.js, Node.js, TypeScript. 26+ deployed projects. AI systems builder and advanced Claude Code power user.",
+    "highlights": {
+      "technicalSkills": {
+        "title": "Full-Stack Development",
+        "description": "React, Next.js, Node.js, TypeScript, Supabase, Convex, Python — from UI through backend to databases."
+      },
+      "continuousLearning": {
+        "title": "AI-Native Development",
+        "description": "Building AI systems (Claude API, multi-agent, MCP) and using AI as a force multiplier at every stage of development."
+      },
+      "problemSolving": {
+        "title": "Prolific Builder",
+        "description": "26+ deployed projects — EdTech, AI agents, finance, creative tools — shipped and live."
+      }
+    },
+    "journey": {
+      "title": "My Journey",
+      "subtitle": "A non-conventional path to software development and AI",
+      "items": {
+        "arts": {
+          "year": "2006–2008",
+          "title": "Military Service — Paratroopers + Hesder Yeshiva",
+          "description": "Combat service as a paratrooper in the IDF alongside Hesder yeshiva studies. Developed leadership, discipline, and teamwork under pressure."
+        },
+        "business": {
+          "year": "2011–2023",
+          "title": "Founder & Manager — Omanut HaKesher",
+          "description": "12 years running an independent business — client management, marketing, operations, and strategy. Business acumen that strengthens every tech project."
+        },
+        "education": {
+          "year": "2022",
+          "title": "John Bryce College — With Honors",
+          "description": "Full-Stack Development certification with honors. Mastered Node.js, React, TypeScript, and PostgreSQL."
+        },
+        "present": {
+          "year": "2024–Present",
+          "title": "Independent Developer & AI Engineer",
+          "description": "26+ deployed projects: EdTech, AI agents, finance, and creative tools. A network of 12 AI agents running 24/7 on a Contabo server — including Kami (WhatsApp), Kaylee (autonomous maintenance), Box (personal coach), Gardax (monitoring), and Ranch (content)."
+        }
+      }
+    },
+    "experience": {
+      "title": "Experience & Expertise",
+      "intro": "Since 2024, I've built and deployed 26+ projects:",
+      "haderech": "<strong>HaDerech</strong> — An interactive learning platform with course systems, community forums, and practice simulators. Built with Next.js, TypeScript, Supabase, and AI integrations.",
+      "cms": "<strong>AI Agent Network</strong> — A 12-agent network running 24/7 on a Contabo server: Kami (WhatsApp), Kaylee (autonomous server maintenance), Box (personal coach), Gardax (monitoring), Ranch (content), and Solis — alongside an Oracle task router, an orchestrator brain that executes and verifies, and an output guardian that checks every job actually produced its artifact. Separately, inside Claude Code: multi-agent coordination with 32 specialized sub-agents (oh-my-claudecode).",
+      "edutech": "<strong>Financial Manager</strong> — CLI + React Dashboard with Green Invoice API integration for business financial management.",
+      "tools": "<strong>oh-my-claudecode</strong> — Multi-agent orchestration framework with 32 specialized agents and 350+ custom skills.",
+      "expertise": "Technical skills: <strong>React, Next.js, TypeScript, Node.js, Python, Supabase, Convex, MongoDB</strong>. AI/ML: <strong>Claude API, multi-agent orchestration, LLM integration, prompt engineering, MCP servers</strong>. DevOps: Git, GitHub Actions, Vercel, Contabo VPS, Docker.",
+      "beyond": "With 12 years of entrepreneurship and combat military service, I bring maturity, systems thinking, and the ability to prioritize business outcomes — not just technical excellence."
+    },
+    "unique": {
+      "title": "What Makes Me Unique",
+      "traits": {
+        "maturity": {
+          "title": "AI-Native Developer",
+          "description": "Building with AI and building AI systems — Claude API, multi-agent orchestration, MCP servers"
+        },
+        "selfLearning": {
+          "title": "Prolific Builder",
+          "description": "26+ deployed projects — EdTech, AI agents, finance, creative tools"
+        },
+        "creative": {
+          "title": "Hebrew RTL Expertise",
+          "description": "Deep bilingual HE/EN development, Next.js i18n, accessible UI design"
+        },
+        "results": {
+          "title": "Strong Business Background",
+          "description": "12 years entrepreneurship + combat military service — systems thinking and results focus"
+        }
+      }
+    },
+    "lookingFor": {
+      "title": "What I'm Looking For",
+      "p1": "I'm seeking my first full-time role — as a Full-Stack Developer, AI Engineer, or Software Engineer — with a team that believes AI-driven development is the future.",
+      "p2": "I bring 26+ deployed projects, a working AI agent network, and 350+ custom Claude Code skills. Open to Remote, Hybrid, or On-site in Israel.",
+      "p3": "If you're building something that changes how people work — EdTech, AI tools, developer tooling — I'd love to talk."
+    },
+    "connect": "Connect With Me"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Have a project in mind? Let's work together to create something amazing. I'm always open to discussing new opportunities and ideas.",
+    "info": {
+      "email": "Email",
+      "location": "Location",
+      "locationValue": "Israel",
+      "availability": "Availability",
+      "availabilityValue": "Open to opportunities"
+    },
+    "form": {
+      "title": "Send a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your.email@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project or idea...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "responseTime": "I usually respond within a few hours"
+    },
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "subjectMin": "Subject must be at least 3 characters",
+      "messageMin": "Message must be at least 10 characters"
+    },
+    "success": "Message sent successfully! I'll get back to you soon.",
+    "error": "Something went wrong. Please try again.",
+    "validationError": "Please fix the errors in the form",
+    "connect": "Connect With Me"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you're looking for doesn't exist or has been removed. Maybe you want to check the URL or go back to the home page?",
+    "home": "Home",
+    "homeDesc": "Go to main page",
+    "blog": "Blog",
+    "blogDesc": "Read articles",
+    "projects": "Projects",
+    "projectsDesc": "Discover projects",
+    "needHelp": "Need help?",
+    "contactUs": "Contact Us"
+  },
+  "error": {
+    "title": "Oops! Something went wrong",
+    "defaultMessage": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again",
+    "goHome": "Go to Home",
+    "technicalDetails": "Technical error details"
+  },
+  "projectsPage": {
+    "title": "Projects",
+    "subtitle": "A collection of projects showcasing full-stack development, AI integration, and creative problem solving.",
+    "allCategories": "All",
+    "categories": {
+      "web": "Web Apps",
+      "ai": "AI & ML",
+      "tools": "Tools & Utils"
+    },
+    "code": "Source Code",
+    "liveDemo": "Live Demo",
+    "livePreview": "Live Preview",
+    "search": {
+      "placeholder": "Search projects, tech, keywords…",
+      "label": "Search projects",
+      "clear": "Clear search"
+    },
+    "resultCount": "{shown} of {total} projects",
+    "clearFilters": "clear filters",
+    "empty": {
+      "title": "No projects match the selected filters.",
+      "clear": "Clear all filters"
+    },
+    "techFilter": {
+      "all": "All Tech",
+      "label": "Filter by technology",
+      "showMore": "+{count} more",
+      "showLess": "Show less"
+    },
+    "preview": {
+      "openInTab": "Open in new tab",
+      "close": "Close preview",
+      "loading": "Loading preview…",
+      "blocked": "Preview unavailable",
+      "blockedDetail": "This site cannot be embedded. Open it in a new tab.",
+      "openExternal": "Open site",
+      "deviceDesktop": "Desktop",
+      "deviceTablet": "Tablet",
+      "deviceMobile": "Mobile",
+      "urlBar": "Site URL"
+    },
+    "projects": {
+      "tachles": {
+        "title": "Tachles · Meeting Notes",
+        "description": "Upload a meeting recording and get back a clean Hebrew document. Not a summary of the meeting, but the part of it that outlives it: what was decided, what each person took on and by when, and what is still open. Tasks are grouped under each name, once per name, so you can hand someone their part without editing it. Exports as text, Word, timestamped captions, and a WhatsApp-ready copy."
+      },
+      "haderech": {
+        "title": "HaDerech - Learning Platform",
+        "description": "An interactive learning platform that transforms how students master programming through hands-on practice and community support. Reduces learning time while increasing retention with AI-powered feedback and real-time progress tracking."
+      },
+      "portfolio": {
+        "title": "Full-Stack Portfolio",
+        "description": "A high-converting developer portfolio that showcases technical excellence through smooth animations and bilingual content. Optimized for search engines and designed to turn visitors into clients with compelling storytelling."
+      },
+      "eyAiKids": {
+        "title": "SipurAI - AI Children's Story Platform",
+        "description": "Safe AI-powered education that sparks creativity in children while giving parents full control. Features age-appropriate content filtering, parental oversight, and engaging story creation that makes learning fun."
+      },
+      "omanut": {
+        "title": "Omanut HaKesher",
+        "description": "A professional coaching business website that builds trust through compelling content and client testimonials. Full Hebrew RTL support and WhatsApp integration help reach the target audience effectively."
+      },
+      "htmlToPptx": {
+        "title": "HTML to PPTX Converter",
+        "description": "Converts HTML content into professional PowerPoint presentations instantly. Smart slide detection, 5 color themes, and full Hebrew RTL support. Upload files, paste HTML, or import from URL."
+      },
+      "hebrewCalendar": {
+        "title": "Hebrew-Gregorian Calendar",
+        "description": "Eliminates date conversion headaches for users managing both Hebrew and Gregorian calendars. Instant holiday lookups and accurate calculations in an intuitive interface that anyone can use."
+      },
+      "ninjaKeyboard": {
+        "title": "Ninja Keyboard",
+        "description": "Helps Israeli kids master touch typing in Hebrew with game-based learning that keeps them engaged. Age-appropriate visual themes and progressive difficulty levels make typing practice fun, not frustrating."
+      },
+      "bayitBeseder": {
+        "title": "Bayit BeSeder",
+        "description": "Prevents costly home repairs by keeping families on top of maintenance schedules. Gamified task tracking motivates consistent upkeep, protecting property value and peace of mind."
+      },
+      "kidushishi": {
+        "title": "Kidushishi Management",
+        "description": "Simplifies complex event coordination with real-time location tracking and automated scheduling. Dashboard analytics help organizers make data-driven decisions and ensure flawless execution."
+      },
+      "voiceChat": {
+        "title": "Voice Chat with Claude",
+        "description": "Enables natural voice conversations with AI that feel as intuitive as talking to a colleague. Push-to-talk and continuous modes adapt to different use cases, from quick queries to extended brainstorming sessions."
+      },
+      "zehutai": {
+        "title": "Zehut - Party Platform & Campaign",
+        "description": "The official platform of the Zehut movement, live at zehut.org.il: a Next.js site with Payload CMS in 12 languages, an online store with Cardcom payments and platform-book fulfillment, an events board, an AI assistant, and a campaign-management system for field teams."
+      },
+      "businessBrain": {
+        "title": "Business Brain for AI Agents",
+        "description": "A new product that turns a business's knowledge into a living brain AI agents can work with: structured industry and business knowledge capture, a smart Q&A engine, and a live industry FAQ-bot demo, with a cinematic product page and online checkout."
+      },
+      "vacationVibe": {
+        "title": "VacationVibe - Vacation Manager",
+        "description": "A full-stack vacation booking platform with role-based access control, real-time notifications, and analytics dashboard. Streamlines PTO management for organizations with automated approval workflows and visual reporting."
+      },
+      "teamMeetings": {
+        "title": "Team Meetings Manager",
+        "description": "Modern team meeting management system with interactive multi-view calendar, room booking, participant tracking, and Excel export. Drag-and-drop scheduling with full Hebrew RTL support makes coordination effortless."
+      },
+      "customerCrm": {
+        "title": "Customer CRM",
+        "description": "Full-stack customer and task management system built with Angular and Node.js. CRUD operations, per-customer task tracking, JWT authentication, and a clean Hebrew interface for managing client relationships."
+      },
+      "cryptoTracker": {
+        "title": "Crypto Tracker",
+        "description": "Real-time cryptocurrency tracking application using the CoinGecko API. Features live price charts, dynamic coin comparison, and responsive Bootstrap UI with AJAX-powered data updates."
+      },
+      "gamespark": {
+        "title": "GameSpark AI Kids",
+        "description": "A Hebrew game studio where kids build real, playable games instead of just consuming them. Five game modes powered by a single playable engine, with an interface designed for ages 6-16 and full RTL support."
+      },
+      "orgBrain": {
+        "title": "Organizational Brain",
+        "description": "A knowledge-base platform that turns the knowledge living in people's heads into a version-controlled asset. Built on a Markdown + Git hub-and-spoke architecture so every project gets fast onboarding, training, and a maintained history."
+      },
+      "pdfEmpire": {
+        "title": "PDF Empire",
+        "description": "A storefront for practical Hebrew PDF guides, built for real-world tasks rather than fluff. Secure Sumit checkout, two extended premium guides, and instant branded email delivery."
+      },
+      "triplus": {
+        "title": "Triplus - B2B Operations Engine",
+        "description": "An operations system for a solar-industry business client: a process engine of 21 stages and 213 sub-steps with payment and document gates, an ERP adapter, a gap report, and a Hebrew status board for the team."
+      },
+      "pollr": {
+        "title": "Pollr",
+        "description": "A polls and election-survey platform for measuring public opinion. Create surveys, collect responses, and read the results through live charts and a clean Hebrew dashboard."
+      },
+      "mensCircle": {
+        "title": "Men's Circle",
+        "description": "A landing site for a men's personal-development group, a journey into the heart of masculinity. Warm, atmospheric design with Hebrew RTL content and direct WhatsApp contact."
+      },
+      "hitechkids": {
+        "title": "HiTechKids",
+        "description": "A summer tech camp where kids learn AI, coding, and Python through hands-on projects with tools like ChatGPT. Playful, colorful landing site with registration and Hebrew RTL throughout."
+      },
+      "eladscore": {
+        "title": "Elad Score",
+        "description": "A portfolio site for a theatre and film composer. Cinematic dark-and-gold design that showcases original scores and lets directors hear the work and get in touch."
+      },
+      "dateKirva": {
+        "title": "Zman Shelanu (Date Kirva)",
+        "description": "A relationship app that helps couples carve out intentional time together. Shared activities, journaling, and progress tracking wrapped in a warm Hebrew RTL interface."
+      }
+    }
+  },
+  "thanksPage": {
+    "title": "People Who Inspire Me",
+    "subtitle": "Mentors, educators, and thought leaders in tech & AI who have shaped my journey",
+    "people": {
+      "yuval": {
+        "name": "Yuval Avidani",
+        "role": "AI Educator & Workshop Leader",
+        "bio": "An inspiring AI educator who makes complex concepts accessible through hands-on workshops and community building. A true pioneer in Israel's AI education scene."
+      },
+      "avitz": {
+        "name": "Avitz (Avraham Yitzhak Meir)",
+        "role": "AI Content Creator",
+        "bio": "A passionate AI content creator bridging the gap between cutting-edge AI developments and the Hebrew-speaking community through engaging, accessible content."
+      },
+      "noam": {
+        "name": "Noam Naumovski",
+        "role": "Tech & AI Educator",
+        "bio": "A dedicated tech educator who inspires the next generation of developers with practical knowledge and a passion for innovation."
+      },
+      "gal": {
+        "name": "Gal Havkin",
+        "role": "Tech & AI Educator",
+        "bio": "A talented educator who combines deep technical knowledge with an ability to make complex topics approachable and exciting."
+      },
+      "roey": {
+        "name": "Dr. Roey Tzezana",
+        "role": "Futurist & Author",
+        "bio": "A renowned futurist and author who explores how technology shapes our future. His insights on AI and emerging tech have been a constant source of inspiration."
+      },
+      "roi": {
+        "name": "Dr. Roi Yozevitch",
+        "role": "AI Educator & Course Creator",
+        "bio": "A leading AI educator creating comprehensive courses that empower people to harness AI effectively. His teaching makes the world of AI accessible to everyone."
+      },
+      "nadav": {
+        "name": "Nadav Neve",
+        "role": "Tech & AI Educator",
+        "bio": "A passionate educator who shares knowledge generously and motivates others to push their boundaries in tech and AI."
+      },
+      "guy": {
+        "name": "Guy Aga",
+        "role": "Digital Marketing & AI Educator",
+        "bio": "A visionary at the intersection of digital marketing and AI, helping professionals and businesses leverage AI tools for real-world impact."
+      },
+      "yuvalK": {
+        "name": "Yuval Keshtcher",
+        "role": "Founder of AI Makers Lab & UX Writing Hub",
+        "bio": "Teaching to design and write AI experiences without code"
+      },
+      "alexanderK": {
+        "name": "Alexander Kapit",
+        "role": "AI Content Creator",
+        "bio": "Practical content on AI tools and their integration at work"
+      },
+      "danielT": {
+        "name": "Daniel Trabelsi",
+        "role": "AI Content Creator",
+        "bio": "Sharing knowledge on AI and development"
+      },
+      "arielE": {
+        "name": "Ariel Eisenstadt",
+        "role": "AI Content & Creative Expert",
+        "bio": "Expert in AI-powered content creation, visual production, and digital creativity. Helps businesses and organizations integrate AI tools into creative workflows."
+      }
+    }
+  },
+  "servicesPage": {
+    "badge": "Professional Services",
+    "title": "My Services",
+    "subtitle": "Custom technology solutions that grow your business. From AI and automation to Full-Stack development and beyond.",
+    "services": {
+      "aiAutomation": {
+        "title": "AI Automation Solutions",
+        "description": "Integrate artificial intelligence into your business processes - from smart chatbots to workflow automation that saves hours of work. Custom solutions that integrate with your existing systems.",
+        "price": "Starting at $1,500",
+        "features": [
+          "Smart chatbots",
+          "Business process automation",
+          "OpenAI / Claude integration",
+          "AI-powered data analysis"
+        ]
+      },
+      "fullstack": {
+        "title": "Full-Stack Development",
+        "description": "Modern web applications from A to Z. From impressive landing pages to complex SaaS systems - all with cutting-edge technologies, excellent performance, and Hebrew RTL support.",
+        "price": "Starting at $1,000",
+        "features": [
+          "Next.js + React + TypeScript",
+          "Responsive modern design",
+          "SEO & performance optimization",
+          "Full Hebrew RTL support"
+        ]
+      },
+      "edtech": {
+        "title": "EdTech Solutions",
+        "description": "Learning platforms and educational apps that combine technology with pedagogy. Proven experience building interactive learning systems with AI, progress tracking, and adaptive content.",
+        "price": "Contact for quote",
+        "features": [
+          "Interactive learning platforms",
+          "Progress tracking & analytics",
+          "AI-adaptive content",
+          "User-friendly for all ages"
+        ]
+      },
+      "workshops": {
+        "title": "AI & Development Workshops",
+        "description": "Hands-on workshops teaching how to use AI tools for software development and business automation. Perfect for development teams, entrepreneurs, and businesses wanting to lead with technology.",
+        "price": "Starting at $600",
+        "features": [
+          "Claude Code & AI for dev",
+          "Automation with AI tools",
+          "Hands-on practical workshops",
+          "Adapted to participant level"
+        ]
+      },
+      "whatsappAutomation": {
+        "title": "WhatsApp Automation",
+        "description": "Smart WhatsApp agents that work 24/7. Automated customer responses, appointment scheduling, reminder sending, and CRM integration. Every small business's dream.",
+        "price": "Starting at $1,000",
+        "features": [
+          "24/7 AI WhatsApp agent",
+          "Automated appointment scheduling",
+          "CRM integration",
+          "Reports & analytics"
+        ]
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Let's talk about your project. First consultation is free.",
+      "email": "Email",
+      "phone": "Phone",
+      "contactForm": "Send a Message"
+    },
+    "pillarsSection": {
+      "badge": "Three Service Pillars",
+      "title": "Implementation · Consulting · Training",
+      "subtitle": "Same services, organized by engagement type. Pick a pillar to filter — or leave on \"All\" for the full list.",
+      "ariaLabel": "Filter services by pillar"
+    },
+    "pillars": {
+      "all": {
+        "title": "All Services",
+        "shortLabel": "All",
+        "description": "Full view of all five services"
+      },
+      "implementation": {
+        "title": "Implementation",
+        "shortLabel": "Implementation",
+        "description": "Hands-on building — websites, applications, dashboards, MVPs, AI integrations, and automation."
+      },
+      "consulting": {
+        "title": "Consulting",
+        "shortLabel": "Consulting",
+        "description": "Architecture, code review, organizational AI mapping, technical guidance for development teams. From $90/hour — let's talk."
+      },
+      "training": {
+        "title": "Training",
+        "shortLabel": "Training",
+        "description": "AI workshops for development teams, full-day Claude Code workshops, and organizational training. Let's talk."
+      }
+    },
+    "b2b": {
+      "title": "For Organizations: Let's Talk About a Custom Project",
+      "description": "Working at an organization that needs dedicated AI, complex integrations, or training for a development team? I build tailored packages — combining implementation, consulting, and training as needed. Detailed quote, clear contract, full documentation. No vendor lock-in.",
+      "ctaPrimary": "Schedule an Organizational Call",
+      "ctaSecondary": "How I Work"
+    }
+  },
+  "b2bBand": {
+    "eyebrow": "For Organizations & Dev Teams",
+    "title": "Working with Organizations on AI",
+    "items": [
+      {
+        "label": "Strategic Consulting",
+        "description": "AI matrix, architecture, code review"
+      },
+      {
+        "label": "Full Development",
+        "description": "From PRD to deploy, weekly iterations"
+      },
+      {
+        "label": "AI Workshops",
+        "description": "Full-day workshops for dev teams"
+      }
+    ],
+    "cta": "Let's Talk"
+  },
+  "methodology": {
+    "badge": "How I Work",
+    "titleLine1": "How I Work —",
+    "titleLine2": "From Idea to Production",
+    "subtitle": "Six clear phases that take an AI or Full-Stack project from initial idea to a system running in production. The same approach works for organizations, development teams, and founders — adapted to scope and budget.",
+    "deliverablesLabel": "What you get",
+    "phases": [
+      {
+        "title": "Initial Consultation",
+        "subtitle": "Half an hour. No cost. No commitment.",
+        "paragraph": "We meet for thirty minutes on Zoom or by phone to understand what you want to build, the business pain behind the request, and your timeline. I'll give an honest read on whether the project is a fit — sometimes I'll refer you elsewhere if it isn't my domain. If there's a fit, I leave the call with a first-pass picture of scope, top risks, and a rough price range. If there isn't, we lost 30 minutes and nothing more.",
+        "duration": "One call · 30 minutes",
+        "deliverables": [
+          "Clear understanding of business and technical goals",
+          "User and needs mapping",
+          "Initial scope and budget assessment",
+          "Honest recommendation — take it on or refer out"
+        ]
+      },
+      {
+        "title": "Specification Document",
+        "subtitle": "A detailed PRD with mockups and architecture — so we're all talking about the same thing.",
+        "paragraph": "This is where the idea becomes a working document. I write a PRD (Product Requirements Document) covering all features, user flows, edge cases, and integrations. In parallel I build mockups of the main screens (using tools like Stitch or v0) and propose a fitted technical architecture — which database, which services, how AI plugs in if relevant. By the end of this phase you have a 10–30 page document you can show to a board, a development team, or a partner — and I have a roadmap to build from.",
+        "duration": "3–7 working days",
+        "deliverables": [
+          "Detailed PRD with feature list and user stories",
+          "Mockups of the main screens",
+          "Technical architecture proposal (DB, API, integrations)",
+          "Accurate effort estimates and timeline",
+          "Final price quote"
+        ]
+      },
+      {
+        "title": "Weekly Iteration Development",
+        "subtitle": "Weekly sprint, Friday demo, fast iteration.",
+        "paragraph": "The core of the work. I run weekly sprints — on Sunday we decide what goes into the round, on Thursday or Friday there's a demo of what shipped, and any feedback gets handled in the next round. You see real progress every week, not a month of silence followed by a big reveal. I work in Git with feature branches, clear commit messages, and documented PRs — so you have full visibility even when we're not in a meeting. Every commit passes type-check and lint, and I use AI tooling (Claude Code, Copilot) as a productivity multiplier — but the code itself goes through human review.",
+        "duration": "2–12 weeks (depends on scope)",
+        "deliverables": [
+          "Weekly progress demo (Zoom or Loom)",
+          "Full Git repository access",
+          "Live PROGRESS.md updates in the project",
+          "Slack/WhatsApp channel for quick questions",
+          "Live staging environment for testing"
+        ]
+      },
+      {
+        "title": "Testing & Refinement",
+        "subtitle": "QA, accessibility, performance — before going live.",
+        "paragraph": "Before the system sees the light of day, we run a structured testing pass. Functional tests for every critical user flow, accessibility tests against IS 5568 / WCAG 2.1 (especially important for public-sector and enterprise projects), performance testing with Lighthouse and Core Web Vitals, and basic security checks (OWASP Top 10). Load testing if relevant. Every bug found goes into the list, gets fixed, and gets retested. This phase is short on time but critical to quality.",
+        "duration": "1–2 weeks",
+        "deliverables": [
+          "QA report covering every user flow tested",
+          "Accessibility report (axe-core / Lighthouse)",
+          "Performance metrics (LCP, FID, CLS, TTI)",
+          "Basic security review",
+          "List of fixes applied"
+        ]
+      },
+      {
+        "title": "Launch & Support",
+        "subtitle": "Deploy, monitoring, and 30 days of included support.",
+        "paragraph": "Launch day. I handle the full deployment — Vercel, Railway, a VPS (Contabo/Hetzner), or your internal cloud. I set up monitoring (Sentry for errors, Plausible/PostHog for analytics if relevant), confirm DNS, SSL, and the rest of the infrastructure are working, and run a final smoke test in production. After launch, you get 30 days of included support — every bug, every question, every small fix is handled at no extra charge. This is when the project really moves from \"code\" to \"a live system\".",
+        "duration": "1–3 days",
+        "deliverables": [
+          "Production deploy (Vercel/Railway/VPS)",
+          "Monitoring and logging setup",
+          "Deployment documentation in README",
+          "30 days of included post-launch support",
+          "Handover call with your team"
+        ]
+      },
+      {
+        "title": "Ongoing Maintenance",
+        "subtitle": "Monthly retainer — optional, never required.",
+        "paragraph": "After the included 30 days, if you want me to keep maintaining the system, I offer a flexible monthly retainer. The idea is straightforward: a guaranteed number of hours per month for bug fixes, security updates, small features, and fast incident response. You can also choose to take the code in-house and work with your own team — I'll run a clean handover and leave thorough documentation. No lock-in. My approach is to build systems that can run without me.",
+        "duration": "Monthly, no long commitment",
+        "deliverables": [
+          "Guaranteed monthly hours (8/16/40)",
+          "Priority response to incidents",
+          "Security updates and dependency upgrades",
+          "Monthly status call",
+          "Option to add new features at your pace"
+        ]
+      }
+    ],
+    "principles": {
+      "title": "Four Principles That Run Through Every Phase",
+      "subtitle": "Why I work this way — and how much it saves you down the line",
+      "items": [
+        {
+          "title": "Full Transparency",
+          "description": "Git access, weekly demos, live PROGRESS.md updates. No surprises."
+        },
+        {
+          "title": "Short Iterations",
+          "description": "Weekly sprints. If something isn't working, we change it next round — not next month."
+        },
+        {
+          "title": "No Lock-in",
+          "description": "Your code, your infrastructure, your documentation. You can always continue with an internal team."
+        },
+        {
+          "title": "AI as Multiplier, Not Replacement",
+          "description": "I use Claude Code and AI tooling to accelerate development, but every line of code goes through human review."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Start a Conversation?",
+      "subtitle": "A 30-minute initial consultation, free of charge and with no commitment. We'll figure out together if there's a fit — and if there is, how to start.",
+      "ctaPrimary": "Schedule a Consultation",
+      "ctaSecondary": "View All Services",
+      "bookCall": "Book a Call — 30 Minutes Free"
+    }
+  },
+  "language": {
+    "he": "עברית",
+    "en": "English"
+  },
+  "seo": {
+    "home": {
+      "title": "Elad Ya'akobovitch | Full-Stack Developer & AI Specialist",
+      "description": "Full-Stack Developer specializing in Next.js, React, and TypeScript. Building modern web apps with AI integration. Migdal HaEmek, Israel."
+    },
+    "about": {
+      "title": "About Elad Ya'akobovitch | Full-Stack Developer",
+      "description": "My journey from arts and business to full-stack development. Combining technical expertise with creative vision and business insight."
+    },
+    "projects": {
+      "title": "Projects | Elad Ya'akobovitch - Full-Stack Developer",
+      "description": "A collection of projects showcasing full-stack development, AI integration, and creative problem solving with Next.js, React, TypeScript."
+    },
+    "blog": {
+      "title": "Blog | Elad Ya'akobovitch - Software Development & AI",
+      "description": "Articles about software development, technology, AI, and my journey as a full-stack developer."
+    },
+    "contact": {
+      "title": "Contact | Elad Ya'akobovitch - Full-Stack Developer",
+      "description": "Get in touch for collaborations, new projects, or tech consulting. Quick response within a few hours."
+    },
+    "services": {
+      "title": "Services | Elad Ya'akobovitch - Development & AI Solutions",
+      "description": "Full-Stack development, AI automation, web application development, tech workshops, and WhatsApp automation services."
+    },
+    "thanks": {
+      "title": "People Who Inspire Me | Elad Ya'akobovitch",
+      "description": "Mentors, educators, and thought leaders in tech and AI who have shaped my professional journey."
+    }
+  },
+  "faq": {
+    "title": "Ask Me Anything",
+    "subtitle": "A real knowledge bot — the kind I build for clients. Pick a question or type your own",
+    "chatHeader": "Ask Me",
+    "typingLabel": "Typing...",
+    "inputLabel": "Free-text question",
+    "inputPlaceholder": "Type any question — a real AI answers...",
+    "sendLabel": "Send question",
+    "apiError": "Something went wrong — try again, or message me on WhatsApp +972-52-542-7474.",
+    "suggestedLabel": "Suggested questions:",
+    "staticListLabel": "Prefer reading? All questions and answers in one list",
+    "moreLinksLabel": "More of me online:",
+    "questions": {
+      "services": "What services do you offer?",
+      "pricing": "What are your pricing ranges?",
+      "technologies": "What technologies do you work with?",
+      "availability": "Are you currently available for new projects?",
+      "process": "What does your development process look like?",
+      "aiExpertise": "Tell me about your AI expertise",
+      "aiNetwork": "What is the 12-agent AI network you run?",
+      "location": "Where are you located and where do you work from?",
+      "hebrew": "Do you support Hebrew and RTL development?",
+      "contact": "How can I get in touch with you?",
+      "timeline": "How long does a typical project take?",
+      "support": "Do you provide post-launch support?"
+    },
+    "answers": {
+      "services": "I offer five core services: AI automation and chatbot development, full-stack web applications (Node.js/Next.js/React), EdTech platforms, tech workshops for teams and individuals, and WhatsApp automation systems. Every project gets clean code, bilingual support, and production-ready delivery.",
+      "pricing": "Pricing depends on scope and complexity. Small landing pages or tools start around ₪3,000–6,000. Full-stack web apps with backend and database range from ₪8,000–25,000. AI integrations and automation systems typically run ₪5,000–20,000. I'm happy to discuss your specific needs and provide a custom estimate.",
+      "technologies": "My core stack is Node.js, Next.js, React, and TypeScript for the backend and frontend. I use PostgreSQL and Supabase for databases, Prisma as an ORM, and Framer Motion for UI animations. For AI, I work with the Claude API, OpenAI, Whisper, ElevenLabs, and multi-agent systems with MCP.",
+      "availability": "Yes, I'm currently available for new projects! I typically take on 1–2 projects at a time to ensure quality and responsiveness. Response time is usually within a few hours. The best way to check is to reach out directly via WhatsApp or email.",
+      "process": "My process has four phases: Discover (understanding your goals and users), Plan (architecture and tech stack decisions), Build with regular check-ins, and Launch with support. I use agile iterations with demos so you always know what's happening. Clear communication at every step.",
+      "aiExpertise": "I've built AI-powered systems across several domains: voice conversation apps using Whisper and ElevenLabs, Hebrew NLP with RAG pipelines, children's story generation with content filtering, multi-agent automation systems, and Claude Code integrations. I also maintain the /claude-code and /guide pages — 32 hands-on guides covering agents and infrastructure for developers learning AI tooling.",
+      "aiNetwork": "It's a personal micro-services system of 12 autonomous AI agents running on a Contabo server — including Kami (WhatsApp), Kaylee (server maintenance), Box (personal coach), Gardax (monitoring), Ranch (content), and Solis. They handle communication, research, content creation, client management, and day-to-day automation, talking to each other through a central bridge, with an output guardian verifying every job actually produced its result. It's both my lab and my proof of work: I build similar systems for clients, tailored to their business.",
+      "location": "I work from Migdal HaEmek in northern Israel, with clients across the country and abroad. Most work happens remotely over video calls, and in-person meetings are possible in the northern region.",
+      "hebrew": "Absolutely — Hebrew and RTL are a core specialty. I build bilingual (HE/EN) applications with proper RTL layout, logical CSS properties, and full i18n support using next-intl. I have deep experience with Hebrew typography, keyboard layouts, and the nuances of right-to-left UI development.",
+      "contact": "You can reach me on WhatsApp at 052-542-7474 (fastest response), by email at eladhiteclearning@gmail.com, or via the contact form on this site. I usually respond within a few hours during business days.",
+      "timeline": "Timeline depends on scope. A landing page or simple tool: 1–2 weeks. A full web application with backend and database: 4–8 weeks. Complex AI systems or large platforms: 2–4 months. I'll give you a realistic estimate upfront — no surprises.",
+      "support": "Yes! I offer post-launch support and maintenance. After delivery, I typically provide 2–4 weeks of included fixes. For ongoing maintenance, I offer monthly retainer plans. I also write documentation so you can manage the system yourself if you prefer."
+    },
+    "followUps": {
+      "services": [
+        "pricing",
+        "technologies",
+        "availability"
+      ],
+      "pricing": [
+        "services",
+        "timeline",
+        "contact"
+      ],
+      "technologies": [
+        "aiExpertise",
+        "hebrew",
+        "services"
+      ],
+      "availability": [
+        "location",
+        "contact",
+        "timeline"
+      ],
+      "process": [
+        "timeline",
+        "support",
+        "contact"
+      ],
+      "aiExpertise": [
+        "aiNetwork",
+        "technologies",
+        "contact"
+      ],
+      "aiNetwork": [
+        "aiExpertise",
+        "services",
+        "contact"
+      ],
+      "location": [
+        "availability",
+        "contact",
+        "services"
+      ],
+      "hebrew": [
+        "technologies",
+        "services",
+        "contact"
+      ],
+      "contact": [
+        "availability",
+        "pricing",
+        "process"
+      ],
+      "timeline": [
+        "process",
+        "pricing",
+        "contact"
+      ],
+      "support": [
+        "pricing",
+        "contact",
+        "process"
+      ]
+    },
+    "initialQuestions": [
+      "services",
+      "aiNetwork",
+      "availability",
+      "hebrew"
+    ]
+  },
+  "latestPosts": {
+    "title": "From the Blog",
+    "subtitle": "Technical articles on development, AI, and tools that work in production",
+    "viewAll": "View All Posts",
+    "readMore": "Read More",
+    "minRead": "min read"
+  }
+}
