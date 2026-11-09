@@ -1,0 +1,135 @@
+/* Moon/Sun orb toggle. Palette = site tokens (--primary, --cta, --border, --muted). */
+
+.placeholder {
+  display: inline-block;
+  width: 64px;
+  height: 44px;
+}
+
+.btn {
+  --lx: 50%;
+  --p: 0;
+  --tx: 0px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 44px; /* touch target >= 44px */
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 9999px;
+  cursor: grab;
+  touch-action: pan-y; /* page can still scroll vertically on touch */
+  -webkit-tap-highlight-color: transparent;
+}
+.btn[data-dragging='true'] {
+  cursor: grabbing;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ring, var(--primary));
+  outline-offset: 2px;
+}
+
+.track {
+  position: relative;
+  display: block;
+  width: 64px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  overflow: hidden;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.btn[data-theme-state='dark'] .track {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+}
+
+/* Light that follows the pointer along the track edge (hover-capable devices only) */
+.edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    60px 36px at var(--lx) 50%,
+    color-mix(in srgb, var(--primary) 38%, transparent),
+    transparent 70%
+  );
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .btn:hover .edge {
+    opacity: 1;
+  }
+}
+.btn:focus-visible .edge {
+  opacity: 1;
+}
+
+.star {
+  position: absolute;
+  top: 10px;
+  inset-inline-start: 12px;
+  color: var(--accent, var(--primary));
+  opacity: calc(var(--p) * 0.9);
+  transform: scale(calc(0.4 + var(--p) * 0.6));
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.thumb {
+  position: absolute;
+  top: 3px; /* (36 - 28 - 2 border) / 2 */
+  inset-inline-start: 3px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--cta);
+  background: var(--background);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25), 0 0 0 1px var(--border);
+  transform: translateX(var(--tx));
+  transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.5, 1), color 0.3s ease;
+}
+.btn[data-dragging='true'] .thumb {
+  transition: none; /* follow the finger exactly */
+}
+.btn[data-theme-state='dark'] .thumb {
+  color: var(--primary);
+}
+.btn:active .thumb {
+  transform: translateX(var(--tx)) scale(0.94);
+}
+
+/* Sun <-> moon morph: the bite circle slides over the disc, rays collapse */
+.rays {
+  transform-origin: 12px 12px;
+  opacity: calc(1 - var(--p));
+  transform: rotate(calc(var(--p) * 90deg)) scale(calc(1 - var(--p) * 0.5));
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+.bite {
+  transform: translate(calc((1 - var(--p)) * 9px), calc((1 - var(--p)) * -9px));
+  transition: transform 0.4s ease;
+}
+.orb {
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumb,
+  .rays,
+  .bite,
+  .star,
+  .track,
+  .edge {
+    transition: none;
+  }
+  .btn:active .thumb {
+    transform: translateX(var(--tx));
+  }
+}
