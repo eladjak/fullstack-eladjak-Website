@@ -1179,3 +1179,34 @@ button:focus-visible .wow-card .wow-icon,
     transform: scaleX(1) !important;
   }
 }
+
+/* Hero, LIGHT theme: the home page paints a dark flight/space backdrop in both
+   themes (`.home-cinematic` forces color-scheme: dark), but in light mode the
+   tokens resolve to dark text (#1F2937) -> the H1 sat dark-on-dark. Inside the
+   hero only, resolve the text tokens to the existing dark-theme brand values
+   (#FAFAFA / #D1D5DB / #C4B5FD / #FBBF24) so contrast matches dark mode
+   (>= 4.5:1; measured in the PR). Dark mode is untouched. */
+:root:not(.dark) .home-cinematic #hero {
+  --foreground: #fafafa;
+  --background: #09090b;
+  --muted-foreground: #d1d5db;
+  --primary: #c4b5fd;
+  --border: #374151;
+  color: #fafafa; /* body resolved its own color before the token override; inherit it from here */
+}
+:root:not(.dark) .home-cinematic #hero > .bg-background\/60 {
+  background-color: rgba(5, 6, 10, 0.5) !important;
+}
+
+/* Same defect, same fix, for the fixed top nav on the home page in LIGHT theme:
+   it floats over the dark flight backdrop but resolved to dark link text. The
+   tokens (including --background, so the translucent bar stays dark when
+   scrolled) resolve to the existing dark-theme values inside the nav only. */
+:root:not(.dark):has(.home-cinematic) nav[aria-label="Main navigation"] {
+  --foreground: #fafafa;
+  --background: #09090b;
+  --muted-foreground: #d1d5db;
+  --primary: #c4b5fd;
+  --border: #374151;
+  color: #fafafa;
+}

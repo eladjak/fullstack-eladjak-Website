@@ -52,13 +52,13 @@ export const metadata: Metadata = {
   publisher: "אלעד יעקובוביץ'",
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
     apple: "/apple-touch-icon.png",
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
   },
   alternates: {
     canonical: SITE_URL,
@@ -145,7 +145,6 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="אלעד יעקובוביץ'" />
-        <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/108827199?v=4" />
         {/* Geo targeting for Israel */}
         <meta name="geo.region" content="IL" />
         <meta name="geo.placename" content="Migdal HaEmek" />
