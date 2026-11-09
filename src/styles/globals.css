@@ -1192,6 +1192,7 @@ button:focus-visible .wow-card .wow-icon,
   --muted-foreground: #d1d5db;
   --primary: #c4b5fd;
   --border: #374151;
+  color: #fafafa; /* body resolved its own color before the token override; inherit it from here */
 }
 :root:not(.dark) .home-cinematic #hero > .bg-background\/60 {
   background-color: rgba(5, 6, 10, 0.5) !important;
