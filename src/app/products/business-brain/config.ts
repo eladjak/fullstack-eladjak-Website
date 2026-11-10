@@ -8,7 +8,8 @@ export const WA_NUMBER = '972525427474';
  * preferred time for a call). Leave empty until the questionnaire is live:
  * while empty, the primary call to action opens WhatsApp instead.
  */
-export const QUESTIONNAIRE_URL = '';
+export const QUESTIONNAIRE_URL =
+  'https://business-kickoff-questionnaire.vercel.app/personal';
 
 /** Founder pricing: seats offered and seats already taken (deposit paid 23.7.2026). */
 export const FOUNDER_SEATS_TOTAL = 3;
