@@ -522,7 +522,7 @@ export default function BusinessBrainPage() {
   return (
     <>
       <div className="flex min-h-dvh flex-col" dir="rtl" lang="he">
-        <main className="flex-1">
+        <main className="flex-1 overflow-x-clip">
 
           {/* ─── HERO ─── */}
           <section
