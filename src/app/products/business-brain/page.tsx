@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
   motion,
-  AnimatePresence,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -27,6 +26,12 @@ import {
 } from 'lucide-react';
 import { ScrollAnimate } from '@/components/ui/scroll-animate';
 import { BusinessBrainChatFAQ } from '@/components/business-brain/business-brain-chat-faq';
+import {
+  FOUNDER_SEATS_TEXT,
+  HAS_QUESTIONNAIRE,
+  START_HREF,
+  START_LABEL,
+} from './config';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -50,10 +55,6 @@ interface PricingTier {
 const WA_DEEP_LINK =
   'https://wa.me/972525427474?text=' +
   encodeURIComponent('היי אלעד, אני רוצה לשמוע על המוח העסקי');
-
-const WA_FOUNDER_LINK =
-  'https://wa.me/972525427474?text=' +
-  encodeURIComponent('היי אלעד, אני מעוניין לשריין מקום מייסד במוח העסקי');
 
 const WA_ORG_LINK =
   'https://wa.me/972525427474?text=' +
@@ -128,7 +129,7 @@ const COMPARISON_ROWS = [
     bb: true,
   },
   {
-    feature: 'גב אנושי כשצריך',
+    feature: 'מענה אנושי כשצריך',
     secretary: true,
     metaAi: false,
     bb: true,
@@ -160,10 +161,10 @@ const PRICING_TIERS: PricingTier[] = [
     highlighted: true,
     features: [
       'הכל מהבסיסי',
-      'אינטגרציה ל-Google Calendar',
-      'ניתוח מגמות שבועי',
+      'חיבור ליומן גוגל (בהמשך)',
+      'ניתוח מגמות שבועי (בהמשך)',
       'שאלות חופשיות ללא הגבלה',
-      'SLA תגובה 4 שעות',
+      'מענה אנושי תוך יום עבודה',
     ],
   },
 ];
@@ -409,10 +410,8 @@ function SlideIn({
 
 function FounderBanner({
   reduced,
-  onCheckout,
 }: {
   reduced: boolean;
-  onCheckout: () => void;
 }) {
   return (
     <motion.div
@@ -432,18 +431,18 @@ function FounderBanner({
         <div className="flex-1">
           <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/20 border border-amber-500/30 px-3 py-1 text-sm font-medium text-amber-400 mb-4">
             <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            מחיר מייסד, 3 מקומות בלבד
+            מחיר מייסד, {FOUNDER_SEATS_TEXT}
           </div>
 
           <h3 className="text-2xl md:text-3xl font-bold text-balance mb-2">
-            שריין מקום עכשיו
+            מתחילים, ואז שומרים מקום
           </h3>
           <p className="text-muted-foreground leading-relaxed max-w-lg mb-4">
             הקמה{' '}
             <strong className="text-foreground">₪1,450</strong>{' '}
             (במקום ₪2,900) ומנוי{' '}
             <strong className="text-foreground">₪390 לחודש</strong>{' '}
-            (במקום ₪490). מקדמה של ₪500 שומרת את המקום ונספרת בהקמה.
+            (במקום ₪490). מקדמה של ₪500 נספרת בהקמה, ומשלמים אותה רק אחרי השיחה: בהעברה בנקאית או בקישור תשלום שנשלח אישית.
           </p>
 
           {/* Savings callout */}
@@ -460,23 +459,24 @@ function FounderBanner({
         </div>
 
         <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
-          <button
-            type="button"
-            onClick={onCheckout}
+          <a
+            href={START_HREF}
+            target={HAS_QUESTIONNAIRE ? undefined : '_blank'}
+            rel={HAS_QUESTIONNAIRE ? undefined : 'noopener noreferrer'}
             className="wow-press inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 focus-visible:shadow-amber-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
-            שריין מקום מייסד, ₪500 מקדמה
-          </button>
+            {START_LABEL}
+          </a>
 
           <a
-            href={WA_FOUNDER_LINK}
+            href={WA_DEEP_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-            שאלה קודם? שלח הודעה
+            שאלה קודם? וואטסאפ
           </a>
         </div>
       </div>
@@ -500,177 +500,10 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-// ─── Checkout Modal ───────────────────────────────────────────────────────────
-
-function CheckoutModal({
-  open,
-  onClose,
-  reduced,
-}: {
-  open: boolean;
-  onClose: () => void;
-  reduced: boolean;
-}) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      const res = await fetch('/api/sumit/business-brain-checkout/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone }),
-      });
-      const data = (await res.json()) as {
-        checkoutUrl?: string;
-        whatsappFallback?: string;
-        error?: string;
-        message?: string;
-      };
-
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
-      } else if (data.whatsappFallback) {
-        // Payment not configured yet, open WhatsApp
-        window.open(data.whatsappFallback, '_blank', 'noopener,noreferrer');
-        onClose();
-      } else {
-        setError(data.message ?? 'משהו השתבש. נסה שוב או שלח הודעה בוואטסאפ.');
-      }
-    } catch {
-      setError('בעיית חיבור. נסה שוב.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (!open) return null;
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <>
-          {/* Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm"
-            onClick={onClose}
-            aria-hidden="true"
-          />
-
-          {/* Modal */}
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="checkout-title"
-            initial={reduced ? false : { opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, y: 10 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed inset-x-4 top-[10%] z-50 mx-auto max-w-md rounded-2xl border border-white/10 bg-[#09090B] p-6 shadow-2xl md:inset-x-auto md:left-1/2 md:-translate-x-1/2"
-          >
-            <div className="flex items-start justify-between gap-4 mb-5">
-              <div>
-                <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 text-xs font-medium text-amber-400 mb-2">
-                  <Sparkles className="h-3 w-3" aria-hidden="true" />
-                  מחיר מייסד
-                </div>
-                <h2 id="checkout-title" className="text-lg font-bold">
-                  שריין מקום, ₪500 מקדמה
-                </h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                  המקדמה נספרת על חשבון עלות ההקמה.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="סגור"
-                className="shrink-0 rounded-full p-1.5 text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-              >
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                  <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4" dir="rtl">
-              {[
-                { id: 'co-name', label: 'שם מלא', value: name, set: setName, type: 'text', placeholder: 'ישראל ישראלי', autoComplete: 'name' },
-                { id: 'co-email', label: 'כתובת מייל', value: email, set: setEmail, type: 'email', placeholder: 'you@example.com', autoComplete: 'email' },
-                { id: 'co-phone', label: 'מספר טלפון', value: phone, set: setPhone, type: 'tel', placeholder: '052-000-0000', autoComplete: 'tel' },
-              ].map((field) => (
-                <div key={field.id} className="space-y-1.5">
-                  <label
-                    htmlFor={field.id}
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    {field.label}
-                  </label>
-                  <input
-                    id={field.id}
-                    type={field.type}
-                    value={field.value}
-                    onChange={(e) => field.set(e.target.value)}
-                    placeholder={field.placeholder}
-                    autoComplete={field.autoComplete}
-                    required
-                    className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-                  />
-                </div>
-              ))}
-
-              {error && (
-                <p className="text-sm text-destructive flex items-center gap-2">
-                  <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  {error}
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="wow-press w-full inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/20 transition-[transform,background-color,color,opacity] duration-150 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60 disabled:pointer-events-none"
-              >
-                {loading ? (
-                  <>
-                    <span className="h-4 w-4 rounded-full border-2 border-current border-t-transparent animate-spin" aria-hidden="true" />
-                    מעביר לדף תשלום...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-4 w-4" aria-hidden="true" />
-                    לדף תשלום מאובטח
-                  </>
-                )}
-              </button>
-
-              <p className="text-center text-xs text-muted-foreground">
-                תשלום מאובטח דרך Sumit · קבלה נשלחת למייל
-              </p>
-            </form>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
-}
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function BusinessBrainPage() {
   const reduced = useReducedMotion() ?? false;
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -688,12 +521,6 @@ export default function BusinessBrainPage() {
 
   return (
     <>
-      <CheckoutModal
-        open={checkoutOpen}
-        onClose={() => setCheckoutOpen(false)}
-        reduced={reduced}
-      />
-
       <div className="flex min-h-dvh flex-col" dir="rtl" lang="he">
         <main className="flex-1">
 
@@ -775,7 +602,7 @@ export default function BusinessBrainPage() {
                   className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8"
                 >
                   דו"ח בוקר, תזכורות לידים, סיכום יום, ישירות לוואטסאפ שלך.
-                  ומאחוריו אלעד: בן-אדם שמבין עסקים ועונה כשצריך.
+                  ומאחוריו אלעד: בן-אדם שמבין עסקים ועונה לשאלות ולדברים שדורשים שיקול דעת, תוך יום עבודה.
                 </motion.p>
 
                 {/* CTA buttons */}
@@ -785,14 +612,15 @@ export default function BusinessBrainPage() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="flex flex-wrap gap-4"
                 >
-                  <button
-                    type="button"
-                    onClick={() => setCheckoutOpen(true)}
+                  <a
+                    href={START_HREF}
+                    target={HAS_QUESTIONNAIRE ? undefined : '_blank'}
+                    rel={HAS_QUESTIONNAIRE ? undefined : 'noopener noreferrer'}
                     className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-7 py-3.5 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:bg-amber-400 focus-visible:-translate-y-0.5"
                   >
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
-                    שריין מקום מייסד
-                  </button>
+                    {START_LABEL}
+                  </a>
 
                   <a
                     href={WA_DEEP_LINK}
@@ -801,7 +629,7 @@ export default function BusinessBrainPage() {
                     className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-7 py-3.5 text-sm font-medium transition-[transform,background-color,color,opacity] duration-150 hover:bg-white/10 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:bg-white/10 focus-visible:-translate-y-0.5"
                   >
                     <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-                    לקבוע שיחת היכרות
+                    {HAS_QUESTIONNAIRE ? 'או לדבר בוואטסאפ' : 'שאלה לפני? וואטסאפ'}
                   </a>
                 </motion.div>
               </div>
@@ -866,6 +694,71 @@ export default function BusinessBrainPage() {
                   <WhatsAppDemo reduced={reduced} />
                 </ScrollAnimate>
               </div>
+            </div>
+          </section>
+
+          {/* ─── How to start: three steps ─── */}
+          <section
+            className="w-full py-14 md:py-16 border-y border-border/40 bg-muted/10"
+            aria-labelledby="bb-start-heading"
+          >
+            <div className="container px-4 md:px-6">
+              <ScrollAnimate className="text-center max-w-2xl mx-auto mb-8">
+                <h2
+                  id="bb-start-heading"
+                  className="text-2xl font-bold tracking-tighter sm:text-3xl text-balance mb-2"
+                >
+                  איך מתחילים, בלי התחייבות
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  שלושה צעדים קצרים. רק בסוף בוחרים, ורק אם מתאים.
+                </p>
+              </ScrollAnimate>
+              <ol className="mx-auto grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-3" role="list">
+                {[
+                  {
+                    icon: MessageCircle,
+                    title: HAS_QUESTIONNAIRE ? 'שאלון קצר' : 'הודעה קצרה',
+                    desc: HAS_QUESTIONNAIRE
+                      ? 'חמש דקות. בסוף תבחרו זמן נוח לשיחה.'
+                      : 'כמה שאלות על העסק, ומתי נוח לדבר.',
+                  },
+                  {
+                    icon: Phone,
+                    title: 'שיחה קצרה ואפיון צרכים',
+                    desc: 'מבינים מה העסק שלכם צריך, ועם אילו מערכות אתם עובדים.',
+                  },
+                  {
+                    icon: CheckCircle2,
+                    title: '2-3 אפשרויות עם המלצה',
+                    desc: 'מקבלים אפשרויות ברורות עם המלצה אחת. אין התחייבות.',
+                  },
+                ].map((step, i) => {
+                  const Icon = step.icon;
+                  return (
+                    <li
+                      key={step.title}
+                      className="flex items-start gap-4 rounded-2xl border border-border/60 bg-card/60 p-5"
+                    >
+                      <span
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+                        aria-hidden="true"
+                      >
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <p className="text-xs font-mono text-muted-foreground mb-0.5">
+                          צעד {i + 1}
+                        </p>
+                        <h3 className="font-semibold mb-1">{step.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {step.desc}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
           </section>
 
@@ -1094,7 +987,7 @@ export default function BusinessBrainPage() {
                     step: '03',
                     icon: MessageCircle,
                     title: 'העסק שלך מנוהל מהוואטסאפ',
-                    desc: 'מהרגע שהסוכן באוויר: דוחות, תזכורות, שאלות. אתה מנהל מהטלפון. אני ברקע לכל מה שדורש שיקול דעת.',
+                    desc: 'מהרגע שהסוכן באוויר: דוחות, תזכורות, שאלות. אתה מנהל מהטלפון. דברים שדורשים שיקול דעת מגיעים אליי, ואני עונה תוך יום עבודה.',
                   },
                   {
                     step: '04',
@@ -1290,17 +1183,17 @@ export default function BusinessBrainPage() {
                         ))}
                       </ul>
                       <a
-                        href={WA_DEEP_LINK}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href={START_HREF}
+                        target={HAS_QUESTIONNAIRE ? undefined : '_blank'}
+                        rel={HAS_QUESTIONNAIRE ? undefined : 'noopener noreferrer'}
                         className={`wow-press inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                           tier.highlighted
                             ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20'
                             : 'border border-border/80 bg-transparent hover:bg-card/80'
                         }`}
                       >
-                        <WhatsAppIcon className="h-4 w-4" />
-                        לקבוע שיחת היכרות
+                        <Sparkles className="h-4 w-4" aria-hidden="true" />
+                        {START_LABEL}
                       </a>
                     </div>
                   </motion.div>
@@ -1308,7 +1201,7 @@ export default function BusinessBrainPage() {
               </div>
 
               {/* Founder banner */}
-              <FounderBanner reduced={reduced} onCheckout={() => setCheckoutOpen(true)} />
+              <FounderBanner reduced={reduced} />
             </div>
           </section>
 
@@ -1368,8 +1261,8 @@ export default function BusinessBrainPage() {
                   },
                   {
                     icon: CheckCircle2,
-                    title: 'SLA ברור',
-                    desc: 'שעות זמינות, זמן תגובה מקסימלי. הכל כתוב לפני שמתחילים. לא ניחושים.',
+                    title: 'זמני מענה ברורים',
+                    desc: 'הסוכן עונה לבד, ומענה אנושי תוך יום עבודה. הכל כתוב לפני שמתחילים. לא ניחושים.',
                   },
                   {
                     icon: ArrowLeft,
@@ -1422,22 +1315,23 @@ export default function BusinessBrainPage() {
                       id="bb-cta-heading"
                       className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                     >
-                      שלושה מקומות. לא יותר.
+                      {FOUNDER_SEATS_TEXT}.
                     </h2>
                     <p className="text-muted-foreground mb-8 leading-relaxed">
-                      כל שריון מגיע עם מחיר מייסד, חיסכון של ₪1,740 בשנה
-                      הראשונה. כשהמקומות מתמלאים, המחיר חוזר לרגיל.
+                      מחיר מייסד, חיסכון של ₪1,740 בשנה הראשונה. כשהמקומות
+                      מתמלאים, המחיר חוזר לרגיל. מקדמה משלמים רק אחרי השיחה.
                     </p>
 
                     <div className="flex flex-wrap gap-4 justify-center">
-                      <button
-                        type="button"
-                        onClick={() => setCheckoutOpen(true)}
+                      <a
+                        href={START_HREF}
+                        target={HAS_QUESTIONNAIRE ? undefined : '_blank'}
+                        rel={HAS_QUESTIONNAIRE ? undefined : 'noopener noreferrer'}
                         className="wow-press inline-flex items-center gap-2 rounded-xl bg-amber-500 px-8 py-4 text-sm font-semibold text-gray-900 shadow-lg shadow-amber-500/25 transition-[transform,background-color,color,opacity,box-shadow] duration-150 hover:bg-amber-400 hover:shadow-amber-500/40 focus-visible:shadow-amber-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         <Sparkles className="h-4 w-4" aria-hidden="true" />
-                        שריין מקום מייסד, ₪500 מקדמה
-                      </button>
+                        {START_LABEL}
+                      </a>
 
                       <a
                         href={WA_DEEP_LINK}
