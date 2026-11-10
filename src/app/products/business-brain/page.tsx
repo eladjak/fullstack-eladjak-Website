@@ -1315,7 +1315,7 @@ export default function BusinessBrainPage() {
                       id="bb-cta-heading"
                       className="wow-title wow-title--center text-3xl font-bold tracking-tighter sm:text-4xl text-balance mb-4"
                     >
-                      {FOUNDER_SEATS_TEXT}.
+                      {FOUNDER_SEATS_TEXT}
                     </h2>
                     <p className="text-muted-foreground mb-8 leading-relaxed">
                       מחיר מייסד, חיסכון של ₪1,740 בשנה הראשונה. כשהמקומות
