@@ -24,6 +24,8 @@ export default function Gateway({
   theme: "personal" | "ops" | "portfolio";
 }): null {
   useEffect(() => {
+    // Deep links should open directly; the introduction belongs to the homepage.
+    if (window.location.pathname !== "/") return;
     const w = window as unknown as {
       Gateway?: { mount: (o: { theme: string }) => void };
     };

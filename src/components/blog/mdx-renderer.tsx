@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useLocale } from 'next-intl';
 
 interface MDXRendererProps {
   content: string;
@@ -15,27 +14,11 @@ interface MDXRendererProps {
  * rendering both languages stacked. Falls back to full content if no separator found.
  */
 export function MDXRenderer({ content }: MDXRendererProps) {
-  const locale = useLocale();
   const html = useMemo(() => {
-    const sliced = sliceByLocale(content, locale);
-    return markdownToHtml(sliced);
-  }, [content, locale]);
+    return markdownToHtml(content);
+  }, [content]);
 
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
-}
-
-/**
- * Posts are authored as: English content, then a single `---` line, then Hebrew.
- * Some posts have no Hebrew section yet, in that case we return the full content.
- * If we're in `he` locale and a Hebrew section exists, return it; otherwise English.
- */
-function sliceByLocale(content: string, locale: string): string {
-  const sections = content.split(/^---\s*$/m);
-  if (sections.length < 2) return content;
-  const english = sections[0]?.trim() ?? '';
-  const hebrew = sections.slice(1).join('\n---\n').trim();
-  if (locale === 'he' && hebrew.length > 50) return hebrew;
-  return english.length > 50 ? english : content;
 }
 
 function markdownToHtml(markdown: string): string {
@@ -96,7 +79,7 @@ function markdownToHtml(markdown: string): string {
         result.push(listType === 'ul' ? '</ul>' : '</ol>');
         inList = false;
       }
-      const level = headingMatch[1]?.length ?? 1;
+      const level = Math.max(2, headingMatch[1]?.length ?? 1);
       const text = headingMatch[2] ?? '';
       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       result.push(`<h${level} id="${id}" class="text-foreground font-bold">${processInline(text)}</h${level}>`);
