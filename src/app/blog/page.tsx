@@ -1,4 +1,4 @@
-import { getAllMDXPosts } from '@/lib/mdx';
+import { getBlogPosts } from '@/lib/blog-content';
 import BlogIndexClient, {
   type MDXPostSerialized,
 } from '@/components/blog/blog-index-client';
@@ -8,8 +8,8 @@ import BlogIndexClient, {
 // fetched `/api/blog/posts` in a `useEffect`, shipping an empty shell + spinner
 // to crawlers. Now the post list is server-rendered; only tag/locale filtering
 // is client-side (in BlogIndexClient).
-export default function BlogPage() {
-  const posts: MDXPostSerialized[] = getAllMDXPosts().map(
+export default async function BlogPage() {
+  const posts: MDXPostSerialized[] = (await getBlogPosts()).map(
     ({ slug, frontmatter, readingTime }) => ({
       slug,
       frontmatter: {

@@ -1,7 +1,7 @@
-import { getAllMDXPosts } from '@/lib/mdx';
+import { getBlogPosts } from '@/lib/blog-content';
 
 export async function GET() {
-  const posts = getAllMDXPosts();
+  const posts = await getBlogPosts();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.co.il';
 
   const rssItems = posts.map(post => `
