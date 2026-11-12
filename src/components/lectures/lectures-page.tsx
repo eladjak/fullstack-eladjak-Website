@@ -454,7 +454,7 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                       <a
                         href={v.fieldPhotos.creditUrl}
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         dir="ltr"
                         className="-my-2.5 inline-block py-2.5 font-semibold text-cta underline decoration-from-font underline-offset-4 hover:opacity-80"
                       >

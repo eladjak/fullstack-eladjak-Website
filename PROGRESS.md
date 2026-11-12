@@ -1280,3 +1280,8 @@ For each project, work in its own repo:
 ## 12.11.2026 — /lectures v4 (draft PR #15, preview only)
 - "קהל תורני" / "Torah-observant audiences" everywhere; FAQ as a chat (fixed answers, `faq-chat.tsx`); six daylight illustrations (stage, classroom, studio, team, staff room, community hall); hero video slot (`hero-media.tsx`, auto-on when `public/videos/lectures-intro.mp4` is in the build, checked in `next.config.js`).
 - Open: owner approval of illustrations, real 11.11 photos, the 30s film (storyboard in the v4 report), form delivery check from v3.
+
+## 12.11.2026 — /lectures v5 (draft PR #15, preview only)
+- Real photos from the 11.11 lecture (sent by the organiser, Ortamai): `lectures-field-01/02/04.webp`, participants' faces blurred, Elad not. Block "מההרצאה האחרונה" in the from-the-field section, **preview-only** (`showFieldPhotos`, hidden when `VERCEL_ENV=production`) until consent to publish faces. Credit "ההרצאה התקיימה דרך Ortamai" by the photos and in the lecture sentence ("בכיתת מחשבים"). Unblurred versions are NOT in the repo.
+- Classroom illustration redrawn from the real room (city-view windows), passed illustration-check.
+- Open: consent for faces (organiser), Ortamai spelling/URL confirmation, removing the preview-only guard when approved.
