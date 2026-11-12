@@ -125,13 +125,19 @@ export function NewsletterSignup({
       }
 
       setStatus("error");
-      setErrorField(
+      const field =
         data.error === "invalid_email"
           ? "email"
           : data.error === "consent_required"
             ? "consent"
-            : null,
-      );
+            : null;
+      setErrorField(field);
+      if (data.error === "rejected") setHoneypot("");
+      if (field) {
+        requestAnimationFrame(() =>
+          (field === "email" ? inputRef : consentRef).current?.focus(),
+        );
+      }
       setErrorMessage(
         data.error === "invalid_email"
           ? COPY.errorInvalid
@@ -209,7 +215,9 @@ export function NewsletterSignup({
               }}
               placeholder={COPY.placeholder}
               aria-invalid={isError && errorField === "email"}
-              aria-describedby={isError ? ids.error : undefined}
+              aria-describedby={
+                isError && errorField !== "consent" ? ids.error : undefined
+              }
               className={cn(
                 "flex w-full rounded-md border bg-background py-2 pe-3 ps-9",
                 "text-sm ring-offset-background placeholder:text-muted-foreground",

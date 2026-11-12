@@ -69,10 +69,10 @@ function getClientIp(request: Request): string {
 
 // Source page: a site-relative path only, so nothing odd lands in the record.
 function cleanSourcePath(value: unknown): string {
-  if (typeof value !== "string") return "/";
+  if (typeof value !== "string") return "unknown";
   const v = value.trim();
   if (v.length === 0 || v.length > 200 || !/^\/[A-Za-z0-9\-._~/%]*$/.test(v))
-    return "/";
+    return "unknown";
   return v;
 }
 
@@ -88,9 +88,16 @@ export async function POST(request: Request) {
     }
 
     // Parse body (defensive, bad JSON should not 500)
+    // Small bodies only: the form sends a few short fields.
+    const MAX_BODY = 2_000;
+    if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY) {
+      return json({ ok: false, error: "invalid_body" }, 413);
+    }
     let body: Record<string, unknown>;
     try {
-      const parsed: unknown = await request.json();
+      const raw = await request.text();
+      if (raw.length > MAX_BODY) throw new Error("too large");
+      const parsed: unknown = JSON.parse(raw);
       if (!parsed || typeof parsed !== "object")
         throw new Error("not an object");
       body = parsed as Record<string, unknown>;

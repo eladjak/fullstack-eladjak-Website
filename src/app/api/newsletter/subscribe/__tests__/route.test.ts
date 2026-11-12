@@ -70,6 +70,14 @@ describe('POST /api/newsletter/subscribe', () => {
     expect(f).not.toHaveBeenCalled();
   });
 
+  it('refuses oversized bodies without calling the provider', async () => {
+    const f = vi.fn();
+    vi.stubGlobal('fetch', f);
+    const res = await POST(req({ ...good, pad: 'x'.repeat(5000) }));
+    expect(res.status).toBeGreaterThanOrEqual(400);
+    expect(f).not.toHaveBeenCalled();
+  });
+
   it('rate limits after 3 attempts from the same address', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 500 })));
     const mk = () => new Request('http://localhost/x', {

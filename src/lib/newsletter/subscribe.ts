@@ -34,6 +34,7 @@ interface ResendContact {
 }
 
 const TIMEOUT_MS = 8_000;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export function consentProperties(sourcePath: string, now: Date) {
   return {
@@ -81,8 +82,12 @@ export async function subscribeContact(
       return {
         status: 0,
         json: null,
-        // Name only: messages can carry the request URL (and so the email).
-        error: e instanceof Error ? e.name : "unknown",
+        // A fixed category only: exception text can carry the URL (the email).
+        error:
+          e instanceof Error &&
+          (e.name === "TimeoutError" || e.name === "AbortError")
+            ? "timeout"
+            : "network",
       };
     }
   }
@@ -130,6 +135,10 @@ export async function subscribeContact(
     return { kind: "previously_unsubscribed" };
   }
 
+  // Provider ids are UUIDs; anything else must not reach a URL path.
+  if (!UUID.test(contact.id) || !UUID.test(deps.segmentId)) {
+    return { kind: "provider_error", detail: "bad-id" };
+  }
   const cid = encodeURIComponent(contact.id);
   const sid = encodeURIComponent(deps.segmentId);
   const segs = await call("GET", `/contacts/${cid}/segments`);
@@ -142,18 +151,19 @@ export async function subscribeContact(
     return { kind: "already_subscribed" };
   }
 
-  // 3. Known, subscribed contact joining this list: add it to the segment
-  //    first, then record this consent. Adding first means a failure leaves
-  //    the stored contact untouched.
-  const added = await call("POST", `/contacts/${cid}/segments/${sid}`);
-  if (added.status < 200 || added.status >= 300)
-    return fail("add-segment", added);
-
+  // 3. Known, subscribed contact joining this list: record this consent
+  //    first, then add the membership. If the second step fails, a retry
+  //    finds no membership and repeats both, so success always comes with
+  //    a consent record.
   const updated = await call("PATCH", `/contacts/${cid}`, {
     properties: props,
   });
   if (updated.status < 200 || updated.status >= 300)
     return fail("update", updated);
+
+  const added = await call("POST", `/contacts/${cid}/segments/${sid}`);
+  if (added.status < 200 || added.status >= 300)
+    return fail("add-segment", added);
 
   return { kind: "subscribed" };
 }

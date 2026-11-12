@@ -3,7 +3,8 @@ import { describe, expect, it, vi } from 'vitest';
 import { subscribeContact } from '../subscribe';
 import { CONSENT_TEXT, CONSENT_VERSION } from '../consent';
 
-const SEG = 'seg-123';
+const SEG = '8c8ef0c8-4287-4af7-a1f5-5b9000ded213';
+const C1 = 'bad62e1d-6e65-4ba1-a440-ea109bde253a';
 const input = { email: 'a@b.co', sourcePath: '/he', now: new Date('2026-11-12T13:00:00Z') };
 
 type Route = (method: string, url: string, body: unknown) => { status: number; json?: unknown } | Error;
@@ -66,7 +67,7 @@ describe('subscribeContact', () => {
   it('already on the list: says so and keeps the original consent record', async () => {
     const f = fakeFetch((m, url) => {
       if (url.endsWith('/segments')) return { status: 200, json: { data: [{ id: SEG }] } };
-      return { status: 200, json: { id: 'c1', unsubscribed: false } };
+      return { status: 200, json: { id: C1, unsubscribed: false } };
     });
     expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'already_subscribed' });
     expect(f.calls.some((c) => c.method !== 'GET')).toBe(false);
@@ -75,21 +76,21 @@ describe('subscribeContact', () => {
   it('someone who opted out is NOT re-subscribed by the form', async () => {
     const f = fakeFetch((m, url) => {
       if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
-      return { status: 200, json: { id: 'c1', unsubscribed: true } };
+      return { status: 200, json: { id: C1, unsubscribed: true } };
     });
     expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'previously_unsubscribed' });
     expect(f.calls.some((c) => c.method !== 'GET')).toBe(false);
   });
 
-  it('known subscribed contact joins the list: segment first, then consent', async () => {
+  it('known subscribed contact joins the list: consent first, then segment', async () => {
     const f = fakeFetch((m, url) => {
       if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
-      if (m === 'GET') return { status: 200, json: { id: 'c1', unsubscribed: false } };
+      if (m === 'GET') return { status: 200, json: { id: C1, unsubscribed: false } };
       return { status: 200, json: { id: 'c1' } };
     });
     expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'subscribed' });
     const writes = f.calls.filter((c) => c.method !== 'GET').map((c) => c.method);
-    expect(writes).toEqual(['POST', 'PATCH']);
+    expect(writes).toEqual(['PATCH', 'POST']);
   });
 
   it('error details never carry the address', async () => {
@@ -101,11 +102,25 @@ describe('subscribeContact', () => {
   it('RED ARM: failing to add the segment is an error', async () => {
     const f = fakeFetch((m, url) => {
       if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
-      if (m === 'GET') return { status: 200, json: { id: 'c1', unsubscribed: false } };
+      if (m === 'GET') return { status: 200, json: { id: C1, unsubscribed: false } };
       if (m === 'POST') return { status: 500 };
       return { status: 200, json: { id: 'c1' } };
     });
     expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
-    expect(f.calls.some((c) => c.method === 'PATCH')).toBe(false);
+  });
+
+  it('RED ARM: a non-UUID id from the provider never reaches a URL path', async () => {
+    const f = fakeFetch((m, url) => {
+      if (url.includes('/segments')) return { status: 200, json: { data: [] } };
+      return { status: 200, json: { id: '../../api-keys', unsubscribed: false } };
+    });
+    expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
+    expect(f.calls.some((c) => c.url.includes('api-keys'))).toBe(false);
+  });
+
+  it('error details are fixed categories, even for a crafted exception name', async () => {
+    const f = fakeFetch(() => Object.assign(new Error('x'), { name: 'a@b.co sk_live' }));
+    const out = await subscribeContact(input, deps(f.impl));
+    expect(JSON.stringify(out)).not.toMatch(/a@b|sk_live/);
   });
 });

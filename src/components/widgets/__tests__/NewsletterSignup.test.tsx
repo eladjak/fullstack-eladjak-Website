@@ -51,6 +51,15 @@ describe('NewsletterSignup', () => {
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('הוסרה בעבר'));
   });
 
+  it('honeypot rejection is an error the visitor can recover from, never success', async () => {
+    respond(400, { ok: false, error: 'rejected' });
+    render(<NewsletterSignup />);
+    fillAndSubmit();
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.queryByText('נרשמתם. תודה.')).toBeNull();
+    expect((document.querySelector('input[name="website"]') as HTMLInputElement).value).toBe('');
+  });
+
   it('asks for consent before sending anything', async () => {
     const f = vi.fn();
     vi.stubGlobal('fetch', f);
