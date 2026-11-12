@@ -26,6 +26,7 @@ export default function Footer() {
   const footerNavLinks = [
     { href: '/', label: tNav('home') },
     { href: '/services', label: tNav('services') },
+    { href: '/lectures', label: tNav('lectures') },
     { href: '/projects', label: tNav('projects') },
     { href: '/blog', label: tNav('blog') },
     { href: '/about', label: tNav('about') },

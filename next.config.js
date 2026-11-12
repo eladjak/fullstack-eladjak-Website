@@ -104,7 +104,14 @@ const config = {
             value: '1; mode=block'
           }
         ]
-      }
+      },
+      // The lectures booking form offers optional voice dictation (browser
+      // speech recognition), so these two pages allow the microphone for this
+      // origin only. Must come after '/:path*' so this value wins.
+      ...['/lectures', '/lectures/', '/en/lectures', '/en/lectures/'].map((source) => ({
+        source,
+        headers: [{ key: 'Permissions-Policy', value: 'camera=(), microphone=(self), geolocation=()' }],
+      })),
     ];
   }
 };
