@@ -77,6 +77,7 @@ describe('NewsletterSignup', () => {
     fillAndSubmit(false);
     expect(screen.getByRole('alert')).toHaveTextContent('תיבת האישור');
     expect(screen.getByRole('checkbox')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByLabelText('האימייל שלכם').className).not.toMatch(/border-destructive/);
     expect(f).not.toHaveBeenCalled();
   });
 });

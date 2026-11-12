@@ -223,7 +223,7 @@ export function NewsletterSignup({
                 "text-sm ring-offset-background placeholder:text-muted-foreground",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 "disabled:cursor-not-allowed disabled:opacity-60",
-                isError
+                isError && errorField === "email"
                   ? "border-destructive focus-visible:ring-destructive"
                   : "border-input",
               )}
