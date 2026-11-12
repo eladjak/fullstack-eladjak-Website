@@ -23,7 +23,9 @@ export function PageTransition({ children }: PageTransitionProps) {
   }
 
   return (
-    <AnimatePresence mode="wait">
+    // initial={false}: the first, server-rendered paint shows content at full opacity
+    // (no hidden-until-hydration page); route changes still animate.
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 8 }}
