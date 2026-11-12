@@ -20,7 +20,8 @@ import {
 import { AudienceTabs, type AudienceTabItem } from './audience-tabs';
 import { BookingForm } from './booking-form';
 import { LECTURES_COPY_V2 } from './content-v2';
-import { HeroScene } from './hero-scene';
+import { FaqChat } from './faq-chat';
+import { HeroMedia, type HeroVideo } from './hero-media';
 import { RevealRoot } from './reveal-root';
 import { LECTURES_COPY, SITE_URL, type FormatId, type LecturesLocale } from './content';
 import { cn } from '@/lib/utils';
@@ -126,6 +127,23 @@ export function LecturesJsonLd({ locale }: { locale: LecturesLocale }) {
   );
 }
 
+/**
+ * The opening film is wired by file presence: next.config.js checks
+ * public/videos/lectures-intro.mp4 (and .webm) at build time. Once the file is in
+ * the build, the hero plays it (lazy, muted, captioned). Until then the
+ * illustrated stage is the hero, and previews show a note where the film goes.
+ */
+function getHeroVideo(locale: LecturesLocale, captionsLabel: string): HeroVideo | null {
+  if (!process.env.LECTURES_INTRO_MP4) return null;
+  return {
+    mp4: '/videos/lectures-intro.mp4',
+    webm: process.env.LECTURES_INTRO_WEBM ? '/videos/lectures-intro.webm' : undefined,
+    captions: `/videos/lectures-intro.${locale}.vtt`,
+    captionsLang: locale,
+    captionsLabel,
+  };
+}
+
 export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   const c = LECTURES_COPY[locale];
   const v = LECTURES_COPY_V2[locale];
@@ -135,6 +153,7 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   // The speaker-media frame is a note for Elad: shown in previews and local builds only,
   // never on the production site until a real photo or clip replaces it.
   const showMediaSlot = process.env.VERCEL_ENV !== 'production';
+  const heroVideo = getHeroVideo(locale, v.hero.captionsLabel);
 
   const tabOrder = ['org', 'school', 'community', 'torah'];
   const panels = [...v.audiences.panels].sort((x, y) => tabOrder.indexOf(x.id) - tabOrder.indexOf(y.id));
@@ -161,7 +180,7 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
 
       {/* ------------------------------ HERO ------------------------------ */}
       <header className="lec-hero-bg relative isolate">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-[1.3fr_1fr] lg:gap-12 lg:pb-32 lg:pt-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:pb-32 lg:pt-24">
           <div>
             <p className="mb-6 text-base font-semibold text-cta">{c.hero.kicker}</p>
             <h1 className="text-balance font-extrabold leading-[1.08] tracking-tight">
@@ -202,8 +221,15 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
               ))}
             </ul>
           </div>
-          <figure className="relative mx-auto w-full max-w-[340px] text-foreground/80 lg:max-w-[520px]" aria-label={v.hero.sceneLabel}>
-            <HeroScene className="h-auto w-full" />
+          <figure className="relative mx-auto w-full max-w-[560px] lg:max-w-none" aria-label={v.hero.sceneLabel}>
+            <HeroMedia
+              poster="/images/lectures-stage.webp"
+              posterAlt={c.hero.imageAlt}
+              video={heroVideo}
+              labels={v.hero}
+              transcript={v.hero.transcriptLines}
+              slotNote={showMediaSlot ? v.hero.videoSlotNote : null}
+            />
           </figure>
         </div>
       </header>
@@ -295,8 +321,8 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                 <div className="lec-reveal space-y-8">
                   <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border">
                     <Image
-                      src="/images/lectures-hero.jpg"
-                      alt={c.hero.imageAlt}
+                      src={v.torah.image}
+                      alt={v.torah.imageAlt}
                       fill
                       sizes="(min-width: 1024px) 520px, 100vw"
                       className="object-cover"
@@ -508,21 +534,15 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
             <h2 id="faq-title" className="lec-reveal text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
               {c.faq.title}
             </h2>
-            <div className="lec-reveal mt-10 divide-y divide-border border-y border-border">
-              {c.faq.items.map((f) => (
-                <details key={f.q} className="group">
-                  <summary
-                    className={cn(
-                      'flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-semibold transition-colors duration-150 hover:text-cta [&::-webkit-details-marker]:hidden',
-                      focusRing,
-                    )}
-                  >
-                    <h3 className="text-lg">{f.q}</h3>
-                    <ChevronDown className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
-                  </summary>
-                  <p className="max-w-[62ch] pb-6 text-lg leading-[1.75] text-muted-foreground">{f.a}</p>
-                </details>
-              ))}
+            <p className="lec-reveal mt-4 max-w-[60ch] text-lg leading-[1.75] text-muted-foreground">{v.faqChat.lead}</p>
+            <div className="lec-reveal mt-10">
+              <FaqChat
+                items={c.faq.items}
+                labels={v.faqChat}
+                avatarSrc="https://avatars.githubusercontent.com/u/108827199?v=4"
+                bookingHref="#booking"
+                dir={dir}
+              />
             </div>
           </div>
         </section>

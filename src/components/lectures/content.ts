@@ -125,7 +125,7 @@ const he: LecturesCopy = {
     secondary: 'מה אפשר להזמין',
     note: 'מתאים גם למי שמעולם לא פתח כלי AI.',
     imageAlt:
-      'איור של קבוצת לומדים, רובם בכיפות ואחד בכובע, סביב שולחן עץ עם ספרים פתוחים ומחשב נייד, ומנחה שמסביר להם באור מנורה חמה',
+      'איור: אלעד עומד על במה מואר בזרקור רך ומסביר בתנועת יד, מול אולם מלא. גברים בכיפות יושבים מימין למעבר ונשים בכיסוי ראש משמאלו',
   },
   audiences: {
     title: 'למי זה מתאים',
@@ -134,7 +134,7 @@ const he: LecturesCopy = {
       { id: 'org', label: 'צוותים בארגונים', text: 'איך משתמשים בכלים לכתיבה, לסיכום ולניתוח, ומה חשוב לבדוק לפני שמזינים מידע רגיש.' },
       { id: 'school', label: 'בתי ספר וצוותי חינוך', text: 'מה התלמידים כבר עושים עם AI, ואיך מורים משתמשים בו בהכנת חומרים.' },
       { id: 'community', label: 'קהילות וקבוצות מבוגרים', text: 'היכרות רגועה עם הכלים, וזהירות מהונאות ומזיופים בקול ובווידאו.' },
-      { id: 'torah', label: 'רבנים, אברכים ובתי מדרש', text: 'איך פועלת בינה מלאכותית, ואיך אפשר להיעזר בה בחיפוש ובסידור מקורות בגמרא ובהלכה.' },
+      { id: 'torah', label: 'קהל תורני', text: 'איך פועלת בינה מלאכותית, ואיך אפשר להיעזר בה בחיפוש ובסידור מקורות בגמרא ובהלכה.' },
       { id: 'parents', label: 'הורים', text: 'מה הילדים פוגשים, מה כדאי לדעת, ואיך מדברים איתם על זה.' },
     ],
   },
@@ -147,9 +147,9 @@ const he: LecturesCopy = {
       {
         id: 'torah',
         featured: true,
-        title: 'בינה מלאכותית ללומדי תורה: מהות וכלים',
+        title: 'בינה מלאכותית לקהל תורני: מהות וכלים',
         duration: 'בוקר של כשלוש שעות',
-        forWhom: 'רבנים, אברכים, מגידי שיעור ובתי מדרש',
+        forWhom: 'קהל תורני: קהילות, בתי מדרש ומגידי שיעור',
         summary:
           'החצי הראשון עוסק במהות: מה המכונה הזאת עושה באמת כשהיא "עונה", מה ההבדל בין חיזוי מילים להבנה, ואיפה עובר הגבול של מה שאפשר לסמוך עליו. החצי השני מעשי: כלים לחיפוש ולסידור מקורות בלימוד גמרא והלכה, ואיך מאמתים מראה מקום וציטוט מול המקור עצמו, בהקשר שלו. הכלים הם עזר ללימוד, לא תחליף לעיון או לפסיקה.',
         takeaways: [
@@ -190,7 +190,7 @@ const he: LecturesCopy = {
   },
   recent: {
     title: 'מהשטח',
-    text: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל דתי. בנינו את המפגש כך שכל אחד יצא עם משהו שעשה בעצמו.',
+    text: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל תורני. בנינו את המפגש כך שכל אחד יצא עם משהו שעשה בעצמו.',
     bullets: [
       'החלק הראשון בלי מחשבים: היסטוריה קצרה, איך זה עובד, ואיפה זה טועה',
       'אחר כך פתחנו כלי ביחד ותרגלנו, צעד אחר צעד',
@@ -225,7 +225,7 @@ const he: LecturesCopy = {
       },
       {
         gain: 'כבוד לקהל, לכל קהל',
-        because: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל דתי. התאמנו מראש את הדוגמאות, את התמונות ואת קטעי השמע. ככה אני עובד עם כל קבוצה.',
+        because: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל תורני. התאמנו מראש את הדוגמאות, את התמונות ואת קטעי השמע. ככה אני עובד עם כל קבוצה.',
       },
     ],
     link: 'עוד עליי',
@@ -238,8 +238,8 @@ const he: LecturesCopy = {
         a: 'לא. ההרצאה מתחילה מאפס ומסבירה כל מושג במילים פשוטות. בסדנה המעשית מספיק לדעת לפתוח אפליקציה בטלפון. מי שכבר משתמש בכלים יקבל דרכים לעבוד איתם טוב יותר ולבדוק את התשובות שלהם.',
       },
       {
-        q: 'האם התוכן מתאים לקהל דתי או חרדי?',
-        a: 'כן. הדוגמאות, התמונות וקטעי השמע מותאמים לקהל מראש, ובשיחה הראשונה עוברים יחד על מה מתאים ומה עדיף להשאיר בחוץ. במפגש לרבנים ולאברכים יש גם דיון עקרוני במהות של הכלי, לא רק הדרכה טכנית, והכלי מוצג כעזר לחיפוש ולסידור ולא כמי שמכריע.',
+        q: 'האם התוכן מתאים לקהל תורני?',
+        a: 'כן. הדוגמאות, התמונות וקטעי השמע מותאמים לקהל מראש, ובשיחה הראשונה עוברים יחד על מה מתאים ומה עדיף להשאיר בחוץ. במפגש לקהל תורני יש גם דיון עקרוני במהות של הכלי, לא רק הדרכה טכנית, והכלי מוצג כעזר לחיפוש ולסידור ולא כמי שמכריע.',
       },
       {
         q: 'מה צריך להביא ומה צריך במקום?',
@@ -280,7 +280,7 @@ const he: LecturesCopy = {
           { value: 'org', label: 'צוות בארגון' },
           { value: 'school', label: 'בית ספר או צוות חינוכי' },
           { value: 'community', label: 'קהילה או קבוצת מבוגרים' },
-          { value: 'torah', label: 'רבנים, אברכים, בית מדרש' },
+          { value: 'torah', label: 'קהל תורני' },
           { value: 'parents', label: 'הורים' },
           { value: 'other', label: 'אחר' },
         ],
@@ -301,7 +301,7 @@ const he: LecturesCopy = {
         options: [
           { value: 'talk', label: 'הרצאה', hint: 'שעה וחצי עד שעתיים' },
           { value: 'workshop', label: 'סדנה מעשית', hint: 'חצי יום' },
-          { value: 'torah', label: 'בוקר ללומדי תורה', hint: 'מהות וכלים' },
+          { value: 'torah', label: 'בוקר לקהל תורני', hint: 'מהות וכלים' },
           { value: 'series', label: 'סדרת מפגשים', hint: 'לצוות' },
           { value: 'unsure', label: 'עוד לא יודעים' },
         ],
@@ -374,7 +374,7 @@ const en: LecturesCopy = {
   meta: {
     title: 'AI Talks and Workshops',
     description:
-      'AI talks and workshops in plain language for teams, schools, communities and Torah learners: what AI is, how to use it wisely, and hands-on practice.',
+      'AI talks and workshops in plain language for teams, schools, communities and Torah-observant audiences: what AI is, how to use it wisely, and hands-on practice.',
   },
   hero: {
     kicker: 'Talks and workshops',
@@ -384,7 +384,7 @@ const en: LecturesCopy = {
     secondary: 'What you can book',
     note: 'Suitable even for people who have never opened an AI tool.',
     imageAlt:
-      'Illustration of a group of learners, most wearing kippot and one a black hat, around a wooden table with open books and a laptop, a facilitator explaining under warm lamp light',
+      'Illustration: Elad on a stage under a soft spotlight, explaining with an open hand to a full hall; men in kippot sit to the right of the aisle and women in head coverings to the left',
   },
   audiences: {
     title: 'Who it is for',
@@ -393,7 +393,7 @@ const en: LecturesCopy = {
       { id: 'org', label: 'Teams in organisations', text: 'How to use the tools for writing, summarising and analysis, and what to check before entering sensitive data.' },
       { id: 'school', label: 'Schools and educators', text: 'What students already do with AI, and how teachers use it to prepare materials.' },
       { id: 'community', label: 'Communities and adult groups', text: 'A calm introduction to the tools, and how to spot voice and video fakes and scams.' },
-      { id: 'torah', label: 'Rabbis, scholars and study halls', text: 'How AI works, and how it can help find and organise sources in Gemara and halacha.' },
+      { id: 'torah', label: 'Torah-observant audiences', text: 'How AI works, and how it can help find and organise sources in Gemara and halacha.' },
       { id: 'parents', label: 'Parents', text: 'What children encounter online, what to know, and how to talk with them about it.' },
     ],
   },
@@ -406,9 +406,9 @@ const en: LecturesCopy = {
       {
         id: 'torah',
         featured: true,
-        title: 'AI for Torah learners: how it works and how to use it',
+        title: 'AI for Torah-observant audiences: how it works and how to use it',
         duration: 'A morning of about three hours',
-        forWhom: 'Rabbis, kollel scholars, teachers and study halls',
+        forWhom: 'Torah-observant audiences: communities, study halls and teachers',
         summary:
           'The first half is about essence: what the machine really does when it "answers", the difference between predicting words and understanding, and when to question an answer and how to check it. The second half is practical: tools for finding and organising sources in Gemara and halacha study, and how to verify a citation and its wording against the original, in context. The tools are an aid to learning, not a substitute for study or for psak.',
         takeaways: [
@@ -449,7 +449,7 @@ const en: LecturesCopy = {
   },
   recent: {
     title: 'From the field',
-    text: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a religious community. The session was built so that everyone left with something they had done themselves.',
+    text: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a Torah-observant community. The session was built so that everyone left with something they had done themselves.',
     bullets: [
       'The first part with no computers: a short history, how it works, and where it goes wrong',
       'Then we open a tool together and practise, step by step',
@@ -484,7 +484,7 @@ const en: LecturesCopy = {
       },
       {
         gain: 'Respect for the audience, any audience',
-        because: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a religious community. We adapted the examples, the images and the audio in advance. That is how I work with every group.',
+        because: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a Torah-observant community. We adapted the examples, the images and the audio in advance. That is how I work with every group.',
       },
     ],
     link: 'More about me',
@@ -497,8 +497,8 @@ const en: LecturesCopy = {
         a: 'No. The talk starts from zero and explains every idea in plain words. For the hands-on workshop it is enough to know how to open an app on a phone. People who already use the tools get better ways to work with them and to check their answers.',
       },
       {
-        q: 'Is the content suitable for a religious or Haredi audience?',
-        a: 'Yes. Examples, images and audio are adapted to the audience in advance, and in the first call we go over what fits and what is better left out. The session for rabbis and scholars also includes a discussion of what the tool is in principle, not only technical training, and the tool is presented as an aid for searching and organising, never as the one who decides.',
+        q: 'Is the content suitable for a Torah-observant audience?',
+        a: 'Yes. Examples, images and audio are adapted to the audience in advance, and in the first call we go over what fits and what is better left out. The session for Torah-observant audiences also includes a discussion of what the tool is in principle, not only technical training, and the tool is presented as an aid for searching and organising, never as the one who decides.',
       },
       {
         q: 'What should participants bring, and what is needed on site?',
@@ -539,7 +539,7 @@ const en: LecturesCopy = {
           { value: 'org', label: 'A team in an organisation' },
           { value: 'school', label: 'A school or educators' },
           { value: 'community', label: 'A community or adult group' },
-          { value: 'torah', label: 'Rabbis, scholars, a study hall' },
+          { value: 'torah', label: 'Torah-observant audience' },
           { value: 'parents', label: 'Parents' },
           { value: 'other', label: 'Other' },
         ],
@@ -560,7 +560,7 @@ const en: LecturesCopy = {
         options: [
           { value: 'talk', label: 'A talk', hint: '90 minutes to 2 hours' },
           { value: 'workshop', label: 'Hands-on workshop', hint: 'Half a day' },
-          { value: 'torah', label: 'Morning for Torah learners', hint: 'Essence and tools' },
+          { value: 'torah', label: 'Morning for Torah-observant audiences', hint: 'Essence and tools' },
           { value: 'series', label: 'A series of sessions', hint: 'For a team' },
           { value: 'unsure', label: 'Not sure yet' },
         ],
@@ -604,7 +604,7 @@ const en: LecturesCopy = {
         email: 'Email',
         emailPlaceholder: 'name@example.com',
         org: 'Organisation, institution or community (optional)',
-        orgPlaceholder: 'e.g. Morning kollel, Beit Shemesh',
+        orgPlaceholder: 'e.g. Community study hall, Beit Shemesh',
         errorName: 'Please write a name.',
         errorReach: 'Please leave a phone or an email so I can get back to you.',
         errorEmail: 'That email address looks wrong. Check it has an @ and a dot.',

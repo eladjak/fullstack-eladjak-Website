@@ -5,7 +5,7 @@
 ## Core pages
 - [About](https://fullstack-eladjak.co.il/about): Background, philosophy, AI workflow
 - [Services](https://fullstack-eladjak.co.il/services): 5 core services with pricing
-- [Talks and workshops](https://fullstack-eladjak.co.il/lectures): AI talks and hands-on workshops in Hebrew for teams, schools, communities and Torah learners (incl. "AI for Torah scholars: essence and tools"); proposal request form, no public price list. English: https://fullstack-eladjak.co.il/en/lectures
+- [Talks and workshops](https://fullstack-eladjak.co.il/lectures): AI talks and hands-on workshops in Hebrew for teams, schools, communities and Torah-observant audiences (incl. "AI for Torah-observant audiences: essence and tools"); proposal request form, no public price list. English: https://fullstack-eladjak.co.il/en/lectures
 - [Projects](https://fullstack-eladjak.co.il/projects): Showcase of full-stack and AI projects
 - [Contact](https://fullstack-eladjak.co.il/contact): WhatsApp, email, contact form
 

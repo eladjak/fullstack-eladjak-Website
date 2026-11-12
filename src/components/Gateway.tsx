@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 /**
  * Landing pages that people reach from a shared link (WhatsApp, email) and that
  * must open straight on their content: no entry screen, no music control.
- * The lectures page is sent to rabbis and community groups; a cinematic gate
+ * The lectures page is sent to Torah-observant audiences and community groups; a cinematic gate
  * with sound is the wrong first impression there.
  */
 const NO_GATE_PREFIXES = ["/lectures", "/en/lectures"];

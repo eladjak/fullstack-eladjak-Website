@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     url: URL_EN,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: `${SITE_URL}/images/lectures-hero.jpg`, width: 1400, height: 933, alt: c.hero.imageAlt }],
+    images: [{ url: `${SITE_URL}/images/lectures-og.jpg`, width: 1200, height: 630, alt: c.hero.imageAlt }],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${c.meta.title} | Elad Yakobovich`,
     description: c.meta.description,
-    images: [`${SITE_URL}/images/lectures-hero.jpg`],
+    images: [`${SITE_URL}/images/lectures-og.jpg`],
   },
 };
 

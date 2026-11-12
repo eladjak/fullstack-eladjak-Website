@@ -72,7 +72,7 @@ const LABELS: Record<string, string> = {
   org: "צוות בארגון",
   school: "בית ספר / צוות חינוכי",
   community: "קהילה / קבוצת מבוגרים",
-  torah: "רבנים, אברכים, בית מדרש",
+  torah: "קהל תורני",
   parents: "הורים",
   other: "אחר",
   talk: "הרצאה",

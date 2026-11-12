@@ -21,11 +21,22 @@ export interface LecturesCopyV2 {
     line2: string;
     facts: string[];
     sceneLabel: string;
+    videoSlotNote: string;
+    play: string;
+    pause: string;
+    captionsLabel: string;
+    filmLabel: string;
+    soundOn: string;
+    soundOff: string;
+    transcript: string;
+    transcriptLines: string[];
   };
   audiences: { eyebrowParents: string; panels: AudiencePanel[]; suggestPrefix: string };
   torah: {
     label: string;
     title: string;
+    image: string;
+    imageAlt: string;
     lead: string;
     partsTitle: string;
     parts: { title: string; text: string }[];
@@ -43,6 +54,23 @@ export interface LecturesCopyV2 {
   aboutPhotoAlt: string;
   bookingAside: string[];
   /** Real quotes only, with name, role and the person's consent. Empty = section not rendered. */
+  faqChat: {
+    lead: string;
+    name: string;
+    status: string;
+    intro: string;
+    pick: string;
+    more: string;
+    restart: string;
+    allList: string;
+    typing: string;
+    logLabel: string;
+    notFound: string;
+    notFoundCta: string;
+    avatarAlt: string;
+    you: string;
+    elad: string;
+  };
   testimonialsTitle: string;
   testimonials: { quote: string; name: string; role: string }[];
 }
@@ -52,7 +80,22 @@ const he: LecturesCopyV2 = {
     line1: 'בינה מלאכותית לקבוצה שלכם,',
     line2: 'מוסברת על הדוגמאות שלכם',
     facts: ['בעברית פשוטה', 'הרצאה, סדנה או בוקר שלם'],
-    sceneLabel: 'מנורה נדלקת מעל ספר פתוח, שורה אחת מסומנת ומחוברת למקור שלה',
+    sceneLabel: 'אלעד על במה מול קהל, באור זרקור',
+    videoSlotNote: 'תצוגה מקדימה בלבד: כאן ייכנס סרטון הפתיחה (30 שניות)',
+    play: 'הפעלת הסרטון',
+    pause: 'עצירת הסרטון',
+    captionsLabel: 'כתוביות בעברית',
+    filmLabel: 'סרטון פתיחה: אלעד מרצה מול קהל',
+    soundOn: 'הפעלת קול',
+    soundOff: 'השתקה',
+    transcript: 'מה נאמר בסרטון',
+    transcriptLines: [
+      'בינה מלאכותית זה לא קסם, וזה גם לא מפחיד.',
+      'אני מראה לכם מה היא באמת יודעת לעשות, ומה לא.',
+      'ואז אנחנו מתרגלים, ביחד, על דוגמאות מהעולם שלכם.',
+      'יוצאים עם כלים שאפשר להשתמש בהם כבר מחר בבוקר.',
+      'בואו נדבר.',
+    ],
   },
   audiences: {
     eyebrowParents: 'וגם להורים: מה הילדים פוגשים, ואיך מדברים איתם על זה.',
@@ -60,17 +103,17 @@ const he: LecturesCopyV2 = {
     panels: [
       {
         id: 'torah',
-        tab: 'בית מדרש',
-        image: '/images/lectures-aud-torah.webp',
-        imageAlt: 'איור: שתי חברותות בבית מדרש בערב, ספרי גמרא פתוחים על שולחן עץ, ואחד הלומדים מצביע מטאבלט אל הדף',
+        tab: 'קהל תורני',
+        image: '/images/lectures-classroom.webp',
+        imageAlt: 'איור: כיתת מחשבים מוארת באור יום. אלעד מצביע על מסך של אחד המשתתפים; גברים בכיפות בצד אחד של הכיתה ונשים בכיסוי ראש בצד השני, ושתיים מהן עוזרות זו לזו',
         suggest: 'torah',
-        suggestLabel: 'בוקר ללומדי תורה: מהות וכלים',
+        suggestLabel: 'בוקר לקהל תורני: מהות וכלים',
       },
       {
         id: 'org',
         tab: 'צוות בארגון',
         image: '/images/lectures-aud-team.webp',
-        imageAlt: 'איור: צוות של שישה אנשים סביב שולחן ישיבות בשעת ערב, שניים מהם צוחקים מול מחשב נייד',
+        imageAlt: 'איור: חדר ישיבות באור יום. אלעד מסביר ליד מסך גדול, ושמונה אנשי צוות סביב שולחן עם מחשבים ומחברות; שניים מהם מחייכים ומנסים משהו יחד במחשב',
         suggest: 'series',
         suggestLabel: 'סדרת מפגשים לצוות',
       },
@@ -78,7 +121,7 @@ const he: LecturesCopyV2 = {
         id: 'school',
         tab: 'צוות חינוך',
         image: '/images/lectures-aud-school.webp',
-        imageAlt: 'איור: חמישה מורים ומורות בחדר מורים אחרי שעות הלימודים, אחת מהן מראה לאחרים משהו במחשב',
+        imageAlt: 'איור: חדר מורים אחר הצהריים. אלעד יושב עם מורים ומורות סביב שולחן עם טאבלטים, מחברות וכוסות קפה, ואחת המורות מראה את הטאבלט שלה לחברתה',
         suggest: 'workshop',
         suggestLabel: 'סדנה מעשית לצוות',
       },
@@ -86,15 +129,17 @@ const he: LecturesCopyV2 = {
         id: 'community',
         tab: 'קהילה',
         image: '/images/lectures-aud-community.webp',
-        imageAlt: 'איור: ערב הרצאה באולם קהילתי, מרצה נראה מגבו מול קהל מגוון שיושב על כיסאות, באור של שרשרת נורות',
+        imageAlt: 'איור: אולם קהילתי אחר הצהריים. אלעד על הבמה מול קהל מבוגר, גברים בצד אחד של המעבר ונשים בצד השני, ואחת המשתתפות מרימה יד לשאול',
         suggest: 'talk',
         suggestLabel: 'הרצאה בגובה העיניים',
       },
     ],
   },
   torah: {
-    label: 'לומדי תורה',
-    title: 'בוקר לרבנים, לאברכים ולמגידי שיעור',
+    label: 'קהל תורני',
+    title: 'לקהילות, לבתי מדרש ולמגידי שיעור',
+    image: '/images/lectures-studio.webp',
+    imageAlt: 'איור: חדר סדנה נעים באור יום. משתתפים יושבים בחצי מעגל וכותבים במחברות, אלעד יושב על כיסא גבוה ומדבר, ובצד שולחן כיבוד עם קפה, מאפים, פירות ופרחים',
     lead: 'מפגש שמכבד את עולם הלימוד: הכלי מוצג כעזר לחיפוש ולסידור מקורות, ולא כמי שפוסק. הלימוד והבירור נשארים אצלכם ואצל רבותיכם.',
     partsTitle: 'מבנה הבוקר',
     parts: [
@@ -118,6 +163,23 @@ const he: LecturesCopyV2 = {
   field: { label: 'מהשטח', date: 'נובמבר 2026' },
   aboutPhotoAlt: 'אלעד יעקובוביץ׳',
   bookingAside: ['רוב השאלות בלחיצה אחת', 'אפשר לענות בקול על שאלת המטרה', 'אין התחייבות במילוי'],
+  faqChat: {
+    lead: 'בחרו שאלה, והתשובה מגיעה כמו בשיחה. כל התשובות כתובות מראש ומופיעות גם ברשימה המלאה מתחת.',
+    name: 'אלעד יעקובוביץ׳',
+    status: 'עונה מתוך השאלות הנפוצות',
+    intro: 'היי, אני אלעד. בחרו שאלה למטה ואענה כאן. ואם השאלה שלכם לא ברשימה, כתבו לי בטופס ונדבר.',
+    pick: 'שאלות שאנשים שואלים אותי:',
+    more: 'עוד {n} שאלות',
+    restart: 'מההתחלה',
+    allList: 'כל השאלות והתשובות ברשימה אחת',
+    typing: 'אלעד כותב',
+    logLabel: 'שיחה עם אלעד על הרצאות וסדנאות',
+    notFound: 'לא מצאתם את השאלה שלכם?',
+    notFoundCta: 'כתבו לי בטופס',
+    avatarAlt: 'אלעד יעקובוביץ׳',
+    you: 'שאלתם',
+    elad: 'אלעד עונה',
+  },
   testimonialsTitle: 'מה אמרו משתתפים',
   testimonials: [],
 };
@@ -127,7 +189,22 @@ const en: LecturesCopyV2 = {
     line1: 'AI for your group,',
     line2: 'explained with your own examples',
     facts: ['Plain language', 'A talk, a workshop or a full morning'],
-    sceneLabel: 'A lamp turns on over an open book; one line is highlighted and linked to its source',
+    sceneLabel: 'Elad on a stage in front of an audience, under a spotlight',
+    videoSlotNote: 'Preview only: the 30-second opening film goes here',
+    play: 'Play the film',
+    pause: 'Pause the film',
+    captionsLabel: 'English captions',
+    filmLabel: 'Opening film: Elad lecturing to an audience',
+    soundOn: 'Turn sound on',
+    soundOff: 'Mute',
+    transcript: 'What is said in the film',
+    transcriptLines: [
+      'AI is not magic, and it is not scary either.',
+      "I show you what it can really do, and what it can't.",
+      'Then we practise together, on examples from your own world.',
+      'You leave with tools you can use tomorrow morning.',
+      "Let's talk.",
+    ],
   },
   audiences: {
     eyebrowParents: 'And for parents: what children encounter online, and how to talk with them about it.',
@@ -135,17 +212,17 @@ const en: LecturesCopyV2 = {
     panels: [
       {
         id: 'torah',
-        tab: 'Study hall',
-        image: '/images/lectures-aud-torah.webp',
-        imageAlt: 'Illustration: two study pairs in a beit midrash in the evening, open Gemara volumes on a wooden table, one learner pointing from a tablet to the page',
+        tab: 'Torah-observant audiences',
+        image: '/images/lectures-classroom.webp',
+        imageAlt: 'Illustration: a bright computer classroom in daylight. Elad points at a participant’s screen; men in kippot sit on one side and women in head coverings on the other, two of them helping each other',
         suggest: 'torah',
-        suggestLabel: 'A morning for Torah learners: essence and tools',
+        suggestLabel: 'A morning for Torah-observant audiences: essence and tools',
       },
       {
         id: 'org',
         tab: 'Team at work',
         image: '/images/lectures-aud-team.webp',
-        imageAlt: 'Illustration: a team of six around a meeting table at dusk, two of them laughing at a laptop',
+        imageAlt: 'Illustration: a meeting room in daylight. Elad explains beside a large screen to eight colleagues around a table with laptops and notebooks; two of them smile as they try something together',
         suggest: 'series',
         suggestLabel: 'A series of team sessions',
       },
@@ -153,7 +230,7 @@ const en: LecturesCopyV2 = {
         id: 'school',
         tab: 'Educators',
         image: '/images/lectures-aud-school.webp',
-        imageAlt: 'Illustration: five teachers in a staff room after hours, one showing the others something on her laptop',
+        imageAlt: 'Illustration: a staff room in the afternoon. Elad sits with teachers around a table with tablets, notebooks and coffee cups, and one teacher shows her tablet to a colleague',
         suggest: 'workshop',
         suggestLabel: 'A hands-on staff workshop',
       },
@@ -161,15 +238,17 @@ const en: LecturesCopyV2 = {
         id: 'community',
         tab: 'Community',
         image: '/images/lectures-aud-community.webp',
-        imageAlt: 'Illustration: an evening talk in a community hall, the speaker seen from behind facing a mixed seated audience under string lights',
+        imageAlt: 'Illustration: a community hall in the afternoon. Elad on stage facing older adults, men on one side of the aisle and women on the other, one woman raising her hand to ask',
         suggest: 'talk',
         suggestLabel: 'A talk in plain language',
       },
     ],
   },
   torah: {
-    label: 'Torah learners',
-    title: 'A morning for rabbis, kollel scholars and teachers',
+    label: 'Torah-observant audiences',
+    title: 'For communities, study halls and teachers',
+    image: '/images/lectures-studio.webp',
+    imageAlt: 'Illustration: a cozy workshop room in daylight. Participants sit in a half circle writing in notebooks, Elad talks from a tall stool, and a refreshments table with coffee, pastries, fruit and flowers stands to the side',
     lead: 'A session that respects the world of learning: the tool is shown as an aid for finding and organising sources, never as a posek. Study and clarification stay with you and your teachers.',
     partsTitle: 'How the morning is built',
     parts: [
@@ -193,6 +272,23 @@ const en: LecturesCopyV2 = {
   field: { label: 'From the field', date: 'November 2026' },
   aboutPhotoAlt: 'Elad Yakobovich',
   bookingAside: ['Most questions take one tap', 'You can answer the goal question by voice', 'No commitment'],
+  faqChat: {
+    lead: 'Pick a question and the answer arrives like a chat. Every answer is written in advance and also appears in the full list below.',
+    name: 'Elad Yakobovich',
+    status: 'Answers from the common questions',
+    intro: 'Hi, I am Elad. Pick a question below and I will answer here. If yours is not on the list, write to me in the form and we will talk.',
+    pick: 'Questions people ask me:',
+    more: '{n} more questions',
+    restart: 'Start over',
+    allList: 'All questions and answers in one list',
+    typing: 'Elad is typing',
+    logLabel: 'Conversation with Elad about talks and workshops',
+    notFound: 'Did not find your question?',
+    notFoundCta: 'Write to me in the form',
+    avatarAlt: 'Elad Yakobovich',
+    you: 'You asked',
+    elad: 'Elad answers',
+  },
   testimonialsTitle: 'What participants said',
   testimonials: [],
 };
