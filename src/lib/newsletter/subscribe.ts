@@ -55,7 +55,17 @@ export async function subscribeContact(
     "Content-Type": "application/json",
   };
 
-  async function call(method: string, path: string, body?: unknown) {
+  interface CallResult {
+    status: number;
+    json: unknown;
+    error?: string;
+  }
+
+  async function call(
+    method: string,
+    path: string,
+    body?: unknown,
+  ): Promise<CallResult> {
     try {
       const res = await doFetch(`${base}${path}`, {
         method,
@@ -64,7 +74,7 @@ export async function subscribeContact(
         signal: AbortSignal.timeout(TIMEOUT_MS),
         cache: "no-store",
       });
-      const json = (await res.json().catch(() => null)) as unknown;
+      const json: unknown = await res.json().catch((): null => null);
       return { status: res.status, json };
     } catch (e) {
       return {
