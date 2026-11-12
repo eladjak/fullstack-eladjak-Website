@@ -48,7 +48,8 @@ export interface LecturesCopyV2 {
   /** Real photos from the 11.11.2026 lecture. Participants' faces are blurred until the
    *  organiser (Ortamai) confirms publishing them; Elad is never blurred. */
   fieldPhotos: {
-    items: { src: string; alt: string }[];
+    items: { src: string; alt: string; focus?: 'start' }[];
+    newTab: string;
     caption: string;
     creditBefore: string;
     creditName: string;
@@ -168,17 +169,19 @@ const he: LecturesCopyV2 = {
       },
       {
         src: '/images/lectures-field-02.webp',
-        alt: 'אלעד יושב בעמדת המרצה בצד הכיתה ומקשיב לשאלה. משתתף מבוגר בשורה של המחשבים מסביר בתנועת יד, ובחלונות נוף העיר.',
+        focus: 'start',
+        alt: 'אלעד יושב בעמדת המרצה בצד שמאל של הכיתה ופונה אל המשתתפים. בשורת המחשבים אחד המשתתפים מרים יד פתוחה, ובחלונות נוף העיר.',
       },
       {
         src: '/images/lectures-field-04.webp',
-        alt: 'שורות של משתתפים מקהל תורני בכיתת המחשבים, מקשיבים ומסתכלים קדימה אל המסך.',
+        alt: 'שורות של משתתפים מקהל תורני יושבים מול המחשבים בכיתה, וחלונות עם עצים ונוף העיר מאחוריהם.',
       },
     ],
     caption: 'צילומים מההרצאה ב-11 בנובמבר 2026, בכיתת מחשבים עם נוף לעיר.',
     creditBefore: 'ההרצאה התקיימה דרך',
     creditName: 'Ortamai',
     creditUrl: 'https://ortamai.com',
+    newTab: '(נפתח בלשונית חדשה)',
     privacyNote: 'פני המשתתפים טושטשו כדי לשמור על פרטיותם.',
   },
   field: { label: 'מההרצאה האחרונה', date: '11 בנובמבר 2026' },
@@ -293,17 +296,19 @@ const en: LecturesCopyV2 = {
       },
       {
         src: '/images/lectures-field-02.webp',
-        alt: 'Elad sits at the lecturer desk at the side of the classroom, listening to a question. An older participant in the row of computers explains with a hand gesture; the windows show the city.',
+        focus: 'start',
+        alt: 'Elad sits at the lecturer desk on the left side of the classroom, facing the participants. In the row of computers one participant raises an open hand; the windows show the city.',
       },
       {
         src: '/images/lectures-field-04.webp',
-        alt: 'Rows of participants from a Torah-observant audience in the computer classroom, listening and looking ahead at the screen.',
+        alt: 'Rows of participants from a Torah-observant audience sitting at the computers, with windows, trees and the city view behind them.',
       },
     ],
     caption: 'Photos from the lecture on 11 November 2026, in a computer classroom overlooking the city.',
     creditBefore: 'The lecture was held through',
     creditName: 'Ortamai',
     creditUrl: 'https://ortamai.com',
+    newTab: '(opens in a new tab)',
     privacyNote: "Participants' faces are blurred to protect their privacy.",
   },
   field: { label: 'From my latest lecture', date: '11 November 2026' },

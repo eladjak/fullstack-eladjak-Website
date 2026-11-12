@@ -153,6 +153,9 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   // Preview-only notes for Elad (the hero video-slot note): shown in previews and local builds,
   // never on the production site.
   const showMediaSlot = process.env.VERCEL_ENV !== 'production';
+  // Real photos from 11.11: participants are private people. Until the organiser confirms
+  // they may be published, the block (with faces blurred) shows in previews only.
+  const showFieldPhotos = process.env.VERCEL_ENV !== 'production';
   const heroVideo = getHeroVideo(locale, v.hero.captionsLabel);
 
   const tabOrder = ['org', 'school', 'community', 'torah'];
@@ -396,7 +399,7 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
           <div
             className={cn(
               'mx-auto grid gap-12 px-5 py-20 sm:px-8 lg:gap-16 lg:py-28',
-              'max-w-6xl lg:grid-cols-[1fr_1.15fr] lg:items-start',
+              showFieldPhotos ? 'max-w-6xl lg:grid-cols-[1fr_1.15fr] lg:items-start' : 'max-w-3xl',
             )}
           >
             <div className="lec-reveal">
@@ -418,47 +421,53 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                 ))}
               </ol>
             </div>
-            <figure className="lec-reveal">
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                {v.fieldPhotos.items.map((ph, i) => (
-                  <div
-                    key={ph.src}
-                    className={cn(
-                      'group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm',
-                      i === 0 ? 'col-span-2 aspect-[3/2] rounded-3xl' : 'aspect-[4/3]',
-                    )}
-                  >
-                    <Image
-                      src={ph.src}
-                      alt={ph.alt}
-                      fill
-                      sizes={i === 0 ? '(min-width: 1024px) 600px, 100vw' : '(min-width: 1024px) 300px, 50vw'}
-                      className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.03]"
-                    />
-                  </div>
-                ))}
-              </div>
-              <figcaption className="mt-4 flex gap-2.5 text-sm leading-[1.7] text-muted-foreground">
-                <Camera className="mt-1 size-4 shrink-0 text-cta" aria-hidden="true" />
-                <span className="space-y-0.5">
-                  <span className="block font-semibold text-foreground">{v.fieldPhotos.caption}</span>
-                  <span className="block">
-                    {v.fieldPhotos.creditBefore}{' '}
-                    <a
-                      href={v.fieldPhotos.creditUrl}
-                      target="_blank"
-                      rel="noopener"
-                      dir="ltr"
-                      className="inline-block min-h-6 font-semibold text-cta underline decoration-from-font underline-offset-4 hover:opacity-80"
+            {showFieldPhotos && (
+              <figure className="lec-reveal">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {v.fieldPhotos.items.map((ph, i) => (
+                    <div
+                      key={ph.src}
+                      className={cn(
+                        'group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm',
+                        i === 0 ? 'col-span-2 aspect-[3/2] rounded-3xl' : 'aspect-[4/3]',
+                      )}
                     >
-                      {v.fieldPhotos.creditName}
-                    </a>
-                    .
+                      <Image
+                        src={ph.src}
+                        alt={ph.alt}
+                        fill
+                        sizes={i === 0 ? '(min-width: 1024px) 600px, calc(100vw - 40px)' : '(min-width: 1024px) 300px, calc(50vw - 26px)'}
+                        className={cn(
+                          'object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.03]',
+                          ph.focus === 'start' && 'object-left',
+                        )}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <figcaption className="mt-4 flex gap-2.5 text-sm leading-[1.7] text-muted-foreground">
+                  <Camera className="mt-1 size-4 shrink-0 text-cta" aria-hidden="true" />
+                  <span className="space-y-0.5">
+                    <span className="block font-semibold text-foreground">{v.fieldPhotos.caption}</span>
+                    <span className="block">
+                      {v.fieldPhotos.creditBefore}{' '}
+                      <a
+                        href={v.fieldPhotos.creditUrl}
+                        target="_blank"
+                        rel="noopener"
+                        dir="ltr"
+                        className="-my-2.5 inline-block py-2.5 font-semibold text-cta underline decoration-from-font underline-offset-4 hover:opacity-80"
+                      >
+                        {v.fieldPhotos.creditName}
+                        <span className="sr-only"> {v.fieldPhotos.newTab}</span>
+                      </a>
+                      .
+                    </span>
+                    <span className="block text-xs">{v.fieldPhotos.privacyNote}</span>
                   </span>
-                  <span className="block text-xs">{v.fieldPhotos.privacyNote}</span>
-                </span>
-              </figcaption>
-            </figure>
+                </figcaption>
+              </figure>
+            )}
           </div>
         </section>
 
