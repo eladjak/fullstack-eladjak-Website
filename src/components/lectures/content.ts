@@ -190,7 +190,7 @@ const he: LecturesCopy = {
   },
   recent: {
     title: 'מהשטח',
-    text: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל תורני. בנינו את המפגש כך שכל אחד יצא עם משהו שעשה בעצמו.',
+    text: 'בנובמבר 2026 העברתי, דרך Ortamai, בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל תורני, בכיתת מחשבים. בנינו את המפגש כך שכל אחד יצא עם משהו שעשה בעצמו.',
     bullets: [
       'החלק הראשון בלי מחשבים: היסטוריה קצרה, איך זה עובד, ואיפה זה טועה',
       'אחר כך פתחנו כלי ביחד ותרגלנו, צעד אחר צעד',
@@ -225,7 +225,7 @@ const he: LecturesCopy = {
       },
       {
         gain: 'כבוד לקהל, לכל קהל',
-        because: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל תורני. התאמנו מראש את הדוגמאות, את התמונות ואת קטעי השמע. ככה אני עובד עם כל קבוצה.',
+        because: 'בנובמבר 2026 העברתי, דרך Ortamai, בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל תורני, בכיתת מחשבים. התאמנו מראש את הדוגמאות, את התמונות ואת קטעי השמע. ככה אני עובד עם כל קבוצה.',
       },
     ],
     link: 'עוד עליי',
@@ -449,7 +449,7 @@ const en: LecturesCopy = {
   },
   recent: {
     title: 'From the field',
-    text: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a Torah-observant community. The session was built so that everyone left with something they had done themselves.',
+    text: 'In November 2026, through Ortamai, I gave a three-and-a-half-hour morning on AI to a group of adults from a Torah-observant community, in a computer classroom. The session was built so that everyone left with something they had done themselves.',
     bullets: [
       'The first part with no computers: a short history, how it works, and where it goes wrong',
       'Then we open a tool together and practise, step by step',
@@ -484,7 +484,7 @@ const en: LecturesCopy = {
       },
       {
         gain: 'Respect for the audience, any audience',
-        because: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a Torah-observant community. We adapted the examples, the images and the audio in advance. That is how I work with every group.',
+        because: 'In November 2026, through Ortamai, I gave a three-and-a-half-hour morning on AI to a group of adults from a Torah-observant community, in a computer classroom. We adapted the examples, the images and the audio in advance. That is how I work with every group.',
       },
     ],
     link: 'More about me',

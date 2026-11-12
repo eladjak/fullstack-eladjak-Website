@@ -45,10 +45,15 @@ export interface LecturesCopyV2 {
   };
   formatsOther: { title: string; lead: string };
   index: { title: string; lead: string };
-  media: {
-    previewBadge: string;
-    title: string;
-    text: string;
+  /** Real photos from the 11.11.2026 lecture. Participants' faces are blurred until the
+   *  organiser (Ortamai) confirms publishing them; Elad is never blurred. */
+  fieldPhotos: {
+    items: { src: string; alt: string }[];
+    caption: string;
+    creditBefore: string;
+    creditName: string;
+    creditUrl: string;
+    privacyNote: string;
   };
   field: { label: string; date: string };
   aboutPhotoAlt: string;
@@ -105,7 +110,7 @@ const he: LecturesCopyV2 = {
         id: 'torah',
         tab: 'קהל תורני',
         image: '/images/lectures-classroom.webp',
-        imageAlt: 'איור: כיתת מחשבים מוארת באור יום. אלעד מצביע על מסך של אחד המשתתפים; גברים בכיפות בצד אחד של הכיתה ונשים בכיסוי ראש בצד השני, ושתיים מהן עוזרות זו לזו',
+        imageAlt: 'איור: כיתת מחשבים באור יום, עם שורת חלונות גדולים ונוף של מגדלי העיר. אלעד מצביע על מסך של אחד המשתתפים, גברים בכיפות יושבים מול המחשבים ואחד מהם שואל שאלה',
         suggest: 'torah',
         suggestLabel: 'בוקר לקהל תורני: מהות וכלים',
       },
@@ -155,12 +160,28 @@ const he: LecturesCopyV2 = {
   },
   index: { title: 'ארבע מסגרות', lead: 'כל מסגרת נבנית לפי הקבוצה, ואפשר לשלב.' },
   formatsOther: { title: 'עוד שלוש מסגרות', lead: 'כל אחת נבנית מחדש לפי הקבוצה, ואפשר לשלב.' },
-  media: {
-    previewBadge: 'נראה רק בתצוגה המקדימה',
-    title: 'כאן ייכנס צילום או סרטון אמיתי שלך מרצה',
-    text: 'מקום שמור לתמונה או לקטע קצר שלך מול קהל. נעבד אותו בעדינות: חיתוך, צבע ואור, בלי להוסיף קהל ובלי לשנות את מה שקרה. באתר החי המסגרת הזאת לא מוצגת עד שיגיע חומר אמיתי.',
+  fieldPhotos: {
+    items: [
+      {
+        src: '/images/lectures-field-01.webp',
+        alt: 'אלעד עומד ליד מסך ההקרנה בכיתת מחשבים ומסביר שקופית בשם "טרנספורמר, בפשטות". מימין משתתפים בכיפות יושבים מול מחשבים, ומאחוריהם חלונות גדולים עם נוף של מגדלי העיר.',
+      },
+      {
+        src: '/images/lectures-field-02.webp',
+        alt: 'אלעד יושב בעמדת המרצה בצד הכיתה ומקשיב לשאלה. משתתף מבוגר בשורה של המחשבים מסביר בתנועת יד, ובחלונות נוף העיר.',
+      },
+      {
+        src: '/images/lectures-field-04.webp',
+        alt: 'שורות של משתתפים מקהל תורני בכיתת המחשבים, מקשיבים ומסתכלים קדימה אל המסך.',
+      },
+    ],
+    caption: 'צילומים מההרצאה ב-11 בנובמבר 2026, בכיתת מחשבים עם נוף לעיר.',
+    creditBefore: 'ההרצאה התקיימה דרך',
+    creditName: 'Ortamai',
+    creditUrl: 'https://ortamai.com',
+    privacyNote: 'פני המשתתפים טושטשו כדי לשמור על פרטיותם.',
   },
-  field: { label: 'מהשטח', date: 'נובמבר 2026' },
+  field: { label: 'מההרצאה האחרונה', date: '11 בנובמבר 2026' },
   aboutPhotoAlt: 'אלעד יעקובוביץ׳',
   bookingAside: ['רוב השאלות בלחיצה אחת', 'אפשר לענות בקול על שאלת המטרה', 'אין התחייבות במילוי'],
   faqChat: {
@@ -214,7 +235,7 @@ const en: LecturesCopyV2 = {
         id: 'torah',
         tab: 'Torah-observant audiences',
         image: '/images/lectures-classroom.webp',
-        imageAlt: 'Illustration: a bright computer classroom in daylight. Elad points at a participant’s screen; men in kippot sit on one side and women in head coverings on the other, two of them helping each other',
+        imageAlt: 'Illustration: a computer classroom in daylight with a row of large windows and a view of the city towers. Elad points at a participant’s screen; men in kippot sit at the computers and one of them asks a question',
         suggest: 'torah',
         suggestLabel: 'A morning for Torah-observant audiences: essence and tools',
       },
@@ -264,12 +285,28 @@ const en: LecturesCopyV2 = {
   },
   index: { title: 'Four formats', lead: 'Each one is shaped around the group, and they can be combined.' },
   formatsOther: { title: 'Three more formats', lead: 'Each one is rebuilt for the group, and they can be combined.' },
-  media: {
-    previewBadge: 'Visible in the preview only',
-    title: 'A real photo or video of you lecturing goes here',
-    text: 'Reserved for a photo or a short clip of you in front of an audience. It will get a light touch only: crop, colour and light, no added crowd, nothing that changes what happened. On the live site this frame is hidden until real material arrives.',
+  fieldPhotos: {
+    items: [
+      {
+        src: '/images/lectures-field-01.webp',
+        alt: 'Elad stands by the projection screen in a computer classroom, explaining a slide titled "Transformer, simply". On the right, participants in kippot sit at computers, with large windows and a view of the city towers behind them.',
+      },
+      {
+        src: '/images/lectures-field-02.webp',
+        alt: 'Elad sits at the lecturer desk at the side of the classroom, listening to a question. An older participant in the row of computers explains with a hand gesture; the windows show the city.',
+      },
+      {
+        src: '/images/lectures-field-04.webp',
+        alt: 'Rows of participants from a Torah-observant audience in the computer classroom, listening and looking ahead at the screen.',
+      },
+    ],
+    caption: 'Photos from the lecture on 11 November 2026, in a computer classroom overlooking the city.',
+    creditBefore: 'The lecture was held through',
+    creditName: 'Ortamai',
+    creditUrl: 'https://ortamai.com',
+    privacyNote: "Participants' faces are blurred to protect their privacy.",
   },
-  field: { label: 'From the field', date: 'November 2026' },
+  field: { label: 'From my latest lecture', date: '11 November 2026' },
   aboutPhotoAlt: 'Elad Yakobovich',
   bookingAside: ['Most questions take one tap', 'You can answer the goal question by voice', 'No commitment'],
   faqChat: {

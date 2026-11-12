@@ -150,8 +150,8 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   const torahFormat = c.formats.items.find((f) => f.id === 'torah');
   const rest = c.formats.items.filter((f) => f.id !== 'torah');
   const dir = locale === 'he' ? 'rtl' : 'ltr';
-  // The speaker-media frame is a note for Elad: shown in previews and local builds only,
-  // never on the production site until a real photo or clip replaces it.
+  // Preview-only notes for Elad (the hero video-slot note): shown in previews and local builds,
+  // never on the production site.
   const showMediaSlot = process.env.VERCEL_ENV !== 'production';
   const heroVideo = getHeroVideo(locale, v.hero.captionsLabel);
 
@@ -396,7 +396,7 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
           <div
             className={cn(
               'mx-auto grid gap-12 px-5 py-20 sm:px-8 lg:gap-16 lg:py-28',
-              showMediaSlot ? 'max-w-6xl lg:grid-cols-[1fr_1.1fr]' : 'max-w-3xl',
+              'max-w-6xl lg:grid-cols-[1fr_1.15fr] lg:items-start',
             )}
           >
             <div className="lec-reveal">
@@ -418,20 +418,47 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                 ))}
               </ol>
             </div>
-            {showMediaSlot && (
-              <div className="lec-reveal">
-                <figure className="grid aspect-[4/3] place-items-center rounded-3xl border-2 border-dashed lec-cta-edge p-8 text-center">
-                  <div>
-                    <span className="inline-flex items-center gap-2 rounded-full lec-cta-tint px-3 py-1 text-sm font-semibold text-cta">
-                      <Camera className="size-4" aria-hidden="true" />
-                      {v.media.previewBadge}
-                    </span>
-                    <h3 className="mt-5 text-xl font-bold">{v.media.title}</h3>
-                    <p className="mx-auto mt-3 max-w-[40ch] leading-[1.7] text-muted-foreground">{v.media.text}</p>
+            <figure className="lec-reveal">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                {v.fieldPhotos.items.map((ph, i) => (
+                  <div
+                    key={ph.src}
+                    className={cn(
+                      'group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm',
+                      i === 0 ? 'col-span-2 aspect-[3/2] rounded-3xl' : 'aspect-[4/3]',
+                    )}
+                  >
+                    <Image
+                      src={ph.src}
+                      alt={ph.alt}
+                      fill
+                      sizes={i === 0 ? '(min-width: 1024px) 600px, 100vw' : '(min-width: 1024px) 300px, 50vw'}
+                      className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.03]"
+                    />
                   </div>
-                </figure>
+                ))}
               </div>
-            )}
+              <figcaption className="mt-4 flex gap-2.5 text-sm leading-[1.7] text-muted-foreground">
+                <Camera className="mt-1 size-4 shrink-0 text-cta" aria-hidden="true" />
+                <span className="space-y-0.5">
+                  <span className="block font-semibold text-foreground">{v.fieldPhotos.caption}</span>
+                  <span className="block">
+                    {v.fieldPhotos.creditBefore}{' '}
+                    <a
+                      href={v.fieldPhotos.creditUrl}
+                      target="_blank"
+                      rel="noopener"
+                      dir="ltr"
+                      className="inline-block min-h-6 font-semibold text-cta underline decoration-from-font underline-offset-4 hover:opacity-80"
+                    >
+                      {v.fieldPhotos.creditName}
+                    </a>
+                    .
+                  </span>
+                  <span className="block text-xs">{v.fieldPhotos.privacyNote}</span>
+                </span>
+              </figcaption>
+            </figure>
           </div>
         </section>
 
