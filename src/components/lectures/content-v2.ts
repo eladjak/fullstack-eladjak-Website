@@ -170,11 +170,11 @@ const he: LecturesCopyV2 = {
       {
         src: '/images/lectures-field-02.webp',
         focus: 'start',
-        alt: 'אלעד יושב בעמדת המרצה בצד שמאל של הכיתה ופונה אל המשתתפים. בשורת המחשבים אחד המשתתפים מרים יד פתוחה, ובחלונות נוף העיר.',
+        alt: 'אלעד יושב בעמדת המרצה בצד שמאל של הכיתה ופונה אל המשתתפים. בשורת המחשבים אחד המשתתפים מחזיק טלפון ביד מורמת, ובחלונות נוף העיר.',
       },
       {
         src: '/images/lectures-field-04.webp',
-        alt: 'שורות של משתתפים מקהל תורני יושבים מול המחשבים בכיתה, וחלונות עם עצים ונוף העיר מאחוריהם.',
+        alt: 'שורות של משתתפים בכיפות יושבים מול המחשבים בכיתה, וחלונות עם עצים ונוף העיר מאחוריהם.',
       },
     ],
     caption: 'צילומים מההרצאה ב-11 בנובמבר 2026, בכיתת מחשבים עם נוף לעיר.',
@@ -297,11 +297,11 @@ const en: LecturesCopyV2 = {
       {
         src: '/images/lectures-field-02.webp',
         focus: 'start',
-        alt: 'Elad sits at the lecturer desk on the left side of the classroom, facing the participants. In the row of computers one participant raises an open hand; the windows show the city.',
+        alt: 'Elad sits at the lecturer desk on the left side of the classroom, facing the participants. In the row of computers one participant holds up a phone; the windows show the city.',
       },
       {
         src: '/images/lectures-field-04.webp',
-        alt: 'Rows of participants from a Torah-observant audience sitting at the computers, with windows, trees and the city view behind them.',
+        alt: 'Rows of participants in kippot sitting at the computers, with windows, trees and the city view behind them.',
       },
     ],
     caption: 'Photos from the lecture on 11 November 2026, in a computer classroom overlooking the city.',
