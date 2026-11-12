@@ -1,6 +1,11 @@
 # Full-Stack Portfolio Website - Progress
 
 
+## 12.11.2026 — /lectures sales page (branch feat/lectures-page, draft PR #15, NOT merged)
+- **What:** /lectures + /en/lectures: hero, audiences, 4 formats (incl. "AI for Torah scholars: essence and tools"), from the field, how it works, about, FAQ, 7-step proposal questionnaire (voice dictation, draft autosave, all states). API /api/lectures-inquiry (Resend → Web3Forms → mailto, 413/400/429). Nav + footer + sitemap + llms.txt. Microphone allowed only on lectures pages; entry gate skipped there.
+- **Gates:** tsc 0 · eslint 0 (changed files, `-c eslintrc.cjs`) · next build 0 · local 375/1280 screenshots checked · Codex review FIX-FIRST → fixes in 16bf9c0 · preview Ready: https://eladjak-website-8akjuh4p8-eladjaks-projects.vercel.app/lectures/
+- **Open:** Elad approval of copy + preview; Vercel env CONTACT_EMAIL/RESEND on preview not verified; rate limit is per-instance (same as contact form).
+
 ## 2026-07-24 — Wave-10 GEO sweep: 92→100/100 (prod). Fixed the one regression — empty alt on the cinematic scene1 poster (`cinematic-journey-mount.tsx`). Deployed from tree as-is via VPS+vercel (`eladjak-website-ef115a12l`, aliased). Live-verified: 0 images missing alt, geo-scan 100.
 ## 2026-07-24 — July projects refresh shipped to PROD (branch `feat/july-projects-refresh` → main `18ca12b`, deploy `eladjak-website-jku4ewg3n` Ready + aliased)
 
