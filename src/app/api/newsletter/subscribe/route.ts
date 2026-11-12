@@ -67,6 +67,31 @@ function getClientIp(request: Request): string {
   return "unknown";
 }
 
+// Reads at most `max` bytes from the stream, then stops (no unbounded buffering).
+async function readCapped(request: Request, max: number): Promise<string> {
+  if (!request.body) return "";
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > max) {
+      await reader.cancel();
+      throw new Error("too large");
+    }
+    chunks.push(value);
+  }
+  const all = new Uint8Array(total);
+  let offset = 0;
+  for (const c of chunks) {
+    all.set(c, offset);
+    offset += c.byteLength;
+  }
+  return new TextDecoder().decode(all);
+}
+
 // Source page: a site-relative path only, so nothing odd lands in the record.
 function cleanSourcePath(value: unknown): string {
   if (typeof value !== "string") return "unknown";
@@ -95,8 +120,7 @@ export async function POST(request: Request) {
     }
     let body: Record<string, unknown>;
     try {
-      const raw = await request.text();
-      if (raw.length > MAX_BODY) throw new Error("too large");
+      const raw = await readCapped(request, MAX_BODY);
       const parsed: unknown = JSON.parse(raw);
       if (!parsed || typeof parsed !== "object")
         throw new Error("not an object");
@@ -161,11 +185,8 @@ export async function POST(request: Request) {
     }
 
     return json({ ok: true, status: outcome.kind });
-  } catch (err) {
-    console.error(
-      "[newsletter] unexpected error:",
-      err instanceof Error ? err.name : "unknown",
-    );
+  } catch {
+    console.error("[newsletter] unexpected error (details withheld)");
     return json({ ok: false, error: "internal_error" }, 500);
   }
 }

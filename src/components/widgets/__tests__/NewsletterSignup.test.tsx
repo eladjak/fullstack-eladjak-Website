@@ -51,13 +51,23 @@ describe('NewsletterSignup', () => {
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('הוסרה בעבר'));
   });
 
-  it('honeypot rejection is an error the visitor can recover from, never success', async () => {
-    respond(400, { ok: false, error: 'rejected' });
+  it('honeypot rejection: error, field cleared, retry then succeeds, never a false confirmation', async () => {
+    const f = vi
+      .fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ok: false, error: 'rejected' }), { status: 400 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, status: 'subscribed' }), { status: 200 }));
+    vi.stubGlobal('fetch', f);
     render(<NewsletterSignup />);
+    const hp = document.querySelector('input[name="website"]') as HTMLInputElement;
+    fireEvent.change(hp, { target: { value: 'autofilled' } });
     fillAndSubmit();
     await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
     expect(screen.queryByText('נרשמתם. תודה.')).toBeNull();
-    expect((document.querySelector('input[name="website"]') as HTMLInputElement).value).toBe('');
+    expect(JSON.parse(String(f.mock.calls[0][1].body)).website).toBe('autofilled');
+    expect(hp.value).toBe('');
+    fireEvent.submit(screen.getByRole('button', { name: 'הירשמו' }).closest('form')!);
+    await waitFor(() => expect(screen.getByText('נרשמתם. תודה.')).toBeInTheDocument());
+    expect(JSON.parse(String(f.mock.calls[1][1].body)).website).toBe('');
   });
 
   it('asks for consent before sending anything', async () => {

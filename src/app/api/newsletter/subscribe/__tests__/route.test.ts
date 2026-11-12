@@ -78,6 +78,16 @@ describe('POST /api/newsletter/subscribe', () => {
     expect(f).not.toHaveBeenCalled();
   });
 
+  it('refuses an oversized streamed body even without content-length', async () => {
+    const f = vi.fn();
+    vi.stubGlobal('fetch', f);
+    const big = new TextEncoder().encode(JSON.stringify({ ...good, pad: 'x'.repeat(5000) }));
+    const stream = new ReadableStream({ start(c) { c.enqueue(big); c.close(); } });
+    const r = new Request('http://localhost/x', { method: 'POST', headers: { 'x-real-ip': '10.7.7.7' }, body: stream, duplex: 'half' } as RequestInit);
+    expect((await POST(r)).status).toBe(400);
+    expect(f).not.toHaveBeenCalled();
+  });
+
   it('rate limits after 3 attempts from the same address', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 500 })));
     const mk = () => new Request('http://localhost/x', {
