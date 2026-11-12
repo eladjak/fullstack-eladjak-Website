@@ -42,12 +42,15 @@ export interface LecturesCopyV2 {
   field: { label: string; date: string };
   aboutPhotoAlt: string;
   bookingAside: string[];
+  /** Real quotes only, with name, role and the person's consent. Empty = section not rendered. */
+  testimonialsTitle: string;
+  testimonials: { quote: string; name: string; role: string }[];
 }
 
 const he: LecturesCopyV2 = {
   hero: {
-    line1: 'בינה מלאכותית,',
-    line2: 'מוסברת כמו שצריך',
+    line1: 'בינה מלאכותית לקבוצה שלכם,',
+    line2: 'מוסברת על הדוגמאות שלכם',
     facts: ['בעברית פשוטה', 'הרצאה, סדנה או בוקר שלם'],
     sceneLabel: 'מנורה נדלקת מעל ספר פתוח, שורה אחת מסומנת ומחוברת למקור שלה',
   },
@@ -109,18 +112,20 @@ const he: LecturesCopyV2 = {
   formatsOther: { title: 'עוד שלוש מסגרות', lead: 'כל אחת נבנית מחדש לפי הקבוצה, ואפשר לשלב.' },
   media: {
     previewBadge: 'נראה רק בתצוגה המקדימה',
-    title: 'כאן ייכנס צילום או וידאו אמיתי שלך מרצה',
-    text: 'מקום שמור לתמונה או לקטע קצר מההרצאה של 11.11 מול הקהל. באתר החי המסגרת הזאת לא מוצגת עד שיגיע חומר אמיתי.',
+    title: 'כאן ייכנס צילום או סרטון אמיתי שלך מרצה',
+    text: 'מקום שמור לתמונה או לקטע קצר שלך מול קהל. נעבד אותו בעדינות: חיתוך, צבע ואור, בלי להוסיף קהל ובלי לשנות את מה שקרה. באתר החי המסגרת הזאת לא מוצגת עד שיגיע חומר אמיתי.',
   },
   field: { label: 'מהשטח', date: 'נובמבר 2026' },
   aboutPhotoAlt: 'אלעד יעקובוביץ׳',
   bookingAside: ['רוב השאלות בלחיצה אחת', 'אפשר לענות בקול על שאלת המטרה', 'אין התחייבות במילוי'],
+  testimonialsTitle: 'מה אמרו משתתפים',
+  testimonials: [],
 };
 
 const en: LecturesCopyV2 = {
   hero: {
-    line1: 'Artificial intelligence,',
-    line2: 'explained properly',
+    line1: 'AI for your group,',
+    line2: 'explained with your own examples',
     facts: ['Plain language', 'A talk, a workshop or a full morning'],
     sceneLabel: 'A lamp turns on over an open book; one line is highlighted and linked to its source',
   },
@@ -183,11 +188,13 @@ const en: LecturesCopyV2 = {
   media: {
     previewBadge: 'Visible in the preview only',
     title: 'A real photo or video of you lecturing goes here',
-    text: 'Reserved for a photo or a short clip from the 11.11 lecture in front of the audience. On the live site this frame is hidden until real material arrives.',
+    text: 'Reserved for a photo or a short clip of you in front of an audience. It will get a light touch only: crop, colour and light, no added crowd, nothing that changes what happened. On the live site this frame is hidden until real material arrives.',
   },
   field: { label: 'From the field', date: 'November 2026' },
   aboutPhotoAlt: 'Elad Yakobovich',
   bookingAside: ['Most questions take one tap', 'You can answer the goal question by voice', 'No commitment'],
+  testimonialsTitle: 'What participants said',
+  testimonials: [],
 };
 
 export const LECTURES_COPY_V2: Record<LecturesLocale, LecturesCopyV2> = { he, en };

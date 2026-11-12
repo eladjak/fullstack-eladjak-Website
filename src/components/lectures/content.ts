@@ -47,7 +47,7 @@ export interface LecturesCopy {
   formats: { title: string; lead: string; leaveWith: string; ask: string; items: LectureFormat[] };
   recent: { title: string; text: string; bullets: string[]; imageAlt: string };
   how: { title: string; steps: { title: string; text: string }[] };
-  about: { title: string; lines: string[]; link: string };
+  about: { title: string; intro: string; items: { gain: string; because: string }[]; link: string };
   faq: { title: string; items: FaqItem[] };
   form: FormCopy;
 }
@@ -208,11 +208,25 @@ const he: LecturesCopy = {
     ],
   },
   about: {
-    title: 'מי מעביר',
-    lines: [
-      'אני אלעד יעקובוביץ׳, מפתח ומהנדס בינה מלאכותית. אני בונה מערכות AI ואוטומציה לעסקים ולארגונים.',
-      'לפני כן ניהלתי במשך 12 שנה עסק עצמאי, ולכן אני מסביר טכנולוגיה בשפה פשוטה ועניינית.',
-      'בוגר מסלול Full-Stack של John Bryce בהצטיינות. בהרצאות אני מביא דוגמאות מהעבודה שלי.',
+    title: 'מי מעביר, ומה זה נותן לכם',
+    intro: 'אני אלעד יעקובוביץ׳. כל עובדה עליי שווה משהו רק אם היא משנה את המפגש שלכם, אז הנה מה שהיא משנה:',
+    items: [
+      {
+        gain: 'דוגמאות מהעבודה, לא מהספר',
+        because: 'אני מפתח ומהנדס בינה מלאכותית, ובונה מערכות AI ואוטומציה לעסקים ולארגונים. מה שתראו על המסך הוא דברים שבניתי והפעלתי בעצמי, כולל המקומות שבהם הכלי טעה.',
+      },
+      {
+        gain: 'הסבר שמבינים בפעם הראשונה',
+        because: 'סיימתי את מסלול Full-Stack של John Bryce בהצטיינות. מי שלמד חומר קשה לעומק יודע לפרק אותו לצעדים קטנים, ולכן אצלי כל מושג מגיע עם דוגמה לפני ההגדרה.',
+      },
+      {
+        gain: 'שפה של מי שמנהל, בלי מילים מפוצצות',
+        because: '12 שנה ניהלתי עסק עצמאי. אני יודע מה מנהל או בעל עסק רוצה לשמוע: מה זה חוסך, כמה זה עולה, ואיפה צריך להיזהר.',
+      },
+      {
+        gain: 'כבוד לקהל, לכל קהל',
+        because: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל דתי. התאמנו מראש את הדוגמאות, את התמונות ואת קטעי השמע. ככה אני עובד עם כל קבוצה.',
+      },
     ],
     link: 'עוד עליי',
   },
@@ -453,11 +467,25 @@ const en: LecturesCopy = {
     ],
   },
   about: {
-    title: 'Who teaches',
-    lines: [
-      'I am Elad Yakobovich, a developer and AI engineer. I build AI systems and automation for businesses and organisations.',
-      'Before that I ran my own business for 12 years, so I explain technology in plain, practical language.',
-      'A John Bryce Full-Stack graduate with honours. In my talks I bring examples from my own work.',
+    title: 'Who teaches, and what you get from it',
+    intro: 'I am Elad Yakobovich. A fact about me only matters if it changes your session, so here is what each one changes:',
+    items: [
+      {
+        gain: 'Examples from real work, not from a textbook',
+        because: 'I am a developer and AI engineer who builds AI systems and automation for businesses and organisations. What you see on screen is things I built and ran myself, including the places where the tool got it wrong.',
+      },
+      {
+        gain: 'Explanations that land the first time',
+        because: 'I completed the John Bryce Full-Stack track with honours. Someone who has learned hard material in depth knows how to break it into small steps, so every idea comes with an example before the definition.',
+      },
+      {
+        gain: 'The language of people who run things, without buzzwords',
+        because: 'I ran my own business for 12 years. I know what a manager or owner wants to hear: what it saves, what it costs, and where to be careful.',
+      },
+      {
+        gain: 'Respect for the audience, any audience',
+        because: 'In November 2026 I gave a three-and-a-half-hour morning on AI to a group of adults from a religious community. We adapted the examples, the images and the audio in advance. That is how I work with every group.',
+      },
     ],
     link: 'More about me',
   },

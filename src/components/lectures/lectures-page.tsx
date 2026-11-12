@@ -442,35 +442,65 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
 
         {/* ----------------------------- ABOUT ----------------------------- */}
         <section aria-labelledby="about-title" className="border-t border-border bg-card/40">
-          <div className="lec-reveal mx-auto grid max-w-4xl items-start gap-8 px-5 py-20 sm:grid-cols-[auto_1fr] sm:px-8 lg:py-24">
-            <Image
-              src="https://avatars.githubusercontent.com/u/108827199?v=4"
-              alt={v.aboutPhotoAlt}
-              width={112}
-              height={112}
-              className="size-24 rounded-full border-2 lec-cta-edge object-cover sm:size-28"
-            />
-            <div>
-              <h2 id="about-title" className="text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold">
-                {c.about.title}
-              </h2>
-              <div className="mt-5 max-w-[62ch] space-y-3 text-lg leading-[1.75]">
-                {c.about.lines.map((l, i) => (
-                  <p key={l} className={i === 0 ? '' : 'text-muted-foreground'}>
-                    {l}
-                  </p>
-                ))}
+          <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:py-28">
+            <div className="lec-reveal grid items-center gap-6 sm:grid-cols-[auto_1fr] sm:gap-8">
+              <Image
+                src="https://avatars.githubusercontent.com/u/108827199?v=4"
+                alt={v.aboutPhotoAlt}
+                width={112}
+                height={112}
+                className="size-24 rounded-full border-2 lec-cta-edge object-cover sm:size-28"
+              />
+              <div>
+                <h2 id="about-title" className="text-balance text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold leading-[1.2]">
+                  {c.about.title}
+                </h2>
+                <p className="mt-3 max-w-[60ch] text-pretty text-lg leading-[1.75] text-muted-foreground">{c.about.intro}</p>
               </div>
-              <Link
-                href={locale === 'en' ? '/en/about' : '/about'}
-                className={cn('mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-cta underline-offset-[6px] hover:underline', focusRing)}
-              >
-                {c.about.link}
-                <ArrowLeft className="size-4 ltr:rotate-180" aria-hidden="true" />
-              </Link>
             </div>
+            <ul className="mt-12 grid gap-x-10 gap-y-10 md:grid-cols-2">
+              {c.about.items.map((item, i) => (
+                <li key={item.gain} className="lec-reveal flex gap-4" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <span className="mt-1 grid size-9 shrink-0 place-items-center rounded-full lec-cta-tint text-cta">
+                    <Check className="size-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="text-balance text-xl font-bold leading-[1.4]">{item.gain}</h3>
+                    <p className="mt-2 text-pretty leading-[1.75] text-muted-foreground">{item.because}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={locale === 'en' ? '/en/about' : '/about'}
+              className={cn('lec-reveal mt-10 inline-flex min-h-11 items-center gap-2 font-semibold text-cta underline-offset-[6px] hover:underline', focusRing)}
+            >
+              {c.about.link}
+              <ArrowLeft className="size-4 ltr:rotate-180" aria-hidden="true" />
+            </Link>
           </div>
         </section>
+
+        {/* ----------------------------- TESTIMONIALS (hidden until real quotes exist) ----------------------------- */}
+        {v.testimonials.length > 0 && (
+          <section aria-labelledby="testimonials-title" className="border-t border-border">
+            <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:py-28">
+              <h2 id="testimonials-title" className="lec-reveal text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
+                {v.testimonialsTitle}
+              </h2>
+              <div className="mt-12 grid gap-8 md:grid-cols-2">
+                {v.testimonials.map((t) => (
+                  <figure key={t.name} className="lec-reveal rounded-3xl border border-border bg-card/60 p-8">
+                    <blockquote className="text-pretty text-lg leading-[1.75]">{t.quote}</blockquote>
+                    <figcaption className="mt-5 text-sm text-muted-foreground">
+                      <span className="font-semibold text-foreground">{t.name}</span> · {t.role}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ----------------------------- FAQ ----------------------------- */}
         <section aria-labelledby="faq-title" className="border-t border-border">
