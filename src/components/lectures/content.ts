@@ -120,7 +120,7 @@ const he: LecturesCopy = {
   hero: {
     kicker: 'הרצאות וסדנאות',
     title: 'בינה מלאכותית, מוסברת כמו שצריך',
-    lead: 'בוקר אחד שבו הקבוצה שלכם מבינה מה זה בעצם AI, איפה הוא טועה, ואיך משתמשים בו מחר בבוקר בעבודה שלכם. בלי ז׳רגון, עם הדגמות חיות ותרגול מעשי.',
+    lead: 'הרצאות וסדנאות שבהן הקבוצה שלכם מבינה מה זה בעצם AI, איפה הוא טועה, ואיך משתמשים בו בעבודה שלכם כבר למחרת. בלי ז׳רגון, עם הדגמות חיות.',
     cta: 'קבלו הצעה להרצאה',
     secondary: 'מה אפשר להזמין',
     note: 'מתאים גם למי שמעולם לא פתח כלי AI.',
@@ -131,7 +131,7 @@ const he: LecturesCopy = {
     title: 'למי זה מתאים',
     lead: 'התוכן נבנה מחדש לכל קבוצה: הדוגמאות לקוחות מהעולם שלכם, לא מהעולם של מתכנתים.',
     items: [
-      { id: 'org', label: 'צוותים בארגונים', text: 'איך חוסכים זמן בכתיבה, בסיכום ובניתוח, בלי לחשוף מידע רגיש.' },
+      { id: 'org', label: 'צוותים בארגונים', text: 'איך משתמשים בכלים לכתיבה, לסיכום ולניתוח, ומה חשוב לבדוק לפני שמזינים מידע רגיש.' },
       { id: 'school', label: 'בתי ספר וצוותי חינוך', text: 'מה התלמידים כבר עושים עם AI, ואיך מורים משתמשים בו בהכנת חומרים.' },
       { id: 'community', label: 'קהילות וקבוצות מבוגרים', text: 'היכרות רגועה עם הכלים, וזהירות מהונאות ומזיופים בקול ובווידאו.' },
       { id: 'torah', label: 'רבנים, אברכים ובתי מדרש', text: 'איך פועלת בינה מלאכותית, ואיך אפשר להיעזר בה בחיפוש ובסידור מקורות בגמרא ובהלכה.' },
@@ -153,10 +153,10 @@ const he: LecturesCopy = {
         summary:
           'החצי הראשון עוסק במהות: מה המכונה הזאת עושה באמת כשהיא "עונה", מה ההבדל בין חיזוי מילים להבנה, ואיפה עובר הגבול של מה שאפשר לסמוך עליו. החצי השני מעשי: כלים לחיפוש ולסידור מקורות בלימוד גמרא והלכה, ואיך מאמתים מראה מקום וציטוט מול המקור עצמו, בהקשר שלו. הכלים הם עזר ללימוד, לא תחליף לעיון או לפסיקה.',
         takeaways: [
-          'הבנה ברורה של מה הכלי יודע ומה הוא רק מנחש',
+          'למה תשובה שנשמעת משכנעת עלולה להיות שגויה, ואיך בודקים אותה',
           'שיטה לבדוק שמראה המקום והציטוט מדויקים, וקריאה שלהם בהקשר',
-          'כלים שעובדים בעברית, מוכנים לשימוש כבר באותו יום',
-          'הכלי עוזר לחפש ולסדר. ההכרעה נשארת אצלכם',
+          'היכרות עם כלים שעובדים בעברית, ושאפשר להמשיך בהם כבר באותו יום',
+          'הכלי עוזר לחפש ולסדר. הוא אינו פוסק, והבירור נשאר אצלכם',
         ],
       },
       {
@@ -184,25 +184,25 @@ const he: LecturesCopy = {
         forWhom: 'צוותים בארגון או במוסד',
         summary:
           'כל מפגש מתמקד בתהליך עבודה אחד של הצוות שלכם, ובונים אותו ביחד עם הכלים. בין המפגשים מתרגלים על משימות אמיתיות.',
-        takeaways: ['תהליכי עבודה שנבנו על המשימות שלכם', 'נהלי שימוש בטוח בצוות', 'תרגול בין המפגשים על משימות אמיתיות'],
+        takeaways: ['תהליכי עבודה שנבנו על המשימות שלכם', 'עקרונות לשימוש זהיר בכלים בצוות', 'תרגול בין המפגשים על משימות אמיתיות'],
       },
     ],
   },
   recent: {
     title: 'מהשטח',
-    text: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל דתי. בנינו את המפגש כך שכל אחד יוצא עם משהו שהוא עשה בעצמו.',
+    text: 'בנובמבר 2026 העברתי בוקר של שלוש שעות וחצי על בינה מלאכותית לקבוצת מבוגרים מקהל דתי. בנינו את המפגש כך שכל אחד יצא עם משהו שעשה בעצמו.',
     bullets: [
       'החלק הראשון בלי מחשבים: היסטוריה קצרה, איך זה עובד, ואיפה זה טועה',
-      'אחר כך פותחים כלי ביחד ומתרגלים, צעד אחר צעד',
-      'דף תרגול מודפס, ומצגת שמתאימה לקהל, כולל קטעי שמע בקול גבר בלבד',
+      'אחר כך פתחנו כלי ביחד ותרגלנו, צעד אחר צעד',
+      'דף תרגול מודפס, ומצגת שהותאמה לבקשת הקבוצה, כולל קטעי שמע בקול גבר בלבד',
     ],
     imageAlt: 'איור של שולחן עץ עם ספר גדול פתוח, טלפון, כוס תה ומשקפי קריאה, באור מנורה חם',
   },
   how: {
     title: 'איך זה עובד',
     steps: [
-      { title: 'שיחה קצרה', text: 'רבע שעה בטלפון: מי הקבוצה, מה חשוב לכם, ומה כדאי לא לפתוח.' },
-      { title: 'תוכן תפור', text: 'אני בונה את המצגת והתרגילים לפי הקהל שלכם, ושולח לכם לעיון לפני.' },
+      { title: 'שיחה קצרה', text: 'רבע שעה בטלפון: מי הקבוצה, מה חשוב לכם, ואילו נושאים לכלול ומה להשאיר בחוץ.' },
+      { title: 'תוכן מותאם', text: 'אני בונה את המצגת והתרגילים לפי הקהל שלכם, ושולח לכם לעיון לפני.' },
       { title: 'המפגש', text: 'הסבר, הדגמות חיות ותרגול. צריך מקרן, רמקול ואינטרנט יציב.' },
       { title: 'אחרי', text: 'המצגת, דף התרגול וקישורים לכלים נשארים אצלכם.' },
     ],
@@ -210,9 +210,9 @@ const he: LecturesCopy = {
   about: {
     title: 'מי מעביר',
     lines: [
-      'אלעד יעקובוביץ׳, מפתח ומהנדס בינה מלאכותית. בונה מערכות AI ואוטומציה לעסקים ולארגונים.',
-      'לפני כן ניהל במשך 12 שנה עסק עצמאי, ולכן מסביר טכנולוגיה בשפה פשוטה ועניינית.',
-      'בוגר מסלול Full-Stack של John Bryce בהצטיינות, ומלמד מתוך מה שהוא עושה בפועל, לא מתוך שקפים של אחרים.',
+      'אני אלעד יעקובוביץ׳, מפתח ומהנדס בינה מלאכותית. אני בונה מערכות AI ואוטומציה לעסקים ולארגונים.',
+      'לפני כן ניהלתי במשך 12 שנה עסק עצמאי, ולכן אני מסביר טכנולוגיה בשפה פשוטה ועניינית.',
+      'בוגר מסלול Full-Stack של John Bryce בהצטיינות. בהרצאות אני מביא דוגמאות מהעבודה שלי.',
     ],
     link: 'עוד עליי',
   },
@@ -233,7 +233,7 @@ const he: LecturesCopy = {
       },
       {
         q: 'כמה זה עולה?',
-        a: 'המחיר תלוי במשך המפגש, בגודל הקבוצה ובמיקום, ולכן אין מחירון קבוע באתר. ממלאים את הטופס בתחתית העמוד, בכדקה, ומקבלים הצעה מסודרת אחרי שיחה קצרה. אין התחייבות במילוי הטופס.',
+        a: 'המחיר תלוי במשך המפגש, בגודל הקבוצה ובמיקום, ולכן אין מחירון קבוע באתר. ממלאים את הטופס בתחתית העמוד ומקבלים הצעה מסודרת אחרי שיחה קצרה. אין התחייבות במילוי הטופס.',
       },
       {
         q: 'איפה מתקיימים המפגשים?',
@@ -365,7 +365,7 @@ const en: LecturesCopy = {
   hero: {
     kicker: 'Talks and workshops',
     title: 'Artificial intelligence, explained properly',
-    lead: 'One morning in which your group understands what AI actually is, where it gets things wrong, and how to use it in your own work the very next day. No jargon, with live demos and hands-on practice.',
+    lead: 'Talks and workshops in which your group understands what AI actually is, where it gets things wrong, and how to use it in your own work the very next day. No jargon, with live demos.',
     cta: 'Get a proposal',
     secondary: 'What you can book',
     note: 'Suitable even for people who have never opened an AI tool.',
@@ -376,11 +376,11 @@ const en: LecturesCopy = {
     title: 'Who it is for',
     lead: 'Each session is rebuilt for its group: the examples come from your world, not from programmers.',
     items: [
-      { id: 'org', label: 'Teams in organisations', text: 'Save time on writing, summarising and analysis without exposing sensitive data.' },
+      { id: 'org', label: 'Teams in organisations', text: 'How to use the tools for writing, summarising and analysis, and what to check before entering sensitive data.' },
       { id: 'school', label: 'Schools and educators', text: 'What students already do with AI, and how teachers use it to prepare materials.' },
       { id: 'community', label: 'Communities and adult groups', text: 'A calm introduction to the tools, and how to spot voice and video fakes and scams.' },
       { id: 'torah', label: 'Rabbis, scholars and study halls', text: 'How AI works, and how it can help find and organise sources in Gemara and halacha.' },
-      { id: 'parents', label: 'Parents', text: 'What children meet online, what to know, and how to talk with them about it.' },
+      { id: 'parents', label: 'Parents', text: 'What children encounter online, what to know, and how to talk with them about it.' },
     ],
   },
   formats: {
@@ -392,16 +392,16 @@ const en: LecturesCopy = {
       {
         id: 'torah',
         featured: true,
-        title: 'AI for Torah scholars: essence and tools',
+        title: 'AI for Torah learners: how it works and how to use it',
         duration: 'A morning of about three hours',
         forWhom: 'Rabbis, kollel scholars, teachers and study halls',
         summary:
-          'The first half is about essence: what the machine really does when it "answers", the difference between predicting words and understanding, and where the line of trust lies. The second half is practical: tools for finding and organising sources in Gemara and halacha study, and how to verify a citation and its wording against the original, in context. The tools are an aid to learning, not a substitute for study or for psak.',
+          'The first half is about essence: what the machine really does when it "answers", the difference between predicting words and understanding, and when to question an answer and how to check it. The second half is practical: tools for finding and organising sources in Gemara and halacha study, and how to verify a citation and its wording against the original, in context. The tools are an aid to learning, not a substitute for study or for psak.',
         takeaways: [
-          'A clear sense of what the tool knows and what it only guesses',
+          'Why a convincing answer can still be wrong, and how to check it',
           'A practical method for checking citations and their context against the original source',
-          'Tools that work in Hebrew, ready to use the same day',
-          'The tool helps search and organise. The ruling stays with you',
+          'Hands-on familiarity with tools that work in Hebrew, to keep using the same day',
+          'The tool helps search and organise. It does not rule; the clarification stays with you',
         ],
       },
       {
@@ -429,7 +429,7 @@ const en: LecturesCopy = {
         forWhom: 'Teams in an organisation or institution',
         summary:
           'Each session focuses on one of your team’s real work processes, and we build it together with the tools. Between sessions the team practises on real tasks.',
-        takeaways: ['Workflows built on your own tasks', 'Safe-use guidelines for the team', 'Practice between sessions on real tasks'],
+        takeaways: ['Workflows built on your own tasks', 'Principles for careful use of the tools in the team', 'Practice between sessions on real tasks'],
       },
     ],
   },
@@ -455,9 +455,9 @@ const en: LecturesCopy = {
   about: {
     title: 'Who teaches',
     lines: [
-      'Elad Yakobovich, developer and AI engineer. He builds AI systems and automation for businesses and organisations.',
-      'Before that he ran his own business for 12 years, so he explains technology in plain, practical language.',
-      'A John Bryce Full-Stack graduate with honours, he teaches from what he actually builds, not from other people’s slides.',
+      'I am Elad Yakobovich, a developer and AI engineer. I build AI systems and automation for businesses and organisations.',
+      'Before that I ran my own business for 12 years, so I explain technology in plain, practical language.',
+      'A John Bryce Full-Stack graduate with honours. In my talks I bring examples from my own work.',
     ],
     link: 'More about me',
   },

@@ -136,7 +136,9 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   // never on the production site until a real photo or clip replaces it.
   const showMediaSlot = process.env.VERCEL_ENV !== 'production';
 
-  const audienceItems: AudienceTabItem[] = v.audiences.panels.map((p) => {
+  const tabOrder = ['org', 'school', 'community', 'torah'];
+  const panels = [...v.audiences.panels].sort((x, y) => tabOrder.indexOf(x.id) - tabOrder.indexOf(y.id));
+  const audienceItems: AudienceTabItem[] = panels.map((p) => {
     const a = c.audiences.items.find((x) => x.id === p.id);
     return {
       id: p.id,
@@ -153,6 +155,9 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   return (
     <div className="relative overflow-x-clip bg-background text-foreground">
       <RevealRoot />
+      <noscript>
+        <style>{'[role="tabpanel"][data-state="inactive"]{display:block!important}'}</style>
+      </noscript>
 
       {/* ------------------------------ HERO ------------------------------ */}
       <header className="lec-hero-bg relative isolate">
@@ -190,14 +195,14 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
             </div>
             <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-base text-muted-foreground">
               {[...v.hero.facts, c.hero.note].map((f) => (
-                <li key={f} className="inline-flex items-center gap-2">
-                  <Check className="size-4 shrink-0 text-cta" aria-hidden="true" />
+                <li key={f} className="inline-flex items-center gap-2.5">
+                  <span className="size-1.5 shrink-0 rounded-full bg-cta" aria-hidden="true" />
                   {f}
                 </li>
               ))}
             </ul>
           </div>
-          <figure className="relative mx-auto w-full max-w-[520px] text-foreground/80" aria-label={v.hero.sceneLabel}>
+          <figure className="relative mx-auto w-full max-w-[340px] text-foreground/80 lg:max-w-[520px]" aria-label={v.hero.sceneLabel}>
             <HeroScene className="h-auto w-full" />
           </figure>
         </div>
@@ -223,9 +228,39 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
           </div>
         </section>
 
+        {/* ----------------------------- FORMATS INDEX ----------------------------- */}
+        <section id="formats" aria-labelledby="idx-title" className="scroll-mt-24 border-t border-border">
+          <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-24">
+            <div className="lec-reveal max-w-3xl">
+              <h2 id="idx-title" className="text-balance text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
+                {v.index.title}
+              </h2>
+              <p className="mt-4 text-lg leading-[1.75] text-muted-foreground">{v.index.lead}</p>
+            </div>
+            <ul className="lec-reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[torahFormat, ...rest].filter(Boolean).map((f) => {
+                if (!f) return null;
+                const Icon = FORMAT_ICONS[f.id];
+                return (
+                  <li key={f.id}>
+                    <a
+                      href={f.id === 'torah' ? '#torah' : `#format-${f.id}`}
+                      className={cn('lec-card group flex h-full min-h-[11rem] flex-col rounded-2xl border border-border bg-card p-6', focusRing)}
+                    >
+                      <Icon className="size-6 text-cta" aria-hidden="true" />
+                      <span className="mt-4 text-pretty text-lg font-bold leading-snug">{f.title}</span>
+                      <span className="mt-auto pt-4 text-sm text-muted-foreground">{f.duration}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+
         {/* ----------------------------- TORAH MORNING (featured format) ----------------------------- */}
         {torahFormat && (
-          <section id="formats" aria-labelledby="torah-title" className="scroll-mt-24 border-t border-border bg-card/40">
+          <section aria-labelledby="torah-title" className="scroll-mt-24 border-t border-border bg-card/40">
             <span id="torah" className="block scroll-mt-24" aria-hidden="true" />
             <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
               <p className="lec-reveal mb-4 inline-flex items-center gap-2 text-base font-semibold text-cta">
@@ -267,13 +302,13 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                       className="object-cover"
                     />
                   </div>
-                  <Takeaways title={c.formats.leaveWith} items={torahFormat.takeaways} />
-                  <div className="rounded-2xl border border-border p-5 sm:p-6">
+                  <Takeaways title={c.formats.leaveWith} items={torahFormat.takeaways} level={3} />
+                  <div>
                     <h3 className="text-base font-bold">{v.torah.respectTitle}</h3>
                     <ul className="mt-3 space-y-2">
                       {v.torah.respect.map((r) => (
-                        <li key={r} className="flex gap-2.5 leading-[1.7] text-muted-foreground">
-                          <Check className="mt-1.5 size-4 shrink-0 text-cta" aria-hidden="true" />
+                        <li key={r} className="flex gap-3 leading-[1.7] text-muted-foreground">
+                          <span className="mt-[0.7em] size-1.5 shrink-0 rounded-full bg-cta" aria-hidden="true" />
                           {r}
                         </li>
                       ))}
@@ -332,7 +367,12 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
 
         {/* ----------------------------- FROM THE FIELD ----------------------------- */}
         <section aria-labelledby="recent-title" className="border-t border-border bg-card/40">
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:py-28">
+          <div
+            className={cn(
+              'mx-auto grid gap-12 px-5 py-20 sm:px-8 lg:gap-16 lg:py-28',
+              showMediaSlot ? 'max-w-6xl lg:grid-cols-[1fr_1.1fr]' : 'max-w-3xl',
+            )}
+          >
             <div className="lec-reveal">
               <p className="text-base font-semibold text-cta">
                 {v.field.label} · <span className="tabular-nums">{v.field.date}</span>
@@ -352,30 +392,20 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                 ))}
               </ol>
             </div>
-            <div className="lec-reveal">
-              {showMediaSlot ? (
+            {showMediaSlot && (
+              <div className="lec-reveal">
                 <figure className="grid aspect-[4/3] place-items-center rounded-3xl border-2 border-dashed lec-cta-edge p-8 text-center">
                   <div>
                     <span className="inline-flex items-center gap-2 rounded-full lec-cta-tint px-3 py-1 text-sm font-semibold text-cta">
                       <Camera className="size-4" aria-hidden="true" />
                       {v.media.previewBadge}
                     </span>
-                    <p className="mt-5 text-xl font-bold">{v.media.title}</p>
+                    <h3 className="mt-5 text-xl font-bold">{v.media.title}</h3>
                     <p className="mx-auto mt-3 max-w-[40ch] leading-[1.7] text-muted-foreground">{v.media.text}</p>
                   </div>
                 </figure>
-              ) : (
-                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-border">
-                  <Image
-                    src="/images/lectures-aud-community.webp"
-                    alt={c.recent.imageAlt}
-                    fill
-                    sizes="(min-width: 1024px) 560px, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -522,10 +552,21 @@ function FormatMeta({
   );
 }
 
-function Takeaways({ title, items, compact }: { title: string; items: string[]; compact?: boolean }) {
+function Takeaways({
+  title,
+  items,
+  compact,
+  level = 4,
+}: {
+  title: string;
+  items: string[];
+  compact?: boolean;
+  level?: 3 | 4;
+}) {
+  const H = level === 3 ? 'h3' : 'h4';
   return (
     <div className={compact ? '' : 'rounded-2xl border border-border p-5 sm:p-6'}>
-      <h4 className="text-base font-bold">{title}</h4>
+      <H className="text-base font-bold">{title}</H>
       <ul className="mt-3 space-y-2.5">
         {items.map((t) => (
           <li key={t} className="flex gap-2.5 leading-[1.7]">

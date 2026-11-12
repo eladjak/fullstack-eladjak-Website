@@ -55,7 +55,7 @@ export function AudienceTabs({
         ))}
       </TabsPrimitive.List>
 
-      {items.map((a, i) => (
+      {items.map((a) => (
         <TabsPrimitive.Content
           key={a.id}
           value={a.id}
@@ -68,7 +68,7 @@ export function AudienceTabs({
                 src={a.image}
                 alt={a.imageAlt}
                 fill
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading="lazy"
                 sizes="(min-width: 1024px) 620px, 100vw"
                 className="object-cover"
               />

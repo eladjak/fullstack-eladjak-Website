@@ -31,9 +31,9 @@ export interface LecturesCopyV2 {
     parts: { title: string; text: string }[];
     respectTitle: string;
     respect: string[];
-    imageAlt: string;
   };
   formatsOther: { title: string; lead: string };
+  index: { title: string; lead: string };
   media: {
     previewBadge: string;
     title: string;
@@ -48,7 +48,7 @@ const he: LecturesCopyV2 = {
   hero: {
     line1: 'בינה מלאכותית,',
     line2: 'מוסברת כמו שצריך',
-    facts: ['בעברית פשוטה', 'הרצאה, סדנה או בוקר שלם', 'מותאם לקהל שלכם'],
+    facts: ['בעברית פשוטה', 'הרצאה, סדנה או בוקר שלם'],
     sceneLabel: 'מנורה נדלקת מעל ספר פתוח, שורה אחת מסומנת ומחוברת למקור שלה',
   },
   audiences: {
@@ -69,7 +69,7 @@ const he: LecturesCopyV2 = {
         image: '/images/lectures-aud-team.webp',
         imageAlt: 'איור: צוות של שישה אנשים סביב שולחן ישיבות בשעת ערב, שניים מהם צוחקים מול מחשב נייד',
         suggest: 'series',
-        suggestLabel: 'סדרת מפגשים לצוות, או סדנה מעשית',
+        suggestLabel: 'סדרת מפגשים לצוות',
       },
       {
         id: 'school',
@@ -92,7 +92,7 @@ const he: LecturesCopyV2 = {
   torah: {
     label: 'לומדי תורה',
     title: 'בוקר לרבנים, לאברכים ולמגידי שיעור',
-    lead: 'מפגש שנבנה מתוך עולם הלימוד: הכלי מוצג כעזר לחיפוש ולסידור, והלימוד, הבירור וההכרעה נשארים אצל הלומד.',
+    lead: 'מפגש שמכבד את עולם הלימוד: הכלי מוצג כעזר לחיפוש ולסידור מקורות, ולא כמי שפוסק. הלימוד והבירור נשארים אצלכם ואצל רבותיכם.',
     partsTitle: 'מבנה הבוקר',
     parts: [
       { title: 'חלק ראשון: המהות', text: 'מה המכונה הזאת עושה כשהיא "עונה", מה ההבדל בין חיזוי מילים להבנה, ואיפה עובר הגבול של מה שאפשר לסמוך עליו.' },
@@ -104,8 +104,8 @@ const he: LecturesCopyV2 = {
       'אפשר לתרגל על מסך משותף, למי שיש מכשיר מסונן',
       'מה נכנס לתוכן ומה נשאר בחוץ, נקבע יחד בשיחה',
     ],
-    imageAlt: 'איור: שתי חברותות בבית מדרש בערב, ספרי גמרא פתוחים, ואחד הלומדים מצביע מטאבלט אל הדף',
   },
+  index: { title: 'ארבע מסגרות', lead: 'כל מסגרת נבנית לפי הקבוצה, ואפשר לשלב.' },
   formatsOther: { title: 'עוד שלוש מסגרות', lead: 'כל אחת נבנית מחדש לפי הקבוצה, ואפשר לשלב.' },
   media: {
     previewBadge: 'נראה רק בתצוגה המקדימה',
@@ -121,11 +121,11 @@ const en: LecturesCopyV2 = {
   hero: {
     line1: 'Artificial intelligence,',
     line2: 'explained properly',
-    facts: ['Plain language', 'A talk, a workshop or a full morning', 'Shaped for your audience'],
+    facts: ['Plain language', 'A talk, a workshop or a full morning'],
     sceneLabel: 'A lamp turns on over an open book; one line is highlighted and linked to its source',
   },
   audiences: {
-    eyebrowParents: 'And for parents: what children meet online, and how to talk with them about it.',
+    eyebrowParents: 'And for parents: what children encounter online, and how to talk with them about it.',
     suggestPrefix: 'What fits here:',
     panels: [
       {
@@ -142,7 +142,7 @@ const en: LecturesCopyV2 = {
         image: '/images/lectures-aud-team.webp',
         imageAlt: 'Illustration: a team of six around a meeting table at dusk, two of them laughing at a laptop',
         suggest: 'series',
-        suggestLabel: 'A series of team sessions, or a hands-on workshop',
+        suggestLabel: 'A series of team sessions',
       },
       {
         id: 'school',
@@ -165,7 +165,7 @@ const en: LecturesCopyV2 = {
   torah: {
     label: 'Torah learners',
     title: 'A morning for rabbis, kollel scholars and teachers',
-    lead: 'Built from inside the world of learning: the tool is presented as an aid for searching and organising, while study, clarification and the ruling stay with the learner.',
+    lead: 'A session that respects the world of learning: the tool is shown as an aid for finding and organising sources, never as a posek. Study and clarification stay with you and your teachers.',
     partsTitle: 'How the morning is built',
     parts: [
       { title: 'Part one: essence', text: 'What the machine does when it "answers", the difference between predicting words and understanding, and where the line of trust lies.' },
@@ -174,11 +174,11 @@ const en: LecturesCopyV2 = {
     respectTitle: 'Agreed in advance',
     respect: [
       'Examples and images are fitted to the audience',
-      'Practice can run on one shared screen, for filtered devices',
+      'Practice can run on one shared screen, for those with filtered devices',
       'What goes into the content, and what stays out, is decided together',
     ],
-    imageAlt: 'Illustration: two study pairs in a beit midrash in the evening, open Gemara volumes, one learner pointing from a tablet to the page',
   },
+  index: { title: 'Four formats', lead: 'Each one is shaped around the group, and they can be combined.' },
   formatsOther: { title: 'Three more formats', lead: 'Each one is rebuilt for the group, and they can be combined.' },
   media: {
     previewBadge: 'Visible in the preview only',
