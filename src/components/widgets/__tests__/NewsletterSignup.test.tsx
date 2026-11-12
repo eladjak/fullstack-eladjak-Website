@@ -25,7 +25,7 @@ describe('NewsletterSignup', () => {
     respond(502, { ok: false, error: 'subscribe_failed' });
     render(<NewsletterSignup />);
     fillAndSubmit();
-    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('ההרשמה לא נשמרה'));
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('לא הצלחנו לאשר'));
     expect(screen.queryByText('נרשמתם. תודה.')).toBeNull();
   });
 
@@ -44,12 +44,20 @@ describe('NewsletterSignup', () => {
     await waitFor(() => expect(screen.getByText('אתם כבר ברשימה')).toBeInTheDocument());
   });
 
+  it('explains an earlier opt-out instead of re-adding', async () => {
+    respond(409, { ok: false, error: 'previously_unsubscribed' });
+    render(<NewsletterSignup />);
+    fillAndSubmit();
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('הוסרה בעבר'));
+  });
+
   it('asks for consent before sending anything', async () => {
     const f = vi.fn();
     vi.stubGlobal('fetch', f);
     render(<NewsletterSignup />);
     fillAndSubmit(false);
     expect(screen.getByRole('alert')).toHaveTextContent('תיבת האישור');
+    expect(screen.getByRole('checkbox')).toHaveAttribute('aria-invalid', 'true');
     expect(f).not.toHaveBeenCalled();
   });
 });

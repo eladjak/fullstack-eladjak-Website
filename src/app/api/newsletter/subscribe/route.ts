@@ -98,11 +98,12 @@ export async function POST(request: Request) {
       return json({ ok: false, error: "invalid_body" }, 400);
     }
 
-    // Honeypot: a hidden field people never see. Bots fill it; we pretend success
-    // and store nothing, so they learn nothing.
+    // Honeypot: a hidden field people never see; bots fill it. We store nothing
+    // and say so honestly (an autofill could hit a real person, who then sees
+    // an error and can retry, never a fake confirmation).
     if (typeof body.website === "string" && body.website.trim() !== "") {
-      console.warn("[newsletter] honeypot triggered, ignored");
-      return json({ ok: true, status: "subscribed" });
+      console.warn("[newsletter] honeypot triggered, nothing stored");
+      return json({ ok: false, error: "rejected" }, 400);
     }
 
     const email = body.email;
@@ -143,6 +144,10 @@ export async function POST(request: Request) {
       { apiKey, segmentId },
     );
 
+    if (outcome.kind === "previously_unsubscribed") {
+      return json({ ok: false, error: "previously_unsubscribed" }, 409);
+    }
+
     if (outcome.kind === "provider_error") {
       console.error("[newsletter] Resend failed:", outcome.detail);
       return json({ ok: false, error: "subscribe_failed" }, 502);
@@ -150,7 +155,10 @@ export async function POST(request: Request) {
 
     return json({ ok: true, status: outcome.kind });
   } catch (err) {
-    console.error("[newsletter] unexpected error:", err);
+    console.error(
+      "[newsletter] unexpected error:",
+      err instanceof Error ? err.name : "unknown",
+    );
     return json({ ok: false, error: "internal_error" }, 500);
   }
 }

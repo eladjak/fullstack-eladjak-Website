@@ -61,11 +61,12 @@ describe('POST /api/newsletter/subscribe', () => {
     expect((await res.json()).error).toBe('consent_required');
   });
 
-  it('honeypot: pretends success and calls no provider', async () => {
+  it('honeypot: stores nothing and does NOT claim success', async () => {
     const f = vi.fn();
     vi.stubGlobal('fetch', f);
     const res = await POST(req({ ...good, website: 'http://spam' }));
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(400);
+    expect((await res.json()).ok).toBe(false);
     expect(f).not.toHaveBeenCalled();
   });
 

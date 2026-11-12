@@ -72,16 +72,30 @@ describe('subscribeContact', () => {
     expect(f.calls.some((c) => c.method !== 'GET')).toBe(false);
   });
 
-  it('known but unsubscribed contact giving new consent is re-subscribed and added', async () => {
+  it('someone who opted out is NOT re-subscribed by the form', async () => {
     const f = fakeFetch((m, url) => {
       if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
-      if (m === 'GET') return { status: 200, json: { id: 'c1', unsubscribed: true } };
+      return { status: 200, json: { id: 'c1', unsubscribed: true } };
+    });
+    expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'previously_unsubscribed' });
+    expect(f.calls.some((c) => c.method !== 'GET')).toBe(false);
+  });
+
+  it('known subscribed contact joins the list: segment first, then consent', async () => {
+    const f = fakeFetch((m, url) => {
+      if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
+      if (m === 'GET') return { status: 200, json: { id: 'c1', unsubscribed: false } };
       return { status: 200, json: { id: 'c1' } };
     });
     expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'subscribed' });
-    const patch = f.calls.find((c) => c.method === 'PATCH');
-    expect(patch?.body).toMatchObject({ unsubscribed: false });
-    expect(f.calls.some((c) => c.method === 'POST' && c.url.endsWith(`/segments/${SEG}`))).toBe(true);
+    const writes = f.calls.filter((c) => c.method !== 'GET').map((c) => c.method);
+    expect(writes).toEqual(['POST', 'PATCH']);
+  });
+
+  it('error details never carry the address', async () => {
+    const f = fakeFetch(() => new Error('fetch failed for https://x/contacts/a%40b.co'));
+    const out = await subscribeContact(input, deps(f.impl));
+    expect(JSON.stringify(out)).not.toMatch(/a%40b|a@b/);
   });
 
   it('RED ARM: failing to add the segment is an error', async () => {
@@ -92,5 +106,6 @@ describe('subscribeContact', () => {
       return { status: 200, json: { id: 'c1' } };
     });
     expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
+    expect(f.calls.some((c) => c.method === 'PATCH')).toBe(false);
   });
 });

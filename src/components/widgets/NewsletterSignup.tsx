@@ -32,7 +32,9 @@ const COPY = {
   errorConsent: "כדי להירשם צריך לסמן את תיבת האישור.",
   errorRate: "נשלחו יותר מדי ניסיונות מהמכשיר הזה. נסו שוב בעוד רבע שעה.",
   errorGeneric:
-    "ההרשמה לא נשמרה, בגלל תקלה אצלנו. נסו שוב בעוד דקה, או כתבו לי דרך דף יצירת הקשר.",
+    "לא הצלחנו לאשר שההרשמה נשמרה, בגלל תקלה אצלנו. נסו שוב בעוד דקה, או כתבו לי דרך דף יצירת הקשר.",
+  errorUnsubscribed:
+    "הכתובת הזאת הוסרה בעבר מהרשימה, ולכן לא נחזיר אותה דרך הטופס. רוצים לחזור? כתבו לי דרך דף יצירת הקשר.",
 } as const;
 
 export function NewsletterSignup({
@@ -48,6 +50,18 @@ export function NewsletterSignup({
   const [errorMessage, setErrorMessage] = React.useState("");
   const [consent, setConsent] = React.useState(false);
   const [honeypot, setHoneypot] = React.useState("");
+  // Which field the current error belongs to (null = not a field problem).
+  const [errorField, setErrorField] = React.useState<
+    "email" | "consent" | null
+  >(null);
+  const consentRef = React.useRef<HTMLInputElement>(null);
+  const uid = React.useId();
+  const ids = {
+    email: `${uid}-email`,
+    consent: `${uid}-consent`,
+    website: `${uid}-website`,
+    error: `${uid}-error`,
+  };
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const isSuccess = status === "success" || status === "already";
@@ -61,6 +75,7 @@ export function NewsletterSignup({
     if (!trimmed) {
       setStatus("error");
       setErrorMessage(COPY.errorInvalid);
+      setErrorField("email");
       // The role="alert" below announces the message, but measured in a browser
       // focus stayed on <body> after a rejected submit, leaving the user with
       // nowhere to type. rAF so focus lands after React commits the error state.
@@ -70,6 +85,8 @@ export function NewsletterSignup({
     if (!consent) {
       setStatus("error");
       setErrorMessage(COPY.errorConsent);
+      setErrorField("consent");
+      requestAnimationFrame(() => consentRef.current?.focus());
       return;
     }
 
@@ -108,17 +125,27 @@ export function NewsletterSignup({
       }
 
       setStatus("error");
+      setErrorField(
+        data.error === "invalid_email"
+          ? "email"
+          : data.error === "consent_required"
+            ? "consent"
+            : null,
+      );
       setErrorMessage(
         data.error === "invalid_email"
           ? COPY.errorInvalid
           : data.error === "consent_required"
             ? COPY.errorConsent
-            : data.error === "too_many_requests"
-              ? COPY.errorRate
-              : COPY.errorGeneric,
+            : data.error === "previously_unsubscribed"
+              ? COPY.errorUnsubscribed
+              : data.error === "too_many_requests"
+                ? COPY.errorRate
+                : COPY.errorGeneric,
       );
     } catch {
       setStatus("error");
+      setErrorField(null);
       setErrorMessage(COPY.errorGeneric);
     } finally {
       setIsSubmitting(false);
@@ -146,9 +173,9 @@ export function NewsletterSignup({
       >
         {/* Honeypot: hidden from people and screen readers; bots fill it. */}
         <div className="sr-only" aria-hidden="true">
-          <label htmlFor="newsletter-website">אתר אינטרנט</label>
+          <label htmlFor={ids.website}>אתר אינטרנט</label>
           <input
-            id="newsletter-website"
+            id={ids.website}
             name="website"
             type="text"
             tabIndex={-1}
@@ -158,7 +185,7 @@ export function NewsletterSignup({
           />
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
-          <label htmlFor="newsletter-email" className="sr-only">
+          <label htmlFor={ids.email} className="sr-only">
             {COPY.placeholder}
           </label>
           <div className="relative flex-1">
@@ -168,7 +195,7 @@ export function NewsletterSignup({
             />
             <input
               ref={inputRef}
-              id="newsletter-email"
+              id={ids.email}
               type="email"
               dir="ltr"
               inputMode="email"
@@ -181,8 +208,8 @@ export function NewsletterSignup({
                 if (status !== "idle") setStatus("idle");
               }}
               placeholder={COPY.placeholder}
-              aria-invalid={isError}
-              aria-describedby={isError ? "newsletter-error" : undefined}
+              aria-invalid={isError && errorField === "email"}
+              aria-describedby={isError ? ids.error : undefined}
               className={cn(
                 "flex w-full rounded-md border bg-background py-2 pe-3 ps-9",
                 "text-sm ring-offset-background placeholder:text-muted-foreground",
@@ -218,7 +245,6 @@ export function NewsletterSignup({
                 ? "bg-primary/10 border-primary/30 border text-primary"
                 : "hover:bg-primary/90 bg-primary text-primary-foreground shadow-sm",
             )}
-            aria-label={COPY.button}
           >
             {isSubmitting ? (
               <Loader2 className="size-4 animate-spin" aria-hidden="true" />
@@ -239,12 +265,17 @@ export function NewsletterSignup({
 
         {!isSuccess && (
           <label
-            htmlFor="newsletter-consent"
+            htmlFor={ids.consent}
             className="flex min-h-[44px] cursor-pointer items-start gap-2 py-1 text-xs leading-relaxed text-muted-foreground"
           >
             <input
-              id="newsletter-consent"
+              ref={consentRef}
+              id={ids.consent}
               type="checkbox"
+              aria-invalid={isError && errorField === "consent"}
+              aria-describedby={
+                isError && errorField === "consent" ? ids.error : undefined
+              }
               checked={consent}
               disabled={isSubmitting}
               onChange={(ev) => {
@@ -276,7 +307,7 @@ export function NewsletterSignup({
 
       {isError && (
         <p
-          id="newsletter-error"
+          id={ids.error}
           role="alert"
           className="mt-2 text-xs text-destructive"
         >

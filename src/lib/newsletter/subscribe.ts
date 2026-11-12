@@ -12,6 +12,7 @@ import { CONSENT_TEXT, CONSENT_VERSION, SIGNUP_SITE } from "./consent";
 export type SubscribeOutcome =
   | { kind: "subscribed" }
   | { kind: "already_subscribed" }
+  | { kind: "previously_unsubscribed" }
   | { kind: "provider_error"; detail: string };
 
 export interface SubscribeInput {
@@ -80,7 +81,8 @@ export async function subscribeContact(
       return {
         status: 0,
         json: null,
-        error: e instanceof Error ? e.message : String(e),
+        // Name only: messages can carry the request URL (and so the email).
+        error: e instanceof Error ? e.name : "unknown",
       };
     }
   }
@@ -122,32 +124,36 @@ export async function subscribeContact(
     return fail("lookup-shape", existing);
 
   // 2. Already on this list and subscribed: keep the original consent record.
-  const segs = await call("GET", `/contacts/${contact.id}/segments`);
+  // Someone who removed themselves stays removed: an unauthenticated form
+  // must not flip a global opt-out back on (anyone can type any address).
+  if (contact.unsubscribed !== false) {
+    return { kind: "previously_unsubscribed" };
+  }
+
+  const cid = encodeURIComponent(contact.id);
+  const sid = encodeURIComponent(deps.segmentId);
+  const segs = await call("GET", `/contacts/${cid}/segments`);
   if (segs.status !== 200) return fail("segments", segs);
   const list =
     (segs.json as { data?: Array<{ id?: string }> } | null)?.data ?? [];
   const inSegment = list.some((s) => s.id === deps.segmentId);
 
-  if (inSegment && contact.unsubscribed === false) {
+  if (inSegment) {
     return { kind: "already_subscribed" };
   }
 
-  // 3. Known contact, new explicit consent: record it and (re)subscribe.
-  const updated = await call("PATCH", `/contacts/${contact.id}`, {
-    unsubscribed: false,
+  // 3. Known, subscribed contact joining this list: add it to the segment
+  //    first, then record this consent. Adding first means a failure leaves
+  //    the stored contact untouched.
+  const added = await call("POST", `/contacts/${cid}/segments/${sid}`);
+  if (added.status < 200 || added.status >= 300)
+    return fail("add-segment", added);
+
+  const updated = await call("PATCH", `/contacts/${cid}`, {
     properties: props,
   });
   if (updated.status < 200 || updated.status >= 300)
     return fail("update", updated);
-
-  if (!inSegment) {
-    const added = await call(
-      "POST",
-      `/contacts/${contact.id}/segments/${deps.segmentId}`,
-    );
-    if (added.status < 200 || added.status >= 300)
-      return fail("add-segment", added);
-  }
 
   return { kind: "subscribed" };
 }
