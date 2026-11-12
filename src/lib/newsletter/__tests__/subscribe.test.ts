@@ -1,0 +1,96 @@
+// @vitest-environment node
+import { describe, expect, it, vi } from 'vitest';
+import { subscribeContact } from '../subscribe';
+import { CONSENT_TEXT, CONSENT_VERSION } from '../consent';
+
+const SEG = 'seg-123';
+const input = { email: 'a@b.co', sourcePath: '/he', now: new Date('2026-11-12T13:00:00Z') };
+
+type Route = (method: string, url: string, body: unknown) => { status: number; json?: unknown } | Error;
+
+function fakeFetch(route: Route) {
+  const calls: Array<{ method: string; url: string; body: unknown }> = [];
+  const impl = vi.fn(async (url: string, init: RequestInit) => {
+    const method = init.method ?? 'GET';
+    const body = init.body ? JSON.parse(String(init.body)) : undefined;
+    calls.push({ method, url, body });
+    const r = route(method, url, body);
+    if (r instanceof Error) throw r;
+    return new Response(r.json === undefined ? null : JSON.stringify(r.json), { status: r.status });
+  });
+  return { impl: impl as unknown as typeof fetch, calls };
+}
+
+const deps = (impl: typeof fetch) => ({ apiKey: 'k', segmentId: SEG, fetchImpl: impl, baseUrl: 'https://x' });
+
+describe('subscribeContact', () => {
+  it('creates a new contact with the consent record and the segment', async () => {
+    const f = fakeFetch((m) => (m === 'GET' ? { status: 404, json: {} } : { status: 201, json: { id: 'c1' } }));
+    const out = await subscribeContact(input, deps(f.impl));
+    expect(out).toEqual({ kind: 'subscribed' });
+    const create = f.calls.find((c) => c.method === 'POST');
+    expect(create?.body).toMatchObject({
+      email: 'a@b.co',
+      unsubscribed: false,
+      segments: [{ id: SEG }],
+      properties: {
+        consent_at: '2026-11-12T13:00:00.000Z',
+        consent_source: '/he',
+        consent_text: CONSENT_TEXT,
+        consent_version: CONSENT_VERSION,
+      },
+    });
+  });
+
+  it('RED ARM: provider 5xx on create is an error, never success', async () => {
+    const f = fakeFetch((m) => (m === 'GET' ? { status: 404 } : { status: 500, json: { message: 'boom' } }));
+    const out = await subscribeContact(input, deps(f.impl));
+    expect(out.kind).toBe('provider_error');
+  });
+
+  it('RED ARM: create answering 2xx without an id is an error', async () => {
+    const f = fakeFetch((m) => (m === 'GET' ? { status: 404 } : { status: 200, json: {} }));
+    expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
+  });
+
+  it('RED ARM: network failure is an error', async () => {
+    const f = fakeFetch(() => new Error('ECONNRESET'));
+    expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
+  });
+
+  it('RED ARM: bad key on lookup is an error', async () => {
+    const f = fakeFetch(() => ({ status: 401, json: { message: 'bad key' } }));
+    expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
+  });
+
+  it('already on the list: says so and keeps the original consent record', async () => {
+    const f = fakeFetch((m, url) => {
+      if (url.endsWith('/segments')) return { status: 200, json: { data: [{ id: SEG }] } };
+      return { status: 200, json: { id: 'c1', unsubscribed: false } };
+    });
+    expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'already_subscribed' });
+    expect(f.calls.some((c) => c.method !== 'GET')).toBe(false);
+  });
+
+  it('known but unsubscribed contact giving new consent is re-subscribed and added', async () => {
+    const f = fakeFetch((m, url) => {
+      if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
+      if (m === 'GET') return { status: 200, json: { id: 'c1', unsubscribed: true } };
+      return { status: 200, json: { id: 'c1' } };
+    });
+    expect(await subscribeContact(input, deps(f.impl))).toEqual({ kind: 'subscribed' });
+    const patch = f.calls.find((c) => c.method === 'PATCH');
+    expect(patch?.body).toMatchObject({ unsubscribed: false });
+    expect(f.calls.some((c) => c.method === 'POST' && c.url.endsWith(`/segments/${SEG}`))).toBe(true);
+  });
+
+  it('RED ARM: failing to add the segment is an error', async () => {
+    const f = fakeFetch((m, url) => {
+      if (m === 'GET' && url.endsWith('/segments')) return { status: 200, json: { data: [] } };
+      if (m === 'GET') return { status: 200, json: { id: 'c1', unsubscribed: false } };
+      if (m === 'POST') return { status: 500 };
+      return { status: 200, json: { id: 'c1' } };
+    });
+    expect((await subscribeContact(input, deps(f.impl))).kind).toBe('provider_error');
+  });
+});
