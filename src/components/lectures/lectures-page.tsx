@@ -165,8 +165,8 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
           <div>
             <p className="mb-6 text-base font-semibold text-cta">{c.hero.kicker}</p>
             <h1 className="text-balance font-extrabold leading-[1.08] tracking-tight">
-              <span className="block text-[clamp(2.6rem,6.2vw,4.25rem)]">{v.hero.line1}</span>
-              <span className="block text-[clamp(2rem,4.6vw,3.3rem)] text-muted-foreground">{v.hero.line2}</span>
+              <span className="block text-balance text-[clamp(2.1rem,4.8vw,3.5rem)]">{v.hero.line1}</span>
+              <span className="mt-1 block text-balance text-[clamp(1.6rem,3.5vw,2.6rem)] text-muted-foreground">{v.hero.line2}</span>
             </h1>
             <p className="mt-8 max-w-[58ch] text-pretty text-lg leading-[1.75] text-muted-foreground sm:text-xl">
               {c.hero.lead}

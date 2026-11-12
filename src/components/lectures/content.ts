@@ -209,7 +209,7 @@ const he: LecturesCopy = {
   },
   about: {
     title: 'מי מעביר, ומה זה נותן לכם',
-    intro: 'אני אלעד יעקובוביץ׳. כל עובדה עליי שווה משהו רק אם היא משנה את המפגש שלכם, אז הנה מה שהיא משנה:',
+    intro: 'אני אלעד יעקובוביץ׳. ארבעה דברים עליי, ומה כל אחד מהם נותן לקבוצה שלכם:',
     items: [
       {
         gain: 'דוגמאות מהעבודה, לא מהספר',
@@ -468,7 +468,7 @@ const en: LecturesCopy = {
   },
   about: {
     title: 'Who teaches, and what you get from it',
-    intro: 'I am Elad Yakobovich. A fact about me only matters if it changes your session, so here is what each one changes:',
+    intro: 'I am Elad Yakobovich. Four things about me, and what each one gives your group:',
     items: [
       {
         gain: 'Examples from real work, not from a textbook',
