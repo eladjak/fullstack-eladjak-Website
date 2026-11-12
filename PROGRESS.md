@@ -1276,3 +1276,7 @@ For each project, work in its own repo:
 - הרגרסיה: גל wow-2026 (b1bb5fe) שיטח את דף `/products/business-brain` — הדף שאלעד שלח לליאור ידו כפיץ' מכירה.
 - שוחזר נקודתית מ-290ec8a: זוהר-הזהב בריחוף על 3 כפתורי-ה-CTA (`hover:shadow-amber-500/40`) · ריחוף עשיר על הכרטיסים (`hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5`) · `hover:shadow-md` על כפתורי-התמחור · 4 שורות-קופי שנוסחו-מחדש בתוך מעבר-CSS.
 - נשמר מהגל: צמצום `transition-all` לרשימת-מאפיינים מפורשת · חגורת-reduced-motion · פוקוס-מקלדת מקביל · מקטע "לתנועות ולארגונים" + מסלול `/demo` + שאלת-ה-FAQ החדשה (תוספות-תוכן אמיתיות, לא רגרסיה).
+
+## 12.11.2026 — /lectures v4 (draft PR #15, preview only)
+- "קהל תורני" / "Torah-observant audiences" everywhere; FAQ as a chat (fixed answers, `faq-chat.tsx`); six daylight illustrations (stage, classroom, studio, team, staff room, community hall); hero video slot (`hero-media.tsx`, auto-on when `public/videos/lectures-intro.mp4` is in the build, checked in `next.config.js`).
+- Open: owner approval of illustrations, real 11.11 photos, the 30s film (storyboard in the v4 report), form delivery check from v3.
