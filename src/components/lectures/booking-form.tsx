@@ -14,7 +14,6 @@ import {
   Send,
   Square,
   Target,
-  Timer,
   UserRound,
   Users,
   LayoutGrid,
@@ -102,6 +101,8 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
   const [status, setStatus] = useState<Status>('idle');
   const [mailtoTarget, setMailtoTarget] = useState(CONTACT.email);
   const [restored, setRestored] = useState(false);
+  const [storageOk, setStorageOk] = useState(false);
+  const stepBodyRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstRender = useRef(true);
 
@@ -120,13 +121,27 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
     setRestored(true);
   }, []);
 
+  // "Request a proposal for this" on the Torah card links to #booking-torah:
+  // preselect that format (still editable) instead of making people choose again.
+  useEffect(() => {
+    if (!restored) return;
+    const apply = () => {
+      if (window.location.hash !== '#booking-torah') return;
+      setA((prev) => ({ ...prev, audience: prev.audience || 'torah', format: 'torah' }));
+    };
+    apply();
+    window.addEventListener('hashchange', apply);
+    return () => window.removeEventListener('hashchange', apply);
+  }, [restored]);
+
   // Autosave draft on every change.
   useEffect(() => {
     if (!restored || status === 'success') return;
     try {
       localStorage.setItem(DRAFT_KEY, JSON.stringify({ a, step }));
+      setStorageOk(true);
     } catch {
-      /* ignore */
+      setStorageOk(false);
     }
   }, [a, step, restored, status]);
 
@@ -162,11 +177,21 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
     const msg = validate(step);
     if (msg) {
       setError(msg);
+      focusFirstField();
       return;
     }
     setError('');
     setStep((s) => Math.min(TOTAL, s + 1));
   };
+  function focusFirstField() {
+    requestAnimationFrame(() => {
+      const root = stepBodyRef.current;
+      const target =
+        root?.querySelector<HTMLElement>('input[aria-invalid="true"], textarea[aria-invalid="true"]') ??
+        root?.querySelector<HTMLElement>('input:not([type=hidden]):not([tabindex="-1"]), textarea');
+      target?.focus();
+    });
+  }
   const goBack = () => {
     setError('');
     setStep((s) => Math.max(1, s - 1));
@@ -271,10 +296,14 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
             {c.error.title}
           </h3>
           <p className="max-w-md text-pretty text-muted-foreground">{c.error.text}</p>
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+          <div className="flex w-full flex-col flex-wrap justify-center gap-3 sm:flex-row">
             <button type="button" onClick={submit} className={primaryBtn}>
               <RotateCcw className="size-4" aria-hidden="true" />
               {c.error.retry}
+            </button>
+            <button type="button" onClick={() => setStatus('idle')} className={secondaryBtn}>
+              <ArrowRight className="size-4 ltr:rotate-180" aria-hidden="true" />
+              {c.error.edit}
             </button>
             <a href={`https://wa.me/${CONTACT.whatsapp}?text=${text}`} target="_blank" rel="noopener noreferrer" className={secondaryBtn}>
               {c.error.whatsapp}
@@ -319,10 +348,6 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
         {/* progress */}
         <div className="mb-6 flex items-center justify-between gap-4 text-sm text-muted-foreground">
           <span aria-live="polite">{c.stepOf(step, TOTAL)}</span>
-          <span className="inline-flex items-center gap-1.5">
-            <Timer className="size-4" aria-hidden="true" />
-            {locale === 'he' ? 'כדקה' : 'About a minute'}
-          </span>
         </div>
         <div className="mb-8 h-1.5 overflow-hidden rounded-full bg-muted" aria-hidden="true">
           <div
@@ -331,7 +356,7 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
           />
         </div>
 
-        <div key={step} className="animate-[lec-in_200ms_ease-out] motion-reduce:animate-none">
+        <div key={step} ref={stepBodyRef} className="animate-[lec-in_200ms_ease-out] motion-reduce:animate-none">
           <div className="mb-2 flex items-center gap-3">
             <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary [&>svg]:size-5" aria-hidden="true">
               {meta.icon}
@@ -352,6 +377,7 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
               value={a.audience}
               onChange={(v) => set('audience', v)}
               describedBy={error ? errorId : undefined}
+              required
             />
           )}
           {step === 1 && a.audience === 'other' && (
@@ -464,7 +490,7 @@ export function BookingForm({ locale }: { locale: LecturesLocale }) {
         </div>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-4 text-xs text-muted-foreground">
-          <span>{c.draftSaved}</span>
+          <span>{storageOk ? c.draftSaved : ''}</span>
           <button type="button" onClick={reset} className="min-h-11 rounded-md px-2 underline-offset-4 hover:text-foreground hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">
             {c.clearDraft}
           </button>
@@ -514,6 +540,7 @@ function ChoiceGroup({
   value,
   onChange,
   describedBy,
+  required,
 }: {
   name: string;
   label: string;
@@ -521,11 +548,12 @@ function ChoiceGroup({
   value: string;
   onChange: (v: string) => void;
   describedBy?: string;
+  required?: boolean;
 }) {
   return (
-    <fieldset aria-describedby={describedBy}>
+    <fieldset>
       <legend className="sr-only">{label}</legend>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div role="radiogroup" aria-label={label} aria-required={required || undefined} aria-invalid={(required && !!describedBy) || undefined} aria-describedby={describedBy} className="grid gap-3 sm:grid-cols-2">
         {options.map((o) => {
           const on = value === o.value;
           return (

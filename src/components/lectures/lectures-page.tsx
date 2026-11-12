@@ -242,7 +242,7 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                   <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">{featured.summary}</p>
                   <Takeaways title={c.formats.leaveWith} items={featured.takeaways} />
                   <a
-                    href="#booking"
+                    href="#booking-torah"
                     className={cn(
                       'mt-8 inline-flex min-h-12 items-center gap-2 rounded-xl bg-cta px-6 font-bold text-cta-foreground transition-transform duration-150 hover:-translate-y-0.5 active:scale-[.97] motion-reduce:hover:translate-y-0',
                       focusRing,
@@ -366,7 +366,8 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
         </section>
 
         {/* ----------------------------- BOOKING ----------------------------- */}
-        <section id="booking" aria-labelledby="booking-title" className="scroll-mt-20 border-t border-border bg-muted/30">
+        <section id="booking" aria-labelledby="booking-title" className="relative scroll-mt-20 border-t border-border bg-muted/30">
+          <span id="booking-torah" className="absolute top-0 scroll-mt-20" aria-hidden="true" />
           <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
             <h2 id="booking-title" className="text-3xl font-bold sm:text-4xl">
               {c.form.title}

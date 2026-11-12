@@ -108,7 +108,7 @@ export interface FormCopy {
   requiredChoice: string;
   review: string;
   success: { title: string; text: string; again: string };
-  error: { title: string; text: string; retry: string; whatsapp: string; email: string };
+  error: { title: string; text: string; retry: string; edit: string; whatsapp: string; email: string };
 }
 
 const he: LecturesCopy = {
@@ -120,7 +120,7 @@ const he: LecturesCopy = {
   hero: {
     kicker: 'הרצאות וסדנאות',
     title: 'בינה מלאכותית, מוסברת כמו שצריך',
-    lead: 'בוקר אחד שבו הקבוצה שלכם מבינה מה זה בעצם AI, איפה הוא טועה, ואיך משתמשים בו מחר בבוקר בעבודה שלכם. בלי ז׳רגון, עם הדגמות חיות ותרגול על הטלפון.',
+    lead: 'בוקר אחד שבו הקבוצה שלכם מבינה מה זה בעצם AI, איפה הוא טועה, ואיך משתמשים בו מחר בבוקר בעבודה שלכם. בלי ז׳רגון, עם הדגמות חיות ותרגול מעשי.',
     cta: 'קבלו הצעה להרצאה',
     secondary: 'מה אפשר להזמין',
     note: 'מתאים גם למי שמעולם לא פתח כלי AI.',
@@ -134,7 +134,7 @@ const he: LecturesCopy = {
       { id: 'org', label: 'צוותים בארגונים', text: 'איך חוסכים זמן בכתיבה, בסיכום ובניתוח, בלי לחשוף מידע רגיש.' },
       { id: 'school', label: 'בתי ספר וצוותי חינוך', text: 'מה התלמידים כבר עושים עם AI, ואיך מורים משתמשים בו בהכנת חומרים.' },
       { id: 'community', label: 'קהילות וקבוצות מבוגרים', text: 'היכרות רגועה עם הכלים, וזהירות מהונאות ומזיופים בקול ובווידאו.' },
-      { id: 'torah', label: 'רבנים, אברכים ובתי מדרש', text: 'מה זו המכונה הזאת מבחינה עקרונית, ואיך היא יכולה לעזור בחיפוש ובסידור מקורות.' },
+      { id: 'torah', label: 'רבנים, אברכים ובתי מדרש', text: 'איך פועלת בינה מלאכותית, ואיך אפשר להיעזר בה בחיפוש ובסידור מקורות בגמרא ובהלכה.' },
       { id: 'parents', label: 'הורים', text: 'מה הילדים פוגשים, מה כדאי לדעת, ואיך מדברים איתם על זה.' },
     ],
   },
@@ -142,7 +142,7 @@ const he: LecturesCopy = {
     title: 'ארבע דרכים להזמין',
     lead: 'כל מסגרת נבנית לפי הקבוצה. אפשר גם לשלב.',
     leaveWith: 'עם מה יוצאים',
-    ask: 'זה מה שאני צריך',
+    ask: 'בקשת הצעה למפגש הזה',
     items: [
       {
         id: 'torah',
@@ -151,17 +151,17 @@ const he: LecturesCopy = {
         duration: 'בוקר של כשלוש שעות',
         forWhom: 'רבנים, אברכים, מגידי שיעור ובתי מדרש',
         summary:
-          'החצי הראשון עוסק במהות: מה המכונה הזאת עושה באמת כשהיא "עונה", מה ההבדל בין חיזוי מילים להבנה, ואיפה עובר הגבול של מה שאפשר לסמוך עליו. החצי השני מעשי: כלים שעוזרים לחפש במקורות, לסדר סוגיה ולסכם חומר, ואיך בודקים שכל מקור שהכלי מביא קיים באמת.',
+          'החצי הראשון עוסק במהות: מה המכונה הזאת עושה באמת כשהיא "עונה", מה ההבדל בין חיזוי מילים להבנה, ואיפה עובר הגבול של מה שאפשר לסמוך עליו. החצי השני מעשי: כלים לחיפוש ולסידור מקורות בלימוד גמרא והלכה, ואיך מאמתים מראה מקום וציטוט מול המקור עצמו, בהקשר שלו. הכלים הם עזר ללימוד, לא תחליף לעיון או לפסיקה.',
         takeaways: [
           'הבנה ברורה של מה הכלי יודע ומה הוא רק מנחש',
-          'שיטה לבדוק מקורות, כדי לא ליפול על ציטוט שהומצא',
+          'שיטה לבדוק שמראה המקום והציטוט מדויקים, וקריאה שלהם בהקשר',
           'כלים שעובדים בעברית, מוכנים לשימוש כבר באותו יום',
           'הכלי עוזר לחפש ולסדר. ההכרעה נשארת אצלכם',
         ],
       },
       {
         id: 'talk',
-        title: 'הרצאה: בינה מלאכותית בגובה העיניים',
+        title: 'הרצאה: בינה מלאכותית בשפה פשוטה',
         duration: 'שעה וחצי עד שעתיים',
         forWhom: 'כל קהל, גם גדול',
         summary:
@@ -174,8 +174,8 @@ const he: LecturesCopy = {
         duration: 'חצי יום, עם הפסקה',
         forWhom: 'קבוצות קטנות ובינוניות',
         summary:
-          'כל משתתף עובד על הטלפון או על המחשב שלו. מנסחים בקשות טובות, מסכמים מסמך אמיתי, יוצרים טיוטה, ובודקים את התוצאה ביחד.',
-        takeaways: ['חשבון פתוח וכלי שעובד', 'איך מנסחים בקשה שמקבלת תשובה טובה', 'דף תרגול להמשך בבית'],
+          'מתרגלים לפי מה שמתאים לקבוצה: כל אחד על המכשיר שלו, או יחד על מסך משותף. מנסחים בקשות טובות, מסכמים מסמך אמיתי, יוצרים טיוטה, ובודקים את התוצאה ביחד.',
+        takeaways: ['כלי שעובד, למי שרוצה להמשיך לבד', 'איך מנסחים בקשה שמקבלת תשובה טובה', 'דף תרגול להמשך בבית'],
       },
       {
         id: 'series',
@@ -184,7 +184,7 @@ const he: LecturesCopy = {
         forWhom: 'צוותים בארגון או במוסד',
         summary:
           'כל מפגש מתמקד בתהליך עבודה אחד של הצוות שלכם, ובונים אותו ביחד עם הכלים. בין המפגשים מתרגלים על משימות אמיתיות.',
-        takeaways: ['תהליכי עבודה שנבנו על המשימות שלכם', 'נהלי שימוש בטוח בצוות', 'ליווי בין המפגשים'],
+        takeaways: ['תהליכי עבודה שנבנו על המשימות שלכם', 'נהלי שימוש בטוח בצוות', 'תרגול בין המפגשים על משימות אמיתיות'],
       },
     ],
   },
@@ -210,8 +210,8 @@ const he: LecturesCopy = {
   about: {
     title: 'מי מעביר',
     lines: [
-      'אלעד יעקובוביץ׳, מפתח ומהנדס בינה מלאכותית. בונה מערכות AI שעובדות כל יום אצל עסקים וארגונים.',
-      'לפני כן ניהל במשך 12 שנה עסק עצמאי, ולכן מדבר בשפה של אנשים ולא של מתכנתים.',
+      'אלעד יעקובוביץ׳, מפתח ומהנדס בינה מלאכותית. בונה מערכות AI ואוטומציה לעסקים ולארגונים.',
+      'לפני כן ניהל במשך 12 שנה עסק עצמאי, ולכן מסביר טכנולוגיה בשפה פשוטה ועניינית.',
       'בוגר מסלול Full-Stack של John Bryce בהצטיינות, ומלמד מתוך מה שהוא עושה בפועל, לא מתוך שקפים של אחרים.',
     ],
     link: 'עוד עליי',
@@ -229,7 +229,7 @@ const he: LecturesCopy = {
       },
       {
         q: 'מה צריך להביא ומה צריך במקום?',
-        a: 'במקום: מקרן או מסך גדול, רמקול וחיבור יציב לאינטרנט. בסדנה המעשית כל משתתף מביא טלפון טעון או מחשב נייד. אם אין אינטרנט במקום, נתאם מראש ונבנה את המפגש כך שיעבוד גם בלעדיו, בעיקר בהדגמות על המסך.',
+        a: 'במקום: מקרן או מסך גדול, רמקול וחיבור יציב לאינטרנט. בסדנה המעשית מי שרוצה מביא טלפון או מחשב נייד. למי שיש מכשיר מסונן, או שמעדיף לא לפתוח חשבון, נבנה את התרגול על מסך משותף; את זה מתאמים מראש בשיחה. אם אין אינטרנט במקום, נבנה את המפגש כך שיעבוד גם בלעדיו.',
       },
       {
         q: 'כמה זה עולה?',
@@ -247,7 +247,7 @@ const he: LecturesCopy = {
   },
   form: {
     title: 'קבלו הצעה',
-    lead: 'שבע שאלות קצרות, רובן בלחיצה. אפשר לדלג על מה שעוד לא ידוע.',
+    lead: 'כמה שאלות קצרות, רובן בלחיצה, כדי שאוכל להכין הצעה. על רוב השאלות אפשר לדלג.',
     stepOf: (n, total) => `שאלה ${n} מתוך ${total}`,
     next: 'הבא',
     back: 'הקודם',
@@ -276,8 +276,8 @@ const he: LecturesCopy = {
         help: 'הערכה מספיקה.',
         options: [
           { value: 'up-to-15', label: 'עד 15' },
-          { value: '15-40', label: '15 עד 40' },
-          { value: '40-100', label: '40 עד 100' },
+          { value: '16-40', label: '16 עד 40' },
+          { value: '41-100', label: '41 עד 100' },
           { value: '100+', label: 'יותר מ־100' },
         ],
       },
@@ -335,7 +335,7 @@ const he: LecturesCopy = {
         errorName: 'נא לכתוב שם.',
         errorReach: 'נא להשאיר טלפון או מייל, כדי שאוכל לחזור אליכם.',
         errorEmail: 'כתובת המייל נראית לא תקינה. בדקו שיש בה @ ונקודה.',
-        privacy: 'הפרטים משמשים רק כדי לחזור אליכם עם הצעה. הם לא נמסרים לאף אחד.',
+        privacy: 'הפרטים ישמשו רק לחזרה אליכם בנוגע לבקשה, והם נשלחים אליי במייל. הטיוטה נשמרת במכשיר הזה עד שתשלחו או תנקו אותה.',
       },
     },
     requiredChoice: 'בחרו אחת מהאפשרויות, או כתבו ב"אחר".',
@@ -347,8 +347,9 @@ const he: LecturesCopy = {
     },
     error: {
       title: 'השליחה לא הצליחה',
-      text: 'התשובות שלכם שמורות בדפדפן. נסו שוב, או שלחו ישירות בוואטסאפ או במייל.',
+      text: 'הבקשה עדיין פתוחה במסך הזה. אפשר לנסות שוב, לחזור לעריכה, או לשלוח בוואטסאפ או במייל.',
       retry: 'לנסות שוב',
+      edit: 'חזרה לעריכה',
       whatsapp: 'לשלוח בוואטסאפ',
       email: 'לשלוח במייל',
     },
@@ -359,12 +360,12 @@ const en: LecturesCopy = {
   meta: {
     title: 'AI Talks and Workshops',
     description:
-      'AI talks and workshops in plain language for teams, schools, communities and Torah learners: what AI really is, how to use it wisely, and hands-on practice with real tools.',
+      'AI talks and workshops in plain language for teams, schools, communities and Torah learners: what AI is, how to use it wisely, and hands-on practice.',
   },
   hero: {
     kicker: 'Talks and workshops',
     title: 'Artificial intelligence, explained properly',
-    lead: 'One morning in which your group understands what AI actually is, where it gets things wrong, and how to use it in your own work the very next day. No jargon, with live demos and hands-on practice on your phone.',
+    lead: 'One morning in which your group understands what AI actually is, where it gets things wrong, and how to use it in your own work the very next day. No jargon, with live demos and hands-on practice.',
     cta: 'Get a proposal',
     secondary: 'What you can book',
     note: 'Suitable even for people who have never opened an AI tool.',
@@ -378,7 +379,7 @@ const en: LecturesCopy = {
       { id: 'org', label: 'Teams in organisations', text: 'Save time on writing, summarising and analysis without exposing sensitive data.' },
       { id: 'school', label: 'Schools and educators', text: 'What students already do with AI, and how teachers use it to prepare materials.' },
       { id: 'community', label: 'Communities and adult groups', text: 'A calm introduction to the tools, and how to spot voice and video fakes and scams.' },
-      { id: 'torah', label: 'Rabbis, scholars and study halls', text: 'What this machine is in principle, and how it can help find and organise sources.' },
+      { id: 'torah', label: 'Rabbis, scholars and study halls', text: 'How AI works, and how it can help find and organise sources in Gemara and halacha.' },
       { id: 'parents', label: 'Parents', text: 'What children meet online, what to know, and how to talk with them about it.' },
     ],
   },
@@ -386,7 +387,7 @@ const en: LecturesCopy = {
     title: 'Four ways to book',
     lead: 'Every format is shaped around the group. They can also be combined.',
     leaveWith: 'Participants leave with',
-    ask: 'This is what I need',
+    ask: 'Request a proposal for this',
     items: [
       {
         id: 'torah',
@@ -395,17 +396,17 @@ const en: LecturesCopy = {
         duration: 'A morning of about three hours',
         forWhom: 'Rabbis, kollel scholars, teachers and study halls',
         summary:
-          'The first half is about essence: what the machine really does when it "answers", the difference between predicting words and understanding, and where the line of trust lies. The second half is practical: tools that help search sources, lay out a sugya and summarise material, and how to check that every source a tool cites really exists.',
+          'The first half is about essence: what the machine really does when it "answers", the difference between predicting words and understanding, and where the line of trust lies. The second half is practical: tools for finding and organising sources in Gemara and halacha study, and how to verify a citation and its wording against the original, in context. The tools are an aid to learning, not a substitute for study or for psak.',
         takeaways: [
           'A clear sense of what the tool knows and what it only guesses',
-          'A method for checking sources, so an invented quote never slips through',
+          'A practical method for checking citations and their context against the original source',
           'Tools that work in Hebrew, ready to use the same day',
           'The tool helps search and organise. The ruling stays with you',
         ],
       },
       {
         id: 'talk',
-        title: 'Talk: AI at eye level',
+        title: 'Talk: AI in plain language',
         duration: '90 minutes to two hours',
         forWhom: 'Any audience, including large ones',
         summary:
@@ -418,8 +419,8 @@ const en: LecturesCopy = {
         duration: 'Half a day, with a break',
         forWhom: 'Small and medium groups',
         summary:
-          'Everyone works on their own phone or laptop. We write good requests, summarise a real document, draft something, and check the result together.',
-        takeaways: ['An open account and a working tool', 'How to write a request that gets a good answer', 'A practice sheet to continue at home'],
+          'Practice fits the group: each person on their own device, or together on a shared screen. We write good requests, summarise a real document, draft something, and check the result together.',
+        takeaways: ['A working tool, for those who want to continue on their own', 'How to write a request that gets a good answer', 'A practice sheet to continue at home'],
       },
       {
         id: 'series',
@@ -428,7 +429,7 @@ const en: LecturesCopy = {
         forWhom: 'Teams in an organisation or institution',
         summary:
           'Each session focuses on one of your team’s real work processes, and we build it together with the tools. Between sessions the team practises on real tasks.',
-        takeaways: ['Workflows built on your own tasks', 'Safe-use guidelines for the team', 'Support between sessions'],
+        takeaways: ['Workflows built on your own tasks', 'Safe-use guidelines for the team', 'Practice between sessions on real tasks'],
       },
     ],
   },
@@ -454,8 +455,8 @@ const en: LecturesCopy = {
   about: {
     title: 'Who teaches',
     lines: [
-      'Elad Yakobovich, developer and AI engineer. He builds AI systems that businesses and organisations use every day.',
-      'Before that he ran his own business for 12 years, so he speaks the language of people, not of programmers.',
+      'Elad Yakobovich, developer and AI engineer. He builds AI systems and automation for businesses and organisations.',
+      'Before that he ran his own business for 12 years, so he explains technology in plain, practical language.',
       'A John Bryce Full-Stack graduate with honours, he teaches from what he actually builds, not from other people’s slides.',
     ],
     link: 'More about me',
@@ -473,7 +474,7 @@ const en: LecturesCopy = {
       },
       {
         q: 'What should participants bring, and what is needed on site?',
-        a: 'On site: a projector or large screen, a speaker and a stable internet connection. For the hands-on workshop each participant brings a charged phone or a laptop. If there is no internet on site, we plan ahead and build the session to work without it, mostly with demos on screen.',
+        a: 'On site: a projector or large screen, a speaker and a stable internet connection. For the hands-on workshop, whoever wishes brings a phone or a laptop. For people with filtered devices, or who prefer not to open an account, practice runs on a shared screen; we arrange this in advance on the call. If there is no internet on site, the session is built to work without it.',
       },
       {
         q: 'How much does it cost?',
@@ -491,7 +492,7 @@ const en: LecturesCopy = {
   },
   form: {
     title: 'Get a proposal',
-    lead: 'Seven short questions, mostly one tap each. Skip anything you do not know yet.',
+    lead: 'A few short questions, mostly one tap each, so I can prepare a proposal. Most can be skipped.',
     stepOf: (n, total) => `Question ${n} of ${total}`,
     next: 'Next',
     back: 'Back',
@@ -520,8 +521,8 @@ const en: LecturesCopy = {
         help: 'An estimate is fine.',
         options: [
           { value: 'up-to-15', label: 'Up to 15' },
-          { value: '15-40', label: '15 to 40' },
-          { value: '40-100', label: '40 to 100' },
+          { value: '16-40', label: '16 to 40' },
+          { value: '41-100', label: '41 to 100' },
           { value: '100+', label: 'More than 100' },
         ],
       },
@@ -579,7 +580,7 @@ const en: LecturesCopy = {
         errorName: 'Please write a name.',
         errorReach: 'Please leave a phone or an email so I can get back to you.',
         errorEmail: 'That email address looks wrong. Check it has an @ and a dot.',
-        privacy: 'Your details are used only to get back to you with a proposal. They are never shared.',
+        privacy: 'Your details are used only to reply about your request, and reach me by email. The draft stays on this device until you send or clear it.',
       },
     },
     requiredChoice: 'Pick one of the options, or write under "Other".',
@@ -591,8 +592,9 @@ const en: LecturesCopy = {
     },
     error: {
       title: 'Sending failed',
-      text: 'Your answers are saved in this browser. Try again, or send directly by WhatsApp or email.',
+      text: 'Your request is still open on this screen. Try again, go back to edit, or send by WhatsApp or email.',
       retry: 'Try again',
+      edit: 'Back to edit',
       whatsapp: 'Send on WhatsApp',
       email: 'Send by email',
     },

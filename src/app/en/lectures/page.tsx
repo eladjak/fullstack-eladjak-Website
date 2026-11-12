@@ -7,7 +7,7 @@ const URL_HE = `${SITE_URL}/lectures`;
 const URL_EN = `${SITE_URL}/en/lectures`;
 
 export const metadata: Metadata = {
-  title: c.meta.title,
+  title: { absolute: `${c.meta.title} | Elad Yakobovich` },
   description: c.meta.description,
   alternates: {
     canonical: URL_EN,
