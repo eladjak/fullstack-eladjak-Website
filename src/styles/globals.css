@@ -1217,3 +1217,48 @@ button:focus-visible .wow-card .wow-icon,
 @media (prefers-reduced-motion: reduce) {
   [class*="animate-[lec-"] { animation: none !important; }
 }
+/* Hero scene choreography (/lectures). Base state = final visible state.
+   Only opacity / transform / stroke-dashoffset animate. Plays once. */
+.ls-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .ls-lamp .ls-draw { animation: ls-draw 900ms cubic-bezier(.22,1,.36,1) 100ms both; }
+  .ls-book .ls-draw { animation: ls-draw 800ms cubic-bezier(.22,1,.36,1) 350ms both; }
+  .ls-glow { transform-box: fill-box; transform-origin: center; animation: ls-glow 1400ms ease-out 500ms both; }
+  .ls-bulb { transform-box: fill-box; transform-origin: center; animation: ls-pop 400ms ease-out 450ms both; }
+  .ls-line { transform-box: fill-box; transform-origin: right center; animation: ls-grow 420ms cubic-bezier(.22,1,.36,1) both; }
+  .ls-mark { transform-box: fill-box; transform-origin: right center; animation: ls-grow 500ms cubic-bezier(.22,1,.36,1) 2100ms both; }
+  .ls-thread { animation: ls-draw 700ms cubic-bezier(.65,0,.35,1) 2500ms both; }
+  .ls-source { transform-box: fill-box; transform-origin: center; animation: ls-pop 350ms ease-out 3100ms both; }
+  .ls-check { animation: ls-draw 350ms ease-out 3350ms both; }
+}
+@keyframes ls-draw { from { stroke-dashoffset: 1; } }
+@keyframes ls-grow { from { transform: scaleX(0); opacity: 0; } }
+@keyframes ls-pop { from { transform: scale(.4); opacity: 0; } }
+@keyframes ls-glow { from { transform: scale(.85); opacity: 0; } }
+
+/* /lectures v2: scroll reveal. Base state = visible. JS arms only elements below the
+   fold and only when reduced motion is off, so no-JS, print and reduced motion see all. */
+.lec-reveal { transition: opacity 500ms ease-out, transform 500ms cubic-bezier(.22,1,.36,1); }
+.lec-reveal[data-rv="hidden"] { opacity: 0; transform: translateY(18px); }
+.lec-line { transform-origin: right center; transition: transform 900ms cubic-bezier(.65,0,.35,1); }
+[dir="ltr"] .lec-line { transform-origin: left center; }
+.lec-line[data-rv="hidden"] { transform: scaleX(0); }
+@media (prefers-reduced-motion: reduce) {
+  .lec-reveal, .lec-line { transition: none !important; opacity: 1 !important; transform: none !important; }
+}
+@media print { .lec-reveal, .lec-line { opacity: 1 !important; transform: none !important; } }
+/* /lectures v2 tints of the single accent (var colors cannot take Tailwind /alpha here) */
+@layer utilities {
+  .lec-cta-tint { background-color: color-mix(in srgb, var(--cta) 12%, transparent); }
+  .lec-cta-edge { border-color: color-mix(in srgb, var(--cta) 55%, transparent); }
+}
+.lec-card { transition: border-color 180ms ease-out, transform 180ms ease-out, box-shadow 180ms ease-out; }
+.lec-card:hover, .lec-card:focus-within { border-color: color-mix(in srgb, var(--cta) 60%, transparent); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lec-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--cta) 45%, transparent); }
+}
+.lec-hero-bg {
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 35%, color-mix(in srgb, var(--cta) 9%, transparent), transparent 65%),
+    radial-gradient(ellipse 90% 70% at 85% 0%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%);
+}

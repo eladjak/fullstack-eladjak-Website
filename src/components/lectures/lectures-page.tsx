@@ -3,34 +3,28 @@ import Link from 'next/link';
 import {
   ArrowLeft,
   BookOpen,
-  Building2,
+  Camera,
   CalendarCheck,
   Check,
   ChevronDown,
   Clock,
   FileText,
-  GraduationCap,
   HeartHandshake,
   PhoneCall,
   Presentation,
   ScrollText,
   Sparkles,
   Users,
-  UsersRound,
   type LucideIcon,
 } from 'lucide-react';
+import { AudienceTabs, type AudienceTabItem } from './audience-tabs';
 import { BookingForm } from './booking-form';
-import { LECTURES_COPY, SITE_URL, type AudienceId, type FormatId, type LecturesLocale } from './content';
+import { LECTURES_COPY_V2 } from './content-v2';
+import { HeroScene } from './hero-scene';
+import { RevealRoot } from './reveal-root';
+import { LECTURES_COPY, SITE_URL, type FormatId, type LecturesLocale } from './content';
 import { cn } from '@/lib/utils';
 
-const AUDIENCE_ICONS: Record<AudienceId, LucideIcon> = {
-  org: Building2,
-  school: GraduationCap,
-  community: UsersRound,
-  torah: BookOpen,
-  parents: HeartHandshake,
-  other: Users,
-};
 const FORMAT_ICONS: Record<FormatId, LucideIcon> = {
   torah: ScrollText,
   talk: Presentation,
@@ -134,42 +128,59 @@ export function LecturesJsonLd({ locale }: { locale: LecturesLocale }) {
 
 export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   const c = LECTURES_COPY[locale];
-  const featured = c.formats.items.find((f) => f.featured);
-  const rest = c.formats.items.filter((f) => !f.featured);
+  const v = LECTURES_COPY_V2[locale];
+  const torahFormat = c.formats.items.find((f) => f.id === 'torah');
+  const rest = c.formats.items.filter((f) => f.id !== 'torah');
+  const dir = locale === 'he' ? 'rtl' : 'ltr';
+  // The speaker-media frame is a note for Elad: shown in previews and local builds only,
+  // never on the production site until a real photo or clip replaces it.
+  const showMediaSlot = process.env.VERCEL_ENV !== 'production';
+
+  const audienceItems: AudienceTabItem[] = v.audiences.panels.map((p) => {
+    const a = c.audiences.items.find((x) => x.id === p.id);
+    return {
+      id: p.id,
+      tab: p.tab,
+      label: a?.label ?? p.tab,
+      text: a?.text ?? '',
+      image: p.image,
+      imageAlt: p.imageAlt,
+      suggestHref: p.suggest === 'torah' ? '#torah' : `#format-${p.suggest}`,
+      suggestLabel: p.suggestLabel,
+    };
+  });
 
   return (
     <div className="relative overflow-x-clip bg-background text-foreground">
+      <RevealRoot />
+
       {/* ------------------------------ HERO ------------------------------ */}
-      <header className="relative isolate">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_70%_0%,rgba(139,92,246,0.18),transparent_65%)]"
-          aria-hidden="true"
-        />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-24 lg:pt-20">
+      <header className="lec-hero-bg relative isolate">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-[1.3fr_1fr] lg:gap-12 lg:pb-32 lg:pt-24">
           <div>
-            <p className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-              <Presentation className="size-4" aria-hidden="true" />
-              {c.hero.kicker}
-            </p>
-            <h1 className="text-balance text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl">
-              {c.hero.title}
+            <p className="mb-6 text-base font-semibold text-cta">{c.hero.kicker}</p>
+            <h1 className="text-balance font-extrabold leading-[1.08] tracking-tight">
+              <span className="block text-[clamp(2.6rem,6.2vw,4.25rem)]">{v.hero.line1}</span>
+              <span className="block text-[clamp(2rem,4.6vw,3.3rem)] text-muted-foreground">{v.hero.line2}</span>
             </h1>
-            <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">{c.hero.lead}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <p className="mt-8 max-w-[58ch] text-pretty text-lg leading-[1.75] text-muted-foreground sm:text-xl">
+              {c.hero.lead}
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#booking"
                 className={cn(
-                  'group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-cta px-7 text-base font-bold text-cta-foreground shadow-[0_10px_30px_-12px_rgba(245,158,11,0.7)] transition-transform duration-150 hover:-translate-y-0.5 active:scale-[.97] motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+                  'group inline-flex min-h-14 items-center justify-center gap-2.5 rounded-2xl bg-cta px-8 text-lg font-bold text-cta-foreground shadow-[0_14px_36px_-16px_rgba(245,158,11,0.75)] transition-transform duration-150 hover:-translate-y-0.5 active:scale-[.97] motion-reduce:transition-none motion-reduce:hover:translate-y-0',
                   focusRing,
                 )}
               >
                 {c.hero.cta}
-                <ArrowLeft className="size-5 transition-transform duration-150 group-hover:-translate-x-0.5 ltr:rotate-180" aria-hidden="true" />
+                <ArrowLeft className="size-5 transition-transform duration-150 group-hover:-translate-x-1 ltr:rotate-180 ltr:group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
               </a>
               <a
                 href="#formats"
                 className={cn(
-                  'inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border px-6 font-semibold text-foreground transition-colors duration-150 hover:border-primary hover:text-primary',
+                  'inline-flex min-h-12 items-center justify-center gap-2 px-2 font-semibold text-muted-foreground underline-offset-[6px] transition-colors duration-150 hover:text-foreground hover:underline',
                   focusRing,
                 )}
               >
@@ -177,74 +188,101 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                 <ChevronDown className="size-4" aria-hidden="true" />
               </a>
             </div>
-            <p className="mt-5 inline-flex items-center gap-2 text-sm text-muted-foreground">
-              <Check className="size-4 text-primary" aria-hidden="true" />
-              {c.hero.note}
-            </p>
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-base text-muted-foreground">
+              {[...v.hero.facts, c.hero.note].map((f) => (
+                <li key={f} className="inline-flex items-center gap-2">
+                  <Check className="size-4 shrink-0 text-cta" aria-hidden="true" />
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-border shadow-[0_30px_80px_-40px_rgba(139,92,246,0.6)]">
-              <Image
-                src="/images/lectures-hero.jpg"
-                alt={c.hero.imageAlt}
-                width={1400}
-                height={933}
-                priority
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="h-auto w-full"
-              />
-            </div>
-          </div>
+          <figure className="relative mx-auto w-full max-w-[520px] text-foreground/80" aria-label={v.hero.sceneLabel}>
+            <HeroScene className="h-auto w-full" />
+          </figure>
         </div>
       </header>
 
       <main>
         {/* ---------------------------- AUDIENCES ---------------------------- */}
-        <section aria-labelledby="aud-title" className="border-y border-border bg-muted/30">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-20">
-            <h2 id="aud-title" className="text-3xl font-bold sm:text-4xl">
-              {c.audiences.title}
-            </h2>
-            <p className="mt-3 max-w-2xl text-pretty text-muted-foreground">{c.audiences.lead}</p>
-            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {c.audiences.items.map((a) => {
-                const Icon = AUDIENCE_ICONS[a.id];
-                return (
-                  <li
-                    key={a.id}
-                    className={cn(
-                      'rounded-2xl border border-border bg-card p-5 transition-colors duration-150 hover:border-primary/60',
-                      a.id === 'torah' && 'border-primary/50 ring-1 ring-primary/30',
-                    )}
-                  >
-                    <Icon className="mb-4 size-7 text-primary" aria-hidden="true" />
-                    <h3 className="font-bold">{a.label}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.text}</p>
-                  </li>
-                );
-              })}
-            </ul>
+        <section aria-labelledby="aud-title" className="border-t border-border">
+          <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+            <div className="lec-reveal max-w-3xl">
+              <h2 id="aud-title" className="text-balance text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
+                {c.audiences.title}
+              </h2>
+              <p className="mt-4 text-pretty text-lg leading-[1.75] text-muted-foreground">{c.audiences.lead}</p>
+            </div>
+            <div className="lec-reveal">
+              <AudienceTabs items={audienceItems} dir={dir} suggestPrefix={v.audiences.suggestPrefix} listLabel={c.audiences.title} />
+            </div>
+            <p className="lec-reveal mt-8 inline-flex items-center gap-2 text-base text-muted-foreground">
+              <HeartHandshake className="size-5 shrink-0 text-cta" aria-hidden="true" />
+              {v.audiences.eyebrowParents}
+            </p>
           </div>
         </section>
 
-        {/* ----------------------------- FORMATS ----------------------------- */}
-        <section id="formats" aria-labelledby="fmt-title" className="scroll-mt-24">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <h2 id="fmt-title" className="text-3xl font-bold sm:text-4xl">
-              {c.formats.title}
-            </h2>
-            <p className="mt-3 text-muted-foreground">{c.formats.lead}</p>
+        {/* ----------------------------- TORAH MORNING (featured format) ----------------------------- */}
+        {torahFormat && (
+          <section id="formats" aria-labelledby="torah-title" className="scroll-mt-24 border-t border-border bg-card/40">
+            <span id="torah" className="block scroll-mt-24" aria-hidden="true" />
+            <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+              <p className="lec-reveal mb-4 inline-flex items-center gap-2 text-base font-semibold text-cta">
+                <ScrollText className="size-5" aria-hidden="true" />
+                {v.torah.label}
+              </p>
+              <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+                <div className="lec-reveal">
+                  <h2 id="torah-title" className="text-balance text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
+                    {torahFormat.title}
+                  </h2>
+                  <p className="mt-3 text-lg font-semibold text-muted-foreground">{v.torah.title}</p>
+                  <p className="mt-6 max-w-[60ch] text-pretty text-lg leading-[1.75]">{v.torah.lead}</p>
+                  <FormatMeta format={torahFormat} locale={locale} />
 
-            {featured && (
-              <article className="mt-10 grid overflow-hidden rounded-3xl border border-primary/40 bg-card lg:grid-cols-[1.15fr_1fr]">
-                <div className="p-6 sm:p-10">
-                  <FormatHead format={featured} />
-                  <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">{featured.summary}</p>
-                  <Takeaways title={c.formats.leaveWith} items={featured.takeaways} />
+                  <h3 className="mt-12 text-xl font-bold">{v.torah.partsTitle}</h3>
+                  <ol className="mt-5 space-y-4">
+                    {v.torah.parts.map((p, i) => (
+                      <li key={p.title} className="lec-card flex gap-5 rounded-2xl border border-border bg-background/60 p-5 sm:p-6">
+                        <span className="grid size-10 shrink-0 place-items-center rounded-full lec-cta-tint text-lg font-bold tabular-nums text-cta">
+                          {i + 1}
+                        </span>
+                        <div>
+                          <h4 className="text-lg font-bold">{p.title}</h4>
+                          <p className="mt-1.5 leading-[1.75] text-muted-foreground">{p.text}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <div className="lec-reveal space-y-8">
+                  <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border">
+                    <Image
+                      src="/images/lectures-hero.jpg"
+                      alt={c.hero.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 520px, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <Takeaways title={c.formats.leaveWith} items={torahFormat.takeaways} />
+                  <div className="rounded-2xl border border-border p-5 sm:p-6">
+                    <h3 className="text-base font-bold">{v.torah.respectTitle}</h3>
+                    <ul className="mt-3 space-y-2">
+                      {v.torah.respect.map((r) => (
+                        <li key={r} className="flex gap-2.5 leading-[1.7] text-muted-foreground">
+                          <Check className="mt-1.5 size-4 shrink-0 text-cta" aria-hidden="true" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <a
                     href="#booking-torah"
                     className={cn(
-                      'mt-8 inline-flex min-h-12 items-center gap-2 rounded-xl bg-cta px-6 font-bold text-cta-foreground transition-transform duration-150 hover:-translate-y-0.5 active:scale-[.97] motion-reduce:hover:translate-y-0',
+                      'group inline-flex min-h-14 w-full items-center justify-center gap-2.5 rounded-2xl bg-cta px-8 text-lg font-bold text-cta-foreground transition-transform duration-150 hover:-translate-y-0.5 active:scale-[.97] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:w-auto',
                       focusRing,
                     )}
                   >
@@ -252,113 +290,177 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
                     <ArrowLeft className="size-5 ltr:rotate-180" aria-hidden="true" />
                   </a>
                 </div>
-                <div className="relative min-h-64 lg:min-h-full">
-                  <Image
-                    src="/images/lectures-formats.jpg"
-                    alt={c.recent.imageAlt}
-                    fill
-                    sizes="(min-width: 1024px) 480px, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              </article>
-            )}
+              </div>
+            </div>
+          </section>
+        )}
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-3">
-              {rest.map((f) => (
-                <article key={f.id} className="flex flex-col rounded-3xl border border-border bg-card p-6 transition-colors duration-150 hover:border-primary/60 sm:p-8">
-                  <FormatHead format={f} compact />
-                  <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">{f.summary}</p>
-                  <Takeaways title={c.formats.leaveWith} items={f.takeaways} />
-                </article>
-              ))}
+        {/* ----------------------------- OTHER FORMATS ----------------------------- */}
+        <section aria-labelledby="fmt-title" className="border-t border-border">
+          <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+            <div className="lec-reveal max-w-3xl">
+              <h2 id="fmt-title" className="text-balance text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
+                {v.formatsOther.title}
+              </h2>
+              <p className="mt-4 text-lg leading-[1.75] text-muted-foreground">{v.formatsOther.lead}</p>
+            </div>
+            <div className="mt-12 divide-y divide-border border-y border-border">
+              {rest.map((f) => {
+                const Icon = FORMAT_ICONS[f.id];
+                return (
+                  <article
+                    key={f.id}
+                    id={`format-${f.id}`}
+                    aria-labelledby={`format-${f.id}-title`}
+                    className="lec-reveal grid scroll-mt-24 gap-6 py-10 lg:grid-cols-[1fr_1.1fr_1fr] lg:gap-10 lg:py-12"
+                  >
+                    <div>
+                      <Icon className="size-7 text-cta" aria-hidden="true" />
+                      <h3 id={`format-${f.id}-title`} className="mt-4 text-balance text-2xl font-bold">
+                        {f.title}
+                      </h3>
+                      <FormatMeta format={f} locale={locale} />
+                    </div>
+                    <p className="text-pretty text-lg leading-[1.75] text-muted-foreground">{f.summary}</p>
+                    <Takeaways title={c.formats.leaveWith} items={f.takeaways} compact />
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* ----------------------------- FROM THE FIELD ----------------------------- */}
-        <section aria-labelledby="recent-title" className="border-y border-border bg-muted/30">
-          <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_1.2fr] lg:py-20">
-            <div>
-              <h2 id="recent-title" className="text-3xl font-bold sm:text-4xl">
+        <section aria-labelledby="recent-title" className="border-t border-border bg-card/40">
+          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:py-28">
+            <div className="lec-reveal">
+              <p className="text-base font-semibold text-cta">
+                {v.field.label} · <span className="tabular-nums">{v.field.date}</span>
+              </p>
+              <h2 id="recent-title" className="sr-only">
                 {c.recent.title}
               </h2>
-              <p className="mt-4 text-pretty text-lg leading-relaxed">{c.recent.text}</p>
+              <p className="mt-5 text-balance text-[clamp(1.5rem,2.6vw,2.1rem)] font-bold leading-[1.45]">{c.recent.text}</p>
+              <ol className="mt-10 space-y-5">
+                {c.recent.bullets.map((b, i) => (
+                  <li key={b} className="flex gap-4">
+                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border border-border text-sm font-bold tabular-nums text-cta">
+                      {i + 1}
+                    </span>
+                    <span className="text-lg leading-[1.75] text-muted-foreground">{b}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <ol className="space-y-4">
-              {c.recent.bullets.map((b, i) => (
-                <li key={b} className="flex gap-4 rounded-2xl border border-border bg-card p-5">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary/15 font-bold tabular-nums text-primary">{i + 1}</span>
-                  <span className="pt-1 leading-relaxed">{b}</span>
-                </li>
-              ))}
-            </ol>
+            <div className="lec-reveal">
+              {showMediaSlot ? (
+                <figure className="grid aspect-[4/3] place-items-center rounded-3xl border-2 border-dashed lec-cta-edge p-8 text-center">
+                  <div>
+                    <span className="inline-flex items-center gap-2 rounded-full lec-cta-tint px-3 py-1 text-sm font-semibold text-cta">
+                      <Camera className="size-4" aria-hidden="true" />
+                      {v.media.previewBadge}
+                    </span>
+                    <p className="mt-5 text-xl font-bold">{v.media.title}</p>
+                    <p className="mx-auto mt-3 max-w-[40ch] leading-[1.7] text-muted-foreground">{v.media.text}</p>
+                  </div>
+                </figure>
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-border">
+                  <Image
+                    src="/images/lectures-aud-community.webp"
+                    alt={c.recent.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 560px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
         {/* ----------------------------- HOW IT WORKS ----------------------------- */}
-        <section aria-labelledby="how-title">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <h2 id="how-title" className="text-3xl font-bold sm:text-4xl">
+        <section aria-labelledby="how-title" className="border-t border-border">
+          <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+            <h2 id="how-title" className="lec-reveal text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
               {c.how.title}
             </h2>
-            <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {c.how.steps.map((s, i) => {
-                const Icon = STEP_ICONS[i] ?? Check;
-                return (
-                  <li key={s.title} className="relative">
-                    <div className="flex items-center gap-3">
-                      <span className="grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
+            <div className="relative mt-14">
+              <div className="lec-line absolute inset-x-0 top-6 hidden h-px lg:block" aria-hidden="true">
+                <div className="h-px w-full bg-[color-mix(in_srgb,var(--cta)_60%,transparent)]" />
+              </div>
+              <ol className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+                {c.how.steps.map((s, i) => {
+                  const Icon = STEP_ICONS[i] ?? Check;
+                  return (
+                    <li key={s.title} className="lec-reveal" style={{ transitionDelay: `${i * 90}ms` }}>
+                      <span className="relative grid size-12 place-items-center rounded-2xl border border-border bg-background text-cta">
                         <Icon className="size-6" aria-hidden="true" />
                       </span>
-                      <span className="text-sm font-semibold tabular-nums text-muted-foreground">0{i + 1}</span>
-                    </div>
-                    <h3 className="mt-4 text-lg font-bold">{s.title}</h3>
-                    <p className="mt-2 leading-relaxed text-muted-foreground">{s.text}</p>
-                  </li>
-                );
-              })}
-            </ol>
+                      <h3 className="mt-5 text-xl font-bold">
+                        <span className="sr-only">{i + 1}. </span>
+                        {s.title}
+                      </h3>
+                      <p className="mt-2 leading-[1.75] text-muted-foreground">{s.text}</p>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
           </div>
         </section>
 
         {/* ----------------------------- ABOUT ----------------------------- */}
-        <section aria-labelledby="about-title" className="border-y border-border bg-muted/30">
-          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
-            <h2 id="about-title" className="text-3xl font-bold">
-              {c.about.title}
-            </h2>
-            <div className="mt-5 space-y-3 text-lg leading-relaxed">
-              {c.about.lines.map((l) => (
-                <p key={l}>{l}</p>
-              ))}
+        <section aria-labelledby="about-title" className="border-t border-border bg-card/40">
+          <div className="lec-reveal mx-auto grid max-w-4xl items-start gap-8 px-5 py-20 sm:grid-cols-[auto_1fr] sm:px-8 lg:py-24">
+            <Image
+              src="https://avatars.githubusercontent.com/u/108827199?v=4"
+              alt={v.aboutPhotoAlt}
+              width={112}
+              height={112}
+              className="size-24 rounded-full border-2 lec-cta-edge object-cover sm:size-28"
+            />
+            <div>
+              <h2 id="about-title" className="text-[clamp(1.75rem,3vw,2.25rem)] font-extrabold">
+                {c.about.title}
+              </h2>
+              <div className="mt-5 max-w-[62ch] space-y-3 text-lg leading-[1.75]">
+                {c.about.lines.map((l, i) => (
+                  <p key={l} className={i === 0 ? '' : 'text-muted-foreground'}>
+                    {l}
+                  </p>
+                ))}
+              </div>
+              <Link
+                href={locale === 'en' ? '/en/about' : '/about'}
+                className={cn('mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-cta underline-offset-[6px] hover:underline', focusRing)}
+              >
+                {c.about.link}
+                <ArrowLeft className="size-4 ltr:rotate-180" aria-hidden="true" />
+              </Link>
             </div>
-            <Link href="/about" className={cn('mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline', focusRing)}>
-              {c.about.link}
-              <ArrowLeft className="size-4 ltr:rotate-180" aria-hidden="true" />
-            </Link>
           </div>
         </section>
 
         {/* ----------------------------- FAQ ----------------------------- */}
-        <section aria-labelledby="faq-title">
-          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
-            <h2 id="faq-title" className="text-3xl font-bold sm:text-4xl">
+        <section aria-labelledby="faq-title" className="border-t border-border">
+          <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-28">
+            <h2 id="faq-title" className="lec-reveal text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
               {c.faq.title}
             </h2>
-            <div className="mt-8 divide-y divide-border rounded-2xl border border-border bg-card">
+            <div className="lec-reveal mt-10 divide-y divide-border border-y border-border">
               {c.faq.items.map((f) => (
                 <details key={f.q} className="group">
                   <summary
                     className={cn(
-                      'flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold [&::-webkit-details-marker]:hidden',
+                      'flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-semibold transition-colors duration-150 hover:text-cta [&::-webkit-details-marker]:hidden',
                       focusRing,
                     )}
                   >
-                    <h3 className="text-base">{f.q}</h3>
-                    <ChevronDown className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+                    <h3 className="text-lg">{f.q}</h3>
+                    <ChevronDown className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
                   </summary>
-                  <p className="px-5 pb-5 leading-relaxed text-muted-foreground">{f.a}</p>
+                  <p className="max-w-[62ch] pb-6 text-lg leading-[1.75] text-muted-foreground">{f.a}</p>
                 </details>
               ))}
             </div>
@@ -366,14 +468,26 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
         </section>
 
         {/* ----------------------------- BOOKING ----------------------------- */}
-        <section id="booking" aria-labelledby="booking-title" className="relative scroll-mt-20 border-t border-border bg-muted/30">
+        <section id="booking" aria-labelledby="booking-title" className="relative scroll-mt-20 border-t border-border bg-card/40">
           <span id="booking-torah" className="absolute top-0 scroll-mt-20" aria-hidden="true" />
-          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
-            <h2 id="booking-title" className="text-3xl font-bold sm:text-4xl">
-              {c.form.title}
-            </h2>
-            <p className="mb-8 mt-3 text-pretty text-muted-foreground">{c.form.lead}</p>
-            <BookingForm locale={locale} />
+          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1.6fr] lg:gap-16 lg:py-28">
+            <div>
+              <h2 id="booking-title" className="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.15]">
+                {c.form.title}
+              </h2>
+              <p className="mt-4 text-pretty text-lg leading-[1.75] text-muted-foreground">{c.form.lead}</p>
+              <ul className="mt-8 space-y-3">
+                {v.bookingAside.map((b) => (
+                  <li key={b} className="flex items-center gap-2.5 text-base">
+                    <Check className="size-4 shrink-0 text-cta" aria-hidden="true" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <BookingForm locale={locale} />
+            </div>
           </div>
         </section>
       </main>
@@ -381,42 +495,41 @@ export function LecturesPage({ locale }: { locale: LecturesLocale }) {
   );
 }
 
-function FormatHead({
+function FormatMeta({
   format,
-  compact,
+  locale,
 }: {
   format: (typeof LECTURES_COPY)['he']['formats']['items'][number];
-  compact?: boolean;
+  locale: LecturesLocale;
 }) {
-  const Icon = FORMAT_ICONS[format.id];
   return (
-    <div>
-      <span className="grid size-12 place-items-center rounded-2xl bg-primary/15 text-primary">
-        <Icon className="size-6" aria-hidden="true" />
-      </span>
-      <h3 className={cn('mt-5 text-balance font-bold', compact ? 'text-xl' : 'text-2xl sm:text-3xl')}>{format.title}</h3>
-      <div className="mt-3 flex flex-wrap gap-2 text-sm">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-foreground">
-          <Clock className="size-4 text-primary" aria-hidden="true" />
-          {format.duration}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-foreground">
-          <Users className="size-4 text-primary" aria-hidden="true" />
-          {format.forWhom}
-        </span>
+    <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-base">
+      <div className="inline-flex items-center gap-2">
+        <dt>
+          <Clock className="size-4 text-cta" aria-hidden="true" />
+          <span className="sr-only">{locale === 'he' ? 'משך' : 'Duration'}</span>
+        </dt>
+        <dd>{format.duration}</dd>
       </div>
-    </div>
+      <div className="inline-flex items-center gap-2">
+        <dt>
+          <Users className="size-4 text-cta" aria-hidden="true" />
+          <span className="sr-only">{locale === 'he' ? 'למי' : 'For'}</span>
+        </dt>
+        <dd className="text-muted-foreground">{format.forWhom}</dd>
+      </div>
+    </dl>
   );
 }
 
-function Takeaways({ title, items }: { title: string; items: string[] }) {
+function Takeaways({ title, items, compact }: { title: string; items: string[]; compact?: boolean }) {
   return (
-    <div className="mt-6">
-      <h4 className="text-sm font-semibold text-foreground">{title}</h4>
-      <ul className="mt-3 space-y-2">
+    <div className={compact ? '' : 'rounded-2xl border border-border p-5 sm:p-6'}>
+      <h4 className="text-base font-bold">{title}</h4>
+      <ul className="mt-3 space-y-2.5">
         {items.map((t) => (
-          <li key={t} className="flex gap-2.5 leading-relaxed">
-            <Check className="mt-1 size-4 shrink-0 text-primary" aria-hidden="true" />
+          <li key={t} className="flex gap-2.5 leading-[1.7]">
+            <Check className="mt-1.5 size-4 shrink-0 text-cta" aria-hidden="true" />
             <span>{t}</span>
           </li>
         ))}
