@@ -1,6 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+
+/**
+ * Landing pages that people reach from a shared link (WhatsApp, email) and that
+ * must open straight on their content: no entry screen, no music control.
+ * The lectures page is sent to Torah-observant audiences and community groups; a cinematic gate
+ * with sound is the wrong first impression there.
+ */
+const NO_GATE_PREFIXES = ["/lectures", "/en/lectures"];
 
 /**
  * מסך הכניסה.
@@ -23,7 +32,12 @@ export default function Gateway({
 }: {
   theme: "personal" | "ops" | "portfolio";
 }): null {
+  const pathname = usePathname() ?? "";
+  const skip = NO_GATE_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
   useEffect(() => {
+    if (skip) return;
     const w = window as unknown as {
       Gateway?: { mount: (o: { theme: string }) => void };
     };
@@ -45,7 +59,7 @@ export default function Gateway({
     s.dataset.gateway = "1";
     s.addEventListener("load", onReady, { once: true });
     document.head.appendChild(s);
-  }, [theme]);
+  }, [theme, skip]);
 
   return null;
 }

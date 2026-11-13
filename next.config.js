@@ -1,7 +1,24 @@
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const configDir = path.dirname(fileURLToPath(import.meta.url));
+
+// /lectures opening film: wired by file presence, decided at BUILD time (a server
+// function on Vercel cannot see public/ at runtime). Drop the files into
+// public/videos/ and redeploy; nothing else to change.
+const lecturesVideoDir = path.join(configDir, 'public', 'videos');
+const lecturesIntroMp4 = fs.existsSync(path.join(lecturesVideoDir, 'lectures-intro.mp4')) ? '1' : '';
+const lecturesIntroWebm = fs.existsSync(path.join(lecturesVideoDir, 'lectures-intro.webm')) ? '1' : '';
+
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  env: {
+    LECTURES_INTRO_MP4: lecturesIntroMp4,
+    LECTURES_INTRO_WEBM: lecturesIntroWebm,
+  },
   trailingSlash: true,
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -104,7 +121,14 @@ const config = {
             value: '1; mode=block'
           }
         ]
-      }
+      },
+      // The lectures booking form offers optional voice dictation (browser
+      // speech recognition), so these two pages allow the microphone for this
+      // origin only. Must come after '/:path*' so this value wins.
+      ...['/lectures', '/lectures/', '/en/lectures', '/en/lectures/'].map((source) => ({
+        source,
+        headers: [{ key: 'Permissions-Policy', value: 'camera=(), microphone=(self), geolocation=()' }],
+      })),
     ];
   }
 };

@@ -1,6 +1,11 @@
 # Full-Stack Portfolio Website - Progress
 
 
+## 12.11.2026 — /lectures sales page (branch feat/lectures-page, draft PR #15, NOT merged)
+- **What:** /lectures + /en/lectures: hero, audiences, 4 formats (incl. "AI for Torah scholars: essence and tools"), from the field, how it works, about, FAQ, 7-step proposal questionnaire (voice dictation, draft autosave, all states). API /api/lectures-inquiry (Resend → Web3Forms → mailto, 413/400/429). Nav + footer + sitemap + llms.txt. Microphone allowed only on lectures pages; entry gate skipped there.
+- **Gates:** tsc 0 · eslint 0 (changed files, `-c eslintrc.cjs`) · next build 0 · local 375/1280 screenshots checked · Codex review FIX-FIRST → fixes in 16bf9c0 · preview Ready: https://eladjak-website-8akjuh4p8-eladjaks-projects.vercel.app/lectures/
+- **Open:** Elad approval of copy + preview; Vercel env CONTACT_EMAIL/RESEND on preview not verified; rate limit is per-instance (same as contact form).
+
 ## 2026-07-24 — Wave-10 GEO sweep: 92→100/100 (prod). Fixed the one regression — empty alt on the cinematic scene1 poster (`cinematic-journey-mount.tsx`). Deployed from tree as-is via VPS+vercel (`eladjak-website-ef115a12l`, aliased). Live-verified: 0 images missing alt, geo-scan 100.
 ## 2026-07-24 — July projects refresh shipped to PROD (branch `feat/july-projects-refresh` → main `18ca12b`, deploy `eladjak-website-jku4ewg3n` Ready + aliased)
 
@@ -1271,3 +1276,12 @@ For each project, work in its own repo:
 - הרגרסיה: גל wow-2026 (b1bb5fe) שיטח את דף `/products/business-brain` — הדף שאלעד שלח לליאור ידו כפיץ' מכירה.
 - שוחזר נקודתית מ-290ec8a: זוהר-הזהב בריחוף על 3 כפתורי-ה-CTA (`hover:shadow-amber-500/40`) · ריחוף עשיר על הכרטיסים (`hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5`) · `hover:shadow-md` על כפתורי-התמחור · 4 שורות-קופי שנוסחו-מחדש בתוך מעבר-CSS.
 - נשמר מהגל: צמצום `transition-all` לרשימת-מאפיינים מפורשת · חגורת-reduced-motion · פוקוס-מקלדת מקביל · מקטע "לתנועות ולארגונים" + מסלול `/demo` + שאלת-ה-FAQ החדשה (תוספות-תוכן אמיתיות, לא רגרסיה).
+
+## 12.11.2026 — /lectures v4 (draft PR #15, preview only)
+- "קהל תורני" / "Torah-observant audiences" everywhere; FAQ as a chat (fixed answers, `faq-chat.tsx`); six daylight illustrations (stage, classroom, studio, team, staff room, community hall); hero video slot (`hero-media.tsx`, auto-on when `public/videos/lectures-intro.mp4` is in the build, checked in `next.config.js`).
+- Open: owner approval of illustrations, real 11.11 photos, the 30s film (storyboard in the v4 report), form delivery check from v3.
+
+## 12.11.2026 — /lectures v5 (draft PR #15, preview only)
+- Real photos from the 11.11 lecture (sent by the organiser, Ortamai): `lectures-field-01/02/04.webp`, participants' faces blurred, Elad not. Block "מההרצאה האחרונה" in the from-the-field section, **preview-only** (`showFieldPhotos`, hidden when `VERCEL_ENV=production`) until consent to publish faces. Credit "ההרצאה התקיימה דרך Ortamai" by the photos and in the lecture sentence ("בכיתת מחשבים"). Unblurred versions are NOT in the repo.
+- Classroom illustration redrawn from the real room (city-view windows), passed illustration-check.
+- Open: consent for faces (organiser), Ortamai spelling/URL confirmation, removing the preview-only guard when approved.

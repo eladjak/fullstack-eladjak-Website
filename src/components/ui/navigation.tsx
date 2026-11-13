@@ -107,6 +107,7 @@ export default function Navigation() {
   const navItems = [
     { href: '/', label: t('home') },
     { href: '/services', label: t('services') },
+    { href: '/lectures', label: t('lectures') },
     { href: '/projects', label: t('projects') },
     { href: '/guide', label: t('guides') },
     { href: '/skills-universe', label: t('skillsUniverse') },
