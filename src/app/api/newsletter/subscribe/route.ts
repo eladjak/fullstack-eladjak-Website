@@ -148,7 +148,7 @@ export async function POST(request: Request) {
     const sent = await sendConfirmationEmail(
       {
         to: normalizedEmail,
-        link: `${origin}/newsletter/confirm?token=${token}`,
+        link: `${origin}/newsletter/confirm/?token=${token}`,
         contactUrl: `${origin}/contact`,
       },
       { apiKey },

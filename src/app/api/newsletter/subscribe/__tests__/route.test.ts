@@ -78,7 +78,7 @@ describe('POST /api/newsletter/subscribe (double opt-in, step 1)', () => {
     expect(mail.subject).not.toContain('פרסומת');
     expect(mail.from).toContain('delivery@eladjak.com');
     expect(mail.html).toContain('dir="rtl"');
-    const m = mail.html.match(/https:\/\/fullstack-eladjak\.co\.il\/newsletter\/confirm\?token=([A-Za-z0-9_.-]+)/);
+    const m = mail.html.match(/https:\/\/fullstack-eladjak\.co\.il\/newsletter\/confirm\/\?token=([A-Za-z0-9_.-]+)/);
     expect(m).not.toBeNull();
     const v = verifyToken(m![1], SECRET, new Date());
     expect(v.ok && v.payload.e).toBe(body.email.toLowerCase());

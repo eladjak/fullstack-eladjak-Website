@@ -59,7 +59,7 @@ export function ConfirmClient({
     if (view === "working") return;
     setView("working");
     try {
-      const res = await fetch("/api/newsletter/confirm", {
+      const res = await fetch("/api/newsletter/confirm/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
