@@ -122,6 +122,15 @@ describe('POST /api/newsletter/confirm', () => {
     expect((await res.json()).ok).toBe(false);
   });
 
+  it('RED ARM: an oversized streamed body is cut off by bytes and writes nothing', async () => {
+    const calls = stubResend(newContact);
+    const big = new TextEncoder().encode(JSON.stringify({ token: 'x'.repeat(6000) }));
+    const stream = new ReadableStream({ start(c) { c.enqueue(big); c.close(); } });
+    const r = new Request('http://localhost/x', { method: 'POST', headers: { 'x-real-ip': '10.5.5.5' }, body: stream, duplex: 'half' } as RequestInit);
+    expect((await POST(r)).status).toBe(413);
+    expect(calls).toHaveLength(0);
+  });
+
   it('has no GET handler, so a link prefetch can never subscribe', async () => {
     const mod = await import('../route');
     expect((mod as Record<string, unknown>).GET).toBeUndefined();

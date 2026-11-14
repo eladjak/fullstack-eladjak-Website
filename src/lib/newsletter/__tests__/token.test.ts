@@ -29,13 +29,21 @@ describe('confirmation token', () => {
     expect(verifyToken(t, SECRET, justBefore).ok).toBe(true);
   });
 
-  it('RED ARM: tampered payload is refused (e.g. swapping the address)', () => {
+  it('RED ARM: tampered payload is refused (valid ciphertext from another token, or flipped bytes)', () => {
     const t = signToken(input, SECRET, T0);
+    const other = signToken({ ...input, email: 'victim@x.co' }, SECRET, T0);
     const [, sig] = t.split('.');
-    const evil = Buffer.from(
-      JSON.stringify({ e: 'victim@x.co', c: input.consentAt.toISOString(), s: '/', v: input.version, x: T0.getTime() + TOKEN_TTL_MS }),
-    ).toString('base64url');
-    expect(verifyToken(`${evil}.${sig}`, SECRET, T0)).toEqual({ ok: false, reason: 'invalid' });
+    expect(verifyToken(`${other.split('.')[0]}.${sig}`, SECRET, T0)).toEqual({ ok: false, reason: 'invalid' });
+    const [part] = t.split('.');
+    const flipped = part.slice(0, 20) + (part[20] === 'A' ? 'B' : 'A') + part.slice(21);
+    expect(verifyToken(`${flipped}.${sig}`, SECRET, T0)).toEqual({ ok: false, reason: 'invalid' });
+  });
+
+  it('the address is not readable from the token (it can end up in a URL log)', () => {
+    const t = signToken(input, SECRET, T0);
+    const part = t.split('.')[0];
+    expect(Buffer.from(part, 'base64url').toString('latin1')).not.toContain('a@b.co');
+    expect(t).not.toContain('a@b.co');
   });
 
   it('RED ARM: tampered signature and a token signed with another secret are refused', () => {

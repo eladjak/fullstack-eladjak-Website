@@ -5,6 +5,8 @@ import { signToken } from "@/lib/newsletter/token";
 import { sendConfirmationEmail } from "@/lib/newsletter/confirm-mail";
 import { confirmOrigin } from "@/lib/newsletter/origin";
 import { createRateLimiter, getClientIp } from "@/lib/newsletter/rate-limit";
+import { readCapped } from "@/lib/newsletter/body";
+import { createHmac } from "node:crypto";
 
 // Simple, RFC-5322-compatible-ish email regex (server-side only, never trust client).
 // Intentionally permissive: blocks the obvious garbage but doesn't try to be exhaustive.
@@ -15,31 +17,6 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // form to flood a third party's inbox.
 const ipLimiter = createRateLimiter(3, 15 * 60 * 1000);
 const emailLimiter = createRateLimiter(2, 15 * 60 * 1000);
-
-// Reads at most `max` bytes from the stream, then stops (no unbounded buffering).
-async function readCapped(request: Request, max: number): Promise<string> {
-  if (!request.body) return "";
-  const reader = request.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > max) {
-      await reader.cancel();
-      throw new Error("too large");
-    }
-    chunks.push(value);
-  }
-  const all = new Uint8Array(total);
-  let offset = 0;
-  for (const c of chunks) {
-    all.set(c, offset);
-    offset += c.byteLength;
-  }
-  return new TextDecoder().decode(all);
-}
 
 // Source page: a site-relative path only, so nothing odd lands in the record.
 function cleanSourcePath(value: unknown): string {
@@ -105,9 +82,12 @@ export async function POST(request: Request) {
     const normalizedEmail = email.trim().toLowerCase();
     const apiKey = process.env.RESEND_API_KEY;
     const secret = process.env.NEWSLETTER_TOKEN_SECRET;
+    const segmentId =
+      process.env.RESEND_SEGMENT_ID ?? process.env.RESEND_AUDIENCE_ID;
 
-    // Never claim success when no mail can be sent.
-    if (!apiKey || !secret || secret.length < 32) {
+    // Never claim success when no mail can be sent, or when the click could
+    // not be completed afterwards (a sent mail whose button can never work).
+    if (!apiKey || !segmentId || !secret || secret.length < 32) {
       console.error(
         "[newsletter] not configured; refusing to fake success",
       );
@@ -150,9 +130,18 @@ export async function POST(request: Request) {
         to: normalizedEmail,
         link: `${origin}/newsletter/confirm/?token=${token}`,
         contactUrl: `${origin}/contact`,
+        // Resend remembers this key across ALL serverless instances, so the
+        // per-address limit also holds when requests land on different ones:
+        // at most one confirmation mail per address per 10 minutes. (The key
+        // is a keyed hash, so the address is not exposed.)
+        idempotencyKey: `doi-${createHmac("sha256", secret).update(`send:${normalizedEmail}`).digest("hex").slice(0, 40)}-${Math.floor(now.getTime() / 600_000)}`,
       },
       { apiKey },
     );
+
+    if (sent.kind === "duplicate") {
+      return json({ ok: false, error: "mail_recently_sent" }, 429);
+    }
 
     if (sent.kind === "provider_error") {
       console.error("[newsletter] confirmation mail failed:", sent.detail);

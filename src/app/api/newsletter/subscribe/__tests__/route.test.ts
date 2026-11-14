@@ -22,7 +22,7 @@ const fresh = () => ({
   source: '/',
 });
 
-type Call = { method: string; url: string; body: Record<string, unknown> | undefined };
+type Call = { method: string; url: string; body: Record<string, unknown> | undefined; headers: Record<string, string> };
 /** Resend stub: contact lookup + email send. Records every call. */
 function stubResend(opts: { contact?: { status: number; json?: unknown }; send?: { status: number; json?: unknown } } = {}) {
   const calls: Call[] = [];
@@ -30,7 +30,7 @@ function stubResend(opts: { contact?: { status: number; json?: unknown }; send?:
     'fetch',
     vi.fn(async (url: string, init: RequestInit) => {
       const method = init.method ?? 'GET';
-      calls.push({ method, url, body: init.body ? JSON.parse(String(init.body)) : undefined });
+      calls.push({ method, url, body: init.body ? JSON.parse(String(init.body)) : undefined, headers: (init.headers ?? {}) as Record<string, string> });
       if (url.endsWith('/emails')) {
         const s = opts.send ?? { status: 200, json: { id: 'em_1' } };
         return new Response(JSON.stringify(s.json ?? {}), { status: s.status });
@@ -119,6 +119,26 @@ describe('POST /api/newsletter/subscribe (double opt-in, step 1)', () => {
     const res = await POST(req(fresh()));
     expect(res.status).toBe(503);
     expect((await res.json()).ok).toBe(false);
+  });
+
+  it('RED ARM: segment id missing means no mail (a mail whose button can never work)', async () => {
+    vi.stubEnv('RESEND_SEGMENT_ID', '');
+    const calls = stubResend();
+    const res = await POST(req(fresh()));
+    expect(res.status).toBe(503);
+    expect(calls).toHaveLength(0);
+  });
+
+  it('sends with an idempotency key that does not expose the address; a duplicate (409) is a 429, not success', async () => {
+    const calls = stubResend({ send: { status: 409, json: { name: 'invalid_idempotent_request' } } });
+    const b = fresh();
+    const res = await POST(req(b));
+    expect(res.status).toBe(429);
+    expect((await res.json()).error).toBe('mail_recently_sent');
+    const mail = calls.find((c) => c.url.endsWith('/emails'))!;
+    const key = mail.headers['Idempotency-Key'];
+    expect(key).toMatch(/^doi-[0-9a-f]{40}-\d+$/);
+    expect(key).not.toContain('example');
   });
 
   it('limits mails per address (no inbox flooding through the form)', async () => {

@@ -25,7 +25,7 @@ describe('NewsletterSignup', () => {
     respond(502, { ok: false, error: 'subscribe_failed' });
     render(<NewsletterSignup />);
     fillAndSubmit();
-    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('לא הצלחנו לאשר'));
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('לא הצלחנו לוודא'));
     expect(screen.queryByText('נשלח אליכם מייל')).toBeNull();
   });
 

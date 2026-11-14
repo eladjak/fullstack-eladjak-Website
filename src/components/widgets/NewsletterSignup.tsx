@@ -31,7 +31,9 @@ const COPY = {
   errorConsent: "כדי להירשם צריך לסמן את תיבת האישור.",
   errorRate: "נשלחו יותר מדי ניסיונות מהמכשיר הזה. נסו שוב בעוד רבע שעה.",
   errorGeneric:
-    "לא הצלחנו לאשר שההרשמה נשמרה, בגלל תקלה אצלנו. נסו שוב בעוד דקה, או כתבו לי דרך דף יצירת הקשר.",
+    "לא הצלחנו לוודא ששלחנו את מייל האישור, בגלל תקלה אצלנו. בדקו את תיבת הדואר (וגם את הספאם), ואם אין מייל נסו שוב בעוד כמה דקות או כתבו לי דרך דף יצירת הקשר.",
+  errorRecent:
+    "שלחנו מייל אישור לכתובת הזאת ממש לאחרונה. בדקו את תיבת הדואר (וגם את הספאם). אם הוא לא הגיע, אפשר לנסות שוב בעוד כמה דקות.",
   errorUnsubscribed:
     "הכתובת הזאת הוסרה בעבר מהרשימה, ולכן לא נחזיר אותה דרך הטופס. רוצים לחזור? כתבו לי דרך דף יצירת הקשר.",
 } as const;
@@ -142,7 +144,9 @@ export function NewsletterSignup({
               ? COPY.errorUnsubscribed
               : data.error === "too_many_requests"
                 ? COPY.errorRate
-                : COPY.errorGeneric,
+                : data.error === "mail_recently_sent"
+                  ? COPY.errorRecent
+                  : COPY.errorGeneric,
       );
     } catch {
       setStatus("error");

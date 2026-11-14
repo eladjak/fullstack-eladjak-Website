@@ -3,6 +3,7 @@ import { CONSENT_VERSION } from "@/lib/newsletter/consent";
 import { subscribeContact } from "@/lib/newsletter/subscribe";
 import { verifyToken } from "@/lib/newsletter/token";
 import { createRateLimiter, getClientIp } from "@/lib/newsletter/rate-limit";
+import { BodyTooLarge, readCapped } from "@/lib/newsletter/body";
 
 const limiter = createRateLimiter(10, 15 * 60 * 1000);
 const MAX_BODY = 3_000;
@@ -25,10 +26,12 @@ export async function POST(request: Request) {
     }
     let token: unknown;
     try {
-      const raw = await request.text();
-      if (raw.length > MAX_BODY) throw new Error("too large");
+      // Hard byte cap on the stream itself: a missing or false
+      // Content-Length cannot make us buffer a large body.
+      const raw = await readCapped(request, MAX_BODY);
       token = (JSON.parse(raw) as { token?: unknown }).token;
-    } catch {
+    } catch (e) {
+      if (e instanceof BodyTooLarge) return json({ ok: false, error: "invalid_body" }, 413);
       return json({ ok: false, error: "invalid_body" }, 400);
     }
 

@@ -45,10 +45,13 @@ export function buildConfirmEmail(link: string, contactUrl: string) {
   return { text, html };
 }
 
-export type SendOutcome = { kind: "sent" } | { kind: "provider_error"; detail: string };
+export type SendOutcome =
+  | { kind: "sent" }
+  | { kind: "duplicate" }
+  | { kind: "provider_error"; detail: string };
 
 export async function sendConfirmationEmail(
-  args: { to: string; link: string; contactUrl: string },
+  args: { to: string; link: string; contactUrl: string; idempotencyKey?: string },
   deps: { apiKey: string; fetchImpl?: typeof fetch; baseUrl?: string },
 ): Promise<SendOutcome> {
   const doFetch = deps.fetchImpl ?? fetch;
@@ -59,6 +62,7 @@ export async function sendConfirmationEmail(
       headers: {
         Authorization: `Bearer ${deps.apiKey}`,
         "Content-Type": "application/json",
+        ...(args.idempotencyKey ? { "Idempotency-Key": args.idempotencyKey } : {}),
       },
       body: JSON.stringify({ from: FROM, to: [args.to], subject: SUBJECT, html, text }),
       signal: AbortSignal.timeout(8_000),
@@ -69,6 +73,9 @@ export async function sendConfirmationEmail(
     if (res.status >= 200 && res.status < 300 && typeof j?.id === "string") {
       return { kind: "sent" };
     }
+    // Same idempotency key already used (Resend remembers it across all server
+    // instances): a second mail to this address in the same window is refused.
+    if (res.status === 409) return { kind: "duplicate" };
     return { kind: "provider_error", detail: `send: status ${res.status}` };
   } catch (e) {
     // Fixed category only: exception text can carry request details.

@@ -1,11 +1,20 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHmac,
+  randomBytes,
+  timingSafeEqual,
+} from "node:crypto";
 
 /**
  * Signed confirmation token for the double opt-in.
  *
- * Format: base64url(JSON payload) + "." + base64url(HMAC-SHA256 over the
- * first part). Nothing is stored server-side: the token IS the pending
- * signup, and only someone who received the email can present it.
+ * Format: base64url(iv | ciphertext | gcm-tag) + "." + base64url(HMAC-SHA256
+ * over the first part). Encrypt-then-MAC: the HMAC is checked (constant
+ * time) before anything is decrypted or parsed. The payload is encrypted so
+ * the address is not readable from the URL if that URL ends up in a log; the
+ * token is still a bearer credential for 48 hours, like any confirm link.
+ * Nothing is stored server-side: the token IS the pending signup.
  */
 
 export const TOKEN_TTL_MS = 48 * 60 * 60 * 1000;
@@ -30,8 +39,12 @@ export type VerifyResult =
 
 const b64 = (buf: Buffer) => buf.toString("base64url");
 
+// Separate keys for the MAC and the cipher, both derived from the one secret.
+const subKey = (secret: string, label: string) =>
+  createHmac("sha256", secret).update(label).digest();
+
 function mac(part: string, secret: string): Buffer {
-  return createHmac("sha256", secret).update(part).digest();
+  return createHmac("sha256", subKey(secret, "newsletter-mac")).update(part).digest();
 }
 
 function assertSecret(secret: string | undefined): asserts secret is string {
@@ -53,7 +66,10 @@ export function signToken(
     v: input.version,
     x: now.getTime() + TOKEN_TTL_MS,
   };
-  const part = b64(Buffer.from(JSON.stringify(payload), "utf8"));
+  const iv = randomBytes(12);
+  const cipher = createCipheriv("aes-256-gcm", subKey(secret, "newsletter-enc"), iv);
+  const ct = Buffer.concat([cipher.update(JSON.stringify(payload), "utf8"), cipher.final()]);
+  const part = b64(Buffer.concat([iv, ct, cipher.getAuthTag()]));
   return `${part}.${b64(mac(part, secret))}`;
 }
 
@@ -71,8 +87,8 @@ export function verifyToken(
     return { ok: false, reason: "invalid" };
   }
   const [part, sig] = pieces;
-  // Signature first, constant-time: nothing from the payload is trusted
-  // (not even parsed) until it matches.
+  // Signature first, constant-time: nothing is decrypted or parsed until it
+  // matches.
   const given = Buffer.from(sig, "base64url");
   const expected = mac(part, secret);
   if (given.length !== expected.length || !timingSafeEqual(given, expected)) {
@@ -80,7 +96,19 @@ export function verifyToken(
   }
   let p: Partial<ConfirmPayload>;
   try {
-    p = JSON.parse(Buffer.from(part, "base64url").toString("utf8"));
+    const raw = Buffer.from(part, "base64url");
+    if (raw.length < 12 + 16 + 1) return { ok: false, reason: "invalid" };
+    const decipher = createDecipheriv(
+      "aes-256-gcm",
+      subKey(secret, "newsletter-enc"),
+      raw.subarray(0, 12),
+    );
+    decipher.setAuthTag(raw.subarray(raw.length - 16));
+    const plain = Buffer.concat([
+      decipher.update(raw.subarray(12, raw.length - 16)),
+      decipher.final(),
+    ]);
+    p = JSON.parse(plain.toString("utf8"));
   } catch {
     return { ok: false, reason: "invalid" };
   }
