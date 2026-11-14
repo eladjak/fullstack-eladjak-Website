@@ -24,6 +24,10 @@ export default function Gateway({
   theme: "personal" | "ops" | "portfolio";
 }): null {
   useEffect(() => {
+    // Transactional pages reached from an email link (newsletter confirm) go
+    // straight to the point: a four-second welcome screen in front of a
+    // "press to confirm" button reads like a broken page.
+    if (window.location.pathname.startsWith("/newsletter/confirm")) return;
     const w = window as unknown as {
       Gateway?: { mount: (o: { theme: string }) => void };
     };
