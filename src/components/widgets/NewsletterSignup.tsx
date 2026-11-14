@@ -299,7 +299,7 @@ export function NewsletterSignup({
       </p>
 
       {isSuccess && (
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="mt-3 text-sm leading-relaxed text-foreground">
           {COPY.successDetail}
         </p>
       )}
