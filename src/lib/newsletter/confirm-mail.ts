@@ -48,6 +48,7 @@ export function buildConfirmEmail(link: string, contactUrl: string) {
 export type SendOutcome =
   | { kind: "sent" }
   | { kind: "duplicate" }
+  | { kind: "in_progress" }
   | { kind: "provider_error"; detail: string };
 
 export async function sendConfirmationEmail(
@@ -68,14 +69,25 @@ export async function sendConfirmationEmail(
       signal: AbortSignal.timeout(8_000),
       cache: "no-store",
     });
-    const j = (await res.json().catch((): null => null)) as { id?: unknown } | null;
+    const j = (await res.json().catch((): null => null)) as {
+      id?: unknown;
+      name?: unknown;
+    } | null;
     // Success only when Resend accepted it AND returned a message id.
     if (res.status >= 200 && res.status < 300 && typeof j?.id === "string") {
       return { kind: "sent" };
     }
     // Same idempotency key already used (Resend remembers it across all server
     // instances): a second mail to this address in the same window is refused.
-    if (res.status === 409) return { kind: "duplicate" };
+    // Only the code that says "this key was already used for a different,
+    // completed request" counts as already sent. A request still in flight
+    // (concurrent_idempotent_requests) may yet fail, so it claims nothing.
+    if (res.status === 409 && j?.name === "invalid_idempotent_request") {
+      return { kind: "duplicate" };
+    }
+    if (res.status === 409 && j?.name === "concurrent_idempotent_requests") {
+      return { kind: "in_progress" };
+    }
     return { kind: "provider_error", detail: `send: status ${res.status}` };
   } catch (e) {
     // Fixed category only: exception text can carry request details.

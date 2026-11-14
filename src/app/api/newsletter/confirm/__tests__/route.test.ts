@@ -102,6 +102,19 @@ describe('POST /api/newsletter/confirm', () => {
     expect(calls.every((c) => c.method === 'GET')).toBe(true);
   });
 
+  it('RED ARM: a token replayed after the contact left the segment does not re-add a globally unsubscribed contact', async () => {
+    vi.stubEnv('RESEND_SEGMENT_ID', '8c8ef0c8-4287-4af7-a1f5-5b9000ded213');
+    const calls = stubResend((c) => {
+      if (c.url.endsWith('/segments')) return { status: 200, json: { data: [] } };
+      return { status: 200, json: { id: 'bad62e1d-6e65-4ba1-a440-ea109bde253a', unsubscribed: true } };
+    });
+    const res = await POST(req({ token: mk() }));
+    expect(res.status).toBe(409);
+    expect((await res.json()).error).toBe('previously_unsubscribed');
+    // nothing but reads: no PATCH, no segment add, no create
+    expect(calls.every((c) => c.method === 'GET')).toBe(true);
+  });
+
   it('already subscribed (token replayed) is a friendly 200, no second write of the record', async () => {
     const SEG = 'seg';
     vi.stubEnv('RESEND_SEGMENT_ID', '8c8ef0c8-4287-4af7-a1f5-5b9000ded213');

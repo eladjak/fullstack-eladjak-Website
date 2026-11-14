@@ -105,8 +105,11 @@ export async function POST(request: Request) {
       console.error("[newsletter] lookup failed:", state.detail);
       return json({ ok: false, error: "subscribe_failed" }, 502);
     }
+    // Someone who removed themselves is not mailed, but the public answer is
+    // identical to a normal success, so the form cannot be used to find out
+    // who was on the list and left.
     if (state.kind === "yes") {
-      return json({ ok: false, error: "previously_unsubscribed" }, 409);
+      return json({ ok: true, status: "confirmation_sent" });
     }
 
     const now = new Date();
@@ -141,6 +144,12 @@ export async function POST(request: Request) {
 
     if (sent.kind === "duplicate") {
       return json({ ok: false, error: "mail_recently_sent" }, 429);
+    }
+
+    if (sent.kind === "in_progress") {
+      // A first request with this key is still running and may yet fail:
+      // claim nothing, ask for a retry.
+      return json({ ok: false, error: "try_later" }, 503);
     }
 
     if (sent.kind === "provider_error") {

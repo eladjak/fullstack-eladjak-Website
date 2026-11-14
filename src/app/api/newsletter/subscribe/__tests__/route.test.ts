@@ -103,12 +103,16 @@ describe('POST /api/newsletter/subscribe (double opt-in, step 1)', () => {
     expect(calls.some((c) => c.url.endsWith('/emails'))).toBe(false);
   });
 
-  it('someone who removed themselves is not mailed', async () => {
-    const calls = stubResend({ contact: { status: 200, json: { id: 'c', unsubscribed: true } } });
-    const res = await POST(req(fresh()));
-    expect(res.status).toBe(409);
-    expect((await res.json()).error).toBe('previously_unsubscribed');
-    expect(calls.some((c) => c.url.endsWith('/emails'))).toBe(false);
+  it('someone who removed themselves is not mailed, and the answer is identical to a normal success', async () => {
+    const callsU = stubResend({ contact: { status: 200, json: { id: 'c', unsubscribed: true } } });
+    const resU = await POST(req(fresh()));
+    const bodyU = await resU.json();
+    expect(callsU.some((c) => c.url.endsWith('/emails'))).toBe(false);
+    const callsN = stubResend();
+    const resN = await POST(req(fresh()));
+    expect(callsN.some((c) => c.url.endsWith('/emails'))).toBe(true);
+    expect([resU.status, bodyU]).toEqual([resN.status, await resN.json()]);
+    expect(bodyU).toEqual({ ok: true, status: 'confirmation_sent' });
   });
 
   it('RED ARM: missing configuration (key or token secret) must NOT report success', async () => {
@@ -127,6 +131,20 @@ describe('POST /api/newsletter/subscribe (double opt-in, step 1)', () => {
     const res = await POST(req(fresh()));
     expect(res.status).toBe(503);
     expect(calls).toHaveLength(0);
+  });
+
+  it('RED ARM: a Resend 409 for a request still in flight does NOT claim a mail was sent', async () => {
+    stubResend({ send: { status: 409, json: { name: 'concurrent_idempotent_requests' } } });
+    const res = await POST(req(fresh()));
+    expect(res.status).toBe(503);
+    const data = await res.json();
+    expect(data.ok).toBe(false);
+    expect(data.error).toBe('try_later');
+  });
+
+  it('an unrecognised 409 is a provider failure, not "already sent"', async () => {
+    stubResend({ send: { status: 409, json: { name: 'something_else' } } });
+    expect((await POST(req(fresh()))).status).toBe(502);
   });
 
   it('sends with an idempotency key that does not expose the address; a duplicate (409) is a 429, not success', async () => {
