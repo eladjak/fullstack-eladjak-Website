@@ -6,7 +6,7 @@ import { Mail, Loader2, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/newsletter/consent";
 
-type Status = "idle" | "success" | "already" | "error";
+type Status = "idle" | "sent" | "error";
 
 interface Props {
   /** Optional override for the heading. Defaults to Hebrew. */
@@ -23,10 +23,9 @@ const COPY = {
     "אחת לחודש: מדריך חדש, פרויקט חדש, ולפעמים גם לקח קטן מהשרת. אפס ספאם.",
   placeholder: "האימייל שלכם",
   button: "הירשמו",
-  success: "נרשמתם. תודה.",
-  successDetail: "נשמרתם ברשימה. המייל הראשון יגיע כשיהיה משהו ששווה לשלוח.",
-  already: "אתם כבר ברשימה",
-  alreadyDetail: "הכתובת הזאת כבר רשומה. אין צורך לעשות שום דבר נוסף.",
+  success: "נשלח אליכם מייל",
+  successDetail:
+    "שלחנו לכם מייל לאישור. פתחו אותו (בדקו גם בספאם) ולחצו על הקישור כדי להשלים את ההרשמה. עד שתלחצו, עוד לא נרשמתם.",
   privacy: "לא משתפים עם אף אחד.",
   errorInvalid: "נראה שחסר משהו בכתובת המייל. בדקו אותה ונסו שוב.",
   errorConsent: "כדי להירשם צריך לסמן את תיבת האישור.",
@@ -64,7 +63,7 @@ export function NewsletterSignup({
   };
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const isSuccess = status === "success" || status === "already";
+  const isSuccess = status === "sent";
   const isError = status === "error";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -113,13 +112,9 @@ export function NewsletterSignup({
         error?: string;
       };
 
-      // Success only when the server says the list provider confirmed it.
-      if (
-        res.ok &&
-        data.ok === true &&
-        (data.status === "subscribed" || data.status === "already_subscribed")
-      ) {
-        setStatus(data.status === "already_subscribed" ? "already" : "success");
+      // Success only when the server says the confirmation mail was accepted.
+      if (res.ok && data.ok === true && data.status === "confirmation_sent") {
+        setStatus("sent");
         setEmail("");
         return;
       }
@@ -159,7 +154,7 @@ export function NewsletterSignup({
   }
 
   return (
-    <div className={cn("w-full", className)} dir="rtl">
+    <div id="newsletter" className={cn("w-full", className)} dir="rtl">
       {!compact && (
         <div className="mb-3 space-y-2">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
@@ -260,13 +255,11 @@ export function NewsletterSignup({
               <Check className="size-4" aria-hidden="true" />
             ) : null}
             <span>
-              {status === "already"
-                ? COPY.already
-                : isSuccess
-                  ? COPY.success
-                  : isSubmitting
-                    ? "שומר…"
-                    : COPY.button}
+              {isSuccess
+                ? COPY.success
+                : isSubmitting
+                  ? "שולח…"
+                  : COPY.button}
             </span>
           </motion.button>
         </div>
@@ -299,17 +292,15 @@ export function NewsletterSignup({
 
       <p className="sr-only" role="status" aria-live="polite">
         {isSubmitting
-          ? "שומר את ההרשמה"
-          : status === "already"
-            ? COPY.alreadyDetail
-            : status === "success"
-              ? COPY.successDetail
-              : ""}
+          ? "שולח מייל אישור"
+          : status === "sent"
+            ? COPY.successDetail
+            : ""}
       </p>
 
       {isSuccess && (
         <p className="mt-2 text-xs text-muted-foreground">
-          {status === "already" ? COPY.alreadyDetail : COPY.successDetail}
+          {COPY.successDetail}
         </p>
       )}
 

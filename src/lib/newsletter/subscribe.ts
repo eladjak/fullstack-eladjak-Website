@@ -18,7 +18,10 @@ export type SubscribeOutcome =
 export interface SubscribeInput {
   email: string;
   sourcePath: string;
+  /** consent time (for the double opt-in: when the visitor submitted the form) */
   now: Date;
+  /** set only by the confirm step: when the email link was clicked */
+  confirmedAt?: Date;
 }
 
 export interface SubscribeDeps {
@@ -36,8 +39,13 @@ interface ResendContact {
 const TIMEOUT_MS = 8_000;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-export function consentProperties(sourcePath: string, now: Date) {
+export function consentProperties(
+  sourcePath: string,
+  now: Date,
+  confirmedAt?: Date,
+) {
   return {
+    ...(confirmedAt ? { confirmed_at: confirmedAt.toISOString() } : {}),
     consent_at: now.toISOString(),
     consent_source: sourcePath,
     consent_text: CONSENT_TEXT,
@@ -98,7 +106,11 @@ export async function subscribeContact(
       detail: `${step}: status ${r.status}${r.error ? ` (${r.error})` : ""}`,
     }) as const;
 
-  const props = consentProperties(input.sourcePath, input.now);
+  const props = consentProperties(
+    input.sourcePath,
+    input.now,
+    input.confirmedAt,
+  );
   const emailPath = `/contacts/${encodeURIComponent(input.email)}`;
 
   // 1. Does the contact already exist?
@@ -166,4 +178,36 @@ export async function subscribeContact(
     return fail("add-segment", added);
 
   return { kind: "subscribed" };
+}
+
+/**
+ * Read-only check used at submit time: is this address one that removed
+ * itself? (We must not send it a sign-up mail on a stranger's say-so.)
+ * Writes nothing.
+ */
+export async function isUnsubscribed(
+  email: string,
+  deps: { apiKey: string; fetchImpl?: typeof fetch; baseUrl?: string },
+): Promise<{ kind: "yes" | "no" } | { kind: "error"; detail: string }> {
+  const doFetch = deps.fetchImpl ?? fetch;
+  try {
+    const res = await doFetch(
+      `${deps.baseUrl ?? "https://api.resend.com"}/contacts/${encodeURIComponent(email)}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${deps.apiKey}` },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+        cache: "no-store",
+      },
+    );
+    if (res.status === 404) return { kind: "no" };
+    if (res.status !== 200) return { kind: "error", detail: `lookup: status ${res.status}` };
+    const c = (await res.json().catch((): null => null)) as ResendContact | null;
+    if (!c || typeof c.unsubscribed !== "boolean") {
+      return { kind: "error", detail: "lookup-shape" };
+    }
+    return { kind: c.unsubscribed ? "yes" : "no" };
+  } catch {
+    return { kind: "error", detail: "lookup: network" };
+  }
 }
