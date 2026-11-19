@@ -18,7 +18,9 @@ export function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
+  // The legal documents must also be visible before hydration.
+  const isLegalPage = /^\/(privacy|terms)\/?$/.test(pathname ?? "");
+  if (prefersReducedMotion || isLegalPage) {
     return <div key={pathname}>{children}</div>;
   }
 

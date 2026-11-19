@@ -139,7 +139,9 @@ export default function Footer() {
             {tFooter('andCoffee')}
           </p>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link href="/privacy/" className="inline-flex min-h-11 items-center rounded-md px-2 text-sm text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{tFooter('privacy')}</Link>
+            <Link href="/terms/" className="inline-flex min-h-11 items-center rounded-md px-2 text-sm text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{tFooter('terms')}</Link>
             {/* Live agent network status */}
             <AgentNetworkStatus />
 

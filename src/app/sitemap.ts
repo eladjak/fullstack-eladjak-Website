@@ -7,6 +7,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fullstack-eladjak.
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL.replace(/\/$/, "")}/privacy/`, lastModified: new Date("2026-11-19"), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL.replace(/\/$/, "")}/terms/`, lastModified: new Date("2026-11-19"), changeFrequency: "yearly", priority: 0.3 },
     {
       url: SITE_URL,
       lastModified: new Date(),
