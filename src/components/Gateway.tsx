@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { isLegalDocumentPath } from "@/lib/legal-document-path";
 
 /**
  * מסך הכניסה.
@@ -24,6 +25,8 @@ export default function Gateway({
   theme: "personal" | "ops" | "portfolio";
 }): null {
   useEffect(() => {
+    // Direct links to privacy and terms must open without the welcome screen.
+    if (isLegalDocumentPath(window.location.pathname)) return;
     const w = window as unknown as {
       Gateway?: { mount: (o: { theme: string }) => void };
     };
@@ -34,7 +37,9 @@ export default function Gateway({
     const existing = document.querySelector<HTMLScriptElement>(
       'script[data-gateway="1"]',
     );
-    const onReady = () => w.Gateway?.mount({ theme });
+    const onReady = () => {
+      if (!isLegalDocumentPath(window.location.pathname)) w.Gateway?.mount({ theme });
+    };
     if (existing) {
       existing.addEventListener("load", onReady, { once: true });
       return;

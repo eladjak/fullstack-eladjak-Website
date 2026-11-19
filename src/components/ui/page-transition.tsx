@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { type ReactNode } from 'react';
+import { isLegalDocumentPath } from '@/lib/legal-document-path';
 
 interface PageTransitionProps {
   children: ReactNode;
@@ -19,8 +20,7 @@ export function PageTransition({ children }: PageTransitionProps) {
   const prefersReducedMotion = useReducedMotion();
 
   // The legal documents must also be visible before hydration.
-  const isLegalPage = /^\/(privacy|terms)\/?$/.test(pathname ?? "");
-  if (prefersReducedMotion || isLegalPage) {
+  if (prefersReducedMotion || isLegalDocumentPath(pathname)) {
     return <div key={pathname}>{children}</div>;
   }
 
